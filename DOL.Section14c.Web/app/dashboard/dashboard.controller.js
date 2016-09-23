@@ -1,17 +1,8 @@
-﻿(function () {
+﻿module.exports = function($scope, dataService) {
     'use strict';
 
-    angular
-        .module('app')
-        .controller('controller', controller);
+    dataService.GetNumbers().then(function (data) {
+        $scope.numbers = data;
+    });
 
-    controller.$inject = ['$scope'];
-
-    function controller($scope) {
-        $scope.title = 'controller';
-
-        activate();
-
-        function activate() { }
-    }
-})();
+};

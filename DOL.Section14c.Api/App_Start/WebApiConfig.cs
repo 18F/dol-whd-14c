@@ -7,6 +7,9 @@ namespace DOL.Section14c.Api
     {
         public static void Register(HttpConfiguration config)
         {
+            // Enable Cors Support
+            config.EnableCors();
+            
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
