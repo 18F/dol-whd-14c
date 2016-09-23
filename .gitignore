@@ -240,4 +240,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/DOL.Section14c.Web/dist
+/DOL.DWH.Section14c.Web/dist
