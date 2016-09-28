@@ -8,12 +8,23 @@ module.exports = {
 		filename: 'index.js'
 	},
 	//externals: {
-  //},
+    //},
+    eslint: {
+        failOnWarning: false,
+        failOnError: true
+    },
 	devServer: {
 		inline: true,
 		port: 3333
 	},
 	module: {
+        preLoaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'eslint'
+            }
+        ],
 		loaders: [
 			{
 				test: /\.js$/,

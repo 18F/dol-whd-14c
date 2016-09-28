@@ -1,5 +1,3 @@
-//import appMainPageTemplate from './appMainPageTemplate.html';
-
 'use strict';
 
 module.exports = function(ngModule) {
