@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<parameters>
+  <parameter name="ConnectionString" defaultValue="{ConnectionString}">
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/connectionStrings/add[@key='ApplicationDbContext']/@connectionString" />
+  </parameter>
+</parameters>

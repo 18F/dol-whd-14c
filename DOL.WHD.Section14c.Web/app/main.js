@@ -33,6 +33,10 @@
         $locationProvider.html5Mode(true);
 
     });
+
+    // Config
+    app.constant('apiUrl', 'http://localhost:50014');
+
     app.run([
             "$rootScope", "$window", '$location', function($rootScope, $window) {
 
@@ -42,9 +46,10 @@
                     });
             }
     ])
+
     // Modules and Services
     .factory('ExampleService', ['$log', exampleService])
-    .factory('DataService', ['$http', dataService])
+    .factory('DataService', ['$http', 'apiUrl', dataService])
 
     // Controllers
     .controller('DashboardController', ['$scope', 'DataService', dashboardController]);
