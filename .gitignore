@@ -244,3 +244,6 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /DOL.DWH.Section14c.Web/dist
+
+# MacOS system files
+.DS_Store
