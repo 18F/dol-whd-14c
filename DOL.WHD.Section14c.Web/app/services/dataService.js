@@ -1,8 +1,8 @@
-﻿module.exports = function ($http) {
+﻿module.exports = function ($http, apiUrl) {
     'use strict';
 
     function getNumbers() {
-        var promise = $http.get('http://localhost:50014/api/example').then(function(response) {
+        var promise = $http.get(apiUrl + '/api/example').then(function(response) {
             return response.data;
             //TODO add error handling and logging
         });

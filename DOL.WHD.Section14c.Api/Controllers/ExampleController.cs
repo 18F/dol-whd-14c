@@ -5,7 +5,7 @@ using DOL.WHD.Section14c.Business;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
-    [EnableCors(origins: "http://localhost:9000", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ExampleController : ApiController
     {
         private readonly IExampleService _exampleService;
