@@ -28,23 +28,49 @@ namespace DOL.WHD.Section14c.Api.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
-
-            if (user == null)
+            ApplicationUser user = await userManager.FindByNameAsync(context.UserName);
+            if (user != null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
-                return;
+                var validCredentials = await userManager.FindAsync(context.UserName, context.Password);
+                if (await userManager.IsLockedOutAsync(user.Id))
+                {
+                    // account locked
+                    // use invalid user name or password message to avoid disclosing that a valid username was input
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                }
+                else if (validCredentials == null)
+                {
+                    // invalid credentials
+                    // increment failed login count
+                    if (await userManager.GetLockoutEnabledAsync(user.Id))
+                    {
+                        await userManager.AccessFailedAsync(user.Id);
+                    }
+
+                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                }
+                else
+                {
+                    // successful login
+                    ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+                        OAuthDefaults.AuthenticationType);
+                    ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+                        CookieAuthenticationDefaults.AuthenticationType);
+
+                    AuthenticationProperties properties = CreateProperties(user.UserName);
+                    AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+                    context.Validated(ticket);
+                    context.Request.Context.Authentication.SignIn(cookiesIdentity);
+
+                    // reset failed attempts count
+                    await userManager.ResetAccessFailedCountAsync(user.Id);
+                }
             }
-
-            ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
-               OAuthDefaults.AuthenticationType);
-            ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
-                CookieAuthenticationDefaults.AuthenticationType);
-
-            AuthenticationProperties properties = CreateProperties(user.UserName);
-            AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-            context.Validated(ticket);
-            context.Request.Context.Authentication.SignIn(cookiesIdentity);
+            else
+            {
+                // invalid username
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+            }
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
