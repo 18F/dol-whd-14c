@@ -6,7 +6,7 @@ if (typeof console === 'undefined') {
 
 // Global Dependencies
 require('jquery');
-require('lodash');
+//require('lodash');
 
 // Angular
 import angular from 'angular';

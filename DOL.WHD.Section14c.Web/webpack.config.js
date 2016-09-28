@@ -1,6 +1,7 @@
 var path = require('path');
 
 module.exports = {
+    devtool: 'eval-source-map',
 	entry: './src/modules/app.js',
 	output: {
 		path: './',
@@ -30,16 +31,16 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loaders: ['style', 'css', 'sass']
+				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
   		    {
                 test: /\.(png|gif|jpg|jpeg|svg)$/,
-                loader: 'file-loader'
+                loader: 'url-loader?name=images/[name].[ext]'
             },
             {
-    	        test: /\.ttf$/,
-                loader: 'file-loader'
+    	        test: /\.(ttf|eot|woff|woff2)$/,
+                loader: 'url-loader?name=fonts/[name].[ext]'
             }
 		]
 	}

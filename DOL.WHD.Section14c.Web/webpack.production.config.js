@@ -1,6 +1,7 @@
 var webpack = require("webpack");
 
 module.exports = {
+    devtool: 'source-map',
 	entry: './src/modules/app.js',
 	output: {
 		path: './dist/',
@@ -27,20 +28,29 @@ module.exports = {
             {
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loaders: ['style', 'css', 'sass']
+				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
   		    {
                 test: /\.(png|gif|jpg|jpeg|svg)$/,
-                loader: 'file-loader'
+                loader: 'file-loader?name=images/[name].[ext]'
             },
             {
-    			test: /\.ttf$/,
-                loader: 'file-loader'
+    			test: /\.(ttf|eot|woff|woff2)$/,
+                loader: 'file-loader?name=fonts/[name].[ext]'
             }
 		]
 	},
 	plugins: [
-			new webpack.optimize.UglifyJsPlugin()
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        }),
+        new webpack.optimize.UglifyJsPlugin({
+            compressor: {
+                warnings: false
+            }
+        })
 	]
 }
