@@ -1,4 +1,6 @@
-﻿using DOL.WHD.Section14c.DataAccess;
+﻿using System;
+using System.Configuration;
+using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -34,6 +36,11 @@ namespace DOL.WHD.Section14c.Api
                 RequireLowercase = true,
                 RequireUppercase = true,
             };
+            // Configure lockout
+            manager.UserLockoutEnabledByDefault = Convert.ToBoolean(ConfigurationManager.AppSettings["UserLockoutEnabledByDefault"]);
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(Double.Parse(ConfigurationManager.AppSettings["DefaultAccountLockoutTimeSpan"]));
+            manager.MaxFailedAccessAttemptsBeforeLockout = Convert.ToInt32(ConfigurationManager.AppSettings["MaxFailedAccessAttemptsBeforeLockout"]);
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
