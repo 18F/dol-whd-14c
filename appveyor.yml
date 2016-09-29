@@ -1,0 +1,22 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+install:
+- cmd: >-
+    nuget restore
+
+    cd DOL.WHD.Section14c.Web
+
+    npm install
+build:
+  project: DOL.WHD.Section14c.sln
+  publish_wap: true
+  parallel: true
+  verbosity: minimal
+before_package:
+- cmd: npm run deploy
+artifacts:
+- path: DOL.WHD.Section14c.Web\dist
+  name: DOL.WHD.Section14c.Web
+deploy: off
