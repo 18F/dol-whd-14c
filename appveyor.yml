@@ -17,6 +17,6 @@ build:
 before_package:
 - cmd: npm run deploy
 artifacts:
-- path: DOL.WHD.Section14c.Web\dist
+- path: DOL.WHD.Section14c.Web\WebDeploy
   name: DOL.WHD.Section14c.Web
 deploy: off
