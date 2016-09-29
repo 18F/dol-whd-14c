@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -15,6 +17,8 @@ namespace DOL.WHD.Section14c.Domain.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public DateTime LastPasswordChangedDate { get; set; }
     }
 
 }
