@@ -32,9 +32,12 @@ namespace DOL.WHD.Section14c.Api.Providers
             ApplicationUser user = await userManager.FindByNameAsync(context.UserName);
             if (user != null)
             {
-                var passwordExpired =
-                    user.LastPasswordChangedDate.AddDays(
-                        Convert.ToInt32(ConfigurationManager.AppSettings["PasswordExpirationDays"])) < DateTime.Now;
+                var passwordExpired = false;
+                var passwordExpirationDays = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordExpirationDays"]);
+                if (passwordExpirationDays > 0)
+                {
+                    passwordExpired = user.LastPasswordChangedDate.AddDays(passwordExpirationDays) < DateTime.Now;
+                } 
                 var validCredentials = await userManager.FindAsync(context.UserName, context.Password);
                 if (await userManager.IsLockedOutAsync(user.Id))
                 {
