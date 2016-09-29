@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<msdeploy.iisApp>
+  <iisApp path="DOL.WHD.Section14c.Web"/>
+</msdeploy.iisApp>

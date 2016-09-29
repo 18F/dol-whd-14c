@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "clean": "rimraf ./dist/*",
-    "deploy": "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./dist/index.html"
+    "clean": "rimraf ./WebDeploy/DOL.WHD.Section14c.Web/*",
+    "deploy": "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./WebDeploy/DOL.WHD.Section14c.Web/index.html"
   },
   "author": "",
   "license": "ISC",

@@ -4,7 +4,7 @@ module.exports = {
     devtool: 'source-map',
 	entry: './src/modules/app.js',
 	output: {
-		path: './dist/',
+		path: './WebDeploy/DOL.WHD.Section14c.Web/',
 		filename: 'index.js'
 	},
 	//externals: {
