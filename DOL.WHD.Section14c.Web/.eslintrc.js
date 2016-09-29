@@ -17,7 +17,7 @@ module.exports = {
     "rules": {
 
         // Possible Errors
-        "comma-dangle": [2, "none"],
+        "comma-dangle": 2,
         "no-cond-assign": 2,
         "no-console": 0,
         "no-constant-condition": 2,
