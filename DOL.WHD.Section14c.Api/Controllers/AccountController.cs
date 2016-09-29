@@ -36,6 +36,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         // POST api/Account/ChangePassword
+        [AllowAnonymous]
         [Route("ChangePassword")]
         public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
         {
@@ -43,8 +44,38 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+            if (!User.Identity.IsAuthenticated && string.IsNullOrEmpty(model.Email))
+            {
+                return BadRequest("No username or bearer token provided");
+            }
 
-            IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
+            string userId;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = User.Identity.GetUserId();
+            }
+            else
+            {
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (await UserManager.IsLockedOutAsync(user.Id))
+                {
+                    return BadRequest("The user name or password is incorrect.");
+                }
+
+                var validCredentials = await UserManager.FindAsync(user.UserName, model.OldPassword);
+                if (validCredentials == null)
+                {
+                    // increment failed login attempt
+                    if (await UserManager.GetLockoutEnabledAsync(user.Id))
+                    {
+                        await UserManager.AccessFailedAsync(user.Id);
+                    }
+                    return BadRequest("The user name or password is incorrect.");
+                }
+
+                userId = user.Id;
+            }
+            IdentityResult result = await UserManager.ChangePasswordAsync(userId, model.OldPassword,
                 model.NewPassword);
             
             if (!result.Succeeded)
