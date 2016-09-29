@@ -22,7 +22,7 @@ var app = angular.module('app', [
     ngAnimate,
     ngResource,
     ngRoute,
-    ngSanitize,
+    ngSanitize
 ]);
 
 // Load Application Components

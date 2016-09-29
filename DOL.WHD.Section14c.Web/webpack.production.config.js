@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var failPlugin = require('webpack-fail-plugin');
 
 module.exports = {
     devtool: 'source-map',
@@ -62,6 +63,7 @@ module.exports = {
             compressor: {
                 warnings: false
             }
-        })
+        }),
+        failPlugin
 	]
 }
