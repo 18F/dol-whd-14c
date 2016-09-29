@@ -15,6 +15,8 @@
 
 ## Project Management
 
+Install [Zenhub](https://www.zenhub.com/) extension
+
 ## Application
 
 ### User Interface
