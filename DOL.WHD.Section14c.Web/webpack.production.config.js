@@ -1,11 +1,12 @@
 var webpack = require("webpack");
 var failPlugin = require('webpack-fail-plugin');
+var copyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     devtool: 'source-map',
 	entry: './src/modules/app.js',
 	output: {
-		path: './WebDeploy/DOL.WHD.Section14c.Web/',
+		path: './dist/',
 		filename: 'index.js'
 	},
 	//externals: {
@@ -50,6 +51,10 @@ module.exports = {
             {
     			test: /\.(ttf|eot|woff|woff2)$/,
                 loader: 'file-loader?name=fonts/[name].[ext]'
+            },
+            {
+    			test: /\.(config|xml)$/,
+                loader: 'file'
             }
 		]
 	},
@@ -64,6 +69,10 @@ module.exports = {
                 warnings: false
             }
         }),
-        failPlugin
+        failPlugin,
+        new copyWebpackPlugin([
+            { from: './src/deploy' }
+            ]
+        )
 	]
 }
