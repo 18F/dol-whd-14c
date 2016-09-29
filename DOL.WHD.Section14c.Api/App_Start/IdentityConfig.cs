@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity;
@@ -47,6 +48,14 @@ namespace DOL.WHD.Section14c.Api
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
+        }
+
+        protected override Task<IdentityResult> UpdatePassword(IUserPasswordStore<ApplicationUser, string> passwordStore, ApplicationUser user, string newPassword)
+        {
+            // update the LastPasswordChangedDate field
+            user.LastPasswordChangedDate = DateTime.Now;
+
+            return base.UpdatePassword(passwordStore, user, newPassword);
         }
     }
 }

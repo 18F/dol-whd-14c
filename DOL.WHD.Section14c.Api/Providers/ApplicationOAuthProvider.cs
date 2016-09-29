@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models;
@@ -31,6 +32,12 @@ namespace DOL.WHD.Section14c.Api.Providers
             ApplicationUser user = await userManager.FindByNameAsync(context.UserName);
             if (user != null)
             {
+                var passwordExpired = false;
+                var passwordExpirationDays = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordExpirationDays"]);
+                if (passwordExpirationDays > 0)
+                {
+                    passwordExpired = user.LastPasswordChangedDate.AddDays(passwordExpirationDays) < DateTime.Now;
+                } 
                 var validCredentials = await userManager.FindAsync(context.UserName, context.Password);
                 if (await userManager.IsLockedOutAsync(user.Id))
                 {
@@ -48,6 +55,11 @@ namespace DOL.WHD.Section14c.Api.Providers
                     }
 
                     context.SetError("invalid_grant", "The user name or password is incorrect.");
+                }
+                else if (passwordExpired)
+                {
+                    // password expired
+                    context.SetError("invalid_grant", "Password expired");
                 }
                 else
                 {
