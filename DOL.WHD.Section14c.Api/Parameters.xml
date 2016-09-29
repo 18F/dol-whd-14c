@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
-  <parameter name="ConnectionString" defaultValue="{ConnectionString}">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="/configuration/connectionStrings/add[@key='ApplicationDbContext']/@connectionString" />
+  <parameter name="UserLockoutEnabledByDefault" defaultValue="true">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='UserLockoutEnabledByDefault']" />
+  </parameter>
+  <parameter name="DefaultAccountLockoutTimeSpan" defaultValue="15">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='DefaultAccountLockoutTimeSpan']" />
+  </parameter>
+  <parameter name="MaxFailedAccessAttemptsBeforeLockout" defaultValue="3">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='MaxFailedAccessAttemptsBeforeLockout']" />
+  </parameter>    
+  <parameter name="ConnectionString" defaultValue="ConnectionString">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
   </parameter>
 </parameters>
