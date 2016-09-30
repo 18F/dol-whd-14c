@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    require('./appMainPageController')(ngModule);
-    require('./appAboutPageController')(ngModule);
+    require('./landingPageController')(ngModule);
+    require('./userLoginPageController')(ngModule);
 };

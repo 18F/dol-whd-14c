@@ -13,10 +13,6 @@ module.exports = {
         failOnWarning: false,
         failOnError: true
     },
-	devServer: {
-		inline: true,
-		port: 3333
-	},
 	module: {
         preLoaders: [
             {
