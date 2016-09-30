@@ -5,6 +5,6 @@
     <parameterEntry kind="ProviderPath" scope="setAcl" match="^dist$" />
   </parameter>
   <parameter name="ApiUrl" description="Please set the URL of the API" defaultValue="http://localhost:3334" tags="">
-    <parameterEntry type="TextFile" scope="index.js" match="http://localhost:3334"/>
+    <parameterEntry type="TextFile" scope="index\.js$" match="http:\/\/localhost:3334"/>
   </parameter>
 </parameters>
