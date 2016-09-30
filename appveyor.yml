@@ -2,6 +2,9 @@ version: 1.0.{build}
 branches:
   only:
   - master
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: Kddo/RjSZXFb9lLk3XL8lH3mb0A9i1koBq+Zp3IIKG5oAU5di672aBcL6H/FPUGF
 install:
 - cmd: >-
     nuget restore
@@ -20,3 +23,5 @@ artifacts:
 - path: DOL.WHD.Section14c.Web\dist
   name: DOL.WHD.Section14c.Web
 deploy: off
+after_test:
+- cmd: .\DOL.WHD.Section14c.Test\CodeCoverage.bat
