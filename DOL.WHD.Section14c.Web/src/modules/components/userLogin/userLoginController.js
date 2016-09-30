@@ -10,7 +10,7 @@ module.exports = function(ngModule) {
 
         $scope.formVals = {
             'email': '',
-            'pass': '',
+            'pass': ''
         };
 
         $scope.onSubmitClick = function() {
