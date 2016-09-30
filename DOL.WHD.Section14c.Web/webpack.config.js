@@ -1,3 +1,4 @@
+var webpack = require("webpack");
 var path = require('path');
 
 module.exports = {
@@ -54,5 +55,11 @@ module.exports = {
                 loader: 'url-loader?name=fonts/[name].[ext]'
             }
 		]
-	}
+	},
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
+    ]
 }
