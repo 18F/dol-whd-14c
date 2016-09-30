@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -11,6 +12,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
