@@ -18,12 +18,21 @@ import ngSanitize from 'angular-sanitize';
 // Styles
 import '../styles/main.scss';
 
+// Angular application module
 let app = angular.module('14c', [
     ngAnimate,
     ngResource,
     ngRoute,
     ngSanitize
 ]);
+
+// Environment config loaded from env.js
+let env = {};
+if (window) {
+    Object.assign(env, window.__env);
+}
+
+app.constant('_env', env);
 
 // Load Application Components
 require('./components')(app);

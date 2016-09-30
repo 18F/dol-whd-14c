@@ -1,13 +1,13 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.service('apiService', function($http, $q) {
+    ngModule.service('apiService', function($http, $q, _env) {
         'ngInject';
         'use strict';
 
         this.userLogin = function(username, password) {
 
-            let url = 'http://dol-whd-section14c-api-dev.azurewebsites.net/Token';
+            let url = _env.api_url + '/Token';
             let d = $q.defer();
 
             $http({
@@ -18,7 +18,7 @@ module.exports = function(ngModule) {
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
-                console.log(error);
+                //console.log(error);
                 d.reject(error);
             });
 

@@ -20,7 +20,7 @@ module.exports = function(ngModule) {
                 stateService.username = data.userName;
                 $location.path("/");
             }, function (error) {
-                alert(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
+                console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
                 $location.path("/");
             });
       }
