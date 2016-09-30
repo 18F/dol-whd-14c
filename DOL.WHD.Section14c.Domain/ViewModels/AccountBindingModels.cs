@@ -6,6 +6,9 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
 
     public class ChangePasswordBindingModel
     {
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Current password")]

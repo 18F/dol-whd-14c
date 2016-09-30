@@ -15,10 +15,6 @@ module.exports = {
         failOnWarning: false,
         failOnError: true
     },
-	devServer: {
-		inline: true,
-		port: 3333
-	},
 	module: {
         preLoaders: [
             {
@@ -59,6 +55,10 @@ module.exports = {
 		]
 	},
 	plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 'NODE_ENV': JSON.stringify('production')
