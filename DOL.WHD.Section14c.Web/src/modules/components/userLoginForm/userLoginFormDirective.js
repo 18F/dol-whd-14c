@@ -7,8 +7,8 @@ module.exports = function(ngModule) {
 
       return {
           restrict: 'EA',
-          template: require('./userLoginTemplate.html'),
-          controller: 'userLoginController',
+          template: require('./userLoginFormTemplate.html'),
+          controller: 'userLoginFormController',
           controllerAs: 'vm'
       };
   });

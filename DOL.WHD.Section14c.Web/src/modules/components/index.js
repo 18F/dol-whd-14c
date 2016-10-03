@@ -2,6 +2,6 @@
 
 module.exports = function(ngModule) {
     require('./changePasswordForm')(ngModule);
-    require('./userLogin')(ngModule);
+    require('./userLoginForm')(ngModule);
     require('./userRegistrationForm')(ngModule);
 };
