@@ -7,10 +7,15 @@ module.exports = function(ngModule) {
         let state = {
         };
 
-        // username
-        Object.defineProperty(this, 'username', {
-            get: function() { return state.username; },
-            set: function(value) { state.username = value; }
-        })
+        // email
+        Object.defineProperty(this, 'email', {
+            get: function() { return state.email; },
+            set: function(value) { state.email = value; }
+        });
+
+        Object.defineProperty(this, 'access_token', {
+            get: function() { return state.access_token; },
+            set: function(value) { state.access_token = value; }
+        });
     });
 }
