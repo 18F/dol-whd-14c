@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity;
 
-namespace DOL.WHD.Section14c.Business.Validators
+namespace DOL.WHD.Section14c.DataAccess.Validators
 {
     public class Section14cUserValidator<TUser> : UserValidator<TUser, string>
         where TUser : ApplicationUser
