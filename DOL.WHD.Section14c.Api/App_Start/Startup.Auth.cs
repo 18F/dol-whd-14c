@@ -1,6 +1,7 @@
 ﻿using System;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;

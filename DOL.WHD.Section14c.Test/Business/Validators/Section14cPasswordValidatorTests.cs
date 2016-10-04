@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.DataAccess.Validators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
