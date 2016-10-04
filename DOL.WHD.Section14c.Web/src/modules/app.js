@@ -46,9 +46,17 @@ app.config(function($routeProvider) {
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html')
     })
+    .when('/changePassword', {
+        controller: 'changePasswordPageController',
+        template: require('./pages/changePasswordPageTemplate.html')
+    })
     .when('/login', {
         controller: 'userLoginPageController',
-        template: require('./pages/userloginPageTemplate.html')
+        template: require('./pages/userLoginPageTemplate.html')
+    })
+    .when('/register', {
+        controller: 'userRegistrationPageController',
+        template: require('./pages/userRegistrationPageTemplate.html')
     })
     .otherwise({
         redirectTo: '/'

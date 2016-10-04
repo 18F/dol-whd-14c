@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('userLoginController', function($scope, $location, stateService, apiService) {
+    ngModule.controller('userLoginFormController', function($scope, $location, stateService, apiService) {
         'ngInject';
         'use strict';
 
@@ -17,7 +17,7 @@ module.exports = function(ngModule) {
             apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
                 var data = result.data;
                 stateService.access_token = data.access_token;
-                stateService.username = data.userName;
+                stateService.email = data.email;
                 $location.path("/");
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));

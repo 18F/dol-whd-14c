@@ -1,5 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    require('./userLogin')(ngModule);
+    require('./changePasswordForm')(ngModule);
+    require('./userLoginForm')(ngModule);
+    require('./userRegistrationForm')(ngModule);
 };

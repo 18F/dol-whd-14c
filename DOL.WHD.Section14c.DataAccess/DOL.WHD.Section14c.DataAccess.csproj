@@ -76,14 +76,15 @@
     <Compile Include="Migrations\201609291537213_LastPasswordChangedDate.Designer.cs">
       <DependentUpon>201609291537213_LastPasswordChangedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609302018469_AddOrganizationMembership.cs" />
+    <Compile Include="Migrations\201609302018469_AddOrganizationMembership.Designer.cs">
+      <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ExampleRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +99,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609291537213_LastPasswordChangedDate.resx">
       <DependentUpon>201609291537213_LastPasswordChangedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609302018469_AddOrganizationMembership.resx">
+      <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -12,7 +12,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -147,6 +146,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true});
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
