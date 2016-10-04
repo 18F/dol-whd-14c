@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using DOL.WHD.Section14c.Domain.Models;
+using Microsoft.AspNet.Identity;
 
-namespace DOL.WHD.Section14c.Api.Validators
+namespace DOL.WHD.Section14c.Business.Validators
 {
     public class Section14cUserValidator<TUser> : UserValidator<TUser, string>
         where TUser : ApplicationUser

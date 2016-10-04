@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
-using DOL.WHD.Section14c.Api.Validators;
+using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity;
@@ -34,13 +34,14 @@ namespace DOL.WHD.Section14c.Api
                 RequireUniqueEINAdmin = true
             };
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+            manager.PasswordValidator = new Section14cPasswordValidator()
             {
-                RequiredLength = 6,
+                RequiredLength = 8,
                 RequireNonLetterOrDigit = true,
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true,
+                RequireZxcvbn = true
             };
             // Configure lockout
             manager.UserLockoutEnabledByDefault = Convert.ToBoolean(ConfigurationManager.AppSettings["UserLockoutEnabledByDefault"]);
