@@ -33,11 +33,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public UserInfoViewModel GetUserInfo()
+        public async Task<UserInfoViewModel> GetUserInfo()
         {
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             return new UserInfoViewModel
             {
-                Email = User.Identity.GetUserName()
+                UserId = user.Id,
+                Email = user.Email,
+                Organizations = user.Organizations
             };
         }
 

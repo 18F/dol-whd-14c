@@ -30,7 +30,7 @@ let app = angular.module('14c', [
 
 // Environment config loaded from env.js
 let env = {};
-if (window) {
+if (window && window.__env) {
     Object.assign(env, window.__env);
 }
 
