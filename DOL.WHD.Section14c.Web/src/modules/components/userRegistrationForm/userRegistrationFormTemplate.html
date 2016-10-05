@@ -2,4 +2,12 @@
 <div><input type="text" placeholder="Email" ng-model="formVals.email" /></div>
 <div><input type="password" placeholder="Password" ng-model="formVals.pass" /></div>
 <div><input type="password" placeholder="Confirm Password" ng-model="formVals.confirmPass" /></div>
+<div
+    vc-recaptcha
+    theme="'light'"
+    key="model.key"
+    on-create="setWidgetId(widgetId)"
+    on-success="setResponse(response)"
+    on-expire="cbExpiration()"
+></div>
 <div><button type="submit" ng-click="onSubmitClick()">Submit</button></div>

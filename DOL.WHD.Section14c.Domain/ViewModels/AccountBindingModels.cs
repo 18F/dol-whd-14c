@@ -47,6 +47,10 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         [RegularExpression((@"\d{2}\-\d{7}"))]
         [Display(Name = "EIN")]
         public string EIN { get; set; }
+
+        [Required]
+        public string ReCaptchaResponse { get; set; }
+
     }
 
     public class RemoveLoginBindingModel
