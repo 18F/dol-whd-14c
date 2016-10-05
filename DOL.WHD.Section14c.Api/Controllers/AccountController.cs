@@ -1,12 +1,17 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Configuration;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess.Identity;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using RestSharp;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -16,7 +21,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-
+    
         public ApplicationUserManager UserManager
         {
             get
@@ -145,6 +150,20 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            // Validate Recaptcha
+            var reCaptchaVerfiyUrl = ConfigurationManager.AppSettings["ReCaptchaVerfiyUrl"];
+            var reCaptchaSecretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
+            var rmoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
+            var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
+
+            var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, rmoteIpAddress);
+            if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
+            {
+                ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
+                return BadRequest(ModelState);
+            }
+
+            // Add User
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
             user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true});
 

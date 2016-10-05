@@ -12,4 +12,10 @@
   <parameter name="ConnectionString" defaultValue="ConnectionString">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
   </parameter>
+  <parameter name="ReCaptchaVerfiyUrl" defaultValue="https://www.google.com/recaptcha/api/siteverify">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaVerfiyUrl']" />
+  </parameter>
+  <parameter name="ReCaptchaSecretKey" defaultValue="">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaSecretKey']" />
+  </parameter>
 </parameters>
