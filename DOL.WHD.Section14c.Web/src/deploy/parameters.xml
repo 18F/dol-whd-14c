@@ -1,9 +1,5 @@
 <?xml version="1.0"?>
 <parameters>
-  <parameter name="IIS Web Application Name" defaultValue="" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\projects\\master\\DOL\.WHD\.Section14c\.Web\\dist$" />
-    <parameterEntry kind="ProviderPath" scope="setAcl" match="^C:\\projects\\master\\DOL\.WHD\.Section14c\.Web\\dist$" />
-  </parameter>
   <parameter name="ApiUrl" description="Please set the URL of the API" defaultValue="http://localhost:3334" tags="">
     <parameterEntry type="TextFile" scope="\\env.js$" match="http:\/\/localhost:3334"/>
   </parameter>
