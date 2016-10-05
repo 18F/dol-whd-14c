@@ -15,7 +15,7 @@
   <parameter name="ReCaptchaVerfiyUrl" defaultValue="https://www.google.com/recaptcha/api/siteverify">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaVerfiyUrl']" />
   </parameter>
-  <parameter name="ReCaptchaSecretKey" defaultValue="">
+  <parameter name="ReCaptchaSecretKey" defaultValue="6LeqeggUAAAAAEY5KpgWZGkOHnkyQXmiSKg7tqsY">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaSecretKey']" />
   </parameter>
 </parameters>
