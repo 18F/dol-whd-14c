@@ -11,7 +11,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string EmployerName { get; set; }
 
         [Required]
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         [Required]
         [Phone]

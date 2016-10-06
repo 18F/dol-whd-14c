@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201610061639031_AddApplicationSubmission"; }
+            get { return "201610062018437_AddApplicationSubmission"; }
         }
         
         string IMigrationMetadata.Source

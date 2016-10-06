@@ -49,7 +49,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region Employer
 
         [Required]
-        public EmployerInfo Employer { get; set; }
+        public virtual EmployerInfo Employer { get; set; }
 
         #endregion
 
@@ -59,7 +59,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string PayType { get; set; }
 
         // TODO: Validation on what WageTypeInfo is based on PayType
-        public WageTypeInfo WageTypeInfo { get; set; }
+        public virtual WageTypeInfo WageTypeInfo { get; set; }
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int TotalNumWorkSites { get; set; }
 
         // TODO: validation to make sure WorkSites.Count matches TotalNumWorkSites
-        public IEnumerable<WorkSite> WorkSites { get; set; }
+        public virtual ICollection<WorkSite> WorkSites { get; set; }
 
         #endregion
 

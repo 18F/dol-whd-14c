@@ -119,20 +119,96 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.SourceEmployers",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        EmployerName = c.String(nullable: false),
+                        Phone = c.String(nullable: false),
+                        ContactName = c.String(nullable: false),
+                        ContactTitle = c.String(nullable: false),
+                        ContactDate = c.DateTime(nullable: false),
+                        JobDescription = c.String(nullable: false),
+                        ExperiencedWorkerWageProvided = c.String(nullable: false),
+                        ConclusionWageRateNotBasedOnEntry = c.String(nullable: false),
+                        Address_Id = c.Int(nullable: false),
+                        PrevailingWageSurveyInfo_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Addresses", t => t.Address_Id, cascadeDelete: true)
+                .ForeignKey("dbo.PrevailingWageSurveyInfoes", t => t.PrevailingWageSurveyInfo_Id)
+                .Index(t => t.Address_Id)
+                .Index(t => t.PrevailingWageSurveyInfo_Id);
+            
+            CreateTable(
+                "dbo.WorkSites",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.String(nullable: false),
+                        Name = c.String(nullable: false),
+                        SCA = c.Boolean(nullable: false),
+                        FederalContractWorkPerformed = c.Boolean(nullable: false),
+                        NumEmployees = c.Int(nullable: false),
+                        Address_Id = c.Int(nullable: false),
+                        ApplicationSubmission_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Addresses", t => t.Address_Id, cascadeDelete: true)
+                .ForeignKey("dbo.ApplicationSubmissions", t => t.ApplicationSubmission_Id)
+                .Index(t => t.Address_Id)
+                .Index(t => t.ApplicationSubmission_Id);
+            
+            CreateTable(
+                "dbo.Employees",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false),
+                        PrimaryDisability = c.String(nullable: false),
+                        WorkType = c.String(nullable: false),
+                        NumJobs = c.Int(nullable: false),
+                        AvgWeeklyHours = c.Double(nullable: false),
+                        AvgHourlyEarnings = c.Double(nullable: false),
+                        PrevailingWage = c.Double(nullable: false),
+                        ProductivityMeasure = c.Double(nullable: false),
+                        CommensurateWageRate = c.String(nullable: false),
+                        TotalHours = c.Double(nullable: false),
+                        WorkAtOtherSite = c.Boolean(nullable: false),
+                        WorkSite_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.WorkSites", t => t.WorkSite_Id)
+                .Index(t => t.WorkSite_Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.WorkSites", "ApplicationSubmission_Id", "dbo.ApplicationSubmissions");
+            DropForeignKey("dbo.Employees", "WorkSite_Id", "dbo.WorkSites");
+            DropForeignKey("dbo.WorkSites", "Address_Id", "dbo.Addresses");
             DropForeignKey("dbo.ApplicationSubmissions", "WageTypeInfo_Id", "dbo.WageTypeInfoes");
             DropForeignKey("dbo.WageTypeInfoes", "MostRecentPrevailingWageSurvey_Id", "dbo.PrevailingWageSurveyInfoes");
+            DropForeignKey("dbo.SourceEmployers", "PrevailingWageSurveyInfo_Id", "dbo.PrevailingWageSurveyInfoes");
+            DropForeignKey("dbo.SourceEmployers", "Address_Id", "dbo.Addresses");
             DropForeignKey("dbo.ApplicationSubmissions", "Employer_Id", "dbo.EmployerInfoes");
             DropForeignKey("dbo.EmployerInfoes", "PhysicalAddress_Id", "dbo.Addresses");
             DropForeignKey("dbo.EmployerInfoes", "NumSubminimalWageWorkers_Id", "dbo.WorkerCountInfoes");
+            DropIndex("dbo.Employees", new[] { "WorkSite_Id" });
+            DropIndex("dbo.WorkSites", new[] { "ApplicationSubmission_Id" });
+            DropIndex("dbo.WorkSites", new[] { "Address_Id" });
+            DropIndex("dbo.SourceEmployers", new[] { "PrevailingWageSurveyInfo_Id" });
+            DropIndex("dbo.SourceEmployers", new[] { "Address_Id" });
             DropIndex("dbo.WageTypeInfoes", new[] { "MostRecentPrevailingWageSurvey_Id" });
             DropIndex("dbo.EmployerInfoes", new[] { "PhysicalAddress_Id" });
             DropIndex("dbo.EmployerInfoes", new[] { "NumSubminimalWageWorkers_Id" });
             DropIndex("dbo.ApplicationSubmissions", new[] { "WageTypeInfo_Id" });
             DropIndex("dbo.ApplicationSubmissions", new[] { "Employer_Id" });
+            DropTable("dbo.Employees");
+            DropTable("dbo.WorkSites");
+            DropTable("dbo.SourceEmployers");
             DropTable("dbo.PrevailingWageSurveyInfoes");
             DropTable("dbo.WageTypeInfoes");
             DropTable("dbo.Addresses");

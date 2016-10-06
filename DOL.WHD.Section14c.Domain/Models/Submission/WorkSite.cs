@@ -14,7 +14,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string Name { get; set; }
 
         [Required]
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         [Required]
         public bool SCA { get; set; }
@@ -26,6 +26,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int NumEmployees { get; set; }
 
         // TODO: validate Employees.Count == NumEmployees
-        public IEnumerable<Employee> Employees { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }

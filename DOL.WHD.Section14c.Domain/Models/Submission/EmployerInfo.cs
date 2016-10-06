@@ -17,7 +17,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool LegalNameHasChanged { get; set; }
 
         [Required]
-        public Address PhysicalAddress { get; set; }
+        public virtual Address PhysicalAddress { get; set; }
 
         [Required]
         public bool HasParentOrg { get; set; }
@@ -32,7 +32,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public DateTime FiscalQuarterEndDate { get; set; }
 
         [Required]
-        public WorkerCountInfo NumSubminimalWageWorkers { get; set; }
+        public virtual WorkerCountInfo NumSubminimalWageWorkers { get; set; }
 
         [Required]
         public bool PCA { get; set; }
