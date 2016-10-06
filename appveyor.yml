@@ -19,9 +19,15 @@ build:
   verbosity: minimal
 before_package:
 - cmd: npm run deploy
+after_test:
+- cmd: >-
+    cd ..
+
+    .\DOL.WHD.Section14c.Test\CodeCoverage.bat
 artifacts:
 - path: DOL.WHD.Section14c.Web\dist
   name: DOL.WHD.Section14c.Web
-deploy: off
-after_test:
-- cmd: .\DOL.WHD.Section14c.Test\CodeCoverage.bat
+  type: WebDeployPackage
+- path: DOL.WHD.Section14c.Test\CoverageReport
+  name: DotNet.CoverageReport
+  type: WebDeployPackage
