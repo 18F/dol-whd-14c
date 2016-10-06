@@ -5,6 +5,9 @@ branches:
 environment:
   COVERALLS_REPO_TOKEN:
     secure: Kddo/RjSZXFb9lLk3XL8lH3mb0A9i1koBq+Zp3IIKG5oAU5di672aBcL6H/FPUGF
+  ApplicationDbContext-Web.config Connection String:
+    secure: kgpVhh6JImpf/8CqurMx+Gu09f5p7eacm4WoxyTvOse0er3Z3JTGAeI4LEdVL2a628nzS9CVTLw6jQvFo9ejdowdNvrNcRe4K/WmfO02s7EI6nyBCwoGdlbNUyITl61l
+  ApiUrl: https://dol-whd-section14c-api-dev.azurewebsites.net
 install:
 - cmd: >-
     nuget restore
@@ -12,6 +15,9 @@ install:
     cd DOL.WHD.Section14c.Web
 
     npm install
+cache:
+- packages
+- DOL.WHD.Section14c.Web\node_modules
 build:
   project: DOL.WHD.Section14c.sln
   publish_wap: true
@@ -19,8 +25,12 @@ build:
   verbosity: minimal
 before_package:
 - cmd: npm run deploy
+after_build:
+- cmd: 
 after_test:
 - cmd: >-
+    npm test
+
     cd ..
 
     .\DOL.WHD.Section14c.Test\CodeCoverage.bat
@@ -31,3 +41,11 @@ artifacts:
 - path: DOL.WHD.Section14c.Test\CoverageReport
   name: DotNet.CoverageReport
   type: WebDeployPackage
+notifications:
+- provider: Slack
+  auth_token:
+    secure: 8qkXyRmhQ0dJFp+EURck8nr+9WyLN4tdhzOQkLiGrKBJkXUzO8/aTCkU8wXJgfkLLgq0IZrpnDEoozBFqPO6csXbqXu7B0qE/xFR1uWTfwU=
+  channel: '#builds'
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

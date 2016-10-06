@@ -10,4 +10,4 @@ nuget install ReportGenerator -Version 2.4.5 -OutputDirectory tools
  
 .\tools\coveralls.net.0.412\tools\csmacnz.Coveralls.exe --opencover -i .\results.xml 
 
-.\tools\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:results.xml -targetdir:CoverageReport -reporttypes:Badges;Html
+.\tools\ReportGenerator.2.4.5.0\tools\ReportGenerator.exe -reports:results.xml -targetdir:CoverageReport -reporttypes:Badges;Html -historydir:CoverageReport\History
