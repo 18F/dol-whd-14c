@@ -24,7 +24,12 @@ module.exports = {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'eslint'
-            }
+            },
+            {
+                    test: /\.js$/,
+                    include: path.resolve('src/modules/'),
+                    loader: 'istanbul-instrumenter'
+                }
         ],
 		loaders: [
 			{
