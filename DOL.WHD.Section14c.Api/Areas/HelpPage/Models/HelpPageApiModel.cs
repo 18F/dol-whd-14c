@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions;
+using DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage.Models
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

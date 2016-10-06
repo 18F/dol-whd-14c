@@ -11,7 +11,7 @@ using System.Web.Http.Description;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Generates model descriptions for given types.

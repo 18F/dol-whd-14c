@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {
