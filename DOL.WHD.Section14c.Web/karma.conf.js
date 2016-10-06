@@ -4,7 +4,7 @@
 var IS_DEBUG = process.env.DEBUG || false;
 var BROWSERS = [IS_DEBUG ? 'Chrome' : 'PhantomJS'];
 
-var webpackConfig = require('./webpack.config');
+var webpackConfig = require('./webpack.test.config');
 
 module.exports = function(config) {
   config.set({
@@ -42,7 +42,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress', 'coverage', 'coveralls'],
 
 
     // web server port
@@ -73,6 +73,15 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      dir : 'coverage/',
+      reporters: [
+        // reporters not supporting the `file` property
+        { type: 'lcov', subdir: '.' },
+      ]
+    }
   })
 }
