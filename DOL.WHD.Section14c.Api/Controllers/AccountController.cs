@@ -33,14 +33,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
-        public async Task<UserInfoViewModel> GetUserInfo()
+        public UserInfoViewModel GetUserInfo()
         {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             return new UserInfoViewModel
             {
-                UserId = user.Id,
-                Email = user.Email,
-                Organizations = user.Organizations
+                Email = User.Identity.GetUserName()
             };
         }
 
@@ -176,6 +173,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return GetErrorResult(result);
             }
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code }));
+
+            await UserManager.SendEmailAsync(user.Id,
+                                                    "Confirm your account",
+                                                    "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return Ok();
         }

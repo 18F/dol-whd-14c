@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IExampleRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
