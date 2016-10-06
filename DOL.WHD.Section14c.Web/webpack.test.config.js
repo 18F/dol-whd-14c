@@ -8,22 +8,22 @@ module.exports = {
 		path: './',
 		filename: 'index.js'
 	},
-	//externals: {
-    //},
-    eslint: {
-        failOnWarning: false,
-        failOnError: false
-    },
-	devServer: {
-		inline: true,
-		port: 3333
-	},
+    noInfo: true,
+    quiet: true,
 	module: {
         preLoaders: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'eslint'
+            },
+            {
+                test: /\.js$/,
+                include: path.resolve('src/modules/'),
+                loader: 'istanbul-instrumenter',
+                query: {
+                    esModules: true
+                }
             }
         ],
 		loaders: [
