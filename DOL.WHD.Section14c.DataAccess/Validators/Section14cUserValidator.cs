@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity;
 
-namespace DOL.WHD.Section14c.Business.Validators
+namespace DOL.WHD.Section14c.DataAccess.Validators
 {
     public class Section14cUserValidator<TUser> : UserValidator<TUser, string>
         where TUser : ApplicationUser
@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Business.Validators
 
                 // check EIN (no more than one admin per EIN)
                 var adminEINs = item.Organizations.Where(o => o.IsAdmin).Select(o => o.EIN);
-                var match = _manager.Users.Any(u => u.Organizations.Where(o => o.IsAdmin).Any(o => adminEINs.Contains(o.EIN)));
+                var match = _manager.Users.Any(u => u.Id != item.Id && u.Organizations.Where(o => o.IsAdmin).Any(o => adminEINs.Contains(o.EIN)));
 
                 if (match)
                 {

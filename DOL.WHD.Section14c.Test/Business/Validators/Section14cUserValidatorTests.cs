@@ -3,9 +3,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using DOL.WHD.Section14c.Api;
-using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using DOL.WHD.Section14c.DataAccess.Validators;
 using DOL.WHD.Section14c.Domain.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
@@ -105,6 +106,23 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
 
             // Assert
             Assert.IsTrue(validatorResult.Succeeded);
+        }
+
+        [TestMethod]
+        public async Task DoesntValidateUniqueEINOnPasswordChange()
+        {
+            // Arrange
+            var ein = "12-3456789";
+            var existingUser = new ApplicationUser { UserName = "steve.jobs@apple.com", Email = "steve.jobs@apple.com" };
+            existingUser.Organizations.Add(new OrganizationMembership { EIN = ein, IsAdmin = true });
+            _applicationUserManagerMock.Setup(x => x.Users).Returns(new List<ApplicationUser> { existingUser }.AsQueryable());
+            var validator = new Section14cUserValidator<ApplicationUser>(_applicationUserManagerMock.Object) { RequireUniqueEINAdmin = true };
+
+            // Act (running the validator on a user already in the store simulates what happens when a user changes their password)
+            var result = await validator.ValidateAsync(existingUser);
+
+            // Assert
+            Assert.IsTrue(result.Succeeded);
         }
     }
 }

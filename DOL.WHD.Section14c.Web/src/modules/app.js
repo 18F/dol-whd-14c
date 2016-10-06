@@ -14,6 +14,7 @@ import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
+import vcRecaptcha from 'angular-recaptcha';
 
 // Styles
 import '../styles/main.scss';
@@ -23,12 +24,13 @@ let app = angular.module('14c', [
     ngAnimate,
     ngResource,
     ngRoute,
-    ngSanitize
+    ngSanitize,
+    'vcRecaptcha'
 ]);
 
 // Environment config loaded from env.js
 let env = {};
-if (window) {
+if (window && window.__env) {
     Object.assign(env, window.__env);
 }
 

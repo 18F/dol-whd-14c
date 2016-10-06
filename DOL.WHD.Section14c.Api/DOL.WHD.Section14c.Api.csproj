@@ -63,6 +63,10 @@
       <HintPath>..\packages\Npgsql.3.1.7\lib\net451\Npgsql.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
       <HintPath>..\packages\SimpleInjector.3.2.2\lib\net45\SimpleInjector.dll</HintPath>
       <Private>True</Private>
@@ -79,6 +83,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
       <Private>True</Private>
@@ -197,7 +202,6 @@
   <ItemGroup>
     <Compile Include="App_Start\DependencyResolutionConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -288,7 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
-      <Project>{7CD1D7DD-CE24-4280-B8BD-0B8B9ABB0FFC}</Project>
+      <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">

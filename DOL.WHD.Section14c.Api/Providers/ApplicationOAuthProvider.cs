@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DOL.WHD.Section14c.DataAccess.Identity;
 using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;

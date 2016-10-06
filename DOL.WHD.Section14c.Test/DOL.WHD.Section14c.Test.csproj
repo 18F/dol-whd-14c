@@ -59,6 +59,10 @@
       <HintPath>..\packages\Moq.4.5.22\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
@@ -78,7 +82,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Business\Example.cs" />
+    <None Include="app.config" />
     <None Include="CodeCoverage.bat" />
+    <Compile Include="Business\ReCaptphaTests.cs" />
     <Compile Include="Business\Validators\Section14cPasswordValidatorTests.cs" />
     <Compile Include="Business\Validators\Section14cUserValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,10 +92,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj">
-      <Project>{7f947d49-de51-4b9e-95e0-afa3d5577c59}</Project>
-      <Name>DOL.WHD.Section14c.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
       <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>

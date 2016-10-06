@@ -45,7 +45,7 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
-        this.userRegister = function(ein, email, password, confirmPassword) {
+        this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse) {
 
             let url = _env.api_url + '/api/Account/Register';
             let d = $q.defer();
@@ -54,7 +54,7 @@ module.exports = function(ngModule) {
                 method: 'POST',
                 url: url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword})
+                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword, "ReCaptchaResponse": reCaptchaResponse})
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
