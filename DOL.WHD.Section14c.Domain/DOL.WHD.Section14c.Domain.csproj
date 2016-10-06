@@ -59,8 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ExampleModel.cs" />
     <Compile Include="Models\OrganizationMembership.cs" />
+    <Compile Include="Models\Submission\ApplicationSubmission.cs" />
+    <Compile Include="Models\Submission\Employee.cs" />
+    <Compile Include="Models\Submission\EmployerInfo.cs" />
+    <Compile Include="Models\Submission\HourlyWageInfo.cs" />
+    <Compile Include="Models\Submission\PieceRateWageInfo.cs" />
+    <Compile Include="Models\Submission\PrevailingWageSurveyInfo.cs" />
+    <Compile Include="Models\Submission\SourceEmployer.cs" />
+    <Compile Include="Models\Submission\WageTypeInfo.cs" />
+    <Compile Include="Models\Submission\WorkerCountInfo.cs" />
+    <Compile Include="Models\Submission\WorkSite.cs" />
     <Compile Include="ViewModels\AccountBindingModels.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />

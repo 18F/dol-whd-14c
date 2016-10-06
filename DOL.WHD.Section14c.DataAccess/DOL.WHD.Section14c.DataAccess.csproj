@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201609302018469_AddOrganizationMembership.Designer.cs">
       <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610061639031_AddApplicationSubmission.cs" />
+    <Compile Include="Migrations\201610061639031_AddApplicationSubmission.Designer.cs">
+      <DependentUpon>201610061639031_AddApplicationSubmission.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ExampleRepository.cs" />
@@ -138,6 +142,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609302018469_AddOrganizationMembership.resx">
       <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610061639031_AddApplicationSubmission.resx">
+      <DependentUpon>201610061639031_AddApplicationSubmission.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
