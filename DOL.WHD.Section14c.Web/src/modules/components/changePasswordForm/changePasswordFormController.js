@@ -15,7 +15,7 @@ module.exports = function(ngModule) {
         };
 
         $scope.onSubmitClick = function() {
-            apiService.changePassword(stateService.email, $scope.formVals.currentPass, $scope.formVals.newPass, $scope.formVals.confirmPass ).then(function (result) {
+            apiService.changePassword(stateService.user.email, $scope.formVals.currentPass, $scope.formVals.newPass, $scope.formVals.confirmPass ).then(function (result) {
                 var data = result.data;
 
                 //TODO: provide user with confirmation

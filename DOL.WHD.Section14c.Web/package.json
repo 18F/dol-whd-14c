@@ -43,6 +43,7 @@
     "sass-loader": "^4.0.2",
     "script-loader": "^0.7.0",
     "style-loader": "^0.13.1",
+    "susy": "^2.2.12",
     "url-loader": "^0.5.7",
     "uswds": "^0.12.1",
     "webpack": "^1.13.2",

@@ -1,0 +1,17 @@
+<div class="header-title-bar">
+    <div class="header-title">
+        <h1>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</h1>
+        <h2>OMB NO: 1235-0001</h2>
+        <h2>REVXX/20XX</h2>
+    </div>
+    <div class="header-logo">
+        <img ng-src="{{ loadImage('dol_seal.svg') }}" />
+        <img ng-src="{{ loadImage('whd_logo.jpg') }}" />
+    </div>
+</div>
+<div class="header-status-bar">
+    <p class="pull-left">EIN: <span class="header-ein">{{ stateService.user.ein ? stateService.user.ein : "XX-XXXXXXX" }}</span></p>
+    <p class="pull-right"><a href="#">{{ stateService.user.email ? stateService.user.email : "Username" }}</a> | <a href="#">Save Work & Sign Out</a></p>
+    <div class="clearer"></div>
+</div>
+<main-navigation-control></main-navigation-control>

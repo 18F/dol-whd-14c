@@ -1,8 +1,22 @@
 @import "~uswds/src/stylesheets/all";
+@import "~susy/sass/susy";
+@import "bourbon";
+@import "globals";
+@import "modules/mainNavigationControl";
+@import "modules/mainHeaderControl";
 
-$greeting-size: 64px;
+$susy: (
+    columns: 12,
+    container: 1120px,
+    global-box-sizing: border-box
+);
 
-.greeting {
-  font-size: $greeting-size;
-  color: #3f3;
+.full-view {
+    @include container;
+    margin-top: 40px;
+}
+
+.main-content {
+    @include span(12 of 12);
+    margin-top: 40px;
 }

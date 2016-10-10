@@ -7,15 +7,19 @@ module.exports = function(ngModule) {
         'use strict';
 
         let state = {
-            form_data: { }
+            form_data: { },
+            user: {
+                email: '',
+                ein: ''
+            }
         };
 
         /*** Properties ***/
 
-        // email
-        Object.defineProperty(this, 'email', {
-            get: function() { return state.email; },
-            set: function(value) { state.email = value; }
+        // user
+        Object.defineProperty(this, 'user', {
+            get: function() { return state.user; },
+            set: function(value) { state.user = value; }
         });
 
         // REST access token
