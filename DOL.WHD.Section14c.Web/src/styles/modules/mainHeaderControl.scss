@@ -1,0 +1,48 @@
+.header-title-bar {
+    @include span(12 of 12);
+    padding: 0px 15px 10px;
+
+    h1 {
+        font: 20px $font-stack;
+        /*font-weight: 700;*/
+        margin-top: 0px;
+    }
+
+    h2 {
+        font: 12px $font-stack;
+        margin: 0px;
+        font-weight: 400;
+    }
+
+    .header-title {
+        @include span(7 of 12);
+    }
+
+    .header-logo {
+        @include span(last 5 of 12);
+        text-align: right;
+
+        img {
+            height: 80px;
+            margin-left: 10px;
+        }
+
+        /* TEMPORARY */
+        .temp-logo {
+            background-color: #999;
+            height: 100px;
+        }
+    }
+}
+
+.header-status-bar {
+    @include span(12 of 12);
+    margin-bottom: 20px;
+    background-color: #eee;
+    font-size: 14px;
+    padding: 10px 15px;
+
+    p {
+        margin: 0px;
+    }
+}

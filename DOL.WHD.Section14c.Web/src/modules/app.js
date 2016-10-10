@@ -62,3 +62,10 @@ app.config(function($routeProvider) {
         redirectTo: '/'
     });
 });
+
+app.run(function($rootScope) {
+    $rootScope.loadImage = function(image) {
+        console.log("HERE HERE HERE");
+        return require('../images/' + image);
+    };
+});

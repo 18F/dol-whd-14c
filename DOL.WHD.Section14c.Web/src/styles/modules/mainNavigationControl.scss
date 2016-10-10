@@ -1,0 +1,19 @@
+.main-nav-bar {
+    @include span(12 of 12);
+
+    .nav-button {
+        float: left;
+        padding: 10px 20px;
+        border: 1px solid $darker-grey;
+        background-color: #ddd;
+        font-size: 16px;
+
+        &:not(:first-of-type) {
+            border-left: none;
+        }
+
+        &.active {
+            background-color: #88B3F2;
+        }
+    }
+}
