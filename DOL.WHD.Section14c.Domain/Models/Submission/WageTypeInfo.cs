@@ -16,7 +16,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string JobDescription { get; set; }
 
         [Required]
-        public string PrevailingWageMethod { get; set; }
+        public virtual Response PrevailingWageMethod { get; set; }
 
         // TODO: required if PrevailingWageMethod == Prevailing Wage Survey
         public PrevailingWageSurveyInfo MostRecentPrevailingWageSurvey { get; set; }

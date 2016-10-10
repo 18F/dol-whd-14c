@@ -10,7 +10,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string Name { get; set; }
 
         [Required]
-        public string PrimaryDisability { get; set; }
+        public virtual Response PrimaryDisability { get; set; }
+
+        // TODO: required if PrimaryDisability == Other
+        public string PrimaryDisabilityOther { get; set; }
 
         [Required]
         public string WorkType { get; set; }

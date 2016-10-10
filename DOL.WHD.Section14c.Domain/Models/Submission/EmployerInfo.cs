@@ -23,7 +23,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool HasParentOrg { get; set; }
 
         [Required]
-        public string Status { get; set; }
+        public virtual Response EmployerStatus { get; set; }
+
+        // TODO: required if Status == Other
+        public string EmployerStatusOther { get; set; }
 
         [Required]
         public bool IsEducationalAgency { get; set; }
@@ -38,14 +41,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool PCA { get; set; }
 
         [Required]
-        public YesNoIntend SCA { get; set; }
+        public virtual Response SCA { get; set; }
 
         // TODO: SCA Wage Determinations upload
 
         [Required]
-        public YesNoIntend EO13658 { get; set; }
+        public virtual Response EO13658 { get; set; }
 
     }
-
-    public enum YesNoIntend { Yes, No, Intend }
 }

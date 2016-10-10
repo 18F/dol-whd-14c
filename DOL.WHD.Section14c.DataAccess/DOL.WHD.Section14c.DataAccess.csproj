@@ -118,6 +118,10 @@
     <Compile Include="Migrations\201610062018437_AddApplicationSubmission.Designer.cs">
       <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610102032087_AddResponses.cs" />
+    <Compile Include="Migrations\201610102032087_AddResponses.Designer.cs">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ExampleRepository.cs" />
@@ -145,6 +149,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610062018437_AddApplicationSubmission.resx">
       <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610102032087_AddResponses.resx">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

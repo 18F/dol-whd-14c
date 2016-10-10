@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string UserId { get; set; }
 
         [Required]
-        public string ApplicationType { get; set; }
+        public virtual Response ApplicationType { get; set; }
 
         [Required]
         public bool HasPreviousApplication { get; set; }
@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool TemporaryAuthority { get; set; }
 
         [Required]
-        public IEnumerable<string> EstablishmentType { get; set; }
+        public virtual ICollection<Response> EstablishmentType { get; set; }
 
         [Required]
         public string ContactName { get; set; }
@@ -56,7 +56,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region Wage Data
 
         [Required]
-        public string PayType { get; set; }
+        public virtual Response PayType { get; set; }
 
         // TODO: Validation on what WageTypeInfo is based on PayType
         public virtual WageTypeInfo WageTypeInfo { get; set; }
@@ -85,7 +85,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool ProvidingFacilities { get; set; }
 
         // TODO: required if ProvidingFacilities == true
-        public string ProvidingFacilitiesDeductionType { get; set; }
+        public ICollection<Response> ProvidingFacilitiesDeductionType { get; set; }
+
+        // TODO: required if ProvidingFacilitiesDeductionType == Other
+        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 
         [Required]
         public bool ReviewedDocumentation { get; set; }

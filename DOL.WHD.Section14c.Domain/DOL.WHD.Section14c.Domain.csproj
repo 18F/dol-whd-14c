@@ -68,6 +68,7 @@
     <Compile Include="Models\Submission\HourlyWageInfo.cs" />
     <Compile Include="Models\Submission\PieceRateWageInfo.cs" />
     <Compile Include="Models\Submission\PrevailingWageSurveyInfo.cs" />
+    <Compile Include="Models\Submission\Response.cs" />
     <Compile Include="Models\Submission\SourceEmployer.cs" />
     <Compile Include="Models\Submission\WageTypeInfo.cs" />
     <Compile Include="Models\Submission\WorkerCountInfo.cs" />
