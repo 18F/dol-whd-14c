@@ -9,13 +9,16 @@ namespace DOL.WHD.Section14c.Business.Test.RepositoryMocks
 {
     class ExampleRepositoryMock : IExampleRepository
     {
+        private bool _disposed;
+        public bool Disposed => _disposed;
+
         public IEnumerable<int> GetNumbers()
         {
             return new List<int>() { 3, 2, 1 };
         }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            _disposed = true;
         }
     }
 }

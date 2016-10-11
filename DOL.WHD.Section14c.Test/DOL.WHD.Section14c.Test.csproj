@@ -85,8 +85,12 @@
     <None Include="app.config" />
     <None Include="CodeCoverage.bat" />
     <Compile Include="Business\ReCaptphaTests.cs" />
-    <Compile Include="Business\Validators\Section14cPasswordValidatorTests.cs" />
-    <Compile Include="Business\Validators\Section14cUserValidatorTests.cs" />
+    <Compile Include="DataAccess\Validators\Section14cPasswordValidatorTests.cs" />
+    <Compile Include="DataAccess\Validators\Section14cUserValidatorTests.cs" />
+    <Compile Include="Domain\Models\ApplicationUserTests.cs" />
+    <Compile Include="Domain\Models\ExampleModelTests.cs" />
+    <Compile Include="Domain\ViewModels\AccountBindingModelsTests.cs" />
+    <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryMocks\ExampleRepositoryMock.cs" />
     <None Include="packages.config" />
