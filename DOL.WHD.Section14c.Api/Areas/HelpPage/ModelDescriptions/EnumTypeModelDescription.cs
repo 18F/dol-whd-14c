@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions
 {
     public class EnumTypeModelDescription : ModelDescription
     {
