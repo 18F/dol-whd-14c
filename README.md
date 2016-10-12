@@ -23,6 +23,7 @@ TODO: Project Summary
         1. [DOL.WHD.Section14c.Web.zip](1.-DOL.WHD.Section14c.Web.zip)
         2. [DOL.WHD.Section14c.API.zip](2.-DOL.WHD.Section14c.API.zip)
         3. [DotNet.CoverageReport.zip](3.-DotNet.CoverageReport.zip)
+        
 ## Project Management
 
 Install [Zenhub](https://www.zenhub.com/) extension and view [project board](https://github.com/18F/dol-whd-14c#boards).
@@ -73,20 +74,22 @@ The projects AppVeyor builds generates three web deployment artifacts.  They can
 This package contains the front end Web Application.  This is a zip of the WebPack production configuration output found in the /dist folder.  It is not a native WebDeploy package but can be used as one as we are doing with the Appveyor Continuous Deployment.
 #### Configuration Settings
 All configurations for the Web project are set in the env.js. This file is excluded from Continuous Deployment and should be updated manually if needed.
+
 | Setting | Description | Default   
 | --- | --- | ---
 api_url | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
-reCaptchaSiteKey | reCaptcha Site Key | 6LeqeggUAAAAALC5zT4OHbDJk9gHNT0GGZbJMOnG (Development Key with localhost enabled)
+reCaptchaSiteKey | reCaptcha Site Key | (Development Key with localhost enabled)
 
 ### 2. DOL.WHD.Section14c.API.zip
 This package is a Web the REST Api
 #### Configuration Settings
 The following are setup as WebDeploy parameters and can be set with command line MSDeploy arguments or manually via a IIS MMC WebDeploy Package Import.  The parameters are setup to transform their respective values in the Web.config file.  An alternate deployment option would be to exclude the Web.config file and set them in an alternate configuration management process.
+
 | Setting | Description | Default   
 | --- | --- | ---
 ConnectionString | PostgreSQL database connection string | N/A
 ReCaptchaVerfiyUrl | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
-ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | 6LeqeggUAAAAAEY5KpgWZGkOHnkyQXmiSKg7tqsY (Dev key)
+ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | (dev key)
 UserLockoutEnabledByDefault | Enables or Disabled user login attempt lockout | true
 DefaultAccountLockoutTimeSpan | Minutes to lockout user | 15
 MaxFailedAccessAttemptsBeforeLockout | Login attempts befer user is locked out | 3
