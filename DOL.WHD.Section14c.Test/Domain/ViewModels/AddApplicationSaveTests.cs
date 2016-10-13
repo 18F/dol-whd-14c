@@ -12,7 +12,6 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
         public void AddApplicationSave_PublicProperties()
         {
             // Arrange
-            var userId = Guid.NewGuid().ToString();
             var ein = "30-1234567";
             var state = JObject.Parse(@"
                 {
@@ -25,13 +24,11 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
             // Act
             var obj = new AddApplicationSave
             {
-                UserId = userId,
                 EIN = ein,
                 State = state
             };
 
             // Assert
-            Assert.AreEqual(userId, obj.UserId);
             Assert.AreEqual(ein, obj.EIN);
             Assert.AreEqual(state, obj.State);
         }

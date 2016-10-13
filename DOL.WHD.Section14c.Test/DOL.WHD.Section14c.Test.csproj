@@ -85,6 +85,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
