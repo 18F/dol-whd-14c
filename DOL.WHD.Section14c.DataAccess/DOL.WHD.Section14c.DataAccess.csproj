@@ -102,7 +102,6 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="ISaveRepository.cs" />
-    <Compile Include="IExampleRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
@@ -130,7 +129,6 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ExampleRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
