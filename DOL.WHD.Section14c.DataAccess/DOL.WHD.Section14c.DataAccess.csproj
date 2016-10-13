@@ -127,6 +127,10 @@
     <Compile Include="Migrations\201610112015599_AddApplicationSaves.Designer.cs">
       <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610131906531_RemoveExample.cs" />
+    <Compile Include="Migrations\201610131906531_RemoveExample.Designer.cs">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
@@ -161,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610112015599_AddApplicationSaves.resx">
       <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610131906531_RemoveExample.resx">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

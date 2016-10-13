@@ -85,6 +85,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\ResponseServiceTests.cs" />
+    <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
+    <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <None Include="app.config" />
     <None Include="CodeCoverage.bat" />
@@ -94,7 +97,6 @@
     <Compile Include="DataAccess\Validators\Section14cUserValidatorTests.cs" />
     <Compile Include="Domain\Models\ApplicationSaveTests.cs" />
     <Compile Include="Domain\Models\ApplicationUserTests.cs" />
-    <Compile Include="Domain\Models\ExampleModelTests.cs" />
     <Compile Include="Domain\ViewModels\AccountBindingModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AddApplicationSaveTests.cs" />

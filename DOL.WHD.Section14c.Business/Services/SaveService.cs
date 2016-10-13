@@ -36,5 +36,10 @@ namespace DOL.WHD.Section14c.Business.Services
 
             _repository.AddOrUpdate(applicationSave);
         }
+
+        public void Dispose()
+        {
+            _repository.Dispose();
+        }
     }
 }
