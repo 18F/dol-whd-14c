@@ -18,8 +18,6 @@ namespace DOL.WHD.Section14c.DataAccess
             return new ApplicationDbContext();
         }
 
-        public DbSet<ExampleModel> Numbers { get; set; }
-
         public DbSet<ApplicationSubmission> ApplicationSubmissions { get; set; }
 
         public DbSet<Response> Responses { get; set; }

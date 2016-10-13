@@ -96,7 +96,6 @@
     <Compile Include="DataAccess\Validators\Section14cUserValidatorTests.cs" />
     <Compile Include="Domain\Models\ApplicationSaveTests.cs" />
     <Compile Include="Domain\Models\ApplicationUserTests.cs" />
-    <Compile Include="Domain\Models\ExampleModelTests.cs" />
     <Compile Include="Domain\ViewModels\AccountBindingModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AddApplicationSaveTests.cs" />
