@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<parameters>
+  <parameter name="ApiUrl" description="Please set the URL of the API" defaultValue="http://localhost:3334" tags="">
+    <parameterEntry type="TextFile" scope="\\env.js$" match="http:\/\/localhost:3334"/>
+  </parameter>
+</parameters>

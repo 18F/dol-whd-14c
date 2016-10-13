@@ -1,0 +1,9 @@
+<div ng-if="stateService.email">
+    Hello {{ stateService.email }}
+    <div>
+        <a href="#/changePassword">Change Password</a>
+    </div>
+</div>
+<div ng-if="!stateService.email">
+    Welcome! Please <a href="#/login">login</a> or <a href="#/register">register</a>
+</div>
