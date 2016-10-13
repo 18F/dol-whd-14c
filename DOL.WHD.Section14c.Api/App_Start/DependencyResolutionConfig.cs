@@ -19,6 +19,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IExampleService, ExampleService>(Lifestyle.Scoped);
             container.Register<IExampleRepository, ExampleRepository>(Lifestyle.Scoped);
             container.Register<IResponseRepository, ResponseRepository>(Lifestyle.Scoped);
+            container.Register<ISaveRepository, SaveRepository>(Lifestyle.Scoped);
+            container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
