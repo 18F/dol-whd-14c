@@ -15,9 +15,6 @@ namespace DOL.WHD.Section14c.Api
             // Create the container as usual.
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-
-            container.Register<IExampleService, ExampleService>(Lifestyle.Scoped);
-            container.Register<IExampleRepository, ExampleRepository>(Lifestyle.Scoped);
             container.Register<IResponseRepository, ResponseRepository>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.

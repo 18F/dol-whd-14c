@@ -100,6 +100,7 @@ ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification
 UserLockoutEnabledByDefault | Enables or Disabled user login attempt lockout | true
 DefaultAccountLockoutTimeSpan | Minutes to lockout user | 15
 MaxFailedAccessAttemptsBeforeLockout | Login attempts befer user is locked out | 3
+AccessTokenExpireTimeSpanMinutes | Token Expiration Minutes for Reset Password and Email Verification Links | 20160 (14 days, ASP.net Default)
 
 ### 3. DotNet.CoverageReport.zip
 
