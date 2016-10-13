@@ -16,6 +16,7 @@ namespace DOL.WHD.Section14c.Api
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
             container.Register<IResponseRepository, ResponseRepository>(Lifestyle.Scoped);
+            container.Register<IResponseService, ResponseService>(Lifestyle.Scoped);
             container.Register<ISaveRepository, SaveRepository>(Lifestyle.Scoped);
             container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
 

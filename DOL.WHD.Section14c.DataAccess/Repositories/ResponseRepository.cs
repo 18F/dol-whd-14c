@@ -12,19 +12,9 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             _dbContext = new ApplicationDbContext();
         }
 
-        public IEnumerable<Response> GetResponses(string questionKey = null, bool onlyActive = true)
+        public IQueryable<Response> Get()
         {
-            var responses = _dbContext.Responses.Select(x => x);
-            if (!string.IsNullOrEmpty(questionKey))
-            {
-                responses = responses.Where(x => x.QuestionKey == questionKey);
-            }
-            if (onlyActive)
-            {
-                responses = responses.Where(x => x.IsActive);
-            }
-
-            return responses.ToList();
+            return _dbContext.Responses.AsQueryable();
         }
 
         public void Dispose()

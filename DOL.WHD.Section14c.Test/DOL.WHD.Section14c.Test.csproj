@@ -85,6 +85,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\ResponseServiceTests.cs" />
+    <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <None Include="app.config" />
     <None Include="CodeCoverage.bat" />
