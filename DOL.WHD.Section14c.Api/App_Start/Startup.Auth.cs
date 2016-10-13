@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -34,7 +35,7 @@ namespace DOL.WHD.Section14c.Api
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["AccessTokenExpireTimeSpanMinutes"])),
                 // In production mode set AllowInsecureHttp = false
                 AllowInsecureHttp = true
             };
