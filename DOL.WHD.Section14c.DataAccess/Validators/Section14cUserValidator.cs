@@ -27,8 +27,9 @@ namespace DOL.WHD.Section14c.DataAccess.Validators
                 var errors = new List<string>(result.Errors);
 
                 // check EIN (no more than one admin per EIN)
-                var adminEINs = item.Organizations.Where(o => o.IsAdmin).Select(o => o.EIN);
-                var match = _manager.Users.Any(u => u.Id != item.Id && u.Organizations.Where(o => o.IsAdmin).Any(o => adminEINs.Contains(o.EIN)));
+                var myAdminEINs = item.Organizations.Where(o => o.IsAdmin).Select(o => o.EIN);
+                var otherUsers = _manager.Users.Where(u => u.Id != item.Id);
+                var match = otherUsers.Any(u => u.Organizations.Where(o => o.IsAdmin).Any(o => myAdminEINs.Contains(o.EIN)));
 
                 if (match)
                 {
