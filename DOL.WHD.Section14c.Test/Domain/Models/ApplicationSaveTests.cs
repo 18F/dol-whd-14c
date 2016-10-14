@@ -23,13 +23,11 @@ namespace DOL.WHD.Section14c.Test.Domain.Models
             // Act
             var obj = new ApplicationSave
             {
-                UserId = userId,
                 EIN = ein,
                 ApplicationState = state
             };
 
             // Assert
-            Assert.AreEqual(userId, obj.UserId);
             Assert.AreEqual(ein, obj.EIN);
             Assert.AreEqual(state, obj.ApplicationState);
         }

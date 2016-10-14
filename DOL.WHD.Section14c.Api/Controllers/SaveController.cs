@@ -28,13 +28,23 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return Unauthorized();
             }
 
-            var json = _saveService.GetSave(User.Identity.GetUserId(), EIN);
-            JObject jsonObj = JObject.Parse(json);
+            var applicationSave = _saveService.GetSave(EIN);
+            if (applicationSave != null)
+            {
+                var applicationSaveDTO = new ApplicationSaveDTO
+                {
+                    ApplicationId = applicationSave.ApplicationId,
+                    EIN = applicationSave.EIN,
+                    State = JObject.Parse(applicationSave.ApplicationState)
+                };
 
-            return Ok(jsonObj);
+                return Ok(applicationSaveDTO);
+            }
+            
+            return NotFound();
         }
 
-        public IHttpActionResult AddSave([FromBody]AddApplicationSave vm)
+        public IHttpActionResult AddSave([FromBody]ApplicationSaveDTO vm)
         {
             // make sure user has rights to the EIN
             var hasEINClaim = _identityService.UserHasEINClaim(User, vm.EIN);
@@ -43,7 +53,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return Unauthorized();
             }
 
-            _saveService.AddOrUpdate(User.Identity.GetUserId(), vm.EIN, vm.State.ToString());
+            _saveService.AddOrUpdate(vm.EIN, vm.State.ToString());
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={vm.EIN}", new { });
         }
     }

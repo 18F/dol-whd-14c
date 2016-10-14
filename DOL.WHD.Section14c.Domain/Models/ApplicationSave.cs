@@ -1,14 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models
 {
     public class ApplicationSave
     {
-        [Required]
-        public string UserId { get; set; }
+        public ApplicationSave()
+        {
+            ApplicationId = Guid.NewGuid();
+        }
 
-        [Required]
+        [Key]
         public string EIN { get; set; }
+
+        public Guid ApplicationId { get; set; }
 
         [Required]
         public string ApplicationState { get; set; }
