@@ -100,7 +100,7 @@
     <Compile Include="Domain\Models\ApplicationUserTests.cs" />
     <Compile Include="Domain\ViewModels\AccountBindingModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
-    <Compile Include="Domain\ViewModels\AddApplicationSaveTests.cs" />
+    <Compile Include="Domain\ViewModels\ApplicationSaveDTOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>

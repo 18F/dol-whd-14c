@@ -13,28 +13,31 @@ namespace DOL.WHD.Section14c.Business.Services
             _repository = repository;
         }
 
-        public string GetSave(string userId, string EIN)
+        public ApplicationSave GetSave(string EIN)
         {
-            string saveState = null;
-            var applicationSave = _repository.Get().SingleOrDefault(x => x.UserId == userId && x.EIN == EIN);
-            if (applicationSave != null)
-            {
-                saveState = applicationSave.ApplicationState;
-            }
-
-            return saveState;
+            return _repository.Get().SingleOrDefault(x => x.EIN == EIN);
         }
 
-        public void AddOrUpdate(string userId, string EIN, string state)
+        public void AddOrUpdate(string EIN, string state)
         {
-            var applicationSave = new ApplicationSave
+            var applicationSave = GetSave(EIN);
+            if (applicationSave != null)
             {
-                UserId = userId,
-                EIN = EIN,
-                ApplicationState = state
-            };
+                // if save already exists just update the state
+                applicationSave.ApplicationState = state;
 
-            _repository.AddOrUpdate(applicationSave);
+                _repository.SaveChanges();
+            }
+            else
+            {
+                applicationSave = new ApplicationSave
+                {
+                    EIN = EIN,
+                    ApplicationState = state
+                };
+
+                _repository.Add(applicationSave);
+            }
         }
 
         public void Dispose()

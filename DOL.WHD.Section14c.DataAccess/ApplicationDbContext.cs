@@ -42,9 +42,6 @@ namespace DOL.WHD.Section14c.DataAccess
                 .HasMany(s => s.WorkSiteType)
                 .WithMany()
                 .Map(m => m.ToTable("WorkSiteWorkSiteType"));
-
-            modelBuilder.Entity<ApplicationSave>()
-                .HasKey(s => new {s.UserId, s.EIN});
         }
     }
 }

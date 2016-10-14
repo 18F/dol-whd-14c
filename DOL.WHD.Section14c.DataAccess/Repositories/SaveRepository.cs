@@ -17,10 +17,15 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             return _dbContext.ApplicationSaves.AsQueryable();
         }
 
-        public void AddOrUpdate(ApplicationSave applicationSave)
+        public void Add(ApplicationSave applicationSave)
         {
-            _dbContext.ApplicationSaves.AddOrUpdate(applicationSave);
-            _dbContext.SaveChanges();
+            _dbContext.ApplicationSaves.Add(applicationSave);
+            SaveChanges();
+        }
+
+        public int SaveChanges()
+        {
+            return _dbContext.SaveChanges();
         }
 
         public void Dispose()

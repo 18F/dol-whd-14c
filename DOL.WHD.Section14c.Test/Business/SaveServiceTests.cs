@@ -23,10 +23,10 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new SaveService(_saveRepositoryMock);
 
             // Act
-            var save = service.GetSave("1", "30-1234567");
+            var save = service.GetSave("30-1234567");
 
             // Assert
-            Assert.AreEqual("{ \"name\": \"Barack Obama\", \"email:\" \"president@whitehouse.gov\" }", save);
+            Assert.AreEqual("{ \"name\": \"Barack Obama\", \"email:\" \"president@whitehouse.gov\" }", save.ApplicationState);
         }
 
         [TestMethod]
@@ -35,7 +35,6 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var newData = new ApplicationSave
             {
-                UserId = "2",
                 EIN = "30-9876543",
                 ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
             };
@@ -43,11 +42,41 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new SaveService(_saveRepositoryMock);
 
             // Act
-            service.AddOrUpdate(newData.UserId, newData.EIN, newData.ApplicationState);
-            var save = service.GetSave(newData.UserId, newData.EIN);
+            service.AddOrUpdate(newData.EIN, newData.ApplicationState);
+            var save = service.GetSave(newData.EIN);
 
             // Assert
-            Assert.AreEqual(newData.ApplicationState, save);
+            Assert.AreEqual(newData.ApplicationState, save.ApplicationState);
+        }
+
+        [TestMethod]
+        public void UpdatesSave()
+        {
+            // Arrange
+            var einToTest = "30-9876543";
+            var oldData = new
+            {
+                EIN = einToTest,
+                ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
+            };
+            var newData = new
+            {
+                EIN = einToTest,
+                ApplicationState = "{ \"name\": \"Michelle Obama\", \"email:\" \"first.lady@whitehouse.gov\" }"
+            };
+
+            var service = new SaveService(_saveRepositoryMock);
+            service.AddOrUpdate(einToTest, oldData.ApplicationState);
+            var existingRecord = service.GetSave(einToTest);
+
+            // Act
+            service.AddOrUpdate(einToTest, newData.ApplicationState);
+            var newRecord = service.GetSave(einToTest);
+
+            // Assert
+            Assert.AreEqual(newData.ApplicationState, newRecord.ApplicationState);
+            Assert.AreEqual(einToTest, newRecord.EIN);
+            Assert.AreEqual(existingRecord.ApplicationId, newRecord.ApplicationId); // Application ID should not be updated
         }
     }
 }
