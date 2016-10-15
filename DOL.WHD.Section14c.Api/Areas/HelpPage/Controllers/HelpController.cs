@@ -1,9 +1,8 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using DOL.WHD.Section14c.Areas.HelpPage;
-using DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions;
-using DOL.WHD.Section14c.Areas.HelpPage.Models;
+using DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions;
+using DOL.WHD.Section14c.Api.Areas.HelpPage.Models;
 
 namespace DOL.WHD.Section14c.Api.Areas.HelpPage.Controllers
 {

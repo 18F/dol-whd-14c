@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
-    public class ExampleRepository : IExampleRepository
+    public class ResponseRepository : IResponseRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        public ExampleRepository()
+        public ResponseRepository()
         {
             _dbContext = new ApplicationDbContext();
         }
 
-        public IEnumerable<int> GetNumbers()
+        public IQueryable<Response> Get()
         {
-            return _dbContext.Numbers.Select(x => x.Number);
+            return _dbContext.Responses.AsQueryable();
         }
 
         public void Dispose()

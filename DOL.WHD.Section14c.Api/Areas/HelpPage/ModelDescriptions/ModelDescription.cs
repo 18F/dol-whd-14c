@@ -1,6 +1,6 @@
 using System;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
-using DOL.WHD.Section14c.Areas.HelpPage.ModelDescriptions;
+using DOL.WHD.Section14c.Api.Areas.HelpPage.ModelDescriptions;
 
 namespace DOL.WHD.Section14c.Api.Areas.HelpPage
 {

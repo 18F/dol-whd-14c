@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess.Validators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace DOL.WHD.Section14c.Test.Business.Validators
+namespace DOL.WHD.Section14c.Test.DataAccess.Validators
 {
     [TestClass]
     public class Section14cPasswordValidatorTests

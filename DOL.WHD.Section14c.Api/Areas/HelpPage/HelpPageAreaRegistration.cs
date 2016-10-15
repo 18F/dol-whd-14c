@@ -1,8 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
-using DOL.WHD.Section14c.Api.Areas.HelpPage.App_Start;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

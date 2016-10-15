@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using DOL.WHD.Section14c.DataAccess.Identity;
 using DOL.WHD.Section14c.DataAccess.Validators;
 using DOL.WHD.Section14c.Domain.Models;
-using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
-namespace DOL.WHD.Section14c.Test.Business.Validators
+namespace DOL.WHD.Section14c.Test.DataAccess.Validators
 {
     [TestClass]
     public class Section14cUserValidatorTests
