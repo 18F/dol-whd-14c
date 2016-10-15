@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -7,6 +8,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public string FrequencyOfWorkMeasurements { get; set; }
 
-        // TODO: upload work measurement
+        // Work measurement
+        public Attachment Attachment { get; set; }
     }
 }

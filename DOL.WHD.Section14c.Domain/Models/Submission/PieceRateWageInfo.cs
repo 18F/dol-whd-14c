@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -19,6 +20,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public double PieceRatePerUnit { get; set; }
 
-        // TODO: upload documentation
+        // Documentation
+        public Attachment Attachment { get; set; }
     }
 }

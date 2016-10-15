@@ -69,6 +69,7 @@
     <Compile Include="Models\Submission\ApplicationSubmission.cs" />
     <Compile Include="Models\Submission\Employee.cs" />
     <Compile Include="Models\Submission\EmployerInfo.cs" />
+    <Compile Include="Models\Submission\Attachment.cs" />
     <Compile Include="Models\Submission\HourlyWageInfo.cs" />
     <Compile Include="Models\Submission\PieceRateWageInfo.cs" />
     <Compile Include="Models\Submission\PrevailingWageSurveyInfo.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ApplicationSaveDTO.cs" />
+    <Compile Include="ViewModels\FileDownload.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

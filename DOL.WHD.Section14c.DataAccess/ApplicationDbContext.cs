@@ -24,6 +24,8 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<ApplicationSave> ApplicationSaves { get; set; }
 
+        public DbSet<Attachment> FileUploads { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,6 +44,7 @@ namespace DOL.WHD.Section14c.DataAccess
                 .HasMany(s => s.WorkSiteType)
                 .WithMany()
                 .Map(m => m.ToTable("WorkSiteWorkSiteType"));
+
         }
     }
 }
