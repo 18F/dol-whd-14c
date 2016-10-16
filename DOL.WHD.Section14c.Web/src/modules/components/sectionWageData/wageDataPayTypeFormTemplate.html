@@ -1,0 +1,291 @@
+<div class="form-question-group force-margin" ng-show="paytype">
+    <div class="form-question-block">
+        <div class="form-question-text">How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?</div>
+        <div class="form-question-answer">
+            <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1">
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</div>
+        <div class="form-question-answer">
+            <label for="jobName">Name of Job or Contract</label>
+            <input id="jobName" name="jobName" type="text">
+            <label for="jobDescription">Description of Work Performed</label>
+            <textarea id="jobDescription" name="jobDescription"></textarea>
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <legend class="usa-sr-only">Prevailing Wage Method</legend>
+
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="wagemethod_survey" type="radio" name="wage-method" value="survey" ng-model="formData.prevailingWageMethod">
+                    <label for="wagemethod_survey">Prevailing Wage Survey</label>
+                </li>
+                <li>
+                    <input id="wagemethod_alternate" type="radio" name="wage-method" value="alternate" ng-model="formData.prevailingWageMethod">
+                    <label for="wagemethod_alternate">Alternate Wage Data</label>
+                </li>
+                <li>
+                    <input id="wagemethod_sca" type="radio" name="wage-method" value="sca" ng-model="formData.prevailingWageMethod">
+                    <label for="wagemethod_sca">SCA Wage Determination</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'survey'">
+        <div class="form-question-block">
+            <div class="form-question-text">Provide information for the most recent Prevailing Wage survey conducted for the job or contract indentified above:</div>
+            <div class="form-question-answer">
+                <label for="prevailingWageDetermined">Prevailing Wage Determined based on this survey</label>
+                <input id="prevailingWageDetermined" name="prevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01">
+                <label>You must provide <strong>3</strong> Source Employers for the survey</label>
+                <div ng-show="vm.addingEmployer">
+                    <hr>
+                    <label for="sourceEmployerName">Source Employer Name</label>
+                    <input id="sourceEmployerName" name="sourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
+
+                    <form class="usa-form-large">
+                        <fieldset>
+                          <label for="mailing-address-1">Street address 1</label>
+                          <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="vm.activeSourceEmployer.address.streetAddress">
+
+                          <label for="mailing-address-2">Street address 2 <span class="usa-additional_text">Optional</span></label>
+                          <input id="mailing-address-2" name="mailing-address-2" type="text">
+
+                          <div>
+                            <div class="usa-input-grid usa-input-grid-medium">
+                              <label for="city">City</label>
+                              <input id="city" name="city" type="text" ng-model="vm.activeSourceEmployer.address.city">
+                            </div>
+
+                            <div class="usa-input-grid usa-input-grid-small">
+                              <label for="state">State</label>
+                              <select id="state" name="state" ng-model="vm.activeSourceEmployer.address.state">
+                                <option value></option>
+                                <option value="AL">Alabama</option>
+                                <option value="AK">Alaska</option>
+                                <option value="AZ">Arizona</option>
+                                <option value="AR">Arkansas</option>
+                                <option value="CA">California</option>
+                                <option value="CO">Colorado</option>
+                                <option value="CT">Connecticut</option>
+                                <option value="DE">Delaware</option>
+                                <option value="DC">District of Columbia</option>
+                                <option value="FL">Florida</option>
+                                <option value="GA">Georgia</option>
+                                <option value="HI">Hawaii</option>
+                                <option value="ID">Idaho</option>
+                                <option value="IL">Illinois</option>
+                                <option value="IN">Indiana</option>
+                                <option value="IA">Iowa</option>
+                                <option value="KS">Kansas</option>
+                                <option value="KY">Kentucky</option>
+                                <option value="LA">Louisiana</option>
+                                <option value="ME">Maine</option>
+                                <option value="MD">Maryland</option>
+                                <option value="MA">Massachusetts</option>
+                                <option value="MI">Michigan</option>
+                                <option value="MN">Minnesota</option>
+                                <option value="MS">Mississippi</option>
+                                <option value="MO">Missouri</option>
+                                <option value="MT">Montana</option>
+                                <option value="NE">Nebraska</option>
+                                <option value="NV">Nevada</option>
+                                <option value="NH">New Hampshire</option>
+                                <option value="NJ">New Jersey</option>
+                                <option value="NM">New Mexico</option>
+                                <option value="NY">New York</option>
+                                <option value="NC">North Carolina</option>
+                                <option value="ND">North Dakota</option>
+                                <option value="OH">Ohio</option>
+                                <option value="OK">Oklahoma</option>
+                                <option value="OR">Oregon</option>
+                                <option value="PA">Pennsylvania</option>
+                                <option value="RI">Rhode Island</option>
+                                <option value="SC">South Carolina</option>
+                                <option value="SD">South Dakota</option>
+                                <option value="TN">Tennessee</option>
+                                <option value="TX">Texas</option>
+                                <option value="UT">Utah</option>
+                                <option value="VT">Vermont</option>
+                                <option value="VA">Virginia</option>
+                                <option value="WA">Washington</option>
+                                <option value="WV">West Virginia</option>
+                                <option value="WI">Wisconsin</option>
+                                <option value="WY">Wyoming</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <label for="zip">ZIP</label>
+                          <input class="usa-input-medium" id="zip" name="zip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="vm.activeSourceEmployer.address.zipCode">
+                        </fieldset>
+                    </form>
+
+                    <label for="sourceEmployerPhone">Telephone Number</label>
+                    <input id="sourceEmployerPhone" name="sourceEmployerPhone" type="text" class="phoneno" ng-model="vm.activeSourceEmployer.phone">
+
+                    <label for="sourceEmployerContactName">Full Name of Individual Contacted</label>
+                    <input id="sourceEmployerContactName" name="sourceEmployerContactName" type="text" ng-model="vm.activeSourceEmployer.contactName">
+
+                    <label for="sourceEmployerContactTitle">Title of Individual Contacted</label>
+                    <input id="sourceEmployerContactTitle" name="sourceEmployerContactTitle" type="text" ng-model="vm.activeSourceEmployer.contactTitle">
+
+                    <label>Date of Contact</label>
+                    <fieldset>
+                        <div class="usa-date-of-birth">
+                          <div class="usa-form-group usa-form-group-month">
+                            <label for="dateOfContactMonth">Month</label>
+                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactMonth" name="dateOfContactMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.activeSourceEmployer.contactDate.month">
+                          </div>
+                          <div class="usa-form-group usa-form-group-day">
+                            <label for="dateOfContactDay">Day</label>
+                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactDay" name="dateOfContactDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.activeSourceEmployer.contactDate.day">
+                          </div>
+                          <div class="usa-form-group usa-form-group-year">
+                            <label for="dateOfContactYear">Year</label>
+                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactYear" name="dateOfContactYear" pattern="[0-9]{4}" type="number" min="1900" max="2000" value="" ng-model="vm.activeSourceEmployer.contactDate.year">
+                          </div>
+                        </div>
+                    </fieldset>
+
+                    <label for="sourceEmployerJobDescription">Brief Description of Job/Task</label>
+                    <input id="sourceEmployerJobDescription" name="sourceEmployerJobDescription" type="text" ng-model="vm.activeSourceEmployer.jobDescription">
+
+                    <label for="sourceEmployerWage">Experience Worker Wage Provided</label>
+                    <input id="sourceEmployerWage" name="sourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
+
+                    <label for="sourceEmployerBasis">Basis for Conclusion Wage Rate is Not Based on Entry</label>
+                    <input id="sourceEmployerBasis" name="sourceEmployerBasis" type="text" ng-model="vm.activeSourceEmployer.conclusionWageRateNotBasedOnEntry">
+
+                    <div class="form-spaced-div" ng-show="vm.addingEmployer">
+                        <button class="grey-button" ng-click="vm.cancelAddSourceEmployer()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addSourceEmployer()">Save Source Employer</button></span>
+                    </div>
+                    <hr>
+                </div>
+                <button ng-click="vm.addingEmployer = true" ng-hide="vm.addingEmployer">Add a Source Employer</button>
+                <table class="usa-table-borderless" ng-show="formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers.length">
+                    <thead>
+                        <tr>
+                            <th scope="col">Work Site Name</th>
+                            <th scope="col">Experienced Wage Provided</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="employer in formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers">
+                            <th scope="row">{{ employer.employerName }}</th>
+                            <td>${{ employer.experiencedWorkerWageProvided }}</td>
+                            <td><button class="green-button" ng-click="vm.editSourceEmployer($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteSourceEmployer($index)">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <label>If needed, attach an additional sheet headed "Prevailing Wage Determination-{{ paytype === 'hourly' ? 'Hourly' : 'Piece Rate'}}"</label>
+                <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onHourlyDeterminationSelected(this)">
+                <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedHourlyDetermination" name="attachedHourlyDetermination" class="upload-input" type="text" ng-model="formData.hourlyDeterminationName" disabled>
+                <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'alternate'">
+        <div class="form-question-block">
+            <div class="form-question-text">Provide the alternate wage data source used and the prevailing wage provided by that source:</div>
+            <label>Examples of alternate sources include U.S. Bureau of Labor Statistics (BLS) or private or State employment services data.
+            <div class="form-question-answer">
+                <label for="alternateWorkDescription">Description of Work (include job classification code, if known)</label>
+                <textarea id="alternateWorkDescription" name="alternateWorkDescription"></textarea>
+
+                <label for="alternateDataSourceUsed">Alternate data source used </label>
+                <input id="alternateDataSourceUsed" name="alternateDataSourceUsed" type="text">
+
+                <label for="prevailingWageProvidedBySource">Prevailing wage provided by source</label>
+                <input id="prevailingWageProvidedBySource" name="prevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01">
+
+                <label>Date data retrieved</label>
+                <fieldset>
+                    <div class="usa-date-of-birth">
+                      <div class="usa-form-group usa-form-group-month">
+                        <label for="dateRetrievedMonth">Month</label>
+                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedMonth" name="dateRetrievedMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.activeSourceEmployer.contactDate.month">
+                      </div>
+                      <div class="usa-form-group usa-form-group-day">
+                        <label for="dateRetrievedDay">Day</label>
+                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedDay" name="dateRetrievedDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.activeSourceEmployer.contactDate.day">
+                      </div>
+                      <div class="usa-form-group usa-form-group-year">
+                        <label for="dateRetrievedYear">Year</label>
+                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedYear" name="dateRetrievedYear" pattern="[0-9]{4}" type="number" min="1900" max="2000" value="" ng-model="vm.activeSourceEmployer.contactDate.year">
+                      </div>
+                    </div>
+                    <label class="example">Example: 04 30 2016</label>
+                </fieldset>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'sca'">
+        <div class="form-question-block">
+            <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
+            <div class="form-question-answer">
+                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onSCAWageDeterminationSelected(this)">
+                <label for="scaWageDeterminationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedSCAWageDetermination" name="attachedSCAWageDetermination" class="upload-input" type="text" ng-model="formData.scaWageDeterminationName" disabled>
+                <label class="underlabel" for="attachedSCAWageDetermination">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-question-group" ng-show="paytype === 'hourly'">
+        <div class="form-question-block">
+            <div class="form-question-text">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</div>
+            <div class="form-question-answer">
+                <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text">
+            </div>
+        </div>
+
+        <div class="form-question-block">
+            <div class="form-question-text">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</div>
+            <div class="form-question-answer">
+                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onStudySelected(this)">
+                <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" ng-model="formData.workMeasurementStudyName" disabled>
+                <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-question-group" ng-show="paytype === 'piecerate'">
+        <div class="form-question-block">
+            <div class="form-question-text">Provide the following information for the job or contract identified above:</div>
+            <div class="form-question-answer">
+                <label for="pieceRateWorkDescription">Descripton of Work</label>
+                <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" type="text">
+
+                <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
+                <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>rate per hour</label>
+
+                <label for="standardProductivity">Standard Productivity</label>
+                <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>units per hour</label>
+
+                <label for="pieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
+                <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>rate per unit</label>
+            </div>
+        </div>
+
+        <div class="form-question-block">
+            <div class="form-question-text">Attach all documents of the methods used to determine the standard productivity and the piece rate.</div>
+            <div class="form-question-answer">
+                <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. "standard setter").</span>
+                <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onPieceRateDocumentSelected(this)">
+                <label for="pieceRateDocumentationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedPieceRateDocument" name="attachedPieceRateDocument" class="upload-input" type="text" ng-model="formData.pieceRateDocumentName" disabled>
+                <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+        </div>
+    </div>
+</div>

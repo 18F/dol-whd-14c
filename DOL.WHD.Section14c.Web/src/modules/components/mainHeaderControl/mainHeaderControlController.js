@@ -1,15 +1,15 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('mainHeaderControlController', function($scope, $location, stateService, apiService) {
+    ngModule.controller('mainHeaderControlController', function($scope, $rootScope, $location, stateService, apiService) {
         'ngInject';
         'use strict';
 
-        let vm = this;
+        var vm = this;
         vm.stateService = stateService;
 
-        $scope.onNavClick = function() {
-
-        }
+        // Manually passing loadImage function through since scope is redefined
+        // in the directive
+        $scope.loadImage = $rootScope.loadImage;
     });
 }

@@ -1,0 +1,30 @@
+<div class="form-page">
+    <div class="form-question-block">
+        <div class="form-question-text">How did the employer pay subminimum wage rates to workers with disabilities in the most recent fiscal quarter?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <legend class="usa-sr-only">Pay Type</legend>
+
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="paytype_hourly" type="radio" name="pay-type" value="hourly" ng-model="paytype">
+                    <label for="paytype_hourly">Hourly</label>
+                </li>
+                <li>
+                    <input id="paytype_piecerate" type="radio" name="pay-type" value="piecerate" ng-model="paytype">
+                    <label for="paytype_piecerate">Piece Rate</label>
+                </li>
+                <li>
+                    <input id="paytype_both" type="radio" name="pay-type" value="both" ng-model="paytype">
+                    <label for="paytype_both">Both</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+    <div class="form-tabbed-section" ng-show="paytype === 'both'">
+        <div class="form-tab {{ section.activeTab === 1 ? 'active' : '' }}" ng-click="section.activeTab = 1">1 Hourly</div>
+        <div class="form-tab {{ section.activeTab === 2 ? 'active' : '' }}" ng-click="section.activeTab = 2">2 Piece Rate</div>
+    </div>
+    <wage-data-pay-type-form paytype="hourly" form-data="formData" ng-show="paytype === 'hourly' || (paytype === 'both' && section.activeTab !== 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="piecerate" form-data="formData" ng-show="paytype === 'piecerate' || (paytype === 'both' && section.activeTab === 2)"></wage-data-pay-type-form>
+</div>
+<form-footer-controls></form-footer-controls>

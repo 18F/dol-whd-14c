@@ -4,12 +4,17 @@
     .nav-button {
         float: left;
         padding: 10px 20px;
-        border: 1px solid $darker-grey;
-        background-color: #ddd;
+        border: 1px solid $text-color;
+        background-color: $button-grey;
         font-size: 16px;
+        cursor: pointer;
 
         &:not(:first-of-type) {
             border-left: none;
+        }
+
+        &:hover {
+            background-color: darken($button-grey, 10%);
         }
 
         &.active {

@@ -7,6 +7,7 @@ module.exports = function(ngModule) {
         'use strict';
 
         let state = {
+            currentSection: 0,
             form_data: { },
             user: {
                 email: '',
@@ -15,6 +16,12 @@ module.exports = function(ngModule) {
         };
 
         /*** Properties ***/
+
+        // currentSection
+        Object.defineProperty(this, 'currentSection', {
+            get: function() { return state.currentSection; },
+            set: function(value) { state.currentSection = value; }
+        });
 
         // user
         Object.defineProperty(this, 'user', {

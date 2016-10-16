@@ -5,7 +5,7 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
-        let vm = this;
+        var vm = this;
         vm.stateService = stateService;
 
         $scope.formVals = {
