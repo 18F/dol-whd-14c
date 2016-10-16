@@ -21,8 +21,8 @@
         </fieldset>
     </div>
     <div class="form-tabbed-section" ng-show="formData.paytype === 'both'">
-        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1">1 Hourly</div>
-        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2">2 Piece Rate</div>
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1"><div class="circle">1</div> Hourly</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2"><div class="circle">2</div> Piece Rate</div>
     </div>
     <wage-data-pay-type-form paytype="hourly" ng-show="formData.paytype === 'hourly' || (formData.paytype === 'both' && vm.activeTab !== 2)"></wage-data-pay-type-form>
     <wage-data-pay-type-form paytype="piecerate" ng-show="formData.paytype === 'piecerate' || (formData.paytype === 'both' && vm.activeTab === 2)"></wage-data-pay-type-form>

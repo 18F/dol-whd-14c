@@ -53,6 +53,15 @@
                     border-bottom: 1px solid $text-color;
                     background-color: $form-em-grey;
                 }
+
+                .circle {
+                    display: inline-block;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 1px solid $text-color;
+                    text-align: center;
+                }
             }
         }
 
