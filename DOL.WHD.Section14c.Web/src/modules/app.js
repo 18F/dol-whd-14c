@@ -41,7 +41,7 @@ require('./components')(app);
 require('./pages')(app);
 require('./services')(app);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $compileProvider) {
     $routeProvider
     .when('/', {
         controller: 'landingPageController',
@@ -60,6 +60,9 @@ app.config(function($routeProvider) {
         controller: 'userRegistrationPageController',
         template: require('./pages/userRegistrationPageTemplate.html')
     })
+    .when('/section/:section_id', {
+        template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; }
+    })
     .otherwise({
         redirectTo: '/'
     });
@@ -67,7 +70,6 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope) {
     $rootScope.loadImage = function(image) {
-        console.log("HERE HERE HERE");
         return require('../images/' + image);
     };
 });

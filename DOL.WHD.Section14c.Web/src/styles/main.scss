@@ -2,6 +2,8 @@
 @import "~susy/sass/susy";
 @import "bourbon";
 @import "globals";
+@import "forms";
+@import "modules/formFooterControls";
 @import "modules/mainNavigationControl";
 @import "modules/mainHeaderControl";
 
@@ -16,7 +18,11 @@ $susy: (
     margin-top: 40px;
 }
 
-.main-content {
-    @include span(12 of 12);
-    margin-top: 40px;
+@include nested(12) {
+
+    .main-content {
+        @include span(12);
+        margin-top: 40px;
+    }
+    
 }
