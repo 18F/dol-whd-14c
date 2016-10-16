@@ -187,7 +187,7 @@
                     </tbody>
                 </table>
                 <label>If needed, attach an additional sheet headed "Prevailing Wage Determination-{{ paytype === 'hourly' ? 'Hourly' : 'Piece Rate'}}"</label>
-                <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onHourlyDeterminationSelected(this)">
+                <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onHourlyDeterminationSelected(this)">
                 <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedHourlyDetermination" name="attachedHourlyDetermination" class="upload-input" type="text" ng-model="formData.hourlyDeterminationName" disabled>
                 <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
@@ -235,7 +235,7 @@
         <div class="form-question-block">
             <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
             <div class="form-question-answer">
-                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onSCAWageDeterminationSelected(this)">
+                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAWageDeterminationSelected(this)">
                 <label for="scaWageDeterminationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedSCAWageDetermination" name="attachedSCAWageDetermination" class="upload-input" type="text" ng-model="formData.scaWageDeterminationName" disabled>
                 <label class="underlabel" for="attachedSCAWageDetermination">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
@@ -253,7 +253,7 @@
         <div class="form-question-block">
             <div class="form-question-text">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</div>
             <div class="form-question-answer">
-                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onStudySelected(this)">
+                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onStudySelected(this)">
                 <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" ng-model="formData.workMeasurementStudyName" disabled>
                 <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
@@ -282,7 +282,7 @@
             <div class="form-question-text">Attach all documents of the methods used to determine the standard productivity and the piece rate.</div>
             <div class="form-question-answer">
                 <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. "standard setter").</span>
-                <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().onPieceRateDocumentSelected(this)">
+                <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onPieceRateDocumentSelected(this)">
                 <label for="pieceRateDocumentationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedPieceRateDocument" name="attachedPieceRateDocument" class="upload-input" type="text" ng-model="formData.pieceRateDocumentName" disabled>
                 <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>

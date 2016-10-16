@@ -9,7 +9,8 @@ module.exports = function(ngModule) {
           restrict: 'EA',
           template: require('./sectionWageDataTemplate.html'),
           controller: 'sectionWageDataController',
-          controllerAs: 'section'
+          scope: { },
+          controllerAs: 'vm'
       };
   });
 }

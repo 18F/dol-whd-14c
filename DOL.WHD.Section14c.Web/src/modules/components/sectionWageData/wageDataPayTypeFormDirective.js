@@ -10,8 +10,7 @@ module.exports = function(ngModule) {
           template: require('./wageDataPayTypeFormTemplate.html'),
           controller: 'wageDataPayTypeFormController',
           scope: {
-              paytype: '@',
-              formData: '='
+              paytype: '@'
           },
           controllerAs: 'vm'
       };

@@ -5,10 +5,9 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
-        var section = this;
-        section.stateService = stateService;
-        section.activeTab = 1;
+        $scope.formData = stateService.formData;
 
-        $scope.formData = { };
+        var vm = this;
+        vm.activeTab = 1;
   });
 }

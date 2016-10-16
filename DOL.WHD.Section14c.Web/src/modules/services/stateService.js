@@ -9,6 +9,7 @@ module.exports = function(ngModule) {
         let state = {
             currentSection: 0,
             form_data: { },
+            application_data: { },
             user: {
                 email: '',
                 ein: ''
@@ -36,7 +37,7 @@ module.exports = function(ngModule) {
         });
 
         // Core form data object model
-        Object.defineProperty(this, 'form_data', {
+        Object.defineProperty(this, 'formData', {
             get: function() { return state.form_data; },
             set: function(value) { state.form_data = value; }
         });

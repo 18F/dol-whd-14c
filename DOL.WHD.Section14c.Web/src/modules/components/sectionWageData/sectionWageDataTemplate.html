@@ -6,25 +6,24 @@
 
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="paytype_hourly" type="radio" name="pay-type" value="hourly" ng-model="paytype">
+                    <input id="paytype_hourly" type="radio" name="pay-type" value="hourly" ng-model="formData.paytype">
                     <label for="paytype_hourly">Hourly</label>
                 </li>
                 <li>
-                    <input id="paytype_piecerate" type="radio" name="pay-type" value="piecerate" ng-model="paytype">
+                    <input id="paytype_piecerate" type="radio" name="pay-type" value="piecerate" ng-model="formData.paytype">
                     <label for="paytype_piecerate">Piece Rate</label>
                 </li>
                 <li>
-                    <input id="paytype_both" type="radio" name="pay-type" value="both" ng-model="paytype">
+                    <input id="paytype_both" type="radio" name="pay-type" value="both" ng-model="formData.paytype">
                     <label for="paytype_both">Both</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <div class="form-tabbed-section" ng-show="paytype === 'both'">
-        <div class="form-tab {{ section.activeTab === 1 ? 'active' : '' }}" ng-click="section.activeTab = 1">1 Hourly</div>
-        <div class="form-tab {{ section.activeTab === 2 ? 'active' : '' }}" ng-click="section.activeTab = 2">2 Piece Rate</div>
+    <div class="form-tabbed-section" ng-show="formData.paytype === 'both'">
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1">1 Hourly</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2">2 Piece Rate</div>
     </div>
-    <wage-data-pay-type-form paytype="hourly" form-data="formData" ng-show="paytype === 'hourly' || (paytype === 'both' && section.activeTab !== 2)"></wage-data-pay-type-form>
-    <wage-data-pay-type-form paytype="piecerate" form-data="formData" ng-show="paytype === 'piecerate' || (paytype === 'both' && section.activeTab === 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="hourly" ng-show="formData.paytype === 'hourly' || (formData.paytype === 'both' && vm.activeTab !== 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="piecerate" ng-show="formData.paytype === 'piecerate' || (formData.paytype === 'both' && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
-<form-footer-controls></form-footer-controls>
