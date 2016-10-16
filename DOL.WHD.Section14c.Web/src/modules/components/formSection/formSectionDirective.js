@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.directive('formSection', function() {
+    ngModule.directive('formSection', function() {
 
-      'use strict';
+        'use strict';
 
-      return {
-          restrict: 'EA',
-          transclude: true,
-          template: require('./formSectionTemplate.html')
-      };
-  });
+        return {
+            restrict: 'EA',
+            transclude: true,
+            template: require('./formSectionTemplate.html'),
+            scope: { }
+        };
+    });
 }

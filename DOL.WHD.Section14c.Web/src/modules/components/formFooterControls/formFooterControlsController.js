@@ -6,6 +6,17 @@ module.exports = function(ngModule) {
         'use strict';
 
         var vm = this;
-        vm.stateService = stateService;
+
+        this.doSave = function() {
+            console.log(stateService.formData);
+        }
+
+        this.onNextClick = function() {
+            this.doSave();
+        }
+
+        this.onBackClick = function() {
+            this.doSave();
+        }
     });
 }

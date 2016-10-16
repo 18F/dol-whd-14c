@@ -15,6 +15,8 @@ module.exports = function(ngModule) {
         vm.activeSourceEmployer = {};
         vm.activeSourceEmployerIndex = -1;
 
+        $scope.formData = stateService.formData;
+
         $scope.formData.wageTypeInfo = {
             numWorkers : 0,
             jobName : '',
@@ -26,28 +28,28 @@ module.exports = function(ngModule) {
             }
         };
 
-        $scope.onStudySelected = function(fileinput) {
+        this.onStudySelected = function(fileinput) {
             $scope.formData.workMeasurementStudyName = fileinput.files.length > 0 ? fileinput.files[0].name : '';
             if(!$scope.$$phase) {
                 $scope.$apply();
             }
         }
 
-        $scope.onHourlyDeterminationSelected = function(fileinput) {
+        this.onHourlyDeterminationSelected = function(fileinput) {
             $scope.formData.hourlyDeterminationName = fileinput.files.length > 0 ? fileinput.files[0].name : '';
             if(!$scope.$$phase) {
                 $scope.$apply();
             }
         }
 
-        $scope.onSCAWageDeterminationSelected = function(fileinput) {
+        this.onSCAWageDeterminationSelected = function(fileinput) {
             $scope.formData.scaWageDeterminationName = fileinput.files.length > 0 ? fileinput.files[0].name : '';
             if(!$scope.$$phase) {
                 $scope.$apply();
             }
         }
 
-        $scope.onPieceRateDocumentSelected = function(fileinput) {
+        this.onPieceRateDocumentSelected = function(fileinput) {
             $scope.formData.pieceRateDocumentName = fileinput.files.length > 0 ? fileinput.files[0].name : '';
             if(!$scope.$$phase) {
                 $scope.$apply();
