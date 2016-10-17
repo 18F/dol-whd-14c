@@ -28,6 +28,31 @@
             color: lighten($text-color, 25%);
         }
 
+        .help-link {
+            display: inline-block;
+            width: 1.1em;
+            height: 1.1em;
+            line-height: 1.1em;
+            font-weight: 700;
+            border-radius: 50%;
+            vertical-align: middle;
+            text-align: center;
+            background-color: $help-link-color;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .help-text {
+            font-weight: 400;
+            background-color: $help-em-color;
+            padding: 10px;
+            display: none;
+
+            &.show {
+                display: block;
+            }
+        }
+
         /* Custom form tabs (as seen in Wage Data section) */
         .form-tabbed-section {
             @include clearfix;
@@ -152,4 +177,23 @@
         }
     }
 
+    .form-sidebar {
+        @include span (last 4);
+        text-align: right;
+
+        .links-block {
+            background-color: $form-em-grey;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-align: left;
+
+            &.ng-hide {
+                transform: translateX(300%);
+            }
+
+            &.ng-hide-add, &.ng-hide-remove {
+                transition: all linear 0.4s;
+            }
+        }
+    }
 }

@@ -24,6 +24,34 @@
         <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1"><div class="circle">1</div> Hourly</div>
         <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2"><div class="circle">2</div> Piece Rate</div>
     </div>
-    <wage-data-pay-type-form paytype="hourly" ng-show="formData.paytype === 'hourly' || (formData.paytype === 'both' && vm.activeTab !== 2)"></wage-data-pay-type-form>
-    <wage-data-pay-type-form paytype="piecerate" ng-show="formData.paytype === 'piecerate' || (formData.paytype === 'both' && vm.activeTab === 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="hourly" show-all-help="vm.showAllHelp"  ng-show="formData.paytype === 'hourly' || (formData.paytype === 'both' && vm.activeTab !== 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="piecerate" show-all-help="vm.showAllHelp" ng-show="formData.paytype === 'piecerate' || (formData.paytype === 'both' && vm.activeTab === 2)"></wage-data-pay-type-form>
+</div>
+<div class="form-sidebar">
+    <div><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a> | <a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></div>
+    <div class="links-block" ng-show="vm.showLinks === true">
+        Prevailing Wage Calculators:<br>
+        <a href="">Straight or Simple Average</a><br>
+        <a href="">Weighted Average</a><br>
+        <br>
+        Commensurate Hourly Wage Calculators:<br>
+        <a href="">Rework</a><br>
+        <a href="">Wighted Tasks, Standard Weight Factor</a><br>
+        <a href="">Weighted Tasks, Ww/D Weight Factor</a><br>
+        <a href="">90/10 Form, Single Task, Variable Time</a><br>
+        <a href="">90/10 Form, Fixed Time, Variable Units</a><br>
+        <br>
+        Piece Rate - Number of Units in Standard Calculators:<br>
+        <a href="">Fixed Number of Units, PF&D 9 min</a><br>
+        <a href="">Fixed Number of Units, PF&D 10 min</a><br>
+        <a href="">Fixed Time, PF&D 9 min</a><br>
+        <a href="">Fixed Time, PF&D 10 min</a><br>
+        <a href="">Piece Rate Calculator</a><br>
+        <br>
+        New Minimum Wage Calculator<br>
+        <a href="">New Prevailing Wage Calculator (Based on Minimum Wage Rate Change)</a><br>
+        <br>
+        User Guide<br>
+        <a href="">Section 14(c) Online Calculators User Guide (PDF)</a><br>
+    </div>
 </div>
