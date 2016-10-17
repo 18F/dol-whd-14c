@@ -9,5 +9,7 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.activeTab = 1;
+        vm.showLinks = false;
+        vm.showAllHelp = false;
   });
 }

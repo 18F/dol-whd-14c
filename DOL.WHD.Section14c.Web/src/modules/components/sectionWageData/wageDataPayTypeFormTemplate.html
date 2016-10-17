@@ -1,13 +1,21 @@
 <div class="form-question-group force-margin" ng-show="paytype">
     <div class="form-question-block">
-        <div class="form-question-text">How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?</div>
+        <div class="form-question-text">
+            How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <div class="form-question-answer">
             <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1">
         </div>
     </div>
 
     <div class="form-question-block">
-        <div class="form-question-text">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</div>
+        <div class="form-question-text">
+            What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <div class="form-question-answer">
             <label for="jobName">Name of Job or Contract</label>
             <input id="jobName" name="jobName" type="text">
@@ -17,7 +25,11 @@
     </div>
 
     <div class="form-question-block">
-        <div class="form-question-text">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</div>
+        <div class="form-question-text">
+            Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <legend class="usa-sr-only">Prevailing Wage Method</legend>
 
@@ -254,17 +266,26 @@
 
     <div class="form-question-group" ng-show="paytype === 'hourly'">
         <div class="form-question-block">
-            <div class="form-question-text">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</div>
+            <div class="form-question-text">
+                How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?
+                <helplink></helplink>
+                <helptext>This is the help text.</helptext>
+            </div>
             <div class="form-question-answer">
                 <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text">
             </div>
         </div>
 
         <div class="form-question-block">
-            <div class="form-question-text">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</div>
+            <div class="form-question-text">
+                Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.
+                <helplink></helplink>
+                <helptext>This is the help text.</helptext>
+            </div>
             <div class="form-question-answer" ng-show="formData.workMeasurementStudyAttachment == undefined">
                 <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onStudySelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
                 <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" disabled>
+
                 <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
             <div class="form-question-answer" ng-show="formData.workMeasurementStudyAttachment != undefined">
