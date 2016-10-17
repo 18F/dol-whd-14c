@@ -24,7 +24,7 @@
   <parameter name="AttachmentRepositoryRootFolder" defaultValue="AttachmentRepositoryRootFolder">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AttachmentRepositoryRootFolder']" />
   </parameter>
-  <parameter name="AllowedFileNamesRegex" defaultValue="AttachmentRepositoryRootFolder">
+  <parameter name="AllowedFileNamesRegex" defaultValue="^(.*\.(doc|docx|xls|xlsx|pdf|jpg|jpeg|png)$)?[^.]*$">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AllowedFileNamesRegex']" />
   </parameter>
 </parameters>
