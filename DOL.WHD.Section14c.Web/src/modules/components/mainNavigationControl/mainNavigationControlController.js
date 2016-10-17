@@ -7,12 +7,9 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
-
-        // set stateService.currentSection based on route for consistency
-        stateService.currentSection = $route.current.params.section_id;
+        vm.current = $route.current.params.section_id;
 
         this.onNavClick = function(event) {
-            console.log("HERE");
             var id = event.target.dataset.sectionid;
             $location.path("/section/" + id);
         }

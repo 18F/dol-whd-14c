@@ -6,8 +6,9 @@ module.exports = function(ngModule) {
     ngModule.service('stateService', function() {
         'use strict';
 
+        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+
         let state = {
-            currentSection: 0,
             form_data: { },
             user: {
                 email: '',
@@ -16,12 +17,6 @@ module.exports = function(ngModule) {
         };
 
         /*** Properties ***/
-
-        // currentSection
-        Object.defineProperty(this, 'currentSection', {
-            get: function() { return state.currentSection; },
-            set: function(value) { state.currentSection = value; }
-        });
 
         // user
         Object.defineProperty(this, 'user', {
@@ -49,6 +44,24 @@ module.exports = function(ngModule) {
 
         this.setFormValue = function(property, value) {
             merge(state.form_data, { [property]: value });
+        }
+
+        this.getNextSection = function(current) {
+            let index = sectionArray.indexOf(current) + 1;
+            if (index < sectionArray.length) {
+                return sectionArray[index];
+            }
+
+            return undefined;
+        }
+
+        this.getPreviousSection = function(current) {
+            let index = sectionArray.indexOf(current) - 1;
+            if (index >= 0) {
+                return sectionArray[index];
+            }
+
+            return undefined;
         }
     });
 }
