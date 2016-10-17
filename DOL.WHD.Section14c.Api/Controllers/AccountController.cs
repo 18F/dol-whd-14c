@@ -68,7 +68,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var user = await UserManager.FindByEmailAsync(model.Email);
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
-                    return BadRequest("The user name or password is incorrect.");
+                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 var validCredentials = await UserManager.FindAsync(user.UserName, model.OldPassword);
@@ -79,7 +79,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         await UserManager.AccessFailedAsync(user.Id);
                     }
-                    return BadRequest("The user name or password is incorrect.");
+                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 userId = user.Id;

@@ -1,0 +1,16 @@
+@include nested(12) {
+
+    .form-footer-controls {
+        @include span(12);
+        margin-top: 80px;
+
+        .back-button {
+            @extend .grey-button;
+        }
+
+        .next-button {
+            @extend .green-button;
+        }
+    }
+
+}

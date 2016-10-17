@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var path = require('path');
+var bourbon = require('node-bourbon').includePaths;
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -43,7 +44,7 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
+				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap&includePaths[]=' + bourbon]
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
   		    {

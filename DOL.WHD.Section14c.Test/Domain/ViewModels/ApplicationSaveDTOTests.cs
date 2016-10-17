@@ -6,14 +6,14 @@ using Newtonsoft.Json.Linq;
 namespace DOL.WHD.Section14c.Test.Domain.ViewModels
 {
     [TestClass]
-    public class AddApplicationSaveTests
+    public class ApplicationSaveDTOTests
     {
         [TestMethod]
-        public void AddApplicationSave_PublicProperties()
+        public void ApplicationSaveDTO_PublicProperties()
         {
             // Arrange
-            var userId = Guid.NewGuid().ToString();
             var ein = "30-1234567";
+            var applicationId = Guid.NewGuid();
             var state = JObject.Parse(@"
                 {
                     ""userId"" : ""5"",
@@ -23,16 +23,16 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
             
 
             // Act
-            var obj = new AddApplicationSave
+            var obj = new ApplicationSaveDTO()
             {
-                UserId = userId,
                 EIN = ein,
+                ApplicationId = applicationId,
                 State = state
             };
 
             // Assert
-            Assert.AreEqual(userId, obj.UserId);
             Assert.AreEqual(ein, obj.EIN);
+            Assert.AreEqual(applicationId, obj.ApplicationId);
             Assert.AreEqual(state, obj.State);
         }
     }

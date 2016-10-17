@@ -44,7 +44,7 @@ namespace DOL.WHD.Section14c.Api.Providers
                 {
                     // account locked
                     // use invalid user name or password message to avoid disclosing that a valid username was input
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
                 else if (validCredentials == null)
                 {
@@ -55,7 +55,7 @@ namespace DOL.WHD.Section14c.Api.Providers
                         await userManager.AccessFailedAsync(user.Id);
                     }
 
-                    context.SetError("invalid_grant", "The user name or password is incorrect.");
+                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
                 else if (passwordExpired)
                 {
@@ -82,7 +82,7 @@ namespace DOL.WHD.Section14c.Api.Providers
             else
             {
                 // invalid username
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
             }
         }
 

@@ -1,0 +1,155 @@
+@include nested(12) {
+
+    .form-page {
+        @include span(8);
+
+        .em-block {
+            background-color: $form-em-grey;
+            padding: 20px 30px;
+
+            table thead th {
+                background-color: darken($form-em-grey, 10%);
+            }
+        }
+
+        .underlabel {
+            margin-top: 0px;
+        }
+
+        .sidelabeled {
+            display: inline-block;
+
+            & + label {
+                display: inline-block;
+            }
+        }
+
+        label.example {
+            color: lighten($text-color, 25%);
+        }
+
+        /* Custom form tabs (as seen in Wage Data section) */
+        .form-tabbed-section {
+            @include clearfix;
+
+            margin-top: 40px;
+
+            .form-tab {
+                @include span(6);
+
+                padding: 10px;
+                cursor: pointer;
+                margin-right: 0px;
+
+                &:not(:first-of-type) {
+                    border-left: 1px solid $text-color;
+                }
+
+                &.active {
+                    border-top: 1px solid $text-color;
+                }
+
+                &:not(.active) {
+                    border-bottom: 1px solid $text-color;
+                    background-color: $form-em-grey;
+                }
+
+                .circle {
+                    display: inline-block;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 1px solid $text-color;
+                    text-align: center;
+                }
+            }
+        }
+
+        /* Form input sizing */
+        input.phoneno {
+            max-width: 18.2rem;
+        }
+
+        input.ein {
+            max-widht: 15.4rem;
+        }
+
+        input.other {
+            max-width: 25rem;
+        }
+
+        input.numeric2 {
+            max-width: 5rem;
+        }
+
+        input.numeric3 {
+            max-width: 5.6rem;
+        }
+
+        input.numeric5 {
+            max-width: 8.4rem;
+        }
+
+        input.numeric7 {
+            max-width: 10rem;
+        }
+
+        input.wage-rate {
+            max-width: 8.4rem;
+        }
+
+        input.wage-rate-ext {
+            max-width: 11.2rem;
+        }
+
+        .form-question-block {
+            &:not(:first-of-type) {
+                margin-top: 40px;
+            }
+
+            .form-question-text {
+                margin-bottom: 20px;
+                font-weight: 700;
+            }
+        }
+
+        .form-question-group {
+            &:not(:first-of-type), &.force-margin {
+                margin-top: 40px;
+            }
+        }
+
+        .form-spaced-div {
+            margin-top: 40px;
+        }
+
+        .city-field {
+            max-width: 20rem;
+        }
+
+        .state-field {
+            max-width: 5rem;
+        }
+
+        .zip-field {
+            max-width: 10rem;
+        }
+
+        /* Styling for upload button/input combos */
+        .upload-label {
+            margin-right: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            height: 4.4rem;
+            vertical-align: middle;
+            line-height: normal;
+        }
+
+        .upload-input {
+            display: inline-block;
+            margin-left: 0px;
+            vertical-align: middle;
+        }
+    }
+
+}

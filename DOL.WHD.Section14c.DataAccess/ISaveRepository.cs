@@ -7,6 +7,7 @@ namespace DOL.WHD.Section14c.DataAccess
     public interface ISaveRepository : IDisposable
     {
         IQueryable<ApplicationSave> Get();
-        void AddOrUpdate(ApplicationSave applicationSave);
+        void Add(ApplicationSave applicationSave);
+        int SaveChanges();
     }
 }

@@ -1,12 +1,8 @@
-using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Migrations
 {
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DOL.WHD.Section14c.DataAccess.ApplicationDbContext>
     {
@@ -29,9 +25,6 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            context.Numbers.AddOrUpdate(new ExampleModel() { Number = 1 });
-            context.Numbers.AddOrUpdate(new ExampleModel() { Number = 2 });
-            context.Numbers.AddOrUpdate(new ExampleModel() { Number = 3 });
 
             // Responses
             // NOTE: Do not edit or remove values. If you need to change a value, set its IsActive flag to false and add a new value. This protects data integrity
