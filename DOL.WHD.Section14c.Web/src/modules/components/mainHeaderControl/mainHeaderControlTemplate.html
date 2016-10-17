@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="header-status-bar">
-    <p class="pull-left">EIN: <span class="header-ein">{{ stateService.user.ein ? stateService.user.ein : "XX-XXXXXXX" }}</span></p>
-    <p class="pull-right"><a href="#">{{ stateService.user.email ? stateService.user.email : "Username" }}</a> | <a href="#">Save Work & Sign Out</a></p>
+    <p class="pull-left">EIN: <span class="header-ein">{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
+    <p class="pull-right"><a href="" ng-click="vm.userClick()">{{ vm.stateService.user.email ? vm.stateService.user.email : "Username" }}</a> | <a href="" ng-click="vm.saveClick()">Save Work & Sign Out</a></p>
 </div>
 <main-navigation-control></main-navigation-control>

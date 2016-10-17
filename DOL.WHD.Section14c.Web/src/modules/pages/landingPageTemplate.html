@@ -1,12 +1,12 @@
-<main-header-control></main-header-control>
-<div class="main-content">
-    <div ng-if="stateService.user.email">
-        Hello {{ stateService.user.email }}
-        <div>
-            <a href="#/changePassword">Change Password</a>
-        </div>
+<div ng-if="stateService.user.email">
+    Hello {{ stateService.user.email }}
+    <div>
+        <a href="#/section/assurances">Start Application</a>
     </div>
-    <div ng-if="!stateService.user.email">
-        Welcome! Please <a href="#/login">login</a> or <a href="#/register">register</a>
+    <div>
+        <a href="#/changePassword">Change Password</a>
     </div>
+</div>
+<div ng-if="!stateService.user.email">
+    Welcome! Please <a href="#/login">login</a> or <a href="#/register">register</a>
 </div>

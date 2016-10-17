@@ -10,9 +10,9 @@ module.exports = function(ngModule) {
 
         let state = {
             form_data: { },
+            activeEIN: undefined,
             user: {
-                email: '',
-                ein: ''
+                email: ''
             }
         };
 
@@ -22,6 +22,11 @@ module.exports = function(ngModule) {
         Object.defineProperty(this, 'user', {
             get: function() { return state.user; },
             set: function(value) { state.user = value; }
+        });
+
+        Object.defineProperty(this, 'ein', {
+            get: function() { return state.activeEIN; },
+            set: function(value) { state.activeEIN = value; }
         });
 
         // REST access token
