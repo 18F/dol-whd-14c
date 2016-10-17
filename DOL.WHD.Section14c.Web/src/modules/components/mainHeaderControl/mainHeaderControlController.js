@@ -11,5 +11,13 @@ module.exports = function(ngModule) {
         // Manually passing loadImage function through since scope is redefined
         // in the directive
         $scope.loadImage = $rootScope.loadImage;
+
+        this.userClick = function() {
+            //TODO
+        }
+
+        this.saveClick = function() {
+            //TODO
+        }
     });
 }
