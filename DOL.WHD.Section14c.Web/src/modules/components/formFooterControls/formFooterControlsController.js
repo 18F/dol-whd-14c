@@ -8,15 +8,25 @@ module.exports = function(ngModule) {
         var vm = this;
 
         this.doSave = function() {
-            console.log(stateService.formData);
+            apiService.saveApplication(stateService.formData);
         }
 
         this.onNextClick = function() {
             this.doSave();
+
+            //TODO: navigate to next section
         }
 
         this.onBackClick = function() {
             this.doSave();
+
+            //TODO: navigate to prev section
+        }
+
+        this.onSaveClick = function() {
+            this.doSave();
+
+            //TODO: exit application form
         }
     });
 }

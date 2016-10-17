@@ -9,7 +9,6 @@ module.exports = function(ngModule) {
         let state = {
             currentSection: 0,
             form_data: { },
-            application_data: { },
             user: {
                 email: '',
                 ein: ''

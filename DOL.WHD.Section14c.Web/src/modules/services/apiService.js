@@ -64,5 +64,9 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
+
+        this.saveApplication = function(applicationData) {
+            //TODO: save application data to server
+        }
     });
 }
