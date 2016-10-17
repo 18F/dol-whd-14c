@@ -1,11 +1,13 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('formFooterControlsController', function($scope, $location, stateService, apiService) {
+    ngModule.controller('formFooterControlsController', function($scope, $location, $route, stateService, apiService) {
         'ngInject';
         'use strict';
 
         var vm = this;
+        vm.next = stateService.getNextSection($route.current.params.section_id);
+        vm.previous = stateService.getPreviousSection($route.current.params.section_id);
 
         this.doSave = function() {
             apiService.saveApplication(stateService.formData);
@@ -14,13 +16,20 @@ module.exports = function(ngModule) {
         this.onNextClick = function() {
             this.doSave();
 
-            //TODO: navigate to next section
+            if (this.next) {
+                $location.path("/section/" + this.next);
+            }
+            else {
+                //TODO: do submit
+            }
         }
 
         this.onBackClick = function() {
             this.doSave();
 
-            //TODO: navigate to prev section
+            if (this.previous) {
+                $location.path("/section/" + this.previous);
+            }
         }
 
         this.onSaveClick = function() {
