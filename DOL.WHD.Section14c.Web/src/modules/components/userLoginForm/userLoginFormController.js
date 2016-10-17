@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('userLoginFormController', function($scope, $location, stateService, apiService) {
+    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, apiService) {
         'ngInject';
         'use strict';
 
-        let vm = this;
+        var vm = this;
         vm.stateService = stateService;
 
         $scope.formVals = {
@@ -16,8 +16,14 @@ module.exports = function(ngModule) {
         $scope.onSubmitClick = function() {
             apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
                 var data = result.data;
+
+                $rootScope.loggedIn = true;
+
                 stateService.access_token = data.access_token;
-                stateService.email = data.email;
+                stateService.user.email = data.email;
+
+                //TODO: get full user info from the /api/account/userinfo endpoint
+
                 $location.path("/");
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
