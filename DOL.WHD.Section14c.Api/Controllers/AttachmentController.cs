@@ -124,6 +124,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
-
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
+        }
     }
 }

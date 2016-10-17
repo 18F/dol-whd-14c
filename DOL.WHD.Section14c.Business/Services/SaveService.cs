@@ -78,8 +78,9 @@ namespace DOL.WHD.Section14c.Business.Services
         public AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId)
         {
             var attachment = _repository.Get()
-                    .Where(x => x.EIN == EIN && x.Attachments.Where(y => !y.Deleted).Select(a => a.Id).Contains(fileId)) // trim by EIN, FileId and not deleted
-                    .Select(x => x.Attachments.FirstOrDefault()).SingleOrDefault();
+                .Where(x => x.EIN == EIN)
+                .SelectMany(x => x.Attachments)
+                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId);
 
             if (attachment == null)
                 throw new ObjectNotFoundException();
@@ -99,8 +100,9 @@ namespace DOL.WHD.Section14c.Business.Services
         public void DeleteAttachement(string EIN, Guid fileId)
         {
             var attachment = _repository.Get()
-                    .Where(x => x.EIN == EIN && x.Attachments.Where(y => !y.Deleted).Select(a => a.Id).Contains(fileId)) // trim by EIN, FileId and not deleted
-                    .Select(x => x.Attachments.FirstOrDefault()).SingleOrDefault();
+                .Where(x => x.EIN == EIN)
+                .SelectMany(x => x.Attachments)
+                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId);
 
             if (attachment == null)
                 throw new ObjectNotFoundException();
