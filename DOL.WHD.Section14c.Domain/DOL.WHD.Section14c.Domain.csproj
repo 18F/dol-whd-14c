@@ -66,6 +66,7 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ApplicationSave.cs" />
     <Compile Include="Models\OrganizationMembership.cs" />
+    <Compile Include="Models\Submission\AlternateWageData.cs" />
     <Compile Include="Models\Submission\ApplicationSubmission.cs" />
     <Compile Include="Models\Submission\Employee.cs" />
     <Compile Include="Models\Submission\EmployerInfo.cs" />

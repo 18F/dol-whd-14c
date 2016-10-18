@@ -30,6 +30,14 @@ module.exports = function(ngModule) {
             }
         };
 
+        $scope.modelPrefix = function() {
+            var prefix = 'hourlyWageInfo';
+            if($scope.paytype === 'piecerate') {
+                prefix = 'pieceRateWageInfo';
+            }
+            return prefix;
+        };
+
         this.onStudySelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
