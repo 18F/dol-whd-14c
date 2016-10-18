@@ -8,5 +8,6 @@ module.exports = function(ngModule) {
         $scope.formData = stateService.formData;
 
         var vm = this;
+        vm.activeTab = 1;
   });
 }

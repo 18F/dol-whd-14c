@@ -139,6 +139,16 @@
             .form-question-text {
                 margin-bottom: 20px;
                 font-weight: 700;
+
+                .form-question-subtext {
+                    font-weight: 400;
+                    margin-top: 5px;
+                }
+            }
+
+            .form-question-subtext {
+                margin-top: -15px;
+                margin-bottom: 20px;
             }
         }
 
