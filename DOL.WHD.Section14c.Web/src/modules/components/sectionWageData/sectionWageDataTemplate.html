@@ -6,19 +6,19 @@
 
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.PayType">
-                    <input id="paytype_{{ response.id }}" type="radio" name="pay-type" ng-value="response.id" ng-model="formData.paytype">
+                    <input id="paytype_{{ response.id }}" type="radio" name="pay-type" ng-value="response.id" ng-model="formData.payType">
                     <label for="paytype_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-tabbed-section" ng-show="formData.paytype === 23">
+    <div class="form-tabbed-section" ng-show="formData.payType === 23">
         <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1"><div class="circle">1</div> Hourly</div>
         <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2"><div class="circle">2</div> Piece Rate</div>
     </div>
-    <wage-data-pay-type-form paytype="hourly" show-all-help="vm.showAllHelp"  ng-show="formData.paytype === 21 || (formData.paytype === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
-    <wage-data-pay-type-form paytype="piecerate" show-all-help="vm.showAllHelp" ng-show="formData.paytype === 22 || (formData.paytype === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="hourly" show-all-help="vm.showAllHelp"  ng-show="formData.payType === 21 || (formData.payType === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="piecerate" show-all-help="vm.showAllHelp" ng-show="formData.payType === 22 || (formData.payType === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
 <div class="form-sidebar">
     <div><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a> | <a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></div>

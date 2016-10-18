@@ -14,6 +14,12 @@
 
         .underlabel {
             margin-top: 0px;
+
+            &.checkbox-indent {
+                margin-left: 3.0rem;
+                margin-top: -5px;
+                margin-bottom: 20px;
+            }
         }
 
         .sidelabeled {
@@ -21,6 +27,7 @@
 
             & + label {
                 display: inline-block;
+                margin-top: 0px;
             }
         }
 
