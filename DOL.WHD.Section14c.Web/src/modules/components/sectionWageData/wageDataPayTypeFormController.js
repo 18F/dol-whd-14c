@@ -5,7 +5,7 @@ import merge from 'lodash/merge'
 var moment = require('moment');
 
 module.exports = function(ngModule) {
-    ngModule.controller('wageDataPayTypeFormController', function($scope, $location, stateService, apiService) {
+    ngModule.controller('wageDataPayTypeFormController', function($scope, stateService, apiService, responsesService) {
         'ngInject';
         'use strict';
 
@@ -37,6 +37,10 @@ module.exports = function(ngModule) {
             }
             return prefix;
         };
+
+        // multiple choice responses
+        let questionKeys = [ 'PrevailingWageMethod' ];
+        responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
 
         this.onStudySelected = function(fileinput) {
             if(fileinput.files.length > 0){

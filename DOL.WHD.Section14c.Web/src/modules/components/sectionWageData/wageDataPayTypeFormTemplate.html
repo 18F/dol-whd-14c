@@ -34,23 +34,15 @@
             <legend class="usa-sr-only">Prevailing Wage Method</legend>
 
             <ul class="usa-unstyled-list">
-                <li>
-                    <input id="wagemethod_survey" type="radio" name="wage-method" value="survey" ng-model="formData[modelPrefix()].prevailingWageMethod">
-                    <label for="wagemethod_survey">Prevailing Wage Survey</label>
-                </li>
-                <li>
-                    <input id="wagemethod_alternate" type="radio" name="wage-method" value="alternate" ng-model="formData[modelPrefix()].prevailingWageMethod">
-                    <label for="wagemethod_alternate">Alternate Wage Data</label>
-                </li>
-                <li>
-                    <input id="wagemethod_sca" type="radio" name="wage-method" value="sca" ng-model="formData[modelPrefix()].prevailingWageMethod">
-                    <label for="wagemethod_sca">SCA Wage Determination</label>
+                <li ng-repeat="response in responses.PrevailingWageMethod">
+                    <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethod">
+                    <label for="wagemethod_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'survey'">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 24">
         <div class="form-question-block">
             <div class="form-question-text">Provide information for the most recent Prevailing Wage survey conducted for the job or contract indentified above:</div>
             <div class="form-question-answer">
@@ -212,7 +204,7 @@
         </div>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'alternate'">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 25">
         <div class="form-question-block">
             <div class="form-question-text">Provide the alternate wage data source used and the prevailing wage provided by that source:</div>
             <label>Examples of alternate sources include U.S. Bureau of Labor Statistics (BLS) or private or State employment services data.
@@ -249,7 +241,7 @@
         </div>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'sca'">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 26">
         <div class="form-question-block">
             <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
             <div class="form-question-answer" ng-show="formData.scaWageDeterminationAttachment == undefined">
