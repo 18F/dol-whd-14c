@@ -1,24 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class PieceRateWageInfo : WageTypeInfo
     {
         [Required]
-        public int NumPieceRateWorkers { get; set; }
+        public string PieceRateWorkDescription { get; set; }
 
         [Required]
-        public string WorkDescription { get; set; }
+        public double PrevailingWageDeterminedForJob { get; set; }
 
         [Required]
-        public double WageRatePerHour { get; set; }
+        public double StandardProductivity { get; set; }
 
         [Required]
-        public double ProductivityUnitsPerHour { get; set; }
-
-        [Required]
-        public double PieceRatePerUnit { get; set; }
-
-        // TODO: upload documentation
+        public double PieceRatePaidToWorkers { get; set; }
     }
 }

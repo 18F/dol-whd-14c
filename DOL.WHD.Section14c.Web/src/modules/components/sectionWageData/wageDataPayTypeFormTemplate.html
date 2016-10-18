@@ -1,37 +1,49 @@
 <div class="form-question-group force-margin" ng-show="paytype">
     <div class="form-question-block">
-        <div class="form-question-text">How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?</div>
+        <div class="form-question-text">
+            How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <div class="form-question-answer">
-            <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1">
+            <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
         </div>
     </div>
 
     <div class="form-question-block">
-        <div class="form-question-text">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</div>
+        <div class="form-question-text">
+            What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <div class="form-question-answer">
             <label for="jobName">Name of Job or Contract</label>
-            <input id="jobName" name="jobName" type="text">
+            <input id="jobName" name="jobName" type="text" ng-model="formData[modelPrefix()].jobName">
             <label for="jobDescription">Description of Work Performed</label>
-            <textarea id="jobDescription" name="jobDescription"></textarea>
+            <textarea id="jobDescription" name="jobDescription" ng-model="formData[modelPrefix()].jobDescription"></textarea>
         </div>
     </div>
 
     <div class="form-question-block">
-        <div class="form-question-text">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</div>
+        <div class="form-question-text">
+            Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?
+            <helplink></helplink>
+            <helptext>This is the help text.</helptext>
+        </div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <legend class="usa-sr-only">Prevailing Wage Method</legend>
 
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="wagemethod_survey" type="radio" name="wage-method" value="survey" ng-model="formData.prevailingWageMethod">
+                    <input id="wagemethod_survey" type="radio" name="wage-method" value="survey" ng-model="formData[modelPrefix()].prevailingWageMethod">
                     <label for="wagemethod_survey">Prevailing Wage Survey</label>
                 </li>
                 <li>
-                    <input id="wagemethod_alternate" type="radio" name="wage-method" value="alternate" ng-model="formData.prevailingWageMethod">
+                    <input id="wagemethod_alternate" type="radio" name="wage-method" value="alternate" ng-model="formData[modelPrefix()].prevailingWageMethod">
                     <label for="wagemethod_alternate">Alternate Wage Data</label>
                 </li>
                 <li>
-                    <input id="wagemethod_sca" type="radio" name="wage-method" value="sca" ng-model="formData.prevailingWageMethod">
+                    <input id="wagemethod_sca" type="radio" name="wage-method" value="sca" ng-model="formData[modelPrefix()].prevailingWageMethod">
                     <label for="wagemethod_sca">SCA Wage Determination</label>
                 </li>
             </ul>
@@ -43,7 +55,7 @@
             <div class="form-question-text">Provide information for the most recent Prevailing Wage survey conducted for the job or contract indentified above:</div>
             <div class="form-question-answer">
                 <label for="prevailingWageDetermined">Prevailing Wage Determined based on this survey</label>
-                <input id="prevailingWageDetermined" name="prevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01">
+                <input id="prevailingWageDetermined" name="prevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].mostRecentPrevailingWageSurvey.prevailingWageDetermined">
                 <label>You must provide <strong>3</strong> Source Employers for the survey</label>
                 <div ng-show="vm.addingEmployer">
                     <hr>
@@ -187,9 +199,15 @@
                     </tbody>
                 </table>
                 <label>If needed, attach an additional sheet headed "Prevailing Wage Determination-{{ paytype === 'hourly' ? 'Hourly' : 'Piece Rate'}}"</label>
-                <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onHourlyDeterminationSelected(this)">
-                <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedHourlyDetermination" name="attachedHourlyDetermination" class="upload-input" type="text" ng-model="formData.hourlyDeterminationName" disabled>
-                <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+                <div ng-show="formData.hourlyDeterminationAttachment == undefined">
+                    <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onHourlyDeterminationSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+                    <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedHourlyDetermination" name="attachedHourlyDetermination" class="upload-input" type="text" disabled>
+                    <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+                </div>
+                <div ng-show="formData.hourlyDeterminationAttachment != undefined">
+                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.hourlyDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.hourlyDeterminationAttachment.originalFileName}}</a> 
+                    <button class="usa-button-secondary" ng-click="vm.deleteHourlyDeterminationAttachment(formData.hourlyDeterminationAttachment.id)">Delete</button>
+                </div>
             </div>
         </div>
     </div>
@@ -200,13 +218,13 @@
             <label>Examples of alternate sources include U.S. Bureau of Labor Statistics (BLS) or private or State employment services data.
             <div class="form-question-answer">
                 <label for="alternateWorkDescription">Description of Work (include job classification code, if known)</label>
-                <textarea id="alternateWorkDescription" name="alternateWorkDescription"></textarea>
+                <textarea id="alternateWorkDescription" name="alternateWorkDescription" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
 
                 <label for="alternateDataSourceUsed">Alternate data source used </label>
-                <input id="alternateDataSourceUsed" name="alternateDataSourceUsed" type="text">
+                <input id="alternateDataSourceUsed" name="alternateDataSourceUsed" type="text" ng-model="formData[modelPrefix()].alternateWageData.alternateDataSourceUsed">
 
                 <label for="prevailingWageProvidedBySource">Prevailing wage provided by source</label>
-                <input id="prevailingWageProvidedBySource" name="prevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01">
+                <input id="prevailingWageProvidedBySource" name="prevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.prevailingWageProvidedBySource">
 
                 <label>Date data retrieved</label>
                 <fieldset>
@@ -234,28 +252,45 @@
     <div class="form-question-group em-block" ng-show="formData.prevailingWageMethod === 'sca'">
         <div class="form-question-block">
             <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
-            <div class="form-question-answer">
-                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAWageDeterminationSelected(this)">
-                <label for="scaWageDeterminationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedSCAWageDetermination" name="attachedSCAWageDetermination" class="upload-input" type="text" ng-model="formData.scaWageDeterminationName" disabled>
+            <div class="form-question-answer" ng-show="formData.scaWageDeterminationAttachment == undefined">
+                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAWageDeterminationSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+                <label for="scaWageDeterminationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedSCAWageDetermination" name="attachedSCAWageDetermination" class="upload-input" type="text" disabled>
                 <label class="underlabel" for="attachedSCAWageDetermination">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+            <div class="form-question-answer" ng-show="formData.scaWageDeterminationAttachment != undefined">
+                <a ng-href="{{vm.attachmentApiURL}}/{{formData.scaWageDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.scaWageDeterminationAttachment.originalFileName}}</a> 
+                <button class="usa-button-secondary" ng-click="vm.deleteScaWageDeterminationAttachment(formData.scaWageDeterminationAttachment.id)">Delete</button>
             </div>
         </div>
     </div>
 
     <div class="form-question-group" ng-show="paytype === 'hourly'">
         <div class="form-question-block">
-            <div class="form-question-text">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</div>
+            <div class="form-question-text">
+                How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?
+                <helplink></helplink>
+                <helptext>This is the help text.</helptext>
+            </div>
             <div class="form-question-answer">
-                <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text">
+                <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].alternateWageData.workMeasurementFrequency">
             </div>
         </div>
 
         <div class="form-question-block">
-            <div class="form-question-text">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</div>
-            <div class="form-question-answer">
-                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onStudySelected(this)">
-                <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" ng-model="formData.workMeasurementStudyName" disabled>
+            <div class="form-question-text">
+                Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.
+                <helplink></helplink>
+                <helptext>This is the help text.</helptext>
+            </div>
+            <div class="form-question-answer" ng-show="formData.workMeasurementStudyAttachment == undefined">
+                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onStudySelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+                <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" disabled>
+
                 <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+            </div>
+            <div class="form-question-answer" ng-show="formData.workMeasurementStudyAttachment != undefined">
+               <a ng-href="{{vm.attachmentApiURL}}/{{formData.workMeasurementStudyAttachment.id}}?access_token={{vm.access_token}}">{{formData.workMeasurementStudyAttachment.originalFileName}}</a> 
+               <button class="usa-button-secondary" ng-click="vm.deleteWorkMeasurementStudyAttachment(formData.workMeasurementStudyAttachment.id)">Delete</button>
             </div>
         </div>
     </div>
@@ -265,16 +300,16 @@
             <div class="form-question-text">Provide the following information for the job or contract identified above:</div>
             <div class="form-question-answer">
                 <label for="pieceRateWorkDescription">Descripton of Work</label>
-                <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" type="text">
+                <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" type="text" ng-model="formData[modelPrefix()].alternateWageData.pieceRateWorkDescription">
 
                 <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
-                <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>rate per hour</label>
+                <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.prevailingWageDeterminedForJob"> <label>rate per hour</label>
 
                 <label for="standardProductivity">Standard Productivity</label>
-                <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>units per hour</label>
+                <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.standardProductivity"> <label>units per hour</label>
 
                 <label for="pieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
-                <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01"> <label>rate per unit</label>
+                <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.pieceRatePaidToWorkers"> <label>rate per unit</label>
             </div>
         </div>
 
@@ -282,9 +317,15 @@
             <div class="form-question-text">Attach all documents of the methods used to determine the standard productivity and the piece rate.</div>
             <div class="form-question-answer">
                 <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. "standard setter").</span>
-                <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onPieceRateDocumentSelected(this)">
-                <label for="pieceRateDocumentationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedPieceRateDocument" name="attachedPieceRateDocument" class="upload-input" type="text" ng-model="formData.pieceRateDocumentName" disabled>
-                <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+                <div ng-show="formData.pieceRateDocumentAttachment == undefined">
+                    <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onPieceRateDocumentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+                    <label for="pieceRateDocumentationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedPieceRateDocument" name="attachedPieceRateDocument" class="upload-input" type="text" disabled>
+                    <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+                </div>
+                <div  ng-show="formData.pieceRateDocumentAttachment != undefined">
+                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.pieceRateDocumentAttachment.id}}?access_token={{vm.access_token}}">{{formData.pieceRateDocumentAttachment.originalFileName}}</a> 
+                    <button class="usa-button-secondary" ng-click="vm.deletePieceRateDocumentAttachment(formData.pieceRateDocumentAttachment.id)">Delete</button>
+                </div>                
             </div>
         </div>
     </div>

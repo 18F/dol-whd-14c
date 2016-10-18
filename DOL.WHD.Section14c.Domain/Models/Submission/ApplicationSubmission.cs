@@ -25,9 +25,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string CertificateNumber { get; set; }
 
         [Required]
-        public bool TemporaryAuthority { get; set; }
-
-        [Required]
         public virtual ICollection<Response> EstablishmentType { get; set; }
 
         [Required]
@@ -58,8 +55,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public virtual Response PayType { get; set; }
 
-        // TODO: Validation on what WageTypeInfo is based on PayType
-        public virtual WageTypeInfo WageTypeInfo { get; set; }
+        public virtual HourlyWageInfo HourlyWageInfo { get; set; }
+
+        public virtual PieceRateWageInfo PieceRateWageInfo { get; set; }
 
         #endregion
 

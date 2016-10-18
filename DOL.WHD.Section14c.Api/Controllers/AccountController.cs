@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -181,6 +183,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
 
         protected override void Dispose(bool disposing)

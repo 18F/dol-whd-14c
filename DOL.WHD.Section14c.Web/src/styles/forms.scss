@@ -28,6 +28,31 @@
             color: lighten($text-color, 25%);
         }
 
+        .help-link {
+            display: inline-block;
+            width: 1.1em;
+            height: 1.1em;
+            line-height: 1.1em;
+            font-weight: 700;
+            border-radius: 50%;
+            vertical-align: middle;
+            text-align: center;
+            background-color: $help-link-color;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .help-text {
+            font-weight: 400;
+            background-color: $help-em-color;
+            padding: 10px;
+            display: none;
+
+            &.show {
+                display: block;
+            }
+        }
+
         /* Custom form tabs (as seen in Wage Data section) */
         .form-tabbed-section {
             @include clearfix;
@@ -70,8 +95,8 @@
             max-width: 18.2rem;
         }
 
-        input.ein {
-            max-widht: 15.4rem;
+        input.ein, input.certificateno {
+            max-width: 15.4rem;
         }
 
         input.other {
@@ -100,6 +125,10 @@
 
         input.wage-rate-ext {
             max-width: 11.2rem;
+        }
+
+        input.email {
+            max-width: 32rem;
         }
 
         .form-question-block {
@@ -150,6 +179,34 @@
             margin-left: 0px;
             vertical-align: middle;
         }
+
+        h2.form-section-header {
+            font: 20px $font-stack;
+            font-weight: bold;
+        }
+
+        hr {
+            margin-bottom: 20px;
+        }
     }
 
+    .form-sidebar {
+        @include span (last 4);
+        text-align: right;
+
+        .links-block {
+            background-color: $form-em-grey;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-align: left;
+
+            &.ng-hide {
+                transform: translateX(300%);
+            }
+
+            &.ng-hide-add, &.ng-hide-remove {
+                transition: all linear 0.4s;
+            }
+        }
+    }
 }

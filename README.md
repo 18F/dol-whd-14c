@@ -94,13 +94,15 @@ The following are setup as WebDeploy parameters and can be set with command line
 
 | Setting | Description | Default   
 | --- | --- | ---
-ConnectionString | PostgreSQL database connection string | N/A
+ConnectionString | PostgreSQL database connection string | No Deployment Default, must be set.
 ReCaptchaVerfiyUrl | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
-ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | (dev key)
+ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default, must be set.
 UserLockoutEnabledByDefault | Enables or Disabled user login attempt lockout | true
 DefaultAccountLockoutTimeSpan | Minutes to lockout user | 15
 MaxFailedAccessAttemptsBeforeLockout | Login attempts befer user is locked out | 3
 AccessTokenExpireTimeSpanMinutes | Token Expiration Minutes for Reset Password and Email Verification Links | 20160 (14 days, ASP.net Default)
+AttachmentRepositoryRootFolder | File Path (UNC path) where application attachments shoudl be stored | No Deployment Default, must be set.
+AllowedFileNamesRegex | Regex for allowed filenames | ^(.*\.(doc|docx|xls|xlsx|ppt|pptx|pdf)$)?[^.]*$
 
 ### 3. DotNet.CoverageReport.zip
 
