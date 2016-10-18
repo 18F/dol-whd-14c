@@ -1,4 +1,4 @@
-version: 1.0.{build}
+version: 1.0.{build}-alpha
 branches:
   only:
   - master
@@ -8,6 +8,7 @@ environment:
   ApplicationDbContext-Web.config Connection String:
     secure: kgpVhh6JImpf/8CqurMx+Gu09f5p7eacm4WoxyTvOse0er3Z3JTGAeI4LEdVL2a628nzS9CVTLw6jQvFo9ejdowdNvrNcRe4K/WmfO02s7EI6nyBCwoGdlbNUyITl61l
   ApiUrl: https://dol-whd-section14c-api-dev.azurewebsites.net
+  AttachmentRepositoryRootFolder: D:\home\site\wwwroot\App_Data\
 install:
 - cmd: >-
     nuget restore
