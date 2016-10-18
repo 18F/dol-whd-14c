@@ -13,6 +13,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public virtual ICollection<SourceEmployer> SourceEmployers { get; set; }
 
-        // TODO: Prevailing Wage Determination - Hourly upload
+        // Prevailing Wage Determination - Hourly
+        public Attachment Attachment { get; set; }
     }
 }

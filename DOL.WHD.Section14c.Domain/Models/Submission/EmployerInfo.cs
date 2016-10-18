@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
@@ -43,7 +44,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public virtual Response SCA { get; set; }
 
-        // TODO: SCA Wage Determinations upload
+        //SCA Wage Determinations upload
+        public Attachment Attachment { get; set; }
 
         [Required]
         public virtual Response EO13658 { get; set; }

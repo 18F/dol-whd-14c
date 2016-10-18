@@ -20,7 +20,7 @@ namespace DOL.WHD.Section14c.Test.Business
         public void RetrievesSave()
         {
             // Arrange
-            var service = new SaveService(_saveRepositoryMock);
+            var service = new SaveService(_saveRepositoryMock, null);
 
             // Act
             var save = service.GetSave("30-1234567");
@@ -39,7 +39,7 @@ namespace DOL.WHD.Section14c.Test.Business
                 ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
             };
 
-            var service = new SaveService(_saveRepositoryMock);
+            var service = new SaveService(_saveRepositoryMock, null);
 
             // Act
             service.AddOrUpdate(newData.EIN, newData.ApplicationState);
@@ -65,7 +65,7 @@ namespace DOL.WHD.Section14c.Test.Business
                 ApplicationState = "{ \"name\": \"Michelle Obama\", \"email:\" \"first.lady@whitehouse.gov\" }"
             };
 
-            var service = new SaveService(_saveRepositoryMock);
+            var service = new SaveService(_saveRepositoryMock, null);
             service.AddOrUpdate(einToTest, oldData.ApplicationState);
             var existingRecord = service.GetSave(einToTest);
 

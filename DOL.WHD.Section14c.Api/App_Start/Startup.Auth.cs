@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Web;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -40,8 +41,28 @@ namespace DOL.WHD.Section14c.Api
                 AllowInsecureHttp = true
             };
 
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.QueryString.HasValue)
+                {
+                    if (string.IsNullOrWhiteSpace(context.Request.Headers.Get("Authorization")))
+                    {
+                        var queryString = HttpUtility.ParseQueryString(context.Request.QueryString.Value);
+                        string token = queryString.Get("access_token");
+
+                        if (!string.IsNullOrWhiteSpace(token))
+                        {
+                            context.Request.Headers.Add("Authorization", new[] { $"bearer {token}" });
+                        }
+                    }
+                }
+
+                await next.Invoke();
+            });
+
             // Enable the application to use bearer tokens to authenticate users
             app.UseOAuthBearerTokens(OAuthOptions);
+
         }
     }
 }
