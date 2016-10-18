@@ -25,9 +25,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string CertificateNumber { get; set; }
 
         [Required]
-        public bool TemporaryAuthority { get; set; }
-
-        [Required]
         public virtual ICollection<Response> EstablishmentType { get; set; }
 
         [Required]
