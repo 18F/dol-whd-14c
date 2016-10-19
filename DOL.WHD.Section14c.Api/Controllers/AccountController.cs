@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -65,7 +67,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var user = await UserManager.FindByEmailAsync(model.Email);
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
-                    return BadRequest("The user name or password is incorrect.");
+                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 var validCredentials = await UserManager.FindAsync(user.UserName, model.OldPassword);
@@ -76,7 +78,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         await UserManager.AccessFailedAsync(user.Id);
                     }
-                    return BadRequest("The user name or password is incorrect.");
+                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 userId = user.Id;
@@ -153,14 +155,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
             // Validate Recaptcha
             var reCaptchaVerfiyUrl = ConfigurationManager.AppSettings["ReCaptchaVerfiyUrl"];
             var reCaptchaSecretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
-            var rmoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
-            var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
-
-            var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, rmoteIpAddress);
-            if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
+            if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
             {
-                ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
-                return BadRequest(ModelState);
+                var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
+                var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
+
+                var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, remoteIpAddress);
+                if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
+                {
+                    ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
+                    return BadRequest(ModelState);
+                }
             }
 
             // Add User
@@ -182,6 +187,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
                                                     "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
 
         protected override void Dispose(bool disposing)

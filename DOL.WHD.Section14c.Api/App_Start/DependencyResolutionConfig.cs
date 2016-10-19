@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Configuration;
+using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
@@ -15,9 +16,12 @@ namespace DOL.WHD.Section14c.Api
             // Create the container as usual.
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-
-            container.Register<IExampleService, ExampleService>(Lifestyle.Scoped);
-            container.Register<IExampleRepository, ExampleRepository>(Lifestyle.Scoped);
+            container.Register<IResponseRepository, ResponseRepository>(Lifestyle.Scoped);
+            container.Register<IResponseService, ResponseService>(Lifestyle.Scoped);
+            container.Register<ISaveRepository, SaveRepository>(Lifestyle.Scoped);
+            container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
+            container.Register<IIdentityService, IdentityService>(Lifestyle.Scoped);
+            container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

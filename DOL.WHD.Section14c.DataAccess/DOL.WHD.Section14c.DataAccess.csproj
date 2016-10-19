@@ -102,7 +102,9 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
-    <Compile Include="IExampleRepository.cs" />
+    <Compile Include="IFileRepository.cs" />
+    <Compile Include="ISaveRepository.cs" />
+    <Compile Include="IResponseRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>
@@ -115,9 +117,47 @@
     <Compile Include="Migrations\201609302018469_AddOrganizationMembership.Designer.cs">
       <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610062018437_AddApplicationSubmission.cs" />
+    <Compile Include="Migrations\201610062018437_AddApplicationSubmission.Designer.cs">
+      <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610102032087_AddResponses.cs" />
+    <Compile Include="Migrations\201610102032087_AddResponses.Designer.cs">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610112015599_AddApplicationSaves.cs" />
+    <Compile Include="Migrations\201610112015599_AddApplicationSaves.Designer.cs">
+      <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610131906531_RemoveExample.cs" />
+    <Compile Include="Migrations\201610131906531_RemoveExample.Designer.cs">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610141921103_UpdateApplicationSaveKey.cs" />
+    <Compile Include="Migrations\201610141921103_UpdateApplicationSaveKey.Designer.cs">
+      <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.cs" />
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.Designer.cs">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.cs" />
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.Designer.cs">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.cs" />
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.Designer.cs">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.cs" />
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.Designer.cs">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ExampleRepository.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="Repositories\ResponseRepository.cs" />
+    <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
     <Compile Include="Validators\Section14cUserValidator.cs" />
   </ItemGroup>
@@ -139,6 +179,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609302018469_AddOrganizationMembership.resx">
       <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610062018437_AddApplicationSubmission.resx">
+      <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610102032087_AddResponses.resx">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610112015599_AddApplicationSaves.resx">
+      <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610131906531_RemoveExample.resx">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610141921103_UpdateApplicationSaveKey.resx">
+      <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610150004056_AttachmentUpdates.resx">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181406066_WageDataModelUpdate.resx">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.resx">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191541037_EmpolyerInfoUpdates.resx">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,105 @@
+<div class="form-page">
+    <h2 class="form-section-header">Application Type</h2>
+    <hr />
+    <div class="form-question-block">
+        <div class="form-question-text">What type of application is this?</div>
+        <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li ng-repeat="response in responses.ApplicationType">
+                    <input id="applicationType_{{ response.id }}" type="radio" name="applicationType" ng-value="response.id" ng-model="formData.applicationType">
+                    <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">Has this employer ever applied for a 14(c) certificate?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" value="1" ng-model="formData.hasPreviousApplication">
+                    <label for="hasPreviousApplication_1">Yes</label>
+                </li>
+                <li>
+                    <input id="hasPreviousApplication_0" type="radio" name="hasPreviousApplication" value="0" ng-model="formData.hasPreviousApplication">
+                    <label for="hasPreviousApplication_0">No</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" value="1" ng-model="formData.hasPreviousCertificate">
+                    <label for="hasPreviousCertificate_1">Yes</label>
+                </li>
+                <li>
+                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" value="0" ng-model="formData.hasPreviousCertificate">
+                    <label for="hasPreviousCertificate_0">No</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
+        <div class="form-question-answer">
+            <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno">
+            <label class="example">Example: 12-34567-H-890</label>
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">What type of establishment(s) is this request for authority to employ workers with disabilities for?</div>
+        <div class="form-question-subtext">Select all that apply</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li ng-repeat="response in responses.EstablishmentType">
+                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentType" ng-value="response.id" ng-model="formData.establishmentType">
+                    <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
+                    <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <h2 class="form-section-header">Application Contact Person</h2>
+    <div class="form-question-subtext">This should be a person who can best answer questions concerning information contained on this application.</div>
+    <hr />
+
+    <div class="form-question-block">
+        <div class="form-question-answer">
+            <label for="contactName">Full Name</label>
+            <input id="contactName" name="contactName" type="text" ng-model="contactName"></input>
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-answer">
+            <label for="contactPhone">Telephone Number</label>
+            <input id="contactPhone" name="contactPhone" type="tel" ng-model="contactPhone" class="sidelabeled phoneno"></input>
+            <label class="example">Example: 123-456-7890</label>
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-answer">
+            <label for="contactFax">Fax Number</label>
+            <input id="contactFax" name="contactFax" type="tel" ng-model="contactFax" class="sidelabeled phoneno"></input>
+            <label class="example">Example: 123-456-7890</label>
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-answer">
+            <label for="contactEmail">Email Address</label>
+            <input id="contactEmail" name="contactEmail" type="email" ng-model="contactEmail" class="sidelabeled email"></input>
+            <label class="example">Example: contact.name@company.com</label>
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace DOL.WHD.Section14c.Areas.HelpPage
+namespace DOL.WHD.Section14c.Api.Areas.HelpPage
 {
     /// <summary>
     /// This class will create an object of a given type and populate it with sample data.
