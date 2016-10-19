@@ -87,9 +87,6 @@ namespace DOL.WHD.Section14c.Business.Services
 
             var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
 
-            if (stream == null)
-                throw new FileNotFoundException();
-
             return new AttachementDownload()
             {
                 MemoryStream = stream,
