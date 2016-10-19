@@ -1,13 +1,31 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('formFooterControlsController', function($scope, $location, $route, stateService, apiService) {
+    ngModule.controller('formFooterControlsController', function($scope, $location, $route, stateService, navService, apiService) {
         'ngInject';
         'use strict';
 
+        $scope.navService = navService;
+
         var vm = this;
-        vm.next = stateService.getNextSection($route.current.params.section_id);
-        vm.previous = stateService.getPreviousSection($route.current.params.section_id);
+        vm.hasNext = navService.hasNext();
+        vm.hasBack = navService.hasBack();
+
+        $scope.$watch('navService.nextLabel', function(value) {
+            vm.setNextLabel(value ? value : undefined);
+        });
+
+        $scope.$watch('navService.hasNext()', function(value) {
+            vm.hasNext = value;
+        });
+
+        $scope.$watch('navService.hasBack()', function(value) {
+            vm.hasBack = value;
+        });
+
+        this.setNextLabel = function(label) {
+            vm.nextLabel = label ? label : vm.hasNext ? "Next" : "Submit Form";
+        }
 
         this.doSave = function() {
             apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData);
@@ -16,8 +34,8 @@ module.exports = function(ngModule) {
         this.onNextClick = function() {
             this.doSave();
 
-            if (this.next) {
-                $location.path("/section/" + this.next);
+            if (this.hasNext) {
+                navService.goNext();
             }
             else {
                 //TODO: do submit
@@ -27,8 +45,8 @@ module.exports = function(ngModule) {
         this.onBackClick = function() {
             this.doSave();
 
-            if (this.previous) {
-                $location.path("/section/" + this.previous);
+            if (this.hasBack) {
+                navService.goBack();
             }
         }
 
