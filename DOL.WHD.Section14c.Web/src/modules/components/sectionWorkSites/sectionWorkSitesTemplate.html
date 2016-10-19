@@ -1,2 +1,18 @@
 <div class="form-page">
+    <div class="form-question-block">
+        <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
+        <div class="form-question-answer">
+            <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
+        </div>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">We'll need to collect information about each worksite and its employees.</div>
+        <button ng-click="vm.addingWorkSite = true" ng-hide="vm.addingWorkSite">Add Work Site & Employee(s)</button>
+
+        <div class="form-tabbed-section" ng-show="vm.addingWorkSite">
+            <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.activeTab = 1"><div class="circle">1</div> Add Work Site</div>
+            <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.activeTab = 2"><div class="circle">2</div> Add Employees</div>
+        </div>
+    </div>
 </div>

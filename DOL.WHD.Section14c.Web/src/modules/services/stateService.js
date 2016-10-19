@@ -16,6 +16,7 @@ module.exports = function(ngModule) {
             }
         };
 
+
         /*** Properties ***/
 
         // user
@@ -41,6 +42,7 @@ module.exports = function(ngModule) {
             set: function(value) { state.form_data = value; }
         });
 
+
         /*** Methods ***/
 
         this.setFormData = function(value) {
@@ -49,24 +51,6 @@ module.exports = function(ngModule) {
 
         this.setFormValue = function(property, value) {
             merge(state.form_data, { [property]: value });
-        }
-
-        this.getNextSection = function(current) {
-            let index = sectionArray.indexOf(current) + 1;
-            if (index < sectionArray.length) {
-                return sectionArray[index];
-            }
-
-            return undefined;
-        }
-
-        this.getPreviousSection = function(current) {
-            let index = sectionArray.indexOf(current) - 1;
-            if (index >= 0) {
-                return sectionArray[index];
-            }
-
-            return undefined;
         }
     });
 }

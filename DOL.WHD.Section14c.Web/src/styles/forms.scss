@@ -14,6 +14,12 @@
 
         .underlabel {
             margin-top: 0px;
+
+            &.checkbox-indent {
+                margin-left: 3.0rem;
+                margin-top: -5px;
+                margin-bottom: 20px;
+            }
         }
 
         .sidelabeled {
@@ -21,6 +27,7 @@
 
             & + label {
                 display: inline-block;
+                margin-top: 0px;
             }
         }
 
@@ -139,6 +146,16 @@
             .form-question-text {
                 margin-bottom: 20px;
                 font-weight: 700;
+
+                .form-question-subtext {
+                    font-weight: 400;
+                    margin-top: 5px;
+                }
+            }
+
+            .form-question-subtext {
+                margin-top: -15px;
+                margin-bottom: 20px;
             }
         }
 
