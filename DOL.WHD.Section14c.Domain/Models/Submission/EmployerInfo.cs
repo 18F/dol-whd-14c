@@ -15,13 +15,27 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool HasTradeName { get; set; }
 
         [Required]
+        public string TradeName { get; set; }
+
+        [Required]
         public bool LegalNameHasChanged { get; set; }
+
+        [Required]
+        public string PriorLegalName { get; set; }
 
         [Required]
         public virtual Address PhysicalAddress { get; set; }
 
         [Required]
         public bool HasParentOrg { get; set; }
+
+        public string ParentLegalName { get; set; }
+
+        public string ParentTradeName { get; set; }
+
+        public virtual Address ParentAddress { get; set; }
+
+        public bool SendMailToParent { get; set; }
 
         [Required]
         public virtual Response EmployerStatus { get; set; }
@@ -45,10 +59,24 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public virtual Response SCA { get; set; }
 
         //SCA Wage Determinations upload
-        public Attachment Attachment { get; set; }
+        public Attachment SCAAttachment { get; set; }
 
         [Required]
         public virtual Response EO13658 { get; set; }
+
+        [Required]
+        public bool RepresentativePayee { get; set; }
+
+        [Required]
+        public bool TakeCreditForCosts { get; set; }
+
+        [Required]
+        public virtual Response ProvidingFacilitiesDeductionType { get; set; }
+
+        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
+
+        [Required]
+        public bool TemporaryAuthority { get; set; }
 
     }
 }
