@@ -1,12 +1,54 @@
 'use strict';
 
+import merge from 'lodash/merge'
+
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWioaController', function($scope, stateService) {
+    ngModule.controller('sectionWioaController', function($scope, stateService, responsesService) {
         'ngInject';
         'use strict';
 
+        // multiple choice responses
+        let questionKeys = [ 'WIOAWorkerVerified' ];
+        responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });        
+
         $scope.formData = stateService.formData;
+        $scope.showWIOAReqs = false;
 
         var vm = this;
+        vm.addingWorker = $scope.formData.WIOA.WIOAWorkers.length === 0;
+        vm.activeWorker = {};
+        vm.activeWorkerIndex = -1;
+
+        vm.toggleLearnMore = function() {
+            $scope.showWIOAReqs = !$scope.showWIOAReqs;
+        };
+
+        vm.addWorker = function() {
+            if (vm.activeWorkerIndex > -1) {
+                $scope.formData.WIOA.WIOAWorkers[vm.activeWorkerIndex] = vm.activeWorker;
+            }
+            else {
+                if(!$scope.formData.WIOA.WIOAWorkers) { $scope.formData.WIOA.WIOAWorkers = []; }
+                $scope.formData.WIOA.WIOAWorkers.push(vm.activeWorker);
+            }
+
+            vm.cancelAddWorker();
+        }
+
+        vm.cancelAddWorker = function() {
+            vm.activeWorker = {};
+            vm.activeWorkerIndex = -1;
+            vm.addingWorker = false;
+        }
+
+        vm.editWorker = function(index) {
+            vm.activeWorkerIndex = index;
+            vm.activeWorker = merge({}, $scope.formData.WIOA.WIOAWorkers[index]);
+            vm.addingWorker = true;
+        }
+
+        vm.deleteWorker = function(index) {
+            $scope.formData.WIOA.WIOAWorkers.splice(index, 1);
+        }
   });
 }
