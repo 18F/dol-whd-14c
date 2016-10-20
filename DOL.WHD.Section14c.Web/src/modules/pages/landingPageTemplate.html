@@ -1,7 +1,21 @@
-<div ng-if="stateService.user.email">
-    Hello {{ stateService.user.email }}
+<div class="header-title-bar">
+    <div class="header-title">
+        <h1>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</h1>
+        <h2>OMB NO: 1235-0001</h2>
+        <h2>REVXX/20XX</h2>
+    </div>
+    <div class="header-logo">
+        <img ng-src="{{ loadImage('dol_seal.svg') }}" />
+        <img ng-src="{{ loadImage('whd_logo.jpg') }}" />
+    </div>
+</div>
+<div class="header-status-bar">
+    <p class="pull-left">EIN: <span class="header-ein">{{ stateService.ein ? stateService.ein : "XX-XXXXXXX" }}</span></p>
+    <p class="pull-right"><a href="" ng-click="vm.userClick()">{{ stateService.user.email ? stateService.user.email : "Username" }}</a> | <a href="" ng-click="vm.saveClick()">Save Work & Sign Out</a></p>
+</div>
+    <div ng-if="stateService.user.email">
     <div>
-        <a href="#/section/assurances">Start Application</a>
+        <button onclick="window.location='#/section/assurances';" class="save-button">Start A New Application</button>
     </div>
     <div>
         <a href="#/changePassword">Change Password</a>
@@ -10,3 +24,4 @@
 <div ng-if="!stateService.user.email">
     Welcome! Please <a href="#/login">login</a> or <a href="#/register">register</a>
 </div>
+
