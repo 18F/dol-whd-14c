@@ -1,7 +1,23 @@
-<div><input type="text" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" /></div>
-<div><input type="text" placeholder="Email" ng-model="formVals.email" /></div>
-<div><input type="password" placeholder="Password" ng-model="formVals.pass" /></div>
-<div><input type="password" placeholder="Confirm Password" ng-model="formVals.confirmPass" /></div>
+<div class="reghdr">
+    <h2>Section 14(c) Certificate Application</h2>
+<p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
+<ul>
+    <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants, 
+        will have to create an account in order to submit the form electronically.</li>
+    <li>The Employer's EIN is required to create an account.</li>
+    <li>Once the Employer's account is created, additional users can be added.</li>
+    <li>The electronic form includes both form WH-226 and WH-226A.</li>
+    <li>As of 12/31/2016, paper forms will no longer be accepted.</li>
+</ul>
+<p>Read our <a>FAQs for Electronic Section 14(c) Certificate Application</a></p>
+<hr/>
+</div>
+<div class="createAcct">
+<h2>Create an Account</h2>
+<div><label>Employer Identification Number (EIN)</label><input class="ein" type="text" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" /><div><a>Why do you need an EIN to create an account?</a></div></div>
+<div><label>Email Address</label><input type="text" placeholder="Email" ng-model="formVals.email" /></div>
+<div><label>Password</label><input type="password" placeholder="Password" ng-model="formVals.pass" /><div class="showpass"><a>Show Password</a></div></div>
+<div><label>Confirm Password</label><input type="password" placeholder="Confirm Password" ng-model="formVals.confirmPass" /></div>
 <div
     vc-recaptcha
     theme="'light'"
@@ -9,5 +25,6 @@
     on-create="setWidgetId(widgetId)"
     on-success="setResponse(response)"
     on-expire="cbExpiration()"
-></div>
-<div><button type="submit" ng-click="onSubmitClick()">Submit</button></div>
+ class="regcapt"></div>
+<div class="regbtn"><button type="submit" ng-click="onSubmitClick()">Submit</button></div>
+</div>

@@ -1,0 +1,37 @@
+@include nested(12) {
+
+    div.login {
+        background-color: #D3D3D3;
+        width: 350px;
+        padding:20px;
+     
+    }
+
+    div.showpass {
+        float: right;
+    }
+
+    div.loginbtn {
+        padding-top: 50px;
+    }
+
+    div.forgotpass {
+        padding-top: 30px;
+    }
+
+    div.reghdr {
+        width: 550px;
+    }
+
+    div.regcapt {
+        padding-top: 30px;
+    }
+
+    div.regbtn {
+        padding-top: 30px;
+    }
+
+    div.createAcct {
+        width: 46rem;
+    }
+}
