@@ -264,15 +264,16 @@
                     </div>
                 </div>
 
-                <button ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
-
-                <hr>
-
-                <button class="green-button" ng-click="vm.doneAddingEmployees()">Done Adding Employees</button>
+                <div class="clearer">
+                    <button class="compact-spaced pull-right" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
+                    <div class="clearer"></div>
+                    <hr>
+                    <button class="green-button pull-right" ng-click="vm.doneAddingEmployees()">Done Adding Employee(s)</button>
+                </div>
             </div>
 
             <div>
-                <button ng-click="vm.addingEmployee = true" ng-hide="vm.addingEmployee">Add Employee</button> <a href="" ng-click="">Show Me an Example</a>
+                <div ng-hide="vm.addingEmployee"><button ng-click="vm.addingEmployee = true">Add Employee</button> <a href="" ng-click="">Show Me an Example</a></div>
                 <table class="usa-table-borderless" ng-show="vm.activeWorksite.employees.length">
                     <thead>
                         <tr>
