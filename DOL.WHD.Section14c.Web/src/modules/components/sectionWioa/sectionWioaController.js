@@ -13,6 +13,7 @@ module.exports = function(ngModule) {
 
         $scope.formData = stateService.formData;
         $scope.showWIOAReqs = false;
+        if(!$scope.formData.WIOA) { $scope.formData.WIOA = { WIOAWorkers: [] } }
 
         var vm = this;
         vm.addingWorker = $scope.formData.WIOA.WIOAWorkers.length === 0;
@@ -28,7 +29,6 @@ module.exports = function(ngModule) {
                 $scope.formData.WIOA.WIOAWorkers[vm.activeWorkerIndex] = vm.activeWorker;
             }
             else {
-                if(!$scope.formData.WIOA.WIOAWorkers) { $scope.formData.WIOA.WIOAWorkers = []; }
                 $scope.formData.WIOA.WIOAWorkers.push(vm.activeWorker);
             }
 
