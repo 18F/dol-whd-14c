@@ -77,6 +77,8 @@
     <Compile Include="Models\Submission\Response.cs" />
     <Compile Include="Models\Submission\SourceEmployer.cs" />
     <Compile Include="Models\Submission\WageTypeInfo.cs" />
+    <Compile Include="Models\Submission\WIOA.cs" />
+    <Compile Include="Models\Submission\WIOAWorker.cs" />
     <Compile Include="Models\Submission\WorkerCountInfo.cs" />
     <Compile Include="Models\Submission\WorkSite.cs" />
     <Compile Include="ViewModels\AccountBindingModels.cs" />

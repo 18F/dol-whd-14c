@@ -152,6 +152,10 @@
     <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.Designer.cs">
       <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.cs" />
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.Designer.cs">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
@@ -205,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610191541037_EmpolyerInfoUpdates.resx">
       <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191846129_WIOAUpdates.resx">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

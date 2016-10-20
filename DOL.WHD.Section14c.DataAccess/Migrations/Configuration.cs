@@ -86,6 +86,12 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 35, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 36, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 37, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true });
+
+            //WIOAWorkerVerified
+            context.Responses.AddOrUpdate(new Response { Id = 38, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 39, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
+
         }
     }
 }

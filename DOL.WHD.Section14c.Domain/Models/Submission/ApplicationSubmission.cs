@@ -7,6 +7,28 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public int Id { get; set; }
 
+        #region Assurances
+
+        [Required]
+        public bool RepresentativePayeeSocialSecurityBenefits { get; set; }
+
+        // TODO: required if RepresentativePayeeSocialSecurityBenefits == true
+        public int NumEmployeesRepresentativePayee { get; set; }
+
+        [Required]
+        public bool ProvidingFacilities { get; set; }
+
+        // TODO: required if ProvidingFacilities == true
+        public ICollection<Response> ProvidingFacilitiesDeductionType { get; set; }
+
+        // TODO: required if ProvidingFacilitiesDeductionType == Other
+        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
+
+        [Required]
+        public bool ReviewedDocumentation { get; set; }
+
+        #endregion
+
         #region Application Info
 
         [Required]
@@ -71,25 +93,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         #endregion
 
-        #region Assurances
+        #region WIOA
 
         [Required]
-        public bool RepresentativePayeeSocialSecurityBenefits { get; set; }
-
-        // TODO: required if RepresentativePayeeSocialSecurityBenefits == true
-        public int NumEmployeesRepresentativePayee { get; set; }
-
-        [Required]
-        public bool ProvidingFacilities { get; set; }
-
-        // TODO: required if ProvidingFacilities == true
-        public ICollection<Response> ProvidingFacilitiesDeductionType { get; set; }
-
-        // TODO: required if ProvidingFacilitiesDeductionType == Other
-        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
-
-        [Required]
-        public bool ReviewedDocumentation { get; set; }
+        public virtual WIOA WIOA { get; set; }
 
         #endregion
     }
