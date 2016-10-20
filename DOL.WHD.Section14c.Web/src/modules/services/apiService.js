@@ -47,7 +47,7 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
-        this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse) {
+        this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse, emailVerificationUrl) {
 
             let url = _env.api_url + '/api/Account/Register';
             let d = $q.defer();
@@ -56,7 +56,7 @@ module.exports = function(ngModule) {
                 method: 'POST',
                 url: url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword, "ReCaptchaResponse": reCaptchaResponse})
+                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword, "ReCaptchaResponse": reCaptchaResponse, "EmailVerificationUrl": emailVerificationUrl })
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
@@ -66,6 +66,27 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
+
+        this.emailVerification = function(userId, code, reCaptchaResponse) {
+
+            let url = _env.api_url + '/api/Account/VerifyEmail';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"UserId": userId, "Nounce": code, "ReCaptchaResponse": reCaptchaResponse })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
 
        this.userInfo = function(access_token) {
 

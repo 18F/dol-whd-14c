@@ -12,6 +12,9 @@
   <parameter name="EmailVeriryAndPaswordRestTokenExpireHours" defaultValue="6">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVeriryAndPaswordRestTokenExpireHours']" />
   </parameter>
+  <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']" />
+  </parameter>
   <parameter name="ConnectionString" defaultValue="ConnectionString">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
   </parameter>
@@ -20,5 +23,11 @@
   </parameter>
   <parameter name="ReCaptchaSecretKey" defaultValue="6LeqeggUAAAAAEY5KpgWZGkOHnkyQXmiSKg7tqsY">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaSecretKey']" />
+  </parameter>
+  <parameter name="AttachmentRepositoryRootFolder" defaultValue="AttachmentRepositoryRootFolder">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AttachmentRepositoryRootFolder']" />
+  </parameter>
+  <parameter name="AllowedFileNamesRegex" defaultValue="^(.*\.(doc|docx|xls|xlsx|pdf|jpg|jpeg|png)$)?[^.]*$">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AllowedFileNamesRegex']" />
   </parameter>
 </parameters>

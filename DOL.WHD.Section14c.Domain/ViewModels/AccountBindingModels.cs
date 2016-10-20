@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.ViewModels
 {
@@ -47,6 +48,9 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         [RegularExpression((@"\d{2}\-\d{7}"))]
         [Display(Name = "EIN")]
         public string EIN { get; set; }
+
+        [Required()]
+        public Uri EmailVerificationUrl { get; set; }
 
         public string ReCaptchaResponse { get; set; }
 
