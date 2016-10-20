@@ -1,6 +1,7 @@
 'use strict';
 
 import isEmpty from 'lodash/isEmpty'
+import merge from 'lodash/merge'
 
 module.exports = function(ngModule) {
     ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService) {
@@ -68,8 +69,8 @@ module.exports = function(ngModule) {
         }
 
         this.deleteEmployee = function(index) {
-            if (vm.activeWorkSite && vm.activeWorkSite.employees.length > index) {
-                vm.activeWorkSite.employees.splice(index, 1);
+            if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
+                vm.activeWorksite.employees.splice(index, 1);
             }
         }
 
@@ -103,6 +104,7 @@ module.exports = function(ngModule) {
                 vm.activeWorksiteIndex = index;
                 vm.activeWorksite = merge({}, $scope.formData.workSites[index]);
                 vm.addingWorkSite = true;
+                vm.setActiveTab(1);
             }
         }
 
