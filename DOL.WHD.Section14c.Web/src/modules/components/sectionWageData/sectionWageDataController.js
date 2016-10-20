@@ -33,6 +33,12 @@ module.exports = function(ngModule) {
             }
         }
 
+        $scope.$on('$routeUpdate', function(){
+            query = $location.search();
+            vm.activeTab = query.t ? query.t : 1;
+            vm.setNextTabQuery(vm.activeTab);
+        });
+
         $scope.$watch('formData.payType', function(value) {
             if (value === 23 && vm.activeTab === 1) {
                 vm.setNextTabQuery(1);

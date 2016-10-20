@@ -60,6 +60,14 @@
             }
         }
 
+        ul.compact-list {
+            margin-top: 0;
+
+            li {
+                margin-bottom: 0;
+            }
+        }
+
         /* Custom form tabs (as seen in Wage Data section) */
         .form-tabbed-section {
             @include clearfix;
@@ -204,6 +212,40 @@
 
         hr {
             margin-bottom: 20px;
+        }
+
+        .wage-data-table {
+            font-size: 12px;
+
+            td, th {
+                background-color: darken($form-em-grey, 10%);
+                padding: 2 !important;
+                border: none;
+                max-width: 89px;
+            }
+
+            thead tr {
+                border-bottom: 1px solid $text-color;
+            }
+
+            input {
+                font-size: 12px !important;
+                height: 2.4rem;
+
+                &.wage-rate {
+                    padding: 2px;
+                    max-width: 5rem;
+                }
+            }
+
+            input[type="radio"] + label {
+                margin-top: 2px;
+            }
+            input[type="radio"] + label::before {
+                height: 0.8rem;
+                width: 0.8rem;
+                line-height: 0.8rem;
+            }
         }
     }
 

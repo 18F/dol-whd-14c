@@ -64,7 +64,8 @@ app.config(function($routeProvider, $compileProvider) {
         public: true
     })
     .when('/section/:section_id', {
-        template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; }
+        template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
+        reloadOnSearch: false
     })
     .otherwise({
         redirectTo: '/'
