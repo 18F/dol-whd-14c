@@ -15,20 +15,22 @@ module.exports = function(ngModule) {
         vm.activeSourceEmployer = {};
         vm.activeSourceEmployerIndex = -1;
         vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;                
+        vm.access_token = stateService.access_token;
 
         $scope.formData = stateService.formData;
 
-        $scope.formData.wageTypeInfo = {
-            numWorkers : 0, 
-            jobName : '',
-            jobDescription : '',
-            prevailingWageMethod : '',
-            mostRecentPrevailingWageSurvey : {
-                basedOnSurvey : '',
-                sourceEmployers : [ ]
-            }
-        };
+        if (!$scope.formData.wageTypeInfo) {
+            $scope.formData.wageTypeInfo = {
+                numWorkers : 0,
+                jobName : '',
+                jobDescription : '',
+                prevailingWageMethod : '',
+                mostRecentPrevailingWageSurvey : {
+                    basedOnSurvey : '',
+                    sourceEmployers : [ ]
+                }
+            };
+        }
 
         $scope.modelPrefix = function() {
             var prefix = 'hourlyWageInfo';
@@ -50,7 +52,7 @@ module.exports = function(ngModule) {
                 }, function(error){
                     //TODO: Display error
                     fileinput.value = '';
-                }) 
+                })
             }
         }
 
@@ -150,6 +152,6 @@ module.exports = function(ngModule) {
                 //TODO: Display error
                 $scope.formData.pieceRateDocumentAttachment = undefined;
             })
-        }                
+        }
   });
 }

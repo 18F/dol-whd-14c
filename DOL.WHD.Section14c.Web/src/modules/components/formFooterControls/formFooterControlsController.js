@@ -15,6 +15,10 @@ module.exports = function(ngModule) {
             vm.setNextLabel(value ? value : undefined);
         });
 
+        $scope.$watch('navService.backLabel', function(value) {
+            vm.setBackLabel(value ? value : undefined);
+        });
+
         $scope.$watch('navService.hasNext()', function(value) {
             vm.hasNext = value;
         });
@@ -25,6 +29,10 @@ module.exports = function(ngModule) {
 
         this.setNextLabel = function(label) {
             vm.nextLabel = label ? label : vm.hasNext ? "Next" : "Submit Form";
+        }
+
+        this.setBackLabel = function(label) {
+            vm.backLabel = label ? label : "Back";
         }
 
         this.doSave = function() {
