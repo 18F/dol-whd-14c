@@ -14,6 +14,10 @@ module.exports = function(ngModule) {
             get: function() { return state.nextQuery ? state.nextQuery.label : undefined }
         });
 
+        Object.defineProperty(this, 'backLabel', {
+            get: function() { return state.backQuery ? state.backQuery.label : undefined }
+        });
+
         this.hasNext = function() {
             return state.nextQuery || this.getNextSection();
         }
@@ -23,6 +27,8 @@ module.exports = function(ngModule) {
         }
 
         this.goNext = function() {
+            this.clearBackQuery();
+
             let current = $route.current.params.section_id;
             let next = this.getNextSection(current);
 
@@ -43,21 +49,32 @@ module.exports = function(ngModule) {
 
             this.clearNextQuery();
 
-            if (state.backStack.length > 0) {
-                let back = state.backStack.pop();
+            if (state.backQuery) {
+                $location.search(state.backQuery.query);
+            }
+            else {
+                if (state.backStack.length > 0) {
+                    let back = state.backStack.pop();
 
-                if (back && back.section) {
-                    if (back.query) {
-                        $location.path("/section/" + back.section).search(back.query);
-                    }
-                    else {
-                        $location.path("/section/" + back.section).search({});
+                    if (back && back.section) {
+                        if (back.query) {
+                            $location.path("/section/" + back.section).search(back.query);
+                        }
+                        else {
+                            $location.path("/section/" + back.section).search({});
+                        }
                     }
                 }
+                else if (previous) {
+                    $location.path("/section/" + previous).search({});
+                }
             }
-            else if (previous) {
-                $location.path("/section/" + previous).search({});
-            }
+
+            this.clearBackQuery();
+        }
+
+        this.clearQuery = function() {
+            $location.search({});
         }
 
         this.pushToBack = function(section, query) {
@@ -70,6 +87,14 @@ module.exports = function(ngModule) {
 
         this.clearNextQuery = function() {
             state.nextQuery = undefined;
+        }
+
+        this.setBackQuery = function(query, label) {
+            state.backQuery = { query: query, label: label };
+        }
+
+        this.clearBackQuery = function() {
+            state.backQuery = undefined;
         }
 
         this.getNextSection = function(current) {
