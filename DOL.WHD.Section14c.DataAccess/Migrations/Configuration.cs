@@ -78,14 +78,20 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 30, QuestionKey = "WorkSiteType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community...", IsActive = true });
 
             // PrimaryDisability
-            context.Responses.AddOrUpdate(new Response { Id = 30, QuestionKey = "PrimaryDisability", Display = "Intellectual/Developmental Disability (IDD)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 31, QuestionKey = "PrimaryDisability", Display = "Psychiatric Disability (PD)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 32, QuestionKey = "PrimaryDisability", Display = "Visual Impairment (VI)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 33, QuestionKey = "PrimaryDisability", Display = "Hearing Impairment (HI)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 34, QuestionKey = "PrimaryDisability", Display = "Substance Abuse (SA)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 35, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 36, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 37, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 31, QuestionKey = "PrimaryDisability", Display = "Intellectual/Developmental Disability (IDD)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 32, QuestionKey = "PrimaryDisability", Display = "Psychiatric Disability (PD)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 33, QuestionKey = "PrimaryDisability", Display = "Visual Impairment (VI)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 34, QuestionKey = "PrimaryDisability", Display = "Hearing Impairment (HI)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 35, QuestionKey = "PrimaryDisability", Display = "Substance Abuse (SA)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 36, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 37, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 38, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true });
+
+            //WIOAWorkerVerified
+            context.Responses.AddOrUpdate(new Response { Id = 39, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 41, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
+
         }
     }
 }

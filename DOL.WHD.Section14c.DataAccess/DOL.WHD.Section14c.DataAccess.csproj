@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -152,6 +154,14 @@
     <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.Designer.cs">
       <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.cs" />
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.Designer.cs">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610212140188_RemoveApplicationId.cs" />
+    <Compile Include="Migrations\201610212140188_RemoveApplicationId.Designer.cs">
+      <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
@@ -205,6 +215,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610191541037_EmpolyerInfoUpdates.resx">
       <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191846129_WIOAUpdates.resx">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610212140188_RemoveApplicationId.resx">
+      <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

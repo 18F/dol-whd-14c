@@ -1,30 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters>
   <parameter name="UserLockoutEnabledByDefault" defaultValue="true">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='UserLockoutEnabledByDefault']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='UserLockoutEnabledByDefault']/@value" />
+  </parameter>
+  <parameter name="PasswordExpirationDays" defaultValue="90">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='PasswordExpirationDays']/@value" />
   </parameter>
   <parameter name="DefaultAccountLockoutTimeSpan" defaultValue="15">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='DefaultAccountLockoutTimeSpan']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='DefaultAccountLockoutTimeSpan']/@value" />
   </parameter>
   <parameter name="MaxFailedAccessAttemptsBeforeLockout" defaultValue="3">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='MaxFailedAccessAttemptsBeforeLockout']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='MaxFailedAccessAttemptsBeforeLockout']/@value" />
   </parameter>
   <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
   <parameter name="ConnectionString" defaultValue="ConnectionString">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
   </parameter>
   <parameter name="ReCaptchaVerfiyUrl" defaultValue="https://www.google.com/recaptcha/api/siteverify">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaVerfiyUrl']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaVerfiyUrl']/@value" />
   </parameter>
   <parameter name="ReCaptchaSecretKey" defaultValue="6LeqeggUAAAAAEY5KpgWZGkOHnkyQXmiSKg7tqsY">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaSecretKey']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='ReCaptchaSecretKey']/@value" />
   </parameter>
   <parameter name="AttachmentRepositoryRootFolder" defaultValue="AttachmentRepositoryRootFolder">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AttachmentRepositoryRootFolder']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AttachmentRepositoryRootFolder']/@value" />
   </parameter>
   <parameter name="AllowedFileNamesRegex" defaultValue="^(.*\.(doc|docx|xls|xlsx|pdf|jpg|jpeg|png)$)?[^.]*$">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AllowedFileNamesRegex']" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AllowedFileNamesRegex']/@value" />
   </parameter>
 </parameters>

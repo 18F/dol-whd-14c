@@ -11,7 +11,7 @@ module.exports = function(ngModule) {
         var url = `${_env.api_url}/api/Response`;
 
         var getData = function() {
-            
+
             let d = $q.defer();
 
             if(responses)
@@ -36,7 +36,7 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
-        
+
         this.getQuestionResponses = function(questionKeys) {
             var d = $q.defer();
 
@@ -47,7 +47,7 @@ module.exports = function(ngModule) {
                     questionKeys = [questionKeys];
                 }
                 _.forEach(questionKeys, function(questionKey) {
-                    obj[questionKey] = _.filter(data, { 'questionKey': questionKey, 'isActive': true });
+                    obj[questionKey] = _.sortBy(_.filter(data, { 'questionKey': questionKey, 'isActive': true }), 'id');
                 });
 
                 d.resolve(obj);

@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -77,6 +79,8 @@
     <Compile Include="Models\Submission\Response.cs" />
     <Compile Include="Models\Submission\SourceEmployer.cs" />
     <Compile Include="Models\Submission\WageTypeInfo.cs" />
+    <Compile Include="Models\Submission\WIOA.cs" />
+    <Compile Include="Models\Submission\WIOAWorker.cs" />
     <Compile Include="Models\Submission\WorkerCountInfo.cs" />
     <Compile Include="Models\Submission\WorkSite.cs" />
     <Compile Include="ViewModels\AccountBindingModels.cs" />

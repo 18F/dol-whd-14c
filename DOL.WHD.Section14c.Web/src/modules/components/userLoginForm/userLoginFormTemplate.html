@@ -1,3 +1,7 @@
-<div><input name="email" type="text" placeholder="Email" ng-model="formVals.email" /></div>
-<div><input name="password" type="password" placeholder="Password" ng-model="formVals.pass" /></div>
-<div><button type="submit" ng-click="onSubmitClick()">Submit</button></div>
+<div class="login">
+    <h2>Log in</h2>
+    <div><label>Email</label><input name="email" type="text" placeholder="Email" ng-model="formVals.email" /></div>
+    <div><label>Password</label><input name="password" type="password" placeholder="Password" ng-model="formVals.pass" /><div class="showpass"><a>Show Password</a></div></div>
+    <div class="loginbtn"><button type="submit" ng-click="onSubmitClick()">Submit</button></div>
+    <div class="forgotpass"><a>Forgot Your Password?</a></div>
+</div>

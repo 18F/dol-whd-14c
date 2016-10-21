@@ -60,6 +60,14 @@
             }
         }
 
+        ul.compact-list {
+            margin-top: 0;
+
+            li {
+                margin-bottom: 0;
+            }
+        }
+
         /* Custom form tabs (as seen in Wage Data section) */
         .form-tabbed-section {
             @include clearfix;
@@ -169,6 +177,10 @@
             margin-top: 40px;
         }
 
+        .compact-spaced {
+            margin-top: 0px;
+        }
+
         .city-field {
             max-width: 20rem;
         }
@@ -204,6 +216,101 @@
 
         hr {
             margin-bottom: 20px;
+        }
+
+        .wage-data-table {
+            font-size: 12px;
+
+            td, th {
+                background-color: darken($form-em-grey, 10%);
+                padding: 2 !important;
+                border: none;
+                max-width: 89px;
+            }
+
+            thead tr {
+                border-bottom: 1px solid $text-color;
+            }
+
+            input {
+                font-size: 12px !important;
+                height: 2.4rem;
+
+                &.wage-rate {
+                    padding: 2px;
+                    max-width: 5rem;
+                }
+            }
+
+            input[type="radio"] + label {
+                margin-top: 2px;
+            }
+            input[type="radio"] + label::before {
+                height: 0.8rem;
+                width: 0.8rem;
+                line-height: 0.8rem;
+            }
+        }
+
+        table {
+            border: 1px solid $text-color;
+
+            th, td {
+                background-color: transparent;
+            }
+
+            tr {
+                background-color: #fff;
+            }
+
+            tr.greyed {
+                background-color: $form-em-grey;
+            }
+
+            .expanding-row {
+                *:focus {
+                    outline: none;
+                    box-shadow: none !important;
+                }
+
+                .arrow-expander {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    background-image: url('../images/arrow-down.png');
+                    background-size: contain;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                }
+
+                &.expanded {
+                    .arrow-expander {
+                        @include transform(scaleY(-1));
+                    }
+                }
+            }
+        }
+
+        table .expanding-row th, table .expanding-row td {
+            border-bottom: none;
+        }
+
+        table .expanded-row {
+            display: none;
+
+            &.show {
+                display: table-row;
+            }
+        }
+
+        table .expanded-row th, table .expanded-row td {
+            border: none;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            & > div {
+                border-top: 1px solid $text-color;
+            }
         }
     }
 
