@@ -131,6 +131,12 @@ module.exports = function(ngModule) {
             }
         }
 
+        this.siteRowClicked = function(e) {
+            let row = $(e.target).closest('.expanding-row');
+            row.toggleClass("expanded");
+            row.next().toggleClass("show");
+        }
+
         $scope.$on('$routeUpdate', function(){
             query = $location.search();
             if (query.t) {
