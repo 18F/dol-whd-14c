@@ -1,0 +1,43 @@
+$font-stack: source-sans-pro, Tahoma, sans-serif;
+
+/* Colors */
+
+$text-color: #323a45;
+$button-grey: #d6d7d9;
+$button-green: #4aa564;
+$form-em-grey: #f0f0f0;
+$help-link-color: #5A7FA8;
+$help-em-color: #D0E2FB;
+
+/* Layout */
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clearer {
+    @include clearfix;
+}
+
+/* Button Customizations */
+.grey-button {
+    background-color: $button-grey;
+    color: $text-color;
+
+    &:hover {
+        background-color: darken($button-grey, 10%);
+    }
+}
+
+.green-button {
+    margin-left: 40px;
+    background-color: $button-green;
+
+    &:hover {
+        background-color: darken($button-green, 10%);
+    }
+}

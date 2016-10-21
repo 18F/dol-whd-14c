@@ -6,5 +6,6 @@ module.exports = function(ngModule) {
       'use strict';
 
       $scope.stateService = stateService;
+
   });
 }

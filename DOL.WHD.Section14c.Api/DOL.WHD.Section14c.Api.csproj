@@ -84,6 +84,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -236,6 +237,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,6 +250,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalizedText.resx</DependentUpon>
     </Compile>
+    <Compile Include="Providers\RestrictedMultipartMemoryStreamProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

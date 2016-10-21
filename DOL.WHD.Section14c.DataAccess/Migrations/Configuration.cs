@@ -72,10 +72,10 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 26, QuestionKey = "PrevailingWageMethod", Display = "SCA Wage Determination", IsActive = true });
 
             // WorkSiteType
-            context.Responses.AddOrUpdate(new Response { Id = 27, QuestionKey = "EstablishmentType", Display = "Main Establishment (ME)", SubDisplay = "The primary location of the employer that files this application on behalf of all its associated work sites. Note: there can only be one Main Establishment", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 28, QuestionKey = "EstablishmentType", Display = "Branch establishment (BE)", SubDisplay = "A branch establishment is a physically separate work site that is part of the same organization as the main establishment", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 29, QuestionKey = "EstablishmentType", Display = "Off-site Work Location (OL)", SubDisplay = "An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities...", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = 30, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community...", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 27, QuestionKey = "WorkSiteType", Display = "Main Establishment (ME)", SubDisplay = "The primary location of the employer that files this application on behalf of all its associated work sites. Note: there can only be one Main Establishment", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 28, QuestionKey = "WorkSiteType", Display = "Branch establishment (BE)", SubDisplay = "A branch establishment is a physically separate work site that is part of the same organization as the main establishment", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 29, QuestionKey = "WorkSiteType", Display = "Off-site Work Location (OL)", SubDisplay = "An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities...", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 30, QuestionKey = "WorkSiteType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community...", IsActive = true });
 
             // PrimaryDisability
             context.Responses.AddOrUpdate(new Response { Id = 30, QuestionKey = "PrimaryDisability", Display = "Intellectual/Developmental Disability (IDD)", IsActive = true });
@@ -86,6 +86,12 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 35, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 36, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 37, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true });
+
+            //WIOAWorkerVerified
+            context.Responses.AddOrUpdate(new Response { Id = 38, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 39, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
+
         }
     }
 }

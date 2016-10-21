@@ -250,3 +250,4 @@ ModelManifest.xml
 DOL.WHD.Section14c.Test/results.xml
 DOL.WHD.Section14c.Test/CoverageReport/**/*.*
 DOL.WHD.Section14c.Web/coverage/**/*.*
+DOL.WHD.Section14c.Test/nuget.exe

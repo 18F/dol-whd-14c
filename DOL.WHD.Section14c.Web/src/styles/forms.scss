@@ -1,0 +1,336 @@
+@include nested(12) {
+
+    .form-page {
+        @include span(8);
+
+        .em-block {
+            background-color: $form-em-grey;
+            padding: 20px 30px;
+
+            table thead th {
+                background-color: darken($form-em-grey, 10%);
+            }
+        }
+
+        .underlabel {
+            margin-top: 0px;
+
+            &.checkbox-indent {
+                margin-left: 3.0rem;
+                margin-top: -5px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .sidelabeled {
+            display: inline-block;
+
+            & + label {
+                display: inline-block;
+                margin-top: 0px;
+            }
+        }
+
+        label.example {
+            color: lighten($text-color, 25%);
+        }
+
+        .help-link {
+            display: inline-block;
+            width: 1.1em;
+            height: 1.1em;
+            line-height: 1.1em;
+            font-weight: 700;
+            border-radius: 50%;
+            vertical-align: middle;
+            text-align: center;
+            background-color: $help-link-color;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .help-text {
+            font-weight: 400;
+            background-color: $help-em-color;
+            padding: 10px;
+            display: none;
+
+            &.show {
+                display: block;
+            }
+        }
+
+        ul.compact-list {
+            margin-top: 0;
+
+            li {
+                margin-bottom: 0;
+            }
+        }
+
+        /* Custom form tabs (as seen in Wage Data section) */
+        .form-tabbed-section {
+            @include clearfix;
+
+            margin-top: 40px;
+
+            .form-tab {
+                @include span(6);
+
+                padding: 10px;
+                cursor: pointer;
+                margin-right: 0px;
+
+                &:not(:first-of-type) {
+                    border-left: 1px solid $text-color;
+                }
+
+                &.active {
+                    border-top: 1px solid $text-color;
+                }
+
+                &:not(.active) {
+                    border-bottom: 1px solid $text-color;
+                    background-color: $form-em-grey;
+                }
+
+                .circle {
+                    display: inline-block;
+                    width: 24px;
+                    height: 24px;
+                    border-radius: 50%;
+                    border: 1px solid $text-color;
+                    text-align: center;
+                }
+            }
+        }
+
+        /* Form input sizing */
+        input.phoneno {
+            max-width: 18.2rem;
+        }
+
+        input.ein, input.certificateno {
+            max-width: 15.4rem;
+        }
+
+        input.other {
+            max-width: 25rem;
+        }
+
+        input.numeric2 {
+            max-width: 5rem;
+        }
+
+        input.numeric3 {
+            max-width: 5.6rem;
+        }
+
+        input.numeric5 {
+            max-width: 8.4rem;
+        }
+
+        input.numeric7 {
+            max-width: 10rem;
+        }
+
+        input.wage-rate {
+            max-width: 8.4rem;
+        }
+
+        input.wage-rate-ext {
+            max-width: 11.2rem;
+        }
+
+        input.email {
+            max-width: 32rem;
+        }
+
+        .form-question-block {
+            &:not(:first-of-type) {
+                margin-top: 40px;
+            }
+
+            .form-question-text {
+                margin-bottom: 20px;
+                font-weight: 700;
+
+                .form-question-subtext {
+                    font-weight: 400;
+                    margin-top: 5px;
+                }
+            }
+
+            .form-question-subtext {
+                margin-top: -15px;
+                margin-bottom: 20px;
+            }
+        }
+
+        .form-question-group {
+            &:not(:first-of-type), &.force-margin {
+                margin-top: 40px;
+            }
+        }
+
+        .form-spaced-div {
+            margin-top: 40px;
+        }
+
+        .compact-spaced {
+            margin-top: 0px;
+        }
+
+        .city-field {
+            max-width: 20rem;
+        }
+
+        .state-field {
+            max-width: 5rem;
+        }
+
+        .zip-field {
+            max-width: 10rem;
+        }
+
+        /* Styling for upload button/input combos */
+        .upload-label {
+            margin-right: 0px;
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+            height: 4.4rem;
+            vertical-align: middle;
+            line-height: normal;
+        }
+
+        .upload-input {
+            display: inline-block;
+            margin-left: 0px;
+            vertical-align: middle;
+        }
+
+        h2.form-section-header {
+            font: 20px $font-stack;
+            font-weight: bold;
+        }
+
+        hr {
+            margin-bottom: 20px;
+        }
+
+        .wage-data-table {
+            font-size: 12px;
+
+            td, th {
+                background-color: darken($form-em-grey, 10%);
+                padding: 2 !important;
+                border: none;
+                max-width: 89px;
+            }
+
+            thead tr {
+                border-bottom: 1px solid $text-color;
+            }
+
+            input {
+                font-size: 12px !important;
+                height: 2.4rem;
+
+                &.wage-rate {
+                    padding: 2px;
+                    max-width: 5rem;
+                }
+            }
+
+            input[type="radio"] + label {
+                margin-top: 2px;
+            }
+            input[type="radio"] + label::before {
+                height: 0.8rem;
+                width: 0.8rem;
+                line-height: 0.8rem;
+            }
+        }
+
+        table {
+            border: 1px solid $text-color;
+
+            th, td {
+                background-color: transparent;
+            }
+
+            tr {
+                background-color: #fff;
+            }
+
+            tr.greyed {
+                background-color: $form-em-grey;
+            }
+
+            .expanding-row {
+                *:focus {
+                    outline: none;
+                    box-shadow: none !important;
+                }
+
+                .arrow-expander {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    background-image: url('../images/arrow-down.png');
+                    background-size: contain;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                }
+
+                &.expanded {
+                    .arrow-expander {
+                        @include transform(scaleY(-1));
+                    }
+                }
+            }
+        }
+
+        table .expanding-row th, table .expanding-row td {
+            border-bottom: none;
+        }
+
+        table .expanded-row {
+            display: none;
+
+            &.show {
+                display: table-row;
+            }
+        }
+
+        table .expanded-row th, table .expanded-row td {
+            border: none;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            & > div {
+                border-top: 1px solid $text-color;
+            }
+        }
+    }
+
+    .form-sidebar {
+        @include span (last 4);
+        text-align: right;
+
+        .links-block {
+            background-color: $form-em-grey;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-align: left;
+
+            &.ng-hide {
+                transform: translateX(300%);
+            }
+
+            &.ng-hide-add, &.ng-hide-remove {
+                transition: all linear 0.4s;
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<div class="form-page">
+    <div class="form-question-block">
+        <div class="form-question-text">How did the employer pay subminimum wage rates to workers with disabilities in the most recent fiscal quarter?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <legend class="usa-sr-only">Pay Type</legend>
+
+            <ul class="usa-unstyled-list">
+                <li ng-repeat="response in responses.PayType">
+                    <input id="paytype_{{ response.id }}" type="radio" name="pay-type" ng-value="response.id" ng-model="formData.payType">
+                    <label for="paytype_{{ response.id }}">{{ response.display }}</label>
+                </li>
+            </ul>
+        </fieldset>
+    </div>
+
+    <div class="form-tabbed-section" ng-show="formData.payType === 23">
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.onTabClick(1)"><div class="circle">1</div> Hourly</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.onTabClick(2)"><div class="circle">2</div> Piece Rate</div>
+    </div>
+    <wage-data-pay-type-form paytype="hourly" show-all-help="vm.showAllHelp"  ng-show="formData.payType === 21 || (formData.payType === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
+    <wage-data-pay-type-form paytype="piecerate" show-all-help="vm.showAllHelp" ng-show="formData.payType === 22 || (formData.payType === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
+</div>
+<div class="form-sidebar">
+    <div><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a> | <a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></div>
+    <div class="links-block" ng-show="vm.showLinks === true">
+        Prevailing Wage Calculators:<br>
+        <a href="">Straight or Simple Average</a><br>
+        <a href="">Weighted Average</a><br>
+        <br>
+        Commensurate Hourly Wage Calculators:<br>
+        <a href="">Rework</a><br>
+        <a href="">Wighted Tasks, Standard Weight Factor</a><br>
+        <a href="">Weighted Tasks, Ww/D Weight Factor</a><br>
+        <a href="">90/10 Form, Single Task, Variable Time</a><br>
+        <a href="">90/10 Form, Fixed Time, Variable Units</a><br>
+        <br>
+        Piece Rate - Number of Units in Standard Calculators:<br>
+        <a href="">Fixed Number of Units, PF&D 9 min</a><br>
+        <a href="">Fixed Number of Units, PF&D 10 min</a><br>
+        <a href="">Fixed Time, PF&D 9 min</a><br>
+        <a href="">Fixed Time, PF&D 10 min</a><br>
+        <a href="">Piece Rate Calculator</a><br>
+        <br>
+        New Minimum Wage Calculator<br>
+        <a href="">New Prevailing Wage Calculator (Based on Minimum Wage Rate Change)</a><br>
+        <br>
+        User Guide<br>
+        <a href="">Section 14(c) Online Calculators User Guide (PDF)</a><br>
+    </div>
+</div>

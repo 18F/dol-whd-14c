@@ -103,6 +103,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
+    <Compile Include="IFileRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -137,8 +138,29 @@
     <Compile Include="Migrations\201610141921103_UpdateApplicationSaveKey.Designer.cs">
       <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.cs" />
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.Designer.cs">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.cs" />
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.Designer.cs">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.cs" />
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.Designer.cs">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.cs" />
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.Designer.cs">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.cs" />
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.Designer.cs">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
@@ -177,6 +199,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610141921103_UpdateApplicationSaveKey.resx">
       <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610150004056_AttachmentUpdates.resx">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181406066_WageDataModelUpdate.resx">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.resx">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191541037_EmpolyerInfoUpdates.resx">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191846129_WIOAUpdates.resx">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -41,12 +41,13 @@ require('./components')(app);
 require('./pages')(app);
 require('./services')(app);
 
-app.config(function($routeProvider) {
+app.config(function($routeProvider, $compileProvider) {
     $routeProvider
     .when('/', {
         controller: 'landingPageController',
         reloadOnSearch: false,
-        template: require('./pages/landingPageTemplate.html')
+        template: require('./pages/landingPageTemplate.html'),
+        public: true
     })
     .when('/changePassword', {
         controller: 'changePasswordPageController',
@@ -54,13 +55,35 @@ app.config(function($routeProvider) {
     })
     .when('/login', {
         controller: 'userLoginPageController',
-        template: require('./pages/userLoginPageTemplate.html')
+        template: require('./pages/userLoginPageTemplate.html'),
+        public: true
     })
     .when('/register', {
         controller: 'userRegistrationPageController',
-        template: require('./pages/userRegistrationPageTemplate.html')
+        template: require('./pages/userRegistrationPageTemplate.html'),
+        public: true
+    })
+    .when('/section/:section_id', {
+        template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
+        reloadOnSearch: false
     })
     .otherwise({
         redirectTo: '/'
     });
+});
+
+app.run(function($rootScope, $location) {
+    $rootScope.loadImage = function(image) {
+        return require('../images/' + image);
+    };
+
+    //TODO: remove dev_flag check
+    if (!env.dev_flag === true) {
+        // watch for route changes and redirect non-public routes if not logged in
+        $rootScope.$on( "$routeChangeStart", function(event, next, current) {
+            if ( !$rootScope.loggedIn && next.$$route.public !== true ) {
+                $location.path( "/" );
+            }
+        });
+    }
 });

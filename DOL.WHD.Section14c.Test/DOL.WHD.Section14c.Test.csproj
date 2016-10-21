@@ -71,6 +71,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -90,6 +92,7 @@
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
+    <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <None Include="app.config" />
@@ -102,7 +105,6 @@
     <Compile Include="Domain\Models\ApplicationUserTests.cs" />
     <Compile Include="Domain\ViewModels\AccountBindingModelsTests.cs" />
     <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
-    <Compile Include="Domain\ViewModels\ApplicationSaveDTOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
