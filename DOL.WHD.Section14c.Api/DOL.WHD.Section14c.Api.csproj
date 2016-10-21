@@ -240,6 +240,7 @@
     <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
+    <Compile Include="Filters\AuthorizeHttps.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

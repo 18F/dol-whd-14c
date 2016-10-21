@@ -73,6 +73,17 @@ module.exports = function(ngModule) {
             this.clearBackQuery();
         }
 
+        this.gotoSection = function(section) {
+            if (sectionArray.indexOf(section) === -1) {
+                return;
+            }
+
+            this.clearBackQuery();
+            this.clearNextQuery();
+            state.backStack.length = 0;
+            $location.path("/section/" + section).search({});
+        }
+
         this.clearQuery = function() {
             $location.search({});
         }
