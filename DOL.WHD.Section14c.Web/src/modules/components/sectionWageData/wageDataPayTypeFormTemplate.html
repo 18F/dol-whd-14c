@@ -123,6 +123,12 @@
                                 <option value="WV">West Virginia</option>
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
+                                <option value="AS">American Samoa</option>
+                                <option value="GU">Guam</option>
+                                <option value="MP">Northern Mariana Islands</option>
+                                <option value="PR">Puerto Rico</option>
+                                <option value="UM">United States Minor Outlying Islands</option>
+                                <option value="VI">Virgin Islands</option>
                               </select>
                             </div>
                           </div>
@@ -197,7 +203,7 @@
                     <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
                 </div>
                 <div ng-show="formData.hourlyDeterminationAttachment != undefined">
-                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.hourlyDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.hourlyDeterminationAttachment.originalFileName}}</a> 
+                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.hourlyDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.hourlyDeterminationAttachment.originalFileName}}</a>
                     <button class="usa-button-secondary" ng-click="vm.deleteHourlyDeterminationAttachment(formData.hourlyDeterminationAttachment.id)">Delete</button>
                 </div>
             </div>
@@ -250,7 +256,7 @@
                 <label class="underlabel" for="attachedSCAWageDetermination">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
             <div class="form-question-answer" ng-show="formData.scaWageDeterminationAttachment != undefined">
-                <a ng-href="{{vm.attachmentApiURL}}/{{formData.scaWageDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.scaWageDeterminationAttachment.originalFileName}}</a> 
+                <a ng-href="{{vm.attachmentApiURL}}/{{formData.scaWageDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData.scaWageDeterminationAttachment.originalFileName}}</a>
                 <button class="usa-button-secondary" ng-click="vm.deleteScaWageDeterminationAttachment(formData.scaWageDeterminationAttachment.id)">Delete</button>
             </div>
         </div>
@@ -281,7 +287,7 @@
                 <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
             <div class="form-question-answer" ng-show="formData.workMeasurementStudyAttachment != undefined">
-               <a ng-href="{{vm.attachmentApiURL}}/{{formData.workMeasurementStudyAttachment.id}}?access_token={{vm.access_token}}">{{formData.workMeasurementStudyAttachment.originalFileName}}</a> 
+               <a ng-href="{{vm.attachmentApiURL}}/{{formData.workMeasurementStudyAttachment.id}}?access_token={{vm.access_token}}">{{formData.workMeasurementStudyAttachment.originalFileName}}</a>
                <button class="usa-button-secondary" ng-click="vm.deleteWorkMeasurementStudyAttachment(formData.workMeasurementStudyAttachment.id)">Delete</button>
             </div>
         </div>
@@ -315,9 +321,9 @@
                     <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
                 </div>
                 <div  ng-show="formData.pieceRateDocumentAttachment != undefined">
-                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.pieceRateDocumentAttachment.id}}?access_token={{vm.access_token}}">{{formData.pieceRateDocumentAttachment.originalFileName}}</a> 
+                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.pieceRateDocumentAttachment.id}}?access_token={{vm.access_token}}">{{formData.pieceRateDocumentAttachment.originalFileName}}</a>
                     <button class="usa-button-secondary" ng-click="vm.deletePieceRateDocumentAttachment(formData.pieceRateDocumentAttachment.id)">Delete</button>
-                </div>                
+                </div>
             </div>
         </div>
     </div>
