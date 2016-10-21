@@ -83,8 +83,10 @@ All configurations for the Web project are set in the env.js. This file is exclu
 
 | Setting | Description | Default   
 | --- | --- | ---
-api_url | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
-reCaptchaSiteKey | reCaptcha Site Key | (Development Key with localhost enabled)
+api_url* | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
+reCaptchaSiteKey* | reCaptcha Site Key | (Development Key with localhost enabled)
+
+\* Must be configured during deployment
 
 ### 2. DOL.WHD.Section14c.API.zip
 
@@ -94,15 +96,19 @@ The following are setup as WebDeploy parameters and can be set with command line
 
 | Setting | Description | Default   
 | --- | --- | ---
-ConnectionString | PostgreSQL database connection string | No Deployment Default, must be set.
-ReCaptchaVerfiyUrl | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
-ReCaptchaSecretKey | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default, must be set.
+ConnectionString* | PostgreSQL database connection string | No Deployment Default
+ReCaptchaVerfiyUrl* | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
+ReCaptchaSecretKey* | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default
+AttachmentRepositoryRootFolder* | File Path (Local or UNC path) where application attachments should be stored | No Deployment Default
 UserLockoutEnabledByDefault | Enables or Disabled user login attempt lockout | true
 DefaultAccountLockoutTimeSpan | Minutes to lockout user | 15
 MaxFailedAccessAttemptsBeforeLockout | Login attempts befer user is locked out | 3
+PasswordExpirationDays | Number of days before password must be changes | 90
 AccessTokenExpireTimeSpanMinutes | Token Expiration Minutes for Reset Password and Email Verification Links | 20160 (14 days, ASP.net Default)
-AttachmentRepositoryRootFolder | File Path (UNC path) where application attachments shoudl be stored | No Deployment Default, must be set.
 AllowedFileNamesRegex | Regex for allowed filenames | ^(.*\.(doc|docx|xls|xlsx|ppt|pptx|pdf)$)?[^.]*$
+
+\* Must be configured during deployment
+
 
 ### 3. DotNet.CoverageReport.zip
 
