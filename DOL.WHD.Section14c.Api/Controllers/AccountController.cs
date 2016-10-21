@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
+using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -17,7 +17,7 @@ using RestSharp;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
-    [Authorize]
+    [AuthorizeHttps]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -33,7 +33,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         // GET api/Account/UserInfo
-        [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
         public async Task<UserInfoViewModel> GetUserInfo()
         {
@@ -89,25 +88,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
             IdentityResult result = await UserManager.ChangePasswordAsync(userId, model.OldPassword,
                 model.NewPassword);
             
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            return Ok();
-        }
-
-        // POST api/Account/SetPassword
-        [Route("SetPassword")]
-        public async Task<IHttpActionResult> SetPassword(SetPasswordBindingModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);

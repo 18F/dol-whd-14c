@@ -7,14 +7,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
+using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.Business;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
-    [Authorize]
+    [AuthorizeHttps]
     [RoutePrefix("api/attachment")]
     public class AttachmentController : ApiController
     {
