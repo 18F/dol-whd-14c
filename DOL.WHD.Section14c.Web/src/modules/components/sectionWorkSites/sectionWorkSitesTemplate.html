@@ -296,7 +296,7 @@
         </div>
     </div>
 
-    <table class="usa-table-borderless" ng-show="formData.workSites.length">
+    <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
         <thead>
             <tr>
                 <th scope="col">Work Site Name</th>
@@ -305,10 +305,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="site in formData.workSites">
-                <th scope="row">{{ site.name }}</th>
+            <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
+                <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
                 <td>{{ site.numEmployees }}</td>
                 <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
+            </tr>
+            <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                <td colspan="3">
+                    <div ng-repeat="employee in site.employees">
+                        {{ employee.name }}
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

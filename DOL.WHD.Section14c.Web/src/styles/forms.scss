@@ -251,6 +251,67 @@
                 line-height: 0.8rem;
             }
         }
+
+        table {
+            border: 1px solid $text-color;
+
+            th, td {
+                background-color: transparent;
+            }
+
+            tr {
+                background-color: #fff;
+            }
+
+            tr.greyed {
+                background-color: $form-em-grey;
+            }
+
+            .expanding-row {
+                *:focus {
+                    outline: none;
+                    box-shadow: none !important;
+                }
+
+                .arrow-expander {
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    background-image: url('../images/arrow-down.png');
+                    background-size: contain;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                }
+
+                &.expanded {
+                    .arrow-expander {
+                        @include transform(scaleY(-1));
+                    }
+                }
+            }
+        }
+
+        table .expanding-row th, table .expanding-row td {
+            border-bottom: none;
+        }
+
+        table .expanded-row {
+            display: none;
+
+            &.show {
+                display: table-row;
+            }
+        }
+
+        table .expanded-row th, table .expanded-row td {
+            border: none;
+            padding-left: 20px;
+            padding-right: 20px;
+
+            & > div {
+                border-top: 1px solid $text-color;
+            }
+        }
     }
 
     .form-sidebar {
