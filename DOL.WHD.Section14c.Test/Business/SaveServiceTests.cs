@@ -84,7 +84,6 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.AreEqual(newData.ApplicationState, newRecord.ApplicationState);
             Assert.AreEqual(einToTest, newRecord.EIN);
-            Assert.AreEqual(existingRecord.ApplicationId, newRecord.ApplicationId); // Application ID should not be updated
         }
 
         [TestMethod]
