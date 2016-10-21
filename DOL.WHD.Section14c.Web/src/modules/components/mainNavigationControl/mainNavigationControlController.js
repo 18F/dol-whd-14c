@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('mainNavigationControlController', function($scope, $location, $route, stateService, apiService) {
+    ngModule.controller('mainNavigationControlController', function($scope, $location, $route, navService, stateService, apiService) {
         'ngInject';
         'use strict';
 
@@ -11,7 +11,7 @@ module.exports = function(ngModule) {
 
         this.onNavClick = function(event) {
             var id = event.target.dataset.sectionid;
-            $location.path("/section/" + id);
+            navService.gotoSection(id);
         }
     });
 }
