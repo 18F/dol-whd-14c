@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
+using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Business;
-using DOL.WHD.Section14c.Domain.ViewModels;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
-    [Authorize]
+    [AuthorizeHttps]
     [RoutePrefix("api/save")]
     public class SaveController : ApiController
     {
