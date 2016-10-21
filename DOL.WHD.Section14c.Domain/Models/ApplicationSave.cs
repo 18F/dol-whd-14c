@@ -9,16 +9,12 @@ namespace DOL.WHD.Section14c.Domain.Models
     {
         public ApplicationSave()
         {
-            ApplicationId = Guid.NewGuid();
-
             if (Attachments == null)
                 Attachments = new List<Attachment>();
         }
 
         [Key]
         public string EIN { get; set; }
-
-        public Guid ApplicationId { get; set; }
 
         [Required]
         public string ApplicationState { get; set; }
