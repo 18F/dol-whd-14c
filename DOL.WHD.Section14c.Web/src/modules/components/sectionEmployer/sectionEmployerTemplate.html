@@ -12,7 +12,7 @@
     <div class="form-question-block">
         <div class="form-question-text">Does the Employer have a Trade Name?
             <helplink></helplink>
-            <helptext>This is the help text.</helptext>            
+            <helptext>This is the help text.</helptext>
         </div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -30,8 +30,8 @@
             <div class="form-question-text">Trade Name</div>
             <div class="form-question-answer">
                 <input id="tradeName" name="tradeName" type="text" ng-model="formData.employerInfo.tradeName">
-            </div>         
-        </div>   
+            </div>
+        </div>
     </div>
     <div class="form-question-block">
         <div class="form-question-text">Has the Employer's legal name changed since its last application?
@@ -54,8 +54,8 @@
             <div class="form-question-text">Prior Legal Name of Employer</div>
             <div class="form-question-answer">
                 <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employerInfo.priorLegalName">
-            </div>      
-        </div>           
+            </div>
+        </div>
     </div>
     <div class="form-question-block">
         <div class="form-question-text">Physical Address of Employer's Main Establishment
@@ -127,6 +127,12 @@
                 <option value="WV">West Virginia</option>
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
+                <option value="AS">American Samoa</option>
+                <option value="GU">Guam</option>
+                <option value="MP">Northern Mariana Islands</option>
+                <option value="PR">Puerto Rico</option>
+                <option value="UM">United States Minor Outlying Islands</option>
+                <option value="VI">Virgin Islands</option>
                 </select>
             </div>
             </div>
@@ -227,6 +233,12 @@
                 <option value="WV">West Virginia</option>
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
+                <option value="AS">American Samoa</option>
+                <option value="GU">Guam</option>
+                <option value="MP">Northern Mariana Islands</option>
+                <option value="PR">Puerto Rico</option>
+                <option value="UM">United States Minor Outlying Islands</option>
+                <option value="VI">Virgin Islands</option>
                 </select>
             </div>
             </div>
@@ -274,7 +286,7 @@
                 </li>
             </ul>
         </fieldset>
-    </div>    
+    </div>
     <h2 class="form-section-header">Number of Workers With Disabilities</h2>
     <hr />
     <div class="form-question-block">
@@ -323,7 +335,7 @@
         <label for="workerCountInfoTotBusinessEstablishmental">Business Establishment</label>
         <div class="form-question-answer">
             <input id="workerCountInfoTotBusinessEstablishmental" name="workerCountInfoTotBusinessEstablishmental" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.totBusinessEstablishmental">
-        </div>                        
+        </div>
     </div>
     <h2 class="form-section-header">Government Contracts</h2>
     <hr />
@@ -341,7 +353,7 @@
                 </li>
             </ul>
         </fieldset>
-    </div> 
+    </div>
     <div class="form-question-block">
         <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -356,7 +368,7 @@
             <label for="SCACount">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</label>
             <div class="form-question-answer">
                 <input id="SCACount" name="SCACount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.SCACount">
-            </div>     
+            </div>
             <label for="SCAAttachment">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
             <div ng-show="formData.employerInfo.SCAAttachment == undefined">
                 <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
@@ -364,11 +376,11 @@
                 <label class="underlabel" for="SCAAttachment">File types accepted: PDF, Word, Excel, JPG, PNG</label>
             </div>
             <div ng-show="formData.employerInfo.SCAAttachment != undefined">
-                <a ng-href="{{vm.attachmentApiURL}}/{{formData.employerInfo.SCAAttachment.id}}?access_token={{vm.access_token}}">{{formData.employerInfo.SCAAttachment.originalFileName}}</a> 
+                <a ng-href="{{vm.attachmentApiURL}}/{{formData.employerInfo.SCAAttachment.id}}?access_token={{vm.access_token}}">{{formData.employerInfo.SCAAttachment.originalFileName}}</a>
                 <button class="usa-button-secondary" ng-click="vm.deleteSCAAttachment(formData.employerInfo.SCAAttachment.id)">Delete</button>
             </div>
         </div>
-    </div> 
+    </div>
     <div class="form-question-block">
         <div class="form-question-text">Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -379,7 +391,7 @@
                 </li>
             </ul>
         </fieldset>
-    </div>         
+    </div>
     <h2 class="form-section-header">Label for Section?</h2>
     <hr />
     <div class="form-question-block">
@@ -396,7 +408,7 @@
                 </li>
             </ul>
         </fieldset>
-    </div> 
+    </div>
     <div class="form-question-block">
         <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -421,9 +433,9 @@
                     </li>
                 </ul>
                 <input id="deductionTypeOther" name="deductionTypeOther" type="text" ng-model="formData.employerInfo.providingFacilitiesDeductionTypeOther">
-            </fieldset>    
-        </div>    
-    </div> 
+            </fieldset>
+        </div>
+    </div>
     <div class="form-question-block">
         <div class="form-question-text">Is this a request for Temporarty Authority?</div>
         <div class="form-question-subtext">Answer Yes if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration.</div>
@@ -439,5 +451,5 @@
                 </li>
             </ul>
         </fieldset>
-    </div>         
+    </div>
 </div>
