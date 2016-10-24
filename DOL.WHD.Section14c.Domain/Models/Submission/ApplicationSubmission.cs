@@ -1,11 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class ApplicationSubmission : BaseEntity
     {
-        public int Id { get; set; }
+        public ApplicationSubmission()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
 
         #region Assurances
 
@@ -32,7 +38,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region Application Info
 
         [Required]
-        public string UserId { get; set; }
+        public string EIN { get; set; }
 
         [Required]
         public virtual Response ApplicationType { get; set; }

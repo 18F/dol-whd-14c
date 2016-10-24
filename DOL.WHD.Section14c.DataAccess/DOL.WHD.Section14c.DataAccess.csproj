@@ -171,9 +171,15 @@
     <Compile Include="Migrations\201610261540007_AuditFields.Designer.cs">
       <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610242052169_ApplicationSubmissionKeyChange.cs" />
+    <Compile Include="Migrations\201610242052169_ApplicationSubmissionKeyChange.Designer.cs">
+      <DependentUpon>201610242052169_ApplicationSubmissionKeyChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="IApplicationRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
@@ -236,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610261540007_AuditFields.resx">
       <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610242052169_ApplicationSubmissionKeyChange.resx">
+      <DependentUpon>201610242052169_ApplicationSubmissionKeyChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
