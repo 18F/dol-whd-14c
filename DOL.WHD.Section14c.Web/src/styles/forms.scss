@@ -2,6 +2,15 @@
 
     .form-page {
         @include span(8);
+    }
+
+    @media only screen and (max-width : 800px) {
+        .form-page {
+            @include span(12);
+        }
+    }
+
+    .form-page, .form-page-full {
 
         .em-block {
             background-color: $form-em-grey;
@@ -259,6 +268,10 @@
                 background-color: transparent;
             }
 
+            thead th {
+                background-color: $button-grey;
+            }
+
             td.button-column {
                 white-space: nowrap;
             }
@@ -293,6 +306,27 @@
                     }
                 }
             }
+
+            .subtable {
+                display: table;
+                width: 100%;
+                font-size: 14px;
+
+                & > div {
+                    display: table-cell;
+                    padding: 10px 5px;
+                    font-weight: 700;
+
+                    &:not(:last-of-type) {
+                        border-right: 1px solid $text-color;
+                    }
+
+                    & > div {
+                        margin-top: 4px;
+                        font-weight: 400;
+                    }
+                }
+            }
         }
 
         table .expanding-row th, table .expanding-row td {
@@ -314,6 +348,7 @@
 
             & > div {
                 border-top: 1px solid $text-color;
+                padding: 8px 2px;
             }
         }
     }

@@ -1,4 +1,4 @@
-<div class="form-page">
+<div class="form-page-full">
     <div class="form-question-block">
         <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
         <div class="form-question-answer">
@@ -196,8 +196,8 @@
             </ul>
         </div>
 
-        <div class="form-question-group em-block">
-            <div ng-show="vm.addingEmployee">
+        <div class="form-question-group">
+            <div class="em-block" ng-show="vm.addingEmployee">
                 <div class="form-question-block">
                     <div class="form-question-text">Full Name of Worker</div>
                     <div class="form-question-answer">
@@ -290,11 +290,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="employee in vm.activeWorksite.employees">
-                            <th scope="row">{{ employee.name }}</th>
+                        <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="employee in vm.activeWorksite.employees">
+                            <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ employee.name }}</th>
                             <td>{{ vm.getDisabilityDisplay(employee) }}</td>
                             <td>{{ employee.workType }}</td>
                             <td class="button-column"><button class="green-button" ng-click="vm.editEmployee($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteEmployee($index)">Delete</button></td>
+                        </tr>
+                        <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                            <td colspan="4">
+                                <div class="subtable">
+                                    <div>Number of Jobs<div>{{ employee.numJobs}}</div></div>
+                                    <div>Average Hours per Week<div>{{ employee.avgWeeklyHours}}</div></div>
+                                    <div>Average Earnings per Hours<div>${{ employee.avgHourlyEarnings}}</div></div>
+                                    <div>Prevailing Wage Rate<div>${{ employee.prevailingWage}}</div></div>
+                                    <div>Productivity Measure<div>{{ employee.productivityMeasure}}</div></div>
+                                    <div>Commensurate Wage Rate<div>${{ employee.commensurateWageRate}}</div></div>
+                                    <div>Total Hours Worked<div>{{ employee.totalHours}}</div></div>
+                                    <div>Work at Other Site?<div>{{ employee.workAtOtherSite ? "Yes" : "No" }}</div></div>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
