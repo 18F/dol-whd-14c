@@ -162,6 +162,7 @@
     <Compile Include="Migrations\201610212140188_RemoveApplicationId.Designer.cs">
       <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
     </Compile>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
@@ -221,6 +222,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610212140188_RemoveApplicationId.resx">
       <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
+    </EmbeddedResource>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -140,10 +140,13 @@
             <label for="zip">Zip Code</label>
             <input class="usa-input-medium" id="zip" name="zip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.physicalAddress.zipCode">
 
-        <div class="usa-input-grid usa-input-grid-medium">
-            <label for="country">Country</label>
-            <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
-        </div>
+            <div class="usa-input-grid usa-input-grid-medium">
+                <label for="country">Country</label>
+                <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
+            </div>
+
+            <input id="hasDifferentMailingAddress" type="checkbox" name="differentMailingAddress" value="true" ng-model="formData.employerInfo.hasDifferentMailingAddress">
+            <label for="hasDifferentMailingAddress">Mailing Address is different from Pysical Address</label>
 
         </fieldset>
     </div>
