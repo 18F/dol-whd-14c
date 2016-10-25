@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -22,6 +20,12 @@ namespace DOL.WHD.Section14c.Domain.Models
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
             // Add custom user claims here
+            foreach (var organization in Organizations)
+            {
+                var claim = new Claim("EIN", organization.EIN);
+                userIdentity.AddClaim(claim);
+            }
+
             return userIdentity;
         }
 

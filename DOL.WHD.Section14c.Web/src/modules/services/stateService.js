@@ -6,16 +6,28 @@ module.exports = function(ngModule) {
     ngModule.service('stateService', function() {
         'use strict';
 
+        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+
         let state = {
-            form_data: { }
+            form_data: { },
+            activeEIN: undefined,
+            user: {
+                email: ''
+            }
         };
+
 
         /*** Properties ***/
 
-        // email
-        Object.defineProperty(this, 'email', {
-            get: function() { return state.email; },
-            set: function(value) { state.email = value; }
+        // user
+        Object.defineProperty(this, 'user', {
+            get: function() { return state.user; },
+            set: function(value) { state.user = value; }
+        });
+
+        Object.defineProperty(this, 'ein', {
+            get: function() { return state.activeEIN; },
+            set: function(value) { state.activeEIN = value; }
         });
 
         // REST access token
@@ -25,10 +37,11 @@ module.exports = function(ngModule) {
         });
 
         // Core form data object model
-        Object.defineProperty(this, 'form_data', {
+        Object.defineProperty(this, 'formData', {
             get: function() { return state.form_data; },
             set: function(value) { state.form_data = value; }
         });
+
 
         /*** Methods ***/
 

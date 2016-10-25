@@ -18,13 +18,13 @@ namespace DOL.WHD.Section14c.DataAccess
             return new ApplicationDbContext();
         }
 
-        public DbSet<ExampleModel> Numbers { get; set; }
-
         public DbSet<ApplicationSubmission> ApplicationSubmissions { get; set; }
 
         public DbSet<Response> Responses { get; set; }
 
         public DbSet<ApplicationSave> ApplicationSaves { get; set; }
+
+        public DbSet<Attachment> FileUploads { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -45,8 +45,6 @@ namespace DOL.WHD.Section14c.DataAccess
                 .WithMany()
                 .Map(m => m.ToTable("WorkSiteWorkSiteType"));
 
-            modelBuilder.Entity<ApplicationSave>()
-                .HasKey(s => new {s.UserId, s.EIN});
         }
     }
 }

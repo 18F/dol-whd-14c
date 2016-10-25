@@ -1,0 +1,98 @@
+<div class="form-page">
+    <h2 class="form-section-header">Workforce Innovation and Opportunity Act (WIOA)</h2>
+    <hr />
+    <p>WIOA requirements are effective July 22, 2016. <a href ng-click="vm.toggleLearnMore()">Learn More</a></p>
+    <div ng-show="showWIOAReqs" class="em-block">
+        <p>The Workforce Innovation and Opportunity Act (WIOA) of 2014 added <a href>section 511 to the Rehabilitation Act of 1973, 29 U.S.C. 794g</a>.</p>
+        <p>Beginning on July 22, 2016, this section places requirements on all entities that hold a section 14(c) certificate and pay any worker a subminimum wage.</p>
+        <p>The employer may not employ an individual, regardless of age, at a subminimum wage unless the individual</p> 
+        <p>(A) is provided by the appropriate state agency with career counseling, information, and referrals to Federal and State programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to enable the individual to explore,
+        discover, experience, and attain competitive integrated employment; and</p>
+        <p>(B) is informed by the employer of self-advocacy, self-determination, and peer mentoring training opportunities available in the individual’s geographic area and provided by an entity that does not have any financial interest in the individual’s employment outcome. The employer must verify completion of these requirements, including by reviewing any relevant documents provided by the individual, every 6 months for the first year of the individual’s employment at a subminimum wage, and annually every subsequent year as long as the individual is paid a
+        subminimum wage.</p> 
+        <p>See 29 U.S.C. 794g(c) and (e). (If the certificate holder has fewer than 15 employees paid at subminimum wages, the employer may be able to satisfy the information required in (B) above by referring the individual, at each required interval, to the appropriate state agency. <a href>See 29 U.S.C. 794g(c)(3)</a>.)</p>
+        <p>Before an employer may pay a worker with a disability who is age 24 or younger a subminimum wage, WIOA requires that the
+        employer review, verify, and maintain documentation indicating that the worker has completed the following requirements prior to
+        being paid a subminimum wage: (A) the individual has received pre-employment transition services; and (B) the individual has
+        applied for vocational rehabilitation services and (1a) has been found ineligible for services, or (1b) has been found eligible for
+        services and has an individualized plan for employment, has been working toward an employment outcome specified in his or her
+        plan with appropriate supports and services, and the individual’s vocational rehabilitation case is closed, and (2a) the individual
+        has been provided by the appropriate state agency with career counseling, and information and referrals to Federal and State
+        programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to
+        enable the individual to explore, discover, experience, and attain competitive integrated employment; and (2b) such counseling
+        and information and referrals are not for employment at a subminimum wage and do not directly result in employment
+        compensated at a subminimum wage by a section 14(c) certificate holder. <a href>See 29 U.S.C. 794g(a)(2)</a>.
+        </p>
+    </div>
+
+    <div class="form-question-block">
+        <div class="form-question-text">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="hasVerfiedDocumentaion_1" type="radio" name="hasVerfiedDocumentaion" value="1" ng-model="formData.WIOA.hasVerfiedDocumentaion">
+                    <label for="hasVerfiedDocumentaion_1">Yes</label>
+                </li>
+                <li>
+                    <input id="hasVerfiedDocumentaion_0" type="radio" name="hasVerfiedDocumentaion" value="0" ng-model="formData.WIOA.hasVerfiedDocumentaion">
+                    <label for="hasVerfiedDocumentaion_0">No</label>
+                </li>
+            </ul>
+        </fieldset>       
+    </div>
+    <div class="form-question-block">
+        <div class="form-question-text">Were any workers paid a subminimum wage age 24 or younger?</div>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li>
+                    <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" value="1" ng-model="formData.WIOA.hasWIOAWorkers">
+                    <label for="hasWIOAWorkers_1">Yes</label>
+                </li>
+                <li>
+                    <input id="hasWIOAWorkers_0" type="radio" name="hasWIOAWorkers" value="0" ng-model="formData.WIOA.hasWIOAWorkers">
+                    <label for="hasWIOAWorkers_0">No</label>
+                </li>
+            </ul>
+        </fieldset>       
+    </div>
+    <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1">
+        <div class="form-question-text">List the name of each worker with a disability age 24 or younger and provide a response for each individual. </div>
+        <div>
+            Accepted Responses: 
+            <p><strong>Yes</strong> - The employer reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
+            <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
+            <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p> 
+        </div>
+        <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
+        <div class="form-question-block em-block" ng-show="vm.addingWorker">
+            <div class="form-question-text">Full Name of Worker</div>
+            <fieldset class="usa-fieldset-inputs form-question-answer">
+                <div class="usa-input-grid usa-input-grid-medium">
+                    <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">
+                </div>
+                <div class="usa-input-grid usa-input-grid-small">
+                    <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
+                </div>
+            </fieldset> 
+            <div class="form-spaced-div">
+                <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">Add Worker</button></span>
+            </div>
+        </div>       
+        <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
+            <thead>
+                <tr>
+                    <th scope="col">Name of Workder</th>
+                    <th scope="col">Response</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
+                    <th scope="row">{{ worker.fullName }}</th>
+                    <td>{{ worker.WIOAWorkerVerified.display }}</td>
+                    <td><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>  
+    </div>  
+</div>

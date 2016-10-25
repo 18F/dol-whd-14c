@@ -9,6 +9,7 @@ module.exports = function(ngModule) {
           restrict: 'EA',
           template: require('./userLoginFormTemplate.html'),
           controller: 'userLoginFormController',
+          scope: {},
           controllerAs: 'vm'
       };
   });

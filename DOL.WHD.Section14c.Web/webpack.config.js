@@ -1,5 +1,6 @@
 var webpack = require("webpack");
 var path = require('path');
+var bourbon = require('node-bourbon').includePaths;
 
 module.exports = {
     devtool: 'eval-source-map',
@@ -16,7 +17,8 @@ module.exports = {
     },
 	devServer: {
 		inline: true,
-		port: 3333
+		port: 3333,
+        https: true,
 	},
 	module: {
         preLoaders: [
@@ -43,16 +45,16 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				exclude: /node_modules/,
-				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap']
+				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap&includePaths[]=' + bourbon]
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
   		    {
                 test: /\.(png|gif|jpg|jpeg|svg)$/,
-                loader: 'url-loader?name=images/[name].[ext]'
+                loader: 'file-loader?name=images/[name].[ext]'
             },
             {
     	        test: /\.(ttf|eot|woff|woff2)$/,
-                loader: 'url-loader?name=fonts/[name].[ext]'
+                loader: 'file-loader?name=fonts/[name].[ext]'
             }
 		]
 	},
