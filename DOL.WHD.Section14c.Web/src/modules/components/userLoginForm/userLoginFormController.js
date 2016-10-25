@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, apiService) {
+    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, apiService, autoSaveService) {
         'ngInject';
         'use strict';
 
@@ -12,6 +12,8 @@ module.exports = function(ngModule) {
             'email': '',
             'pass': ''
         };
+
+        $scope.inputType = 'password';
 
         $scope.onSubmitClick = function() {
             //  Call Token Service
@@ -34,6 +36,10 @@ module.exports = function(ngModule) {
                     }, function (error) {
                         handleError(error);
                     });
+
+                    
+                    // start auto-save 
+                    autoSaveService.start();
                     
                 }, function (error) {
                     handleError(error);
@@ -49,6 +55,19 @@ module.exports = function(ngModule) {
             console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
             $location.path("/");
       }
+
+
+        $scope.forgotPassword = function() {
+            $location.path("/forgotPassword");
+        }
+
+        $scope.hideShowPassword = function(){
+            if ($scope.inputType === 'password')
+                $scope.inputType = 'text';
+            else
+                $scope.inputType = 'password';
+        };
+
   });
 }
 

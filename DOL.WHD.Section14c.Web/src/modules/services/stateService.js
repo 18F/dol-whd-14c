@@ -8,14 +8,8 @@ module.exports = function(ngModule) {
 
         const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
 
-        let state = {
-            form_data: { },
-            activeEIN: undefined,
-            user: {
-                email: ''
-            }
-        };
-
+        let state;
+        setInitialState();
 
         /*** Properties ***/
 
@@ -51,6 +45,20 @@ module.exports = function(ngModule) {
 
         this.setFormValue = function(property, value) {
             merge(state.form_data, { [property]: value });
+        }
+
+        this.logOut = function() {
+            setInitialState();
+        }
+
+        function setInitialState() {
+            state = {
+                form_data: { },
+                activeEIN: undefined,
+                user: {
+                    email: ''
+                }
+            };
         }
     });
 }

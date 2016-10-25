@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('mainHeaderControlController', function($scope, $rootScope, $location, stateService, apiService) {
+    ngModule.controller('mainHeaderControlController', function($scope, $rootScope, $location, stateService, apiService, autoSaveService) {
         'ngInject';
         'use strict';
 
@@ -13,11 +13,14 @@ module.exports = function(ngModule) {
         $scope.loadImage = $rootScope.loadImage;
 
         this.userClick = function() {
-            //TODO
+            $location.path("/");
         }
 
         this.saveClick = function() {
-            //TODO
+            autoSaveService.save(function () {
+                stateService.logOut();
+                $location.path("/");
+            });
         }
     });
 }

@@ -1,5 +1,7 @@
 'use strict';
 
+var moment = require('moment');
+
 module.exports = function(ngModule) {
     ngModule.service('apiService', function($http, $q, _env) {
         'ngInject';
@@ -91,6 +93,8 @@ module.exports = function(ngModule) {
         this.saveApplication = function(access_token, ein, applicationData) {
             let url = _env.api_url + '/api/save/' + ein;
             let d = $q.defer();
+            
+            applicationData.saved = moment.utc();
 
             $http({
                 method: 'POST',
@@ -101,8 +105,10 @@ module.exports = function(ngModule) {
                 },
                 data: applicationData
             }).then(function successCallback (data) {
+                applicationData.lastSaved = moment.utc();
                 d.resolve(data);
             }, function errorCallback (error) {
+                applicationData.lastSaved = 0;
                 //console.log(error);
                 d.reject(error);
             });

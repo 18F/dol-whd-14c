@@ -1,7 +1,16 @@
-<div class="login">
-    <h2>Log in</h2>
-    <div><label>Email</label><input name="email" type="text" placeholder="Email" ng-model="formVals.email" /></div>
-    <div><label>Password</label><input name="password" type="password" placeholder="Password" ng-model="formVals.pass" /><div class="showpass"><a>Show Password</a></div></div>
-    <div class="loginbtn"><button type="submit" ng-click="onSubmitClick()">Submit</button></div>
-    <div class="forgotpass"><a>Forgot Your Password?</a></div>
-</div>
+<form ng-submit="onSubmitClick()">
+    <div class="login">
+        <h2>Log in</h2>
+        <div><label for="userName">Email</label><input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" /></div>
+        <div><label for="password">Password</label><input name="password" id="password" type="{{inputType}}" placeholder="Password" ng-model="formVals.pass" />
+        <div class="showpass">
+            <a href="" ng-click="hideShowPassword()"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+        </div></div>
+        <div class="loginbtn"><button type="submit">Log in</button></div>
+        <div class="forgotpass"><a href="" ng-click="forgotPassword()">Forgot Your Password?</a></div>
+    </div>
+    <div class="login">
+        <div><strong>Questions?</strong></div>
+        <div>Contact the <a>Wage and Hour office closest to you</a></div>
+    </div>
+</form>
