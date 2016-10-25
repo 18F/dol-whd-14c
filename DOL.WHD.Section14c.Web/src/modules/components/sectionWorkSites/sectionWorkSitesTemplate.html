@@ -211,9 +211,9 @@
                         <fieldset class="usa-fieldset-inputs usa-sans">
                             <ul class="usa-unstyled-list">
                                 <li ng-repeat="response in responses.PrimaryDisability">
-                                    <input id="primaryDisibility_{{ response.id }}" type="radio" name="primaryDisibility" ng-value="{{ response.id }}" ng-model="vm.acitveWorker.primaryDisibility">
-                                    <label for="primaryDisibility_{{ response.id }}">{{ response.display }}</label>
-                                    <input id="primaryDisibilityOther" name="primaryDisibilityOther" type="text" ng-model="vm.activeWorker.primaryDisabilityOther" ng-if="response.id === 37">
+                                    <input id="primaryDisability_{{ response.id }}" type="radio" name="primaryDisability" ng-value="{{ response.id }}" ng-model="vm.activeWorker.primaryDisability">
+                                    <label for="primaryDisability_{{ response.id }}">{{ response.display }}</label>
+                                    <input id="primaryDisabilityOther" name="primaryDisabilityOther" type="text" ng-model="vm.activeWorker[response.otherValueKey]" ng-if="response.otherValueKey">
                                 </li>
                             </ul>
                         </fieldset>
@@ -292,9 +292,9 @@
                     <tbody>
                         <tr ng-repeat="employee in vm.activeWorksite.employees">
                             <th scope="row">{{ employee.name }}</th>
-                            <td>{{ employee.primaryDisability }}</td>
+                            <td>{{ vm.getDisabilityDisplay(employee) }}</td>
                             <td>{{ employee.workType }}</td>
-                            <td><button class="green-button" ng-click="vm.editEmployee($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteEmployee($index)">Delete</button></td>
+                            <td class="button-column"><button class="green-button" ng-click="vm.editEmployee($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteEmployee($index)">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>
