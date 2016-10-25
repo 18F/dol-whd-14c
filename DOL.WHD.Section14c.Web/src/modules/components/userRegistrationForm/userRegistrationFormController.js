@@ -15,6 +15,8 @@ module.exports = function(ngModule) {
             'confirmPass': ''
         };
 
+        $scope.inputType = 'password';
+
         $scope.onSubmitClick = function() {
             apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.response).then(function (result) {
                 $location.path("/");
@@ -42,6 +44,13 @@ module.exports = function(ngModule) {
             console.info('Captcha expired. Resetting response object');
             vcRecaptchaService.reload($scope.widgetId);
             $scope.response = null;
+        };
+
+        $scope.hideShowPassword = function(){
+            if ($scope.inputType === 'password')
+                $scope.inputType = 'text';
+            else
+                $scope.inputType = 'password';
         };
 
   });

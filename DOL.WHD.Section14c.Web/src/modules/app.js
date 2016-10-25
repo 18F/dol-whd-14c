@@ -15,6 +15,7 @@ import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import vcRecaptcha from 'angular-recaptcha';
+import angularMoment from 'angular-moment';
 
 // Styles
 import '../styles/main.scss';
@@ -25,7 +26,8 @@ let app = angular.module('14c', [
     ngResource,
     ngRoute,
     ngSanitize,
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'angularMoment'
 ]);
 
 // Environment config loaded from env.js
@@ -52,6 +54,11 @@ app.config(function($routeProvider, $compileProvider) {
     .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html')
+    })
+    .when('/forgotPassword', {
+        controller: 'forgotPasswordPageController',
+        template: require('./pages/forgotPasswordPageTemplate.html'),
+        public: true
     })
     .when('/login', {
         controller: 'userLoginPageController',

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('formFooterControlsController', function($scope, $location, $route, stateService, navService, apiService) {
+    ngModule.controller('formFooterControlsController', function($scope, $location, $route, navService, autoSaveService) {
         'ngInject';
         'use strict';
 
@@ -36,7 +36,7 @@ module.exports = function(ngModule) {
         }
 
         this.doSave = function() {
-            apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData);
+            autoSaveService.save();
         }
 
         this.onNextClick = function() {

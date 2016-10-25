@@ -5,4 +5,5 @@ module.exports = function(ngModule) {
   require('./responsesService')(ngModule);
   require('./stateService')(ngModule);
   require('./navService')(ngModule);
+  require('./autoSaveService')(ngModule);
 };
