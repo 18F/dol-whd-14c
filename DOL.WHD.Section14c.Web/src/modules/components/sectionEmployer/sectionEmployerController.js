@@ -7,6 +7,11 @@ module.exports = function(ngModule) {
 
         $scope.formData = stateService.formData;
 
+        
+        if(!$scope.formData.employerInfo) {
+            $scope.formData.employerInfo = { providingFacilitiesDeductionType: [] };
+        }
+
         // multiple choice responses
         let questionKeys = [ 'EmployerStatus', 'SCA', 'EO13658', 'ProvidingFacilitiesDeductionType' ];
         responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
@@ -44,5 +49,15 @@ module.exports = function(ngModule) {
                 $scope.formData.employerInfo.SCAAttachment = undefined;
             })
         }      
+
+        this.toggleProvidingFacilitiesDeductionType = function(id) {
+            var idx = $scope.formData.employerInfo.providingFacilitiesDeductionType.indexOf(id);
+            if (idx > -1) {
+                $scope.formData.employerInfo.providingFacilitiesDeductionType.splice(idx, 1);
+            }
+            else {
+                $scope.formData.employerInfo.providingFacilitiesDeductionType.push(id);
+            }
+        }
   });
 }

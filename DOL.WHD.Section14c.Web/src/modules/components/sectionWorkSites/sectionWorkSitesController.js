@@ -2,6 +2,7 @@
 
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
+import find from 'lodash/find'
 
 module.exports = function(ngModule) {
     ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService) {
@@ -28,6 +29,7 @@ module.exports = function(ngModule) {
         responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
 
         this.clearActiveWorker = function() {
+            console.log(find($scope.responses.PrimaryDisability, { 'id': vm.activeWorker.primaryDisability }));
             vm.activeWorker = {};
             vm.activeWorkerIndex = -1;
         }
@@ -135,6 +137,24 @@ module.exports = function(ngModule) {
             let row = $(e.target).closest('.expanding-row');
             row.toggleClass("expanded");
             row.next().toggleClass("show");
+        }
+
+        this.getDisabilityDisplay = function(employee) {
+            if (!employee) {
+                return undefined;
+            }
+
+            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisability });
+            if (disability) {
+                if (disability.otherValueKey) {
+                    return employee[disability.otherValueKey];
+                }
+                else {
+                    return disability.display;
+                }
+            }
+
+            return undefined;
         }
 
         $scope.$on('$routeUpdate', function(){

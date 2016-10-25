@@ -49,7 +49,7 @@
     <div class="form-question-block">
         <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
         <div class="form-question-answer">
-            <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno">
+            <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno" ng-model="formData.certificateNumber">
             <label class="example">Example: 12-34567-H-890</label>
         </div>
     </div>
@@ -60,7 +60,7 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.EstablishmentType">
-                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentType" ng-value="response.id" ng-model="formData.establishmentType">
+                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="stablishmentType_{{ response.id }}" ng-value="response.id" ng-checked="formData.establishmentType.indexOf(response.id) > -1" ng-click="toggleEstablishmentType(response.id)">
                     <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
                     <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
                 </li>
@@ -75,14 +75,14 @@
     <div class="form-question-block">
         <div class="form-question-answer">
             <label for="contactName">Full Name</label>
-            <input id="contactName" name="contactName" type="text" ng-model="contactName"></input>
+            <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
         </div>
     </div>
 
     <div class="form-question-block">
         <div class="form-question-answer">
             <label for="contactPhone">Telephone Number</label>
-            <input id="contactPhone" name="contactPhone" type="tel" ng-model="contactPhone" class="sidelabeled phoneno"></input>
+            <input id="contactPhone" name="contactPhone" type="tel" ng-model="formData.contactPhone" class="sidelabeled phoneno"></input>
             <label class="example">Example: 123-456-7890</label>
         </div>
     </div>
@@ -90,7 +90,7 @@
     <div class="form-question-block">
         <div class="form-question-answer">
             <label for="contactFax">Fax Number</label>
-            <input id="contactFax" name="contactFax" type="tel" ng-model="contactFax" class="sidelabeled phoneno"></input>
+            <input id="contactFax" name="contactFax" type="tel" ng-model="formData.contactFax" class="sidelabeled phoneno"></input>
             <label class="example">Example: 123-456-7890</label>
         </div>
     </div>
@@ -98,7 +98,7 @@
     <div class="form-question-block">
         <div class="form-question-answer">
             <label for="contactEmail">Email Address</label>
-            <input id="contactEmail" name="contactEmail" type="email" ng-model="contactEmail" class="sidelabeled email"></input>
+            <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="sidelabeled email"></input>
             <label class="example">Example: contact.name@company.com</label>
         </div>
     </div>

@@ -19,11 +19,18 @@ $susy: (
     margin-top: 40px;
 }
 
+@media only screen and (max-width : 1120px) {
+    .full-view {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
 @include nested(12) {
 
     .main-content {
         @include span(12);
         margin-top: 40px;
     }
-    
+
 }

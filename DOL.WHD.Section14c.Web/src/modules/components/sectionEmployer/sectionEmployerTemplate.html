@@ -428,7 +428,7 @@
             <fieldset class="usa-fieldset-inputs form-question-answer">
                 <ul class="usa-unstyled-list">
                     <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
-                        <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-model="formData.employerInfo.providingFacilitiesDeductionType">
+                        <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType_{{ response.id }}" ng-value="response.id" ng-checked="formData.employerInfo.providingFacilitiesDeductionType.indexOf(response.id) > -1" ng-click="vm.toggleProvidingFacilitiesDeductionType(response.id)" >
                         <label for="deductionType_{{ response.id }}">{{ response.display }}</label>
                     </li>
                 </ul>
