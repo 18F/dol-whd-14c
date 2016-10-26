@@ -2,7 +2,7 @@
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WorkerCountInfo
+    public class WorkerCountInfo : BaseEntity
     {
         public int Id { get; set; }
 

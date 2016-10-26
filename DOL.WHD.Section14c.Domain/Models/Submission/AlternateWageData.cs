@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class AlternateWageData
+    public class AlternateWageData : BaseEntity
     {
+        public int Id { get; set; }
+
         public string AlternateWorkDescription { get; set; }
         public string AlternateDataSourceUsed { get; set; }
         public double PrevailingWageProvidedBySource { get; set; }

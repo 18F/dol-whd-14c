@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="IAuditedEntity.cs" />
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\ApplicationSave.cs" />
     <Compile Include="Models\OrganizationMembership.cs" />
