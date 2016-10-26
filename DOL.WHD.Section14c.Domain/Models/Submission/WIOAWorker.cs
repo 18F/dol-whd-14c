@@ -1,21 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class WIOAWorker : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public WIOAWorker()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
 
         [Required]
         public string FullName { get; set; }
 
         [Required]
+        public int WIOAWorkerVerifiedId { get; set; }
         public Response WIOAWorkerVerified { get; set; }
     }
 }

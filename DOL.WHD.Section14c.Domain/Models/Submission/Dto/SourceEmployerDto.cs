@@ -1,22 +1,15 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace DOL.WHD.Section14c.Domain.Models.Submission
+namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
 {
-    public class SourceEmployer : BaseEntity
+    public class SourceEmployerDto
     {
-        public SourceEmployer()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
-
         [Required]
         public string EmployerName { get; set; }
 
         [Required]
-        public virtual Address Address { get; set; }
+        public Address Address { get; set; }
 
         [Required]
         [Phone]

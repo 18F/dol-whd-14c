@@ -1,17 +1,9 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace DOL.WHD.Section14c.Domain.Models.Submission
+namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
 {
-    public class WorkerCountInfo : BaseEntity
+    public class WorkerCountInfoDto
     {
-        public WorkerCountInfo()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
-
         [Required]
         public int Total { get; set; }
 
