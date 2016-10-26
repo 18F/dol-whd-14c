@@ -7,13 +7,13 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateKeysToGuid : IMigrationMetadata
+    public sealed partial class KeyUpdates : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateKeysToGuid));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(KeyUpdates));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610251955527_UpdateKeysToGuid"; }
+            get { return "201610261825305_KeyUpdates"; }
         }
         
         string IMigrationMetadata.Source
