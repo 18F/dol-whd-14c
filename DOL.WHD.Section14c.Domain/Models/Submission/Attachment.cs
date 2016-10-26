@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class Attachment
+    public class Attachment : BaseEntity
     {
         public Attachment()
         {

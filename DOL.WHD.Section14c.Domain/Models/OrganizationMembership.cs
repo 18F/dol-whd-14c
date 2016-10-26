@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace DOL.WHD.Section14c.Domain.Models
 {
     [DataContract]
-    public class OrganizationMembership
+    public class OrganizationMembership : BaseEntity
     {
         public OrganizationMembership()
         {

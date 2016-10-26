@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class EmployerInfo
+    public class EmployerInfo : BaseEntity
     {
         public int Id { get; set; }
 

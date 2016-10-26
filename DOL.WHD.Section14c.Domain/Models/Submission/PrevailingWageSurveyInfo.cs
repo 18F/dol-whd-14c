@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class PrevailingWageSurveyInfo
+    public class PrevailingWageSurveyInfo : BaseEntity
     {
         public int Id { get; set; }
 

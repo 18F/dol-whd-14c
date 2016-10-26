@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WIOAWorker
+    public class WIOAWorker : BaseEntity
     {
         [Key]
         public int Id { get; set; }
