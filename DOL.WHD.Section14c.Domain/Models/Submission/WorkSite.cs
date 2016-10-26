@@ -31,7 +31,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public int NumEmployees { get; set; }
 
-        // TODO: validate Employees.Count == NumEmployees
         public virtual ICollection<Employee> Employees { get; set; }
     }
 }

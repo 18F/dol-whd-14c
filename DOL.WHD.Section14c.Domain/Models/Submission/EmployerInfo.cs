@@ -18,13 +18,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public bool HasTradeName { get; set; }
 
-        [Required]
         public string TradeName { get; set; }
 
         [Required]
         public bool LegalNameHasChanged { get; set; }
 
-        [Required]
         public string PriorLegalName { get; set; }
 
         [Required]
@@ -48,7 +46,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int EmployerStatusId { get; set; }
         public virtual Response EmployerStatus { get; set; }
 
-        // TODO: required if Status == Other
         public string EmployerStatusOther { get; set; }
 
         [Required]

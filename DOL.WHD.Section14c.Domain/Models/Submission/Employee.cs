@@ -19,7 +19,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int PrimaryDisabilityId { get; set; }
         public virtual Response PrimaryDisability { get; set; }
 
-        // TODO: required if PrimaryDisability == Other
         public string PrimaryDisabilityOther { get; set; }
 
         [Required]

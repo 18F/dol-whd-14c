@@ -33,6 +33,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public Attachment SCAWageDetermination { get; set; }
 
         // Documentation
+        [Required]
         public Guid? AttachmentId { get; set; }
         public Attachment Attachment { get; set; }
     }

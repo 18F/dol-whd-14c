@@ -11,17 +11,18 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
         [Required]
         public bool HasTradeName { get; set; }
 
-        [Required]
         public string TradeName { get; set; }
 
         [Required]
         public bool LegalNameHasChanged { get; set; }
 
-        [Required]
         public string PriorLegalName { get; set; }
 
         [Required]
         public Address PhysicalAddress { get; set; }
+
+        [Required]
+        public bool HasDifferentMailingAddress { get; set; }
 
         [Required]
         public bool HasParentOrg { get; set; }

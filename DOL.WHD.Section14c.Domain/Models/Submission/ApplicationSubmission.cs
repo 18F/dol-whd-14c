@@ -50,7 +50,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public bool HasPreviousCertificate { get; set; }
 
-        // TODO: required if HasPreviousCertificate
         public string CertificateNumber { get; set; }
 
         [Required]
@@ -96,7 +95,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [Required]
         public int TotalNumWorkSites { get; set; }
 
-        // TODO: validation to make sure WorkSites.Count matches TotalNumWorkSites
         public virtual ICollection<WorkSite> WorkSites { get; set; }
 
         #endregion

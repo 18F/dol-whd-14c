@@ -24,6 +24,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
         public Guid? SCAWageDeterminationId { get; set; }
 
         // Documentation
+        [Required]
         public Guid? AttachmentId { get; set; }
     }
 }
