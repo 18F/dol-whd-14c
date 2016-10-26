@@ -103,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Extensions\ContextSeedRole.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />
     <Compile Include="ISaveRepository.cs" />

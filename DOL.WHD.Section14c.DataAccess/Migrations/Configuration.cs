@@ -2,7 +2,11 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Migrations
 {
+    using Extensions;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DOL.WHD.Section14c.DataAccess.ApplicationDbContext>
     {
@@ -11,7 +15,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DOL.WHD.Section14c.DataAccess.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -92,8 +96,12 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 41, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
 
-            context.Users.Add(new Domain.Models.ApplicationUser { Id = System.Guid.Empty.ToString(), Email = "systemadmin@domain.com", UserName = "System Admin", LockoutEnabled = true, PasswordHash = System.Guid.NewGuid().ToString() });
 
+            context.Users.AddOrUpdate(new Domain.Models.ApplicationUser { Id = System.Guid.Empty.ToString(), Email = "systemadmin@domain.com", UserName = "System Admin", LockoutEnabled = true, PasswordHash = System.Guid.NewGuid().ToString() });
+
+            context.SeedRole("Administrator");
+            context.SeedRole("Certification Team Manager");
+            context.SeedRole("Certification Team Member");
         }
     }
 }

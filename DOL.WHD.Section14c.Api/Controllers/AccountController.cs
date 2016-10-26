@@ -23,12 +23,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
-    
+        private ApplicationRoleManager _roleManager;
+
         public ApplicationUserManager UserManager
         {
             get
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+        
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? Request.GetOwinContext().Get<ApplicationRoleManager>();
             }
         }
 

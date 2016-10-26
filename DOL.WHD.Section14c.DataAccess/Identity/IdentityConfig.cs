@@ -60,4 +60,16 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
             return base.UpdatePassword(passwordStore, user, newPassword);
         }
     }
+
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
+    {
+        public ApplicationRoleManager(IRoleStore<IdentityRole, string> store) : base(store)
+        {
+        }
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options, IOwinContext context)
+        {
+            var roleStore = new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>());
+            return new ApplicationRoleManager(roleStore);
+        }
+    }
 }
