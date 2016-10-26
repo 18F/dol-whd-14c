@@ -1,7 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web.Http;
+using AutoMapper;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using DOL.WHD.Section14c.Domain.Models.Submission.Dto;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -16,8 +19,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationService = applicationService;
         }
 
-        public async Task<IHttpActionResult> Submit(ApplicationSubmission submission)
+        public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmissionDto submissionDto)
         {
+            var submission = Mapper.Map<ApplicationSubmission>(submissionDto);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -31,7 +35,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
-            return Created("", submission);
+            return Created("", (object)null);
         }
     }
 }

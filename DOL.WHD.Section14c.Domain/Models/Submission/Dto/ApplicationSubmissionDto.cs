@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace DOL.WHD.Section14c.Domain.Models.Submission
+namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
 {
-    public class ApplicationSubmission : BaseEntity
+    public class ApplicationSubmissionDto
     {
-        public ApplicationSubmission()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
-
         #region Assurances
 
         [Required]
@@ -25,7 +17,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public bool ProvidingFacilities { get; set; }
 
         // TODO: required if ProvidingFacilities == true
-        public ICollection<ApplicationSubmissionProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
+        public IEnumerable<int> ProvidingFacilitiesDeductionTypeId { get; set; }
 
         // TODO: required if ProvidingFacilitiesDeductionType == Other
         public string ProvidingFacilitiesDeductionTypeOther { get; set; }
@@ -42,7 +34,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         [Required]
         public int ApplicationTypeId { get; set; }
-        public virtual Response ApplicationType { get; set; }
 
         [Required]
         public bool HasPreviousApplication { get; set; }
@@ -54,7 +45,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string CertificateNumber { get; set; }
 
         [Required]
-        public virtual ICollection<ApplicationSubmissionEstablishmentType> EstablishmentType { get; set; }
+        public IEnumerable<int> EstablishmentTypeId { get; set; }
 
         [Required]
         public string ContactName { get; set; }
@@ -75,7 +66,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region Employer
 
         [Required]
-        public virtual EmployerInfo Employer { get; set; }
+        public EmployerInfoDto Employer { get; set; }
 
         #endregion
 
@@ -83,11 +74,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         [Required]
         public int PayTypeId { get; set; }
-        public virtual Response PayType { get; set; }
 
-        public virtual HourlyWageInfo HourlyWageInfo { get; set; }
+        public HourlyWageInfoDto HourlyWageInfo { get; set; }
 
-        public virtual PieceRateWageInfo PieceRateWageInfo { get; set; }
+        public PieceRateWageInfoDto PieceRateWageInfo { get; set; }
 
         #endregion
 
@@ -97,14 +87,14 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int TotalNumWorkSites { get; set; }
 
         // TODO: validation to make sure WorkSites.Count matches TotalNumWorkSites
-        public virtual ICollection<WorkSite> WorkSites { get; set; }
+        public IEnumerable<WorkSiteDto> WorkSites { get; set; }
 
         #endregion
 
         #region WIOA
 
         [Required]
-        public virtual WIOA WIOA { get; set; }
+        public WIOADto WIOA { get; set; }
 
         #endregion
     }

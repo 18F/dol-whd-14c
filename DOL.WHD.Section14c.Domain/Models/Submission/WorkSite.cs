@@ -1,14 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class WorkSite : BaseEntity
     {
-        public int Id { get; set; }
+        public WorkSite()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
 
         [Required]
-        public virtual ICollection<Response> WorkSiteType { get; set; }
+        public virtual ICollection<WorkSiteWorkSiteType> WorkSiteType { get; set; }
 
         [Required]
         public string Name { get; set; }

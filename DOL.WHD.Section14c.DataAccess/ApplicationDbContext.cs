@@ -35,21 +35,17 @@ namespace DOL.WHD.Section14c.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationSubmission>()
-                .HasMany(s => s.EstablishmentType)
-                .WithMany()
-                .Map(m => m.ToTable("AppSubmissionEstablishmentType"));
+            modelBuilder.Entity<ApplicationSubmissionEstablishmentType>()
+                .ToTable("AppSubmissionEstablishmentType")
+                .HasKey(k => new {k.ApplicationSubmissionId, k.EstablishmentTypeId});
 
-            modelBuilder.Entity<ApplicationSubmission>()
-                .HasMany(s => s.ProvidingFacilitiesDeductionType)
-                .WithMany()
-                .Map(m => m.ToTable("AppSubmissionFacilitiesDeductionType"));
+            modelBuilder.Entity<ApplicationSubmissionProvidingFacilitiesDeductionType>()
+                .ToTable("AppSubmissionFacilitiesDeductionType")
+                .HasKey(k => new { k.ApplicationSubmissionId, k.ProvidingFacilitiesDeductionTypeId });
 
-            modelBuilder.Entity<WorkSite>()
-                .HasMany(s => s.WorkSiteType)
-                .WithMany()
-                .Map(m => m.ToTable("WorkSiteWorkSiteType"));
-
+            modelBuilder.Entity<WorkSiteWorkSiteType>()
+                .ToTable("WorkSiteWorkSiteType")
+                .HasKey(k => new { k.WorkSiteId, k.WorkSiteTypeId });
         }
 
         public override int SaveChanges()

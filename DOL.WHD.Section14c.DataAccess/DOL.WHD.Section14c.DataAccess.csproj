@@ -175,6 +175,14 @@
     <Compile Include="Migrations\201610242052169_ApplicationSubmissionKeyChange.Designer.cs">
       <DependentUpon>201610242052169_ApplicationSubmissionKeyChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610251955527_UpdateKeysToGuid.cs" />
+    <Compile Include="Migrations\201610251955527_UpdateKeysToGuid.Designer.cs">
+      <DependentUpon>201610251955527_UpdateKeysToGuid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610261801095_AddForeignKeyProperties.cs" />
+    <Compile Include="Migrations\201610261801095_AddForeignKeyProperties.Designer.cs">
+      <DependentUpon>201610261801095_AddForeignKeyProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -245,6 +253,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610242052169_ApplicationSubmissionKeyChange.resx">
       <DependentUpon>201610242052169_ApplicationSubmissionKeyChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610251955527_UpdateKeysToGuid.resx">
+      <DependentUpon>201610251955527_UpdateKeysToGuid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610261801095_AddForeignKeyProperties.resx">
+      <DependentUpon>201610261801095_AddForeignKeyProperties.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
