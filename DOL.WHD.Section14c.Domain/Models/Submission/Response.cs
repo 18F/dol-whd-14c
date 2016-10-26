@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class Response
+    public class Response : BaseEntity
     {
         public int Id { get; set; }
         

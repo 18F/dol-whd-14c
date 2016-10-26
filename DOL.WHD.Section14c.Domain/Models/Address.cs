@@ -2,7 +2,7 @@
 
 namespace DOL.WHD.Section14c.Domain.Models
 {
-    public class Address
+    public class Address : BaseEntity
     {
         public int Id { get; set; }
 

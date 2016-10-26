@@ -89,6 +89,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -166,6 +167,10 @@
     <Compile Include="Migrations\201610252128299_EmployerUpdate.Designer.cs">
       <DependentUpon>201610252128299_EmployerUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610261540007_AuditFields.cs" />
+    <Compile Include="Migrations\201610261540007_AuditFields.Designer.cs">
+      <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
@@ -228,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610252128299_EmployerUpdate.resx">
       <DependentUpon>201610252128299_EmployerUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610261540007_AuditFields.resx">
+      <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
