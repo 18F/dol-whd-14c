@@ -1,23 +1,14 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace DOL.WHD.Section14c.Domain.Models.Submission
+namespace DOL.WHD.Section14c.Domain.Models.Submission.Dto
 {
-    public class Employee : BaseEntity
+    public class EmployeeDto
     {
-        public Employee()
-        {
-            Id = new Guid();
-        }
-
-        public Guid Id { get; set; }
-
         [Required]
         public string Name { get; set; }
 
         [Required]
         public int PrimaryDisabilityId { get; set; }
-        public virtual Response PrimaryDisability { get; set; }
 
         // TODO: required if PrimaryDisability == Other
         public string PrimaryDisabilityOther { get; set; }

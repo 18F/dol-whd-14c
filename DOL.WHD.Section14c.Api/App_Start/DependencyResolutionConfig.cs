@@ -22,6 +22,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
             container.Register<IIdentityService, IdentityService>(Lifestyle.Scoped);
             container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
+            container.Register<IApplicationRepository, ApplicationRepository>(Lifestyle.Scoped);
+            container.Register<IApplicationService, ApplicationService>(Lifestyle.Scoped);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models
 {
     public class Address : BaseEntity
     {
-        public int Id { get; set; }
+        public Address()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
 
         [Required]
         public string StreetAddress { get; set; }
