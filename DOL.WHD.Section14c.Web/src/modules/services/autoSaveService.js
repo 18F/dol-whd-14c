@@ -2,6 +2,7 @@
 
 module.exports = function(ngModule) {
     ngModule.service('autoSaveService', function($timeout, stateService, apiService) {
+        'ngInject';
         'use strict';
 
         let duration =  60 * 1000; // 60 seconds
@@ -28,9 +29,9 @@ module.exports = function(ngModule) {
         }
 
         function nextTimer() {
-            timer = $timeout(function () { 
+            timer = $timeout(function () {
                 console.log("timer save initiated");
-                save(nextTimer) 
+                save(nextTimer)
             }, duration, false);
         }
 
