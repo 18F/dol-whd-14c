@@ -409,6 +409,14 @@
             </ul>
         </fieldset>
     </div>
+
+    <div class="form-question-block" ng-show="formData.employerInfo.representativePayee == 1">
+        <div class="form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</div>
+        <div class="form-question-answer">
+            <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employerInfo.totalDisabledWorkers">
+        </div>
+    </div>
+
     <div class="form-question-block">
         <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">

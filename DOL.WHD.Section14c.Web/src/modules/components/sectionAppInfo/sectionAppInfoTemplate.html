@@ -35,18 +35,18 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" value="1" ng-model="formData.hasPreviousCertificate">
+                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="1" ng-model="formData.hasPreviousCertificate">
                     <label for="hasPreviousCertificate_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" value="0" ng-model="formData.hasPreviousCertificate">
+                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" ng-value="0" ng-model="formData.hasPreviousCertificate">
                     <label for="hasPreviousCertificate_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-show="formData.hasPreviousCertificate === 1">
         <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
         <div class="form-question-answer">
             <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno">
