@@ -17,9 +17,6 @@ namespace DOL.WHD.Section14c.Api
 
             // use camel cased JSON in Web API
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-
-            // Automapper
-            AutoMapperConfiguration.Configure();
         }
     }
 }
