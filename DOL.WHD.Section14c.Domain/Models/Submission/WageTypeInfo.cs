@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -12,16 +11,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
-        [Required]
         public int NumWorkers { get; set; }
 
-        [Required]
         public string JobName { get; set; }
 
-        [Required]
         public string JobDescription { get; set; }
 
-        [Required]
         public int PrevailingWageMethodId { get; set; }
         public virtual Response PrevailingWageMethod { get; set; }
 
