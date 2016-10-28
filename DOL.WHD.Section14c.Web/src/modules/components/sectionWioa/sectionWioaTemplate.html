@@ -5,11 +5,11 @@
     <div ng-show="showWIOAReqs" class="em-block">
         <p>The Workforce Innovation and Opportunity Act (WIOA) of 2014 added <a href>section 511 to the Rehabilitation Act of 1973, 29 U.S.C. 794g</a>.</p>
         <p>Beginning on July 22, 2016, this section places requirements on all entities that hold a section 14(c) certificate and pay any worker a subminimum wage.</p>
-        <p>The employer may not employ an individual, regardless of age, at a subminimum wage unless the individual</p> 
+        <p>The employer may not employ an individual, regardless of age, at a subminimum wage unless the individual</p>
         <p>(A) is provided by the appropriate state agency with career counseling, information, and referrals to Federal and State programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to enable the individual to explore,
         discover, experience, and attain competitive integrated employment; and</p>
         <p>(B) is informed by the employer of self-advocacy, self-determination, and peer mentoring training opportunities available in the individual’s geographic area and provided by an entity that does not have any financial interest in the individual’s employment outcome. The employer must verify completion of these requirements, including by reviewing any relevant documents provided by the individual, every 6 months for the first year of the individual’s employment at a subminimum wage, and annually every subsequent year as long as the individual is paid a
-        subminimum wage.</p> 
+        subminimum wage.</p>
         <p>See 29 U.S.C. 794g(c) and (e). (If the certificate holder has fewer than 15 employees paid at subminimum wages, the employer may be able to satisfy the information required in (B) above by referring the individual, at each required interval, to the appropriate state agency. <a href>See 29 U.S.C. 794g(c)(3)</a>.)</p>
         <p>Before an employer may pay a worker with a disability who is age 24 or younger a subminimum wage, WIOA requires that the
         employer review, verify, and maintain documentation indicating that the worker has completed the following requirements prior to
@@ -30,38 +30,38 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasVerfiedDocumentaion_1" type="radio" name="hasVerfiedDocumentaion" value="1" ng-model="formData.WIOA.hasVerfiedDocumentaion">
+                    <input id="hasVerfiedDocumentaion_1" type="radio" name="hasVerfiedDocumentaion" ng-value="true" ng-model="formData.WIOA.hasVerfiedDocumentaion">
                     <label for="hasVerfiedDocumentaion_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasVerfiedDocumentaion_0" type="radio" name="hasVerfiedDocumentaion" value="0" ng-model="formData.WIOA.hasVerfiedDocumentaion">
+                    <input id="hasVerfiedDocumentaion_0" type="radio" name="hasVerfiedDocumentaion" ng-value="false" ng-model="formData.WIOA.hasVerfiedDocumentaion">
                     <label for="hasVerfiedDocumentaion_0">No</label>
                 </li>
             </ul>
-        </fieldset>       
+        </fieldset>
     </div>
     <div class="form-question-block">
         <div class="form-question-text">Were any workers paid a subminimum wage age 24 or younger?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" value="1" ng-model="formData.WIOA.hasWIOAWorkers">
+                    <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" ng-value="true" ng-model="formData.WIOA.hasWIOAWorkers">
                     <label for="hasWIOAWorkers_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasWIOAWorkers_0" type="radio" name="hasWIOAWorkers" value="0" ng-model="formData.WIOA.hasWIOAWorkers">
+                    <input id="hasWIOAWorkers_0" type="radio" name="hasWIOAWorkers" ng-value="false" ng-model="formData.WIOA.hasWIOAWorkers">
                     <label for="hasWIOAWorkers_0">No</label>
                 </li>
             </ul>
-        </fieldset>       
+        </fieldset>
     </div>
     <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1">
         <div class="form-question-text">List the name of each worker with a disability age 24 or younger and provide a response for each individual. </div>
         <div>
-            Accepted Responses: 
+            Accepted Responses:
             <p><strong>Yes</strong> - The employer reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
             <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
-            <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p> 
+            <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
         </div>
         <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
         <div class="form-question-block em-block" ng-show="vm.addingWorker">
@@ -73,11 +73,11 @@
                 <div class="usa-input-grid usa-input-grid-small">
                     <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
                 </div>
-            </fieldset> 
+            </fieldset>
             <div class="form-spaced-div">
                 <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">Add Worker</button></span>
             </div>
-        </div>       
+        </div>
         <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
             <thead>
                 <tr>
@@ -93,6 +93,6 @@
                     <td><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
                 </tr>
             </tbody>
-        </table>  
-    </div>  
+        </table>
+    </div>
 </div>

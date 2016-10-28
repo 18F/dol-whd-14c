@@ -17,16 +17,16 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasTradeName_1" type="radio" name="hasTradeName" value="1" ng-model="formData.employerInfo.hasTradeName">
+                    <input id="hasTradeName_1" type="radio" name="hasTradeName" ng-value="true" ng-model="formData.employerInfo.hasTradeName">
                     <label for="hasTradeName_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasTradeName_0" type="radio" name="hasTradeName" value="0" ng-model="formData.employerInfo.hasTradeName">
+                    <input id="hasTradeName_0" type="radio" name="hasTradeName" ng-value="false" ng-model="formData.employerInfo.hasTradeName">
                     <label for="hasTradeName_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.hasTradeName == 1">
+        <div ng-show="formData.employerInfo.hasTradeName === true">
             <div class="form-question-text">Trade Name</div>
             <div class="form-question-answer">
                 <input id="tradeName" name="tradeName" type="text" ng-model="formData.employerInfo.tradeName">
@@ -41,16 +41,16 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" value="1" ng-model="formData.employerInfo.legalNameHasChanged">
+                    <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" ng-value="true" ng-model="formData.employerInfo.legalNameHasChanged">
                     <label for="legalNameHasChanged_1">Yes</label>
                 </li>
                 <li>
-                    <input id="legalNameHasChanged_0" type="radio" name="legalNameHasChanged" value="0" ng-model="formData.employerInfo.legalNameHasChanged">
+                    <input id="legalNameHasChanged_0" type="radio" name="legalNameHasChanged" ng-value="false" ng-model="formData.employerInfo.legalNameHasChanged">
                     <label for="legalNameHasChanged_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.legalNameHasChanged == 1">
+        <div ng-show="formData.employerInfo.legalNameHasChanged === true">
             <div class="form-question-text">Prior Legal Name of Employer</div>
             <div class="form-question-answer">
                 <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employerInfo.priorLegalName">
@@ -138,11 +138,11 @@
             </div>
 
             <label for="zip">Zip Code</label>
-            <input class="usa-input-medium" id="zip" name="zip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.physicalAddress.zipCode">
+            <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.physicalAddress.zipCode">
 
         <div class="usa-input-grid usa-input-grid-medium">
-            <label for="country">Country</label>
-            <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
+            <label for="county">County</label>
+            <input id="county" name="county" type="text" ng-model="formData.employerInfo.physicalAddress.county">
         </div>
 
         </fieldset>
@@ -153,16 +153,16 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasParentOrg_1" type="radio" name="hasParentOrg" value="1" ng-model="formData.employerInfo.hasParentOrg">
+                    <input id="hasParentOrg_1" type="radio" name="hasParentOrg" ng-value="true" ng-model="formData.employerInfo.hasParentOrg">
                     <label for="hasParentOrg_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasParentOrg_0" type="radio" name="hasParentOrg" value="0" ng-model="formData.employerInfo.hasParentOrg">
+                    <input id="hasParentOrg_0" type="radio" name="hasParentOrg" ng-value="false" ng-model="formData.employerInfo.hasParentOrg">
                     <label for="hasParentOrg_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <fieldset ng-show="formData.employerInfo.hasParentOrg == 1">
+        <fieldset ng-show="formData.employerInfo.hasParentOrg === true">
             <label for="parentLegalName">Legal Name</label>
             <input id="parentLegalName" name="parentLegalName" type="text" ng-model="formData.employerInfo.parentLegalName">
 
@@ -244,11 +244,11 @@
             </div>
 
             <label for="parentAddressZipCode">Zip Code</label>
-            <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.parentAddress.zipCode">
+            <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.parentAddress.zipCode">
 
         <div class="usa-input-grid usa-input-grid-medium">
-            <label for="parentAddressCountry">Country</label>
-            <input id="parentAddressCountry" name="parentAddressCountry" type="text" ng-model="formData.employerInfo.parentAddress.country">
+            <label for="parentAddressCounty">County</label>
+            <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employerInfo.parentAddress.county">
         </div>
 
         <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employerInfo.sendMailToParent">
@@ -277,11 +277,11 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" value="1" ng-model="formData.employerInfo.isEducationalAgency">
+                    <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" ng-value="true" ng-model="formData.employerInfo.isEducationalAgency">
                     <label for="isEducationalAgency_1">Yes</label>
                 </li>
                 <li>
-                    <input id="isEducationalAgency_0" type="radio" name="isEducationalAgency" value="0" ng-model="formData.employerInfo.isEducationalAgency">
+                    <input id="isEducationalAgency_0" type="radio" name="isEducationalAgency" ng-value="false" ng-model="formData.employerInfo.isEducationalAgency">
                     <label for="isEducationalAgency_0">No</label>
                 </li>
             </ul>
@@ -344,11 +344,11 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="PCA_1" type="radio" name="PCA" value="1" ng-model="formData.employerInfo.PCA">
+                    <input id="PCA_1" type="radio" name="PCA" ngvalue="true" ng-model="formData.employerInfo.PCA">
                     <label for="PCA_1">Yes</label>
                 </li>
                 <li>
-                    <input id="PCA_0" type="radio" name="PCA" value="0" ng-model="formData.employerInfo.PCA">
+                    <input id="PCA_0" type="radio" name="PCA" ng-value="false" ng-model="formData.employerInfo.PCA">
                     <label for="PCA_0">No</label>
                 </li>
             </ul>
@@ -399,18 +399,18 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="representativePayee_1" type="radio" name="representativePayee" value="1" ng-model="formData.employerInfo.representativePayee">
+                    <input id="representativePayee_1" type="radio" name="representativePayee" ng-value="true" ng-model="formData.employerInfo.representativePayee">
                     <label for="representativePayee_1">Yes</label>
                 </li>
                 <li>
-                    <input id="representativePayee_0" type="radio" name="representativePayee" value="0" ng-model="formData.employerInfo.representativePayee">
+                    <input id="representativePayee_0" type="radio" name="representativePayee" ng-value="false" ng-model="formData.employerInfo.representativePayee">
                     <label for="representativePayee_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-block" ng-show="formData.employerInfo.representativePayee == 1">
+    <div class="form-question-block" ng-show="formData.employerInfo.representativePayee === true">
         <div class="form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</div>
         <div class="form-question-answer">
             <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employerInfo.totalDisabledWorkers">
@@ -422,21 +422,21 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" value="1" ng-model="formData.employerInfo.takeCreditForCosts">
+                    <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" ng-value="true" ng-model="formData.employerInfo.takeCreditForCosts">
                     <label for="takeCreditForCosts_1">Yes</label>
                 </li>
                 <li>
-                    <input id="takeCreditForCosts_0" type="radio" name="takeCreditForCosts" value="0" ng-model="formData.employerInfo.takeCreditForCosts">
+                    <input id="takeCreditForCosts_0" type="radio" name="takeCreditForCosts" ng-value="false" ng-model="formData.employerInfo.takeCreditForCosts">
                     <label for="takeCreditForCosts_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.takeCreditForCosts == 1">
+        <div ng-show="formData.employerInfo.takeCreditForCosts === true">
             <label for="deductionType">Which type of deduction(s) did the employer take?</label>
             <fieldset class="usa-fieldset-inputs form-question-answer">
                 <ul class="usa-unstyled-list">
                     <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
-                        <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-model="formData.employerInfo.providingFacilitiesDeductionType">
+                        <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-checked="formData.employerInfo.providingFacilitiesDeductionType.indexOf(response.id) > -1" ng-click="vm.toggleDeductionType(response.id)">
                         <label for="deductionType_{{ response.id }}">{{ response.display }}</label>
                     </li>
                 </ul>
@@ -450,11 +450,11 @@
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" value="1" ng-model="formData.employerInfo.temporaryAuthority">
+                    <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" ng-value="true" ng-model="formData.employerInfo.temporaryAuthority">
                     <label for="temporaryAuthority_1">Yes</label>
                 </li>
                 <li>
-                    <input id="temporaryAuthority_0" type="radio" name="temporaryAuthority" value="0" ng-model="formData.employerInfo.temporaryAuthority">
+                    <input id="temporaryAuthority_0" type="radio" name="temporaryAuthority" ng-value="false" ng-model="formData.employerInfo.temporaryAuthority">
                     <label for="temporaryAuthority_0">No</label>
                 </li>
             </ul>

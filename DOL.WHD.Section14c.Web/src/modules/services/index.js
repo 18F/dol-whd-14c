@@ -6,4 +6,5 @@ module.exports = function(ngModule) {
   require('./stateService')(ngModule);
   require('./navService')(ngModule);
   require('./autoSaveService')(ngModule);
+  require('./validationService')(ngModule);
 };
