@@ -152,7 +152,7 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredValueArray("establishmentType", "Please select all that apply");
-            
+
             this.checkRequiredString("contactName");
 
             if (!this.validateTelephoneNumber(this.getFormValue("contactPhone"))) {
@@ -170,79 +170,79 @@ module.exports = function(ngModule) {
         }
 
         this.validateEmployer = function() {
-            let hasTradeName = this.checkRequiredMultipleChoice("employerInfo.hasTradeName");
+            let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName");
             if (hasTradeName === true) {
-                this.checkRequiredString("employerInfo.tradeName");
+                this.checkRequiredString("employer.tradeName");
             }
 
-            let legalNameHasChanged = this.checkRequiredMultipleChoice("employerInfo.legalNameHasChanged");
+            let legalNameHasChanged = this.checkRequiredMultipleChoice("employer.legalNameHasChanged");
             if (legalNameHasChanged === true) {
-                this.checkRequiredString("employerInfo.legalNameHasChanged");
+                this.checkRequiredString("employer.legalNameHasChanged");
             }
 
-            this.checkRequiredString("employerInfo.physicalAddress.streetAddress");
-            this.checkRequiredString("employerInfo.physicalAddress.city");
-            this.checkRequiredValue("employerInfo.physicalAddress.state", "Please select a state or territory");
+            this.checkRequiredString("employer.physicalAddress.streetAddress");
+            this.checkRequiredString("employer.physicalAddress.city");
+            this.checkRequiredValue("employer.physicalAddress.state", "Please select a state or territory");
 
-            if (!this.validateZipCode(this.getFormValue("employerInfo.physicalAddress.zipCode"))) {
-                this.setValidationError("employerInfo.physicalAddress.zipCode", "Please enter a valid zip code");
+            if (!this.validateZipCode(this.getFormValue("employer.physicalAddress.zipCode"))) {
+                this.setValidationError("employer.physicalAddress.zipCode", "Please enter a valid zip code");
             }
 
-            this.checkRequiredString("employerInfo.physicalAddress.county", "Please enter a county");
+            this.checkRequiredString("employer.physicalAddress.county", "Please enter a county");
 
-            let hasParentOrg = this.checkRequiredMultipleChoice("employerInfo.hasParentOrg");
+            let hasParentOrg = this.checkRequiredMultipleChoice("employer.hasParentOrg");
             if (hasParentOrg === true) {
-                this.checkRequiredString("employerInfo.parentLegalName");
-                this.checkRequiredString("employerInfo.parentAddress.streetAddress");
-                this.checkRequiredString("employerInfo.parentAddress.city");
-                this.checkRequiredValue("employerInfo.parentAddress.state", "Please select a state or territory");
+                this.checkRequiredString("employer.parentLegalName");
+                this.checkRequiredString("employer.parentAddress.streetAddress");
+                this.checkRequiredString("employer.parentAddress.city");
+                this.checkRequiredValue("employer.parentAddress.state", "Please select a state or territory");
 
-                if (!this.validateZipCode(this.getFormValue("employerInfo.parentAddress.zipCode"))) {
-                    this.setValidationError("employerInfo.parentAddress.zipCode", "Please enter a valid zip code");
+                if (!this.validateZipCode(this.getFormValue("employer.parentAddress.zipCode"))) {
+                    this.setValidationError("employer.parentAddress.zipCode", "Please enter a valid zip code");
                 }
 
-                this.checkRequiredString("employerInfo.parentAddress.county", "Please enter a county");
+                this.checkRequiredString("employer.parentAddress.county", "Please enter a county");
             }
 
-            let employerStatus = this.checkRequiredMultipleChoice("employerInfo.employerStatus");
+            let employerStatus = this.checkRequiredMultipleChoice("employer.employerStatusId");
             if (employerStatus === _constants.responses.employerStatus.other) {
-                this.checkRequiredString("employerInfo.employerStatusOther");
+                this.checkRequiredString("employer.employerStatusOther");
             }
 
-            this.checkRequiredMultipleChoice("employerInfo.isEducationalAgency");
-            this.checkRequiredDate("employerInfo.fiscalQuarterEndDate.month", "employerInfo.fiscalQuarterEndDate.day", "employerInfo.fiscalQuarterEndDate.year");
-            this.checkRequiredNumber("employerInfo.workerCountInfo.total", undefined, 0);
-            this.checkRequiredNumber("employerInfo.workerCountInfo.workCenter", undefined, 0);
-            this.checkRequiredNumber("employerInfo.workerCountInfo.patientWorkers", undefined, 0);
-            this.checkRequiredNumber("employerInfo.workerCountInfo.SWEP", undefined, 0);
-            this.checkRequiredNumber("employerInfo.workerCountInfo.totBusinessEstablishmental", undefined, 0);
+            this.checkRequiredMultipleChoice("employer.isEducationalAgency");
+            this.checkRequiredDate("employer.fiscalQuarterEndDate.month", "employer.fiscalQuarterEndDate.day", "employer.fiscalQuarterEndDate.year");
+            this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", undefined, 0);
+            this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", undefined, 0);
+            this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", undefined, 0);
+            this.checkRequiredNumber("employer.numSubminimalWageWorkers.swep", undefined, 0);
+            this.checkRequiredNumber("employer.numSubminimalWageWorkers.businessEstablishment", undefined, 0);
 
-            this.checkRequiredMultipleChoice("employerInfo.PCA");
+            this.checkRequiredMultipleChoice("employer.pca");
 
-            let sca = this.checkRequiredMultipleChoice("employerInfo.SCA");
+            let sca = this.checkRequiredMultipleChoice("employer.scaId");
             if (sca === _constants.responses.sca.yes) {
-                let SCACount = this.checkRequiredNumber("employerInfo.SCACount", undefined, 0);
+                let scaCount = this.checkRequiredNumber("employer.scaCount", undefined, 0);
 
-                //TODO: validate number of uploads with SCACount ???
-                this.checkRequiredValue("employerInfo.SCAAttachment", "Please upload the required SCA Wage Determinations");
+                //TODO: validate number of uploads with scaCount ???
+                this.checkRequiredValue("employer.SCAAttachment", "Please upload the required SCA Wage Determinations");
             }
 
-            this.checkRequiredMultipleChoice("employerInfo.EO13658");
+            this.checkRequiredMultipleChoice("employer.eo13658Id");
 
-            let representativePayee = this.checkRequiredMultipleChoice("employerInfo.representativePayee");
+            let representativePayee = this.checkRequiredMultipleChoice("employer.representativePayee");
             if (representativePayee === true) {
-                this.checkRequiredNumber("employerInfo.workerCountInfo.totalDisabledWorkers", undefined, 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.totalDisabledWorkers", undefined, 0);
             }
 
-            let takeCreditForCosts = this.checkRequiredMultipleChoice("employerInfo.takeCreditForCosts");
+            let takeCreditForCosts = this.checkRequiredMultipleChoice("employer.takeCreditForCosts");
             if (takeCreditForCosts === true) {
-                let deductions = this.checkRequiredValueArray("employerInfo.providingFacilitiesDeductionType", "Please select all that apply");
+                let deductions = this.checkRequiredValueArray("employer.providingFacilitiesDeductionTypeId", "Please select all that apply");
                 if (isArray(deductions) && deductions.includes(_constants.responses.providingFacilitiesDeductionType.other)) {
-                    this.checkRequiredString("employerInfo.providingFacilitiesDeductionTypeOther", "Please specify");
+                    this.checkRequiredString("employer.providingFacilitiesDeductionTypeOther", "Please specify");
                 }
             }
 
-            this.checkRequiredMultipleChoice("employerInfo.temporaryAuthority");
+            this.checkRequiredMultipleChoice("employer.temporaryAuthority");
         }
 
         this.validateWageDataPayType = function(prefix) {
@@ -320,7 +320,7 @@ module.exports = function(ngModule) {
         }
 
         this.validateWorkSites = function() {
-            this.checkRequiredNumber("totalNumWorkSites", undefined, 1);
+            let totalNumWorkSites = this.checkRequiredNumber("totalNumWorkSites", undefined, 1);
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
             if (worksites) {
@@ -368,8 +368,12 @@ module.exports = function(ngModule) {
 
                     let totalEmployees = employees ? employees.length : 0;
                     if (numEmployees !== totalEmployees) {
-                        this.setValidationError(prefix, "The number of employees specified does not match the number entered for this worksite");
+                        this.setValidationError(prefix + "_EMPLOYEE_COUNT", "The number of employees specified does not match the number entered for this worksite");
                     }
+                }
+
+                if (totalNumWorkSites !== worksites.length) {
+                    this.setValidationError("workSites_TOTAL", "The number of work sites specified does not match the number entered");
                 }
             }
         }

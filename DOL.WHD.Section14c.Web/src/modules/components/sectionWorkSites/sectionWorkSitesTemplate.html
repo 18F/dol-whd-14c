@@ -170,7 +170,7 @@
         <div class="form-question-block">
             <div class="form-question-text">Total Number of employees employed at this establishment / work site at any time during the most recently completed fiscal quarter:</div>
             <div class="form-question-answer">
-                <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="text" ng-model="vm.activeWorksite.numEmployees">
+                <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
             </div>
         </div>
     </div>
