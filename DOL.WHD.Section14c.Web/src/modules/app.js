@@ -6,6 +6,7 @@ if (typeof console === 'undefined') {
 
 // Global Dependencies
 require('jquery');
+require('babel-polyfill');
 //require('lodash');
 
 // Angular
