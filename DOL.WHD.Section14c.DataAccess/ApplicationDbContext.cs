@@ -35,6 +35,11 @@ namespace DOL.WHD.Section14c.DataAccess
             base.OnModelCreating(modelBuilder);
 
             // data constraints
+            // AlternateWageData
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateWorkDescription).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateDataSourceUsed).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.PrevailingWageProvidedBySource).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.DataRetrieved).IsRequired();
             // ApplicationSubmission
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.RepresentativePayeeSocialSecurityBenefits).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ProvidingFacilities).IsRequired();

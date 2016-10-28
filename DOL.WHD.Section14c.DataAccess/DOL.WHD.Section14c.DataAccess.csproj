@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201610262048363_RequiredFieldUpdates.Designer.cs">
       <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.cs" />
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.Designer.cs">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -252,6 +256,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610262048363_RequiredFieldUpdates.resx">
       <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282013443_AlternateWageDataConstraints.resx">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
