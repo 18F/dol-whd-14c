@@ -7,9 +7,12 @@ module.exports = function(ngModule) {
 
         $scope.formData = stateService.formData;
 
-        
-        if(!$scope.formData.employerInfo) {
-            $scope.formData.employerInfo = { providingFacilitiesDeductionType: [] };
+        if (!$scope.formData.employerInfo) {
+            $scope.formData.employerInfo = {};
+        }
+
+        if (!$scope.formData.employerInfo.providingFacilitiesDeductionType) {
+            $scope.formData.employerInfo.providingFacilitiesDeductionType = [];
         }
 
         // multiple choice responses
@@ -19,7 +22,7 @@ module.exports = function(ngModule) {
         var vm = this;
         vm.showAllHelp = false;
         vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;    
+        vm.access_token = stateService.access_token;
 
         this.onHasTradeNameChange = function() {
             $scope.formData.employerInfo.tradeName = '';
@@ -27,6 +30,16 @@ module.exports = function(ngModule) {
 
         this.onHasLegalNameChange = function() {
             $scope.formData.employerInfo.priorLegalName = '';
+        }
+
+        this.toggleDeductionType = function(id) {
+            let index = $scope.formData.employerInfo.providingFacilitiesDeductionType.indexOf(id);
+            if (index > -1) {
+                $scope.formData.employerInfo.providingFacilitiesDeductionType.splice(index, 1);
+            }
+            else {
+                $scope.formData.employerInfo.providingFacilitiesDeductionType.push(id);
+            }
         }
 
         this.onSCAAttachmentSelected = function(fileinput) {
@@ -48,16 +61,6 @@ module.exports = function(ngModule) {
                 //TODO: Display error
                 $scope.formData.employerInfo.SCAAttachment = undefined;
             })
-        }      
-
-        this.toggleProvidingFacilitiesDeductionType = function(id) {
-            var idx = $scope.formData.employerInfo.providingFacilitiesDeductionType.indexOf(id);
-            if (idx > -1) {
-                $scope.formData.employerInfo.providingFacilitiesDeductionType.splice(idx, 1);
-            }
-            else {
-                $scope.formData.employerInfo.providingFacilitiesDeductionType.push(id);
-            }
         }
   });
 }
