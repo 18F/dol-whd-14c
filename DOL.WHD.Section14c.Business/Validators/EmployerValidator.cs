@@ -27,9 +27,9 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.TemporaryAuthority).NotNull();
 
             // conditional required
-            RuleFor(e => e.TradeName).NotEmpty().When(e => e.HasTradeName);
-            RuleFor(e => e.PriorLegalName).NotEmpty().When(e => e.LegalNameHasChanged);
-            When(e => e.HasParentOrg, () =>
+            RuleFor(e => e.TradeName).NotEmpty().When(e => e.HasTradeName.GetValueOrDefault());
+            RuleFor(e => e.PriorLegalName).NotEmpty().When(e => e.LegalNameHasChanged.GetValueOrDefault());
+            When(e => e.HasParentOrg.GetValueOrDefault(), () =>
             {
                 RuleFor(e => e.ParentLegalName).NotEmpty();
                 RuleFor(e => e.ParentTradeName).NotEmpty();

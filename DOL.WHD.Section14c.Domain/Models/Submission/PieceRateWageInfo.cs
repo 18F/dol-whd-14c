@@ -4,10 +4,10 @@
     {
         public string PieceRateWorkDescription { get; set; }
 
-        public double PrevailingWageDeterminedForJob { get; set; }
+        public double? PrevailingWageDeterminedForJob { get; set; }
 
-        public double StandardProductivity { get; set; }
+        public double? StandardProductivity { get; set; }
 
-        public double PieceRatePaidToWorkers { get; set; }
+        public double? PieceRatePaidToWorkers { get; set; }
     }
 }

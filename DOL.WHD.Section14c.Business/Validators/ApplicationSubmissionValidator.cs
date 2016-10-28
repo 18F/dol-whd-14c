@@ -29,9 +29,9 @@ namespace DOL.WHD.Section14c.Business.Validators
             // conditional required
             RuleFor(a => a.NumEmployeesRepresentativePayee)
                 .NotEmpty()
-                .When(a => a.RepresentativePayeeSocialSecurityBenefits);
+                .When(a => a.RepresentativePayeeSocialSecurityBenefits.GetValueOrDefault());
 
-            When(a => a.ProvidingFacilities, () =>
+            When(a => a.ProvidingFacilities.GetValueOrDefault(), () =>
             {
                 RuleFor(a => a.ProvidingFacilitiesDeductionType)
                     .NotNull()
@@ -43,7 +43,7 @@ namespace DOL.WHD.Section14c.Business.Validators
 
             RuleFor(a => a.CertificateNumber)
                 .NotEmpty()
-                .When(a => a.HasPreviousCertificate);
+                .When(a => a.HasPreviousCertificate.GetValueOrDefault());
 
             RuleFor(a => a.HourlyWageInfo)
                 .NotNull()
@@ -57,7 +57,7 @@ namespace DOL.WHD.Section14c.Business.Validators
 
             // Other validation
             RuleFor(a => a.ContactEmail).EmailAddress();
-            RuleFor(a => a.WorkSites.Count).Equal(a => a.TotalNumWorkSites);
+            RuleFor(a => a.WorkSites.Count).Equal(a => a.TotalNumWorkSites.GetValueOrDefault());
         }
     }
 }

@@ -15,7 +15,7 @@ namespace DOL.WHD.Section14c.Business.Validators
                 .NotNull()
                 .Must(w => w.Any())
                 .SetCollectionValidator(wioaWorkerValidator)
-                .When(w => w.HasWIOAWorkers);
+                .When(w => w.HasWIOAWorkers.GetValueOrDefault());
         }
     }
 }

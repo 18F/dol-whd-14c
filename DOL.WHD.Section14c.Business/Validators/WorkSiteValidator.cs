@@ -16,7 +16,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(w => w.NumEmployees).NotEmpty();
             RuleFor(w => w.Employees).NotNull().SetCollectionValidator(employeeValidator);
 
-            RuleFor(w => w.Employees.Count).Equal(w => w.NumEmployees).When(w => w.Employees != null);
+            RuleFor(w => w.Employees.Count).Equal(w => w.NumEmployees.GetValueOrDefault()).When(w => w.Employees != null);
         }
     }
 }
