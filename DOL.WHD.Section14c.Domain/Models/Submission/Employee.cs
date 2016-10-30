@@ -6,7 +6,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public Employee()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
 
         public Guid Id { get; set; }

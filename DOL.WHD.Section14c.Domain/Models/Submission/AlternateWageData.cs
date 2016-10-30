@@ -4,7 +4,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class AlternateWageData : BaseEntity
     {
-        public int Id { get; set; }
+        public AlternateWageData()
+        {
+            Id = Guid.NewGuid();
+        }
+        
+        public Guid Id { get; set; }
 
         public string AlternateWorkDescription { get; set; }
         public string AlternateDataSourceUsed { get; set; }

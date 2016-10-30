@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.Designer.cs">
       <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.cs" />
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.Designer.cs">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -273,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.resx">
       <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301837290_TableKeyUpdates.resx">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
