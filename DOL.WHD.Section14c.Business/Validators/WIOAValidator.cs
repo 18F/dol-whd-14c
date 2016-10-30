@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.Business.Validators
     {
         public WIOAValidator(IWIOAWorkerValidator wioaWorkerValidator)
         {
-            RuleFor(w => w.HasVerfiedDocumentaion).NotNull();
+            RuleFor(w => w.HasVerifiedDocumentation).NotNull();
             RuleFor(w => w.HasWIOAWorkers).NotNull();
 
             RuleFor(w => w.WIOAWorkers)

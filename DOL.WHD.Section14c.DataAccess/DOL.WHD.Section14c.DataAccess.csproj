@@ -183,6 +183,14 @@
     <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.Designer.cs">
       <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.cs" />
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.Designer.cs">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.cs" />
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.Designer.cs">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -259,6 +267,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610282013443_AlternateWageDataConstraints.resx">
       <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282056202_NullablePrimitives.resx">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.resx">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

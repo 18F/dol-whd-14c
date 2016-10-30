@@ -124,7 +124,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ConclusionWageRateNotBasedOnEntry).IsRequired();
             modelBuilder.Entity<SourceEmployer>().HasRequired(a => a.Address);
             // WIOA
-            modelBuilder.Entity<WIOA>().Property(a => a.HasVerfiedDocumentaion).IsRequired();
+            modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
             // WIOAWorker
             modelBuilder.Entity<WIOAWorker>().Property(a => a.FullName).IsRequired();
