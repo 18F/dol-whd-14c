@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Validators;
@@ -19,23 +21,23 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationSubmissionValidator = applicationSubmissionValidator;
         }
 
-        public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmission submission)
+        public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
         {
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
-                return BadRequest();
+                return Request.CreateResponse(HttpStatusCode.BadRequest, results.Errors);
             }
 
             // make sure user has rights to the EIN
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized();
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
-            return Created("", (object)null);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
     }
 }
