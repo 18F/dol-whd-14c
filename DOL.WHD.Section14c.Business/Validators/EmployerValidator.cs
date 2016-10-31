@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class EmployerValidator : AbstractValidator<EmployerInfo>, IEmployerValidator
+    public class EmployerValidator : BaseValidator<EmployerInfo>, IEmployerValidator
     {
         public EmployerValidator(IAddressValidator addressValidator, IWorkerCountInfoValidator workerCountInfoValidator)
         {
@@ -14,16 +14,16 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.PhysicalAddress).NotNull().SetValidator(addressValidator);
             RuleFor(e => e.HasDifferentMailingAddress).NotNull();
             RuleFor(e => e.HasParentOrg).NotNull();
-            RuleFor(e => e.EmployerStatusId).NotEmpty();
+            RuleFor(e => e.EmployerStatusId).NotNull();
             RuleFor(e => e.IsEducationalAgency).NotNull();
             RuleFor(e => e.FiscalQuarterEndDate).NotEmpty();
             RuleFor(e => e.NumSubminimalWageWorkers).NotNull().SetValidator(workerCountInfoValidator);
             RuleFor(e => e.PCA).NotNull();
-            RuleFor(e => e.SCAId).NotEmpty();
-            RuleFor(e => e.EO13658Id).NotEmpty();
+            RuleFor(e => e.SCAId).NotNull();
+            RuleFor(e => e.EO13658Id).NotNull();
             RuleFor(e => e.RepresentativePayee).NotNull();
             RuleFor(e => e.TakeCreditForCosts).NotNull();
-            RuleFor(e => e.ProvidingFacilitiesDeductionTypeId).NotEmpty();
+            RuleFor(e => e.ProvidingFacilitiesDeductionTypeId).NotNull();
             RuleFor(e => e.TemporaryAuthority).NotNull();
 
             // conditional required

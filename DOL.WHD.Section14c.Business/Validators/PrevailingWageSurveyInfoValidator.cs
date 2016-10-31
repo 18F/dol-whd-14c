@@ -4,11 +4,11 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class PrevailingWageSurveyInfoValidator : AbstractValidator<PrevailingWageSurveyInfo>, IPrevailingWageSurveyInfoValidator
+    public class PrevailingWageSurveyInfoValidator : BaseValidator<PrevailingWageSurveyInfo>, IPrevailingWageSurveyInfoValidator
     {
         public PrevailingWageSurveyInfoValidator(ISourceEmployerValidator sourceEmployerValidator)
         {
-            RuleFor(p => p.PrevailingWageDetermined).NotEmpty();
+            RuleFor(p => p.PrevailingWageDetermined).NotNull();
             RuleFor(p => p.SourceEmployers).NotNull().Must(p => p.Any()).SetCollectionValidator(sourceEmployerValidator);
         }
     }

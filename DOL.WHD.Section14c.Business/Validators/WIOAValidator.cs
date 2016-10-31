@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class WIOAValidator : AbstractValidator<WIOA>, IWIOAValidator
+    public class WIOAValidator : BaseValidator<WIOA>, IWIOAValidator
     {
         public WIOAValidator(IWIOAWorkerValidator wioaWorkerValidator)
         {

@@ -3,15 +3,15 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class WageTypeInfoValidator<T> : AbstractValidator<T> where T : WageTypeInfo
+    public class WageTypeInfoValidator<T> : BaseValidator<T> where T : WageTypeInfo
     {
         public WageTypeInfoValidator(IPrevailingWageSurveyInfoValidator prevailingWageSurveyInfoValidator, IAlternateWageDataValidator alternateWageDataValidator)
         {
-            RuleFor(w => w.NumWorkers).NotEmpty();
+            RuleFor(w => w.NumWorkers).NotNull();
             RuleFor(w => w.JobName).NotEmpty();
             RuleFor(w => w.JobDescription).NotEmpty();
-            RuleFor(w => w.PrevailingWageMethodId).NotEmpty();
-            RuleFor(w => w.AttachmentId).NotEmpty();
+            RuleFor(w => w.PrevailingWageMethodId).NotNull();
+            RuleFor(w => w.AttachmentId).NotNull();
 
             // conditional
             RuleFor(w => w.MostRecentPrevailingWageSurvey)

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class AddressValidator : AbstractValidator<Address>, IAddressValidator
+    public class AddressValidator : BaseValidator<Address>, IAddressValidator
     {
         public AddressValidator()
         {

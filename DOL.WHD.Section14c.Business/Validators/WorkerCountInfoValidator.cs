@@ -3,11 +3,11 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class WorkerCountInfoValidator : AbstractValidator<WorkerCountInfo>, IWorkerCountInfoValidator
+    public class WorkerCountInfoValidator : BaseValidator<WorkerCountInfo>, IWorkerCountInfoValidator
     {
         public WorkerCountInfoValidator()
         {
-            RuleFor(w => w.Total).NotEmpty();
+            RuleFor(w => w.Total).NotNull();
             RuleFor(a => a.WorkCenter).NotNull();
             RuleFor(a => a.PatientWorkers).NotNull();
             RuleFor(a => a.SWEP).NotNull();

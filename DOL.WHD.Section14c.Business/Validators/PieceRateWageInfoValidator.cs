@@ -10,9 +10,9 @@ namespace DOL.WHD.Section14c.Business.Validators
             : base(prevailingWageSurveyInfoValidator, alternateWageDataValidator)
         {
             RuleFor(p => p.PieceRateWorkDescription).NotEmpty();
-            RuleFor(p => p.PrevailingWageDeterminedForJob).NotEmpty();
-            RuleFor(p => p.StandardProductivity).NotEmpty();
-            RuleFor(p => p.PieceRatePaidToWorkers).NotEmpty();
+            RuleFor(p => p.PrevailingWageDeterminedForJob).NotNull();
+            RuleFor(p => p.StandardProductivity).NotNull();
+            RuleFor(p => p.PieceRatePaidToWorkers).NotNull();
         }
     }
 }

@@ -71,6 +71,7 @@
     <Compile Include="Validators\AddressValidator.cs" />
     <Compile Include="Validators\AlternateWageDataValidator.cs" />
     <Compile Include="Validators\ApplicationSubmissionValidator.cs" />
+    <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
     <Compile Include="Validators\EmployerValidator.cs" />
     <Compile Include="Validators\IAddressValidator.cs" />

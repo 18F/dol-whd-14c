@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class ApplicationSubmissionValidator : AbstractValidator<ApplicationSubmission>, IApplicationSubmissionValidator
+    public class ApplicationSubmissionValidator : BaseValidator<ApplicationSubmission>, IApplicationSubmissionValidator
     {
         public ApplicationSubmissionValidator(IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
         {
@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(a => a.ProvidingFacilities).NotNull();
             RuleFor(a => a.ReviewedDocumentation).NotNull();
             RuleFor(a => a.EIN).NotEmpty();
-            RuleFor(a => a.ApplicationTypeId).NotEmpty();
+            RuleFor(a => a.ApplicationTypeId).NotNull();
             RuleFor(a => a.HasPreviousApplication).NotNull();
             RuleFor(a => a.HasPreviousCertificate).NotNull();
             RuleFor(a => a.EstablishmentType).NotNull().Must(et => et.Any());
@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(a => a.ContactPhone).NotEmpty();
             RuleFor(a => a.ContactEmail).NotEmpty();
             RuleFor(a => a.PayTypeId).NotEmpty();
-            RuleFor(a => a.TotalNumWorkSites).NotEmpty();
+            RuleFor(a => a.TotalNumWorkSites).NotNull();
             RuleFor(a => a.Employer).NotNull().SetValidator(employerValidator);
             RuleFor(a => a.WorkSites).NotNull().Must(w => w.Any()).SetCollectionValidator(workSiteValidator);
             RuleFor(a => a.WIOA).NotNull().SetValidator(wioaValidator);
@@ -38,7 +38,7 @@ namespace DOL.WHD.Section14c.Business.Validators
                     .Must(p => p.Any());
                 RuleFor(a => a.ProvidingFacilitiesDeductionTypeOther)
                     .NotEmpty()
-                    .When(a => a.ProvidingFacilitiesDeductionType.Any(x => x.ProvidingFacilitiesDeductionTypeId == 20));
+                    .When(a => a.ProvidingFacilitiesDeductionType != null && a.ProvidingFacilitiesDeductionType.Any(x => x.ProvidingFacilitiesDeductionTypeId == 20));
             });
 
             RuleFor(a => a.CertificateNumber)
@@ -57,7 +57,9 @@ namespace DOL.WHD.Section14c.Business.Validators
 
             // Other validation
             RuleFor(a => a.ContactEmail).EmailAddress();
-            RuleFor(a => a.WorkSites.Count).Equal(a => a.TotalNumWorkSites.GetValueOrDefault());
+            RuleFor(a => a.WorkSites.Count)
+                .Equal(a => a.TotalNumWorkSites.GetValueOrDefault())
+                .When(a => a.WorkSites != null);
         }
     }
 }

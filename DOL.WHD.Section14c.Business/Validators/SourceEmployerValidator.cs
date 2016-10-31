@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class SourceEmployerValidator : AbstractValidator<SourceEmployer>, ISourceEmployerValidator
+    public class SourceEmployerValidator : BaseValidator<SourceEmployer>, ISourceEmployerValidator
     {
         public SourceEmployerValidator(IAddressValidator addressValidator)
         {
