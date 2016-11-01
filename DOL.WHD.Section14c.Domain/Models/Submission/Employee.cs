@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -7,46 +6,34 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public Employee()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
 
         public Guid Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
-        [Required]
-        public int PrimaryDisabilityId { get; set; }
+        public int? PrimaryDisabilityId { get; set; }
         public virtual Response PrimaryDisability { get; set; }
 
-        // TODO: required if PrimaryDisability == Other
         public string PrimaryDisabilityOther { get; set; }
 
-        [Required]
         public string WorkType { get; set; }
 
-        [Required]
-        public int NumJobs { get; set; }
+        public int? NumJobs { get; set; }
 
-        [Required]
-        public double AvgWeeklyHours { get; set; }
+        public double? AvgWeeklyHours { get; set; }
 
-        [Required]
-        public double AvgHourlyEarnings { get; set; }
+        public double? AvgHourlyEarnings { get; set; }
 
-        [Required]
-        public double PrevailingWage { get; set; }
+        public double? PrevailingWage { get; set; }
 
-        [Required]
-        public double ProductivityMeasure { get; set; }
+        public double? ProductivityMeasure { get; set; }
 
-        [Required]
         public string CommensurateWageRate { get; set; }
 
-        [Required]
-        public double TotalHours { get; set; }
+        public double? TotalHours { get; set; }
 
-        [Required]
-        public bool WorkAtOtherSite { get; set; }
+        public bool? WorkAtOtherSite { get; set; }
     }
 }

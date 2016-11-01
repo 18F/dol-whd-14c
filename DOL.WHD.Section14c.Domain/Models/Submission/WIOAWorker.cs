@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -12,11 +11,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
-        [Required]
         public string FullName { get; set; }
 
-        [Required]
-        public int WIOAWorkerVerifiedId { get; set; }
+        public int? WIOAWorkerVerifiedId { get; set; }
         public Response WIOAWorkerVerified { get; set; }
     }
 }

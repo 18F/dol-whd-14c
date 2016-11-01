@@ -1,10 +1,10 @@
-﻿using System;
+﻿using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
-using AutoMapper;
 using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models.Submission;
-using DOL.WHD.Section14c.Domain.Models.Submission.Dto;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -13,29 +13,31 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private readonly IIdentityService _identityService;
         private readonly IApplicationService _applicationService;
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService)
+        private readonly IApplicationSubmissionValidator _applicationSubmissionValidator;
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator)
         {
             _identityService = identityService;
             _applicationService = applicationService;
+            _applicationSubmissionValidator = applicationSubmissionValidator;
         }
 
-        public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmissionDto submissionDto)
+        public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
         {
-            var submission = Mapper.Map<ApplicationSubmission>(submissionDto);
-            if (!ModelState.IsValid)
+            var results = _applicationSubmissionValidator.Validate(submission);
+            if (!results.IsValid)
             {
-                return BadRequest(ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, results.Errors);
             }
 
             // make sure user has rights to the EIN
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized();
+                return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
-            return Created("", (object)null);
+            return Request.CreateResponse(HttpStatusCode.Created);
         }
     }
 }
