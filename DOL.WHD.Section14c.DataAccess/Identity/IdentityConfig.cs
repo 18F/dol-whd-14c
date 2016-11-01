@@ -89,7 +89,6 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
         }
     }
 
-
     public class ApplicationRoleStore : RoleStore<ApplicationRole, string, ApplicationUserRole>
     {
         public ApplicationRoleStore(ApplicationDbContext context)

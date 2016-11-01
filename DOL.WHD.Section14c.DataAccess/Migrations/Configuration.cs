@@ -3,10 +3,7 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Migrations
 {
-    using Domain.Models;
     using Extensions;
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
@@ -114,7 +111,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             var adminUserName = "systemadmin@domain.com";
             if (!context.Users.Any(x => x.UserName == adminUserName))
             {
-                context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, LockoutEnabled = true });
+                context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, LockoutEnabled = true, EmailConfirmed = true });
                 context.SaveChanges();
 
                 // Seed Password, defaults to expired and must be changed at first login.

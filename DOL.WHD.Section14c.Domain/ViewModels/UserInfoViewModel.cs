@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using DOL.WHD.Section14c.Domain.Models;
-using System.Security.Claims;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.ViewModels

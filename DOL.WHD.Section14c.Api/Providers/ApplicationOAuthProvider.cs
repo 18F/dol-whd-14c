@@ -49,6 +49,12 @@ namespace DOL.WHD.Section14c.Api.Providers
                     // use invalid user name or password message to avoid disclosing that a valid username was input
                     context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
+                if (!user.EmailConfirmed)
+                {
+                    // email not confirmed
+                    // use invalid user name or password message to avoid disclosing that a valid username was input
+                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                }
                 else if (validCredentials == null)
                 {
                     // invalid credentials

@@ -19,7 +19,7 @@ module.exports = function(ngModule) {
         vm.emailVerificationUrl = $location.absUrl();
         vm.emailVerificationCode = $location.search().code;
         vm.emailVerificationUserId = $location.search().userId;
-        vm.isEmailVerificationRequest = vm.emailVerificationCode != undefined && vm.emailVerificationCode != undefined
+        vm.isEmailVerificationRequest = vm.emailVerificationCode !== undefined && vm.emailVerificationCode !== undefined
 
         $scope.onSubmitClick = function() {
             apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.response, vm.emailVerificationUrl).then(function (result) {

@@ -29,6 +29,46 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
+        this.resetPassword = function(email, passwordResetUrl) {
+
+            let url = _env.api_url + '/api/Account/ResetPassword';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"Email": email, "PasswordResetUrl" : passwordResetUrl})
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
+        this.verifyResetPassword = function(userId, newPassword, confirmPassword, code) {
+
+            let url = _env.api_url + '/api/Account/VerifyResetPassword';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"NewPassword": newPassword, "ConfirmPassword": confirmPassword, "UserId": userId, "Nounce": code})
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
         this.userLogin = function(email, password) {
 
             let url = _env.api_url + '/Token';
