@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Business;
@@ -189,13 +191,49 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return GetErrorResult(result);
             }
-            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code }));
+            // Send Verification Email
+            var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
 
-            await UserManager.SendEmailAsync(user.Id,
-                                                    "Confirm your account",
-                                                    "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
+            queryString["userId"] = user.Id;
+            queryString["code"] = nounce;
+
+            //TODO: Support Urls with existing querystring
+            var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
+
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account: " + callbackUrl);
+
+            return Ok();
+        }
+
+        // POST api/Account/VerifyEmail
+        [AllowAnonymous]
+        [Route("VerifyEmail")]
+        public async Task<IHttpActionResult> VerifyEmail(VerifyEmailViewModel model)
+        {
+            // Validate Recaptcha
+            var reCaptchaVerfiyUrl = ConfigurationManager.AppSettings["ReCaptchaVerfiyUrl"];
+            var reCaptchaSecretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
+            if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
+            {
+                var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
+                var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
+
+                var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, remoteIpAddress);
+                if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
+                {
+                    ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
+                    return BadRequest(ModelState);
+                }
+            }
+
+            var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("EmailVerification", new Exception("Unable to verify email"));
+                return BadRequest(ModelState);
+            }
 
             return Ok();
         }

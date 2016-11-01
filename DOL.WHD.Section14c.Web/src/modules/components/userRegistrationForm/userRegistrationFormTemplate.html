@@ -1,4 +1,4 @@
-<form ng-submit="onSubmitClick()">
+<form ng-submit="onSubmitClick()" >
     <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
     <ul>
         <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants, 
@@ -29,8 +29,20 @@
         on-create="setWidgetId(widgetId)"
         on-success="setResponse(response)"
         on-expire="cbExpiration()"
+
         class="regcapt"
         title="reCaptcha"
     ></div>
     <div class="regbtn"><button type="submit">Register</button></div>
 </form>
+<div ng-show="vm.isEmailVerificationRequest">
+    <div
+        vc-recaptcha
+        theme="'light'"
+        key="model.key"
+        on-create="setWidgetId(widgetId)"
+        on-success="setResponse(response)"
+        on-expire="cbExpiration()"
+    ></div>
+    <div><button type="submit" ng-click="onVerifyClick()">Verify Email Address</button></div>
+</div>
