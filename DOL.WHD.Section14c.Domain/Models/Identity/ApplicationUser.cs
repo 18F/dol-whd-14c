@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,7 +17,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
             Id = Id ?? Guid.NewGuid().ToString();
         }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, RoleManager<ApplicationRole> roleManager, string authenticationType)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
@@ -26,6 +27,26 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
                 var claim = new Claim("EIN", organization.EIN);
                 userIdentity.AddClaim(claim);
             }
+
+            var userRoles = Roles.Select(x => x.RoleId).ToList();
+
+
+            if (userRoles.Count == 0)
+            {
+                // If the user is not in a role, they are an external and can complete an application.
+                userIdentity.AddClaim(new Claim(ApplicationClaimTypes.SubmitApplication, true.ToString()));
+            }
+            else
+            {
+                // Add Add Application Feature claims based on role.
+                var roles = roleManager.Roles.Where(x => userRoles.Contains(x.Id)).ToList();
+                var features = roles.SelectMany(x => x.RoleFeatures.Select(f => f.Feature));
+                foreach (var feature in features)
+                {
+                    userIdentity.AddClaim(new Claim(feature.Key, true.ToString()));
+                }
+            }
+
 
             return userIdentity;
         }

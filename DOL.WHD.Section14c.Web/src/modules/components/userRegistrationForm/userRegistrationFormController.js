@@ -59,6 +59,9 @@ module.exports = function(ngModule) {
         };
 
         $scope.onVerifyClick = function() {
+            $location.search('code', null);
+            $location.search('userId', null);
+
             apiService.emailVerification(vm.emailVerificationUserId, vm.emailVerificationCode, $scope.response).then(function (result) {
                 //TODO: show success
                 $location.path("/");

@@ -125,12 +125,18 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.GetAccounts, "Get list of Application Accounts");
             context.AddFeature(ApplicationClaimTypes.CreateAccount, "Create Application Accounts");
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
+            context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
+            context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+
             context.SaveChanges();
 
             // Map Features to Roles
+            context.AddRoleFeature(Roles.Applicant, ApplicationClaimTypes.SubmitApplication);
+
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetAccounts);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
 
         }
 

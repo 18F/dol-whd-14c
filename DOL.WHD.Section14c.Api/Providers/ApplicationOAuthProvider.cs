@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess.Identity;
@@ -33,7 +34,7 @@ namespace DOL.WHD.Section14c.Api.Providers
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
             var roleManager = context.OwinContext.Get<ApplicationRoleManager>();
 
-            ApplicationUser user = await userManager.FindByNameAsync(context.UserName);
+            var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName == context.UserName);
             if (user != null)
             {
                 var passwordExpired = false;
@@ -74,33 +75,13 @@ namespace DOL.WHD.Section14c.Api.Providers
                 else
                 {
                     // successful login
-                    ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
+                    ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
                         OAuthDefaults.AuthenticationType);
 
-                    ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager,
+                    ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
                         CookieAuthenticationDefaults.AuthenticationType);
 
                     AuthenticationProperties properties = CreateProperties(user.Email);
-
-
-                    var userRoles = user.Roles.Select(x => x.RoleId).ToList();
-
-                    
-                    if (userRoles.Count == 0)
-                    {
-                        // If the user is not in a role, they are an external and can complete an application.
-                        oAuthIdentity.AddClaim(new Claim(ApplicationClaimTypes.ClaimPrefix + "Application", true.ToString()));
-                    }
-                    else
-                    {
-                        // Add Add Application Feature claims based on role.
-                        var roles = roleManager.Roles.Where(x => userRoles.Contains(x.Id)).ToList();
-                        var features = roles.SelectMany(x => x.RoleFeatures.Select(f => f.Feature));
-                        foreach (var feature in features)
-                        {
-                            oAuthIdentity.AddClaim(new Claim(feature.Key, true.ToString()));
-                        }
-                    }
 
                     AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
                     context.Validated(ticket);

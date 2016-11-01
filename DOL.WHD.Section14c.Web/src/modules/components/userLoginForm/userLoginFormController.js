@@ -16,7 +16,7 @@ module.exports = function(ngModule) {
         $scope.inputType = 'password';
 
         $scope.onSubmitClick = function() {
-            stateService.user.email = $scope.formVals.email
+            stateService.user.loginEmail = $scope.formVals.email
             
             //  Call Token Service
             apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
@@ -38,7 +38,6 @@ module.exports = function(ngModule) {
                     }, function (error) {
                         handleError(error);
                     });
-
                     
                     // start auto-save 
                     autoSaveService.start();

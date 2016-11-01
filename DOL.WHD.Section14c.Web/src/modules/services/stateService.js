@@ -41,8 +41,8 @@ module.exports = function(ngModule) {
         });
 
         this.hasClaim = function(claimName) {
-            return some(state.user.claims, function(claim){
-                return (has(claim, claimName) && property(claimName));
+            return some(state.user.applicationClaims, function(claim){
+                return claim === 'DOL.WHD.Section14c.' + claimName;
             });
         }
 

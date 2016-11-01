@@ -245,6 +245,113 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
+
+        this.getAccounts = function(access_token) {
+            let url = _env.api_url + '/api/account';
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getRoles = function(access_token) {
+            let url = _env.api_url + '/api/account/roles';
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getAccount = function(access_token, userId) {
+            let url = _env.api_url + '/api/account/' + userId;
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.modifyAccount = function(access_token, account) {
+            let url = _env.api_url + '/api/account/' + account.userId;
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({ Email: account.email, Roles: account.roles })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.createAccount = function(access_token, account) {
+            let url = _env.api_url + '/api/account';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({ Email: account.email, Roles: account.roles })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }        
         
     });
 }

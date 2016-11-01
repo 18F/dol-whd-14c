@@ -27,12 +27,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
     public class AccountController : ApiController
     {
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public ApplicationUserManager UserManager
         {
             get
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
         }
 
@@ -68,7 +77,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
             user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
 
+            // Add to application role
+            result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -93,19 +108,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
         {
-            var identity = (ClaimsIdentity)User.Identity;
-            var user = UserManager.FindByIdAsync(User.Identity.GetUserId()).Result;
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
             return new UserInfoViewModel
             {
                 UserId = user.Id,
                 Email = user.Email,
                 Organizations = user.Organizations,
-                Roles = identity.Claims
-                    .Where(x => x.Type == ApplicationClaimTypes.Role)
-                    .Select(x => new RoleViewModel() { Name = x.Value}),
-                ApplicationClaims = identity.Claims
-                    .Where(x => x.Type.StartsWith(ApplicationClaimTypes.ClaimPrefix) && Convert.ToBoolean(x.Value)) // Only Application Claims
-                    .Select(x => x.Type)
+                Roles = user.Roles.Select(r => new RoleViewModel {Id = r.RoleId, Name = r.Role.Name}),
+                ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
+                    .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
+                    .Select(i => i.Feature.Key)
             };
         }
 
@@ -259,6 +272,44 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
             }).ToListAsync();
+        }
+
+        // POST api/Account/{userId}
+        [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
+        [HttpGet]
+        [Route("{userId}")]
+        public IHttpActionResult GetSingleAccount(string userId)
+        {
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+            return Ok(new AccountDetailsViewModel
+            {
+                UserId = user.Id,
+                Email = user.Email,
+                Organizations = user.Organizations,
+                EmailConfirmed = user.EmailConfirmed,
+                LastPasswordChangedDate = user.LastPasswordChangedDate,
+                LockoutEndDateUtc = user.LockoutEndDateUtc,
+                Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
+                ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
+                    .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
+                    .Select(i => i.Feature.Key)});
+        }
+
+        // GET api/Account/Roles
+        [AuthorizeClaims(ApplicationClaimTypes.GetRoles)]
+        [HttpGet]
+        [Route("Roles")]
+        public async Task<IEnumerable<RoleViewModel>> GetRoles()
+        {
+            return await RoleManager.Roles.Select(x => new RoleViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).OrderBy(x => x.Name).ToListAsync();
         }
 
         // POST api/Account

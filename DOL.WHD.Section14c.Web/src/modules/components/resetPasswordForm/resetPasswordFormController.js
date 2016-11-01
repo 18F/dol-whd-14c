@@ -38,6 +38,9 @@ module.exports = function(ngModule) {
 
       $scope.onVerifySubmitClick = function() {
 
+            $location.search('code', null);
+            $location.search('userId', null);
+
             apiService.verifyResetPassword(vm.resetPasswordVerificationUserId, $scope.formVals.newPass, $scope.formVals.confirmPass, vm.resetPasswordVerificationCode).then(function (result) {
                 var data = result.data;
 

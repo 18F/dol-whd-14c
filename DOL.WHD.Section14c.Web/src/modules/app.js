@@ -72,6 +72,10 @@ app.config(function($routeProvider, $compileProvider) {
         template: require('./pages/userRegistrationPageTemplate.html'),
         public: true
     })
+    .when('/account/:userId', {
+        controller: 'accountPageController',
+        template: require('./pages/accountPageTemplate.html'),
+    })
     .when('/section/:section_id', {
         template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
         reloadOnSearch: false
