@@ -49,7 +49,7 @@ module.exports = {
         //Best Practices
         "accessor-pairs": 2,
         "block-scoped-var": 0,
-        "complexity": [2, 6],
+        "complexity": [2, 12],
         "consistent-return": 0,
         "curly": 0,
         "default-case": 0,
@@ -154,7 +154,7 @@ module.exports = {
         "max-len": 0,
         "max-nested-callbacks": 0,
         "max-params": 0,
-        "max-statements": [2, 30],
+        "max-statements": [2, 50],
         "new-cap": 0,
         "new-parens": 0,
         "newline-after-var": 0,

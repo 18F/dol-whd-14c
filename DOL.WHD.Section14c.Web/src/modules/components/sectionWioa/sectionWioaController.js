@@ -3,15 +3,16 @@
 import merge from 'lodash/merge'
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWioaController', function($scope, stateService, responsesService) {
+    ngModule.controller('sectionWioaController', function($scope, stateService, responsesService, validationService) {
         'ngInject';
         'use strict';
 
         // multiple choice responses
         let questionKeys = [ 'WIOAWorkerVerified' ];
-        responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });        
+        responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
         $scope.showWIOAReqs = false;
         if(!$scope.formData.WIOA) { $scope.formData.WIOA = { WIOAWorkers: [] } }
 
