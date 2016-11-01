@@ -15,30 +15,33 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         #region Assurances
 
-        public bool RepresentativePayeeSocialSecurityBenefits { get; set; }
+        public bool? RepresentativePayeeSocialSecurityBenefits { get; set; }
 
-        public int NumEmployeesRepresentativePayee { get; set; }
+        public int? NumEmployeesRepresentativePayee { get; set; }
 
-        public bool ProvidingFacilities { get; set; }
+        public bool? ProvidingFacilities { get; set; }
 
         public IEnumerable<int> ProvidingFacilitiesDeductionTypeId
         {
             set
             {
-                ProvidingFacilitiesDeductionType = value.Select(
-                    x =>
-                        new ApplicationSubmissionProvidingFacilitiesDeductionType
-                        {
-                            ProvidingFacilitiesDeductionTypeId = x,
-                            ApplicationSubmissionId = Id
-                        }).ToList();
+                if (value != null)
+                {
+                    ProvidingFacilitiesDeductionType = value.Select(
+                        x =>
+                            new ApplicationSubmissionProvidingFacilitiesDeductionType
+                            {
+                                ProvidingFacilitiesDeductionTypeId = x,
+                                ApplicationSubmissionId = Id
+                            }).ToList();
+                }
             }
         }
         public ICollection<ApplicationSubmissionProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
 
         public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 
-        public bool ReviewedDocumentation { get; set; }
+        public bool? ReviewedDocumentation { get; set; }
 
         #endregion
 
@@ -46,12 +49,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public string EIN { get; set; }
 
-        public int ApplicationTypeId { get; set; }
+        public int? ApplicationTypeId { get; set; }
         public virtual Response ApplicationType { get; set; }
 
-        public bool HasPreviousApplication { get; set; }
+        public bool? HasPreviousApplication { get; set; }
 
-        public bool HasPreviousCertificate { get; set; }
+        public bool? HasPreviousCertificate { get; set; }
 
         public string CertificateNumber { get; set; }
 
@@ -59,14 +62,17 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         {
             set
             {
-                EstablishmentType =
-                    value.Select(
-                        x =>
-                            new ApplicationSubmissionEstablishmentType
-                            {
-                                EstablishmentTypeId = x,
-                                ApplicationSubmissionId = Id
-                            }).ToList();
+                if (value != null)
+                {
+                    EstablishmentType =
+                        value.Select(
+                            x =>
+                                new ApplicationSubmissionEstablishmentType
+                                {
+                                    EstablishmentTypeId = x,
+                                    ApplicationSubmissionId = Id
+                                }).ToList();
+                }
             }
         }
         public virtual ICollection<ApplicationSubmissionEstablishmentType> EstablishmentType { get; set; }
@@ -89,7 +95,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         #region Wage Data
 
-        public int PayTypeId { get; set; }
+        public int? PayTypeId { get; set; }
         public virtual Response PayType { get; set; }
 
         public virtual HourlyWageInfo HourlyWageInfo { get; set; }
@@ -100,7 +106,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         #region Work Sites & Employees
 
-        public int TotalNumWorkSites { get; set; }
+        public int? TotalNumWorkSites { get; set; }
 
         public virtual ICollection<WorkSite> WorkSites { get; set; }
 

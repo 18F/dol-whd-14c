@@ -12,7 +12,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
-        public double PrevailingWageDetermined { get; set; }
+        public double? PrevailingWageDetermined { get; set; }
 
         public virtual ICollection<SourceEmployer> SourceEmployers { get; set; }
 

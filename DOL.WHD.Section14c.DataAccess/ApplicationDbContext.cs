@@ -35,6 +35,11 @@ namespace DOL.WHD.Section14c.DataAccess
             base.OnModelCreating(modelBuilder);
 
             // data constraints
+            // AlternateWageData
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateWorkDescription).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateDataSourceUsed).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.PrevailingWageProvidedBySource).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.DataRetrieved).IsRequired();
             // ApplicationSubmission
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.RepresentativePayeeSocialSecurityBenefits).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ProvidingFacilities).IsRequired();
@@ -119,7 +124,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ConclusionWageRateNotBasedOnEntry).IsRequired();
             modelBuilder.Entity<SourceEmployer>().HasRequired(a => a.Address);
             // WIOA
-            modelBuilder.Entity<WIOA>().Property(a => a.HasVerfiedDocumentaion).IsRequired();
+            modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
             // WIOAWorker
             modelBuilder.Entity<WIOAWorker>().Property(a => a.FullName).IsRequired();

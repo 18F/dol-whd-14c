@@ -17,8 +17,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         {
             set
             {
-                WorkSiteType = value.Select(
-                    x => new WorkSiteWorkSiteType {WorkSiteTypeId = x, WorkSiteId = Id}).ToList();
+                if (value != null)
+                {
+                    WorkSiteType = value.Select(
+                        x => new WorkSiteWorkSiteType {WorkSiteTypeId = x, WorkSiteId = Id}).ToList();
+                }
             }
         }
         public virtual ICollection<WorkSiteWorkSiteType> WorkSiteType { get; set; }
@@ -27,11 +30,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual Address Address { get; set; }
 
-        public bool SCA { get; set; }
+        public bool? SCA { get; set; }
 
-        public bool FederalContractWorkPerformed { get; set; }
+        public bool? FederalContractWorkPerformed { get; set; }
 
-        public int NumEmployees { get; set; }
+        public int? NumEmployees { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }
     }
