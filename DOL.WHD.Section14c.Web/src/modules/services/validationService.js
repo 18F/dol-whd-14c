@@ -30,17 +30,45 @@ module.exports = function(ngModule) {
             set(state, propPath, msg);
         }
 
-        this.getValidationError = function(propPath) {
-            return get(state, propPath, undefined);
+        this.getValidationError = function(propPath, returnNested) {
+            let error = get(state, propPath, undefined);
+            if (isArray(error) && !returnNested) {
+                return undefined;
+            }
+
+            return error;
         }
 
         this.clearValidationError = function(propPath) {
             set(state, propPath, undefined);
         }
 
-        this.getValidationErrors = function() {
-            return state;
-        }
+        this.getValidationErrors = (function(propPaths, returnNested) {
+            // if propPaths is left blank, return the entire state
+            if (!propPaths) {
+                return state;
+            }
+
+            let error;
+
+            if (isArray(propPaths)) {
+                // if an array of propPaths are passed in, return the first
+                // error. This is a convenience for validating multi-value
+                // fields.
+                for (let i=0; i < propPaths.length; i++) {
+                    error = this.getValidationError(propPaths[i], returnNested);
+                    if (error) {
+                        break;
+                    }
+                }
+            }
+            else {
+                // single propPath, return error val
+                error = this.getValidationError(propPaths, returnNested);
+            }
+
+            return error;
+        }).bind(this);
 
 
         // internal utility methods for retreiving, checking, and validating values
@@ -177,7 +205,7 @@ module.exports = function(ngModule) {
 
             let legalNameHasChanged = this.checkRequiredMultipleChoice("employer.legalNameHasChanged");
             if (legalNameHasChanged === true) {
-                this.checkRequiredString("employer.legalNameHasChanged");
+                this.checkRequiredString("employer.priorLegalName");
             }
 
             this.checkRequiredString("employer.physicalAddress.streetAddress");
@@ -231,7 +259,7 @@ module.exports = function(ngModule) {
 
             let representativePayee = this.checkRequiredMultipleChoice("employer.representativePayee");
             if (representativePayee === true) {
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.totalDisabledWorkers", undefined, 0);
+                this.checkRequiredNumber("employer.totalDisabledWorkers", undefined, 0);
             }
 
             let takeCreditForCosts = this.checkRequiredMultipleChoice("employer.takeCreditForCosts");
@@ -368,18 +396,18 @@ module.exports = function(ngModule) {
 
                     let totalEmployees = employees ? employees.length : 0;
                     if (numEmployees !== totalEmployees) {
-                        this.setValidationError(prefix + "_EMPLOYEE_COUNT", "The number of employees specified does not match the number entered for this worksite");
+                        this.setValidationError(prefix + ".employee_count", "The number of employees specified does not match the number entered for this worksite");
                     }
                 }
 
                 if (totalNumWorkSites !== worksites.length) {
-                    this.setValidationError("workSites_TOTAL", "The number of work sites specified does not match the number entered");
+                    this.setValidationError("workSites_count", "The number of work sites specified does not match the number entered");
                 }
             }
         }
 
         this.validateWIOA = function() {
-            this.checkRequiredMultipleChoice("WIOA.hasVerfiedDocumentaion");
+            this.checkRequiredMultipleChoice("WIOA.hasVerfiedDocumentation");
 
             let hasWIOAWorkers = this.checkRequiredMultipleChoice("WIOA.hasWIOAWorkers");
             if (hasWIOAWorkers === true) {

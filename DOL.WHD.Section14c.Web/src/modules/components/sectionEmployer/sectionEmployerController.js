@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService) {
+    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
         if (!$scope.formData.employer) {
             $scope.formData.employer = {};
@@ -45,10 +46,10 @@ module.exports = function(ngModule) {
         this.toggleDeductionType = function(id) {
             let index = $scope.formData.employer.providingFacilitiesDeductionTypeId.indexOf(id);
             if (index > -1) {
-                $scope.formData.providingFacilitiesDeductionTypeId.splice(index, 1);
+                $scope.formData.employer.providingFacilitiesDeductionTypeId.splice(index, 1);
             }
             else {
-                $scope.formData.providingFacilitiesDeductionTypeId.push(id);
+                $scope.formData.employer.providingFacilitiesDeductionTypeId.push(id);
             }
         }
 

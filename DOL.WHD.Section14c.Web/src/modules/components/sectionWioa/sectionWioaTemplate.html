@@ -25,23 +25,25 @@
         </p>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('WIOA.hasVerfiedDocumentation') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasVerfiedDocumentation')">{{ validate('WIOA.hasVerfiedDocumentation') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasVerfiedDocumentaion_1" type="radio" name="hasVerfiedDocumentaion" ng-value="true" ng-model="formData.WIOA.hasVerfiedDocumentaion">
-                    <label for="hasVerfiedDocumentaion_1">Yes</label>
+                    <input id="hasVerfiedDocumentation_1" type="radio" name="hasVerfiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerfiedDocumentation">
+                    <label for="hasVerfiedDocumentation_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasVerfiedDocumentaion_0" type="radio" name="hasVerfiedDocumentaion" ng-value="false" ng-model="formData.WIOA.hasVerfiedDocumentaion">
-                    <label for="hasVerfiedDocumentaion_0">No</label>
+                    <input id="hasVerfiedDocumentation_0" type="radio" name="hasVerfiedDocumentation" ng-value="false" ng-model="formData.WIOA.hasVerfiedDocumentation">
+                    <label for="hasVerfiedDocumentation_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('WIOA.hasWIOAWorkers') ? 'usa-input-error' : ''">
         <div class="form-question-text">Were any workers paid a subminimum wage age 24 or younger?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasWIOAWorkers')">{{ validate('WIOA.hasWIOAWorkers') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
@@ -55,7 +57,7 @@
             </ul>
         </fieldset>
     </div>
-    <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1">
+    <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1" ng-class="validate('WIOA.WIOAWorkers') ? 'usa-input-error' : ''">
         <div class="form-question-text">List the name of each worker with a disability age 24 or younger and provide a response for each individual. </div>
         <div>
             Accepted Responses:
@@ -63,6 +65,7 @@
             <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
             <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
         </div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers')">{{ validate('WIOA.WIOAWorkers') }}</span>
         <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
         <div class="form-question-block em-block" ng-show="vm.addingWorker">
             <div class="form-question-text">Full Name of Worker</div>
@@ -78,6 +81,7 @@
                 <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">Add Worker</button></span>
             </div>
         </div>
+        <div ng-class="validate('WIOA.WIOAWorkers', true) ? 'usa-input-error' : ''">
         <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
             <thead>
                 <tr>
@@ -88,11 +92,18 @@
             </thead>
             <tbody>
                 <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
-                    <th scope="row">{{ worker.fullName }}</th>
-                    <td>{{ worker.WIOAWorkerVerified.display }}</td>
+                    <th scope="row">
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
+                        {{ worker.fullName }}
+                    </th>
+                    <td>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
+                        {{ worker.WIOAWorkerVerified.display }}
+                    </td>
                     <td><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 @include nested(12) {
 
     div.login {
-        background-color: #D3D3D3;
+        background-color: #f0f0f0;
         width: 350px;
         padding:20px;
         margin-bottom: 30px;
@@ -29,5 +29,9 @@
 
     div.createAcct {
         width: 46rem;
+    }
+
+    .password-wrap.usa-input-error {
+        margin-top: 0px;
     }
 }

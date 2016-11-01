@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionAppInfoController', function($scope, stateService, responsesService) {
+    ngModule.controller('sectionAppInfoController', function($scope, stateService, responsesService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
         if (!$scope.formData.establishmentType) {
             $scope.formData.establishmentType = [];
