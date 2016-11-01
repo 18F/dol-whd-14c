@@ -17,7 +17,7 @@
             <div><label>Password Last Changed</label><span am-time-ago="formVals.lastPasswordChangedDate | amUtc"></span></div>
             <div><label>Email Confirmed</label><span>{{formVals.emailConfirmed}}</span></div>
             <div ng-if="formVals.lockoutEndDateUtc !== null"><label>Account Locked</label>End Date: <span am-time-ago="formVals.lockoutEndDateUtc | amUtc"></div>
-            <div class="loginbtn"><button type="submit">Edit Account</button></div>
+            <div class="loginbtn"><button type="submit">Update Account</button></div>
         </div>
         <div ng-if="!vm.isEditAccount">
             <div class="loginbtn"><button type="submit">Create Account</button></div>

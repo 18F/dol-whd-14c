@@ -16,10 +16,10 @@
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
   <parameter name="EmailVeriryAndPaswordRestTokenExpireHours" defaultValue="6">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVeriryAndPaswordRestTokenExpireHours']@value" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVeriryAndPaswordRestTokenExpireHours']/@value" />
   </parameter>
   <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']@value" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
   <parameter name="ConnectionString" defaultValue="ConnectionString">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
@@ -36,4 +36,22 @@
   <parameter name="AllowedFileNamesRegex" defaultValue="^(.*\.(doc|docx|xls|xlsx|pdf|jpg|jpeg|png)$)?[^.]*$">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AllowedFileNamesRegex']/@value" />
   </parameter>
+  <parameter name="SMTPServer" defaultValue="localhost">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/network/@host" />
+  </parameter>
+  <parameter name="SMTPPort" defaultValue="25">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/network/@port" />
+  </parameter>
+  <parameter name="SMTPUserName" defaultValue="">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/network/@userName" />
+  </parameter>
+  <parameter name="SMTPPassword" defaultValue="">
+    <parameterValidation kind="AllowEmpty" />
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/network/@password" />
+  </parameter>
+  <parameter name="EmailFrom" defaultValue="no-reply@dol.gov">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/@from" />
+  </parameter>
+  
 </parameters>

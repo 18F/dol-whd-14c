@@ -108,7 +108,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.SeedRole(Roles.PolicyTeamMember);
 
             // Seed Admin
-            var adminUserName = "systemadmin@domain.com";
+            var adminUserName = "14c-admin@dol.gov";
             if (!context.Users.Any(x => x.UserName == adminUserName))
             {
                 context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, LockoutEnabled = true, EmailConfirmed = true });
