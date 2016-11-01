@@ -16,6 +16,8 @@ module.exports = function(ngModule) {
         $scope.inputType = 'password';
 
         $scope.onSubmitClick = function() {
+            stateService.user.email = $scope.formVals.email
+            
             //  Call Token Service
             apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
                 var data = result.data;
@@ -52,6 +54,11 @@ module.exports = function(ngModule) {
       }
       var handleError = function(error) {
             //TODO: Integrate error handling into form
+            if(error.data.error_description === 'Password expired'){
+                stateService.user.passwordExpired = true;
+                $location.path("/changePassword");
+                $scope.$apply()
+            }
             console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
             $location.path("/");
       }

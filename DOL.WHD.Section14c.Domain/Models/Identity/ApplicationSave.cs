@@ -1,12 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using Attachment = DOL.WHD.Section14c.Domain.Models.Submission.Attachment;
-using DOL.WHD.Section14c.DataAccess;
 
-namespace DOL.WHD.Section14c.Domain.Models
+namespace DOL.WHD.Section14c.Domain.Models.Identity
 {
-    public class ApplicationSave : BaseEntity
+    public sealed class ApplicationSave : BaseEntity
     {
         public ApplicationSave()
         {
@@ -20,6 +18,6 @@ namespace DOL.WHD.Section14c.Domain.Models
         [Required]
         public string ApplicationState { get; set; }
 
-        public virtual ICollection<Attachment> Attachments { get; set; }
+        public ICollection<Attachment> Attachments { get; set; }
     }
 }

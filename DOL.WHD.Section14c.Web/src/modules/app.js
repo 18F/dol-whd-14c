@@ -54,7 +54,8 @@ app.config(function($routeProvider, $compileProvider) {
     })
     .when('/changePassword', {
         controller: 'changePasswordPageController',
-        template: require('./pages/changePasswordPageTemplate.html')
+        template: require('./pages/changePasswordPageTemplate.html'),
+        public: true
     })
     .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',

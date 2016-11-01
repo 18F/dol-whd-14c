@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DOL.WHD.Section14c.Domain.Models
+namespace DOL.WHD.Section14c.Domain.Models.Identity
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser : IdentityUser<string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public ApplicationUser()
         {
             Organizations = new List<OrganizationMembership>();
+            Id = Id ?? Guid.NewGuid().ToString();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
@@ -31,7 +32,8 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         public DateTime LastPasswordChangedDate { get; set; }
 
-        public virtual ICollection<OrganizationMembership> Organizations { get; set; }
+        public ICollection<OrganizationMembership> Organizations { get; set; }
+
     }
 
 }

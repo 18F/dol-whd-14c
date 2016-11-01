@@ -15,6 +15,9 @@
   <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
+  <parameter name="EmailVeriryAndPaswordRestTokenExpireHours" defaultValue="6">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVeriryAndPaswordRestTokenExpireHours']" />
+  </parameter>
   <parameter name="ConnectionString" defaultValue="ConnectionString">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/connectionStrings/add[@name='ApplicationDbContext']/@connectionString" />
   </parameter>

@@ -14,6 +14,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using RestSharp;
+using System.Security.Claims;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -43,14 +48,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         // GET api/Account/UserInfo
         [Route("UserInfo")]
-        public async Task<UserInfoViewModel> GetUserInfo()
+        public UserInfoViewModel GetUserInfo()
         {
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var identity = (ClaimsIdentity)User.Identity;
+            var user = UserManager.FindByIdAsync(User.Identity.GetUserId()).Result;
             return new UserInfoViewModel
             {
                 UserId = user.Id,
                 Email = user.Email,
-                Organizations = user.Organizations
+                Organizations = user.Organizations,
+                Roles = identity.Claims
+                    .Where(x => x.Type == ApplicationClaimTypes.Role)
+                    .Select(x => new RoleViewModel() { Name = x.Value}),
+                ApplicationClaims = identity.Claims
+                    .Where(x => x.Type.StartsWith(ApplicationClaimTypes.ClaimPrefix) && Convert.ToBoolean(x.Value)) // Only Application Claims
+                    .Select(x => x.Type)
             };
         }
 
@@ -69,13 +81,15 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             string userId;
+            ApplicationUser user;
             if (User.Identity.IsAuthenticated)
             {
                 userId = User.Identity.GetUserId();
+                user = await UserManager.FindByIdAsync(userId);
             }
             else
             {
-                var user = await UserManager.FindByEmailAsync(model.Email);
+                user = await UserManager.FindByEmailAsync(model.Email);
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
                     return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
@@ -101,6 +115,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return GetErrorResult(result);
             }
+
+            user.LastPasswordChangedDate = DateTime.UtcNow;
+            await UserManager.UpdateAsync(user);
 
             return Ok();
         }
@@ -133,6 +150,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             return Ok();
         }
+
 
         // POST api/Account/Register
         [AllowAnonymous]
@@ -170,6 +188,127 @@ namespace DOL.WHD.Section14c.Api.Controllers
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var callbackUrl = new Uri(Url.Link("ConfirmEmailRoute", new { userId = user.Id, code }));
+
+            await UserManager.SendEmailAsync(user.Id,
+                                                    "Confirm your account",
+                                                    "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            return Ok();
+        }
+
+        [Route("LogOut")]
+        public async Task<IHttpActionResult> Logout()
+        {
+            string currentUserId = User.Identity.GetUserId();
+            await UserManager.UpdateSecurityStampAsync(currentUserId);
+            return Ok();
+        }
+
+        [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
+        [HttpGet]
+        public async Task<IEnumerable<UserInfoViewModel>> GetAccounts()
+        {
+            return await UserManager.Users.Select(x => new UserInfoViewModel
+            {
+                UserId = x.Id,
+                Email = x.Email,
+                Organizations = x.Organizations,
+                Roles = x.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
+                ApplicationClaims = x.Roles.SelectMany(y => y.Role.RoleFeatures)
+                    .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
+                    .Select(i => i.Feature.Key)
+            }).ToListAsync();
+        }
+
+        [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
+        [HttpPost]
+        public async Task<IHttpActionResult> CreateAccount(UserInfoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Add User
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            // Add to Roles
+            foreach (var role in model.Roles)
+            {
+                var newUser = UserManager.FindByNameAsync(model.Email);
+                var addResult = await UserManager.AddToRoleAsync(newUser.Result.Id, role.Name);
+                if (!addResult.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+
+            return Ok(result);
+        }
+
+        [AuthorizeClaims(ApplicationClaimTypes.ModifyAccount)]
+        [HttpPost]
+        [Route("{userId}")]
+        public IHttpActionResult ModifyAccount(string userId, UserInfoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                return BadRequest("User not found.");
+            }
+
+            // Modify User
+            if (user.Email != model.Email || user.UserName != model.Email)
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+            }
+
+            // Add Roles
+            foreach (var role in model.Roles)
+            {
+                if (user.Roles.All(x => x.Role.Name != role.Name))
+                {
+                    var addResult = UserManager.AddToRole(user.Id, role.Name);
+                    if (!addResult.Succeeded)
+                    {
+                        return GetErrorResult(addResult);
+                    }
+                }
+            }
+
+            // Remove
+            foreach (var role in user.Roles.ToList())
+            {
+                if (model.Roles.All(x => x.Name != role.Role.Name))
+                {
+                    var removeResult = UserManager.RemoveFromRole(user.Id, role.Role.Name);
+                    if (!removeResult.Succeeded)
+                    {
+                        return GetErrorResult(removeResult);
+                    }
+                }
             }
 
             return Ok();

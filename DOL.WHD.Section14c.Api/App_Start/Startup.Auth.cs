@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Configuration;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Identity;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
@@ -28,7 +33,32 @@ namespace DOL.WHD.Section14c.Api
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
-            app.UseCookieAuthentication(new CookieAuthenticationOptions());
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                ExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["AccessTokenExpireTimeSpanMinutes"])),
+                Provider = new CookieAuthenticationProvider
+                {
+                    OnValidateIdentity = ctx =>
+                    {
+                        var ret = Task.Run(() =>
+                        {
+                            var claim = ctx.Identity.FindFirst("SecurityStamp");
+                            if (claim == null) return;
+
+                            var userManager = new ApplicationUserManager(new ApplicationUserStore(new ApplicationDbContext()));
+                            var user = userManager.FindById(ctx.Identity.GetUserId());
+
+                            // invalidate session, if SecurityStamp has changed
+                            if (user?.SecurityStamp != null && user.SecurityStamp != claim.Value)
+                            {
+                                ctx.RejectIdentity();
+                            }
+                        });
+                        return ret;
+                    }
+                }
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Configure the application for OAuth based flow
