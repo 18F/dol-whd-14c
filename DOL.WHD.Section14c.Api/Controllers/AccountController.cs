@@ -152,8 +152,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             // Add User
+            var now = DateTime.UtcNow;
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-            user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true});
+            user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 

@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WIOA
+    public class WIOA : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
+        public WIOA()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [Required]
-        public bool HasVerfiedDocumentaion { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
-        public bool HasWIOAWorkers { get; set; }
+        public bool? HasVerifiedDocumentation { get; set; }
+
+        public bool? HasWIOAWorkers { get; set; }
 
         public virtual ICollection<WIOAWorker> WIOAWorkers { get; set; }
 

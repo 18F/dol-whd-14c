@@ -2,6 +2,7 @@
 using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
+using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
@@ -22,6 +23,23 @@ namespace DOL.WHD.Section14c.Api
             container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
             container.Register<IIdentityService, IdentityService>(Lifestyle.Scoped);
             container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
+            container.Register<IApplicationRepository, ApplicationRepository>(Lifestyle.Scoped);
+            container.Register<IApplicationService, ApplicationService>(Lifestyle.Scoped);
+
+            // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
+            container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
+            container.Register<IEmployerValidator, EmployerValidator>(Lifestyle.Singleton);
+            container.Register<IHourlyWageInfoValidator, HourlyWageInfoValidator>(Lifestyle.Singleton);
+            container.Register<IPieceRateWageInfoValidator, PieceRateWageInfoValidator>(Lifestyle.Singleton);
+            container.Register<IWIOAValidator, WIOAValidator>(Lifestyle.Singleton);
+            container.Register<IAddressValidator, AddressValidator>(Lifestyle.Singleton);
+            container.Register<IWorkerCountInfoValidator, WorkerCountInfoValidator>(Lifestyle.Singleton);
+            container.Register<IPrevailingWageSurveyInfoValidator, PrevailingWageSurveyInfoValidator>(Lifestyle.Singleton);
+            container.Register<IAlternateWageDataValidator, AlternateWageDataValidator>(Lifestyle.Singleton);
+            container.Register<ISourceEmployerValidator, SourceEmployerValidator>(Lifestyle.Singleton);
+            container.Register<IWorkSiteValidator, WorkSiteValidator>(Lifestyle.Singleton);
+            container.Register<IEmployeeValidator, EmployeeValidator>(Lifestyle.Singleton);
+            container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

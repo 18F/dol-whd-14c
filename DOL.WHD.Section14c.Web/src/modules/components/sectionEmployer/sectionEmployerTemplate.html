@@ -140,10 +140,13 @@
             <label for="zip">Zip Code</label>
             <input class="usa-input-medium" id="zip" name="zip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.physicalAddress.zipCode">
 
-        <div class="usa-input-grid usa-input-grid-medium">
-            <label for="country">Country</label>
-            <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
-        </div>
+            <div class="usa-input-grid usa-input-grid-medium">
+                <label for="country">Country</label>
+                <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
+            </div>
+
+            <input id="hasDifferentMailingAddress" type="checkbox" name="differentMailingAddress" value="true" ng-model="formData.employerInfo.hasDifferentMailingAddress">
+            <label for="hasDifferentMailingAddress">Mailing Address is different from Pysical Address</label>
 
         </fieldset>
     </div>
@@ -409,6 +412,14 @@
             </ul>
         </fieldset>
     </div>
+
+    <div class="form-question-block" ng-show="formData.employerInfo.representativePayee == 1">
+        <div class="form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</div>
+        <div class="form-question-answer">
+            <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employerInfo.totalDisabledWorkers">
+        </div>
+    </div>
+
     <div class="form-question-block">
         <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">

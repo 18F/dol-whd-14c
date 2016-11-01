@@ -1,24 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WorkerCountInfo
+    public class WorkerCountInfo : BaseEntity
     {
-        public int Id { get; set; }
+        public WorkerCountInfo()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [Required]
-        public int Total { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
-        public int WorkCenter { get; set; }
+        public int? Total { get; set; }
 
-        [Required]
-        public int PatientWorkers { get; set; }
+        public int? WorkCenter { get; set; }
 
-        [Required]
-        public int SWEP { get; set; }
+        public int? PatientWorkers { get; set; }
 
-        [Required]
-        public int BusinessEstablishment { get; set; }
+        public int? SWEP { get; set; }
+
+        public int? BusinessEstablishment { get; set; }
     }
 }

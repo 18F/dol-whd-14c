@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-﻿using System.Collections.Generic;
- using Attachment = DOL.WHD.Section14c.Domain.Models.Submission.Attachment;
+using System.Collections.Generic;
+using Attachment = DOL.WHD.Section14c.Domain.Models.Submission.Attachment;
+using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Domain.Models
 {
-    public class ApplicationSave
+    public class ApplicationSave : BaseEntity
     {
         public ApplicationSave()
         {

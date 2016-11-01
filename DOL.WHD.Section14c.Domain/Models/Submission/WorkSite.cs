@@ -1,31 +1,41 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WorkSite
+    public class WorkSite : BaseEntity
     {
-        public int Id { get; set; }
+        public WorkSite()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [Required]
-        public virtual ICollection<Response> WorkSiteType { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
+        public IEnumerable<int> WorkSiteTypeId
+        {
+            set
+            {
+                if (value != null)
+                {
+                    WorkSiteType = value.Select(
+                        x => new WorkSiteWorkSiteType {WorkSiteTypeId = x, WorkSiteId = Id}).ToList();
+                }
+            }
+        }
+        public virtual ICollection<WorkSiteWorkSiteType> WorkSiteType { get; set; }
+
         public string Name { get; set; }
 
-        [Required]
         public virtual Address Address { get; set; }
 
-        [Required]
-        public bool SCA { get; set; }
+        public bool? SCA { get; set; }
 
-        [Required]
-        public bool FederalContractWorkPerformed { get; set; }
+        public bool? FederalContractWorkPerformed { get; set; }
 
-        [Required]
-        public int NumEmployees { get; set; }
+        public int? NumEmployees { get; set; }
 
-        // TODO: validate Employees.Count == NumEmployees
         public virtual ICollection<Employee> Employees { get; set; }
     }
 }

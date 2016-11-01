@@ -1,33 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class EmployerInfo
+    public class EmployerInfo : BaseEntity
     {
-        public int Id { get; set; }
+        public EmployerInfo()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [Required]
+        public Guid Id { get; set; }
+
         public string LegalName { get; set; }
 
-        [Required]
-        public bool HasTradeName { get; set; }
+        public bool? HasTradeName { get; set; }
 
-        [Required]
         public string TradeName { get; set; }
 
-        [Required]
-        public bool LegalNameHasChanged { get; set; }
+        public bool? LegalNameHasChanged { get; set; }
 
-        [Required]
         public string PriorLegalName { get; set; }
 
-        [Required]
         public virtual Address PhysicalAddress { get; set; }
 
-        [Required]
-        public bool HasParentOrg { get; set; }
+        public bool? HasDifferentMailingAddress { get; set; }
+
+        public bool? HasParentOrg { get; set; }
 
         public string ParentLegalName { get; set; }
 
@@ -35,48 +33,41 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual Address ParentAddress { get; set; }
 
-        public bool SendMailToParent { get; set; }
+        public bool? SendMailToParent { get; set; }
 
-        [Required]
+        public int? EmployerStatusId { get; set; }
         public virtual Response EmployerStatus { get; set; }
 
-        // TODO: required if Status == Other
         public string EmployerStatusOther { get; set; }
 
-        [Required]
-        public bool IsEducationalAgency { get; set; }
+        public bool? IsEducationalAgency { get; set; }
 
-        [Required]
         public DateTime FiscalQuarterEndDate { get; set; }
 
-        [Required]
         public virtual WorkerCountInfo NumSubminimalWageWorkers { get; set; }
 
-        [Required]
-        public bool PCA { get; set; }
+        public bool? PCA { get; set; }
 
-        [Required]
+        public int? SCAId { get; set; }
         public virtual Response SCA { get; set; }
 
         //SCA Wage Determinations upload
+        public Guid? SCAAttachmentId { get; set; }
         public Attachment SCAAttachment { get; set; }
 
-        [Required]
+        public int? EO13658Id { get; set; }
         public virtual Response EO13658 { get; set; }
 
-        [Required]
-        public bool RepresentativePayee { get; set; }
+        public bool? RepresentativePayee { get; set; }
 
-        [Required]
-        public bool TakeCreditForCosts { get; set; }
+        public bool? TakeCreditForCosts { get; set; }
 
-        [Required]
+        public int? ProvidingFacilitiesDeductionTypeId { get; set; }
         public virtual Response ProvidingFacilitiesDeductionType { get; set; }
 
         public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 
-        [Required]
-        public bool TemporaryAuthority { get; set; }
+        public bool? TemporaryAuthority { get; set; }
 
     }
 }

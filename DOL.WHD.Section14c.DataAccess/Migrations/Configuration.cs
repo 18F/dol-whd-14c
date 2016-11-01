@@ -92,6 +92,8 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 41, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
 
+            context.Users.AddOrUpdate(new Domain.Models.ApplicationUser { Id = System.Guid.Empty.ToString(), Email = "systemadmin@domain.com", UserName = "System Admin", LockoutEnabled = true, PasswordHash = System.Guid.NewGuid().ToString() });
+
         }
     }
 }
