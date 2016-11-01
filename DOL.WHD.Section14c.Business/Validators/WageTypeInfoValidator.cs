@@ -10,7 +10,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(w => w.NumWorkers).NotNull();
             RuleFor(w => w.JobName).NotEmpty();
             RuleFor(w => w.JobDescription).NotEmpty();
-            RuleFor(w => w.PrevailingWageMethodId).NotNull();
+            RuleFor(w => w.PrevailingWageMethodId).NotNull().GreaterThanOrEqualTo(24).LessThanOrEqualTo(26);
             RuleFor(w => w.AttachmentId).NotNull();
 
             // conditional

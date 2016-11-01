@@ -41,9 +41,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<AlternateWageData>().Property(a => a.PrevailingWageProvidedBySource).IsRequired();
             modelBuilder.Entity<AlternateWageData>().Property(a => a.DataRetrieved).IsRequired();
             // ApplicationSubmission
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.RepresentativePayeeSocialSecurityBenefits).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ProvidingFacilities).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ReviewedDocumentation).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.EIN).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ApplicationTypeId).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousApplication).IsRequired();
@@ -86,7 +83,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfo>().Property(a => a.EO13658Id).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.RepresentativePayee).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TakeCreditForCosts).IsRequired();
-            modelBuilder.Entity<EmployerInfo>().Property(a => a.ProvidingFacilitiesDeductionTypeId).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TemporaryAuthority).IsRequired();
             modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.PhysicalAddress);
             modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.NumSubminimalWageWorkers);
@@ -147,9 +143,9 @@ namespace DOL.WHD.Section14c.DataAccess
                 .ToTable("AppSubmissionEstablishmentType")
                 .HasKey(k => new {k.ApplicationSubmissionId, k.EstablishmentTypeId});
 
-            modelBuilder.Entity<ApplicationSubmissionProvidingFacilitiesDeductionType>()
-                .ToTable("AppSubmissionFacilitiesDeductionType")
-                .HasKey(k => new { k.ApplicationSubmissionId, k.ProvidingFacilitiesDeductionTypeId });
+            modelBuilder.Entity<EmployerInfoProvidingFacilitiesDeductionType>()
+                .ToTable("EmployerInfoFacilitiesDeductionType")
+                .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
 
             modelBuilder.Entity<WorkSiteWorkSiteType>()
                 .ToTable("WorkSiteWorkSiteType")

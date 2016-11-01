@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.Business.Validators
         public EmployeeValidator()
         {
             RuleFor(e => e.Name).NotEmpty();
-            RuleFor(e => e.PrimaryDisabilityId).NotNull();
+            RuleFor(e => e.PrimaryDisabilityId).NotNull().GreaterThanOrEqualTo(31).LessThanOrEqualTo(38);
             RuleFor(e => e.WorkType).NotEmpty();
             RuleFor(e => e.NumJobs).NotNull();
             RuleFor(e => e.AvgWeeklyHours).NotNull();

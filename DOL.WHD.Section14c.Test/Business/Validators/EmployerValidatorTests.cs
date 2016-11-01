@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -111,9 +112,19 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_ProvidingFacilitiesDeductionTypeId()
+        public void Should_Require_ProvidingFacilitiesDeductionType()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeId, null as int?);
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, null as ICollection<EmployerInfoProvidingFacilitiesDeductionType>);
+            var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionType = null };
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+        }
+
+        [TestMethod]
+        public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
+        {
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
+            var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = null };
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
         }
 
         [TestMethod]
@@ -179,11 +190,48 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
+        public void Should_Validate_EmployerStatus()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
-            var model = new EmployerInfo { ProvidingFacilitiesDeductionTypeId = 20, ProvidingFacilitiesDeductionTypeOther = "" };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, 11);
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
+        }
+
+        [TestMethod]
+        public void Should_Validate_SCA()
+        {
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, 14);
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
+        }
+
+        [TestMethod]
+        public void Should_Validate_EO13658()
+        {
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, 19);
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
+        }
+
+        [TestMethod]
+        public void Should_Validate_ProvidingFacilitiesDeductionType()
+        {
+            var model = new EmployerInfo
+            {
+                ProvidingFacilitiesDeductionType = new List<EmployerInfoProvidingFacilitiesDeductionType>
+                {
+                    new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = 22}
+                },
+                TakeCreditForCosts = true
+            };
+            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+
+            model = new EmployerInfo
+            {
+                ProvidingFacilitiesDeductionType = new List<EmployerInfoProvidingFacilitiesDeductionType>
+                {
+                    new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = 19}
+                },
+                TakeCreditForCosts = true
+            };
+            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
         }
     }
 }
