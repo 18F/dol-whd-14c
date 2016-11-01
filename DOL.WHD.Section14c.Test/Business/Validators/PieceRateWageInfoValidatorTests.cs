@@ -100,5 +100,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             model = new PieceRateWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = null };
             _pieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
         }
+
+        [TestMethod]
+        public void Should_Validate_PrevailingWageMethod()
+        {
+            _pieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, 28);
+            _pieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+        }
     }
 }

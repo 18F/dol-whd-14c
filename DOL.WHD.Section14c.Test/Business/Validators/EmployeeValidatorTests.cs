@@ -89,5 +89,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             model = new Employee { PrimaryDisabilityId = 38, PrimaryDisabilityOther = null};
             _employeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
         }
+
+        [TestMethod]
+        public void Should_Validate_PrimaryDisability()
+        {
+            _employeeValidator.ShouldHaveValidationErrorFor(x => x.PrimaryDisabilityId, 40);
+            _employeeValidator.ShouldNotHaveValidationErrorFor(x => x.PrimaryDisabilityId, 35);
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.Business.Validators
     {
         public WorkSiteValidator(IAddressValidator addressValidator, IEmployeeValidator employeeValidator)
         {
-            RuleFor(w => w.WorkSiteType).NotNull().Must(wst => wst.Any());
+            RuleFor(w => w.WorkSiteType).NotNull().Must(wst => wst.Any() && !wst.Any(x => x.WorkSiteTypeId < 27) && !wst.Any(x => x.WorkSiteTypeId > 30));
             RuleFor(w => w.Name).NotEmpty();
             RuleFor(w => w.Address).NotNull().SetValidator(addressValidator);
             RuleFor(w => w.SCA).NotNull();

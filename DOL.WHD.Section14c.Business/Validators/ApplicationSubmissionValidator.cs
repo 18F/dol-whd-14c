@@ -9,38 +9,21 @@ namespace DOL.WHD.Section14c.Business.Validators
         public ApplicationSubmissionValidator(IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
         {
             // required
-            RuleFor(a => a.RepresentativePayeeSocialSecurityBenefits).NotNull();
-            RuleFor(a => a.ProvidingFacilities).NotNull();
-            RuleFor(a => a.ReviewedDocumentation).NotNull();
             RuleFor(a => a.EIN).NotEmpty();
-            RuleFor(a => a.ApplicationTypeId).NotNull();
+            RuleFor(a => a.ApplicationTypeId).NotNull().GreaterThanOrEqualTo(1).LessThanOrEqualTo(2);
             RuleFor(a => a.HasPreviousApplication).NotNull();
             RuleFor(a => a.HasPreviousCertificate).NotNull();
-            RuleFor(a => a.EstablishmentType).NotNull().Must(et => et.Any());
+            RuleFor(a => a.EstablishmentType).NotNull().Must(et => et.Any() && !et.Any(x => x.EstablishmentTypeId < 3) && !et.Any(x => x.EstablishmentTypeId > 6));
             RuleFor(a => a.ContactName).NotEmpty();
             RuleFor(a => a.ContactPhone).NotEmpty();
             RuleFor(a => a.ContactEmail).NotEmpty();
-            RuleFor(a => a.PayTypeId).NotEmpty();
+            RuleFor(a => a.PayTypeId).NotEmpty().GreaterThanOrEqualTo(21).LessThanOrEqualTo(23);
             RuleFor(a => a.TotalNumWorkSites).NotNull();
             RuleFor(a => a.Employer).NotNull().SetValidator(employerValidator);
             RuleFor(a => a.WorkSites).NotNull().Must(w => w.Any()).SetCollectionValidator(workSiteValidator);
             RuleFor(a => a.WIOA).NotNull().SetValidator(wioaValidator);
 
             // conditional required
-            RuleFor(a => a.NumEmployeesRepresentativePayee)
-                .NotEmpty()
-                .When(a => a.RepresentativePayeeSocialSecurityBenefits.GetValueOrDefault());
-
-            When(a => a.ProvidingFacilities.GetValueOrDefault(), () =>
-            {
-                RuleFor(a => a.ProvidingFacilitiesDeductionType)
-                    .NotNull()
-                    .Must(p => p.Any());
-                RuleFor(a => a.ProvidingFacilitiesDeductionTypeOther)
-                    .NotEmpty()
-                    .When(a => a.ProvidingFacilitiesDeductionType != null && a.ProvidingFacilitiesDeductionType.Any(x => x.ProvidingFacilitiesDeductionTypeId == 20));
-            });
-
             RuleFor(a => a.CertificateNumber)
                 .NotEmpty()
                 .When(a => a.HasPreviousCertificate.GetValueOrDefault());
