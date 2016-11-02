@@ -1,8 +1,12 @@
+using System;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Migrations
 {
+    using Extensions;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<DOL.WHD.Section14c.DataAccess.ApplicationDbContext>
     {
@@ -11,7 +15,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(DOL.WHD.Section14c.DataAccess.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -92,8 +96,53 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = 40, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = 41, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
 
-            context.Users.AddOrUpdate(new Domain.Models.ApplicationUser { Id = System.Guid.Empty.ToString(), Email = "systemadmin@domain.com", UserName = "System Admin", LockoutEnabled = true, PasswordHash = System.Guid.NewGuid().ToString() });
+            // Seed External Roles
+            context.SeedRole(Roles.Applicant);
+            context.SeedRole(Roles.ApplicantAdministrator);
+
+            // Seed Internal Roles
+            context.SeedRole(Roles.SystemAdministrator);
+            context.SeedRole(Roles.CertificationTeamManager);
+            context.SeedRole(Roles.CertificationTeamMember);
+            context.SeedRole(Roles.WageAndHourInvestigator);
+            context.SeedRole(Roles.WageAndHourFieldManager);
+            context.SeedRole(Roles.PolicyTeamMember);
+
+            // Seed Admin
+            var adminUserName = "14c-admin@dol.gov";
+            if (!context.Users.Any(x => x.UserName == adminUserName))
+            {
+                context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, LockoutEnabled = true, EmailConfirmed = true });
+                context.SaveChanges();
+
+                // Seed Password, defaults to expired and must be changed at first login.
+                context.SeedPassword(adminUserName, "GC!xL91oznYvg&6WEqJJp!6KvRJD0p");
+
+                var adminUser = context.Users.Single(x => x.UserName == adminUserName);
+                adminUser.LastPasswordChangedDate = DateTime.MinValue;
+
+                // Add to Role
+                context.AddUserToRole(adminUserName, Roles.SystemAdministrator);
+            }
+
+            // Add Features
+            context.AddFeature(ApplicationClaimTypes.GetAccounts, "Get list of Application Accounts");
+            context.AddFeature(ApplicationClaimTypes.CreateAccount, "Create Application Accounts");
+            context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
+            context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
+            context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+
+            context.SaveChanges();
+
+            // Map Features to Roles
+            context.AddRoleFeature(Roles.Applicant, ApplicationClaimTypes.SubmitApplication);
+
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
 
         }
+
     }
 }

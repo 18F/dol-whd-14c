@@ -25,5 +25,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         {
             _wioaWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, null as int?);
         }
+
+        [TestMethod]
+        public void Should_Validate_WIOAWorkerVerified()
+        {
+            _wioaWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 42);
+            _wioaWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
+        }
     }
 }

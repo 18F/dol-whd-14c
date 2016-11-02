@@ -82,5 +82,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             model = new HourlyWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = null };
             _hourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
         }
+
+        [TestMethod]
+        public void Should_Validate_PrevailingWageMethod()
+        {
+            _hourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, 28);
+            _hourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+        }
     }
 }

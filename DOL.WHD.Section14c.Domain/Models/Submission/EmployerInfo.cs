@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -62,8 +64,23 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? TakeCreditForCosts { get; set; }
 
-        public int? ProvidingFacilitiesDeductionTypeId { get; set; }
-        public virtual Response ProvidingFacilitiesDeductionType { get; set; }
+        public IEnumerable<int> ProvidingFacilitiesDeductionTypeId
+        {
+            set
+            {
+                if (value != null)
+                {
+                    ProvidingFacilitiesDeductionType = value.Select(
+                        x =>
+                            new EmployerInfoProvidingFacilitiesDeductionType
+                            {
+                                ProvidingFacilitiesDeductionTypeId = x,
+                                EmployerInfoId = Id
+                            }).ToList();
+                }
+            }
+        }
+        public ICollection<EmployerInfoProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
 
         public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 
