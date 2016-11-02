@@ -77,7 +77,7 @@ app.config(function($routeProvider, $compileProvider) {
     })
     .when('/account/:userId', {
         controller: 'accountPageController',
-        template: require('./pages/accountPageTemplate.html'),
+        template: require('./pages/accountPageTemplate.html')
     })
     .when('/section/:section_id', {
         template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
