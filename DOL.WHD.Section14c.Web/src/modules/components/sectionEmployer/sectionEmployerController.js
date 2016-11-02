@@ -1,15 +1,29 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService) {
+    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
-        
-        if(!$scope.formData.employerInfo) {
-            $scope.formData.employerInfo = { providingFacilitiesDeductionType: [] };
+        if (!$scope.formData.employer) {
+            $scope.formData.employer = {};
+        }
+
+        if (!$scope.formData.employer.numSubminimalWageWorkers) {
+            $scope.formData.employer.numSubminimalWageWorkers = {
+                total: 0,
+                workCenter: 0,
+                patientWorkers: 0,
+                swep: 0,
+                businessEstablishment: 0
+            };
+        }
+
+        if (!$scope.formData.employer.providingFacilitiesDeductionTypeId) {
+            $scope.formData.employer.providingFacilitiesDeductionTypeId = [];
         }
 
         // multiple choice responses
@@ -19,20 +33,30 @@ module.exports = function(ngModule) {
         var vm = this;
         vm.showAllHelp = false;
         vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;    
+        vm.access_token = stateService.access_token;
 
         this.onHasTradeNameChange = function() {
-            $scope.formData.employerInfo.tradeName = '';
+            $scope.formData.employer.tradeName = '';
         }
 
         this.onHasLegalNameChange = function() {
-            $scope.formData.employerInfo.priorLegalName = '';
+            $scope.formData.employer.priorLegalName = '';
+        }
+
+        this.toggleDeductionType = function(id) {
+            let index = $scope.formData.employer.providingFacilitiesDeductionTypeId.indexOf(id);
+            if (index > -1) {
+                $scope.formData.employer.providingFacilitiesDeductionTypeId.splice(index, 1);
+            }
+            else {
+                $scope.formData.employer.providingFacilitiesDeductionTypeId.push(id);
+            }
         }
 
         this.onSCAAttachmentSelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.employerInfo.SCAAttachment = result.data[0];
+                    $scope.formData.employer.SCAAttachment = result.data[0];
                     fileinput.value = '';
                 }, function(error){
                     //TODO: Display error
@@ -43,21 +67,11 @@ module.exports = function(ngModule) {
 
         this.deleteSCAAttachment = function(id){
             apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.employerInfo.SCAAttachment = undefined;
+               $scope.formData.employer.SCAAttachment = undefined;
             }, function(error){
                 //TODO: Display error
-                $scope.formData.employerInfo.SCAAttachment = undefined;
+                $scope.formData.employer.SCAAttachment = undefined;
             })
-        }      
-
-        this.toggleProvidingFacilitiesDeductionType = function(id) {
-            var idx = $scope.formData.employerInfo.providingFacilitiesDeductionType.indexOf(id);
-            if (idx > -1) {
-                $scope.formData.employerInfo.providingFacilitiesDeductionType.splice(idx, 1);
-            }
-            else {
-                $scope.formData.employerInfo.providingFacilitiesDeductionType.push(id);
-            }
         }
   });
 }

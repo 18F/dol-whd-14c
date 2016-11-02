@@ -1,9 +1,10 @@
 <div class="form-page">
     <h2 class="form-section-header">Application Type</h2>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('applicationType') ? 'usa-input-error' : ''">
         <div class="form-question-text">What type of application is this?</div>
         <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationType')">{{ validate('applicationType') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.ApplicationType">
@@ -14,53 +15,57 @@
         </fieldset>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has this employer ever applied for a 14(c) certificate?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" value="1" ng-model="formData.hasPreviousApplication">
+                    <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
                     <label for="hasPreviousApplication_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasPreviousApplication_0" type="radio" name="hasPreviousApplication" value="0" ng-model="formData.hasPreviousApplication">
+                    <input id="hasPreviousApplication_0" type="radio" name="hasPreviousApplication" ng-value="false" ng-model="formData.hasPreviousApplication">
                     <label for="hasPreviousApplication_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="1" ng-model="formData.hasPreviousCertificate">
+                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
                     <label for="hasPreviousCertificate_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" ng-value="0" ng-model="formData.hasPreviousCertificate">
+                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" ng-value="false" ng-model="formData.hasPreviousCertificate">
                     <label for="hasPreviousCertificate_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-block" ng-show="formData.hasPreviousCertificate === 1">
+    <div class="form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('certificateNumber') ? 'usa-input-error' : ''">
         <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('certificateNumber')">{{ validate('certificateNumber') }}</span>
         <div class="form-question-answer">
-            <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno" ng-model="formData.certificateNumber">
+            <input id="certificateNumber" name="certificateNumber" type="text" class="sidelabeled certificateno" mask="99-99999-A-999" ng-model="formData.certificateNumber">
             <label class="example">Example: 12-34567-H-890</label>
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('establishmentType') ? 'usa-input-error' : ''">
         <div class="form-question-text">What type of establishment(s) is this request for authority to employ workers with disabilities for?</div>
         <div class="form-question-subtext">Select all that apply</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentType')">{{ validate('establishmentType') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.EstablishmentType">
-                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="stablishmentType_{{ response.id }}" ng-value="response.id" ng-checked="formData.establishmentType.indexOf(response.id) > -1" ng-click="toggleEstablishmentType(response.id)">
+                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentType" ng-value="response.id" ng-checked="formData.establishmentType.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
                     <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
                     <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
                 </li>
@@ -72,32 +77,36 @@
     <div class="form-question-subtext">This should be a person who can best answer questions concerning information contained on this application.</div>
     <hr />
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
         <div class="form-question-answer">
             <label for="contactName">Full Name</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
             <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
         <div class="form-question-answer">
             <label for="contactPhone">Telephone Number</label>
-            <input id="contactPhone" name="contactPhone" type="tel" ng-model="formData.contactPhone" class="sidelabeled phoneno"></input>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
+            <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="sidelabeled phoneno"></input>
             <label class="example">Example: 123-456-7890</label>
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
         <div class="form-question-answer">
             <label for="contactFax">Fax Number</label>
-            <input id="contactFax" name="contactFax" type="tel" ng-model="formData.contactFax" class="sidelabeled phoneno"></input>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
+            <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="sidelabeled phoneno"></input>
             <label class="example">Example: 123-456-7890</label>
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
         <div class="form-question-answer">
             <label for="contactEmail">Email Address</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
             <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="sidelabeled email"></input>
             <label class="example">Example: contact.name@company.com</label>
         </div>

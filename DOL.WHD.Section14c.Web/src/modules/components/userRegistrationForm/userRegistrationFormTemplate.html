@@ -1,7 +1,7 @@
 <form ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest">
     <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
     <ul>
-        <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants, 
+        <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants,
             will have to create an account in order to submit the form electronically.</li>
         <li>The Employer's EIN is required to create an account.</li>
         <li>Once the Employer's account is created, additional users can be added.</li>
@@ -13,7 +13,7 @@
     </div>
     <div class="createAcct">
     <h2>Create an Account</h2>
-    <div><label for="EIN">Employer Identification Number (EIN)</label><input class="ein" name="EIN" id="EIN" type="text" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" /><div><a>Why do you need an EIN to create an account?</a></div></div>
+    <div><label for="EIN">Employer Identification Number (EIN)</label><input class="ein" name="EIN" id="EIN" type="text" mask="99-9999999" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" /><div><a>Why do you need an EIN to create an account?</a></div></div>
     <div><label for="registerEmail">Email Address</label><input type="email" name="registerEmail" id="registerEmail" placeholder="Email" ng-model="formVals.email" /></div>
         <div><label for="registerPassword">Password</label><input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Password" ng-model="formVals.pass" />
         <div class="showpass">

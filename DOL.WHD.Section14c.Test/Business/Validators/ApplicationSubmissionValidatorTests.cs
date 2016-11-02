@@ -22,24 +22,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_RepresentativePayeeSocialSecurityBenefits()
-        {
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.RepresentativePayeeSocialSecurityBenefits, null as bool?);
-        }
-
-        [TestMethod]
-        public void Should_Require_ProvidingFacilities()
-        {
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilities, null as bool?);
-        }
-
-        [TestMethod]
-        public void Should_Require_ReviewedDocumentation()
-        {
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ReviewedDocumentation, null as bool?);
-        }
-
-        [TestMethod]
         public void Should_Require_EIN()
         {
             _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EIN, "");
@@ -114,30 +96,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_NumEmployeesRepresentativePayee()
-        {
-            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.NumEmployeesRepresentativePayee, null as int?);
-            var model = new ApplicationSubmission {RepresentativePayeeSocialSecurityBenefits = true, NumEmployeesRepresentativePayee = null};
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.NumEmployeesRepresentativePayee, model);
-        }
-
-        [TestMethod]
-        public void Should_Require_ProvidingFacilitiesDeductionType()
-        {
-            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, null as ICollection<ApplicationSubmissionProvidingFacilitiesDeductionType>);
-            var model = new ApplicationSubmission {ProvidingFacilities = true, ProvidingFacilitiesDeductionType = null};
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
-        }
-
-        [TestMethod]
-        public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
-        {
-            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
-            var model = new ApplicationSubmission { ProvidingFacilities = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = null};
-            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
-        }
-
-        [TestMethod]
         public void Should_Require_CertificateNumber()
         {
             _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.CertificateNumber, "");
@@ -167,6 +125,27 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_ContactEmail()
         {
             _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ContactEmail, "foo123");
+        }
+
+        [TestMethod]
+        public void Should_Validate_ApplicationType()
+        {
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ApplicationTypeId, 5);
+            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ApplicationTypeId, 2);
+        }
+
+        [TestMethod]
+        public void Should_Validate_EstablishmentType()
+        {
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = 9 } });
+            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = 5 } });
+        }
+
+        [TestMethod]
+        public void Should_Validate_PayType()
+        {
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, 30);
+            _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, 22);
         }
     }
 }

@@ -53,5 +53,5 @@
   <parameter name="EmailFrom" defaultValue="no-reply@dol.gov">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/@from" />
   </parameter>
-  
+
 </parameters>

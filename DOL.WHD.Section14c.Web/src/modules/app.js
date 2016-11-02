@@ -17,6 +17,7 @@ import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import vcRecaptcha from 'angular-recaptcha';
 import angularMoment from 'angular-moment';
+import ngMask from 'ng-mask';
 
 // Styles
 import '../styles/main.scss';
@@ -28,7 +29,8 @@ let app = angular.module('14c', [
     ngRoute,
     ngSanitize,
     'vcRecaptcha',
-    'angularMoment'
+    'angularMoment',
+    'ngMask'
 ]);
 
 // Environment config loaded from env.js
@@ -40,6 +42,7 @@ if (window && window.__env) {
 app.constant('_env', env);
 
 // Load Application Components
+require('./constants')(app);
 require('./components')(app);
 require('./pages')(app);
 require('./services')(app);

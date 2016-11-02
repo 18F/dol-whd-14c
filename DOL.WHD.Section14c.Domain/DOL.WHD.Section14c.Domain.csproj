@@ -81,7 +81,7 @@
     <Compile Include="Models\Identity\Roles.cs" />
     <Compile Include="Models\Submission\AlternateWageData.cs" />
     <Compile Include="Models\Submission\ApplicationSubmission.cs" />
-    <Compile Include="Models\Submission\ApplicationSubmissionProvidingFacilitiesDeductionType.cs" />
+    <Compile Include="Models\Submission\EmployerInfoProvidingFacilitiesDeductionType.cs" />
     <Compile Include="Models\Submission\Employee.cs" />
     <Compile Include="Models\Submission\EmployerInfo.cs" />
     <Compile Include="Models\Submission\Attachment.cs" />

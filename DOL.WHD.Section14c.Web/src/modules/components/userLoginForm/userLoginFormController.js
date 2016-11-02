@@ -7,6 +7,7 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
+        vm.loginError = false;
 
         $scope.formVals = {
             'email': '',
@@ -16,8 +17,12 @@ module.exports = function(ngModule) {
         $scope.inputType = 'password';
 
         $scope.onSubmitClick = function() {
+
             stateService.user.loginEmail = $scope.formVals.email
             
+
+            vm.clearError();
+
             //  Call Token Service
             apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
                 var data = result.data;
@@ -38,10 +43,11 @@ module.exports = function(ngModule) {
                     }, function (error) {
                         handleError(error);
                     });
+
                     
                     // start auto-save 
                     autoSaveService.start();
-                    
+
                 }, function (error) {
                     handleError(error);
                 });
@@ -50,17 +56,30 @@ module.exports = function(ngModule) {
             }, function (error) {
                 handleError(error);
             });
-      }
-      var handleError = function(error) {
-            //TODO: Integrate error handling into form
+
+        }
+        
+        var handleError = function(error) {
+            console.log(error);
             if(error.data.error_description === 'Password expired'){
                 stateService.user.passwordExpired = true;
                 $location.path("/changePassword");
                 $scope.$apply()
             }
-            console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-            $location.path("/");
-      }
+
+            if (error.status === 400) {
+                vm.loginError = true;
+            }
+            else {
+                // catch all error, currently possible to get a 500 if the database server is not reachable
+                vm.unknownError = true;
+            }
+        }
+
+        this.clearError = function() {
+            vm.loginError = false;
+            vm.unknownError = false;
+        }
 
 
         $scope.forgotPassword = function() {
@@ -76,6 +95,3 @@ module.exports = function(ngModule) {
 
   });
 }
-
-
-

@@ -13,38 +13,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
-        #region Assurances
-
-        public bool? RepresentativePayeeSocialSecurityBenefits { get; set; }
-
-        public int? NumEmployeesRepresentativePayee { get; set; }
-
-        public bool? ProvidingFacilities { get; set; }
-
-        public IEnumerable<int> ProvidingFacilitiesDeductionTypeId
-        {
-            set
-            {
-                if (value != null)
-                {
-                    ProvidingFacilitiesDeductionType = value.Select(
-                        x =>
-                            new ApplicationSubmissionProvidingFacilitiesDeductionType
-                            {
-                                ProvidingFacilitiesDeductionTypeId = x,
-                                ApplicationSubmissionId = Id
-                            }).ToList();
-                }
-            }
-        }
-        public ICollection<ApplicationSubmissionProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
-
-        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
-
-        public bool? ReviewedDocumentation { get; set; }
-
-        #endregion
-
         #region Application Info
 
         public string EIN { get; set; }
