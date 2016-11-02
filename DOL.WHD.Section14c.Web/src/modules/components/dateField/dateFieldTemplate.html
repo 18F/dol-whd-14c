@@ -1,0 +1,14 @@
+<div class="usa-date-of-birth">
+    <div class="usa-form-group usa-form-group-month">
+    <label for="{{::$id}}_Month">Month</label>
+    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Month" name="{{::$id}}_Month" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.month">
+    </div>
+    <div class="usa-form-group usa-form-group-day">
+    <label for="{{::$id}}_Day">Day</label>
+    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Day" name="{{::$id}}_Day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.day">
+    </div>
+    <div class="usa-form-group usa-form-group-year">
+    <label for="{{::$id}}_Year">Year</label>
+    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Year" name="{{::$id}}_Year" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="vm.year">
+    </div>
+</div>
