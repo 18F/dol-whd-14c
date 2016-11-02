@@ -321,27 +321,14 @@
     </div>
     <h2 class="form-section-header">Number of Workers With Disabilities</h2>
     <hr />
-    <div class="form-question-block" ng-class="validate(['employer.fiscalQuarterEndDate.month', 'employer.fiscalQuarterEndDate.day', 'employer.fiscalQuarterEndDate.year']) ? 'usa-input-error' : ''">
+    <div class="form-question-block" ng-class="validate('employer.fiscalQuarterEndDate') ? 'usa-input-error' : ''">
         <div class="form-question-text">When did the Employer's most recently completed fiscal quarter end?
             <helplink></helplink>
             <helptext>Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
         </div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate(['employer.fiscalQuarterEndDate.month', 'employer.fiscalQuarterEndDate.day', 'employer.fiscalQuarterEndDate.year'])">{{ validate(['employer.fiscalQuarterEndDate.month', 'employer.fiscalQuarterEndDate.day', 'employer.fiscalQuarterEndDate.year']) }}</span>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
         <fieldset>
-            <div class="usa-date-of-birth">
-                <div class="usa-form-group usa-form-group-month">
-                <label for="fiscalQuarterEndMonth">Month</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndMonth" name="fiscalQuarterEndMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="formData.employer.fiscalQuarterEndDate.month">
-                </div>
-                <div class="usa-form-group usa-form-group-day">
-                <label for="fiscalQuarterEndDay">Day</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndDay" name="fiscalQuarterEndDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="formData.employer.fiscalQuarterEndDate.day">
-                </div>
-                <div class="usa-form-group usa-form-group-year">
-                <label for="fiscalQuarterEndYear">Year</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndYear" name="fiscalQuarterEndYear" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="formData.employer.fiscalQuarterEndDate.year">
-                </div>
-            </div>
+            <date-field date-val="formData.employer.fiscalQuarterEndDate" />
             <label class="example">Example: 04 30 2016</label>
         </fieldset>
     </div>
