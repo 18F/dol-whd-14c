@@ -20,15 +20,12 @@ module.exports = function(ngModule) {
 
         $scope.$watch('dateVal', function(newValue, oldValue) {
             if(moment.isDate(newValue) && !moment(newValue).isSame(oldValue)) {
-                console.log('watch');
                 updateLocalScope();
             }
         });
 
         $scope.$watchGroup(['vm.year', 'vm.month', 'vm.day'], function(newValues, oldValues) {
             if(_.difference(newValues, oldValues).length > 0 && vm.year && vm.month && vm.day) {
-                console.log('watchGroup');
-                //debugger;
                 $scope.dateVal = new Date(vm.year, vm. month - 1, vm.day);
             }
         });
