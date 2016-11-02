@@ -1,0 +1,27 @@
+<table class="usa-table-borderless"
+       ng-show="accounts.length">
+  <thead>
+    <tr>
+      <th scope="col">Email</th>
+      <th scope="col">Role(s)</th>
+      <th scope="col">EIN(s)</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="account in accounts">
+      <td scope="row">{{ account.email }}</td>
+      <td scope="row">
+        <span ng-repeat="role in account.roles">{{role.name}}{{$last ? '' : ', '}}</span>
+      </td>
+      <td scope="row">
+        <span ng-repeat="organization in account.organizations">{{organization.ein}}{{$last ? '' : ', '}}</span>
+      </td>
+      <td>
+        <button class="green-button"
+                ng-click="vm.editAccountClick(account.userId)"
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Edit</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

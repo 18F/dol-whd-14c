@@ -17,6 +17,10 @@ module.exports = function(ngModule) {
         $scope.inputType = 'password';
 
         $scope.onSubmitClick = function() {
+
+            stateService.user.loginEmail = $scope.formVals.email
+            
+
             vm.clearError();
 
             //  Call Token Service
@@ -40,8 +44,8 @@ module.exports = function(ngModule) {
                         handleError(error);
                     });
 
-
-                    // start auto-save
+                    
+                    // start auto-save 
                     autoSaveService.start();
 
                 }, function (error) {
@@ -52,10 +56,16 @@ module.exports = function(ngModule) {
             }, function (error) {
                 handleError(error);
             });
-        }
 
+        }
+        
         var handleError = function(error) {
             console.log(error);
+            if(error.data.error_description === 'Password expired'){
+                stateService.user.passwordExpired = true;
+                $location.path("/changePassword");
+                $scope.$apply()
+            }
 
             if (error.status === 400) {
                 vm.loginError = true;
@@ -64,8 +74,6 @@ module.exports = function(ngModule) {
                 // catch all error, currently possible to get a 500 if the database server is not reachable
                 vm.unknownError = true;
             }
-
-            $location.path("/");
         }
 
         this.clearError = function() {

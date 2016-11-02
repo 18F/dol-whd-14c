@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using DOL.WHD.Section14c.Domain.ViewModels;
 

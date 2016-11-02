@@ -1,11 +1,13 @@
 'use strict';
 
 module.exports = function(ngModule) {
+    require('./accountManagementControls')(ngModule);
     require('./changePasswordForm')(ngModule);
     require('./formFooterControls')(ngModule);
     require('./formSection')(ngModule);
     require('./mainHeaderControl')(ngModule);
     require('./mainNavigationControl')(ngModule);
+    require('./resetPasswordForm')(ngModule);
     require('./sectionAppInfo')(ngModule);
     require('./sectionAssurances')(ngModule);
     require('./sectionEmployer')(ngModule);

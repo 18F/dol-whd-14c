@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 
 namespace DOL.WHD.Section14c.DataAccess.Validators

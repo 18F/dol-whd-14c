@@ -7,10 +7,11 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Web;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public ApplicationDbContext() : base(nameOrConnectionString: "ApplicationDbContext")
         {
@@ -29,6 +30,12 @@ namespace DOL.WHD.Section14c.DataAccess
         public DbSet<ApplicationSave> ApplicationSaves { get; set; }
 
         public DbSet<Attachment> FileUploads { get; set; }
+
+        public DbSet<RoleFeature> RoleFeatures { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+
+        public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -150,6 +157,12 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WorkSiteWorkSiteType>()
                 .ToTable("WorkSiteWorkSiteType")
                 .HasKey(k => new { k.WorkSiteId, k.WorkSiteTypeId });
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
         }
 
         public override int SaveChanges()

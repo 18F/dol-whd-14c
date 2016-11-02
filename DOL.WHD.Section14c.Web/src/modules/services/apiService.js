@@ -29,6 +29,46 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
+        this.resetPassword = function(email, passwordResetUrl) {
+
+            let url = _env.api_url + '/api/Account/ResetPassword';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"Email": email, "PasswordResetUrl" : passwordResetUrl})
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
+        this.verifyResetPassword = function(userId, newPassword, confirmPassword, code) {
+
+            let url = _env.api_url + '/api/Account/VerifyResetPassword';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"NewPassword": newPassword, "ConfirmPassword": confirmPassword, "UserId": userId, "Nounce": code})
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
         this.userLogin = function(email, password) {
 
             let url = _env.api_url + '/Token';
@@ -49,7 +89,7 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
-        this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse) {
+        this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse, emailVerificationUrl) {
 
             let url = _env.api_url + '/api/Account/Register';
             let d = $q.defer();
@@ -58,7 +98,7 @@ module.exports = function(ngModule) {
                 method: 'POST',
                 url: url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword, "ReCaptchaResponse": reCaptchaResponse})
+                data: $.param({"EIN": ein, "Email": email, "Password": password, "ConfirmPassword": confirmPassword, "ReCaptchaResponse": reCaptchaResponse, "EmailVerificationUrl": emailVerificationUrl })
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
@@ -68,6 +108,27 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
+
+        this.emailVerification = function(userId, code, reCaptchaResponse) {
+
+            let url = _env.api_url + '/api/Account/VerifyEmail';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                data: $.param({"UserId": userId, "Nounce": code, "ReCaptchaResponse": reCaptchaResponse })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        };
+
 
        this.userInfo = function(access_token) {
 
@@ -184,6 +245,113 @@ module.exports = function(ngModule) {
 
             return d.promise;
         };
+
+        this.getAccounts = function(access_token) {
+            let url = _env.api_url + '/api/account';
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getRoles = function(access_token) {
+            let url = _env.api_url + '/api/account/roles';
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getAccount = function(access_token, userId) {
+            let url = _env.api_url + '/api/account/' + userId;
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.modifyAccount = function(access_token, account) {
+            let url = _env.api_url + '/api/account/' + account.userId;
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({ Email: account.email, Roles: account.roles })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.createAccount = function(access_token, account) {
+            let url = _env.api_url + '/api/account';
+            let d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                data: $.param({ Email: account.email, Roles: account.roles })
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }        
         
     });
 }
