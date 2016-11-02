@@ -143,6 +143,17 @@ module.exports = function(ngModule) {
             this.checkRequiredNumber(yearPath, "Please enter a valid year", 1900);
         }
 
+        this.checkRequiredDateComponent = function(propPath) {
+            let val = this.checkRequiredValue(propPath);
+            if(!this.validateDate(val)) {
+                this.setValidationError(propPath, "Please enter a valid date");
+            }
+        }
+
+        this.validateDate = function(date) {
+            return Object.prototype.toString.call(date) === "[object Date]" && ! isNaN(date.getTime());
+        }
+
         this.validateZipCode = function(zip) {
             let re = /^[0-9]{5}(?:-[0-9]{4})?$/i;
             let match = re.exec(zip);
@@ -238,7 +249,7 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredMultipleChoice("employer.isEducationalAgency");
-            this.checkRequiredDate("employer.fiscalQuarterEndDate.month", "employer.fiscalQuarterEndDate.day", "employer.fiscalQuarterEndDate.year");
+            this.checkRequiredDateComponent("employer.fiscalQuarterEndDate");
             this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", undefined, 0);
             this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", undefined, 0);
             this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", undefined, 0);
