@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201611011606064_MoveProvidingFacilitiesField.Designer.cs">
       <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.cs" />
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.Designer.cs">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -289,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611011606064_MoveProvidingFacilitiesField.resx">
       <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021325062_IdentityUpdates.resx">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

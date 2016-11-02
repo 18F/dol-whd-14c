@@ -225,9 +225,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return GetErrorResult(result);
             }
 
-            user.LastPasswordChangedDate = DateTime.UtcNow;
-            await UserManager.UpdateAsync(user);
-
             return Ok();
         }
 
