@@ -1,3 +1,22 @@
+
+<div class="usa-alert usa-alert-error" role="alert" ng-show="vm.savingError">
+    <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">An error occurred while saving the account. 
+            <ul ng-show="savingErrors.length > 0">
+                <li ng-repeat="error in savingErrors">{{error}}</li>
+            </u>
+        </p>
+    </div>
+</div>
+
+<div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loadingError">
+    <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">An error occurred while loading account.</p>
+    </div>
+</div>
+
 <form class="usa-form" ng-submit="vm.submitForm()">
     <div>
         <h2 ng-if="vm.isEditAccount">Edit Account</h2>
@@ -14,13 +33,15 @@
             </ul>
         </div>
         <div ng-if="vm.isEditAccount">
-            <div><label>Password Last Changed</label><span am-time-ago="formVals.lastPasswordChangedDate | amUtc"></span></div>
+            <div><label>Password Last Changed</label><span am-time-ago="formVals.lastPasswordChangedDate"></span></div>
             <div><label>Email Confirmed</label><span>{{formVals.emailConfirmed}}</span></div>
             <div ng-if="formVals.lockoutEndDateUtc !== null"><label>Account Locked</label>End Date: <span am-time-ago="formVals.lockoutEndDateUtc | amUtc"></div>
-            <div class="loginbtn"><button type="submit">Update Account</button></div>
+            <div class="form-spaced-div">
+                <span><button type="submit">Update Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
+            </div>
         </div>
-        <div ng-if="!vm.isEditAccount">
-            <div class="loginbtn"><button type="submit">Create Account</button></div>
+        <div ng-if="!vm.isEditAccount" class="form-spaced-div">
+            <span><button type="submit">Create Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
         </div>
     </div>
 </form>

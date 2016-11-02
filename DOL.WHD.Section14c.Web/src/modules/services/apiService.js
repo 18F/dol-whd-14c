@@ -9,15 +9,25 @@ module.exports = function(ngModule) {
 
         this.attachmentApiURL = _env.api_url + "/api/attachment/";
 
-        this.changePassword = function(email, oldPassword, newPassword, confirmPassword) {
+        this.changePassword = function(access_token, email, oldPassword, newPassword, confirmPassword) {
 
             let url = _env.api_url + '/api/Account/ChangePassword';
             let d = $q.defer();
+            let headerVal;
+            
+            if(access_token !== undefined){
+                headerVal = {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            } else {
+                headerVal = { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }
 
             $http({
                 method: 'POST',
                 url: url,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                headers: headerVal,
                 data: $.param({"Email": email, "OldPassword": oldPassword, "NewPassword": newPassword, "ConfirmPassword": confirmPassword})
             }).then(function successCallback (data) {
                 d.resolve(data);
@@ -352,6 +362,20 @@ module.exports = function(ngModule) {
 
             return d.promise;
         }        
+
+        this.parseErrors = function(response) {
+            var errors = [];
+            if(response.modelState !== undefined){
+                for (var key in response.modelState) {
+                    if(key !== undefined){
+                        for (var i = 0; i < response.modelState[key].length; i++) {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+                }
+            }
+            return errors;
+        }
         
     });
 }
