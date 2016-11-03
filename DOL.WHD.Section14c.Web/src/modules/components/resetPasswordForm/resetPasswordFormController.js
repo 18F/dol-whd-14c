@@ -1,5 +1,8 @@
 'use strict';
 
+import some from 'lodash/some'
+var zxcvbn = require('zxcvbn');
+
 module.exports = function(ngModule) {
     ngModule.controller('resetPasswordFormController', function($scope, $location, stateService, apiService, vcRecaptchaService, _env) {
         'ngInject';
@@ -13,6 +16,7 @@ module.exports = function(ngModule) {
             vm.forgotPasswordSuccess = false;
             vm.resetPasswordError = false;
             vm.resetPasswordSuccess = false;
+            vm.showPasswordHelp = false;
         }
 
         vm.resetErrors()
@@ -21,6 +25,26 @@ module.exports = function(ngModule) {
         vm.resetPasswordVerificationCode = $location.search().code;
         vm.resetPasswordVerificationUserId = $location.search().userId;
         vm.isResetPasswordVerificationRequest = vm.resetPasswordVerificationCode !== undefined && vm.resetPasswordVerificationUserId !== undefined
+
+
+        vm.resetPasswordComplexity = function() {
+            vm.passwordLength = false;
+            vm.passwordUpper = false;
+            vm.passwordLower = false;
+            vm.passwordSpecial = false;
+            vm.passwordNumber = false;
+        }
+        vm.resetPasswordComplexity();
+
+        $scope.inputType = 'password';
+        $scope.$watch('formVals.newPass', function (value) {
+            $scope.passwordStrength = zxcvbn(value);
+            vm.passwordLength = value.length > 7;
+            vm.passwordUpper = value.match(new RegExp("^(?=.*[A-Z])")) ? true : false;
+            vm.passwordLower = value.match(new RegExp("^(?=.*[a-z])"))? true : false;
+            vm.passwordSpecial = value.match(new RegExp("^(?=.*[-+_!@#$%^&*.,?])")) ? true : false;
+            vm.passwordNumber = value.match(new RegExp("^(?=.*[0-9])")) ? true : false;
+        })
 
         $scope.formVals = {
             'newPass': '',
@@ -38,6 +62,13 @@ module.exports = function(ngModule) {
                 vm.forgotPasswordError = true;
             });
       }
+
+    $scope.hideShowPassword = function(){
+        if ($scope.inputType === 'password')
+            $scope.inputType = 'text';
+        else
+            $scope.inputType = 'password';
+    };
 
       $scope.onVerifySubmitClick = function() {
             vm.resetErrors();
