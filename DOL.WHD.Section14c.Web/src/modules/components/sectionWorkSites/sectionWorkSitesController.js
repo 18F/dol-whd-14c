@@ -5,11 +5,12 @@ import merge from 'lodash/merge'
 import find from 'lodash/find'
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService) {
+    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
         if (!$scope.formData.workSites) {
             $scope.formData.workSites = [];
