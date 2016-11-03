@@ -99,6 +99,11 @@ The following are setup as WebDeploy parameters and can be set with command line
 ConnectionString* | PostgreSQL database connection string | No Deployment Default
 ReCaptchaVerfiyUrl* | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
 ReCaptchaSecretKey* | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default
+SMTPServer* | SMTP Email Server Address | localhost
+SMTPPort* | SMTP Email Server Port | 25
+SMTPUserName* | SMTP Email Server User Name | empty
+SMTPPassword* | SMTP Email Server | empty
+EmailFrom* | SMTP Email Server from address | no-reply@dol.gov
 AttachmentRepositoryRootFolder* | File Path (Local or UNC path) where application attachments should be stored | No Deployment Default
 UserLockoutEnabledByDefault | Enables or Disabled user login attempt lockout | true
 DefaultAccountLockoutTimeSpan | Minutes to lockout user | 15

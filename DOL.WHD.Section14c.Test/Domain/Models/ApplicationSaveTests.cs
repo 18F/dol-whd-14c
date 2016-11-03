@@ -1,5 +1,6 @@
 ﻿using System;
 using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DOL.WHD.Section14c.Test.Domain.Models

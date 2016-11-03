@@ -19,8 +19,16 @@ module.exports = function(ngModule) {
 
         $scope.formData = stateService.formData;
 
-        if (!$scope.formData.wageTypeInfo) {
-            $scope.formData.wageTypeInfo = {
+        $scope.modelPrefix = function() {
+            var prefix = 'hourlyWageInfo';
+            if($scope.paytype === 'piecerate') {
+                prefix = 'pieceRateWageInfo';
+            }
+            return prefix;
+        };
+
+        if (!$scope.formData[$scope.modelPrefix]) {
+            $scope.formData[$scope.modelPrefix] = {
                 numWorkers : 0,
                 jobName : '',
                 jobDescription : '',
@@ -32,14 +40,6 @@ module.exports = function(ngModule) {
             };
         }
 
-        $scope.modelPrefix = function() {
-            var prefix = 'hourlyWageInfo';
-            if($scope.paytype === 'piecerate') {
-                prefix = 'pieceRateWageInfo';
-            }
-            return prefix;
-        };
-
         // multiple choice responses
         let questionKeys = [ 'PrevailingWageMethod' ];
         responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
@@ -47,7 +47,7 @@ module.exports = function(ngModule) {
         this.onStudySelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.workMeasurementStudyAttachment = result.data[0];
+                    $scope.formData[$scope.modelPrefix()].Attachment = result.data[0];
                     fileinput.value = '';
                 }, function(error){
                     //TODO: Display error
@@ -59,7 +59,7 @@ module.exports = function(ngModule) {
         this.onHourlyDeterminationSelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.hourlyDeterminationAttachment = result.data[0];
+                    $scope.formData[$scope.modelPrefix()].mostRecentPrevailingWageSurvey.hourlyDeterminationAttachment = result.data[0];
                     fileinput.value = '';
                 }, function(error){
                     //TODO: Display error
@@ -71,7 +71,7 @@ module.exports = function(ngModule) {
         this.onSCAWageDeterminationSelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.scaWageDeterminationAttachment = result.data[0];
+                    $scope.formData[$scope.modelPrefix()].scaWageDeterminationAttachment = result.data[0];
                     fileinput.value = '';
                 }, function(error){
                     //TODO: Display error
@@ -83,7 +83,7 @@ module.exports = function(ngModule) {
         this.onPieceRateDocumentSelected = function(fileinput) {
             if(fileinput.files.length > 0){
                 apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.pieceRateDocumentAttachment = result.data[0];
+                    $scope.formData[$scope.modelPrefix()].Attachment = result.data[0];
                     fileinput.value = '';
                 }, function(error){
                     //TODO: Display error
@@ -95,10 +95,10 @@ module.exports = function(ngModule) {
         this.addSourceEmployer = function() {
             //vm.activeSourceEmployer.contactDate = moment(vm.activeSourceEmployer.contactDate.year + '-' + vm.activeSourceEmployer.contactDate.month + '-' + vm.activeSourceEmployer.contactDate.day).format();
             if (vm.activeSourceEmployerIndex > -1) {
-                $scope.formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers[vm.activeSourceEmployerIndex] = vm.activeSourceEmployer;
+                $scope.formData[$scope.modelPrefix].mostRecentPrevailingWageSurvey.sourceEmployers[vm.activeSourceEmployerIndex] = vm.activeSourceEmployer;
             }
             else {
-                $scope.formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers.push(vm.activeSourceEmployer);
+                $scope.formData[$scope.modelPrefix].mostRecentPrevailingWageSurvey.sourceEmployers.push(vm.activeSourceEmployer);
             }
 
             vm.cancelAddSourceEmployer();
@@ -112,45 +112,36 @@ module.exports = function(ngModule) {
 
         this.editSourceEmployer = function(index) {
             vm.activeSourceEmployerIndex = index;
-            vm.activeSourceEmployer = merge({}, $scope.formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers[index]);
+            vm.activeSourceEmployer = merge({}, $scope.formData[$scope.modelPrefix].mostRecentPrevailingWageSurvey.sourceEmployers[index]);
             vm.addingEmployer = true;
         }
 
         this.deleteSourceEmployer = function(index) {
-            $scope.formData.wageTypeInfo.mostRecentPrevailingWageSurvey.sourceEmployers.splice(index, 1);
-        }
-
-        this.deleteWorkMeasurementStudyAttachment = function(id){
-            apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.workMeasurementStudyAttachment = undefined;
-            }, function(error){
-                //TODO: Display error
-                $scope.formData.workMeasurementStudyAttachment = undefined;
-            })
+            $scope.formData[$scope.modelPrefix].mostRecentPrevailingWageSurvey.sourceEmployers.splice(index, 1);
         }
 
         this.deleteHourlyDeterminationAttachment = function(id){
             apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.hourlyDeterminationAttachment = undefined;
+               $scope.formData[$scope.modelPrefix()].mostRecentPrevailingWageSurvey.hourlyDeterminationAttachment = undefined;
             }, function(error){
                 //TODO: Display error
-                $scope.formData.hourlyDeterminationAttachment = undefined;
+                $scope.formData[$scope.modelPrefix()].mostRecentPrevailingWageSurvey.hourlyDeterminationAttachment = undefined;
             })
         }
         this.deleteScaWageDeterminationAttachment = function(id){
             apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.scaWageDeterminationAttachment = undefined;
+               $scope.formData[$scope.modelPrefix()].scaWageDeterminationAttachment = undefined;
             }, function(error){
                 //TODO: Display error
-                $scope.formData.scaWageDeterminationAttachment = undefined;
+                $scope.formData[$scope.modelPrefix()].scaWageDeterminationAttachment = undefined;
             })
         }
-        this.deletePieceRateDocumentAttachment = function(id){
+        this.deletePrevailingWageSurveyAttachment = function(id){
             apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.pieceRateDocumentAttachment = undefined;
+               $scope.formData[$scope.modelPrefix()].Attachment = undefined;
             }, function(error){
                 //TODO: Display error
-                $scope.formData.pieceRateDocumentAttachment = undefined;
+                $scope.formData[$scope.modelPrefix()].Attachment = undefined;
             })
         }
   });

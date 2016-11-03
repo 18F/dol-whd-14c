@@ -103,6 +103,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Extensions\ContextSeedRole.cs" />
+    <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
@@ -179,6 +181,30 @@
     <Compile Include="Migrations\201610262048363_RequiredFieldUpdates.Designer.cs">
       <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.cs" />
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.Designer.cs">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.cs" />
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.Designer.cs">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.cs" />
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.Designer.cs">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.cs" />
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.Designer.cs">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611011606064_MoveProvidingFacilitiesField.cs" />
+    <Compile Include="Migrations\201611011606064_MoveProvidingFacilitiesField.Designer.cs">
+      <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.cs" />
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.Designer.cs">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -252,6 +278,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610262048363_RequiredFieldUpdates.resx">
       <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282013443_AlternateWageDataConstraints.resx">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282056202_NullablePrimitives.resx">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.resx">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301837290_TableKeyUpdates.resx">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611011606064_MoveProvidingFacilitiesField.resx">
+      <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021325062_IdentityUpdates.resx">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

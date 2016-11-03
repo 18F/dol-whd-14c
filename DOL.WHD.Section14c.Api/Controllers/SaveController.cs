@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 
@@ -24,6 +25,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         [HttpGet]
         [Route("{EIN}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult GetSave(string EIN)
         {
             // make sure user has rights to the EIN
@@ -44,6 +46,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         [HttpPost]
         [Route("{EIN}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult AddSave(string EIN)
         {
             // make sure user has rights to the EIN

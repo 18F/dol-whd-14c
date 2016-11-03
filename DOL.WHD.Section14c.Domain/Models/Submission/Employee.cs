@@ -6,34 +6,34 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public Employee()
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
         }
 
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public int PrimaryDisabilityId { get; set; }
+        public int? PrimaryDisabilityId { get; set; }
         public virtual Response PrimaryDisability { get; set; }
 
         public string PrimaryDisabilityOther { get; set; }
 
         public string WorkType { get; set; }
 
-        public int NumJobs { get; set; }
+        public int? NumJobs { get; set; }
 
-        public double AvgWeeklyHours { get; set; }
+        public double? AvgWeeklyHours { get; set; }
 
-        public double AvgHourlyEarnings { get; set; }
+        public double? AvgHourlyEarnings { get; set; }
 
-        public double PrevailingWage { get; set; }
+        public double? PrevailingWage { get; set; }
 
-        public double ProductivityMeasure { get; set; }
+        public double? ProductivityMeasure { get; set; }
 
         public string CommensurateWageRate { get; set; }
 
-        public double TotalHours { get; set; }
+        public double? TotalHours { get; set; }
 
-        public bool WorkAtOtherSite { get; set; }
+        public bool? WorkAtOtherSite { get; set; }
     }
 }

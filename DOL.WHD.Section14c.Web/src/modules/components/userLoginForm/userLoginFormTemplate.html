@@ -1,8 +1,23 @@
 <form ng-submit="onSubmitClick()">
     <div class="login">
         <h2>Log in</h2>
-        <div><label for="userName">Email</label><input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" /></div>
-        <div><label for="password">Password</label><input name="password" id="password" type="{{inputType}}" placeholder="Password" ng-model="formVals.pass" />
+
+        <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.unknownError">
+            <div class="usa-alert-body">
+                <!--<h3 class="usa-alert-heading">Error Status</h3>-->
+                <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
+            </div>
+        </div>
+
+        <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loginError">
+            <div class="usa-alert-body">
+                <!--<h3 class="usa-alert-heading">Error Status</h3>-->
+                <p class="usa-alert-text">The email or password entered does not match our records.</p>
+            </div>
+        </div>
+
+        <div ng-class="vm.loginError ? 'usa-input-error' : ''"><label for="userName">Email</label><input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" /></div>
+        <div ng-class="(vm.loginError ? 'usa-input-error' : '') + ' ' + 'password-wrap'"><label for="password">Password</label><input name="password" id="password" type="{{inputType}}" placeholder="Password" ng-model="formVals.pass" />
         <div class="showpass">
             <a href="" ng-click="hideShowPassword()"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
         </div></div>

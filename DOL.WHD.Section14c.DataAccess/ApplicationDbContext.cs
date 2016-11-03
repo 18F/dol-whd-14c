@@ -7,10 +7,11 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
 using System.Web;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public ApplicationDbContext() : base(nameOrConnectionString: "ApplicationDbContext")
         {
@@ -30,15 +31,23 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<Attachment> FileUploads { get; set; }
 
+        public DbSet<RoleFeature> RoleFeatures { get; set; }
+
+        public DbSet<Feature> Features { get; set; }
+
+        public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             // data constraints
+            // AlternateWageData
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateWorkDescription).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateDataSourceUsed).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.PrevailingWageProvidedBySource).IsRequired();
+            modelBuilder.Entity<AlternateWageData>().Property(a => a.DataRetrieved).IsRequired();
             // ApplicationSubmission
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.RepresentativePayeeSocialSecurityBenefits).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ProvidingFacilities).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ReviewedDocumentation).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.EIN).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ApplicationTypeId).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousApplication).IsRequired();
@@ -81,7 +90,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfo>().Property(a => a.EO13658Id).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.RepresentativePayee).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TakeCreditForCosts).IsRequired();
-            modelBuilder.Entity<EmployerInfo>().Property(a => a.ProvidingFacilitiesDeductionTypeId).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TemporaryAuthority).IsRequired();
             modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.PhysicalAddress);
             modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.NumSubminimalWageWorkers);
@@ -119,7 +127,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ConclusionWageRateNotBasedOnEntry).IsRequired();
             modelBuilder.Entity<SourceEmployer>().HasRequired(a => a.Address);
             // WIOA
-            modelBuilder.Entity<WIOA>().Property(a => a.HasVerfiedDocumentaion).IsRequired();
+            modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
             // WIOAWorker
             modelBuilder.Entity<WIOAWorker>().Property(a => a.FullName).IsRequired();
@@ -142,13 +150,19 @@ namespace DOL.WHD.Section14c.DataAccess
                 .ToTable("AppSubmissionEstablishmentType")
                 .HasKey(k => new {k.ApplicationSubmissionId, k.EstablishmentTypeId});
 
-            modelBuilder.Entity<ApplicationSubmissionProvidingFacilitiesDeductionType>()
-                .ToTable("AppSubmissionFacilitiesDeductionType")
-                .HasKey(k => new { k.ApplicationSubmissionId, k.ProvidingFacilitiesDeductionTypeId });
+            modelBuilder.Entity<EmployerInfoProvidingFacilitiesDeductionType>()
+                .ToTable("EmployerInfoFacilitiesDeductionType")
+                .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
 
             modelBuilder.Entity<WorkSiteWorkSiteType>()
                 .ToTable("WorkSiteWorkSiteType")
                 .HasKey(k => new { k.WorkSiteId, k.WorkSiteTypeId });
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
         }
 
         public override int SaveChanges()

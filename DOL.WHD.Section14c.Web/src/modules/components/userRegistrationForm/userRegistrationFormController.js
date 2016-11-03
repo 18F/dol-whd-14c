@@ -16,9 +16,13 @@ module.exports = function(ngModule) {
         };
 
         $scope.inputType = 'password';
+        vm.emailVerificationUrl = $location.absUrl();
+        vm.emailVerificationCode = $location.search().code;
+        vm.emailVerificationUserId = $location.search().userId;
+        vm.isEmailVerificationRequest = vm.emailVerificationCode !== undefined && vm.emailVerificationCode !== undefined
 
         $scope.onSubmitClick = function() {
-            apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.response).then(function (result) {
+            apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.response, vm.emailVerificationUrl).then(function (result) {
                 $location.path("/");
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
@@ -46,12 +50,27 @@ module.exports = function(ngModule) {
             $scope.response = null;
         };
 
+
         $scope.hideShowPassword = function(){
             if ($scope.inputType === 'password')
                 $scope.inputType = 'text';
             else
                 $scope.inputType = 'password';
         };
+
+        $scope.onVerifyClick = function() {
+            $location.search('code', null);
+            $location.search('userId', null);
+
+            apiService.emailVerification(vm.emailVerificationUserId, vm.emailVerificationCode, $scope.response).then(function (result) {
+                //TODO: show success
+                $location.path("/");
+            }, function (error) {
+                console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
+                //vcRecaptchaService.reload($scope.widgetId);
+                $location.path("/");
+            });
+        }
 
   });
 }

@@ -1,6 +1,10 @@
 'use strict';
 
 import merge from 'lodash/merge'
+import some from 'lodash/some'
+import has from 'lodash/has'
+import property from 'lodash/property'
+
 
 module.exports = function(ngModule) {
     ngModule.service('stateService', function() {
@@ -36,6 +40,11 @@ module.exports = function(ngModule) {
             set: function(value) { state.form_data = value; }
         });
 
+        this.hasClaim = function(claimName) {
+            return some(state.user.applicationClaims, function(claim){
+                return claim === 'DOL.WHD.Section14c.' + claimName;
+            });
+        }
 
         /*** Methods ***/
 
@@ -56,7 +65,8 @@ module.exports = function(ngModule) {
                 form_data: { },
                 activeEIN: undefined,
                 user: {
-                    email: ''
+                    email: '',
+                    claims: []
                 }
             };
         }

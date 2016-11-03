@@ -1,5 +1,6 @@
 ﻿using DOL.WHD.Section14c.Domain.Models;
 using System;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.DataAccess
 {

@@ -17,6 +17,7 @@ import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import vcRecaptcha from 'angular-recaptcha';
 import angularMoment from 'angular-moment';
+import ngMask from 'ng-mask';
 
 // Styles
 import '../styles/main.scss';
@@ -28,7 +29,8 @@ let app = angular.module('14c', [
     ngRoute,
     ngSanitize,
     'vcRecaptcha',
-    'angularMoment'
+    'angularMoment',
+    'ngMask'
 ]);
 
 // Environment config loaded from env.js
@@ -40,6 +42,7 @@ if (window && window.__env) {
 app.constant('_env', env);
 
 // Load Application Components
+require('./constants')(app);
 require('./components')(app);
 require('./pages')(app);
 require('./services')(app);
@@ -54,7 +57,8 @@ app.config(function($routeProvider, $compileProvider) {
     })
     .when('/changePassword', {
         controller: 'changePasswordPageController',
-        template: require('./pages/changePasswordPageTemplate.html')
+        template: require('./pages/changePasswordPageTemplate.html'),
+        public: true
     })
     .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
@@ -71,6 +75,10 @@ app.config(function($routeProvider, $compileProvider) {
         template: require('./pages/userRegistrationPageTemplate.html'),
         public: true
     })
+    .when('/account/:userId', {
+        controller: 'accountPageController',
+        template: require('./pages/accountPageTemplate.html')
+    })
     .when('/section/:section_id', {
         template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
         reloadOnSearch: false
@@ -81,10 +89,6 @@ app.config(function($routeProvider, $compileProvider) {
 });
 
 app.run(function($rootScope, $location) {
-    $rootScope.loadImage = function(image) {
-        return require('../images/' + image);
-    };
-
     //TODO: remove dev_flag check
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in

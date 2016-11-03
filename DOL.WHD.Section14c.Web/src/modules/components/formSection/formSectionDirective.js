@@ -21,7 +21,6 @@ module.exports = function(ngModule) {
             replace: true,
             link: function(scope, element, attrs) {
                 element.bind('click', function() {
-                    console.log("clicked");
                     element.next().toggleClass('show');
                 })
             }

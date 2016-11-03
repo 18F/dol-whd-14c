@@ -1,13 +1,20 @@
+<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
+    <div class="usa-alert-body">
+        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+    </div>
+</div>
 <div class="form-page-full">
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
         <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
         <div class="form-question-answer">
             <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
         <div class="form-question-text">We'll need to collect information about each worksite and its employees.</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
         <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
     </div>
 
@@ -47,11 +54,11 @@
             <div class="fomr-question-answer">
                 <form class="usa-form-large">
                     <fieldset>
-                      <label for="worksiteAddress1">Street address 1</label>
+                      <label for="worksiteAddress1">Street address</label>
                       <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
 
-                      <label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
-                      <input id="worksiteAddress2" name="worksiteAddress2" type="text">
+                      <!--<label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
+                      <input id="worksiteAddress2" name="worksiteAddress2" type="text" ng-model="vm.activeWorksite.address.streetAddress2">-->
 
                       <div>
                         <div class="usa-input-grid usa-input-grid-medium">
@@ -124,7 +131,7 @@
                         </div>
                       </div>
 
-                      <label for="workAddressZip">ZIP</label>
+                      <label for="workAddressZip">Zip Code</label>
                       <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="vm.activeWorksite.address.zipCode">
                     </fieldset>
                 </form>
@@ -170,7 +177,7 @@
         <div class="form-question-block">
             <div class="form-question-text">Total Number of employees employed at this establishment / work site at any time during the most recently completed fiscal quarter:</div>
             <div class="form-question-answer">
-                <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="text" ng-model="vm.activeWorksite.numEmployees">
+                <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
             </div>
         </div>
     </div>
@@ -316,28 +323,30 @@
         </div>
     </div>
 
-    <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
-        <thead>
-            <tr>
-                <th scope="col">Work Site Name</th>
-                <th scope="col">Number of Workers</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
-                <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
-                <td>{{ site.numEmployees }}</td>
-                <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
-            </tr>
-            <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
-                <td colspan="3">
-                    <div ng-repeat="employee in site.employees">
-                        {{ employee.name }}
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!--<div ng-class="validate('workSites', true) ? 'usa-input-error' : ''">-->
+        <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
+            <thead>
+                <tr>
+                    <th scope="col">Work Site Name</th>
+                    <th scope="col">Number of Workers</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
+                    <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
+                    <td>{{ site.numEmployees }}</td>
+                    <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
+                </tr>
+                <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                    <td colspan="3">
+                        <div ng-repeat="employee in site.employees">
+                            {{ employee.name }}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <!--</div>-->
 
 </div>
