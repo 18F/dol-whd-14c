@@ -11,6 +11,11 @@
     }
 
     .form-page, .form-page-full {
+        margin-top: 40px;
+
+        & > h3:first-of-type {
+            margin-top: 0px;
+        }
 
         .em-block {
             background-color: $form-em-grey;
@@ -369,6 +374,16 @@
 
             &.ng-hide-add, &.ng-hide-remove {
                 transition: all linear 0.4s;
+            }
+        }
+    }
+
+    .form-content {
+        div.usa-alert-error {
+            @include clearfix;
+
+            div.usa-alert-body {
+                @include span(8);
             }
         }
     }

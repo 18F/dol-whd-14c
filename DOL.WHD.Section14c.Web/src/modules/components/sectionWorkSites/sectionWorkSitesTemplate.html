@@ -1,13 +1,20 @@
+<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
+    <div class="usa-alert-body">
+        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+    </div>
+</div>
 <div class="form-page-full">
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
         <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
         <div class="form-question-answer">
             <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
         </div>
     </div>
 
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
         <div class="form-question-text">We'll need to collect information about each worksite and its employees.</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
         <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
     </div>
 
@@ -316,28 +323,30 @@
         </div>
     </div>
 
-    <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
-        <thead>
-            <tr>
-                <th scope="col">Work Site Name</th>
-                <th scope="col">Number of Workers</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
-                <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
-                <td>{{ site.numEmployees }}</td>
-                <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
-            </tr>
-            <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
-                <td colspan="3">
-                    <div ng-repeat="employee in site.employees">
-                        {{ employee.name }}
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!--<div ng-class="validate('workSites', true) ? 'usa-input-error' : ''">-->
+        <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
+            <thead>
+                <tr>
+                    <th scope="col">Work Site Name</th>
+                    <th scope="col">Number of Workers</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
+                    <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
+                    <td>{{ site.numEmployees }}</td>
+                    <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
+                </tr>
+                <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                    <td colspan="3">
+                        <div ng-repeat="employee in site.employees">
+                            {{ employee.name }}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    <!--</div>-->
 
 </div>
