@@ -335,7 +335,7 @@ module.exports = function(ngModule) {
                 this.checkRequiredDateComponent(prefix + ".alternateWageData.dateRetrieved");
             }
             else if (prevailingWageMethod === _constants.responses.prevailingWageMethod.sca) {
-                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachment", "Please upload the applicable documentation");
+                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
             }
         }
 
@@ -352,7 +352,7 @@ module.exports = function(ngModule) {
                 this.validateWageDataPayType(prefix);
 
                 this.checkRequiredValue(prefix + ".workMeasurementFrequency");
-                this.checkRequiredValue(prefix + ".Attachment", "Please upload a work measurement or time study");
+                this.checkRequiredValue(prefix + ".attachmentId", "Please upload a work measurement or time study");
             }
 
             if (isPieceRate) {
