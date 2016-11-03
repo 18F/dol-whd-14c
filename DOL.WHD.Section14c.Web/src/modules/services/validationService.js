@@ -275,7 +275,7 @@ module.exports = function(ngModule) {
                 let scaCount = this.checkRequiredNumber("employer.scaCount", undefined, 0);
 
                 //TODO: validate number of uploads with scaCount ???
-                this.checkRequiredValue("employer.SCAAttachment", "Please upload the required SCA Wage Determinations");
+                this.checkRequiredValue("employer.scaAttachmentId", "Please upload the required SCA Wage Determinations");
             }
 
             this.checkRequiredMultipleChoice("employer.eo13658Id");

@@ -409,16 +409,8 @@
             </div>
             <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
                 <label for="SCAAttachment">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.SCAAttachment')">{{ validate('employer.SCAAttachment') }}</span>
-                <div ng-show="formData.employer.SCAAttachment == undefined">
-                    <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                    <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="SCAAttachment" name="SCAAttachment" class="upload-input" type="text" disabled>
-                    <label class="underlabel" for="SCAAttachment">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-                </div>
-                <div ng-show="formData.employer.SCAAttachment != undefined">
-                    <a ng-href="{{vm.attachmentApiURL}}/{{formData.employer.SCAAttachment.id}}?access_token={{vm.access_token}}">{{formData.employer.SCAAttachment.originalFileName}}</a>
-                    <button class="usa-button-secondary" ng-click="vm.deleteSCAAttachment(formData.employer.SCAAttachment.id)">Delete</button>
-                </div>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
+                <attachment-field attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
             </div>
         </div>
     </div>
