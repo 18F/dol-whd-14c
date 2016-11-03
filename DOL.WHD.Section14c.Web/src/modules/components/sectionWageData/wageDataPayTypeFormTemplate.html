@@ -44,14 +44,14 @@
 
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.PrevailingWageMethod">
-                    <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethod">
+                    <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
                     <label for="wagemethod_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
         </fieldset>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 24">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 24">
         <div class="form-question-block">
             <div class="form-question-text">Provide information for the most recent Prevailing Wage survey conducted for the job or contract indentified above:</div>
             <div class="form-question-answer">
@@ -241,7 +241,7 @@
         </div>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 25">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 25">
         <div class="form-question-block">
             <div class="form-question-text">Provide the alternate wage data source used and the prevailing wage provided by that source:</div>
             <label>Examples of alternate sources include U.S. Bureau of Labor Statistics (BLS) or private or State employment services data.
@@ -277,7 +277,7 @@
         </div>
     </div>
 
-    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 26">
+    <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 26">
         <div class="form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
             <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>

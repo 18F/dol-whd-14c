@@ -8,4 +8,5 @@ module.exports = function(ngModule) {
   require('./navService')(ngModule);
   require('./autoSaveService')(ngModule);
   require('./validationService')(ngModule);
+  require('./submissionService')(ngModule);
 };
