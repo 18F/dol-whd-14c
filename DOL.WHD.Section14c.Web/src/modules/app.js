@@ -89,10 +89,6 @@ app.config(function($routeProvider, $compileProvider) {
 });
 
 app.run(function($rootScope, $location) {
-    $rootScope.loadImage = function(image) {
-        return require('../images/' + image);
-    };
-
     //TODO: remove dev_flag check
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in

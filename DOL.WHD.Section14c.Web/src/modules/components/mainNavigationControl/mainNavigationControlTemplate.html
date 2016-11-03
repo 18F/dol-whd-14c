@@ -5,4 +5,5 @@
     <div class="nav-button {{ vm.current === 'wage-data' ? 'active' : '' }}" data-sectionid="wage-data" ng-click="vm.onNavClick($event)">Wage Data</div>
     <div class="nav-button {{ vm.current === 'work-sites' ? 'active' : '' }}" data-sectionid="work-sites" ng-click="vm.onNavClick($event)">Work Sites &amp; Employees</div>
     <div class="nav-button {{ vm.current === 'wioa' ? 'active' : '' }}" data-sectionid="wioa" ng-click="vm.onNavClick($event)">WIOA</div>
+    <div class="nav-button {{ vm.current === 'review' ? 'active' : '' }}" data-sectionid="review" ng-click="vm.onNavClick($event)" ng-show="vm.stateService.inReview">Review &amp; Submit</div>
 </div>
