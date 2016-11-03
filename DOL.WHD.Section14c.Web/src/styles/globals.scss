@@ -33,6 +33,15 @@ $help-em-color: #D0E2FB;
     }
 }
 
+.disabled-button {
+    background-color: $button-grey;
+    color: $text-color;
+
+    &:hover {
+        background-color: $button-grey;
+    }
+}
+
 .green-button {
     margin-left: 40px;
     background-color: $button-green;

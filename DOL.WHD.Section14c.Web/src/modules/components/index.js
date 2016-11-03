@@ -9,9 +9,10 @@ module.exports = function(ngModule) {
     require('./sectionAppInfo')(ngModule);
     require('./sectionAssurances')(ngModule);
     require('./sectionEmployer')(ngModule);
-    require('./sectionWorkSites')(ngModule);
+    require('./sectionReview')(ngModule);
     require('./sectionWageData')(ngModule);
     require('./sectionWioa')(ngModule);
+    require('./sectionWorkSites')(ngModule);
     require('./userLoginForm')(ngModule);
     require('./userRegistrationForm')(ngModule);
 };

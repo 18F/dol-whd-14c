@@ -5,13 +5,13 @@
         <h2>REVXX/20XX</h2>
     </div>
     <div class="header-logo">
-        <img ng-src="{{ loadImage('dol_seal.svg') }}" />
-        <img ng-src="{{ loadImage('whd_logo.jpg') }}" />
+        <img ng-src="{{ vm.assetService.loadImage('dol_seal.svg') }}" />
+        <img ng-src="{{ vm.assetService.loadImage('whd_logo.jpg') }}" />
     </div>
 </div>
 <div class="header-status-bar" ng-show="vm.stateService.user.email">
     <p class="pull-left">EIN: <span class="header-ein">{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
-    
+
     <p class="pull-right"><a href="" ng-click="vm.userClick()">{{ vm.stateService.user.email ? vm.stateService.user.email : "Username" }}</a> | <a href="" ng-click="vm.saveClick()">Save Work & Sign Out</a></p>
 </div>
 <main-navigation-control></main-navigation-control>

@@ -20,6 +20,8 @@ module.exports = function(ngModule) {
         // validation error tree (mirrors data model tree)
         let state = {};
 
+        let section;
+
         this.resetState = function() {
             state = {};
         }
@@ -28,6 +30,10 @@ module.exports = function(ngModule) {
         // validation error accessor methods
         this.setValidationError = function(propPath, msg) {
             set(state, propPath, msg);
+
+            if (section) {
+                set(state, section, true);
+            }
         }
 
         this.getValidationError = function(propPath, returnNested) {
@@ -167,6 +173,8 @@ module.exports = function(ngModule) {
 
         // methods for validating each section (primarily used internally)
         this.validateAppInfo = function() {
+            section = "__appinfo";
+
             this.checkRequiredMultipleChoice("applicationType");
             this.checkRequiredMultipleChoice("hasPreviousApplication");
 
@@ -195,9 +203,13 @@ module.exports = function(ngModule) {
             if (!this.validateEmailAddress(this.getFormValue("contactEmail"))) {
                 this.setValidationError("contactEmail", "Please enter a valid email address");
             }
+
+            section = undefined;
         }
 
         this.validateEmployer = function() {
+            section = "__employer";
+
             let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName");
             if (hasTradeName === true) {
                 this.checkRequiredString("employer.tradeName");
@@ -271,6 +283,8 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredMultipleChoice("employer.temporaryAuthority");
+
+            section = undefined;
         }
 
         this.validateWageDataPayType = function(prefix) {
@@ -321,6 +335,8 @@ module.exports = function(ngModule) {
         }
 
         this.validateWageData = function() {
+            section = "__wagedata";
+
             let payType = this.checkRequiredMultipleChoice("payType");
             let isHourly = payType === _constants.responses.payType.hourly || payType === _constants.responses.payType.both;
             let isPieceRate = payType === _constants.responses.payType.pieceRate || payType === _constants.responses.payType.both;
@@ -345,9 +361,13 @@ module.exports = function(ngModule) {
                 this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", undefined, 0);
                 this.checkRequiredValue(prefix + "Attachment", "Pleas upload the required docments")
             }
+
+            section = undefined;
         }
 
         this.validateWorkSites = function() {
+            section = "__worksites";
+
             let totalNumWorkSites = this.checkRequiredNumber("totalNumWorkSites", undefined, 1);
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
@@ -404,9 +424,13 @@ module.exports = function(ngModule) {
                     this.setValidationError("workSites_count", "The number of work sites specified does not match the number entered");
                 }
             }
+
+            section = undefined;
         }
 
         this.validateWIOA = function() {
+            section = "__wioa";
+
             this.checkRequiredMultipleChoice("WIOA.hasVerfiedDocumentation");
 
             let hasWIOAWorkers = this.checkRequiredMultipleChoice("WIOA.hasWIOAWorkers");
@@ -419,6 +443,8 @@ module.exports = function(ngModule) {
                     }
                 }
             }
+
+            section = undefined;
         }
 
 
