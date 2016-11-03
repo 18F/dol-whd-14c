@@ -2,6 +2,7 @@
 
 module.exports = function(ngModule) {
     require('./accountManagementControls')(ngModule);
+    require('./attachmentField')(ngModule);
     require('./changePasswordForm')(ngModule);
     require('./dateField')(ngModule);
     require('./formFooterControls')(ngModule);
