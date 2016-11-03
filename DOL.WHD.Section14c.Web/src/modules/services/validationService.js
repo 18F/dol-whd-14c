@@ -332,7 +332,7 @@ module.exports = function(ngModule) {
                 this.checkRequiredString(prefix + ".alternateWageData.alternateWorkDescription");
                 this.checkRequiredString(prefix + ".alternateWageData.alternateDataSourceUsed");
                 this.checkRequiredNumber(prefix + ".alternateWageData.prevailingWageProvidedBySource");
-                this.checkRequiredDateComponent(prefix + ".alternateWageData.dateRetrieved");
+                this.checkRequiredDateComponent(prefix + ".alternateWageData.dataRetrieved");
             }
             else if (prevailingWageMethod === _constants.responses.prevailingWageMethod.sca) {
                 this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
