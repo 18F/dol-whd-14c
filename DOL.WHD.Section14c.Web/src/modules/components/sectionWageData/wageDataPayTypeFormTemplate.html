@@ -149,20 +149,7 @@
 
                     <label>Date of Contact</label>
                     <fieldset>
-                        <div class="usa-date-of-birth">
-                          <div class="usa-form-group usa-form-group-month">
-                            <label for="dateOfContactMonth">Month</label>
-                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactMonth" name="dateOfContactMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.activeSourceEmployer.contactDate.month">
-                          </div>
-                          <div class="usa-form-group usa-form-group-day">
-                            <label for="dateOfContactDay">Day</label>
-                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactDay" name="dateOfContactDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.activeSourceEmployer.contactDate.day">
-                          </div>
-                          <div class="usa-form-group usa-form-group-year">
-                            <label for="dateOfContactYear">Year</label>
-                            <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateOfContactYear" name="dateOfContactYear" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="vm.activeSourceEmployer.contactDate.year">
-                          </div>
-                        </div>
+                        <date-field date-val="vm.activeSourceEmployer.contactDate" />
                     </fieldset>
 
                     <label for="sourceEmployerJobDescription">Brief Description of Job/Task</label>
@@ -197,15 +184,7 @@
                     </tbody>
                 </table>
                 <label>If needed, attach an additional sheet headed "Prevailing Wage Determination-{{ paytype === 'hourly' ? 'Hourly' : 'Piece Rate'}}"</label>
-                <div ng-show="formData[modelPrefix()].mostRecentPrevailingWageSurvey.Attachment == undefined">
-                    <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onHourlyDeterminationSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                    <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedHourlyDetermination" name="attachedHourlyDetermination" class="upload-input" type="text" disabled>
-                    <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-                </div>
-                <div ng-show="formData[modelPrefix()].mostRecentPrevailingWageSurvey.Attachment != undefined">
-                    <a ng-href="{{vm.attachmentApiURL}}/{{formData[modelPrefix()].mostRecentPrevailingWageSurvey.Attachment.id}}?access_token={{vm.access_token}}">{{formData[modelPrefix()].mostRecentPrevailingWageSurvey.Attachment.originalFileName}}</a>
-                    <button class="usa-button-secondary" ng-click="vm.deleteHourlyDeterminationAttachment(formData[modelPrefix()].mostRecentPrevailingWageSurvey.Attachment.id)">Delete</button>
-                </div>
+                <attachment-field attachment-id="formData[modelPrefix()].mostRecentPrevailingWageSurvey.attachmentId" attachment-name="formData[modelPrefix()].mostRecentPrevailingWageSurvey.attachmentName" />
             </div>
         </div>
     </div>
@@ -226,20 +205,7 @@
 
                 <label>Date data retrieved</label>
                 <fieldset>
-                    <div class="usa-date-of-birth">
-                      <div class="usa-form-group usa-form-group-month">
-                        <label for="dateRetrievedMonth">Month</label>
-                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedMonth" name="dateRetrievedMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="formData[modelPrefix()].alternateWageData.dateRetrieved.month">
-                      </div>
-                      <div class="usa-form-group usa-form-group-day">
-                        <label for="dateRetrievedDay">Day</label>
-                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedDay" name="dateRetrievedDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="formData[modelPrefix()].alternateWageData.dateRetrieved.day">
-                      </div>
-                      <div class="usa-form-group usa-form-group-year">
-                        <label for="dateRetrievedYear">Year</label>
-                        <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="dateRetrievedYear" name="dateRetrievedYear" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="formData[modelPrefix()].alternateWageData.dateRetrieved.year">
-                      </div>
-                    </div>
+                    <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved" />
                     <label class="example">Example: 04 30 2016</label>
                 </fieldset>
 
@@ -250,15 +216,7 @@
     <div class="form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethod === 26">
         <div class="form-question-block">
             <div class="form-question-text">Attach the applicable SCA Wage Determination</div>
-            <div class="form-question-answer" ng-show="formData[modelPrefix()].scaWageDeterminationAttachment == undefined">
-                <input id="scaWageDeterminationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAWageDeterminationSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                <label for="scaWageDeterminationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedSCAWageDetermination" name="attachedSCAWageDetermination" class="upload-input" type="text" disabled>
-                <label class="underlabel" for="attachedSCAWageDetermination">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-            </div>
-            <div class="form-question-answer" ng-show="formData[modelPrefix()].scaWageDeterminationAttachment != undefined">
-                <a ng-href="{{vm.attachmentApiURL}}/{{formData[modelPrefix()].scaWageDeterminationAttachment.id}}?access_token={{vm.access_token}}">{{formData[modelPrefix()].scaWageDeterminationAttachment.originalFileName}}</a>
-                <button class="usa-button-secondary" ng-click="vm.deleteScaWageDeterminationAttachment(formData[modelPrefix()].scaWageDeterminationAttachment.id)">Delete</button>
-            </div>
+            <attachment-field attachment-id="formData[modelPrefix()].scaWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].scaWageDeterminationAttachmentName" />
         </div>
     </div>
 
@@ -280,16 +238,7 @@
                 <helplink></helplink>
                 <helptext>This is the help text.</helptext>
             </div>
-            <div class="form-question-answer" ng-show="formData[modelPrefix()].Attachment == undefined">
-                <input id="workMeasurementFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onStudySelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                <label for="workMeasurementFileInput" class="upload-label usa-button-primary">Browse</label><input id="attachedWorkMeasurement" name="attachedWorkMeasurement" class="upload-input" type="text" disabled>
-
-                <label class="underlabel" for="attachedWorkMeasurement">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-            </div>
-            <div class="form-question-answer" ng-show="formData[modelPrefix()].Attachment != undefined">
-               <a ng-href="{{vm.attachmentApiURL}}/{{formData[modelPrefix()].Attachment.id}}?access_token={{vm.access_token}}">{{formData[modelPrefix()].Attachment.originalFileName}}</a>
-               <button class="usa-button-secondary" ng-click="vm.deletePrevailingWageSurveyAttachment(formData[modelPrefix()].Attachment.id)">Delete</button>
-            </div>
+            <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
         </div>
     </div>
 
@@ -315,15 +264,7 @@
             <div class="form-question-text">Attach all documents of the methods used to determine the standard productivity and the piece rate.</div>
             <div class="form-question-answer">
                 <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. "standard setter").</span>
-                <div ng-show="formData[modelPrefix()].Attachment == undefined">
-                    <input id="pieceRateDocumentationInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onPieceRateDocumentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                    <label for="pieceRateDocumentationInput" class="upload-label usa-button-primary">Browse</label><input id="attachedPieceRateDocument" name="attachedPieceRateDocument" class="upload-input" type="text" disabled>
-                    <label class="underlabel" for="attachedPieceRateDocument">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-                </div>
-                <div  ng-show="formData[modelPrefix()].Attachment != undefined">
-                    <a ng-href="{{vm.attachmentApiURL}}/{{formData[modelPrefix()].Attachment.id}}?access_token={{vm.access_token}}">{{formData[modelPrefix()].Attachment.originalFileName}}</a>
-                    <button class="usa-button-secondary" ng-click="vm.deletePrevailingWageSurveyAttachment(formData[modelPrefix()].Attachment.id)">Delete</button>
-                </div>
+                <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
             </div>
         </div>
     </div>
