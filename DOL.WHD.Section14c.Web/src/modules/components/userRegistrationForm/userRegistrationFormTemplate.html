@@ -6,32 +6,111 @@
         <li>The Employer's EIN is required to create an account.</li>
         <li>Once the Employer's account is created, additional users can be added.</li>
         <li>The electronic form includes both form WH-226 and WH-226A.</li>
-        <li>As of 12/31/2016, paper forms will no longer be accepted.</li>
     </ul>
     <p>Read our <a>FAQs for Electronic Section 14(c) Certificate Application</a></p>
     <hr/>
     </div>
-    <div class="createAcct">
-    <h2>Create an Account</h2>
-    <div><label for="EIN">Employer Identification Number (EIN)</label><input class="ein" name="EIN" id="EIN" type="text" mask="99-9999999" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" /><div><a>Why do you need an EIN to create an account?</a></div></div>
-    <div><label for="registerEmail">Email Address</label><input type="email" name="registerEmail" id="registerEmail" placeholder="Email" ng-model="formVals.email" /></div>
-        <div><label for="registerPassword">Password</label><input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Password" ng-model="formVals.pass" />
-        <div class="showpass">
-            <a href="" ng-click="hideShowPassword()"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+    <div>
+    <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.accountCreated">
+        <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">Account Created</h3>
+            <p class="usa-alert-text">Your account was created, please verify that your email address is <strong>{{vm.registerdEmail}}</strong> by visiting the link in the email.</p>
         </div>
     </div>
+    <div class="createAcct">
+    <h2>Create an Account</h2>
+    <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
+        <label for="EIN">Employer Identification Number (EIN)</label>
+        <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
+            <div ng-show="vm.einError">
+                <p>The EIN you provided is already registerd.  Please contact the account admin for access.</p>
+                <p>If you do not know the account admin, contact our office at 000-123-4567</p>
+            </div>
+            <div ng-show="vm.einRequired">
+                <p>EIN is required.</p>
+            </div>
+            <div ng-show="vm.invalidEin">
+                <p>Invalid EIN format. Example XX-XXXXXXX</p>
+            </div>            
+        </span>
+        <input class="ein" name="EIN" id="EIN" type="text" mask="99-9999999" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" />
+        <div>
+            <a href ng-click="vm.toggleEinHelp()">Why do you need an EIN to create an account?</a>
+        </div>
     </div>
-    <div><label for="confirmPassword">Confirm Password</label><input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" ng-model="formVals.confirmPass" /></div>
-    <div
-        vc-recaptcha
-        theme="'light'"
-        key="model.key"
-        on-create="setWidgetId(widgetId)"
-        on-success="setResponse(response)"
-        on-expire="cbExpiration()"
-        class="regcapt"
-        title="reCaptcha"
-    ></div>
+    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp">
+        <div class="usa-alert-body">
+            <p class="usa-alert-text">Providing the EIN at Registration helps us ensure there is only one account per Employer.</p>    
+            <p class="usa-alert-text">Additional user can be added once the Employer is registered.</p>           
+        </div>
+    </div>
+    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+        <label for="registerEmail">Email Address</label>
+        <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressError">
+            <p>The email you provided is already registred.</p>
+            <p>If you forgot your password, you can <a href>reset it here</a></p>
+        </span>
+        <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
+            <p>Email address is required.</p>
+        </span>
+        <input type="email" name="registerEmail" id="registerEmail" placeholder="Email" ng-model="formVals.email" />
+    </div>
+    <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp">
+        <div class="usa-alert-body"> 
+        <h3 class="usa-alert-heading">Passwords must</h3>
+        <p class="usa-alert-text">
+            <ul class="usa-unstyled-list">
+                <li><span class="checkmark" ng-class="vm.passwordLength ? 'checked' : ''"></span>Contain at least 8 characters.</li>
+                <li><span class="checkmark" ng-class="vm.passwordUpper ? 'checked' : ''"></span>Contain at least 1 uppercase leter.</li>
+                <li><span class="checkmark" ng-class="vm.passwordLower ? 'checked' : ''"></span>Contain at least 1 lowercase leter.</li>
+                <li><span class="checkmark" ng-class="vm.passwordSpecial ? 'checked' : ''"></span>Contain at least 1 special character.</li>
+                <li><span class="checkmark" ng-class="vm.passwordNumber ? 'checked' : ''"></span>Contain at least 1 number.</li>
+            </ul>
+            </p>
+        </div>
+    </div>
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch ? 'usa-input-error' : ''">
+        <label for="registerPassword">Password</label>
+        <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.passwordRequired || vm.passwordsDontMatch">
+            <div ng-show="vm.passwordRequired">
+                <p>Password is required.</p>
+            </div>    
+            <div ng-show="vm.passwordsDontMatch">
+                <p>Passwords do not match.</p>
+            </div>      
+        </span>
+        <input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Password" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+        <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
+        <div ng-switch="passwordStrength.score">Password Strength: 
+                <span ng-switch-when="0"></span>
+                <span ng-switch-when="1">Weak</span>
+                <span ng-switch-when="2">Fair</span>
+                <span ng-switch-when="3">Good</span>
+                <span ng-switch-when="4">Strong</span>
+            <div class="showpass">
+                <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+            </div>
+        </div>
+    </div>
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch ? 'usa-input-error' : ''">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+    </div>
+    <div ng-class="vm.reCaptchaError ? 'usa-input-error' : ''">
+        <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.reCaptchaError">
+            Error validating reCaptcha.
+        </span>
+        <div
+            vc-recaptcha
+            theme="'light'"
+            key="model.key"
+            on-create="createRegWidget(widgetId)"
+            on-success="setRegResponse(response)"
+            on-expire="resetRegCaptcha(regWidgetId)"
+            class="regcapt"
+            title="reCaptcha"
+        ></div>
+    </div>
     <div class="regbtn"><button type="submit">Register</button></div>
 </form>
 <div ng-show="vm.isEmailVerificationRequest">
@@ -40,9 +119,11 @@
         vc-recaptcha
         theme="'light'"
         key="model.key"
-        on-create="setWidgetId(widgetId)"
-        on-success="setResponse(response)"
-        on-expire="cbExpiration()"
+        on-create="createVerifyWidget(widgetId)"
+        on-success="setVerifyResponse(response)"
+        on-expire="resetVerifyCaptcha()"
     ></div>
     <div><button type="submit" ng-click="onVerifyClick()">Verify Email Address</button></div>
 </div>
+
+{{accountCreated}}
