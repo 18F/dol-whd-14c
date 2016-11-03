@@ -7,6 +7,13 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
+        
+        vm.resetErrors = function() {
+            vm.changePasswordError = false;
+            vm.changePasswordSuccess = false;
+        }
+        
+        vm.resetErrors();
 
         $scope.formVals = {
             'currentPass': '',
@@ -15,18 +22,18 @@ module.exports = function(ngModule) {
         };
 
         $scope.onSubmitClick = function() {
-            apiService.changePassword(stateService.user.loginEmail, $scope.formVals.currentPass, $scope.formVals.newPass, $scope.formVals.confirmPass ).then(function (result) {
+            vm.resetErrors();
+            apiService.changePassword(stateService.access_token, $scope.formVals.email, $scope.formVals.currentPass, $scope.formVals.newPass, $scope.formVals.confirmPass).then(function (result) {
                 var data = result.data;
-
-                //TODO: provide user with confirmation
-
-                $location.path("/");
+                stateService.user.loginEmail = '';
+                $scope.formVals.currentPass = '';
+                $scope.formVals.newPass = '';
+                $scope.formVals.confirmPass = '';
+                vm.changePasswordSuccess = true;
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-                //TODO: inform user of error
-
-                $location.path("/");
+                $scope.changePasswordErrors = apiService.parseErrors(error.data);
+                vm.changePasswordError = true;
             });
       }
   });

@@ -9,10 +9,10 @@
       <button class="save-button"
               onclick="window.location='#/section/assurances';">Continue Application</button>
     </div>
-    <div>
-      <a href="#/changePassword">Change Password</a>
-    </div>
   </div>
+</div>
+<div ng-if="stateService.user.email">
+  <a href="#/changePassword">Change Password</a>
 </div>
 <div class="usa-grid"
      ng-if="!stateService.user.email">

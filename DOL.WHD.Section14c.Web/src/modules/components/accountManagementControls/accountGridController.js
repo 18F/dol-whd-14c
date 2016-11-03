@@ -7,14 +7,14 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
+        vm.loadingError = false;
 
         apiService.getAccounts(stateService.access_token).then(function (result) {
             var data = result.data;
             $scope.accounts = data;
         }, function (error) {
             console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-            //TODO: inform user of error
+            vm.loadingError = true;
         });
 
         vm.editAccountClick = function(userId) {

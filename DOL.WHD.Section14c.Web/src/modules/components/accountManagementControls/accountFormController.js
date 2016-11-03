@@ -7,53 +7,59 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
+
+        vm.resetErrors = function() {
+            vm.savingError = false;
+            vm.loadingError = false;
+        }
         
+        vm.resetErrors();
+
         if($routeParams.userId !== "create"){
             $scope.userId = $routeParams.userId;
             vm.isEditAccount = true;
+            apiService.getAccount(stateService.access_token, $scope.userId).then(function (result) {
+                var data = result.data;
+                $scope.formVals = data;
+            }, function (error) {
+                console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
+                vm.loadingError = true;
+            });
         }
         else {
             $scope.formVals = {
                 roles: []
             }
         }
-        
-        apiService.getAccount(stateService.access_token, $scope.userId).then(function (result) {
-            var data = result.data;
-            $scope.formVals = data;
-        }, function (error) {
-            console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-            //TODO: inform user of error
-        });
 
         apiService.getRoles(stateService.access_token).then(function (result) {
             var data = result.data;
             $scope.roles = data;
         }, function (error) {
             console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-            //TODO: inform user of error
+            vm.loadingError = true;
         });
 
         vm.submitForm = function() {
+            vm.resetErrors();
             if(vm.isEditAccount){
                 apiService.modifyAccount(stateService.access_token, $scope.formVals).then(function (result) {
                      $location.path("/");
                 }, function (error) {
                     console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-                    //TODO: inform user of error
+                    $scope.savingErrors = apiService.parseErrors(error.data);
+                    vm.savingError = true;
                 });
             } else {
                 apiService.createAccount(stateService.access_token, $scope.formVals).then(function (result) {
                      $location.path("/");
                 }, function (error) {
                     console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-                    //TODO: inform user of error
+                    $scope.savingErrors = apiService.parseErrors(error.data);
+                    vm.savingError = true;
                 });
             }
         }
-
 
         vm.toggleRole = function(role) {
             var idx = vm.roleExists(role.id);
@@ -74,6 +80,10 @@ module.exports = function(ngModule) {
                 }
             }
             return foundId;
+        }
+
+        vm.cancelClick = function() {
+            $location.path("/");
         }
   });
 }
