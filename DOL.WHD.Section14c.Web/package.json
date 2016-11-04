@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start",
+    "test": "karma start --single-run",
     "testd": "DEBUG=true karma start",
     "start": "webpack-dev-server",
     "clean": "rimraf ./dist/*",
