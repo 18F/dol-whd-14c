@@ -83,10 +83,9 @@
                 </div>
             </fieldset>
             <div class="form-spaced-div">
-                <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">Add Worker</button></span>
+                <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button></span>
             </div>
         </div>
-        <div ng-class="validate('WIOA.WIOAWorkers', true) ? 'usa-input-error' : ''">
         <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
             <thead>
                 <tr>
@@ -98,17 +97,20 @@
             <tbody>
                 <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
                     <th scope="row">
-                        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
-                        {{ worker.fullName }}
+                        <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].fullName') ? 'usa-input-error' : ''">
+                            <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
+                            {{ worker.fullName }}
+                        </div>
                     </th>
                     <td>
-                        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
-                        {{ worker.WIOAWorkerVerified.display }}
+                        <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') ? 'usa-input-error' : ''">
+                            <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
+                            {{ worker.WIOAWorkerVerified.display }}
+                        </div>
                     </td>
-                    <td><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
+                    <td class="button-column"><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
                 </tr>
             </tbody>
         </table>
-        </div>
     </div>
 </div>

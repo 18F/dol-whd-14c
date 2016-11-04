@@ -30,7 +30,6 @@ module.exports = function(ngModule) {
         responsesService.getQuestionResponses(questionKeys).then((responses) => { $scope.responses = responses; });
 
         this.clearActiveWorker = function() {
-            console.log(find($scope.responses.PrimaryDisability, { 'id': vm.activeWorker.primaryDisability }));
             vm.activeWorker = {};
             vm.activeWorkerIndex = -1;
         }
@@ -157,6 +156,33 @@ module.exports = function(ngModule) {
 
             return undefined;
         }
+
+
+        // convenience methods to avoid lenghty template statements
+        this.validateActiveWorksiteProperty = function(prop) {
+            if (!prop || this.activeWorksiteIndex < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].' + prop);
+        }
+
+        this.validateActiveWorkerProperty = function(prop) {
+            if (!prop || this.activeWorksiteIndex < 0 || this.activeWorkerIndex < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + this.activeWorkerIndex + '].' + prop);
+        }
+
+        this.validateActiveWorksiteWorker = function(index) {
+            if (this.activeWorksiteIndex < 0 || index < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + index + ']');
+        }
+
 
         $scope.$on('$routeUpdate', function(){
             query = $location.search();

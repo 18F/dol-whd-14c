@@ -27,13 +27,14 @@
     <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 1">
         <div>First, we'll collect information about the Work Site / Establishment.</div>
 
-        <div class="form-question-block">
+        <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
             <div class="form-question-text">What type of establishment is this?</div>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
                     <ul class="usa-unstyled-list">
                         <li ng-repeat="response in responses.WorkSiteType">
-                            <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" ng-value="{{ response.id }}" ng-model="vm.acitveWorksite.type">
+                            <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.type">
                             <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
                             <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
                         </li>
@@ -42,8 +43,9 @@
             </div>
         </div>
 
-        <div class="form-question-block">
+        <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('name') ? 'usa-input-error' : ''">
             <div class="form-question-text">Name of Establishment / Work Site</div>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('name')">{{ vm.validateActiveWorksiteProperty('name') }}</span>
             <div class="form-question-answer">
                 <input id="worksiteName" name="worksiteName" type="text" ng-model="vm.activeWorksite.name">
             </div>
@@ -54,101 +56,109 @@
             <div class="fomr-question-answer">
                 <form class="usa-form-large">
                     <fieldset>
-                      <label for="worksiteAddress1">Street address</label>
-                      <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
-
-                      <!--<label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
-                      <input id="worksiteAddress2" name="worksiteAddress2" type="text" ng-model="vm.activeWorksite.address.streetAddress2">-->
-
-                      <div>
-                        <div class="usa-input-grid usa-input-grid-medium">
-                          <label for="city">City</label>
-                          <input id="workAddressCity" name="workAddressCity" type="text" ng-model="vm.activeWorksite.address.city">
+                        <div ng-class="vm.validateActiveWorksiteProperty('address.streetAddress') ? 'usa-input-error' : ''">
+                            <label for="worksiteAddress1">Street address</label>
+                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
+                            <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
                         </div>
 
-                        <div class="usa-input-grid usa-input-grid-small">
-                          <label for="workAddressState">State</label>
-                          <select id="workAddressState" workAddressState="state" ng-model="vm.activeWorksite.address.state">
-                            <option value></option>
-                            <option value="AL">Alabama</option>
-                            <option value="AK">Alaska</option>
-                            <option value="AZ">Arizona</option>
-                            <option value="AR">Arkansas</option>
-                            <option value="CA">California</option>
-                            <option value="CO">Colorado</option>
-                            <option value="CT">Connecticut</option>
-                            <option value="DE">Delaware</option>
-                            <option value="DC">District of Columbia</option>
-                            <option value="FL">Florida</option>
-                            <option value="GA">Georgia</option>
-                            <option value="HI">Hawaii</option>
-                            <option value="ID">Idaho</option>
-                            <option value="IL">Illinois</option>
-                            <option value="IN">Indiana</option>
-                            <option value="IA">Iowa</option>
-                            <option value="KS">Kansas</option>
-                            <option value="KY">Kentucky</option>
-                            <option value="LA">Louisiana</option>
-                            <option value="ME">Maine</option>
-                            <option value="MD">Maryland</option>
-                            <option value="MA">Massachusetts</option>
-                            <option value="MI">Michigan</option>
-                            <option value="MN">Minnesota</option>
-                            <option value="MS">Mississippi</option>
-                            <option value="MO">Missouri</option>
-                            <option value="MT">Montana</option>
-                            <option value="NE">Nebraska</option>
-                            <option value="NV">Nevada</option>
-                            <option value="NH">New Hampshire</option>
-                            <option value="NJ">New Jersey</option>
-                            <option value="NM">New Mexico</option>
-                            <option value="NY">New York</option>
-                            <option value="NC">North Carolina</option>
-                            <option value="ND">North Dakota</option>
-                            <option value="OH">Ohio</option>
-                            <option value="OK">Oklahoma</option>
-                            <option value="OR">Oregon</option>
-                            <option value="PA">Pennsylvania</option>
-                            <option value="RI">Rhode Island</option>
-                            <option value="SC">South Carolina</option>
-                            <option value="SD">South Dakota</option>
-                            <option value="TN">Tennessee</option>
-                            <option value="TX">Texas</option>
-                            <option value="UT">Utah</option>
-                            <option value="VT">Vermont</option>
-                            <option value="VA">Virginia</option>
-                            <option value="WA">Washington</option>
-                            <option value="WV">West Virginia</option>
-                            <option value="WI">Wisconsin</option>
-                            <option value="WY">Wyoming</option>
-                            <option value="AS">American Samoa</option>
-                            <option value="GU">Guam</option>
-                            <option value="MP">Northern Mariana Islands</option>
-                            <option value="PR">Puerto Rico</option>
-                            <option value="UM">United States Minor Outlying Islands</option>
-                            <option value="VI">Virgin Islands</option>
-                          </select>
-                        </div>
-                      </div>
+                        <!--<label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
+                        <input id="worksiteAddress2" name="worksiteAddress2" type="text" ng-model="vm.activeWorksite.address.streetAddress2">-->
 
+                    <div ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
+                    <div class="usa-input-grid usa-input-grid-medium">
+                      <label for="city">City</label>
+                      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')">{{ vm.validateActiveWorksiteProperty('address.city') }}</span>
+                      <input id="workAddressCity" name="workAddressCity" type="text" ng-model="vm.activeWorksite.address.city">
+                    </div>
+
+                    <div class="usa-input-grid usa-input-grid-small">
+                      <label for="workAddressState">State</label>
+                      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.state')">{{ vm.validateActiveWorksiteProperty('address.state') }}</span>
+                      <select id="workAddressState" workAddressState="state" ng-model="vm.activeWorksite.address.state">
+                        <option value></option>
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                        <option value="AS">American Samoa</option>
+                        <option value="GU">Guam</option>
+                        <option value="MP">Northern Mariana Islands</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="UM">United States Minor Outlying Islands</option>
+                        <option value="VI">Virgin Islands</option>
+                      </select>
+                    </div>
+                    </div>
+
+                    <div ng-class="vm.validateActiveWorksiteProperty('address.zipCode') ? 'usa-input-error' : ''"
                       <label for="workAddressZip">Zip Code</label>
+                      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.zipCode')">{{ vm.validateActiveWorksiteProperty('address.zipCode') }}</span>
                       <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="vm.activeWorksite.address.zipCode">
                     </fieldset>
                 </form>
             </div>
         </div>
 
-        <div class="form-question-block">
+        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
             <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</div>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
                     <ul class="usa-unstyled-list">
                         <li>
-                            <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.acitveWorksite.sca">
+                            <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.activeWorksite.sca">
                             <label for="worksiteScaYes">Yes</label>
                         </li>
                         <li>
-                            <input id="worksiteScaNo" type="radio" name="worksiteSca" ng-value="false" ng-model="vm.acitveWorksite.sca">
+                            <input id="worksiteScaNo" type="radio" name="worksiteSca" ng-value="false" ng-model="vm.activeWorksite.sca">
                             <label for="worksiteScaNo">No</label>
                         </li>
                     </ul>
@@ -156,17 +166,18 @@
             </div>
         </div>
 
-        <div class="form-question-block">
+        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
             <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?</div>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
                     <ul class="usa-unstyled-list">
                         <li>
-                            <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.acitveWorksite.federalContractWorkPerformed">
+                            <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
                             <label for="worksiteFederalYes">Yes</label>
                         </li>
                         <li>
-                            <input id="worksiteFederalNo" type="radio" name="worksiteFederal" ng-value="false" ng-model="vm.acitveWorksite.federalContractWorkPerformed">
+                            <input id="worksiteFederalNo" type="radio" name="worksiteFederal" ng-value="false" ng-model="vm.activeWorksite.federalContractWorkPerformed">
                             <label for="worksiteFederalNo">No</label>
                         </li>
                     </ul>
@@ -174,8 +185,9 @@
             </div>
         </div>
 
-        <div class="form-question-block">
+        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''">
             <div class="form-question-text">Total Number of employees employed at this establishment / work site at any time during the most recently completed fiscal quarter:</div>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
             <div class="form-question-answer">
                 <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
             </div>
@@ -205,15 +217,17 @@
 
         <div class="form-question-group">
             <div class="em-block" ng-show="vm.addingEmployee">
-                <div class="form-question-block">
+                <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
                     <div class="form-question-text">Full Name of Worker</div>
+                    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
                     <div class="form-question-answer">
                         <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
                     </div>
                 </div>
 
-                <div class="form-question-block">
+                <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('primaryDisability') ? 'usa-input-error' : ''">
                     <div class="form-question-text">Primary Disability</div>
+                    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisability')">{{ vm.validateActiveWorkerProperty('primaryDisability') }}</span>
                     <div class="form-question-answer">
                         <fieldset class="usa-fieldset-inputs usa-sans">
                             <ul class="usa-unstyled-list">
@@ -227,8 +241,9 @@
                     </div>
                 </div>
 
-                <div class="form-question-block">
+                <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('workType') ? 'usa-input-error' : ''">
                     <div class="form-question-text">Type of Work</div>
+                    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
                     <div class="form-question-answer">
                         <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
                     </div>
@@ -252,24 +267,62 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input id="workerNumJobs" name="workerNumJobs" type="number" class="numeric2" min="0" step="1" ng-model="vm.activeWorker.numJobs"></td>
-                                    <td><input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgWeeklyHours"></td>
-                                    <td><input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgHourlyEarnings"></td>
-                                    <td><input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.prevailingWage"></td>
-                                    <td><input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure"></td>
-                                    <td><input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.commensurateWageRate"></td>
-                                    <td><input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.totalHours"></td>
                                     <td>
-                                        <ul class="usa-unstyled-list">
-                                            <li>
-                                                <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" ng-value="true" ng-model="vm.activeWorker.workAtOtherSite">
-                                                <label for="workerOtherSiteYes">Yes</label>
-                                            </li>
-                                            <li>
-                                                <input id="workerOtherSiteNo" type="radio" name="workerOtherSite" ng-value="false" ng-model="vm.activeWorker.workAtOtherSite">
-                                                <label for="workerOtherSiteNo">No</label>
-                                            </li>
-                                        </ul>
+                                        <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
+                                            <input id="workerNumJobs" name="workerNumJobs" type="number" class="numeric2" min="0" step="1" ng-model="vm.activeWorker.numJobs">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
+                                            <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgWeeklyHours">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
+                                            <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgHourlyEarnings">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
+                                            <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.prevailingWage">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
+                                            <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
+                                            <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.commensurateWageRate">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
+                                            <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.totalHours">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
+                                            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workAtOtherSite')">{{ vm.validateActiveWorkerProperty('workAtOtherSite') }}</span>
+                                            <ul class="usa-unstyled-list">
+                                                <li>
+                                                    <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" ng-value="true" ng-model="vm.activeWorker.workAtOtherSite">
+                                                    <label for="workerOtherSiteYes">Yes</label>
+                                                </li>
+                                                <li>
+                                                    <input id="workerOtherSiteNo" type="radio" name="workerOtherSite" ng-value="false" ng-model="vm.activeWorker.workAtOtherSite">
+                                                    <label for="workerOtherSiteNo">No</label>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -281,15 +334,17 @@
                     <button class="compact-spaced pull-right" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
                     <div class="clearer"></div>
                     <hr>
-                    <button class="green-button pull-right" ng-click="vm.doneAddingEmployees()">Done Adding Employee(s)</button>
+                    <button class="green-button pull-right" ng-click="vm.doneAddingEmployees()">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
                 </div>
             </div>
 
-            <div>
+            <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
+                <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
                 <div ng-hide="vm.addingEmployee"><button ng-click="vm.addingEmployee = true">Add Employee</button> <a href="" ng-click="">Show Me an Example</a></div>
-                <table class="usa-table-borderless" ng-show="vm.activeWorksite.employees.length">
+                <table class="usa-table-borderless expandable-table" ng-show="vm.activeWorksite.employees.length">
                     <thead>
                         <tr>
+                            <td></td>
                             <th scope="col">Name</th>
                             <th scope="col">Disability</th>
                             <th scope="col">Work Performed</th>
@@ -298,12 +353,19 @@
                     </thead>
                     <tbody>
                         <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="employee in vm.activeWorksite.employees">
-                            <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ employee.name }}</th>
+                            <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
+                            <th scope="row">
+                                <div ng-class="vm.validateActiveWorksiteWorker($index) ? 'usa-input-error' : ''">
+                                    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteWorker($index)">Please review this worker</span>
+                                    {{ employee.name }}
+                                </div>
+                            </th>
                             <td>{{ vm.getDisabilityDisplay(employee) }}</td>
                             <td>{{ employee.workType }}</td>
                             <td class="button-column"><button class="green-button" ng-click="vm.editEmployee($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteEmployee($index)">Delete</button></td>
                         </tr>
                         <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                            <td></td>
                             <td colspan="4">
                                 <div class="subtable">
                                     <div>Number of Jobs<div>{{ employee.numJobs}}</div></div>
@@ -323,10 +385,12 @@
         </div>
     </div>
 
-    <!--<div ng-class="validate('workSites', true) ? 'usa-input-error' : ''">-->
-        <table class="usa-table-borderless" ng-show="!vm.addingWorkSite && formData.workSites.length">
+    <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''">
+        <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>
+        <table class="usa-table-borderless expandable-table" ng-show="!vm.addingWorkSite && formData.workSites.length">
             <thead>
                 <tr>
+                    <td></td>
                     <th scope="col">Work Site Name</th>
                     <th scope="col">Number of Workers</th>
                     <th scope="col"></th>
@@ -334,11 +398,18 @@
             </thead>
             <tbody>
                 <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
-                    <th scope="row"><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a> {{ site.name }}</th>
+                    <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
+                    <th scope="row">
+                        <div ng-class="validate('workSites[' + $index + ']') ? 'usa-input-error' : ''">
+                            <span class="usa-input-error-message" role="alert" ng-show="validate('workSites[' + $index + ']')">Please review this work site</span>
+                            {{ site.name }}
+                        </div>
+                    </th>
                     <td>{{ site.numEmployees }}</td>
                     <td><button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button></td>
                 </tr>
                 <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                    <td></td>
                     <td colspan="3">
                         <div ng-repeat="employee in site.employees">
                             {{ employee.name }}
@@ -347,6 +418,6 @@
                 </tr>
             </tbody>
         </table>
-    <!--</div>-->
+    </div>
 
 </div>

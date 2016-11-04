@@ -18,7 +18,7 @@
         <h3>Employer</h3>
         <reviewbar errorstate="{{ validation.__employer }}"></reviewbar>
         <div ng-hide="validation.__employer">
-            <a href="" ng-click="navService.gotoSection('employer')">Review Application Info</a>
+            <a href="" ng-click="navService.gotoSection('employer')">Review Employer</a>
         </div>
         <button ng-click="navService.gotoSection('employer')" ng-show="validation.__employer">Edit Responses</button>
     </div>
@@ -29,7 +29,7 @@
         <h3>Wage Data</h3>
         <reviewbar errorstate="{{ validation.__wagedata }}"></reviewbar>
         <div ng-hide="validation.__wagedata">
-            <a href="" ng-click="navService.gotoSection('wage-data')">Review Application Info</a>
+            <a href="" ng-click="navService.gotoSection('wage-data')">Review Wage Data</a>
         </div>
         <button ng-click="navService.gotoSection('wage-data')" ng-show="validation.__wagedata">Edit Responses</button>
     </div>
@@ -40,7 +40,7 @@
         <h3>Work Sites &amp; Employees</h3>
         <reviewbar errorstate="{{ validation.__worksites }}"></reviewbar>
         <div ng-hide="validation.__worksites">
-            <a href="" ng-click="navService.gotoSection('work-sites')">Review Application Info</a>
+            <a href="" ng-click="navService.gotoSection('work-sites')">Review Work Sites &amp; Employees</a>
         </div>
         <button ng-click="navService.gotoSection('work-sites')" ng-show="validation.__worksites">Edit Responses</button>
     </div>
@@ -51,7 +51,7 @@
         <h3>WIOA</h3>
         <reviewbar errorstate="{{ validation.__wioa }}"></reviewbar>
         <div ng-hide="validation.__wioa">
-            <a href="" ng-click="navService.gotoSection('wioa')">Review Application Info</a>
+            <a href="" ng-click="navService.gotoSection('wioa')">Review WIOA</a>
         </div>
         <button ng-click="navService.gotoSection('wioa')" ng-show="validation.__wioa">Edit Responses</button>
     </div>

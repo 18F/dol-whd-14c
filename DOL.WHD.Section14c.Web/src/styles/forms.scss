@@ -273,7 +273,7 @@
                 background-color: transparent;
             }
 
-            thead th {
+            thead th, thead td {
                 background-color: $button-grey;
             }
 
@@ -331,6 +331,18 @@
                         font-weight: 400;
                     }
                 }
+            }
+
+            &.expandable-table {
+                tr {
+                    td:first-of-type {
+                        width: 1px;
+                    }
+                }
+            }
+
+            div.usa-input-error {
+                margin-left: 8px;
             }
         }
 
