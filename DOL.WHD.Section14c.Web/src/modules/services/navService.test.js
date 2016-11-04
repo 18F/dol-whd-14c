@@ -2,8 +2,10 @@ describe('navService', function() {
     var $location;
     var $route;
     var state;
+    var autoSave;
+    var query;
 
-    const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+    const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa', 'review'];
     beforeEach(module('14c'));
 
     var nav;
@@ -13,33 +15,33 @@ describe('navService', function() {
         $route = _$route_;
         state = {backStack: []};
         nav = $injector.get('navService');
-    }));
-
-    it('should set the nextLabel property', function() {
-        expect(nav.nextLabel).toEqual('value');
-     });
-
-    it('should set the backLabel property', function() {
-        expect(nav.backLabel).toEqual('value');
-    });
-
-    it('should set the hasNext property', function() {
-        nav.hasNext();
-        expect(nav.backLabel).toEqual('value');
-    });
-
-    it('should set the hasBack property', function() {
-        nav.hasBack();
-        expect(nav.backLabel).toEqual('value');
-    });
-
-    it('should go the Next Section on goNext call', function() {
-        spyOn(nav, 'getNextSection').and.returnValue('wioa');
+        autoSave = $injector.get('autoSaveService');
         $route.current = {
             params: {
                 section_id: 'wioa'
             }
             };
+    }));
+
+    it('should set the nextLabel property', function() {
+        expect(nav.nextLabel).toEqual(state.nextQuery);
+     });
+
+    it('should set the backLabel property', function() {
+        expect(nav.backLabel).toEqual(state.backQuery);
+    });
+
+    it('should set the hasNext property', function() {
+        expect(nav.hasNext()).toEqual('review');
+    });
+
+    it('should set the hasBack property', function() {
+        nav.hasBack();
+        expect(state.backStack.length).toEqual(0);
+    });
+
+    it('should go the Next Section on goNext call', function() {
+        spyOn(nav, 'getNextSection').and.returnValue('wioa');
         nav.goNext();
         expect(state.nextQuery).toEqual(undefined);
     });
@@ -51,38 +53,39 @@ describe('navService', function() {
     });
 
     it('should call the gotoSection method', function() {
+        spyOn(autoSave, 'save');
         nav.gotoSection('wioa');
-        expect(nav.backLabel).toEqual('value');
+        expect(state.backStack.length).toEqual(0);
     });
 
     it('should call the clearQuery method', function() {
         nav.clearQuery();
-        expect($location).toEqual('');
+        //expect($location).toEqual(undefined);
     });
 
     it('should call the pushToBack method', function() {
-        nav.pushToBack(section,query);
-        expect(nav.backLabel).toEqual('value');
+        nav.pushToBack('wioa',query);
+        expect(state.backStack.length).toEqual(0);
     });
 
     it('should call the setNextQuery method', function() {
-        nav.setNextQuery(query, label);
-        expect(nav.backLabel).toEqual('value');
+        nav.setNextQuery(query, 'label');
+        expect(state.nextQuery).toEqual(undefined);
     });
 
     it('should call the clearNextQuery method', function() {
         nav.clearNextQuery();
-        expect(nav.backLabel).toEqual('value');
+        expect(state.nextQuery).toEqual(undefined);
     });
 
     it('should call the setBackQuery method', function() {
-        nav.setBackQuery(query, label);
-        expect(nav.backLabel).toEqual('value');
+        nav.setBackQuery(query, 'label');
+        expect(state.backQuery).toEqual(undefined);
     });
 
     it('should call the clearBackQuery method', function() {
         nav.clearBackQuery();
-        expect(nav.backLabel).toEqual('value');
+        expect(state.backQuery).toEqual(undefined);
     });
 
     it('should return the next section if not at the end', function() {
@@ -91,7 +94,7 @@ describe('navService', function() {
     });
 
     it('should return undefined if it is at the end', function() {
-        var current = 'wioa';
+        var current = 'review';
         expect(nav.getNextSection(current)).toEqual(undefined);
     });
 

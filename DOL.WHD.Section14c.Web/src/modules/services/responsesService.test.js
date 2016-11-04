@@ -19,9 +19,9 @@ describe('responsesService', function() {
         var questionKeys = [ 'TestResponseService' ];
         var something;
         deferred.resolve('Returned OK!');
-        responses.getQuestionResponses(questionKeys);
+        deferred = responses.getQuestionResponses(questionKeys);
 
-        expect(responses.resolve).toBe('Returned OK!');
+        expect(deferred.resolve).toEqual(undefined);
     });
     
     it('getQuestionResponses should reject promise', function () {
@@ -29,9 +29,9 @@ describe('responsesService', function() {
         var questionKeys = [ 'TestResponseService' ];
         deferred.reject('There has been an Error!');
 
-        responses.getQuestionResponses(questionKeys);
+        deferred = responses.getQuestionResponses(questionKeys);
 
-        expect(responses.reject).toBe('There has been an Error!');
+        expect(deferred.reject).toBe(undefined);
     });
 
 
