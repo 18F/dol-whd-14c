@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DOL.WHD.Section14c.Test</RootNamespace>
     <AssemblyName>DOL.WHD.Section14c.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -134,20 +134,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj">
-      <Project>{7f947d49-de51-4b9e-95e0-afa3d5577c59}</Project>
-      <Name>DOL.WHD.Section14c.Api</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
       <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
-      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
-      <Name>DOL.WHD.Section14c.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
-      <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
+      <Project>{f7033f89-ed1b-4784-aeab-d8808fbbec92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
