@@ -1,0 +1,24 @@
+describe('formFooterControlsController', function() {
+
+    beforeEach(module('14c'));
+
+    beforeEach(inject(function ($rootScope, $controller, navService) {
+        scope = $rootScope.$new();
+        mockNavService = navService;
+
+        spyOn(mockNavService,'hasNext');
+        spyOn(mockNavService,'hasBack');
+        spyOn(mockNavService,'getNextSection');
+
+        formFooterControlsController = function() {
+            return $controller('formFooterControlsController', {
+                '$scope': scope, 
+                'navService': mockNavService
+            });
+        };
+    }));
+
+    it('invoke controller', function() {
+        var controller = formFooterControlsController();
+    });
+});
