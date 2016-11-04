@@ -12,7 +12,7 @@
   <parameter name="MaxFailedAccessAttemptsBeforeLockout" defaultValue="3">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='MaxFailedAccessAttemptsBeforeLockout']/@value" />
   </parameter>
-  <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
+  <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="20160">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
   <parameter name="EmailVeriryAndPaswordRestTokenExpireHours" defaultValue="6">
