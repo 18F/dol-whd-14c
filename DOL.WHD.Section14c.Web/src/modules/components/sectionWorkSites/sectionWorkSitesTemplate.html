@@ -65,7 +65,7 @@
                         <!--<label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
                         <input id="worksiteAddress2" name="worksiteAddress2" type="text" ng-model="vm.activeWorksite.address.streetAddress2">-->
 
-                    <div ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
+                    <div class="clearer" ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
                     <div class="usa-input-grid usa-input-grid-medium">
                       <label for="city">City</label>
                       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')">{{ vm.validateActiveWorksiteProperty('address.city') }}</span>
@@ -385,9 +385,9 @@
         </div>
     </div>
 
-    <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''">
+    <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
         <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>
-        <table class="usa-table-borderless expandable-table" ng-show="!vm.addingWorkSite && formData.workSites.length">
+        <table class="usa-table-borderless expandable-table">
             <thead>
                 <tr>
                     <td></td>

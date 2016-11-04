@@ -421,12 +421,12 @@ module.exports = function(ngModule) {
 
                     let totalEmployees = employees ? employees.length : 0;
                     if (numEmployees !== totalEmployees) {
-                        this.setValidationError(prefix + ".employee_count", "The number of employees reported (" + numEmployees + ") does not match the number of employees entered (" + totalEmployees + ") for this worksite");
+                        this.setValidationError(prefix + ".employee_count", "The number of employees reported (" + (numEmployees === undefined ? '0' : numEmployees) + ") does not match the number of employees entered (" + totalEmployees + ") for this worksite");
                     }
                 }
 
                 if (totalNumWorkSites !== worksites.length) {
-                    this.setValidationError("workSites_count", "The number of work sites reported (" + totalNumWorkSites + ") does not match the number entered (" + worksites.length + ")");
+                    this.setValidationError("workSites_count", "The number of work sites reported (" + (totalNumWorkSites === undefined ? '0' : totalNumWorkSites) + ") does not match the number entered (" + worksites.length + ")");
                 }
             }
 
