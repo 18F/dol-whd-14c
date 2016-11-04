@@ -50,8 +50,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -108,7 +108,14 @@
     <Compile Include="Business\Validators\WIOAWorkerValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkerCountInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkSiteValidatorTests.cs" />
+    <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
+    <Compile Include="Domain\Models\Identity\RoleFeatureTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
+    <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\ResetPasswordViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\RoleViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
@@ -126,9 +133,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj">
+      <Project>{7f947d49-de51-4b9e-95e0-afa3d5577c59}</Project>
+      <Name>DOL.WHD.Section14c.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
       <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
       <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
