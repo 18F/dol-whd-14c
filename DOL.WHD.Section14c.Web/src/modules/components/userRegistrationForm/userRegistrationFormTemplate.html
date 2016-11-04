@@ -9,8 +9,6 @@
     </ul>
     <p>Read our <a>FAQs for Electronic Section 14(c) Certificate Application</a></p>
     <hr/>
-    </div>
-    <div>
     <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.accountCreated">
         <div class="usa-alert-body">
             <h3 class="usa-alert-heading">Account Created</h3>
@@ -112,18 +110,20 @@
         ></div>
     </div>
     <div class="regbtn"><button type="submit">Register</button></div>
+    </div>
 </form>
-<div ng-show="vm.isEmailVerificationRequest">
-    <h2>Verify Email</h2>
-    <div
-        vc-recaptcha
-        theme="'light'"
-        key="model.key"
-        on-create="createVerifyWidget(widgetId)"
-        on-success="setVerifyResponse(response)"
-        on-expire="resetVerifyCaptcha()"
-    ></div>
-    <div><button type="submit" ng-click="onVerifyClick()">Verify Email Address</button></div>
-</div>
+<form ng-show="vm.isEmailVerificationRequest">
+    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.emailVerificationError">
+        <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">Error</h3>
+            <p class="usa-alert-text">An error occurred while verifying email address. Please try again later if the error persists.</p>
+        </div>
+    </div>
 
-{{accountCreated}}
+    <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.emailVerified">
+        <div class="usa-alert-body">
+            <h3 class="usa-alert-heading">Email Verified</h3>
+            <p class="usa-alert-text">Your email has been verified, you can now Login</a>.</p>
+        </div>
+    </div>
+</form>

@@ -34,6 +34,8 @@ module.exports = function(ngModule) {
             vm.passwordsDontMatch = false;
             vm.passwordComplexity = false;
             vm.accountCreated = false;
+            vm.emailVerified = false;
+            vm.emailVerificationError = false;
         }
         vm.resetErrors();
 
@@ -64,6 +66,18 @@ module.exports = function(ngModule) {
         vm.emailVerificationCode = $location.search().code;
         vm.emailVerificationUserId = $location.search().userId;
         vm.isEmailVerificationRequest = vm.emailVerificationCode !== undefined && vm.emailVerificationCode !== undefined
+
+        if(vm.isEmailVerificationRequest){
+            $location.search('code', null);
+            $location.search('userId', null);
+            vm.resetErrors();
+            apiService.emailVerification(vm.emailVerificationUserId, vm.emailVerificationCode, $scope.verifyResponse).then(function (result) {
+                vm.emailVerified = true;
+            }, function (error) {
+                vm.emailVerificationError = true;
+                console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
+            });
+        }
 
         $scope.onSubmitClick = function() {
             vm.resetErrors();
@@ -113,8 +127,6 @@ module.exports = function(ngModule) {
         
         $scope.regResponse = null;
         $scope.regWidgetId = null;
-        $scope.verifyResponse = null;
-        $scope.verifyWidgetId = null;
         $scope.model = {
             key: _env.reCaptchaSiteKey
         };
@@ -131,20 +143,6 @@ module.exports = function(ngModule) {
             vcRecaptchaService.reload($scope.regWidgetId);
             $scope.regResponse = null;
         };
-        $scope.setVerifyResponse = function (response) {
-            console.info('Response available');
-            $scope.verifyResponse = response;
-        };
-        $scope.createVerifyWidget = function (widgetId) {
-            console.info('Created widget ID: %s', widgetId);
-            $scope.verifyWidgetId = widgetId;
-        };
-        $scope.resetVerifyCaptcha = function() {
-            console.info('Captcha expired/reset. Resetting response object');
-            vcRecaptchaService.reload($scope.verifyWidgetId);
-            $scope.verifyResponse = null;
-        };        
-
 
         $scope.hideShowPassword = function(){
             if ($scope.inputType === 'password')
@@ -152,20 +150,5 @@ module.exports = function(ngModule) {
             else
                 $scope.inputType = 'password';
         };
-
-        $scope.onVerifyClick = function() {
-            $location.search('code', null);
-            $location.search('userId', null);
-            vm.resetErrors();
-            apiService.emailVerification(vm.emailVerificationUserId, vm.emailVerificationCode, $scope.verifyResponse).then(function (result) {
-                //TODO: show success
-                $location.path("/");
-            }, function (error) {
-                console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-                //vcRecaptchaService.reload($scope.widgetId);
-                $location.path("/");
-            });
-        }
-
   });
 }
