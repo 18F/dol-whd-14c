@@ -26,11 +26,6 @@ describe('stateService', function() {
         stateService.ein = 'value';
         expect(stateService.ein).toEqual('value');
     });
-
-    it('should set the access_token property', function() {
-        stateService.access_token = 'value';
-        expect(stateService.access_token).toEqual('value');
-    });
     
     it('should set the formData property', function() {
         stateService.formData = 'value';
