@@ -18,6 +18,9 @@ describe('autoSaveService', function() {
         $q = _$q_;
         deferred = $q.defer();
         $scope = _$rootScope_.$new();
+        spyOn(api, 'saveApplication').and.returnValue(deferred.promise);
+
+
     }));
 
     it('should call the start method', function() {
@@ -30,21 +33,43 @@ describe('autoSaveService', function() {
         //expect(autoSave.stop).toEqual('value');
     });
 
-    it('should call the save method', function() {
-        spyOn(api, 'saveApplication').and.returnValue(deferred.promise);
-        deferred.resolve();
+    it('should call the save method, succeed and call the callback', function() {
         var hasRun = false;
         var callback = function() {
             hasRun=true;
         };
         autoSave.save(callback);
-        //expect(hasRun).toBe(false);
-
+        deferred.resolve();
+        $scope.$digest();
+        expect(hasRun).toBe(true);
     });
 
+    it('should call the save method, fail and call the callback', function() {
+        var hasRun = false;
+        var callback = function() {
+            hasRun=true;
+        };
+        autoSave.save(callback);
+        deferred.reject();
+        $scope.$digest();
+        expect(hasRun).toBe(true);
+    });    
+
+    it('should call the save method, fail and call the callback', function() {
+        autoSave.save();
+        deferred.resolve();
+        $scope.$digest();
+    });    
+
+    it('should call the save method, fail and call the callback', function() {
+        autoSave.save();
+        deferred.reject();
+        $scope.$digest();
+    });     
+
     it('should call the nextTimer method', function() {
-        autoSave.nextTimer;
-        //expect(autoSave.nextTimer).toEqual('value');
+        autoSave.start();
+        $timeout.flush();
     });
 
 });

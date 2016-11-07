@@ -12,11 +12,6 @@ module.exports = function(ngModule) {
             nextTimer();
         }
 
-        let stop = function stop() {
-            $timeout.cancel(this.timer);
-            timer = false;
-        }
-
         let save = function save(callback){
             return apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData).then(function () {
                 if(callback) callback();
