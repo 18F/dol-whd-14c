@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -66,8 +67,16 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Validate_WorkSiteType()
         {
-            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType> { new WorkSiteWorkSiteType { WorkSiteTypeId = 35 } });
+            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType> { new WorkSiteWorkSiteType { WorkSiteTypeId = 35, WorkSite = new WorkSite(), WorkSiteId = Guid.Empty, WorkSiteType = new Response()} });
             _workSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType> { new WorkSiteWorkSiteType { WorkSiteTypeId = 28 } });
+        }
+
+        [TestMethod]
+        public void Should_Store_WorkSiteIds()
+        {
+            var workSite = new WorkSite();
+            var workSiteIds = new List<int>() { 1 };
+            workSite.WorkSiteTypeId = workSiteIds;
         }
     }
 }
