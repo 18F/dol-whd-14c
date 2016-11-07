@@ -381,9 +381,22 @@ module.exports = function(ngModule) {
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
             if (worksites) {
+                let mainWorksite = -1;
+
                 for (let i=0; i < worksites.length; i++) {
                     let prefix = "workSites[" + i + "]";
-                    this.checkRequiredMultipleChoice(prefix + ".type");
+
+                    let worksiteType = this.checkRequiredMultipleChoice(prefix + ".type");
+                    if (worksiteType === _constants.responses.workSiteType.main) {
+                        if (mainWorksite !== -1) {
+                            this.setValidationError(prefix + ".type", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                            this.setValidationError("workSites[" + mainWorksite + "].type", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                        }
+                        else {
+                            mainWorksite = i;
+                        }
+                    }
+
                     this.checkRequiredString(prefix + ".name");
 
                     this.checkRequiredString(prefix + ".address.streetAddress");
