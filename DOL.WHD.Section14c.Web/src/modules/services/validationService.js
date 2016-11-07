@@ -312,7 +312,7 @@ module.exports = function(ngModule) {
                         this.checkRequiredValue(subprefix + ".address.state", "Please select a state or territory");
 
                         if (!this.validateZipCode(this.getFormValue(subprefix + ".address.zipCode"))) {
-                            this.setValidationError(subprefix + ".zipCode", "Please enter a valid zip code");
+                            this.setValidationError(subprefix + ".address.zipCode", "Please enter a valid zip code");
                         }
 
                         if (!this.validateTelephoneNumber(this.getFormValue(subprefix + ".phone"))) {
@@ -325,6 +325,10 @@ module.exports = function(ngModule) {
                         this.checkRequiredString(subprefix + ".jobDescription");
                         this.checkRequiredNumber(subprefix + ".experiencedWorkerWageProvided", undefined, 0);
                         this.checkRequiredString(subprefix + ".conclusionWageRateNotBasedOnEntry");
+                    }
+
+                    if (sourceEmployers.length < 3) {
+                        this.setValidationError(prefix + ".sourceEmployers_count", "Only " + sourceEmployers.length + " of 3 Source Employers provided.");
                     }
                 }
             }
@@ -364,7 +368,7 @@ module.exports = function(ngModule) {
                 this.checkRequiredNumber(prefix + ".prevailingWageDeterminedForJob", undefined, 0);
                 this.checkRequiredNumber(prefix + ".standardProductivity", undefined, 0);
                 this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", undefined, 0);
-                this.checkRequiredValue(prefix + "Attachment", "Pleas upload the required docments")
+                this.checkRequiredValue(prefix + ".attachmentId", "Pleas upload the required docments")
             }
 
             section = undefined;
