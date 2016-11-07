@@ -525,7 +525,7 @@ describe('apiService', function() {
     });
 
     it('should call the parseErrors method', function() {
-        var errors = api.parseErrors({"modelState": { undefined } });
+        var errors = api.parseErrors({"modelState": { } });
         expect(errors.length).toEqual(0);
     });    
 });
