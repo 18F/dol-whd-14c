@@ -367,7 +367,7 @@ module.exports = function(ngModule) {
             var errors = [];
             if(response.modelState !== undefined){
                 for (var key in response.modelState) {
-                    if(key !== undefined){
+                    if(response.modelState[key] !== undefined){
                         for (var i = 0; i < response.modelState[key].length; i++) {
                             errors.push(response.modelState[key][i]);
                         }
