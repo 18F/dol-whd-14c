@@ -14,11 +14,6 @@ module.exports = function(ngModule) {
 
         if (!$scope.formData.employer.numSubminimalWageWorkers) {
             $scope.formData.employer.numSubminimalWageWorkers = {
-                total: 0,
-                workCenter: 0,
-                patientWorkers: 0,
-                swep: 0,
-                businessEstablishment: 0
             };
         }
 
@@ -32,8 +27,6 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.showAllHelp = false;
-        vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;
 
         this.onHasTradeNameChange = function() {
             $scope.formData.employer.tradeName = '';
@@ -51,27 +44,6 @@ module.exports = function(ngModule) {
             else {
                 $scope.formData.employer.providingFacilitiesDeductionTypeId.push(id);
             }
-        }
-
-        this.onSCAAttachmentSelected = function(fileinput) {
-            if(fileinput.files.length > 0){
-                apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function (result){
-                    $scope.formData.employer.SCAAttachment = result.data[0];
-                    fileinput.value = '';
-                }, function(error){
-                    //TODO: Display error
-                    fileinput.value = '';
-                })
-            }
-        }
-
-        this.deleteSCAAttachment = function(id){
-            apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function (result){
-               $scope.formData.employer.SCAAttachment = undefined;
-            }, function(error){
-                //TODO: Display error
-                $scope.formData.employer.SCAAttachment = undefined;
-            })
         }
   });
 }

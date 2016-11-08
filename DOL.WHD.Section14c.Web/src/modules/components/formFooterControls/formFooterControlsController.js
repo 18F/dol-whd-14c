@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('formFooterControlsController', function($scope, $location, $route, navService, autoSaveService) {
+    ngModule.controller('formFooterControlsController', function($scope, $location, $route, navService, autoSaveService, validationService) {
         'ngInject';
         'use strict';
 
@@ -28,7 +28,7 @@ module.exports = function(ngModule) {
         });
 
         this.setNextLabel = function(label) {
-            vm.nextLabel = label ? label : vm.hasNext ? "Next" : "Submit Form";
+            vm.nextLabel = label ? label : navService.getNextSection() === "review" ? "Review & Submit Application" : "Next";
         }
 
         this.setBackLabel = function(label) {
@@ -44,9 +44,6 @@ module.exports = function(ngModule) {
 
             if (this.hasNext) {
                 navService.goNext();
-            }
-            else {
-                //TODO: do submit
             }
         }
 

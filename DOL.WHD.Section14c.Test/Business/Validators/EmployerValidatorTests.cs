@@ -46,12 +46,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_HasDifferentMailingAddress()
-        {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.HasDifferentMailingAddress, null as bool?);
-        }
-
-        [TestMethod]
         public void Should_Require_HasParentOrg()
         {
             _employerValidator.ShouldHaveValidationErrorFor(x => x.HasParentOrg, null as bool?);
@@ -232,6 +226,26 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
                 TakeCreditForCosts = true
             };
             _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+        }
+
+        [TestMethod]
+        public void Should_Require_SCACount()
+        {
+            var model = new EmployerInfo {SCAId = 12, SCACount = null};
+            _employerValidator.ShouldNotHaveValidationErrorFor(e => e.SCACount, model);
+
+            model = new EmployerInfo { SCAId = 11, SCACount = null };
+            _employerValidator.ShouldHaveValidationErrorFor(e => e.SCACount, model);
+        }
+
+        [TestMethod]
+        public void Should_Require_SCAAttachment()
+        {
+            var model = new EmployerInfo { SCAId = 12, SCAAttachmentId = null };
+            _employerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachmentId, model);
+
+            model = new EmployerInfo { SCAId = 11, SCAAttachmentId = null };
+            _employerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachmentId, model);
         }
     }
 }

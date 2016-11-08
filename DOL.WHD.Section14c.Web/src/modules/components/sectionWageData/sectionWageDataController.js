@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService) {
+    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
         // multiple choice responses
         let questionKeys = [ 'PayType' ];

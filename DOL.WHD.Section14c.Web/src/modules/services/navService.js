@@ -5,7 +5,7 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
-        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa', 'review'];
 
         let state = {
             backStack: []

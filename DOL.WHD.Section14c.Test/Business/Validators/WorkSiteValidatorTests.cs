@@ -15,16 +15,15 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
 
         public WorkSiteValidatorTests()
         {
-            var addressValidator = new Mock<IAddressValidator>();
+            var addressValidatorNoCounty = new Mock<IAddressValidatorNoCounty>();
             var employeeValidator = new Mock<IEmployeeValidator>();
-            _workSiteValidator = new WorkSiteValidator(addressValidator.Object, employeeValidator.Object);
+            _workSiteValidator = new WorkSiteValidator(addressValidatorNoCounty.Object, employeeValidator.Object);
         }
 
         [TestMethod]
         public void Should_Require_WorkSiteType()
         {
-            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteType, null as ICollection<WorkSiteWorkSiteType>);
-            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType>());
+            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteTypeId, null as int?);
         }
 
         [TestMethod]
@@ -61,13 +60,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_Employees()
         {
             _workSiteValidator.ShouldHaveValidationErrorFor(x => x.Employees, null as ICollection<Employee>);
-        }
-
-        [TestMethod]
-        public void Should_Validate_WorkSiteType()
-        {
-            _workSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType> { new WorkSiteWorkSiteType { WorkSiteTypeId = 35 } });
-            _workSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteType, new List<WorkSiteWorkSiteType> { new WorkSiteWorkSiteType { WorkSiteTypeId = 28 } });
         }
     }
 }

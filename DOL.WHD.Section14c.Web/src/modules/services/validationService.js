@@ -9,7 +9,7 @@ import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 
 module.exports = function(ngModule) {
-    ngModule.service('validationService', function(stateService, _constants) {
+    ngModule.service('validationService', function(stateService, _constants, moment) {
         'ngInject';
         'use strict';
 
@@ -20,6 +20,8 @@ module.exports = function(ngModule) {
         // validation error tree (mirrors data model tree)
         let state = {};
 
+        let section;
+
         this.resetState = function() {
             state = {};
         }
@@ -28,6 +30,10 @@ module.exports = function(ngModule) {
         // validation error accessor methods
         this.setValidationError = function(propPath, msg) {
             set(state, propPath, msg);
+
+            if (section) {
+                set(state, section, true);
+            }
         }
 
         this.getValidationError = function(propPath, returnNested) {
@@ -137,12 +143,6 @@ module.exports = function(ngModule) {
             return undefined;
         }
 
-        this.checkRequiredDate = function(monthPath, dayPath, yearPath) {
-            let month = this.checkRequiredNumber(monthPath, "Please enter a valid month", 1, 12);
-            this.checkRequiredNumber(dayPath, "Please enter a valid day", 1, month && month === 2 ? 28 : month && !includes(months31, month) ? 30 : 31);
-            this.checkRequiredNumber(yearPath, "Please enter a valid year", 1900);
-        }
-
         this.checkRequiredDateComponent = function(propPath) {
             let val = this.checkRequiredValue(propPath);
             if(!this.validateDate(val)) {
@@ -151,7 +151,8 @@ module.exports = function(ngModule) {
         }
 
         this.validateDate = function(date) {
-            return Object.prototype.toString.call(date) === "[object Date]" && ! isNaN(date.getTime());
+            const dateValMoment = moment(date, moment.ISO_8601, true);
+            return dateValMoment.isValid();
         }
 
         this.validateZipCode = function(zip) {
@@ -178,7 +179,9 @@ module.exports = function(ngModule) {
 
         // methods for validating each section (primarily used internally)
         this.validateAppInfo = function() {
-            this.checkRequiredMultipleChoice("applicationType");
+            section = "__appinfo";
+
+            this.checkRequiredMultipleChoice("applicationTypeId");
             this.checkRequiredMultipleChoice("hasPreviousApplication");
 
             let hasPreviousCert = this.checkRequiredMultipleChoice("hasPreviousCertificate");
@@ -190,7 +193,7 @@ module.exports = function(ngModule) {
                 }
             }
 
-            this.checkRequiredValueArray("establishmentType", "Please select all that apply");
+            this.checkRequiredValueArray("establishmentTypeId", "Please select all that apply");
 
             this.checkRequiredString("contactName");
 
@@ -206,9 +209,13 @@ module.exports = function(ngModule) {
             if (!this.validateEmailAddress(this.getFormValue("contactEmail"))) {
                 this.setValidationError("contactEmail", "Please enter a valid email address");
             }
+
+            section = undefined;
         }
 
         this.validateEmployer = function() {
+            section = "__employer";
+
             let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName");
             if (hasTradeName === true) {
                 this.checkRequiredString("employer.tradeName");
@@ -263,7 +270,7 @@ module.exports = function(ngModule) {
                 let scaCount = this.checkRequiredNumber("employer.scaCount", undefined, 0);
 
                 //TODO: validate number of uploads with scaCount ???
-                this.checkRequiredValue("employer.SCAAttachment", "Please upload the required SCA Wage Determinations");
+                this.checkRequiredValue("employer.scaAttachmentId", "Please upload the required SCA Wage Determinations");
             }
 
             this.checkRequiredMultipleChoice("employer.eo13658Id");
@@ -282,6 +289,8 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredMultipleChoice("employer.temporaryAuthority");
+
+            section = undefined;
         }
 
         this.validateWageDataPayType = function(prefix) {
@@ -289,7 +298,7 @@ module.exports = function(ngModule) {
             this.checkRequiredString(prefix + ".jobName");
             this.checkRequiredString(prefix + ".jobDescription");
 
-            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethod");
+            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethodId");
             if (prevailingWageMethod === _constants.responses.prevailingWageMethod.survey) {
                 this.checkRequiredNumber(prefix + ".mostRecentPrevailingWageSurvey.prevailingWageDetermined", undefined, 0);
 
@@ -304,7 +313,7 @@ module.exports = function(ngModule) {
                         this.checkRequiredValue(subprefix + ".address.state", "Please select a state or territory");
 
                         if (!this.validateZipCode(this.getFormValue(subprefix + ".address.zipCode"))) {
-                            this.setValidationError(subprefix + ".zipCode", "Please enter a valid zip code");
+                            this.setValidationError(subprefix + ".address.zipCode", "Please enter a valid zip code");
                         }
 
                         if (!this.validateTelephoneNumber(this.getFormValue(subprefix + ".phone"))) {
@@ -313,10 +322,14 @@ module.exports = function(ngModule) {
 
                         this.checkRequiredString(subprefix + ".contactName");
                         this.checkRequiredString(subprefix + ".contactTitle");
-                        this.checkRequiredDate(subprefix + ".contactDate.month", subprefix + ".contactDate.day", subprefix + ".contactDate.year");
+                        this.checkRequiredDateComponent(subprefix + ".contactDate");
                         this.checkRequiredString(subprefix + ".jobDescription");
                         this.checkRequiredNumber(subprefix + ".experiencedWorkerWageProvided", undefined, 0);
                         this.checkRequiredString(subprefix + ".conclusionWageRateNotBasedOnEntry");
+                    }
+
+                    if (sourceEmployers.length < 3) {
+                        this.setValidationError(prefix + ".sourceEmployers_count", "Only " + sourceEmployers.length + " of 3 Source Employers provided.");
                     }
                 }
             }
@@ -324,15 +337,17 @@ module.exports = function(ngModule) {
                 this.checkRequiredString(prefix + ".alternateWageData.alternateWorkDescription");
                 this.checkRequiredString(prefix + ".alternateWageData.alternateDataSourceUsed");
                 this.checkRequiredNumber(prefix + ".alternateWageData.prevailingWageProvidedBySource");
-                this.checkRequiredDate(prefix + ".alternateWageData.dateRetrieved.month", prefix + ".alternateWageData.dateRetrieved.day", prefix + ".alternateWageData.dateRetrieved.year");
+                this.checkRequiredDateComponent(prefix + ".alternateWageData.dataRetrieved");
             }
             else if (prevailingWageMethod === _constants.responses.prevailingWageMethod.sca) {
-                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachment", "Please upload the applicable documentation");
+                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
             }
         }
 
         this.validateWageData = function() {
-            let payType = this.checkRequiredMultipleChoice("payType");
+            section = "__wagedata";
+
+            let payType = this.checkRequiredMultipleChoice("payTypeId");
             let isHourly = payType === _constants.responses.payType.hourly || payType === _constants.responses.payType.both;
             let isPieceRate = payType === _constants.responses.payType.pieceRate || payType === _constants.responses.payType.both;
 
@@ -342,7 +357,7 @@ module.exports = function(ngModule) {
                 this.validateWageDataPayType(prefix);
 
                 this.checkRequiredValue(prefix + ".workMeasurementFrequency");
-                this.checkRequiredValue(prefix + ".Attachment", "Please upload a work measurement or time study");
+                this.checkRequiredValue(prefix + ".attachmentId", "Please upload a work measurement or time study");
             }
 
             if (isPieceRate) {
@@ -354,18 +369,35 @@ module.exports = function(ngModule) {
                 this.checkRequiredNumber(prefix + ".prevailingWageDeterminedForJob", undefined, 0);
                 this.checkRequiredNumber(prefix + ".standardProductivity", undefined, 0);
                 this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", undefined, 0);
-                this.checkRequiredValue(prefix + "Attachment", "Pleas upload the required docments")
+                this.checkRequiredValue(prefix + ".attachmentId", "Pleas upload the required docments")
             }
+
+            section = undefined;
         }
 
         this.validateWorkSites = function() {
+            section = "__worksites";
+
             let totalNumWorkSites = this.checkRequiredNumber("totalNumWorkSites", undefined, 1);
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
             if (worksites) {
+                let mainWorksite = -1;
+
                 for (let i=0; i < worksites.length; i++) {
                     let prefix = "workSites[" + i + "]";
-                    this.checkRequiredMultipleChoice(prefix + ".type");
+
+                    let worksiteType = this.checkRequiredMultipleChoice(prefix + ".workSiteTypeId");
+                    if (worksiteType === _constants.responses.workSiteType.main) {
+                        if (mainWorksite !== -1) {
+                            this.setValidationError(prefix + ".workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                            this.setValidationError("workSites[" + mainWorksite + "].workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                        }
+                        else {
+                            mainWorksite = i;
+                        }
+                    }
+
                     this.checkRequiredString(prefix + ".name");
 
                     this.checkRequiredString(prefix + ".address.streetAddress");
@@ -387,7 +419,7 @@ module.exports = function(ngModule) {
                             let subprefix = prefix + ".employees[" + j + "]";
                             this.checkRequiredString(subprefix + ".name");
 
-                            let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisability");
+                            let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisabilityId");
                             if (primaryDisability === _constants.responses.primaryDisability.other) {
                                 this.checkRequiredString(subprefix + "." + _constants.primaryDisability.otherValueKey);
                             }
@@ -407,17 +439,21 @@ module.exports = function(ngModule) {
 
                     let totalEmployees = employees ? employees.length : 0;
                     if (numEmployees !== totalEmployees) {
-                        this.setValidationError(prefix + ".employee_count", "The number of employees specified does not match the number entered for this worksite");
+                        this.setValidationError(prefix + ".employee_count", "The number of employees reported (" + (numEmployees === undefined ? '0' : numEmployees) + ") does not match the number of employees entered (" + totalEmployees + ") for this worksite");
                     }
                 }
 
                 if (totalNumWorkSites !== worksites.length) {
-                    this.setValidationError("workSites_count", "The number of work sites specified does not match the number entered");
+                    this.setValidationError("workSites_count", "The number of work sites reported (" + (totalNumWorkSites === undefined ? '0' : totalNumWorkSites) + ") does not match the number entered (" + worksites.length + ")");
                 }
             }
+
+            section = undefined;
         }
 
         this.validateWIOA = function() {
+            section = "__wioa";
+
             this.checkRequiredMultipleChoice("WIOA.hasVerfiedDocumentation");
 
             let hasWIOAWorkers = this.checkRequiredMultipleChoice("WIOA.hasWIOAWorkers");
@@ -430,6 +466,8 @@ module.exports = function(ngModule) {
                     }
                 }
             }
+
+            section = undefined;
         }
 
 

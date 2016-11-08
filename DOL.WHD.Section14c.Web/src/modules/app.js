@@ -18,6 +18,7 @@ import ngSanitize from 'angular-sanitize';
 import vcRecaptcha from 'angular-recaptcha';
 import angularMoment from 'angular-moment';
 import ngMask from 'ng-mask';
+import ngCookies from 'angular-cookies';
 
 // Styles
 import '../styles/main.scss';
@@ -30,7 +31,8 @@ let app = angular.module('14c', [
     ngSanitize,
     'vcRecaptcha',
     'angularMoment',
-    'ngMask'
+    'ngMask',
+    'ngCookies'
 ]);
 
 // Environment config loaded from env.js
@@ -88,10 +90,17 @@ app.config(function($routeProvider, $compileProvider) {
     });
 });
 
-app.run(function($rootScope, $location) {
-    $rootScope.loadImage = function(image) {
-        return require('../images/' + image);
-    };
+app.run(function($rootScope, $location, stateService, autoSaveService) {
+    // check cookie to see if we're logged in
+    const accessToken = stateService.access_token;
+    if(accessToken) {
+        stateService.loadState().then(function(result) {
+            $rootScope.loggedIn = true;
+
+            // start auto-save 
+            autoSaveService.start();
+        });
+    }
 
     //TODO: remove dev_flag check
     if (!env.dev_flag === true) {

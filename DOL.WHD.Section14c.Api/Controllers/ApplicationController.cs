@@ -10,7 +10,8 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
-    [Authorize]
+    [AuthorizeHttps]
+    [RoutePrefix("api/application")]
     public class ApplicationController : ApiController
     {
         private readonly IIdentityService _identityService;
@@ -23,24 +24,32 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationSubmissionValidator = applicationSubmissionValidator;
         }
 
+        [HttpPost]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
         {
-            var results = _applicationSubmissionValidator.Validate(submission);
+            var vm = _applicationService.CleanupModel(submission);
+            var results = _applicationSubmissionValidator.Validate(vm);
             if (!results.IsValid)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, results.Errors);
             }
 
             // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
+            var hasEINClaim = _identityService.UserHasEINClaim(User, vm.EIN);
             if (!hasEINClaim)
             {
                 return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
 
-            await _applicationService.SubmitApplicationAsync(submission);
+            await _applicationService.SubmitApplicationAsync(vm);
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
     }
 }

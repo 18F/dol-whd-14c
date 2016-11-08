@@ -16,6 +16,7 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,8 +51,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -93,8 +94,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Business\ApplicationServiceTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
+    <Compile Include="Business\Validators\AddressValidatorNoCountyTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorTests.cs" />
     <Compile Include="Business\Validators\AlternateWageDataValidatorTests.cs" />
     <Compile Include="Business\Validators\ApplicationSubmissionValidatorTests.cs" />
@@ -108,7 +111,17 @@
     <Compile Include="Business\Validators\WIOAWorkerValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkerCountInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkSiteValidatorTests.cs" />
+    <Compile Include="Domain\BaseEntityTests.cs" />
+    <Compile Include="Domain\Models\FeatureTests.cs" />
+    <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
+    <Compile Include="Domain\Models\Identity\RoleFeatureTests.cs" />
+    <Compile Include="Domain\Models\Submission\ApplicationSubmissionEstablishmentTypeTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
+    <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\ResetPasswordViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\RoleViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
@@ -131,7 +144,7 @@
       <Name>DOL.WHD.Section14c.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
-      <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
+      <Project>{f7033f89-ed1b-4784-aeab-d8808fbbec92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">

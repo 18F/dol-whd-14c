@@ -1,5 +1,8 @@
 'use strict';
 
+import some from 'lodash/some'
+var zxcvbn = require('zxcvbn');
+
 module.exports = function(ngModule) {
     ngModule.controller('resetPasswordFormController', function($scope, $location, stateService, apiService, vcRecaptchaService, _env) {
         'ngInject';
@@ -8,52 +11,80 @@ module.exports = function(ngModule) {
         var vm = this;
         vm.stateService = stateService;
 
+        vm.resetErrors = function() {
+            vm.forgotPasswordError = false;
+            vm.forgotPasswordSuccess = false;
+            vm.resetPasswordError = false;
+            vm.resetPasswordSuccess = false;
+            vm.showPasswordHelp = false;
+        }
+
+        vm.resetErrors()
+
         vm.resetPasswordVerificationUrl = $location.absUrl();
         vm.resetPasswordVerificationCode = $location.search().code;
         vm.resetPasswordVerificationUserId = $location.search().userId;
         vm.isResetPasswordVerificationRequest = vm.resetPasswordVerificationCode !== undefined && vm.resetPasswordVerificationUserId !== undefined
+
+
+        vm.resetPasswordComplexity = function() {
+            vm.passwordLength = false;
+            vm.passwordUpper = false;
+            vm.passwordLower = false;
+            vm.passwordSpecial = false;
+            vm.passwordNumber = false;
+        }
+        vm.resetPasswordComplexity();
+
+        $scope.inputType = 'password';
+        $scope.$watch('formVals.newPass', function (value) {
+            $scope.passwordStrength = zxcvbn(value);
+            vm.passwordLength = value.length > 7;
+            vm.passwordUpper = value.match(new RegExp("^(?=.*[A-Z])")) ? true : false;
+            vm.passwordLower = value.match(new RegExp("^(?=.*[a-z])"))? true : false;
+            vm.passwordSpecial = value.match(new RegExp("^(?=.*[-+_!@#$%^&*.,?])")) ? true : false;
+            vm.passwordNumber = value.match(new RegExp("^(?=.*[0-9])")) ? true : false;
+        })
 
         $scope.formVals = {
             'newPass': '',
             'confirmPass': ''
         };
 
-
         $scope.onSubmitClick = function() {
-
+            vm.resetErrors();
             apiService.resetPassword($scope.formVals.email, vm.resetPasswordVerificationUrl).then(function (result) {
                 var data = result.data;
-
-                //TODO: provide user with confirmation
-
-                $location.path("/");
+                vm.forgotPasswordSuccess = true;
+                $scope.formVals.email = '';
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-                //TODO: inform user of error
-
-                $location.path("/");
+                vm.forgotPasswordError = true;
             });
       }
 
-      $scope.onVerifySubmitClick = function() {
+    $scope.hideShowPassword = function(){
+        if ($scope.inputType === 'password')
+            $scope.inputType = 'text';
+        else
+            $scope.inputType = 'password';
+    };
 
-            $location.search('code', null);
-            $location.search('userId', null);
+      $scope.onVerifySubmitClick = function() {
+            vm.resetErrors();
 
             apiService.verifyResetPassword(vm.resetPasswordVerificationUserId, $scope.formVals.newPass, $scope.formVals.confirmPass, vm.resetPasswordVerificationCode).then(function (result) {
                 var data = result.data;
-
-                //TODO: provide user with confirmation
-
-                $location.path("/");
+                vm.resetPasswordSuccess = true;
+                $scope.formVals.newPass = '';
+                $scope.formVals.confirmPass = '';
             }, function (error) {
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
-
-                //TODO: inform user of error
-
-                $location.path("/");
+                $scope.resetPasswordErrors = apiService.parseErrors(error.data);
+                vm.resetPasswordError = true;
             });
       }
+
+
   });
 }

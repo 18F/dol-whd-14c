@@ -1,14 +1,19 @@
+<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__appinfo')">
+    <div class="usa-alert-body">
+        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+    </div>
+</div>
 <div class="form-page">
-    <h2 class="form-section-header">Application Type</h2>
+    <h3>Application Type</h3>
     <hr />
-    <div class="form-question-block" ng-class="validate('applicationType') ? 'usa-input-error' : ''">
+    <div class="form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
         <div class="form-question-text">What type of application is this?</div>
         <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationType')">{{ validate('applicationType') }}</span>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.ApplicationType">
-                    <input id="applicationType_{{ response.id }}" type="radio" name="applicationType" ng-value="response.id" ng-model="formData.applicationType">
+                    <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
                     <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
@@ -58,14 +63,14 @@
         </div>
     </div>
 
-    <div class="form-question-block" ng-class="validate('establishmentType') ? 'usa-input-error' : ''">
+    <div class="form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
         <div class="form-question-text">What type of establishment(s) is this request for authority to employ workers with disabilities for?</div>
         <div class="form-question-subtext">Select all that apply</div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentType')">{{ validate('establishmentType') }}</span>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.EstablishmentType">
-                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentType" ng-value="response.id" ng-checked="formData.establishmentType.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
+                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
                     <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
                     <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
                 </li>
@@ -73,7 +78,7 @@
         </fieldset>
     </div>
 
-    <h2 class="form-section-header">Application Contact Person</h2>
+    <h3>Application Contact Person</h3>
     <div class="form-question-subtext">This should be a person who can best answer questions concerning information contained on this application.</div>
     <hr />
 

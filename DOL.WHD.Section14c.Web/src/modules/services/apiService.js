@@ -1,23 +1,31 @@
 'use strict';
 
-var moment = require('moment');
-
 module.exports = function(ngModule) {
-    ngModule.service('apiService', function($http, $q, _env) {
+    ngModule.service('apiService', function($http, $q, _env, moment, submissionService) {
         'ngInject';
         'use strict';
 
         this.attachmentApiURL = _env.api_url + "/api/attachment/";
 
-        this.changePassword = function(email, oldPassword, newPassword, confirmPassword) {
+        this.changePassword = function(access_token, email, oldPassword, newPassword, confirmPassword) {
 
             let url = _env.api_url + '/api/Account/ChangePassword';
             let d = $q.defer();
+            let headerVal;
+            
+            if(access_token !== undefined){
+                headerVal = {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            } else {
+                headerVal = { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }
 
             $http({
                 method: 'POST',
                 url: url,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                headers: headerVal,
                 data: $.param({"Email": email, "OldPassword": oldPassword, "NewPassword": newPassword, "ConfirmPassword": confirmPassword})
             }).then(function successCallback (data) {
                 d.resolve(data);
@@ -352,6 +360,42 @@ module.exports = function(ngModule) {
 
             return d.promise;
         }        
+
+        this.parseErrors = function(response) {
+            var errors = [];
+            if(response.modelState !== undefined){
+                for (var key in response.modelState) {
+                    if(response.modelState[key] !== undefined){
+                        for (var i = 0; i < response.modelState[key].length; i++) {
+                            errors.push(response.modelState[key][i]);
+                        }
+                    }
+                }
+            }
+            return errors;
+        }
+
+        this.submitApplication = function(access_token, ein, vm) {
+            const url = _env.api_url + '/api/application';
+            const d = $q.defer();
+            const submissionVm = submissionService.getSubmissionVM(ein, vm);
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                },
+                data: submissionVm
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
         
     });
 }
