@@ -13,7 +13,6 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.HasTradeName).NotNull();
             RuleFor(e => e.LegalNameHasChanged).NotNull();
             RuleFor(e => e.PhysicalAddress).NotNull().SetValidator(addressValidator);
-            RuleFor(e => e.HasDifferentMailingAddress).NotNull();
             RuleFor(e => e.HasParentOrg).NotNull();
             RuleFor(e => e.EmployerStatusId).NotNull().GreaterThanOrEqualTo(7).LessThanOrEqualTo(10);
             RuleFor(e => e.IsEducationalAgency).NotNull();
@@ -46,6 +45,11 @@ namespace DOL.WHD.Section14c.Business.Validators
                 RuleFor(e => e.SendMailToParent).NotNull();
             });
             RuleFor(e => e.EmployerStatusOther).NotEmpty().When(e => e.EmployerStatusId == 10);
+            When(e => e.SCAId == 11, () =>
+            {
+                RuleFor(e => e.SCACount).NotNull();
+                RuleFor(e => e.SCAAttachmentId).NotNull();
+            });
         }
     }
 }

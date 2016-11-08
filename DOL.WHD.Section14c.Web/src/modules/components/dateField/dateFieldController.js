@@ -9,8 +9,8 @@ module.exports = function(ngModule) {
         var vm = this;
 
         function updateLocalScope() {
-            if(moment.isDate($scope.dateVal)) {
-                const dateValMoment = moment($scope.dateVal);
+            const dateValMoment = moment($scope.dateVal, moment.ISO_8601, true);
+            if(dateValMoment.isValid()) {
                 // parse out values
                 vm.month = dateValMoment.month() + 1; // month is zero-based
                 vm.day = dateValMoment.date();
@@ -26,7 +26,10 @@ module.exports = function(ngModule) {
 
         $scope.$watchGroup(['vm.year', 'vm.month', 'vm.day'], function(newValues, oldValues) {
             if(_.difference(newValues, oldValues).length > 0 && vm.year && vm.month && vm.day) {
-                $scope.dateVal = new Date(vm.year, vm. month - 1, vm.day);
+                const dateValMoment = moment({years: vm.year, months: vm.month - 1, date: vm.day});
+                if(dateValMoment.isValid()) {
+                    $scope.dateVal = dateValMoment.toISOString();
+                }
             }
         });
 

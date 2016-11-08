@@ -13,7 +13,10 @@ module.exports = function(ngModule) {
         let vm = this;
 
         this.onSubmit = function() {
-            //TODO: submit the application
+            // submit the application
+            if($scope.isValid) {
+                apiService.submitApplication(stateService.access_token, stateService.ein, stateService.formData);
+            }
         }
     });
 }

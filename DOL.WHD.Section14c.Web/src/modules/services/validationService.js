@@ -9,7 +9,7 @@ import includes from 'lodash/includes';
 import forEach from 'lodash/forEach';
 
 module.exports = function(ngModule) {
-    ngModule.service('validationService', function(stateService, _constants) {
+    ngModule.service('validationService', function(stateService, _constants, moment) {
         'ngInject';
         'use strict';
 
@@ -151,7 +151,8 @@ module.exports = function(ngModule) {
         }
 
         this.validateDate = function(date) {
-            return Object.prototype.toString.call(date) === "[object Date]" && ! isNaN(date.getTime());
+            const dateValMoment = moment(date, moment.ISO_8601, true);
+            return dateValMoment.isValid();
         }
 
         this.validateZipCode = function(zip) {
@@ -180,7 +181,7 @@ module.exports = function(ngModule) {
         this.validateAppInfo = function() {
             section = "__appinfo";
 
-            this.checkRequiredMultipleChoice("applicationType");
+            this.checkRequiredMultipleChoice("applicationTypeId");
             this.checkRequiredMultipleChoice("hasPreviousApplication");
 
             let hasPreviousCert = this.checkRequiredMultipleChoice("hasPreviousCertificate");
@@ -192,7 +193,7 @@ module.exports = function(ngModule) {
                 }
             }
 
-            this.checkRequiredValueArray("establishmentType", "Please select all that apply");
+            this.checkRequiredValueArray("establishmentTypeId", "Please select all that apply");
 
             this.checkRequiredString("contactName");
 
@@ -297,7 +298,7 @@ module.exports = function(ngModule) {
             this.checkRequiredString(prefix + ".jobName");
             this.checkRequiredString(prefix + ".jobDescription");
 
-            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethod");
+            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethodId");
             if (prevailingWageMethod === _constants.responses.prevailingWageMethod.survey) {
                 this.checkRequiredNumber(prefix + ".mostRecentPrevailingWageSurvey.prevailingWageDetermined", undefined, 0);
 
@@ -312,7 +313,7 @@ module.exports = function(ngModule) {
                         this.checkRequiredValue(subprefix + ".address.state", "Please select a state or territory");
 
                         if (!this.validateZipCode(this.getFormValue(subprefix + ".address.zipCode"))) {
-                            this.setValidationError(subprefix + ".zipCode", "Please enter a valid zip code");
+                            this.setValidationError(subprefix + ".address.zipCode", "Please enter a valid zip code");
                         }
 
                         if (!this.validateTelephoneNumber(this.getFormValue(subprefix + ".phone"))) {
@@ -325,6 +326,10 @@ module.exports = function(ngModule) {
                         this.checkRequiredString(subprefix + ".jobDescription");
                         this.checkRequiredNumber(subprefix + ".experiencedWorkerWageProvided", undefined, 0);
                         this.checkRequiredString(subprefix + ".conclusionWageRateNotBasedOnEntry");
+                    }
+
+                    if (sourceEmployers.length < 3) {
+                        this.setValidationError(prefix + ".sourceEmployers_count", "Only " + sourceEmployers.length + " of 3 Source Employers provided.");
                     }
                 }
             }
@@ -342,7 +347,7 @@ module.exports = function(ngModule) {
         this.validateWageData = function() {
             section = "__wagedata";
 
-            let payType = this.checkRequiredMultipleChoice("payType");
+            let payType = this.checkRequiredMultipleChoice("payTypeId");
             let isHourly = payType === _constants.responses.payType.hourly || payType === _constants.responses.payType.both;
             let isPieceRate = payType === _constants.responses.payType.pieceRate || payType === _constants.responses.payType.both;
 
@@ -364,7 +369,7 @@ module.exports = function(ngModule) {
                 this.checkRequiredNumber(prefix + ".prevailingWageDeterminedForJob", undefined, 0);
                 this.checkRequiredNumber(prefix + ".standardProductivity", undefined, 0);
                 this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", undefined, 0);
-                this.checkRequiredValue(prefix + "Attachment", "Pleas upload the required docments")
+                this.checkRequiredValue(prefix + ".attachmentId", "Pleas upload the required docments")
             }
 
             section = undefined;
@@ -377,9 +382,22 @@ module.exports = function(ngModule) {
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
             if (worksites) {
+                let mainWorksite = -1;
+
                 for (let i=0; i < worksites.length; i++) {
                     let prefix = "workSites[" + i + "]";
-                    this.checkRequiredMultipleChoice(prefix + ".type");
+
+                    let worksiteType = this.checkRequiredMultipleChoice(prefix + ".workSiteTypeId");
+                    if (worksiteType === _constants.responses.workSiteType.main) {
+                        if (mainWorksite !== -1) {
+                            this.setValidationError(prefix + ".workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                            this.setValidationError("workSites[" + mainWorksite + "].workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                        }
+                        else {
+                            mainWorksite = i;
+                        }
+                    }
+
                     this.checkRequiredString(prefix + ".name");
 
                     this.checkRequiredString(prefix + ".address.streetAddress");
@@ -401,7 +419,7 @@ module.exports = function(ngModule) {
                             let subprefix = prefix + ".employees[" + j + "]";
                             this.checkRequiredString(subprefix + ".name");
 
-                            let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisability");
+                            let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisabilityId");
                             if (primaryDisability === _constants.responses.primaryDisability.other) {
                                 this.checkRequiredString(subprefix + "." + _constants.primaryDisability.otherValueKey);
                             }

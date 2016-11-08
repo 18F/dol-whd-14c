@@ -1,9 +1,7 @@
 'use strict';
 
-var moment = require('moment');
-
 module.exports = function(ngModule) {
-    ngModule.service('apiService', function($http, $q, _env) {
+    ngModule.service('apiService', function($http, $q, _env, moment, submissionService) {
         'ngInject';
         'use strict';
 
@@ -375,6 +373,28 @@ module.exports = function(ngModule) {
                 }
             }
             return errors;
+        }
+
+        this.submitApplication = function(access_token, ein, vm) {
+            const url = _env.api_url + '/api/application';
+            const d = $q.defer();
+            const submissionVm = submissionService.getSubmissionVM(ein, vm);
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                },
+                data: submissionVm
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
         }
         
     });

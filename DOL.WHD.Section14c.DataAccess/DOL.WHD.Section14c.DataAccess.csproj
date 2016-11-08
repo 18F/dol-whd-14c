@@ -205,6 +205,22 @@
     <Compile Include="Migrations\201611021325062_IdentityUpdates.Designer.cs">
       <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611042002563_AddSCACountField.cs" />
+    <Compile Include="Migrations\201611042002563_AddSCACountField.Designer.cs">
+      <DependentUpon>201611042002563_AddSCACountField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.cs" />
+    <Compile Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.Designer.cs">
+      <DependentUpon>201611081608033_WorkSiteTypeSingleSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.cs" />
+    <Compile Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.Designer.cs">
+      <DependentUpon>201611081804301_RemoveHasDifferentMailingAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.cs" />
+    <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.Designer.cs">
+      <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -296,6 +312,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611021325062_IdentityUpdates.resx">
       <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611042002563_AddSCACountField.resx">
+      <DependentUpon>201611042002563_AddSCACountField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.resx">
+      <DependentUpon>201611081608033_WorkSiteTypeSingleSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.resx">
+      <DependentUpon>201611081804301_RemoveHasDifferentMailingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081954473_RemoveRequiredCounty.resx">
+      <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

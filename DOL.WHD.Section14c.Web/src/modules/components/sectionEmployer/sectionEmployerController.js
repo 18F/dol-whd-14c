@@ -14,11 +14,6 @@ module.exports = function(ngModule) {
 
         if (!$scope.formData.employer.numSubminimalWageWorkers) {
             $scope.formData.employer.numSubminimalWageWorkers = {
-                total: 0,
-                workCenter: 0,
-                patientWorkers: 0,
-                swep: 0,
-                businessEstablishment: 0
             };
         }
 

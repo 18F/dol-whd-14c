@@ -95,7 +95,6 @@
     <Compile Include="Models\Submission\WIOAWorker.cs" />
     <Compile Include="Models\Submission\WorkerCountInfo.cs" />
     <Compile Include="Models\Submission\WorkSite.cs" />
-    <Compile Include="Models\Submission\WorkSiteWorkSiteType.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\RemoveLoginViewModel.cs" />
