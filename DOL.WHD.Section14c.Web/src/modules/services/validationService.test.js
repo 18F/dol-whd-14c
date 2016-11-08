@@ -62,6 +62,36 @@ describe('validationService', function() {
                         }
                     ],
                     "workSiteTypeId": 27
+                },
+                {
+                    "type": 27,
+                    "name": "Establishment name",
+                    "address": {
+                        "streetAddress": "1600 Pennsylvania Ave.",
+                        "city": "Washington",
+                        "state": "DC",
+                        "zipCode": "20500"
+                    },
+                    "sca": false,
+                    "federalContractWorkPerformed": true,
+                    "numEmployees": 1,
+                    "employees": [
+                        {
+                            "name": "Joe Plumber",
+                            "primaryDisability": 31,
+                            "workType": "Work type",
+                            "numJobs": 1,
+                            "avgWeeklyHours": 40,
+                            "avgHourlyEarnings": 5,
+                            "prevailingWage": 5,
+                            "productivityMeasure": 50,
+                            "commensurateWageRate": 102.1,
+                            "totalHours": 40,
+                            "workAtOtherSite": false,
+                            "primaryDisabilityId": 31
+                        }
+                    ],
+                    "workSiteTypeId": 27
                 }
             ],
             "saved": "2016-11-07T21:21:05.736Z",
@@ -147,7 +177,7 @@ describe('validationService', function() {
                 "attachmentName": "14c.Form.Requirements.Logic.xlsx",
                 "prevailingWageMethodId": 25
             },
-            "totalNumWorkSites": 1,
+            "totalNumWorkSites": 3,
             "applicationTypeId": 1,
             "payTypeId": 21,
             "establishmentTypeId": [
