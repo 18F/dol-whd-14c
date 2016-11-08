@@ -62,6 +62,36 @@ describe('validationService', function() {
                         }
                     ],
                     "workSiteTypeId": 27
+                },
+                {
+                    "type": 27,
+                    "name": "Establishment name",
+                    "address": {
+                        "streetAddress": "1600 Pennsylvania Ave.",
+                        "city": "Washington",
+                        "state": "DC",
+                        "zipCode": "20500"
+                    },
+                    "sca": false,
+                    "federalContractWorkPerformed": true,
+                    "numEmployees": 1,
+                    "employees": [
+                        {
+                            "name": "Joe Plumber",
+                            "primaryDisability": 31,
+                            "workType": "Work type",
+                            "numJobs": 1,
+                            "avgWeeklyHours": 40,
+                            "avgHourlyEarnings": 5,
+                            "prevailingWage": 5,
+                            "productivityMeasure": 50,
+                            "commensurateWageRate": 102.1,
+                            "totalHours": 40,
+                            "workAtOtherSite": false,
+                            "primaryDisabilityId": 31
+                        }
+                    ],
+                    "workSiteTypeId": 27
                 }
             ],
             "saved": "2016-11-07T21:21:05.736Z",
@@ -72,7 +102,8 @@ describe('validationService', function() {
             "lastSaved": "2016-11-07T21:05:08.780Z",
             "applicationType": 1,
             "hasPreviousApplication": false,
-            "hasPreviousCertificate": false,
+            "hasPreviousCertificate": true,
+            "certificateNumber": "12-34567-H-890",
             "contactName": "Bob Roberts",
             "contactPhone": "123-456-7890",
             "contactFax": "987-654-3210",
@@ -124,7 +155,7 @@ describe('validationService', function() {
                 "pca": false,
                 "employerStatusOther": ""
             },
-            "payType": 21,
+            "payType": 23,
             "hourlyWageInfo": {
                 "numWorkers": 5,
                 "jobName": "Contract Name",
@@ -146,7 +177,7 @@ describe('validationService', function() {
                 "attachmentName": "14c.Form.Requirements.Logic.xlsx",
                 "prevailingWageMethodId": 25
             },
-            "totalNumWorkSites": 1,
+            "totalNumWorkSites": 3,
             "applicationTypeId": 1,
             "payTypeId": 21,
             "establishmentTypeId": [
@@ -154,13 +185,18 @@ describe('validationService', function() {
             3
             ],
             "pieceRateWageInfo": {
-                "numWorkers": 0,
+                "numWorkers": 1,
                 "jobName": "",
                 "jobDescription": "",
-                "prevailingWageMethod": "",
+                "prevailingWageMethod": 24,
                 "mostRecentPrevailingWageSurvey": {
+                  "prevailingWageDetermined": 11,
                   "basedOnSurvey": "",
-                  "sourceEmployers": []
+                  "sourceEmployers": [
+                      {
+                          "employerName": "Biz 1"
+                      }
+                  ]
                 }
             }
         });
