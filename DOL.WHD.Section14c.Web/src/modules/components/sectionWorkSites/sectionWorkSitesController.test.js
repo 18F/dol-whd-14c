@@ -85,18 +85,24 @@ describe('sectionWorkSitesController', function() {
         controller.activeWorker = { "name": "First Last" };
         controller.addAnotherEmployee();
         controller.doneAddingEmployees();
+        expect(controller.activeWorksite.employees.length).toBe(1);
 
         controller.editEmployee(0);
         controller.addEmployee();
+        expect(controller.activeWorksite.employees.length).toBe(1);
 
         controller.deleteEmployee(0);
+        expect(controller.activeWorksite.employees.length).toBe(0);
 
         controller.saveWorkSite();
+        expect(scope.formData.workSites.length).toBe(1);
 
         controller.editWorkSite(0);
         controller.addWorkSite();
+        expect(scope.formData.workSites.length).toBe(1);
 
         controller.deleteWorkSite(0);
+        expect(scope.formData.workSites.length).toBe(0);
     });
 
     it('should get employee disability', function() {
