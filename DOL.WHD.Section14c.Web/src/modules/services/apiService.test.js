@@ -22,111 +22,510 @@ describe('apiService', function() {
     var applicationData = { saved : 'place' };
     var account = { email : 'jonhson', roles : 'admin', userId : 'jmmcnj'};
     var response = { modelstate : { error : 'something went wrong'}};
-    beforeEach(inject(function($injector, _$http_) {
-        api = $injector.get('apiService');
-        $http = _$http_;
-        spyOn($http, 'post');
+    beforeEach(inject(function($injector, _$httpBackend_, apiService, _env) {
+        api = apiService;
+        $httpBackend = _$httpBackend_;
+        env = _env;
     }));
 
-    it('should call the changePassword method', function() {
-        
-        api.changePassword(access_token, email, oldPassword, newPassword, confirmPassword);
-        //expect(api.changePassword).toEqual('value');
+//changePassword
+    it('changePassword error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var access_token = 'token';
+        api.changePassword(access_token).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/ChangePassword').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('changePassword success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.changePassword().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/ChangePassword').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });       
+
+//resetPassword
+    it('resetPassword error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.resetPassword().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/ResetPassword').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('resetPassword success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.resetPassword().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/ResetPassword').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });      
+
+//verifyResetPassword
+    it('verifyResetPassword  error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.verifyResetPassword().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/VerifyResetPassword').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('verifyResetPassword  success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.verifyResetPassword().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/VerifyResetPassword').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });   
+
+//userLogin
+    it('userLogin error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.userLogin().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/Token').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('userLogin success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.userLogin().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/Token').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });   
+
+//userRegister
+    it('userLogin error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.userRegister().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/Register').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('userLogin success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.userRegister().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/Register').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
     });
 
-    it('should call the resetPassword method', function() {
-        
-        api.resetPassword(email, passwordResetUrl);
-        //expect(api.resetPasword).toEqual('value');
+//emailVerification
+    it('emailVerification error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.emailVerification().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/VerifyEmail').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('emailVerification success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.emailVerification().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/Account/VerifyEmail').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });    
+
+//userInfo
+    it('userInfo error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.userInfo().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/Account/UserInfo').respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('userInfo success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.userInfo().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/Account/UserInfo').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });       
+
+//saveApplication
+    it('saveApplication error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.saveApplication(access_token, ein, applicationData).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/save/' + ein).respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+        expect(applicationData.lastSaved ).toEqual(0);
+    });      
+
+    it('saveApplication success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.saveApplication(access_token, ein, applicationData).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/save/' + ein).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+        expect(applicationData.lastSaved ).not.toEqual(0);
+    });  
+
+//getApplication
+    it('getApplication error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.getApplication(access_token, ein).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/save/' + ein).respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('getApplication success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.getApplication(access_token, ein).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/save/' + ein).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    }); 
+
+//uploadAttachment
+    it('uploadAttachment error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.uploadAttachment(access_token, ein).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/attachment/' + ein).respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('uploadAttachment success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var applicationData = {};
+        api.uploadAttachment(access_token, ein).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/attachment/' + ein).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });    
+
+//deleteAttachment
+    it('deleteAttachment error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var id = '1';
+        var applicationData = {};
+        api.deleteAttachment(access_token, ein, id).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectDELETE(env.api_url + '/api/attachment/' + ein + '/' + id).respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('deleteAttachment success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '12-1234567';
+        var id = '1';
+        var applicationData = {};
+        api.deleteAttachment(access_token, ein, id).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectDELETE(env.api_url + '/api/attachment/' + ein + '/' + id).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });  
+    
+//getAccounts
+    it('getAccounts error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.getAccounts().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/account').respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('getAccounts success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.getAccounts().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/account').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });       
+
+//getRoles
+    it('getRoles error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.getRoles().then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/account/roles').respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('getRoles success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.getRoles().then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/account/roles').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
     });
 
-    it('should call the verifyResetPassword method', function() {
+//getAccounts
+    it('getAccounts error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var userId = '1';
+        api.getAccount(access_token, userId).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
 
-        api.verifyResetPassword(userId, newPassword, confirmPassword, code);
-        //expect(api.verifyResetPasword).toEqual('value');
-    });
+        $httpBackend.expectGET(env.api_url + '/api/account/' + userId).respond(404, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
 
-    it('should call the userLogin method', function() {
+    it('getAccounts success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        api.getAccount(access_token, userId).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
 
-        api.userLogin(email, password);
-        //expect(api.userLogin).toEqual('value');
-    });
+        $httpBackend.expectGET(env.api_url + '/api/account/' + userId).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });   
 
-    it('should call the userRegister method', function() {
+//modifyAccount
+    it('modifyAccount error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var account = { userId: '1' };
+        api.modifyAccount(access_token, account).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
 
-        api.userRegister(ein, email, password, confirmPassword, reCaptchaResponse, emailVerificationUrl);
-        //expect(api.userRegister).toEqual('value');
-    });
+        $httpBackend.expectPOST(env.api_url + '/api/account/' + account.userId).respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
 
-    it('should call the emailVerification method', function() {
+    it('modifyAccount success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var account = { userId: '1' };
+        api.modifyAccount(access_token, account).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
 
-        api.emailVerification(userId, code, reCaptchaResponse);
-        //expect(api.emailVerification).toEqual('value');
-    });
+        $httpBackend.expectPOST(env.api_url + '/api/account/' + account.userId).respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });     
 
-    it('should call the userInfo method', function() {
-        
-        api.userInfo(access_token);
-        //expect(api.userInfo).toEqual('value');
-    });
+//createAccount
+    it('modifyAccount error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var account = { userId: '1' };
+        api.createAccount(access_token, account).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
 
-    it('should call the saveApplication method', function() {
-        
-        api.saveApplication(access_token, ein, applicationData);
-        //expect(api.saveApplication).toEqual('value');
-    });
+        $httpBackend.expectPOST(env.api_url + '/api/account').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
 
-    it('should call the getApplication method', function() {
-        
-        api.getApplication(access_token, ein, applicationData) ;
-        //expect(api.getApplication).toEqual('value');
-    });
+    it('createAccount success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var account = { userId: '1' };
+        api.createAccount(access_token, account).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
 
-    it('should call the uploadAttachment method', function() {
-        
-        api.uploadAttachment(access_token, ein, file);
-        //expect(api.uploadAttachment).toEqual('value');
-    });
+        $httpBackend.expectPOST(env.api_url + '/api/account').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });          
 
-    it('should call the deleteAttachment method', function() {
-        
-        api.deleteAttachment(access_token, ein, id);
-        //expect(api.deleteAttachment).toEqual('value');
-    });
-
-    it('should call the getAccounts method', function() {
-        
-        api.getAccounts(access_token);
-        //expect(api.getAccounts).toEqual('value');
-    });
-
-    it('should call the getRoles method', function() {
-        
-        api.getRoles(access_token);
-        //expect(api.getRoles).toEqual('value');
-    });
-
-    it('should call the getAccount method', function() {
-        
-        api.getAccount(access_token);
-        //expect(api.getAccount).toEqual('value');
-    });
-
-    it('should call the modifyAccount method', function() {
-        
-        api.modifyAccount(access_token, account);
-        //expect(api.modifyAccount).toEqual('value');
-    });
-
-    it('should call the createAccount method', function() {
-        
-        api.createAccount(access_token, account);
-        //expect(api.createAccount).toEqual('value');
+    it('should call the parseErrors method', function() {
+        var errors = api.parseErrors({"modelState":{"error":["message"] }});
+        expect(errors.length).toEqual(1);
+        expect(errors[0]).toEqual("message");
     });
 
     it('should call the parseErrors method', function() {
-        
-        api.parseErrors(response);
-        //expect(api.parseErrors).toEqual('value');
-    });
+        var errors = api.parseErrors({"modelState": { } });
+        expect(errors.length).toEqual(0);
+    });    
 });
