@@ -42,6 +42,11 @@ namespace DOL.WHD.Section14c.DataAccess
             base.OnModelCreating(modelBuilder);
 
             // data constraints
+            // Address
+            modelBuilder.Entity<Address>().Property(a => a.StreetAddress).IsRequired();
+            modelBuilder.Entity<Address>().Property(a => a.City).IsRequired();
+            modelBuilder.Entity<Address>().Property(a => a.State).IsRequired();
+            modelBuilder.Entity<Address>().Property(a => a.ZipCode).IsRequired();
             // AlternateWageData
             modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateWorkDescription).IsRequired();
             modelBuilder.Entity<AlternateWageData>().Property(a => a.AlternateDataSourceUsed).IsRequired();
@@ -80,7 +85,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfo>().Property(a => a.LegalName).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.HasTradeName).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.LegalNameHasChanged).IsRequired();
-            modelBuilder.Entity<EmployerInfo>().Property(a => a.HasDifferentMailingAddress).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.HasParentOrg).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.EmployerStatusId).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.IsEducationalAgency).IsRequired();
@@ -139,6 +143,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WorkerCountInfo>().Property(a => a.SWEP).IsRequired();
             modelBuilder.Entity<WorkerCountInfo>().Property(a => a.BusinessEstablishment).IsRequired();
             // WorkSite
+            modelBuilder.Entity<WorkSite>().Property(a => a.WorkSiteTypeId).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.Name).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.SCA).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.FederalContractWorkPerformed).IsRequired();
@@ -153,10 +158,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfoProvidingFacilitiesDeductionType>()
                 .ToTable("EmployerInfoFacilitiesDeductionType")
                 .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
-
-            modelBuilder.Entity<WorkSiteWorkSiteType>()
-                .ToTable("WorkSiteWorkSiteType")
-                .HasKey(k => new { k.WorkSiteId, k.WorkSiteTypeId });
 
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");

@@ -8,8 +8,8 @@ module.exports = function(ngModule) {
         $scope.formData = stateService.formData;
         $scope.validate = validationService.getValidationErrors;
 
-        if (!$scope.formData.establishmentType) {
-            $scope.formData.establishmentType = [];
+        if (!$scope.formData.establishmentTypeId) {
+            $scope.formData.establishmentTypeId = [];
         }
 
         // multiple choice responses
@@ -19,12 +19,12 @@ module.exports = function(ngModule) {
         let vm = this;
 
         this.toggleEstablishmentType = function(id) {
-            let index = $scope.formData.establishmentType.indexOf(id);
+            let index = $scope.formData.establishmentTypeId.indexOf(id);
             if (index > -1) {
-                $scope.formData.establishmentType.splice(index, 1);
+                $scope.formData.establishmentTypeId.splice(index, 1);
             }
             else {
-                $scope.formData.establishmentType.push(id);
+                $scope.formData.establishmentTypeId.push(id);
             }
         }
     });

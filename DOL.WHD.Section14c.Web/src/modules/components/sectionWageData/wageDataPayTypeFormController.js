@@ -14,8 +14,6 @@ module.exports = function(ngModule) {
         vm.addingEmployer = false;
         vm.activeSourceEmployer = {};
         vm.activeSourceEmployerIndex = -1;
-        vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;
 
         $scope.formData = stateService.formData;
         $scope.validate = validationService.getValidationErrors;

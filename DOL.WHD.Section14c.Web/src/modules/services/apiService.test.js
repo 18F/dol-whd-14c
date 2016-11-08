@@ -527,5 +527,36 @@ describe('apiService', function() {
     it('should call the parseErrors method', function() {
         var errors = api.parseErrors({"modelState": { } });
         expect(errors.length).toEqual(0);
-    });    
+    });
+
+    //submitApplication
+    it('submitApplication error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '30-1234567';
+        api.submitApplication(access_token, ein, {}).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/application').respond(400, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('value');
+    });      
+
+    it('submitApplication success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = '30-1234567';
+        api.submitApplication(access_token, ein, {}).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/application').respond(200, 'value');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual('value');
+    });
 });
