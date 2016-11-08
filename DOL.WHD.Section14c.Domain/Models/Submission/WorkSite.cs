@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
@@ -13,18 +12,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
-        public IEnumerable<int> WorkSiteTypeId
-        {
-            set
-            {
-                if (value != null)
-                {
-                    WorkSiteType = value.Select(
-                        x => new WorkSiteWorkSiteType {WorkSiteTypeId = x, WorkSiteId = Id}).ToList();
-                }
-            }
-        }
-        public virtual ICollection<WorkSiteWorkSiteType> WorkSiteType { get; set; }
+        public int? WorkSiteTypeId { get; set; }
+        public virtual Response WorkSiteType { get; set; }
 
         public string Name { get; set; }
 

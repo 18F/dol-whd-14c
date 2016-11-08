@@ -25,8 +25,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual Address PhysicalAddress { get; set; }
 
-        public bool? HasDifferentMailingAddress { get; set; }
-
         public bool? HasParentOrg { get; set; }
 
         public string ParentLegalName { get; set; }
@@ -52,6 +50,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public int? SCAId { get; set; }
         public virtual Response SCA { get; set; }
+
+        public int? SCACount { get; set; }
 
         //SCA Wage Determinations upload
         public Guid? SCAAttachmentId { get; set; }
