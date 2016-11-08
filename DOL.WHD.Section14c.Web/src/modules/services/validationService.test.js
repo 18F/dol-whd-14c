@@ -72,7 +72,8 @@ describe('validationService', function() {
             "lastSaved": "2016-11-07T21:05:08.780Z",
             "applicationType": 1,
             "hasPreviousApplication": false,
-            "hasPreviousCertificate": false,
+            "hasPreviousCertificate": true,
+            "certificateNumber": "12-34567-H-890",
             "contactName": "Bob Roberts",
             "contactPhone": "123-456-7890",
             "contactFax": "987-654-3210",
@@ -124,7 +125,7 @@ describe('validationService', function() {
                 "pca": false,
                 "employerStatusOther": ""
             },
-            "payType": 21,
+            "payType": 23,
             "hourlyWageInfo": {
                 "numWorkers": 5,
                 "jobName": "Contract Name",
@@ -154,13 +155,18 @@ describe('validationService', function() {
             3
             ],
             "pieceRateWageInfo": {
-                "numWorkers": 0,
+                "numWorkers": 1,
                 "jobName": "",
                 "jobDescription": "",
-                "prevailingWageMethod": "",
+                "prevailingWageMethod": 24,
                 "mostRecentPrevailingWageSurvey": {
+                  "prevailingWageDetermined": 11,
                   "basedOnSurvey": "",
-                  "sourceEmployers": []
+                  "sourceEmployers": [
+                      {
+                          "employerName": "Biz 1"
+                      }
+                  ]
                 }
             }
         });
