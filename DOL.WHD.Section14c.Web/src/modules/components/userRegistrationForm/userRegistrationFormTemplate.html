@@ -58,7 +58,7 @@
         </span>
         <input type="email" name="registerEmail" id="registerEmail" placeholder="Email" ng-model="formVals.email" />
     </div>
-    <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp">
+    <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp || vm.passwordComplexity">
         <div class="usa-alert-body"> 
         <h3 class="usa-alert-heading">Passwords must</h3>
         <p class="usa-alert-text">
@@ -68,11 +68,12 @@
                 <li><span class="checkmark" ng-class="vm.passwordLower ? 'checked' : ''"></span>Contain at least 1 lowercase leter.</li>
                 <li><span class="checkmark" ng-class="vm.passwordSpecial ? 'checked' : ''"></span>Contain at least 1 special character.</li>
                 <li><span class="checkmark" ng-class="vm.passwordNumber ? 'checked' : ''"></span>Contain at least 1 number.</li>
+                <li><span class="checkmark" ng-class="passwordStrength.score > 2 ? 'checked' : ''"></span>Meets "Good" password strength</li>
             </ul>
             </p>
         </div>
     </div>
-    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch ? 'usa-input-error' : ''">
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
         <label for="registerPassword">Password</label>
         <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.passwordRequired || vm.passwordsDontMatch">
             <div ng-show="vm.passwordRequired">
@@ -95,7 +96,7 @@
             </div>
         </div>
     </div>
-    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch ? 'usa-input-error' : ''">
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>

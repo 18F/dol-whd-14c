@@ -121,6 +121,9 @@ module.exports = function(ngModule) {
                     if($scope.registerErrors.indexOf("Password does not meet complexity requirements.") > -1){
                         vm.passwordComplexity = true;
                     }
+                    if(some($scope.registerErrors, function(error) { return error.indexOf("Passwords must") > -1;})) {
+                        vm.passwordComplexity = true;
+                    }   
                 } else {
                     vm.generalRegistrationError = true;
                 }
