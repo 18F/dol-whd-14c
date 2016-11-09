@@ -4,6 +4,20 @@ describe('sectionWorkSitesController', function() {
 
     beforeEach(inject(function ($rootScope, $controller) {
         scope = $rootScope.$new();
+        scope.responses = {
+            "PrimaryDisability": [
+                {
+                    "id": 31,
+                    "display": "Intellectual/Developmental Disability (IDD)",
+                    "otherValueKey": null
+                },
+                {
+                    "id": 38,
+                    "display": "Other, please specify:",
+                    "otherValueKey": "primaryDisabilityOther"
+                }
+            ]
+        }
 
         sectionWorkSitesController = function() {
             return $controller('sectionWorkSitesController', {
@@ -82,12 +96,24 @@ describe('sectionWorkSitesController', function() {
         var controller = sectionWorkSitesController();
 
         controller.activeWorksite = {};
-        controller.activeWorker = { "name": "First Last" };
+        controller.activeWorker = {
+            "name": "First Last",
+            "primaryDisability": 31
+        };
+
+        controller.getDisabilityDisplay(controller.activeWorker);
+
         controller.addAnotherEmployee();
         controller.doneAddingEmployees();
         expect(controller.activeWorksite.employees.length).toBe(1);
 
         controller.editEmployee(0);
+        controller.activeWorker.primaryDisability = 38;
+        controller.activeWorker.primaryDisabilityId = 38;
+        controller.activeWorker.primaryDisabilityOther = "other";
+
+        controller.getDisabilityDisplay(controller.activeWorker);
+
         controller.addEmployee();
         expect(controller.activeWorksite.employees.length).toBe(1);
 
