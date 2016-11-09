@@ -58,8 +58,10 @@ describe('userRegistrationFormController', function() {
         var controller = userRegistrationFormController(); 
         scope.onSubmitClick();
         scope.resetRegCaptcha = function() {};
+        expect(controller.submittingForm).toBe(true);
         userRegister.resolve();
         scope.$apply();
+        expect(controller.submittingForm).toBe(false);
     });  
 
     it('submitting registration has an error, no error data', function() {
@@ -67,9 +69,11 @@ describe('userRegistrationFormController', function() {
         var hasBeenCalled = false;
         scope.onSubmitClick();
         scope.resetRegCaptcha = function() { hasBeenCalled = true; };
+        expect(controller.submittingForm).toBe(true);
         userRegister.reject({});
         scope.$apply();
         expect(hasBeenCalled).toBe(true);  
+        expect(controller.submittingForm).toBe(false);
     });         
 
 

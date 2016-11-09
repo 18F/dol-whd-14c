@@ -21,7 +21,11 @@
         <div class="showpass">
             <a href="" ng-click="hideShowPassword()"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
         </div></div>
-        <div class="loginbtn"><button type="submit">Log in</button></div>
+        
+        <div class="loginbtn">
+            <button type="submit" ng-show="!vm.submittingForm">Log in</button>
+            <button type="button" ng-show="vm.submittingForm" class='usa-button-active'><span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
+        </div>
         <div class="forgotpass"><a href="" ng-click="forgotPassword()">Forgot Your Password?</a></div>
     </div>
     <div class="login">

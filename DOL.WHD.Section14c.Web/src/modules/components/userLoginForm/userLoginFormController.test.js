@@ -2,15 +2,17 @@ describe('userLoginFormController', function() {
 
     beforeEach(module('14c'));
 
-    beforeEach(inject(function ($rootScope, $controller, _$q_, apiService) {
+    beforeEach(inject(function ($rootScope, $controller, _$q_, apiService, stateService) {
         scope = $rootScope.$new();
         $q = _$q_;
         mockapiService = apiService;
+        mockstateService = stateService;
         userLoginFormController = function() {
             return $controller('userLoginFormController', {
                 '$scope': scope, 
                 '$route': route,
-                'apiService': mockapiService
+                'apiService': mockapiService,
+                'stateService': mockstateService
             });
         };
 
@@ -20,6 +22,10 @@ describe('userLoginFormController', function() {
         userInfo = $q.defer();
         spyOn(mockapiService, 'userInfo').and.returnValue(userInfo.promise);
 
+        loadState = $q.defer();
+        spyOn(stateService, 'loadState').and.returnValue(loadState.promise);
+
+        
     }));
 
     it('invoke controller', function() {
@@ -85,6 +91,45 @@ describe('userLoginFormController', function() {
         userLogin.resolve({ data: {} });
         userInfo.reject({ data: {} });
         scope.$apply();
+    });    
+
+    it('toggle hideShowPassword should show password if it is hidden', function() {
+        var controller = userLoginFormController();
+        scope.inputType = "password";
+        scope.hideShowPassword();
+        scope.$apply();
+
+        expect(scope.inputType).toBe("text");
+    });   
+
+    it('toggle hideShowPassword should hide password if it is shown', function() {
+        var controller = userLoginFormController();
+        scope.inputType = "text";
+        scope.hideShowPassword();
+        scope.$apply();
+
+        expect(scope.inputType).toBe("password");
     });         
+
+
+    it('on state loads', function() {
+        var controller = userLoginFormController();
+
+        scope.onSubmitClick();
+        userLogin.resolve({ data: {} });
+        userInfo.resolve({ data: {} });
+        loadState.resolve();
+        scope.$apply(); 
+    });        
+
+
+    it('on state load fails', function() {
+        var controller = userLoginFormController();
+        spyOn(scope, '$apply');
+        scope.onSubmitClick();
+        userLogin.reject({ data: { error_description: 'Password expired'} });
+        scope.$digest(); 
+    });  
+     
 
 });

@@ -22,6 +22,7 @@ module.exports = function(ngModule) {
         vm.restForm();
 
         vm.resetErrors = function() {
+            vm.generalRegistrationError = false;
             vm.showEinHelp = false;
             vm.einError = false;
             vm.einRequired = false;
@@ -82,11 +83,13 @@ module.exports = function(ngModule) {
         $scope.onSubmitClick = function() {
             vm.resetErrors();
             vm.registerdEmail = ''
+            vm.submittingForm = true;
             apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.regResponse, vm.emailVerificationUrl).then(function (result) {
                 $scope.resetRegCaptcha();
                 vm.registerdEmail = $scope.formVals.email
                 vm.restForm();
                 vm.accountCreated = true;
+                vm.submittingForm = false;
                 $window.scrollTo(0, 0);
             }, function (error) {
                 if(error && error.data){
@@ -118,9 +121,13 @@ module.exports = function(ngModule) {
                     if($scope.registerErrors.indexOf("Password does not meet complexity requirements.") > -1){
                         vm.passwordComplexity = true;
                     }
+                } else {
+                    vm.generalRegistrationError = true;
                 }
+                
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
                 $scope.resetRegCaptcha();
+                vm.submittingForm = false;
                 $location.path("/");
             });
         }
