@@ -27,12 +27,14 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
         [TestMethod]
         public void RegisterBindingModel_PublicProperties()
         {
+            var uri = new Uri("http://www.gsa.gov");
             var obj = new RegisterViewModel
             {
                 Email = "email",
                 ConfirmPassword = "confirmpassword",
                 Password = "password",
                 EIN = "ein",
+                EmailVerificationUrl = uri,
                 ReCaptchaResponse = "recaptchresponse"
             };
 
@@ -40,6 +42,7 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
             Assert.AreEqual("confirmpassword", obj.ConfirmPassword);
             Assert.AreEqual("password", obj.Password);
             Assert.AreEqual("ein", obj.EIN);
+            Assert.AreEqual(uri, obj.EmailVerificationUrl);
             Assert.AreEqual("recaptchresponse", obj.ReCaptchaResponse);
         }
 

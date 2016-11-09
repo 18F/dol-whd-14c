@@ -14,6 +14,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var questionKey = "EmployerStatus";
             var display = "Private, For Profit";
             var subDisplay = "Some explanatory text";
+            var otherValueKey = "Other Value Key";
             var isActive = true;
 
             // Act
@@ -23,6 +24,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 QuestionKey = questionKey,
                 Display = display,
                 SubDisplay = subDisplay,
+                OtherValueKey = otherValueKey,
                 IsActive = isActive
             };
 
@@ -31,6 +33,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(questionKey, model.QuestionKey);
             Assert.AreEqual(display, model.Display);
             Assert.AreEqual(subDisplay, model.SubDisplay);
+            Assert.AreEqual(otherValueKey, model.OtherValueKey);
             Assert.AreEqual(isActive, model.IsActive);
         }
     }

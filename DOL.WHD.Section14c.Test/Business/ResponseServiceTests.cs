@@ -45,5 +45,26 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsFalse(responses.Any(r => !r.IsActive));
         }
+
+        [TestMethod]
+        public void ReturnsBothActiveAndInactive()
+        {
+            // Arrange
+            var service = new ResponseService(_responseRepositoryMock);
+
+            // Act
+            var responses = service.GetResponses(onlyActive: false);
+
+            // Assert
+            Assert.IsTrue(responses.Any(r => !r.IsActive));
+        }
+
+        [TestMethod]
+        public void Dispose()
+        {
+            var service = new ResponseService(_responseRepositoryMock);
+            service.Dispose();
+            Assert.IsTrue(((ResponseRepositoryMock)_responseRepositoryMock).Disposed);
+        }
     }
 }
