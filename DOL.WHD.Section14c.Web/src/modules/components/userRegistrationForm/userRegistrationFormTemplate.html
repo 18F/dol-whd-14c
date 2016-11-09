@@ -15,6 +15,11 @@
             <p class="usa-alert-text">Your account was created, please verify that your email address is <strong>{{vm.registerdEmail}}</strong> by visiting the link in the email.</p>
         </div>
     </div>
+    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.generalRegistrationError">
+        <div class="usa-alert-body">
+            <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
+        </div>
+    </div>    
     <div class="createAcct">
     <h2>Create an Account</h2>
     <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
@@ -109,7 +114,10 @@
             title="reCaptcha"
         ></div>
     </div>
-    <div class="regbtn"><button type="submit">Register</button></div>
+    <div class="regbtn">
+        <button type="submit" ng-show="!vm.submittingForm">Register</button>
+        <button type="button" ng-show="vm.submittingForm" class='usa-button-active'><span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
+        </div>
     </div>
 </form>
 <form ng-show="vm.isEmailVerificationRequest">

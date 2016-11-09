@@ -18,9 +18,9 @@ module.exports = function(ngModule) {
 
         $scope.onSubmitClick = function() {
 
+            vm.submittingForm = true;
             stateService.user.loginEmail = $scope.formVals.email
             
-
             vm.clearError();
 
             //  Call Token Service
@@ -34,9 +34,10 @@ module.exports = function(ngModule) {
                     
                     $location.path("/");
                 }, handleError);
-
+                vm.submittingForm = false;
             }, function (error) {
                 handleError(error);
+                vm.submittingForm = false;
             });
 
         }
