@@ -178,6 +178,15 @@ module.exports = function(ngModule) {
 
 
         // methods for validating each section (primarily used internally)
+        this.validateAssurances = function() {
+            section = "__assurances";
+
+            this.checkRequiredValue("signature.agreement", "Please agree to use an electronic signature");
+            this.checkRequiredString("signature.fullName", "Please enter your full name");
+            this.checkRequiredString("signature.title", "Please enter your title");
+            this.checkRequiredDateComponent("signature.date", "Please enter today's date");
+        }
+
         this.validateAppInfo = function() {
             section = "__appinfo";
 
@@ -474,6 +483,7 @@ module.exports = function(ngModule) {
         // main method to be called for application validation
         this.validateForm = function() {
             this.resetState();
+            this.validateAssurances();
             this.validateAppInfo();
             this.validateEmployer();
             this.validateWageData();
