@@ -110,6 +110,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.HourlyWageInfo, model);
             model = new ApplicationSubmission {PayTypeId = 21, HourlyWageInfo = null};
             _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.HourlyWageInfo, model);
+            model = new ApplicationSubmission { PayTypeId = 23, HourlyWageInfo = null };
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.HourlyWageInfo, model);
         }
 
         [TestMethod]
@@ -118,6 +120,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             var model = new ApplicationSubmission { PayTypeId = 21, PieceRateWageInfo = null };
             _applicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
             model = new ApplicationSubmission { PayTypeId = 22, PieceRateWageInfo = null };
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
+            model = new ApplicationSubmission { PayTypeId = 23, PieceRateWageInfo = null };
             _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
         }
 
