@@ -94,7 +94,15 @@ describe('accountFormController', function() {
         scope.$apply();
 
         expect(scope.formVals.roles.length).toBe(0);
-    });   
+    });
+
+    it('role exists', function() {
+        var controller = accountFormController();
+        scope.formVals = { roles : [{ id: 1 }]};
+        var exists = controller.roleExists(1);
+        scope.$apply();
+        expect(exists).toBe(0);
+    });          
 
     it('role does not exist', function() {
         var controller = accountFormController();
