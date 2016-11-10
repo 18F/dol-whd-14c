@@ -78,12 +78,14 @@ module.exports = function(ngModule) {
                 vm.emailVerificationError = true;
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
             });
-        }     
+        }
 
         $scope.onSubmitClick = function() {
             vm.resetErrors();
             vm.registerdEmail = ''
             vm.submittingForm = true;
+
+            /* eslint-disable complexity */
             apiService.userRegister($scope.formVals.ein, $scope.formVals.email, $scope.formVals.pass, $scope.formVals.confirmPass, $scope.regResponse, vm.emailVerificationUrl).then(function (result) {
                 $scope.resetRegCaptcha();
                 vm.registerdEmail = $scope.formVals.email
@@ -106,14 +108,15 @@ module.exports = function(ngModule) {
                 } else {
                     vm.generalRegistrationError = true;
                 }
-                
+
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
                 $scope.resetRegCaptcha();
                 vm.submittingForm = false;
                 $location.path("/");
             });
+            /* eslint-enable complexity */
         }
-        
+
         $scope.regResponse = null;
         $scope.regWidgetId = null;
         $scope.model = {

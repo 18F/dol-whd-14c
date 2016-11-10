@@ -108,6 +108,7 @@ module.exports = function(ngModule) {
             }
         }
 
+        /* eslint-disable complexity */
         this.checkRequiredNumber = function(propPath, msg, min, max) {
             let val = this.checkRequiredValue(propPath);
             if (isNumber(val)) {
@@ -126,6 +127,7 @@ module.exports = function(ngModule) {
             this.setValidationError(propPath, msg ? msg : "Please enter a valid numerical value");
             return undefined;
         }
+        /* eslint-enable complexity */
 
         this.checkRequiredMultipleChoice = function(propPath, msg) {
             return this.checkRequiredValue(propPath, msg ? msg : "Please select a value");
@@ -185,6 +187,7 @@ module.exports = function(ngModule) {
 
 
         // methods for validating each section (primarily used internally)
+        
         this.validateAssurances = function() {
             section = "__assurances";
 
@@ -194,6 +197,7 @@ module.exports = function(ngModule) {
             this.checkRequiredDateComponent("signature.date", "Please enter today's date");
         }
 
+        /* eslint-disable complexity */
         this.validateAppInfo = function() {
             section = "__appinfo";
 
@@ -466,6 +470,8 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
+
+        /* eslint-enable complexity */
 
         this.validateWIOA = function() {
             section = "__wioa";
