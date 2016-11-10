@@ -32,10 +32,10 @@ describe('accountFormController', function() {
 
     it('when editing user forVals get set', function() {
         var controller = accountFormController();
-        getAccount.resolve({ data: { } });
+        getAccount.resolve({ data: { userId: 1 } });
         scope.$apply();
 
-        expect(scope.formVals).not.toBe(undefined);
+        expect(scope.formVals.userId).toBe(1);
     });    
 
     it('when editing user if the getAccount service has an error show loading error', function() {
