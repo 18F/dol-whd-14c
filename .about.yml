@@ -1,0 +1,101 @@
+licenses:
+  angular:
+    name: MIT
+  angular-animate:
+    name: MIT
+  angular-cookies:
+    name: MIT
+  angular-moment:
+    name: MIT
+  angular-recaptcha:
+    name: MIT
+  angular-resource:
+    name: MIT
+  angular-route:
+    name: MIT
+  angular-sanitize:
+    name: MIT
+  jquery:
+    name: MIT
+  lodash:
+    name: MIT
+  moment:
+    name: MIT
+  ng-mask:
+    name: MIT
+  zxcvbn:
+    name: MIT
+  angular-mocks:
+    name: MIT
+  babel-core:
+    name: MIT
+  babel-loader:
+    name: MIT
+  babel-polyfill:
+    name: MIT
+  babel-preset-es2015:
+    name: MIT
+  copy-webpack-plugin:
+    name: MIT
+  css-loader:
+    name: MIT
+  eslint:
+    name: MIT
+  eslint-loader:
+    name: MIT
+  file-loader:
+    name: MIT
+  html-loader:
+    name: MIT
+  istanbul-instrumenter-loader:
+    name: WTFPL
+  jasmine:
+    name: MIT
+  jasmine-core:
+    name: MIT
+  karma:
+    name: MIT
+  karma-chrome-launcher:
+    name: MIT
+  karma-coverage:
+    name: MIT
+  karma-coveralls:
+    name: MIT
+  karma-jasmine:
+    name: MIT
+  karma-phantomjs-launcher:
+    name: MIT
+  karma-webpack:
+    name: MIT
+  ncp:
+    name: MIT
+  ng-annotate-loader:
+    name: MIT
+  ngtemplate-loader:
+    name: MIT
+  node-bourbon:
+    name: MIT
+  node-sass:
+    name: MIT
+  resolve-url-loader:
+    name: MIT
+  rimraf:
+    name: ISC
+  sass-loader:
+    name: MIT
+  script-loader:
+    name: MIT
+  style-loader:
+    name: MIT
+  susy:
+    name: BSD-3-Clause
+  url-loader:
+    name: MIT
+  uswds:
+    name: SEE LICENSE in LICENSE.md
+  webpack:
+    name: MIT
+  webpack-dev-server:
+    name: MIT
+  webpack-fail-plugin:
+    name: MIT
