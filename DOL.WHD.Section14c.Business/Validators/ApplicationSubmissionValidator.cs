@@ -6,10 +6,11 @@ namespace DOL.WHD.Section14c.Business.Validators
 {
     public class ApplicationSubmissionValidator : BaseValidator<ApplicationSubmission>, IApplicationSubmissionValidator
     {
-        public ApplicationSubmissionValidator(IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
+        public ApplicationSubmissionValidator(ISignatureValidator signatureValidator, IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
         {
             // required
             RuleFor(a => a.EIN).NotEmpty();
+            RuleFor(a => a.Signature).NotNull().SetValidator(signatureValidator);
             RuleFor(a => a.ApplicationTypeId).NotNull().GreaterThanOrEqualTo(1).LessThanOrEqualTo(2);
             RuleFor(a => a.HasPreviousApplication).NotNull();
             RuleFor(a => a.HasPreviousCertificate).NotNull();

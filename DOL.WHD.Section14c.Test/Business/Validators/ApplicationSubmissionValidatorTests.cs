@@ -13,18 +13,25 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         private readonly ApplicationSubmissionValidator _applicationSubmissionValidator;
         public ApplicationSubmissionValidatorTests()
         {
+            var signatureValidatorMock = new Mock<ISignatureValidator>();
             var employerValidatorMock = new Mock<IEmployerValidator>();
             var hourlyWageInfoValidatorMock = new Mock<IHourlyWageInfoValidator>();
             var pieceRateWageInfoValidatorMock = new Mock<IPieceRateWageInfoValidator>();
             var workSiteValidatorMock = new Mock<IWorkSiteValidator>();
             var wioaValidatorMock = new Mock<IWIOAValidator>();
-            _applicationSubmissionValidator = new ApplicationSubmissionValidator(employerValidatorMock.Object, hourlyWageInfoValidatorMock.Object, pieceRateWageInfoValidatorMock.Object, workSiteValidatorMock.Object, wioaValidatorMock.Object);
+            _applicationSubmissionValidator = new ApplicationSubmissionValidator(signatureValidatorMock.Object, employerValidatorMock.Object, hourlyWageInfoValidatorMock.Object, pieceRateWageInfoValidatorMock.Object, workSiteValidatorMock.Object, wioaValidatorMock.Object);
         }
 
         [TestMethod]
         public void Should_Require_EIN()
         {
             _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EIN, "");
+        }
+
+        [TestMethod]
+        public void Should_Require_Signature()
+        {
+            _applicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.Signature, null as Signature);
         }
 
         [TestMethod]
