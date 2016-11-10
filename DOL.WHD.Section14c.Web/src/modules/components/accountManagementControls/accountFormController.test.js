@@ -30,10 +30,6 @@ describe('accountFormController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = accountFormController();
-    });
-
     it('when editing user forVals get set', function() {
         var controller = accountFormController();
         getAccount.resolve({ data: { } });
