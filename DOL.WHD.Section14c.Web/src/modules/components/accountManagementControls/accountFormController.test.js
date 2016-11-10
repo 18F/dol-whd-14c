@@ -67,15 +67,6 @@ describe('accountFormController', function() {
         expect(scope.roles[0].roleId).toBe(1);  
     });      
 
-    it('error loading roles', function() {
-        var controller = accountFormController();
-        getRoles.reject({ data: { error: ''} });
-        scope.$apply();
-
-        expect(scope.roles).toBe(undefined);
-        expect(controller.loadingError).toBe(true);
-    });       
-
     it('error loading roles, log error details', function() {
         var controller = accountFormController();
         getRoles.reject({ data: { error: 'error'} });
