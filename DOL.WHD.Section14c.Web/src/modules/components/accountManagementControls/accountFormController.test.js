@@ -60,10 +60,11 @@ describe('accountFormController', function() {
 
     it('load roles', function() {
         var controller = accountFormController();
-        getRoles.resolve({ data: {} });
+        getRoles.resolve({ data: [{roleId: 1}] });
         scope.$apply();
 
-        expect(scope.roles).not.toBe(undefined); 
+        expect(scope.roles.length > -1).toBe(true);
+        expect(scope.roles[0].roleId).toBe(1);  
     });      
 
     it('error loading roles', function() {
