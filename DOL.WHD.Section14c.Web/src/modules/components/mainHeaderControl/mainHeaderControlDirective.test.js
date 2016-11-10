@@ -5,14 +5,14 @@ describe('mainHeaderControl', function() {
     var element, rootScope;
     beforeEach(function () {
         element = angular.element('<main-header-control/>');
-    	inject(function ($rootScope, $compile) {
+    	inject(function ($rootScope, $compile, $route) {
             rootScope = $rootScope;
 			//$compile(element)(rootScope);
-			rootScope.$digest();
         });
     });
 
     it('invoke directive', function() {
-        // compiled in init.
+        rootScope.$digest();
+        expect(element).toBeDefined();
     });
 });

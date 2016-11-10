@@ -5,14 +5,16 @@ describe('sectionWioa', function() {
     var element, rootScope;
     beforeEach(function () {
         element = angular.element('<section-wioa/>');
-    	inject(function ($rootScope, $compile) {
+    	inject(function ($rootScope, $compile, responsesService) {
             rootScope = $rootScope;
-			//$compile(element)(rootScope);
-			rootScope.$digest();
+            mockResponsesService = responsesService;
+            spyOn(mockResponsesService, 'getQuestionResponses').and.returnValue(responses.promise);            
+			$compile(element)(rootScope);
         });
     });
 
     it('invoke directive', function() {
-        // compiled in init.
+        rootScope.$digest();
+        expect(element).toBeDefined();
     });
 });
