@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
@@ -15,6 +17,11 @@ namespace DOL.WHD.Section14c.Business.Services
         public Task<int> SubmitApplicationAsync(ApplicationSubmission submission)
         {
             return _applicationRepository.AddAsync(submission);
+        }
+
+        public ApplicationSubmission GetApplicationById(Guid id)
+        {
+            return _applicationRepository.Get().SingleOrDefault(x => x.Id == id);
         }
 
         public ApplicationSubmission CleanupModel(ApplicationSubmission vm)

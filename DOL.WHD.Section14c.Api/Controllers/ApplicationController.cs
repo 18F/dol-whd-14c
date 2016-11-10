@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -44,6 +45,18 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             await _applicationService.SubmitApplicationAsync(vm);
             return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpGet]
+        [AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
+        public HttpResponseMessage GetApplication(Guid id)
+        {
+            var application = _applicationService.GetApplicationById(id);
+            if (application != null)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, application);
+            }
+            return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
         [AllowAnonymous]
