@@ -89,7 +89,7 @@ describe('accountFormController', function() {
     it('toggle role selection off', function() {
         var controller = accountFormController();
         scope.roles = { id: 1 };
-        scope.formVals = { roles : [{ id: 1 }]};
+        scope.formVals = { roles : [scope.roles]};
         controller.toggleRole({ id: 1 });
         scope.$apply();
 
