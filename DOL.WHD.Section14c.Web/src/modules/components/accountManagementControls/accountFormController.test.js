@@ -132,7 +132,6 @@ describe('accountFormController', function() {
         controller.submitForm();
         modifyAccount.resolve({data: {}})
         scope.$apply();
-        modifyAccount.resolve({data: {}})
         expect(mockLocation.path()).toBe("/");
     });      
     it('submit edit account error displays error', function() {
