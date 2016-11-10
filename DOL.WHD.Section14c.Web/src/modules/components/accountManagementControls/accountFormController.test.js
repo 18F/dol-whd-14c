@@ -55,6 +55,7 @@ describe('accountFormController', function() {
         scope.$apply();
 
         expect(scope.formVals).not.toBe(undefined);
+        expect(scope.formVals.roles.length).toBe(0);
     });  
 
     it('load roles', function() {
