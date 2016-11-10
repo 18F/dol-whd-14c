@@ -134,16 +134,8 @@ describe('accountFormController', function() {
         scope.$apply();
         expect(mockLocation.path()).toBe("/");
     });      
-    it('submit edit account error displays error', function() {
-        var controller = accountFormController();
-        controller.submitForm();
-        modifyAccount.reject({data: {}})
-        scope.$apply();
 
-        expect(controller.savingError).toBe(true);
-    }); 
-
-    it('submit edit account error displays erro, log description', function() {
+    it('submit edit account error displays error, log description', function() {
         var controller = accountFormController();
         controller.submitForm();
         modifyAccount.reject({data: { error: {}}})
@@ -158,7 +150,7 @@ describe('accountFormController', function() {
         controller.submitForm();
         createAccount.resolve({data: {}})
         scope.$apply();
-        createAccount.resolve({data: {}})
+        
         expect(mockLocation.path()).toBe("/");
     });    
 
