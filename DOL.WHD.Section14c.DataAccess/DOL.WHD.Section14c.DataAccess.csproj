@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.Designer.cs">
       <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611101838282_AddSignature.cs" />
+    <Compile Include="Migrations\201611101838282_AddSignature.Designer.cs">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -324,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611081954473_RemoveRequiredCounty.resx">
       <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101838282_AddSignature.resx">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

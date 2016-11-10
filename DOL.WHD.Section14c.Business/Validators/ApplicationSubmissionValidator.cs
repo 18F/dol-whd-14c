@@ -7,11 +7,14 @@ namespace DOL.WHD.Section14c.Business.Validators
 {
     public class ApplicationSubmissionValidator : BaseValidator<ApplicationSubmission>, IApplicationSubmissionValidator
     {
-        public ApplicationSubmissionValidator(IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
+        public ApplicationSubmissionValidator(ISignatureValidator signatureValidator, IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
         {
             // required
             RuleFor(a => a.EIN).NotEmpty();
             RuleFor(a => a.ApplicationTypeId).NotNull().InclusiveBetween(ResponseIds.ApplicationType.Initial, ResponseIds.ApplicationType.Renewal);
+            RuleFor(a => a.Signature).NotNull().SetValidator(signatureValidator);
+            RuleFor(a => a.ApplicationTypeId).NotNull().GreaterThanOrEqualTo(1).LessThanOrEqualTo(2);
+
             RuleFor(a => a.HasPreviousApplication).NotNull();
             RuleFor(a => a.HasPreviousCertificate).NotNull();
             RuleFor(a => a.EstablishmentType).NotNull().Must(et => et.Any() && !et.Any(x => x.EstablishmentTypeId < ResponseIds.EstablishmentType.WorkCenter) && !et.Any(x => x.EstablishmentTypeId > ResponseIds.EstablishmentType.BusinessEstablishment));

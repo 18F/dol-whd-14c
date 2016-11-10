@@ -13,6 +13,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
+        #region Assurances
+
+        public Signature Signature { get; set; }
+
+        #endregion
+
         #region Application Info
 
         public string EIN { get; set; }
