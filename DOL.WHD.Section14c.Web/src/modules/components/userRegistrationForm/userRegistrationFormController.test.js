@@ -180,6 +180,16 @@ describe('userRegistrationFormController', function() {
         expect(controller.passwordComplexity).toBe(true);  
     }); 
 
+    it('submitting registration has an error, Password does not meet complexity requirements. message is displayed', function() {
+        var controller = userRegistrationFormController(); 
+        scope.onSubmitClick();
+        scope.resetRegCaptcha = function() {};
+        userRegister.reject({data: {"modelState":{"error":[ "Passwords must"] }}});
+        scope.$apply();
+
+        expect(controller.passwordComplexity).toBe(true);  
+    }); 
+
     it('submitting registration has an error, log error details', function() {
         var controller = userRegistrationFormController(); 
         scope.onSubmitClick();

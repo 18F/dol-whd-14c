@@ -78,7 +78,7 @@ module.exports = function(ngModule) {
                 vm.emailVerificationError = true;
                 console.log(error.statusText + (error.data && error.data.error ? ': ' + error.data.error + ' - ' + error.data.error_description : ''));
             });
-        }
+        }     
 
         $scope.onSubmitClick = function() {
             vm.resetErrors();
@@ -94,33 +94,15 @@ module.exports = function(ngModule) {
             }, function (error) {
                 if(error && error.data){
                     $scope.registerErrors = apiService.parseErrors(error.data);
-                    if($scope.registerErrors.indexOf("EIN is already registered") > -1){
-                        vm.einError = true;
-                    }
-                    if($scope.registerErrors.indexOf("Unable to validate reCaptcha Response") > -1){
-                        vm.reCaptchaError = true;
-                    }
-                    if(some($scope.registerErrors, function(error) { return error.indexOf("is already taken") > -1;})) {
-                        vm.emailAddressError = true;
-                    }   
-                    if($scope.registerErrors.indexOf("The Email field is required.") > -1){
-                        vm.emailAddressRequired = true;
-                    }
-                    if($scope.registerErrors.indexOf("The Password field is required.") > -1){
-                        vm.passwordRequired = true;
-                    }
-                    if($scope.registerErrors.indexOf("The EIN field is required.") > -1){
-                        vm.einRequired = true;
-                    }
-                    if(some($scope.registerErrors, function(error) { return error.indexOf("The field EIN must match") > -1;})) {
-                        vm.invalidEin = true;
-                    }   
-                    if($scope.registerErrors.indexOf("The password and confirmation password do not match.") > -1){
-                        vm.passwordsDontMatch = true;
-                    }
-                    if($scope.registerErrors.indexOf("Password does not meet complexity requirements.") > -1){
-                        vm.passwordComplexity = true;
-                    }
+                    vm.einError = $scope.registerErrors.indexOf("EIN is already registered") > -1;
+                    vm.reCaptchaError = $scope.registerErrors.indexOf("Unable to validate reCaptcha Response") > -1;
+                    vm.emailAddressError = some($scope.registerErrors, function(error) { return error.indexOf("is already taken") > -1;});
+                    vm.emailAddressRequired = $scope.registerErrors.indexOf("The Email field is required.") > -1;
+                    vm.passwordRequired = $scope.registerErrors.indexOf("The Password field is required.") > -1;
+                    vm.einRequired = $scope.registerErrors.indexOf("The EIN field is required.") > -1;
+                    vm.invalidEin = some($scope.registerErrors, function(error) { return error.indexOf("The field EIN must match") > -1;});
+                    vm.passwordsDontMatch = $scope.registerErrors.indexOf("The password and confirmation password do not match.") > -1;
+                    vm.passwordComplexity = $scope.registerErrors.indexOf("Password does not meet complexity requirements.") > -1 || some($scope.registerErrors, function(error) { return error.indexOf("Passwords must") > -1;});
                 } else {
                     vm.generalRegistrationError = true;
                 }
