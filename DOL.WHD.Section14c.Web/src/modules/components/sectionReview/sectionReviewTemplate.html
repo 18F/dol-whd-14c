@@ -4,6 +4,17 @@
     <p>Below is a summary of the results:</p>
 
     <div class="section-results">
+        <h3>Assurances</h3>
+        <reviewbar errorstate="{{ validation.__assurances }}"></reviewbar>
+        <div ng-hide="validation.__assurances">
+            <a href="" ng-click="navService.gotoSection('assurances')">Review Assurances</a>
+        </div>
+        <button ng-click="navService.gotoSection('assurances')" ng-show="validation.__assurances">Edit Responses</button>
+    </div>
+
+    <hr>
+
+    <div class="section-results">
         <h3>Application Info</h3>
         <reviewbar errorstate="{{ validation.__appinfo }}"></reviewbar>
         <div ng-hide="validation.__appinfo">

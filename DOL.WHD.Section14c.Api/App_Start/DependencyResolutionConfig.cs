@@ -41,6 +41,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IEmployeeValidator, EmployeeValidator>(Lifestyle.Singleton);
             container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);
+            container.Register<ISignatureValidator, SignatureValidator>(Lifestyle.Singleton);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);

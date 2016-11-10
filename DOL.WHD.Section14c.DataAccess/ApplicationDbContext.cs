@@ -120,6 +120,11 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Response>().Property(a => a.QuestionKey).IsRequired();
             modelBuilder.Entity<Response>().Property(a => a.Display).IsRequired();
             modelBuilder.Entity<Response>().Property(a => a.IsActive).IsRequired();
+            // Signature
+            modelBuilder.Entity<Signature>().Property(a => a.Agreement).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.Title).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.Date).IsRequired();
             // SourceEmployer
             modelBuilder.Entity<SourceEmployer>().Property(a => a.EmployerName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.Phone).IsRequired();

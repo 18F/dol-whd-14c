@@ -183,7 +183,7 @@
                         <label>Date of Contact</label>
                         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
                         <fieldset>
-                            <date-field date-val="vm.activeSourceEmployer.contactDate" />
+                            <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
                         </fieldset>
                     </div>
 
@@ -268,7 +268,7 @@
                     <label>Date data retrieved</label>
                     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
                     <fieldset>
-                        <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved" />
+                        <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>
                         <label class="example">Example: 04 30 2016</label>
                     </fieldset>
                 </div>

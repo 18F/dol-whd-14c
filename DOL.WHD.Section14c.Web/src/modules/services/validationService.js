@@ -101,6 +101,13 @@ module.exports = function(ngModule) {
             return val;
         }
 
+        this.checkRequiredBoolean = function(propPath, msg) {
+            let val = this.checkRequiredValue(propPath);
+            if(val === false) {
+                this.setValidationError(propPath, msg ? msg : "Please check the box");
+            }
+        }
+
         this.checkRequiredNumber = function(propPath, msg, min, max) {
             let val = this.checkRequiredValue(propPath);
             if (isNumber(val)) {
@@ -178,6 +185,15 @@ module.exports = function(ngModule) {
 
 
         // methods for validating each section (primarily used internally)
+        this.validateAssurances = function() {
+            section = "__assurances";
+
+            this.checkRequiredBoolean("signature.agreement", "Please agree to use an electronic signature");
+            this.checkRequiredString("signature.fullName", "Please enter your full name");
+            this.checkRequiredString("signature.title", "Please enter your title");
+            this.checkRequiredDateComponent("signature.date", "Please enter today's date");
+        }
+
         this.validateAppInfo = function() {
             section = "__appinfo";
 
@@ -474,6 +490,7 @@ module.exports = function(ngModule) {
         // main method to be called for application validation
         this.validateForm = function() {
             this.resetState();
+            this.validateAssurances();
             this.validateAppInfo();
             this.validateEmployer();
             this.validateWageData();
