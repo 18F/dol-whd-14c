@@ -13,10 +13,6 @@ describe('accountCreateButtonController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = accountCreateButtonController();
-    });
-
     it('create account click takes you to /account/create', function() {
         var controller = accountCreateButtonController();
         controller.createAccountClick();
