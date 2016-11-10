@@ -150,19 +150,9 @@ describe('accountFormController', function() {
         controller.submitForm();
         createAccount.resolve({data: {}})
         scope.$apply();
-        
+
         expect(mockLocation.path()).toBe("/");
     });    
-
-    it('submit create account error displays error', function() {
-        var controller = accountFormController();
-        controller.isEditAccount = false;
-        controller.submitForm();
-        createAccount.reject({data: {}})
-        scope.$apply();
-
-        expect(controller.savingError).toBe(true);
-    }); 
 
     it('submit create account error displays erro, log description', function() {
         var controller = accountFormController();
