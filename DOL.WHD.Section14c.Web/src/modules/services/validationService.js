@@ -101,6 +101,13 @@ module.exports = function(ngModule) {
             return val;
         }
 
+        this.checkRequiredBoolean = function(propPath, msg) {
+            let val = this.checkRequiredValue(propPath);
+            if(val === false) {
+                this.setValidationError(propPath, msg ? msg : "Please check the box");
+            }
+        }
+
         /* eslint-disable complexity */
         this.checkRequiredNumber = function(propPath, msg, min, max) {
             let val = this.checkRequiredValue(propPath);
@@ -178,8 +185,19 @@ module.exports = function(ngModule) {
             return match !== null;
         }
 
-        /* eslint-disable complexity */
+
         // methods for validating each section (primarily used internally)
+        
+        this.validateAssurances = function() {
+            section = "__assurances";
+
+            this.checkRequiredBoolean("signature.agreement", "Please agree to use an electronic signature");
+            this.checkRequiredString("signature.fullName", "Please enter your full name");
+            this.checkRequiredString("signature.title", "Please enter your title");
+            this.checkRequiredDateComponent("signature.date", "Please enter today's date");
+        }
+
+        /* eslint-disable complexity */
         this.validateAppInfo = function() {
             section = "__appinfo";
 
@@ -214,9 +232,7 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
-        /* eslint-enable complexity */
 
-        /* eslint-disable complexity */
         this.validateEmployer = function() {
             section = "__employer";
 
@@ -296,9 +312,7 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
-        /* eslint-enable complexity */
 
-        /* eslint-disable complexity */
         this.validateWageDataPayType = function(prefix) {
             this.checkRequiredNumber(prefix + ".numWorkers", undefined, 0);
             this.checkRequiredString(prefix + ".jobName");
@@ -349,7 +363,6 @@ module.exports = function(ngModule) {
                 this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
             }
         }
-        /* eslint-enable complexity */
 
         this.validateWageData = function() {
             section = "__wagedata";
@@ -382,7 +395,6 @@ module.exports = function(ngModule) {
             section = undefined;
         }
 
-        /* eslint-disable complexity */
         this.validateWorkSites = function() {
             section = "__worksites";
 
@@ -458,6 +470,7 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
+
         /* eslint-enable complexity */
 
         this.validateWIOA = function() {
@@ -483,6 +496,7 @@ module.exports = function(ngModule) {
         // main method to be called for application validation
         this.validateForm = function() {
             this.resetState();
+            this.validateAssurances();
             this.validateAppInfo();
             this.validateEmployer();
             this.validateWageData();
