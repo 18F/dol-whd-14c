@@ -43,16 +43,11 @@ describe('accountFormController', function() {
         getAccount.reject({ data: { error: 'error'} });
         scope.$apply();
 
-        expect(controller.loadingError).toBe(true);
-    });    
-
-    it('when editing user if the getAccount service has an error show loading error, no error logging', function() {
-        var controller = accountFormController();
         getAccount.reject({ data: { error: ''} });
         scope.$apply();
 
         expect(controller.loadingError).toBe(true);
-    });          
+    });         
 
     it('default formVals if creating a new account', function() {
         mockRouteParams = { userId: 'create'};
