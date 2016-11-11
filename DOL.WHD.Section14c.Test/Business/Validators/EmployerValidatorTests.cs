@@ -54,7 +54,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_EmployerStatusId()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, null as int?);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, ResponseIds.EmployerStatus.PrivateForProfit);
         }
 
         [TestMethod]
@@ -89,14 +89,14 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_SCAId()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, null as int?);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, ResponseIds.SCA.Yes);
         }
 
         [TestMethod]
         public void Should_Require_EO13658Id()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, null as int?);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, ResponseIds.EO13658.Yes);
         }
 
         [TestMethod]
@@ -125,7 +125,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
                 ProvidingFacilitiesDeductionType =
                     new List<EmployerInfoProvidingFacilitiesDeductionType>
                     {
-                        new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = 19}
+                        new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = ResponseIds.ProvidingFacilitiesDeductionType.Meals}
                     }
             };
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
@@ -135,9 +135,9 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
         {
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
-            var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = null };
+            var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { ResponseIds.ProvidingFacilitiesDeductionType.Other }, ProvidingFacilitiesDeductionTypeOther = null };
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
-            model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = "Other" };
+            model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { ResponseIds.ProvidingFacilitiesDeductionType.Other }, ProvidingFacilitiesDeductionTypeOther = "Other" };
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
         }
 
@@ -212,9 +212,9 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_EmployerStatusOther()
         {
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusOther, "");
-            var model = new EmployerInfo { EmployerStatusId = 10, EmployerStatusOther = "" };
+            var model = new EmployerInfo { EmployerStatusId = ResponseIds.EmployerStatus.Other, EmployerStatusOther = "" };
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusOther, model);
-            model = new EmployerInfo { EmployerStatusId = 10, EmployerStatusOther = "Other" };
+            model = new EmployerInfo { EmployerStatusId = ResponseIds.EmployerStatus.Other, EmployerStatusOther = "Other" };
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusOther, model);
         }
 
@@ -222,21 +222,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_EmployerStatus()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, 11);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, ResponseIds.EmployerStatus.PrivateForProfit);
         }
 
         [TestMethod]
         public void Should_Validate_SCA()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, 14);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, ResponseIds.SCA.Yes);
         }
 
         [TestMethod]
         public void Should_Validate_EO13658()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, 19);
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, ResponseIds.EO13658.Yes);
         }
 
         [TestMethod]
@@ -256,7 +256,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             {
                 ProvidingFacilitiesDeductionType = new List<EmployerInfoProvidingFacilitiesDeductionType>
                 {
-                    new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = 19}
+                    new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = ResponseIds.ProvidingFacilitiesDeductionType.Meals}
                 },
                 TakeCreditForCosts = true
             };
@@ -266,20 +266,20 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_SCACount()
         {
-            var model = new EmployerInfo {SCAId = 12, SCACount = null};
+            var model = new EmployerInfo {SCAId = ResponseIds.SCA.No, SCACount = null};
             EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCACount, model);
 
-            model = new EmployerInfo { SCAId = 11, SCACount = null };
+            model = new EmployerInfo { SCAId = ResponseIds.SCA.Yes, SCACount = null };
             EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCACount, model);
         }
 
         [TestMethod]
         public void Should_Require_SCAAttachment()
         {
-            var model = new EmployerInfo { SCAId = 12, SCAAttachmentId = null };
+            var model = new EmployerInfo { SCAId = ResponseIds.SCA.No, SCAAttachmentId = null };
             EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachmentId, model);
 
-            model = new EmployerInfo { SCAId = 11, SCAAttachmentId = null };
+            model = new EmployerInfo { SCAId = ResponseIds.SCA.Yes, SCAAttachmentId = null };
             EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachmentId, model);
         }
     }

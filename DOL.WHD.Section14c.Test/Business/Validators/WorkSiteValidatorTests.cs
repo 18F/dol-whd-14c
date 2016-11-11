@@ -19,7 +19,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_WorkSiteType()
         {
             WorkSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteTypeId, null as int?);
-            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteTypeId, 27);
+            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteTypeId, ResponseIds.WorkSiteType.MainEstablishment);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_WorkSiteType()
         {
             WorkSiteValidator.ShouldHaveValidationErrorFor(x => x.WorkSiteTypeId, 35);
-            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteTypeId, 27);
+            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSiteTypeId, ResponseIds.WorkSiteType.MainEstablishment);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,7 +22,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_PrimaryDisabilityId()
         {
             EmployeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityId, null as int?);
-            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityId, 35);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityId, ResponseIds.PrimaryDisability.Neuromuscular);
         }
 
         [TestMethod]
@@ -90,11 +91,11 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_PrimaryDisabilityOther()
         {
-            var model = new Employee { PrimaryDisabilityId = 37, PrimaryDisabilityOther = null };
+            var model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.SubstanceAbuse, PrimaryDisabilityOther = null };
             EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
-            model = new Employee { PrimaryDisabilityId = 38, PrimaryDisabilityOther = null};
+            model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.Other, PrimaryDisabilityOther = null};
             EmployeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
-            model = new Employee { PrimaryDisabilityId = 38, PrimaryDisabilityOther = "Other" };
+            model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.Other, PrimaryDisabilityOther = "Other" };
             EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
         }
 
@@ -102,7 +103,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_PrimaryDisability()
         {
             EmployeeValidator.ShouldHaveValidationErrorFor(x => x.PrimaryDisabilityId, 40);
-            EmployeeValidator.ShouldNotHaveValidationErrorFor(x => x.PrimaryDisabilityId, 35);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(x => x.PrimaryDisabilityId, ResponseIds.PrimaryDisability.IntellectualDevelopmental);
         }
     }
 }

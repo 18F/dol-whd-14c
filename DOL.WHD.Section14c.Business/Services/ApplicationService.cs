@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Business.Services
@@ -22,11 +23,11 @@ namespace DOL.WHD.Section14c.Business.Services
             var result = vm;
 
             // clear out non-selected wage type
-            if (result.PayTypeId == 21) // hourly
+            if (result.PayTypeId == ResponseIds.PayType.Hourly)
             {
                 result.PieceRateWageInfo = null;
             }
-            else if (result.PayTypeId == 22) // piece rate
+            else if (result.PayTypeId == ResponseIds.PayType.PieceRate)
             {
                 result.HourlyWageInfo = null;
             }
@@ -41,17 +42,17 @@ namespace DOL.WHD.Section14c.Business.Services
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)
         {
             var prevailingWageMethod = wageTypeInfo?.PrevailingWageMethodId;
-            if (prevailingWageMethod == 24) // Prevailing Wage Survey
+            if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.PrevailingWageSurvey)
             {
                 wageTypeInfo.AlternateWageData = null;
                 wageTypeInfo.SCAWageDeterminationId = null;
             }
-            else if (prevailingWageMethod == 25) // Alternate Wage Data
+            else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.AlternateWageData)
             {
                 wageTypeInfo.MostRecentPrevailingWageSurvey = null;
                 wageTypeInfo.SCAWageDeterminationId = null;
             }
-            else if (prevailingWageMethod == 26) // SCA Wage Determination
+            else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.SCAWageDetermination)
             {
                 wageTypeInfo.MostRecentPrevailingWageSurvey = null;
                 wageTypeInfo.AlternateWageData = null;
