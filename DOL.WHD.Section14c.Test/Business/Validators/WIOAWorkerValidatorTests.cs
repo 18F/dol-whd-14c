@@ -7,30 +7,27 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
     [TestClass]
     public class WIOAWorkerValidatorTests
     {
-        private readonly IWIOAWorkerValidator _wioaWorkerValidator;
-
-        public WIOAWorkerValidatorTests()
-        {
-            _wioaWorkerValidator = new WIOAWorkerValidator();
-        }
+        private static readonly IWIOAWorkerValidator WIOAWorkerValidator = new WIOAWorkerValidator();
 
         [TestMethod]
         public void Should_Require_FullName()
         {
-            _wioaWorkerValidator.ShouldHaveValidationErrorFor(x => x.FullName, "");
+            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.FullName, "");
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.FullName, "Full Name");
         }
 
         [TestMethod]
         public void Should_Require_WIOAWorkerVerifiedId()
         {
-            _wioaWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, null as int?);
+            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, null as int?);
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
         }
 
         [TestMethod]
         public void Should_Validate_WIOAWorkerVerified()
         {
-            _wioaWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 42);
-            _wioaWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
+            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 42);
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
         }
     }
 }
