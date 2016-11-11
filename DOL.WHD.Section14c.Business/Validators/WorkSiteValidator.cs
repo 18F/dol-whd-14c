@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Submission;
+﻿using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
@@ -7,7 +8,7 @@ namespace DOL.WHD.Section14c.Business.Validators
     {
         public WorkSiteValidator(IAddressValidatorNoCounty addressValidatorNoCounty, IEmployeeValidator employeeValidator)
         {
-            RuleFor(w => w.WorkSiteTypeId).NotNull();
+            RuleFor(w => w.WorkSiteTypeId).NotNull().GreaterThanOrEqualTo(ResponseIds.WorkSiteType.MainEstablishment).LessThanOrEqualTo(ResponseIds.WorkSiteType.SWEP);
             RuleFor(w => w.Name).NotEmpty();
             RuleFor(w => w.Address).NotNull().SetValidator(addressValidatorNoCounty);
             RuleFor(w => w.SCA).NotNull();

@@ -3,32 +3,29 @@ using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
 {
     [TestClass]
     public class PrevailingWageSurveyInfoValidatorTests
     {
-        private readonly IPrevailingWageSurveyInfoValidator _prevailingWageSurveyInfoValidator;
-
-        public PrevailingWageSurveyInfoValidatorTests()
-        {
-            var sourceEmployerValidator = new Mock<ISourceEmployerValidator>();
-            _prevailingWageSurveyInfoValidator = new PrevailingWageSurveyInfoValidator(sourceEmployerValidator.Object);
-        }
+        private static readonly IAddressValidator AddressValidator = new AddressValidator();
+        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidator);
+        private static readonly IPrevailingWageSurveyInfoValidator PrevailingWageSurveyInfoValidator = new PrevailingWageSurveyInfoValidator(SourceEmployerValidator);
 
         [TestMethod]
         public void Should_Require_PrevailingWageDetermined()
         {
-            _prevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageDetermined, null as double?);
+            PrevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageDetermined, null as double?);
+            PrevailingWageSurveyInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageDetermined, 15.55);
         }
 
         [TestMethod]
         public void Should_Require_SourceEmployers()
         {
-            _prevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.SourceEmployers, null as ICollection<SourceEmployer>);
-            _prevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.SourceEmployers, new List<SourceEmployer>());
+            PrevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.SourceEmployers, null as ICollection<SourceEmployer>);
+            PrevailingWageSurveyInfoValidator.ShouldHaveValidationErrorFor(x => x.SourceEmployers, new List<SourceEmployer>());
+            PrevailingWageSurveyInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SourceEmployers, new List<SourceEmployer> {new SourceEmployer()});
         }
     }
 }

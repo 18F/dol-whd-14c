@@ -13,10 +13,6 @@ describe('wageDataPayTypeFormController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = wageDataPayTypeFormController();
-    });
-
     // test add/edit/validate/remove a source employer
     it('should add/edit/validate/delete a source employer', function() {
         var controller = wageDataPayTypeFormController();

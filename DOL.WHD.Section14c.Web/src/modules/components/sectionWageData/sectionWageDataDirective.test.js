@@ -17,5 +17,6 @@ describe('sectionWageData', function() {
 
     it('invoke directive', function() {
         rootScope.$digest();
+        expect(element).toBeDefined();
     });
 });

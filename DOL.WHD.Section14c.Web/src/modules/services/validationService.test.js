@@ -40,15 +40,15 @@ describe('validationService', function() {
                         "streetAddress": "1600 Pennsylvania Ave.",
                         "city": "Washington",
                         "state": "DC",
-                        "zipCode": "20500"
+                        "zipCode": "2050x"
                     },
                     "sca": false,
                     "federalContractWorkPerformed": true,
-                    "numEmployees": 1,
+                    "numEmployees": 2,
                     "employees": [
                         {
                             "name": "Joe Plumber",
-                            "primaryDisability": 31,
+                            "primaryDisability": 35,
                             "workType": "Work type",
                             "numJobs": 1,
                             "avgWeeklyHours": 40,
@@ -58,7 +58,8 @@ describe('validationService', function() {
                             "commensurateWageRate": 102.1,
                             "totalHours": 40,
                             "workAtOtherSite": false,
-                            "primaryDisabilityId": 31
+                            "primaryDisabilityId": 35,
+                            "primaryDisabilityOther": "other disability"
                         }
                     ],
                     "workSiteTypeId": 27
@@ -103,10 +104,10 @@ describe('validationService', function() {
             "applicationType": 1,
             "hasPreviousApplication": false,
             "hasPreviousCertificate": true,
-            "certificateNumber": "12-34567-H-890",
+            "certificateNumber": "12-34567-H-89",
             "contactName": "Bob Roberts",
             "contactPhone": "123-456-7890",
-            "contactFax": "987-654-3210",
+            "contactFax": "987-654-310",
             "contactEmail": "email@email.com",
             "employer": {
                 "numSubminimalWageWorkers": {
@@ -119,12 +120,13 @@ describe('validationService', function() {
                 "providingFacilitiesDeductionTypeId": [
                     17,
                     18,
-                    19
+                    20
                 ],
+                "providingFacilitiesDeductionTypeOther": "other stuff",
                 "legalName": "AIS",
                 "hasTradeName": true,
                 "tradeName": "Applied Information Sciences",
-                "legalNameHasChanged": false,
+                "legalNameHasChanged": true,
                 "physicalAddress": {
                     "streetAddress": "2681 Commons Blvd.",
                     "city": "Beavercreek",
@@ -139,21 +141,22 @@ describe('validationService', function() {
                     "streetAddress": "11400 Commerce Park Dr.",
                     "city": "Reston",
                     "state": "VA",
-                    "zipCode": "20191",
+                    "zipCode": "2019x",
                     "county": "Reston"
                 },
                 "sendMailToParent": true,
-                "employerStatusId": 8,
+                "employerStatusId": 10,
                 "isEducationalAgency": false,
                 "fiscalQuarterEndDate": "2005-03-01T05:00:00.000Z",
-                "scaId": 13,
+                "scaId": 11,
+                "scaCount": 1,
                 "eo13658Id": 16,
                 "representativePayee": true,
                 "totalDisabledWorkers": 3,
                 "takeCreditForCosts": true,
                 "temporaryAuthority": false,
                 "pca": false,
-                "employerStatusOther": ""
+                "employerStatusOther": "status"
             },
             "payType": 23,
             "hourlyWageInfo": {
@@ -179,7 +182,7 @@ describe('validationService', function() {
             },
             "totalNumWorkSites": 3,
             "applicationTypeId": 1,
-            "payTypeId": 21,
+            "payTypeId": 23,
             "establishmentTypeId": [
             4,
             3
@@ -189,6 +192,7 @@ describe('validationService', function() {
                 "jobName": "",
                 "jobDescription": "",
                 "prevailingWageMethod": 24,
+                "prevailingWageMethodId": 24,
                 "mostRecentPrevailingWageSurvey": {
                   "prevailingWageDetermined": 11,
                   "basedOnSurvey": "",

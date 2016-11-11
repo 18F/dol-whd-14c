@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Submission;
+﻿using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
@@ -8,7 +9,7 @@ namespace DOL.WHD.Section14c.Business.Validators
         public EmployeeValidator()
         {
             RuleFor(e => e.Name).NotEmpty();
-            RuleFor(e => e.PrimaryDisabilityId).NotNull().GreaterThanOrEqualTo(31).LessThanOrEqualTo(38);
+            RuleFor(e => e.PrimaryDisabilityId).NotNull().InclusiveBetween(ResponseIds.PrimaryDisability.IntellectualDevelopmental, ResponseIds.PrimaryDisability.Other);
             RuleFor(e => e.WorkType).NotEmpty();
             RuleFor(e => e.NumJobs).NotNull();
             RuleFor(e => e.AvgWeeklyHours).NotNull();
@@ -20,7 +21,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.WorkAtOtherSite).NotNull();
 
             // conditional
-            RuleFor(e => e.PrimaryDisabilityOther).NotEmpty().When(e => e.PrimaryDisabilityId == 38);
+            RuleFor(e => e.PrimaryDisabilityOther).NotEmpty().When(e => e.PrimaryDisabilityId == ResponseIds.PrimaryDisability.Other);
         }
     }
 }

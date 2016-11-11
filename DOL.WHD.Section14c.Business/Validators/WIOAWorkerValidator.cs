@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Submission;
+﻿using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
@@ -8,7 +9,7 @@ namespace DOL.WHD.Section14c.Business.Validators
         public WIOAWorkerValidator()
         {
             RuleFor(w => w.FullName).NotEmpty();
-            RuleFor(w => w.WIOAWorkerVerifiedId).NotNull().GreaterThanOrEqualTo(39).LessThanOrEqualTo(41);
+            RuleFor(w => w.WIOAWorkerVerifiedId).NotNull().InclusiveBetween(ResponseIds.WIOAWorkerVerified.Yes, ResponseIds.WIOAWorkerVerified.NotRequired);
         }
     }
 }

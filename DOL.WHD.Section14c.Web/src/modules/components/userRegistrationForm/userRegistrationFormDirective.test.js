@@ -7,12 +7,14 @@ describe('userRegistrationForm', function() {
         element = angular.element('<user-registration-form/>');
     	inject(function ($rootScope, $compile) {
             rootScope = $rootScope;
-			//$compile(element)(rootScope);
-			rootScope.$digest();
+			$compile(element)(rootScope);
+            scope = $rootScope.$new();
         });
     });
 
     it('invoke directive', function() {
-        rootScope.$digest();
+        scope.model = { key: 'key'};
+        scope.$digest();
+        expect(element).toBeDefined();
     });
 });

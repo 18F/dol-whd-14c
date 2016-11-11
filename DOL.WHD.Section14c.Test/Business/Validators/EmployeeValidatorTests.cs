@@ -1,4 +1,5 @@
 ﻿using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -8,93 +9,101 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
     [TestClass]
     public class EmployeeValidatorTests
     {
-        private readonly IEmployeeValidator _employeeValidator;
-
-        public EmployeeValidatorTests()
-        {
-            _employeeValidator = new EmployeeValidator();
-        }
+        private static readonly IEmployeeValidator EmployeeValidator = new EmployeeValidator();
 
         [TestMethod]
         public void Should_Require_Name()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.Name, "");
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.Name, "");
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.Name, "Employee Name");
         }
 
         [TestMethod]
         public void Should_Require_PrimaryDisabilityId()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityId, null as int?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityId, null as int?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityId, ResponseIds.PrimaryDisability.Neuromuscular);
         }
 
         [TestMethod]
         public void Should_Require_WorkType()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.WorkType, "");
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.WorkType, "");
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.WorkType, "Work Type");
         }
 
         [TestMethod]
         public void Should_Require_NumJobs()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.NumJobs, null as int?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.NumJobs, null as int?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.NumJobs, 20);
         }
 
         [TestMethod]
         public void Should_Require_AvgWeeklyHours()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.AvgWeeklyHours, null as double?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.AvgWeeklyHours, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.AvgWeeklyHours, 20.25);
         }
 
         [TestMethod]
         public void Should_Require_AvgHourlyEarnings()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.AvgHourlyEarnings, null as double?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.AvgHourlyEarnings, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.AvgHourlyEarnings, 15.55);
         }
 
         [TestMethod]
         public void Should_Require_PrevailingWage()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.PrevailingWage, null as double?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.PrevailingWage, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrevailingWage, 10.56);
         }
 
         [TestMethod]
         public void Should_Require_ProductivityMeasure()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.ProductivityMeasure, null as double?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.ProductivityMeasure, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.ProductivityMeasure, 15.32);
         }
 
         [TestMethod]
         public void Should_Require_CommensurateWageRate()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.CommensurateWageRate, "");
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.CommensurateWageRate, "");
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.CommensurateWageRate, "CommensurateWageRate");
         }
 
         [TestMethod]
         public void Should_Require_TotalHours()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.TotalHours, null as double?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.TotalHours, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.TotalHours, 20.55);
         }
 
         [TestMethod]
         public void Should_Require_WorkAtOtherSite()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.WorkAtOtherSite, null as bool?);
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.WorkAtOtherSite, null as bool?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.WorkAtOtherSite, false);
         }
 
         [TestMethod]
         public void Should_Require_PrimaryDisabilityOther()
         {
-            var model = new Employee { PrimaryDisabilityId = 37, PrimaryDisabilityOther = null };
-            _employeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
-            model = new Employee { PrimaryDisabilityId = 38, PrimaryDisabilityOther = null};
-            _employeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
+            var model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.SubstanceAbuse, PrimaryDisabilityOther = null };
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
+            model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.Other, PrimaryDisabilityOther = null};
+            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
+            model = new Employee { PrimaryDisabilityId = ResponseIds.PrimaryDisability.Other, PrimaryDisabilityOther = "Other" };
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.PrimaryDisabilityOther, model);
         }
 
         [TestMethod]
         public void Should_Validate_PrimaryDisability()
         {
-            _employeeValidator.ShouldHaveValidationErrorFor(x => x.PrimaryDisabilityId, 40);
-            _employeeValidator.ShouldNotHaveValidationErrorFor(x => x.PrimaryDisabilityId, 35);
+            EmployeeValidator.ShouldHaveValidationErrorFor(x => x.PrimaryDisabilityId, 40);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(x => x.PrimaryDisabilityId, ResponseIds.PrimaryDisability.IntellectualDevelopmental);
         }
     }
 }

@@ -27,5 +27,10 @@ describe('mainNavigationControlController', function() {
 
     it('invoke controller', function() {
         var controller = mainNavigationControlController();
+        spyOn(mockNavService, 'gotoSection');
+        var event = { target: { dataset: { sectionid: 1 }}};
+        controller.onNavClick(event);
+
+        expect(mockNavService.gotoSection).toHaveBeenCalledWith(1);
     });
 });
