@@ -98,7 +98,9 @@ app.run(function($rootScope, $location, stateService, autoSaveService) {
             $rootScope.loggedIn = true;
 
             // start auto-save 
-            autoSaveService.start();
+            if(stateService.ein){
+                autoSaveService.start();
+            }
         });
     }
 

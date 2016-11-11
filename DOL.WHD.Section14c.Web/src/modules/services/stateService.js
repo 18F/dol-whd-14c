@@ -79,17 +79,17 @@ module.exports = function(ngModule) {
             apiService.userInfo(self.access_token).then(function (result) {
                 const data = result.data;
                 self.user = data;
-                self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-
-                // Get Application State for Organization
-                apiService.getApplication(self.access_token, self.ein).then(function (result) {
-                    const data = result.data;
-                    self.setFormData(JSON.parse(data));
-                    d.resolve(data);
-                }, function (error) {
-                    d.reject(error);
-                });
-
+                if(data.organizations.length > 0){
+                    self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
+                    // Get Application State for Organization
+                    apiService.getApplication(self.access_token, self.ein).then(function (result) {
+                        const data = result.data;
+                        self.setFormData(JSON.parse(data));
+                        d.resolve(data);
+                    }, function (error) {
+                        d.reject(error);
+                    });
+                }
             }, function (error) {
                 d.reject(error);
             });
