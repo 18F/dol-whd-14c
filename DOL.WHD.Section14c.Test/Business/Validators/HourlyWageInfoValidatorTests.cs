@@ -1,5 +1,6 @@
 ﻿using System;
 using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,7 +49,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_PrevailingWageMethodId()
         {
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, null as int?);
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, ResponseIds.PrevailingWageMethod.AlternateWageData);
         }
 
         [TestMethod]
@@ -61,33 +62,33 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_MostRecentPrevailingWageSurvey()
         {
-            var model = new HourlyWageInfo { PrevailingWageMethodId = 25, MostRecentPrevailingWageSurvey = null };
+            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, MostRecentPrevailingWageSurvey = null };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
-            model = new HourlyWageInfo {PrevailingWageMethodId = 24, MostRecentPrevailingWageSurvey = null};
+            model = new HourlyWageInfo {PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, MostRecentPrevailingWageSurvey = null};
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = 24, MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo() };
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo() };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
         }
 
         [TestMethod]
         public void Should_Require_AlternateWageData()
         {
-            var model = new HourlyWageInfo { PrevailingWageMethodId = 24, AlternateWageData = null };
+            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, AlternateWageData = null };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AlternateWageData, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = 25, AlternateWageData = null };
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, AlternateWageData = null };
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AlternateWageData, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = 25, AlternateWageData = new AlternateWageData() };
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, AlternateWageData = new AlternateWageData() };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AlternateWageData, model);
         }
 
         [TestMethod]
         public void Should_Require_SCAWageDeterminationId()
         {
-            var model = new HourlyWageInfo { PrevailingWageMethodId = 24, SCAWageDeterminationId = null };
+            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAWageDeterminationId = null };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = null };
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationId = null };
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = Guid.NewGuid() };
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationId = Guid.NewGuid() };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
         }
 
@@ -95,7 +96,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_PrevailingWageMethod()
         {
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, 28);
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, ResponseIds.PrevailingWageMethod.AlternateWageData);
         }
     }
 }

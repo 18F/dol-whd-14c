@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -52,7 +53,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         {
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EstablishmentType, null as ICollection<ApplicationSubmissionEstablishmentType>);
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType>());
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = 5} });
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = ResponseIds.EstablishmentType.PatientWorkers } });
         }
 
         [TestMethod]
@@ -86,7 +87,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_PayTypeId()
         {
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, null as int?);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, 22);
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, ResponseIds.PayType.PieceRate);
         }
 
         [TestMethod]
@@ -131,30 +132,30 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_HourlyWageInfo()
         {
-            var model = new ApplicationSubmission { PayTypeId = 22, HourlyWageInfo = null };
+            var model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.PieceRate, HourlyWageInfo = null };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.HourlyWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 21, HourlyWageInfo = new HourlyWageInfo() };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Hourly, HourlyWageInfo = new HourlyWageInfo() };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.HourlyWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 23, HourlyWageInfo = new HourlyWageInfo() };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Both, HourlyWageInfo = new HourlyWageInfo() };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.HourlyWageInfo, model);
-            model = new ApplicationSubmission {PayTypeId = 21, HourlyWageInfo = null};
+            model = new ApplicationSubmission {PayTypeId = ResponseIds.PayType.Hourly, HourlyWageInfo = null};
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.HourlyWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 23, HourlyWageInfo = null };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Both, HourlyWageInfo = null };
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.HourlyWageInfo, model);
         }
 
         [TestMethod]
         public void Should_Require_PieceRateWageInfo()
         {
-            var model = new ApplicationSubmission { PayTypeId = 21, PieceRateWageInfo = null };
+            var model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Hourly, PieceRateWageInfo = null };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 22, PieceRateWageInfo = new PieceRateWageInfo() };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.PieceRate, PieceRateWageInfo = new PieceRateWageInfo() };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 23, PieceRateWageInfo = new PieceRateWageInfo() };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Both, PieceRateWageInfo = new PieceRateWageInfo() };
             ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 22, PieceRateWageInfo = null };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.PieceRate, PieceRateWageInfo = null };
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
-            model = new ApplicationSubmission { PayTypeId = 23, PieceRateWageInfo = null };
+            model = new ApplicationSubmission { PayTypeId = ResponseIds.PayType.Both, PieceRateWageInfo = null };
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PieceRateWageInfo, model);
         }
 
@@ -168,21 +169,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_ApplicationType()
         {
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ApplicationTypeId, 5);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ApplicationTypeId, 2);
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ApplicationTypeId, ResponseIds.ApplicationType.Renewal);
         }
 
         [TestMethod]
         public void Should_Validate_EstablishmentType()
         {
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = 9 } });
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = 5 } });
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.EstablishmentType, new List<ApplicationSubmissionEstablishmentType> { new ApplicationSubmissionEstablishmentType { EstablishmentTypeId = ResponseIds.EstablishmentType.PatientWorkers } });
         }
 
         [TestMethod]
         public void Should_Validate_PayType()
         {
             ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, 30);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, 22);
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, ResponseIds.PayType.PieceRate);
         }
     }
 }

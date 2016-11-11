@@ -1,5 +1,6 @@
 ﻿using System;
 using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -69,7 +70,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_PrevailingWageMethodId()
         {
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, null as int?);
-            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, ResponseIds.PrevailingWageMethod.AlternateWageData);
         }
 
         [TestMethod]
@@ -82,33 +83,33 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_MostRecentPrevailingWageSurvey()
         {
-            var model = new PieceRateWageInfo { PrevailingWageMethodId = 25, MostRecentPrevailingWageSurvey = null };
+            var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, MostRecentPrevailingWageSurvey = null };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 24, MostRecentPrevailingWageSurvey = null };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, MostRecentPrevailingWageSurvey = null };
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 24, MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo() };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo() };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.MostRecentPrevailingWageSurvey, model);
         }
 
         [TestMethod]
         public void Should_Require_AlternateWageData()
         {
-            var model = new PieceRateWageInfo { PrevailingWageMethodId = 24, AlternateWageData = null };
+            var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, AlternateWageData = null };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AlternateWageData, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 25, AlternateWageData = null };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, AlternateWageData = null };
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AlternateWageData, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 25, AlternateWageData = new AlternateWageData() };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData, AlternateWageData = new AlternateWageData() };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AlternateWageData, model);
         }
 
         [TestMethod]
         public void Should_Require_SCAWageDeterminationId()
         {
-            var model = new PieceRateWageInfo { PrevailingWageMethodId = 24, SCAWageDeterminationId = null };
+            var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAWageDeterminationId = null };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = null };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationId = null };
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = 26, SCAWageDeterminationId = Guid.NewGuid() };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationId = Guid.NewGuid() };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationId, model);
         }
 
@@ -116,7 +117,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Validate_PrevailingWageMethod()
         {
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.PrevailingWageMethodId, 28);
-            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, 25);
+            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.PrevailingWageMethodId, ResponseIds.PrevailingWageMethod.AlternateWageData);
         }
     }
 }

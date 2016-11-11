@@ -1,4 +1,5 @@
 ﻿using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Domain.Models;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -20,14 +21,14 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         public void Should_Require_WIOAWorkerVerifiedId()
         {
             WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, null as int?);
-            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, ResponseIds.WIOAWorkerVerified.Yes);
         }
 
         [TestMethod]
         public void Should_Validate_WIOAWorkerVerified()
         {
             WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 42);
-            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, 39);
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.WIOAWorkerVerifiedId, ResponseIds.WIOAWorkerVerified.Yes);
         }
     }
 }
