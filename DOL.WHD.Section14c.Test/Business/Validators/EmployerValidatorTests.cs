@@ -5,203 +5,238 @@ using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
 {
     [TestClass]
     public class EmployerValidatorTests
     {
-        private readonly IEmployerValidator _employerValidator;
-
-        public EmployerValidatorTests()
-        {
-            var addressValidator = new Mock<IAddressValidator>();
-            var workerCountInfoValidator = new Mock<IWorkerCountInfoValidator>();
-            _employerValidator = new EmployerValidator(addressValidator.Object, workerCountInfoValidator.Object);
-        }
+        private static readonly IAddressValidator AddressValidator = new AddressValidator();
+        private static readonly IWorkerCountInfoValidator WorkerCountInfoValidator = new WorkerCountInfoValidator();
+        private static readonly IEmployerValidator EmployerValidator = new EmployerValidator(AddressValidator, WorkerCountInfoValidator);
 
         [TestMethod]
         public void Should_Require_LegalName()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.LegalName, "");
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.LegalName, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.LegalName, "Legal Name");
         }
 
         [TestMethod]
         public void Should_Require_HasTradeName()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.HasTradeName, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.HasTradeName, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.HasTradeName, false);
         }
 
         [TestMethod]
         public void Should_Require_LegalNameHasChanged()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.LegalNameHasChanged, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.LegalNameHasChanged, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.LegalNameHasChanged, false);
         }
 
         [TestMethod]
         public void Should_Require_PhysicalAddress()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.PhysicalAddress, null as Address);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.PhysicalAddress, null as Address);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.PhysicalAddress, new Address());
         }
 
         [TestMethod]
         public void Should_Require_HasParentOrg()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.HasParentOrg, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.HasParentOrg, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.HasParentOrg, false);
         }
 
         [TestMethod]
         public void Should_Require_EmployerStatusId()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, null as int?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, null as int?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
         }
 
         [TestMethod]
         public void Should_Require_IsEducationalAgency()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.IsEducationalAgency, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.IsEducationalAgency, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.IsEducationalAgency, false);
         }
 
         [TestMethod]
         public void Should_Require_FiscalQuarterEndDate()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.FiscalQuarterEndDate, default(DateTime));
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.FiscalQuarterEndDate, default(DateTime));
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.FiscalQuarterEndDate, DateTime.Now);
         }
 
         [TestMethod]
         public void Should_Require_NumSubminimalWageWorkers()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.NumSubminimalWageWorkers, null as WorkerCountInfo);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.NumSubminimalWageWorkers, null as WorkerCountInfo);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.NumSubminimalWageWorkers,new WorkerCountInfo());
         }
 
         [TestMethod]
         public void Should_Require_PCA()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.PCA, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.PCA, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.PCA, false);
         }
 
         [TestMethod]
         public void Should_Require_SCAId()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, null as int?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, null as int?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
         }
 
         [TestMethod]
         public void Should_Require_EO13658Id()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, null as int?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, null as int?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
         }
 
         [TestMethod]
         public void Should_Require_RepresentativePayee()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.RepresentativePayee, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.RepresentativePayee, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.RepresentativePayee, false);
         }
 
         [TestMethod]
         public void Should_Require_TakeCreditForCosts()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.TakeCreditForCosts, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.TakeCreditForCosts, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.TakeCreditForCosts, false);
         }
 
         [TestMethod]
         public void Should_Require_ProvidingFacilitiesDeductionType()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, null as ICollection<EmployerInfoProvidingFacilitiesDeductionType>);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, null as ICollection<EmployerInfoProvidingFacilitiesDeductionType>);
             var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionType = null };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+            model = new EmployerInfo
+            {
+                TakeCreditForCosts = true,
+                ProvidingFacilitiesDeductionType =
+                    new List<EmployerInfoProvidingFacilitiesDeductionType>
+                    {
+                        new EmployerInfoProvidingFacilitiesDeductionType {ProvidingFacilitiesDeductionTypeId = 19}
+                    }
+            };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
         }
 
         [TestMethod]
         public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
             var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = null };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
+            model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { 20 }, ProvidingFacilitiesDeductionTypeOther = "Other" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
         }
 
         [TestMethod]
         public void Should_Require_TemporaryAuthority()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.TemporaryAuthority, null as bool?);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.TemporaryAuthority, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.TemporaryAuthority, false);
         }
 
         [TestMethod]
         public void Should_Require_TradeName()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.TradeName, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.TradeName, "");
             var model = new EmployerInfo {HasTradeName = true, TradeName = ""};
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.TradeName, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.TradeName, model);
+            model = new EmployerInfo { HasTradeName = true, TradeName = "Trade Name" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.TradeName, model);
         }
 
         [TestMethod]
         public void Should_Require_PriorLegalName()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.PriorLegalName, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.PriorLegalName, "");
             var model = new EmployerInfo { LegalNameHasChanged = true, PriorLegalName = "" };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.PriorLegalName, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.PriorLegalName, model);
+            model = new EmployerInfo { LegalNameHasChanged = true, PriorLegalName = "Prior Legal Name" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.PriorLegalName, model);
         }
 
         [TestMethod]
         public void Should_Require_ParentLegalName()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentLegalName, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentLegalName, "");
             var model = new EmployerInfo {HasParentOrg = true, ParentLegalName = ""};
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ParentLegalName, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ParentLegalName, model);
+            model = new EmployerInfo { HasParentOrg = true, ParentLegalName = "Parent Legal Name" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentLegalName, model);
         }
 
         [TestMethod]
         public void Should_Require_ParentTradeName()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentTradeName, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentTradeName, "");
             var model = new EmployerInfo { HasParentOrg = true, ParentTradeName = "" };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ParentTradeName, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ParentTradeName, model);
+            model = new EmployerInfo { HasParentOrg = true, ParentTradeName = "Parent Trade Name" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentTradeName, model);
         }
 
         [TestMethod]
         public void Should_Require_ParentAddress()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentAddress, null as Address);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentAddress, null as Address);
             var model = new EmployerInfo { HasParentOrg = true, ParentAddress = null };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ParentLegalName, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ParentAddress, model);
+            model = new EmployerInfo { HasParentOrg = true, ParentAddress = new Address() };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentAddress, model);
         }
 
         [TestMethod]
         public void Should_Require_SendMailToParent()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.SendMailToParent, null as bool?);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SendMailToParent, null as bool?);
             var model = new EmployerInfo { HasParentOrg = true, SendMailToParent = null };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.SendMailToParent, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.SendMailToParent, model);
+            model = new EmployerInfo { HasParentOrg = true, SendMailToParent = false };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SendMailToParent, model);
         }
 
         [TestMethod]
         public void Should_Require_EmployerStatusOther()
         {
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusOther, "");
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusOther, "");
             var model = new EmployerInfo { EmployerStatusId = 10, EmployerStatusOther = "" };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusOther, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusOther, model);
+            model = new EmployerInfo { EmployerStatusId = 10, EmployerStatusOther = "Other" };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusOther, model);
         }
 
         [TestMethod]
         public void Should_Validate_EmployerStatus()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, 11);
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.EmployerStatusId, 11);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EmployerStatusId, 8);
         }
 
         [TestMethod]
         public void Should_Validate_SCA()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, 14);
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.SCAId, 14);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SCAId, 11);
         }
 
         [TestMethod]
         public void Should_Validate_EO13658()
         {
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, 19);
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.EO13658Id, 19);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.EO13658Id, 14);
         }
 
         [TestMethod]
@@ -215,7 +250,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
                 },
                 TakeCreditForCosts = true
             };
-            _employerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
 
             model = new EmployerInfo
             {
@@ -225,27 +260,27 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
                 },
                 TakeCreditForCosts = true
             };
-            _employerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionType, model);
         }
 
         [TestMethod]
         public void Should_Require_SCACount()
         {
             var model = new EmployerInfo {SCAId = 12, SCACount = null};
-            _employerValidator.ShouldNotHaveValidationErrorFor(e => e.SCACount, model);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCACount, model);
 
             model = new EmployerInfo { SCAId = 11, SCACount = null };
-            _employerValidator.ShouldHaveValidationErrorFor(e => e.SCACount, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCACount, model);
         }
 
         [TestMethod]
         public void Should_Require_SCAAttachment()
         {
             var model = new EmployerInfo { SCAId = 12, SCAAttachmentId = null };
-            _employerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachmentId, model);
+            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachmentId, model);
 
             model = new EmployerInfo { SCAId = 11, SCAAttachmentId = null };
-            _employerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachmentId, model);
+            EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachmentId, model);
         }
     }
 }
