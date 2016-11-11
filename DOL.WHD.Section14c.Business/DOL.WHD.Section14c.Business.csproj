@@ -80,6 +80,7 @@
     <Compile Include="Validators\IAlternateWageDataValidator.cs" />
     <Compile Include="Validators\IEmployeeValidator.cs" />
     <Compile Include="Validators\IPrevailingWageSurveyInfoValidator.cs" />
+    <Compile Include="Validators\ISignatureValidator.cs" />
     <Compile Include="Validators\ISourceEmployerValidator.cs" />
     <Compile Include="Validators\IWIOAValidator.cs" />
     <Compile Include="Validators\IWIOAWorkerValidator.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Validators\IPieceRateWageInfoValidator.cs" />
     <Compile Include="Validators\IHourlyWageInfoValidator.cs" />
     <Compile Include="Validators\PrevailingWageSurveyInfoValidator.cs" />
+    <Compile Include="Validators\SignatureValidator.cs" />
     <Compile Include="Validators\SourceEmployerValidator.cs" />
     <Compile Include="Validators\WageTypeInfoValidator.cs" />
     <Compile Include="Validators\WIOAValidator.cs" />
