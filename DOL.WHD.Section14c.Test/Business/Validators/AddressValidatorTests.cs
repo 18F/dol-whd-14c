@@ -7,41 +7,41 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
     [TestClass]
     public class AddressValidatorTests
     {
-        private readonly IAddressValidator _addressValidator;
-
-        public AddressValidatorTests()
-        {
-            _addressValidator = new AddressValidator();
-        }
+        private static readonly IAddressValidator AddressValidator = new AddressValidator();
 
         [TestMethod]
         public void Should_Require_StreetAddress()
         {
-            _addressValidator.ShouldHaveValidationErrorFor(a => a.StreetAddress, "");
+            AddressValidator.ShouldHaveValidationErrorFor(a => a.StreetAddress, "");
+            AddressValidator.ShouldNotHaveValidationErrorFor(a => a.StreetAddress, "1600 Pennsylvania Ave NW");
         }
 
         [TestMethod]
         public void Should_Require_City()
         {
-            _addressValidator.ShouldHaveValidationErrorFor(a => a.City, "");
+            AddressValidator.ShouldHaveValidationErrorFor(a => a.City, "");
+            AddressValidator.ShouldNotHaveValidationErrorFor(a => a.City, "Washington");
         }
 
         [TestMethod]
         public void Should_Require_State()
         {
-            _addressValidator.ShouldHaveValidationErrorFor(a => a.State, "");
+            AddressValidator.ShouldHaveValidationErrorFor(a => a.State, "");
+            AddressValidator.ShouldNotHaveValidationErrorFor(a => a.State, "DC");
         }
 
         [TestMethod]
         public void Should_Require_ZipCode()
         {
-            _addressValidator.ShouldHaveValidationErrorFor(a => a.ZipCode, "");
+            AddressValidator.ShouldHaveValidationErrorFor(a => a.ZipCode, "");
+            AddressValidator.ShouldNotHaveValidationErrorFor(a => a.ZipCode, "20500");
         }
 
         [TestMethod]
         public void Should_Require_County()
         {
-            _addressValidator.ShouldHaveValidationErrorFor(a => a.County, "");
+            AddressValidator.ShouldHaveValidationErrorFor(a => a.County, "");
+            AddressValidator.ShouldNotHaveValidationErrorFor(a => a.County, "Washington");
         }
     }
 }

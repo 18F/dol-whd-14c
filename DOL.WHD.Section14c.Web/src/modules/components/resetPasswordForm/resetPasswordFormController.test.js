@@ -33,16 +33,7 @@ describe('resetPasswordFormController', function() {
         scope.$apply();
 
         expect(controller.forgotPasswordSuccess).toBe(true);
-    });    
-
-    it('reset passwork onSubmitClick error should show error message', function() {
-        var controller = resetPasswordFormController();
-        scope.onSubmitClick();
-        resetPassword.reject({}); 
-        scope.$apply();
-
-        expect(controller.forgotPasswordError).toBe(true);
-    });      
+    });       
 
     it('reset passwork onSubmitClick error should show error message, log details', function() {
         var controller = resetPasswordFormController();

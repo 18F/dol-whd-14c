@@ -5,14 +5,15 @@ describe('attachmentField', function() {
     var element, rootScope;
     beforeEach(function () {
         element = angular.element('<attachment-field/>');
-    	inject(function ($rootScope, $compile) {
+    	inject(function ($rootScope, $compile, $injector) {
             rootScope = $rootScope;
+            injector = $injector;
 			$compile(element)(rootScope);
-			rootScope.$digest();
         });
     });
 
     it('invoke directive', function() {
-        // compiled in init.
+        rootScope.$digest();
+        expect(element).toBeDefined();
     });
 });

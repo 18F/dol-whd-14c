@@ -17,6 +17,7 @@ module.exports = function(ngModule) {
     require('./sectionWageData')(ngModule);
     require('./sectionWioa')(ngModule);
     require('./sectionWorkSites')(ngModule);
+    require('./stateField')(ngModule);
     require('./userLoginForm')(ngModule);
     require('./userRegistrationForm')(ngModule);
 };

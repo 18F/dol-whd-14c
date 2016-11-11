@@ -106,7 +106,6 @@
     <Compile Include="Business\Validators\HourlyWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PieceRateWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PrevailingWageSurveyInfoValidatorTests.cs" />
-    <Compile Include="Business\Validators\SignatureValidatorTests.cs" />
     <Compile Include="Business\Validators\SourceEmployerValidatorTests.cs" />
     <Compile Include="Business\Validators\WIOAValidatorTests.cs" />
     <Compile Include="Business\Validators\WIOAWorkerValidatorTests.cs" />
@@ -126,7 +125,6 @@
     <Compile Include="Domain\Models\Submission\PieceRateWageInfoTests.cs" />
     <Compile Include="Domain\Models\Submission\PrevailingWageSurveyInfoTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
-    <Compile Include="Domain\Models\Submission\SignatureTests.cs" />
     <Compile Include="Domain\Models\Submission\WIOAWorkerTests.cs" />
     <Compile Include="Domain\Models\Submission\WorkSiteTests.cs" />
     <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />

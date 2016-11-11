@@ -15,5 +15,6 @@ describe('userRegistrationForm', function() {
     it('invoke directive', function() {
         scope.model = { key: 'key'};
         scope.$digest();
+        expect(element).toBeDefined();
     });
 });

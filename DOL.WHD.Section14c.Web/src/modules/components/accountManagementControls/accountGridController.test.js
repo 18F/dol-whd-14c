@@ -26,17 +26,12 @@ describe('accountGridController', function() {
 
     it('accounts load', function() {
         var controller = accountGridController();
-        getAccounts.resolve({data: {}})
+        getAccounts.resolve({data: [{userId: 1}]})
         scope.$apply();
-        expect(scope.accounts).not.toBe(undefined);
-    });
 
-    it('accounts loading failure displays an error', function() {
-        var controller = accountGridController();
-        getAccounts.reject({data: {}})
-        scope.$apply();
-        expect(controller.loadingError).toBe(true);
-    });    
+        expect(scope.accounts.length).toBe(1);
+        expect(scope.accounts[0].userId).toBe(1);
+    });
 
     it('accounts loading failure displays an error, error description', function() {
         var controller = accountGridController();

@@ -23,29 +23,29 @@ describe('attachmentFieldController', function() {
 
     }));
 
-    it('invoke controller', function() {
+    it('attachment selected no files, file value should stay the same', function() {
         var controller = attachmentFieldController();
-    });
-
-    it('attachment selected no files', function() {
-        var controller = attachmentFieldController();
-        fileInput = { files: [] };
+        fileInput = { files: [], value: 1 };
         controller.onAttachmentSelected(fileInput);
+
+        expect(fileInput.value).toBe(1); 
     });
 
 
     it('attachment selected files failed upload', function() {
         var controller = attachmentFieldController();
-        fileInput = { files: [ {} ], value: '' };
+        fileInput = { files: [ {} ] };
         controller.onAttachmentSelected(fileInput);
         uploadAttachment.reject({});
         scope.$apply();
+
+        //TODO assert that error is displayed when code is added
         expect(fileInput.value).toBe(''); 
     });    
 
     it('attachment selected files uploaded successful', function() {
         var controller = attachmentFieldController();
-        fileInput = { files: [ {}], value: '' };
+        fileInput = { files: [ {}] };
         controller.onAttachmentSelected(fileInput);
         uploadAttachment.resolve({ data: [ {id: 1, originalFileName: 'name'}]});
         scope.$apply();
@@ -73,8 +73,11 @@ describe('attachmentFieldController', function() {
         controller.deleteAttachment(1);
         deleteAttachment.reject({});
         scope.$apply();
+
+        //TODO assert that error is displayed when code is added
         expect(scope.attachmentId).toBe(undefined);
         expect(scope.attachmentName).toBe(undefined);
+        
     });                   
 
 });

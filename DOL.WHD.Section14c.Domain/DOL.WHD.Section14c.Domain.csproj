@@ -74,6 +74,7 @@
     <Compile Include="Models\Identity\ApplicationUserRoles.cs" />
     <Compile Include="Models\Identity\Feature.cs" />
     <Compile Include="Models\Identity\ApplicationUserClaim.cs" />
+    <Compile Include="Models\ResponseIds.cs" />
     <Compile Include="Models\Submission\ApplicationSubmissionEstablishmentType.cs" />
     <Compile Include="Models\Identity\ApplicationClaimTypes.cs" />
     <Compile Include="Models\OrganizationMembership.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Models\Submission\PieceRateWageInfo.cs" />
     <Compile Include="Models\Submission\PrevailingWageSurveyInfo.cs" />
     <Compile Include="Models\Submission\Response.cs" />
-    <Compile Include="Models\Submission\Signature.cs" />
     <Compile Include="Models\Submission\SourceEmployer.cs" />
     <Compile Include="Models\Submission\WageTypeInfo.cs" />
     <Compile Include="Models\Submission\WIOA.cs" />

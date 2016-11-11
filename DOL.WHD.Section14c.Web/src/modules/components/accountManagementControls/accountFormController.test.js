@@ -30,16 +30,12 @@ describe('accountFormController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = accountFormController();
-    });
-
     it('when editing user forVals get set', function() {
         var controller = accountFormController();
-        getAccount.resolve({ data: { } });
+        getAccount.resolve({ data: { userId: 1 } });
         scope.$apply();
 
-        expect(scope.formVals).not.toBe(undefined);
+        expect(scope.formVals.userId).toBe(1);
     });    
 
     it('when editing user if the getAccount service has an error show loading error', function() {
@@ -47,16 +43,11 @@ describe('accountFormController', function() {
         getAccount.reject({ data: { error: 'error'} });
         scope.$apply();
 
-        expect(controller.loadingError).toBe(true);
-    });    
-
-    it('when editing user if the getAccount service has an error show loading error, no error logging', function() {
-        var controller = accountFormController();
         getAccount.reject({ data: { error: ''} });
         scope.$apply();
 
         expect(controller.loadingError).toBe(true);
-    });          
+    });         
 
     it('default formVals if creating a new account', function() {
         mockRouteParams = { userId: 'create'};
@@ -64,24 +55,17 @@ describe('accountFormController', function() {
         scope.$apply();
 
         expect(scope.formVals).not.toBe(undefined);
+        expect(scope.formVals.roles.length).toBe(0);
     });  
 
     it('load roles', function() {
         var controller = accountFormController();
-        getRoles.resolve({ data: {} });
+        getRoles.resolve({ data: [{roleId: 1}] });
         scope.$apply();
 
-        expect(scope.roles).not.toBe(undefined); 
+        expect(scope.roles.length > -1).toBe(true);
+        expect(scope.roles[0].roleId).toBe(1);  
     });      
-
-    it('error loading roles', function() {
-        var controller = accountFormController();
-        getRoles.reject({ data: { error: ''} });
-        scope.$apply();
-
-        expect(scope.roles).toBe(undefined);
-        expect(controller.loadingError).toBe(true);
-    });       
 
     it('error loading roles, log error details', function() {
         var controller = accountFormController();
@@ -105,12 +89,20 @@ describe('accountFormController', function() {
     it('toggle role selection off', function() {
         var controller = accountFormController();
         scope.roles = { id: 1 };
-        scope.formVals = { roles : [{ id: 1 }]};
+        scope.formVals = { roles : [scope.roles]};
         controller.toggleRole({ id: 1 });
         scope.$apply();
 
         expect(scope.formVals.roles.length).toBe(0);
-    });   
+    });
+
+    it('role exists', function() {
+        var controller = accountFormController();
+        scope.formVals = { roles : [{ id: 1 }]};
+        var exists = controller.roleExists(1);
+        scope.$apply();
+        expect(exists).toBe(0);
+    });          
 
     it('role does not exist', function() {
         var controller = accountFormController();
@@ -140,19 +132,10 @@ describe('accountFormController', function() {
         controller.submitForm();
         modifyAccount.resolve({data: {}})
         scope.$apply();
-        modifyAccount.resolve({data: {}})
         expect(mockLocation.path()).toBe("/");
     });      
-    it('submit edit account error displays error', function() {
-        var controller = accountFormController();
-        controller.submitForm();
-        modifyAccount.reject({data: {}})
-        scope.$apply();
 
-        expect(controller.savingError).toBe(true);
-    }); 
-
-    it('submit edit account error displays erro, log description', function() {
+    it('submit edit account error displays error, log description', function() {
         var controller = accountFormController();
         controller.submitForm();
         modifyAccount.reject({data: { error: {}}})
@@ -167,19 +150,9 @@ describe('accountFormController', function() {
         controller.submitForm();
         createAccount.resolve({data: {}})
         scope.$apply();
-        createAccount.resolve({data: {}})
+
         expect(mockLocation.path()).toBe("/");
     });    
-
-    it('submit create account error displays error', function() {
-        var controller = accountFormController();
-        controller.isEditAccount = false;
-        controller.submitForm();
-        createAccount.reject({data: {}})
-        scope.$apply();
-
-        expect(controller.savingError).toBe(true);
-    }); 
 
     it('submit create account error displays erro, log description', function() {
         var controller = accountFormController();
