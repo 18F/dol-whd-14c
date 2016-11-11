@@ -49,7 +49,7 @@ module.exports = {
         //Best Practices
         "accessor-pairs": 2,
         "block-scoped-var": 0,
-        "complexity": [2, 6],
+        "complexity": [2, 12],
         "consistent-return": 0,
         "curly": 0,
         "default-case": 0,

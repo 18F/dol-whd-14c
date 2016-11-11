@@ -101,7 +101,6 @@ module.exports = function(ngModule) {
             return val;
         }
 
-        /* eslint-disable complexity */
         this.checkRequiredNumber = function(propPath, msg, min, max) {
             let val = this.checkRequiredValue(propPath);
             if (isNumber(val)) {
@@ -120,7 +119,6 @@ module.exports = function(ngModule) {
             this.setValidationError(propPath, msg ? msg : "Please enter a valid numerical value");
             return undefined;
         }
-        /* eslint-enable complexity */
 
         this.checkRequiredMultipleChoice = function(propPath, msg) {
             return this.checkRequiredValue(propPath, msg ? msg : "Please select a value");
@@ -178,7 +176,7 @@ module.exports = function(ngModule) {
             return match !== null;
         }
 
-        /* eslint-disable complexity */
+
         // methods for validating each section (primarily used internally)
         this.validateAppInfo = function() {
             section = "__appinfo";
@@ -214,9 +212,7 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
-        /* eslint-enable complexity */
 
-        /* eslint-disable complexity */
         this.validateEmployer = function() {
             section = "__employer";
 
@@ -296,9 +292,7 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
-        /* eslint-enable complexity */
 
-        /* eslint-disable complexity */
         this.validateWageDataPayType = function(prefix) {
             this.checkRequiredNumber(prefix + ".numWorkers", undefined, 0);
             this.checkRequiredString(prefix + ".jobName");
@@ -349,7 +343,6 @@ module.exports = function(ngModule) {
                 this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
             }
         }
-        /* eslint-enable complexity */
 
         this.validateWageData = function() {
             section = "__wagedata";
@@ -382,7 +375,6 @@ module.exports = function(ngModule) {
             section = undefined;
         }
 
-        /* eslint-disable complexity */
         this.validateWorkSites = function() {
             section = "__worksites";
 
@@ -458,7 +450,6 @@ module.exports = function(ngModule) {
 
             section = undefined;
         }
-        /* eslint-enable complexity */
 
         this.validateWIOA = function() {
             section = "__wioa";
