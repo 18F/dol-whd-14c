@@ -24,8 +24,9 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         private static readonly IWorkSiteValidator WorkSiteValidator = new WorkSiteValidator(AddressValidatorNoCounty, EmployeeValidator);
         private static readonly IWIOAWorkerValidator WIOAWorkerValidator = new WIOAWorkerValidator();
         private static readonly IWIOAValidator WIOAValidator = new WIOAValidator(WIOAWorkerValidator);
+        private static readonly ISignatureValidator SignatureValidator = new SignatureValidator();
 
-        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(EmployerValidator, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidator, WIOAValidator);
+        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(SignatureValidator, EmployerValidator, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidator, WIOAValidator);
 
         [TestMethod]
         public void Should_Require_EIN()
