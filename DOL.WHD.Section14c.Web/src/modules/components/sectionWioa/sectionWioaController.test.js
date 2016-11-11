@@ -13,15 +13,23 @@ describe('sectionWioaController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = sectionWioaController();
-    });
 
-    it('should toggle learn more', function() {
+    it('should toggle learn more on', function() {
         var controller = sectionWioaController();
-
+        scope.showWIOAReqs = false;
         controller.toggleLearnMore();
+        
+        expect(scope.showWIOAReqs).toBe(true);
     });
+
+    it('should toggle learn more off', function() {
+        var controller = sectionWioaController();
+        scope.showWIOAReqs = true;
+        controller.toggleLearnMore();
+        
+        expect(scope.showWIOAReqs).toBe(false);
+    });
+    
 
     it('should add/edit/delete worker', function() {
         var controller = sectionWioaController();
