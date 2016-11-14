@@ -5,8 +5,8 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
-        var vm = this;
-        vm.stateService = stateService;
+        var vm = this;       
+        $scope.stateService = stateService;
         
         vm.resetErrors = function() {
             vm.changePasswordError = false;

@@ -30,7 +30,9 @@ module.exports = function(ngModule) {
                 stateService.access_token = data.access_token;
                 stateService.loadState().then(function() {
                     // start auto-save 
-                    autoSaveService.start();
+                    if(stateService.ein){
+                        autoSaveService.start();
+                    }
                     
                     $location.path("/");
                 }, handleError);

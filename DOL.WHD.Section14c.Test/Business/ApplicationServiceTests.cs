@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -13,12 +12,11 @@ namespace DOL.WHD.Section14c.Test.Business
     [TestClass]
     public class ApplicationServiceTests
     {
-        private readonly Mock<IApplicationRepository> _mockRepo;
         private readonly ApplicationService _applicationService;
         public ApplicationServiceTests()
         {
-            _mockRepo = new Mock<IApplicationRepository>();
-            _applicationService = new ApplicationService(_mockRepo.Object);
+            var mockRepo = new Mock<IApplicationRepository>();
+            _applicationService = new ApplicationService(mockRepo.Object);
         }
 
         [TestMethod]
@@ -28,30 +26,12 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        public void ApplicationService_ReturnsApplication()
-        {
-            // Arrange
-            var appId = Guid.NewGuid();
-            var applications = new List<ApplicationSubmission>()
-            {
-                new ApplicationSubmission {Id = appId}
-            };
-            _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
-
-            // Act
-            var application = _applicationService.GetApplicationById(appId);
-
-            // Assert
-            Assert.AreEqual(applications[0], application);
-        }
-
-        [TestMethod]
         public void ApplicationService_CleanupHourlyWageInfo()
         {
             // Arrange
             var obj = new ApplicationSubmission
             {
-                PayTypeId = 22,
+                PayTypeId = ResponseIds.PayType.PieceRate,
                 HourlyWageInfo = new HourlyWageInfo()
             };
 
@@ -68,7 +48,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var obj = new ApplicationSubmission
             {
-                PayTypeId = 21,
+                PayTypeId = ResponseIds.PayType.Hourly,
                 PieceRateWageInfo = new PieceRateWageInfo()
             };
 
@@ -87,7 +67,7 @@ namespace DOL.WHD.Section14c.Test.Business
             {
                 PieceRateWageInfo = new PieceRateWageInfo
                 {
-                    PrevailingWageMethodId = 24,
+                    PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
                     SCAWageDeterminationId = Guid.NewGuid()
@@ -111,7 +91,7 @@ namespace DOL.WHD.Section14c.Test.Business
             {
                 PieceRateWageInfo = new PieceRateWageInfo
                 {
-                    PrevailingWageMethodId = 25,
+                    PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
                     SCAWageDeterminationId = Guid.NewGuid()
@@ -135,7 +115,7 @@ namespace DOL.WHD.Section14c.Test.Business
             {
                 PieceRateWageInfo = new PieceRateWageInfo
                 {
-                    PrevailingWageMethodId = 26,
+                    PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
                     SCAWageDeterminationId = Guid.NewGuid()

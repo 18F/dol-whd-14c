@@ -8,11 +8,11 @@ describe('formFooterControls', function() {
     	inject(function ($rootScope, $compile) {
             rootScope = $rootScope;
 			//$compile(element)(rootScope);
-			rootScope.$digest();
         });
     });
 
     it('invoke directive', function() {
-        // compiled in init.
+        rootScope.$digest();
+        expect(element).toBeDefined();
     });
 });

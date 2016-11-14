@@ -13,9 +13,6 @@
         public const string ModifyAccount = ClaimPrefix + "UserManagement.ModifyAccount";
         public const string GetRoles = ClaimPrefix + "UserManagement.GetRoles";
 
-        // Application Management
-        public const string ViewAllApplications = ClaimPrefix + "Application.ViewAll";
-
         public const string Role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
     }
 }

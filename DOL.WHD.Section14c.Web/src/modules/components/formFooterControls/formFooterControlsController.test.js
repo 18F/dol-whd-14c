@@ -2,12 +2,13 @@ describe('formFooterControlsController', function() {
 
     beforeEach(module('14c'));
 
-    beforeEach(inject(function ($rootScope, $controller, _$q_, navService, apiService) {
+    beforeEach(inject(function ($rootScope, $controller, _$q_, navService, apiService, autoSaveService) {
         scope = $rootScope.$new();
         $q = _$q_;
 
         mockNavService = navService;
         mockApiService = apiService;
+        mockAutoSaveService = autoSaveService;
 
         spyOn(mockNavService,'hasNext');
         spyOn(mockNavService,'hasBack');
@@ -24,59 +25,68 @@ describe('formFooterControlsController', function() {
         };
     }));
 
-    it('invoke controller', function() {
-        var controller = formFooterControlsController();
-    });
-    it('next label', function() {
-        var controller = formFooterControlsController();
-        scope.vm = controller;
-        mockNavService.nextLabel = 'next';
-        scope.$digest();
-    });  
-
-    it('next label undefined', function() {
-        var controller = formFooterControlsController();
-        scope.vm = controller;
-        mockNavService.nextLabel = undefined;
-        scope.$digest();
-    });       
-
     it('save', function() {
         var controller = formFooterControlsController();
+        spyOn(mockAutoSaveService, 'save')
         controller.doSave();
         scope.$apply();
+
+        expect(mockAutoSaveService.save).toHaveBeenCalled()
     });   
 
     it('onNextClick no next', function() {
         var controller = formFooterControlsController();
+        spyOn(controller, 'doSave')
+        spyOn(mockNavService, 'goNext')
         controller.onNextClick();
         scope.$apply();
+
+        expect(controller.doSave).toHaveBeenCalled()
+        expect(mockNavService.goNext).not.toHaveBeenCalled()
     });      
 
     it('onNextClick', function() {
         var controller = formFooterControlsController();
-        controller.hasNext = '';
+        controller.hasNext = true;
+        spyOn(controller, 'doSave')
+        spyOn(mockNavService, 'goNext')        
         controller.onNextClick();
         scope.$apply();
+
+        expect(controller.doSave).toHaveBeenCalled()
+        expect(mockNavService.goNext).toHaveBeenCalled()
     });    
 
     it('onBackClick no back', function() {
         var controller = formFooterControlsController();
+        spyOn(controller, 'doSave')
+        spyOn(mockNavService, 'goBack')              
         controller.onBackClick();
         scope.$apply();
+
+        expect(controller.doSave).toHaveBeenCalled()
+        expect(mockNavService.goBack).not.toHaveBeenCalled()        
     });    
 
     it('onBackClick', function() {
         var controller = formFooterControlsController();
-        controller.hasBack = '';
+        controller.hasBack = true;
+        spyOn(controller, 'doSave')
+        spyOn(mockNavService, 'goBack')               
         controller.onBackClick();
         scope.$apply();
+
+        expect(controller.doSave).toHaveBeenCalled()
+        expect(mockNavService.goBack).toHaveBeenCalled()              
     });            
 
     it('onSaveClick', function() {
         var controller = formFooterControlsController();
+        spyOn(controller, 'doSave')        
         controller.onSaveClick();
         scope.$apply();
+
+        expect(controller.doSave).toHaveBeenCalled()
     });           
     
 });
