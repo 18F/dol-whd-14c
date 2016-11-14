@@ -8,6 +8,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public EmployerInfo EmployerInfo { get; set; }
 
         public int ProvidingFacilitiesDeductionTypeId { get; set; }
-        public Response ProvidingFacilitiesDeductionType { get; set; }
+        public virtual Response ProvidingFacilitiesDeductionType { get; set; }
     }
 }

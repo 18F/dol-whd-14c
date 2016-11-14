@@ -14,6 +14,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public string FullName { get; set; }
 
         public int? WIOAWorkerVerifiedId { get; set; }
-        public Response WIOAWorkerVerified { get; set; }
+        public virtual Response WIOAWorkerVerified { get; set; }
     }
 }
