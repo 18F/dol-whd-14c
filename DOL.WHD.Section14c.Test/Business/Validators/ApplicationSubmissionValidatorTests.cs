@@ -121,13 +121,13 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_CertificateNumber()
+        public void Should_Require_PreviousCertificateNumber()
         {
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.CertificateNumber, "");
-            var model = new ApplicationSubmission {HasPreviousCertificate = true, CertificateNumber = null};
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.CertificateNumber, model);
-            model = new ApplicationSubmission { HasPreviousCertificate = true, CertificateNumber = "12345" };
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.CertificateNumber, model);
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PreviousCertificateNumber, "");
+            var model = new ApplicationSubmission {HasPreviousCertificate = true, PreviousCertificateNumber = null};
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PreviousCertificateNumber, model);
+            model = new ApplicationSubmission { HasPreviousCertificate = true, PreviousCertificateNumber = "12345" };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PreviousCertificateNumber, model);
         }
 
         [TestMethod]

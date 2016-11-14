@@ -1,5 +1,6 @@
 ﻿using System;
-using DOL.WHD.Section14c.Business;
+using System.Collections.Generic;
+using System.Linq;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
@@ -12,17 +13,37 @@ namespace DOL.WHD.Section14c.Test.Business
     [TestClass]
     public class ApplicationServiceTests
     {
+        private readonly Mock<IApplicationRepository> _mockRepo;
         private readonly ApplicationService _applicationService;
         public ApplicationServiceTests()
         {
-            var mockRepo = new Mock<IApplicationRepository>();
-            _applicationService = new ApplicationService(mockRepo.Object);
+            _mockRepo = new Mock<IApplicationRepository>();
+            _applicationService = new ApplicationService(_mockRepo.Object);
         }
 
         [TestMethod]
         public void ApplicationService_PublicProperties()
         {
             _applicationService.SubmitApplicationAsync(new ApplicationSubmission());
+        }
+
+        [TestMethod]
+        public void ApplicationService_ReturnsApplication()
+        {
+            // Arrange
+            var appId = Guid.NewGuid();
+            var applications = new List<ApplicationSubmission>()
+             {
+                 new ApplicationSubmission {Id = appId
+    }
+             };
+            _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
+
+            // Act
+            var application = _applicationService.GetApplicationById(appId);
+
+            // Assert
+            Assert.AreEqual(applications[0], application);
         }
 
         [TestMethod]

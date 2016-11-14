@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(a => a.WIOA).NotNull().SetValidator(wioaValidator);
 
             // conditional required
-            RuleFor(a => a.CertificateNumber)
+            RuleFor(a => a.PreviousCertificateNumber)
                 .NotEmpty()
                 .When(a => a.HasPreviousCertificate.GetValueOrDefault());
 
