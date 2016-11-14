@@ -28,21 +28,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
         {
-            var vm = _applicationService.CleanupModel(submission);
-            var results = _applicationSubmissionValidator.Validate(vm);
+            _applicationService.ProcessModel(submission);
+            var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, results.Errors);
             }
 
             // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, vm.EIN);
+            var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
                 return Request.CreateResponse(HttpStatusCode.Unauthorized);
             }
 
-            await _applicationService.SubmitApplicationAsync(vm);
+            await _applicationService.SubmitApplicationAsync(submission);
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 

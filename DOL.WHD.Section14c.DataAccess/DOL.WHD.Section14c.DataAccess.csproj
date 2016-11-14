@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201611101838282_AddSignature.Designer.cs">
       <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.cs" />
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.Designer.cs">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -331,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611101838282_AddSignature.resx">
       <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141640048_AddApplicationStatus.resx">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

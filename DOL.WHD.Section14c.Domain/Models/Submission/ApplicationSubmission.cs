@@ -91,5 +91,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public virtual WIOA WIOA { get; set; }
 
         #endregion
+
+        #region admin fields
+
+        public int? StatusId { get; set; }
+        public Status Status { get; set; }
+
+        #endregion
     }
 }

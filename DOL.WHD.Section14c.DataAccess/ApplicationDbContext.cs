@@ -37,6 +37,8 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
+        public DbSet<Status> ApplicationStatuses { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -64,6 +66,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.TotalNumWorkSites).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.Employer);
             modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.WIOA);
+            modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.Status);
             // Attachment
             modelBuilder.Entity<Attachment>().Property(a => a.OriginalFileName).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Attachment>().Property(a => a.RepositoryFilePath).IsRequired().HasMaxLength(255);
@@ -135,6 +138,9 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ExperiencedWorkerWageProvided).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ConclusionWageRateNotBasedOnEntry).IsRequired();
             modelBuilder.Entity<SourceEmployer>().HasRequired(a => a.Address);
+            // Status
+            modelBuilder.Entity<Status>().Property(a => a.Name).IsRequired();
+            modelBuilder.Entity<Status>().Property(a => a.IsActive).IsRequired();
             // WIOA
             modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();

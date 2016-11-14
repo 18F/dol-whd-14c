@@ -31,6 +31,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var totalNumWorkSites = 5;
             var workSites = new List<WorkSite>();
             var wioa = new WIOA();
+            var statusId = 2;
+            var status = new Status {Id = statusId};
 
             //Act
             var model = new ApplicationSubmission
@@ -53,7 +55,9 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 PieceRateWageInfo = pieceRateWageInfo,
                 TotalNumWorkSites = totalNumWorkSites,
                 WorkSites = workSites,
-                WIOA = wioa
+                WIOA = wioa,
+                Status = status,
+                StatusId = statusId
             };
 
             Assert.AreEqual(ein, model.EIN);
@@ -77,6 +81,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(totalNumWorkSites, model.TotalNumWorkSites);
             Assert.AreEqual(workSites, model.WorkSites);
             Assert.AreEqual(wioa, model.WIOA);
+            Assert.AreEqual(statusId, model.StatusId);
+            Assert.AreEqual(status, model.Status);
         }
 
         [TestMethod]

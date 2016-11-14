@@ -18,25 +18,34 @@ namespace DOL.WHD.Section14c.Business.Services
             return _applicationRepository.AddAsync(submission);
         }
 
-        public ApplicationSubmission CleanupModel(ApplicationSubmission vm)
+        public void ProcessModel(ApplicationSubmission vm)
         {
-            var result = vm;
+            CleanupModel(vm);
+            SetDefaults(vm);
+        }
 
+        private void CleanupModel(ApplicationSubmission model)
+        {
             // clear out non-selected wage type
-            if (result.PayTypeId == ResponseIds.PayType.Hourly)
+            if (model.PayTypeId == ResponseIds.PayType.Hourly)
             {
-                result.PieceRateWageInfo = null;
+                model.PieceRateWageInfo = null;
             }
-            else if (result.PayTypeId == ResponseIds.PayType.PieceRate)
+            else if (model.PayTypeId == ResponseIds.PayType.PieceRate)
             {
-                result.HourlyWageInfo = null;
+                model.HourlyWageInfo = null;
             }
 
             // clear out non-selected prevailing wage method
-            CleanupWageTypeInfo(result.HourlyWageInfo);
-            CleanupWageTypeInfo(result.PieceRateWageInfo);
+            CleanupWageTypeInfo(model.HourlyWageInfo);
+            CleanupWageTypeInfo(model.PieceRateWageInfo);
+        }
 
-            return result;
+        private void SetDefaults(ApplicationSubmission model)
+        {
+            // set status
+            model.Status = null;
+            model.StatusId = StatusIds.Pending;
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)

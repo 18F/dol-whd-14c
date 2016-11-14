@@ -36,7 +36,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.HourlyWageInfo);
@@ -53,7 +53,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo);
@@ -75,7 +75,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNotNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
@@ -99,7 +99,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
@@ -123,12 +123,30 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
             Assert.IsNull(obj.PieceRateWageInfo.AlternateWageData);
             Assert.IsNotNull(obj.PieceRateWageInfo.SCAWageDeterminationId);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Sets_PendingStatus()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                Status = new Status(),
+                StatusId = StatusIds.Issued // make sure any set status gets overwritten with pending
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.Status);
+            Assert.AreEqual(StatusIds.Pending, obj.StatusId);
         }
     }
 }
