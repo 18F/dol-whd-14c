@@ -32,11 +32,10 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             // Arrange
             var appId = Guid.NewGuid();
-            var applications = new List<ApplicationSubmission>()
-             {
-                 new ApplicationSubmission {Id = appId
-    }
-             };
+            var applications = new List<ApplicationSubmission>
+            {
+                new ApplicationSubmission {Id = appId}
+            };
             _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
 
             // Act
@@ -44,6 +43,24 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.AreEqual(applications[0], application);
+        }
+
+        [TestMethod]
+        public void ApplicationService_ReturnsAllApplications()
+        {
+            // Arrange
+            var applications = new List<ApplicationSubmission>
+            {
+                new ApplicationSubmission {Id = Guid.NewGuid()},
+                new ApplicationSubmission {Id = Guid.NewGuid()}
+            };
+            _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
+
+            // Act
+            var obj = _applicationService.GetAllApplications();
+
+            // Assert
+            Assert.AreEqual(2, obj.Count());
         }
 
         [TestMethod]
