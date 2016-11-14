@@ -132,6 +132,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
             context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
             context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+            context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
 
             context.SaveChanges();
 
@@ -142,6 +143,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
 
             // seed application statuses
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });

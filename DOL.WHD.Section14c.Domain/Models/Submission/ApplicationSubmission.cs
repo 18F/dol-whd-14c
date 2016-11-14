@@ -30,7 +30,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? HasPreviousCertificate { get; set; }
 
-        public string CertificateNumber { get; set; }
+        public string PreviousCertificateNumber { get; set; }
 
         public IEnumerable<int> EstablishmentTypeId
         {
@@ -96,6 +96,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public int? StatusId { get; set; }
         public Status Status { get; set; }
+        public DateTime? CertificateEffectiveDate { get; set; }
+        public DateTime? CertificateExpirationDate { get; set; }
+        public string CertificateNumber { get; set; }
 
         #endregion
     }

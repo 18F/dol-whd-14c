@@ -46,6 +46,11 @@ namespace DOL.WHD.Section14c.Business.Services
             // set status
             model.Status = null;
             model.StatusId = StatusIds.Pending;
+
+            // default admin fields
+            model.CertificateEffectiveDate = null;
+            model.CertificateExpirationDate = null;
+            model.CertificateNumber = null;
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)

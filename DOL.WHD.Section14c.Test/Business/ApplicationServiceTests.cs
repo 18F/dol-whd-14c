@@ -148,5 +148,25 @@ namespace DOL.WHD.Section14c.Test.Business
             Assert.IsNull(obj.Status);
             Assert.AreEqual(StatusIds.Pending, obj.StatusId);
         }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_AdminFields()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                CertificateEffectiveDate = DateTime.Now,
+                CertificateExpirationDate = DateTime.Now,
+                CertificateNumber = "xxxxxxxx"
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.CertificateEffectiveDate);
+            Assert.IsNull(obj.CertificateExpirationDate);
+            Assert.IsNull(obj.CertificateNumber);
+        }
     }
 }

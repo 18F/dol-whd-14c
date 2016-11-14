@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,7 +18,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var applicationType = new Response {Id = applicationTypeId};
             var hasPreviousApplication = true;
             var hasPreviousCertificate = true;
-            var certificateNumber = "xxxxxxx";
+            var previousCertificateNumber = "xxxxxxx";
             var establishmentTypeId = new List<int> {7, 8, 9};
             var contactName = "Test Name";
             var contactPhone = "123-456-7890";
@@ -33,6 +34,9 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var wioa = new WIOA();
             var statusId = 2;
             var status = new Status {Id = statusId};
+            var certificateEffectiveDate = DateTime.Now;
+            var certificateExpirationDate = DateTime.Now;
+            var certificateNumber = "xxxxxxxxxxxx";
 
             //Act
             var model = new ApplicationSubmission
@@ -42,7 +46,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 ApplicationType = applicationType,
                 HasPreviousApplication = hasPreviousApplication,
                 HasPreviousCertificate = hasPreviousCertificate,
-                CertificateNumber = certificateNumber,
+                PreviousCertificateNumber = previousCertificateNumber,
                 EstablishmentTypeId = establishmentTypeId,
                 ContactName = contactName,
                 ContactPhone = contactPhone,
@@ -57,7 +61,10 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 WorkSites = workSites,
                 WIOA = wioa,
                 Status = status,
-                StatusId = statusId
+                StatusId = statusId,
+                CertificateEffectiveDate = certificateEffectiveDate,
+                CertificateExpirationDate = certificateExpirationDate,
+                CertificateNumber = certificateNumber
             };
 
             Assert.AreEqual(ein, model.EIN);
@@ -65,7 +72,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(applicationType, model.ApplicationType);
             Assert.AreEqual(hasPreviousApplication, model.HasPreviousApplication);
             Assert.AreEqual(hasPreviousCertificate, model.HasPreviousCertificate);
-            Assert.AreEqual(certificateNumber, model.CertificateNumber);
+            Assert.AreEqual(previousCertificateNumber, model.PreviousCertificateNumber);
             Assert.AreEqual(establishmentTypeId[0], model.EstablishmentType.ElementAt(0).EstablishmentTypeId);
             Assert.AreEqual(establishmentTypeId[1], model.EstablishmentType.ElementAt(1).EstablishmentTypeId);
             Assert.AreEqual(establishmentTypeId[2], model.EstablishmentType.ElementAt(2).EstablishmentTypeId);
@@ -83,6 +90,9 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(wioa, model.WIOA);
             Assert.AreEqual(statusId, model.StatusId);
             Assert.AreEqual(status, model.Status);
+            Assert.AreEqual(certificateEffectiveDate, model.CertificateEffectiveDate);
+            Assert.AreEqual(certificateExpirationDate, model.CertificateExpirationDate);
+            Assert.AreEqual(certificateNumber, model.CertificateNumber);
         }
 
         [TestMethod]
