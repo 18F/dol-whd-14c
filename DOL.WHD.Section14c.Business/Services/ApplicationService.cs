@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public IEnumerable<ApplicationSubmission> GetAllApplications()
         {
-            return _applicationRepository.Get();
+            return _applicationRepository.Get().ToList();
         }
 
         public void ProcessModel(ApplicationSubmission vm)
