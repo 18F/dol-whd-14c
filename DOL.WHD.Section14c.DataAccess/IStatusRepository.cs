@@ -4,8 +4,8 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
-    public interface IResponseRepository : IDisposable
+    public interface IStatusRepository : IDisposable
     {
-        IQueryable<Response> Get();
+        IQueryable<Status> Get();
     }
 }

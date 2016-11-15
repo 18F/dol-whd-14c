@@ -21,6 +21,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
         public void ApplicationSummaryFactory_Build()
         {
             // Arrange
+            var appId = Guid.NewGuid();
             var applicationType = "New";
             var certificateStatusName = "Issued";
             var certificateEffectiveDate = DateTime.Now;
@@ -32,6 +33,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             var numWorkersPerSite = 5;
             var submission = new ApplicationSubmission
             {
+                Id = appId,
                 ApplicationType = new Response {Display = applicationType},
                 Status = new Status {Name = certificateStatusName},
                 CertificateEffectiveDate = certificateEffectiveDate,
@@ -55,6 +57,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             var summary = _factory.Build(submission);
 
             // Assert
+            Assert.AreEqual(appId, summary.Id);
             Assert.AreEqual(certificateStatusName, summary.StatusName);
             Assert.AreEqual(certificateEffectiveDate, summary.CertificateEffectiveDate);
             Assert.AreEqual(certificateExpirationDate, summary.CertificateExpirationDate);

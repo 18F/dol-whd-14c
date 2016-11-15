@@ -3,17 +3,17 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
-    public class ResponseRepository : IResponseRepository
+    public class StatusRepository: IStatusRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        public ResponseRepository()
+        public StatusRepository()
         {
             _dbContext = new ApplicationDbContext();
         }
 
-        public IQueryable<Response> Get()
+        public IQueryable<Status> Get()
         {
-            return _dbContext.Responses.AsQueryable();
+            return _dbContext.ApplicationStatuses.AsQueryable();
         }
 
         public void Dispose()

@@ -10,6 +10,7 @@ namespace DOL.WHD.Section14c.Business.Factories
         {
             var obj = new ApplicationSummary
             {
+                Id = submission.Id,
                 ApplicationType = submission.ApplicationType.Display,
                 CertificateEffectiveDate = submission.CertificateEffectiveDate,
                 CertificateExpirationDate = submission.CertificateExpirationDate,

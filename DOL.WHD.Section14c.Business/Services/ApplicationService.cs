@@ -16,9 +16,9 @@ namespace DOL.WHD.Section14c.Business.Services
             _applicationRepository = applicationRepository;
         }
 
-        public Task<int> SubmitApplicationAsync(ApplicationSubmission submission)
+        public async Task<int> SubmitApplicationAsync(ApplicationSubmission submission)
         {
-            return _applicationRepository.AddAsync(submission);
+            return await _applicationRepository.AddAsync(submission);
         }
 
         public ApplicationSubmission GetApplicationById(Guid id)
@@ -29,6 +29,12 @@ namespace DOL.WHD.Section14c.Business.Services
         public IEnumerable<ApplicationSubmission> GetAllApplications()
         {
             return _applicationRepository.Get().ToList();
+        }
+
+        public async Task<int> ChangeApplicationStatus(ApplicationSubmission application, int newStatusId)
+        {
+            application.StatusId = newStatusId;
+            return await _applicationRepository.ModifyApplication(application);
         }
 
         public void ProcessModel(ApplicationSubmission vm)
