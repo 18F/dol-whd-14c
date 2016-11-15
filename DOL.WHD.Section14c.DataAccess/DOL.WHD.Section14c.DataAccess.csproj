@@ -109,6 +109,7 @@
     <Compile Include="IFileRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
+    <Compile Include="IStatusRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>
@@ -240,6 +241,7 @@
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
+    <Compile Include="Repositories\StatusRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
     <Compile Include="Validators\Section14cUserValidator.cs" />
   </ItemGroup>
