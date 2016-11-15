@@ -15,7 +15,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         #region Assurances
 
-        public Signature Signature { get; set; }
+        public virtual Signature Signature { get; set; }
 
         #endregion
 
@@ -30,7 +30,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? HasPreviousCertificate { get; set; }
 
-        public string CertificateNumber { get; set; }
+        public string PreviousCertificateNumber { get; set; }
 
         public IEnumerable<int> EstablishmentTypeId
         {
@@ -89,6 +89,16 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region WIOA
 
         public virtual WIOA WIOA { get; set; }
+
+        #endregion
+
+        #region admin fields
+
+        public int? StatusId { get; set; }
+        public virtual Status Status { get; set; }
+        public DateTime? CertificateEffectiveDate { get; set; }
+        public DateTime? CertificateExpirationDate { get; set; }
+        public string CertificateNumber { get; set; }
 
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
-using DOL.WHD.Section14c.Business;
+using System.Collections.Generic;
+using System.Linq;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
@@ -12,17 +13,54 @@ namespace DOL.WHD.Section14c.Test.Business
     [TestClass]
     public class ApplicationServiceTests
     {
+        private readonly Mock<IApplicationRepository> _mockRepo;
         private readonly ApplicationService _applicationService;
         public ApplicationServiceTests()
         {
-            var mockRepo = new Mock<IApplicationRepository>();
-            _applicationService = new ApplicationService(mockRepo.Object);
+            _mockRepo = new Mock<IApplicationRepository>();
+            _applicationService = new ApplicationService(_mockRepo.Object);
         }
 
         [TestMethod]
         public void ApplicationService_PublicProperties()
         {
             _applicationService.SubmitApplicationAsync(new ApplicationSubmission());
+        }
+
+        [TestMethod]
+        public void ApplicationService_ReturnsApplication()
+        {
+            // Arrange
+            var appId = Guid.NewGuid();
+            var applications = new List<ApplicationSubmission>
+            {
+                new ApplicationSubmission {Id = appId}
+            };
+            _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
+
+            // Act
+            var application = _applicationService.GetApplicationById(appId);
+
+            // Assert
+            Assert.AreEqual(applications[0], application);
+        }
+
+        [TestMethod]
+        public void ApplicationService_ReturnsAllApplications()
+        {
+            // Arrange
+            var applications = new List<ApplicationSubmission>
+            {
+                new ApplicationSubmission {Id = Guid.NewGuid()},
+                new ApplicationSubmission {Id = Guid.NewGuid()}
+            };
+            _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
+
+            // Act
+            var obj = _applicationService.GetAllApplications();
+
+            // Assert
+            Assert.AreEqual(2, obj.Count());
         }
 
         [TestMethod]
@@ -36,7 +74,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.HourlyWageInfo);
@@ -53,7 +91,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo);
@@ -75,7 +113,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNotNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
@@ -99,7 +137,7 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
@@ -123,12 +161,50 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             // Act
-            _applicationService.CleanupModel(obj);
+            _applicationService.ProcessModel(obj);
 
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
             Assert.IsNull(obj.PieceRateWageInfo.AlternateWageData);
             Assert.IsNotNull(obj.PieceRateWageInfo.SCAWageDeterminationId);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Sets_PendingStatus()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                Status = new Status(),
+                StatusId = StatusIds.Issued // make sure any set status gets overwritten with pending
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.Status);
+            Assert.AreEqual(StatusIds.Pending, obj.StatusId);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_AdminFields()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                CertificateEffectiveDate = DateTime.Now,
+                CertificateExpirationDate = DateTime.Now,
+                CertificateNumber = "xxxxxxxx"
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.CertificateEffectiveDate);
+            Assert.IsNull(obj.CertificateExpirationDate);
+            Assert.IsNull(obj.CertificateNumber);
         }
     }
 }

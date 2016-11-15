@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\ApplicationSummaryFactory.cs" />
+    <Compile Include="Factories\IApplicationSummaryFactory.cs" />
     <Compile Include="IApplicationService.cs" />
     <Compile Include="IIdentityService.cs" />
     <Compile Include="IResponseService.cs" />
