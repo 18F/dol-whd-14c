@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Web.Http;
 using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Business.Factories;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.DataAccess;
@@ -25,6 +26,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
             container.Register<IApplicationRepository, ApplicationRepository>(Lifestyle.Scoped);
             container.Register<IApplicationService, ApplicationService>(Lifestyle.Scoped);
+            container.Register<IApplicationSummaryFactory, ApplicationSummaryFactory>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);

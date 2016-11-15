@@ -55,7 +55,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         //SCA Wage Determinations upload
         public Guid? SCAAttachmentId { get; set; }
-        public Attachment SCAAttachment { get; set; }
+        public virtual Attachment SCAAttachment { get; set; }
 
         public int? EO13658Id { get; set; }
         public virtual Response EO13658 { get; set; }
@@ -80,7 +80,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
                 }
             }
         }
-        public ICollection<EmployerInfoProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
+        public virtual ICollection<EmployerInfoProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
 
         public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 

@@ -206,10 +206,10 @@ module.exports = function(ngModule) {
 
             let hasPreviousCert = this.checkRequiredMultipleChoice("hasPreviousCertificate");
             if (hasPreviousCert) {
-                let certNo = this.getFormValue("certificateNumber");
+                let certNo = this.getFormValue("previousCertificateNumber");
                 if (!certNo || certNo.length !== 14) {
                     //TODO: better test against actual cert number rules
-                    this.setValidationError("certificateNumber", "Please enter a valid certificate number");
+                    this.setValidationError("previousCertificateNumber", "Please enter a valid certificate number");
                 }
             }
 

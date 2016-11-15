@@ -95,6 +95,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Business\ApplicationServiceTests.cs" />
+    <Compile Include="Business\Factories\ApplicationSummaryFactoryTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorNoCountyTests.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Domain\Models\Submission\PrevailingWageSurveyInfoTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
     <Compile Include="Domain\Models\Submission\SignatureTests.cs" />
+    <Compile Include="Domain\Models\Submission\StatusTests.cs" />
     <Compile Include="Domain\Models\Submission\WIOAWorkerTests.cs" />
     <Compile Include="Domain\Models\Submission\WorkSiteTests.cs" />
     <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />

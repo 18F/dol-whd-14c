@@ -96,7 +96,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.Yes, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.No, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.NotRequired, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
-
+            
             // Seed External Roles
             context.SeedRole(Roles.Applicant);
             context.SeedRole(Roles.ApplicantAdministrator);
@@ -132,6 +132,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
             context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
             context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+            context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
 
             context.SaveChanges();
 
@@ -142,7 +143,16 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
 
+            // seed application statuses
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Issued, Name = "Issued", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Withdrawn, Name = "Withdrawn", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Amending, Name = "Amending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
         }
 
     }

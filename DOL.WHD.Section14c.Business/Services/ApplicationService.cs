@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -18,25 +21,49 @@ namespace DOL.WHD.Section14c.Business.Services
             return _applicationRepository.AddAsync(submission);
         }
 
-        public ApplicationSubmission CleanupModel(ApplicationSubmission vm)
+        public ApplicationSubmission GetApplicationById(Guid id)
         {
-            var result = vm;
+            return _applicationRepository.Get().SingleOrDefault(x => x.Id == id);
+        }
 
+        public IEnumerable<ApplicationSubmission> GetAllApplications()
+        {
+            return _applicationRepository.Get().ToList();
+        }
+
+        public void ProcessModel(ApplicationSubmission vm)
+        {
+            CleanupModel(vm);
+            SetDefaults(vm);
+        }
+
+        private void CleanupModel(ApplicationSubmission model)
+        {
             // clear out non-selected wage type
-            if (result.PayTypeId == ResponseIds.PayType.Hourly)
+            if (model.PayTypeId == ResponseIds.PayType.Hourly)
             {
-                result.PieceRateWageInfo = null;
+                model.PieceRateWageInfo = null;
             }
-            else if (result.PayTypeId == ResponseIds.PayType.PieceRate)
+            else if (model.PayTypeId == ResponseIds.PayType.PieceRate)
             {
-                result.HourlyWageInfo = null;
+                model.HourlyWageInfo = null;
             }
 
             // clear out non-selected prevailing wage method
-            CleanupWageTypeInfo(result.HourlyWageInfo);
-            CleanupWageTypeInfo(result.PieceRateWageInfo);
+            CleanupWageTypeInfo(model.HourlyWageInfo);
+            CleanupWageTypeInfo(model.PieceRateWageInfo);
+        }
 
-            return result;
+        private void SetDefaults(ApplicationSubmission model)
+        {
+            // set status
+            model.Status = null;
+            model.StatusId = StatusIds.Pending;
+
+            // default admin fields
+            model.CertificateEffectiveDate = null;
+            model.CertificateExpirationDate = null;
+            model.CertificateNumber = null;
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)
