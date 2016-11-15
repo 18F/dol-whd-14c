@@ -31,7 +31,7 @@ module.exports = function(ngModule) {
 
         // REST access token
         Object.defineProperty(this, 'access_token', {
-            get: function() { 
+            get: function() {
                 return $cookies.get(accessTokenCookieName);
             },
             set: function(value) {
@@ -46,6 +46,11 @@ module.exports = function(ngModule) {
         Object.defineProperty(this, 'formData', {
             get: function() { return state.form_data; },
             set: function(value) { state.form_data = value; }
+        });
+
+        Object.defineProperty(this, 'appData', {
+            get: function() { return state.app_data; },
+            set: function(value) { state.app_data = value; }
         });
 
         this.hasClaim = function(claimName) {
@@ -100,6 +105,7 @@ module.exports = function(ngModule) {
         function setInitialState() {
             state = {
                 form_data: { },
+                app_data: { },
                 activeEIN: undefined,
                 user: {
                     email: '',
