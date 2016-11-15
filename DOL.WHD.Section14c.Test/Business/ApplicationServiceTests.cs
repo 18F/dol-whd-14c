@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
@@ -61,6 +62,23 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.AreEqual(2, obj.Count());
+        }
+
+        [TestMethod]
+        public async Task ApplicationService_Changes_ApplicationStatus()
+        {
+            // Arrange
+            var oldStatusId = 1;
+            var newStatusId = 2;
+            var application = new ApplicationSubmission {StatusId = oldStatusId};
+            
+            // Act
+            await _applicationService.ChangeApplicationStatus(application, newStatusId);
+
+            // Assert
+            Assert.AreEqual(application.StatusId, newStatusId);
+            _mockRepo.Verify(m => m.ModifyApplication(It.IsAny<ApplicationSubmission>()));
+
         }
 
         [TestMethod]

@@ -10,6 +10,7 @@ namespace DOL.WHD.Section14c.Business
         Task<int> SubmitApplicationAsync(ApplicationSubmission submission);
         ApplicationSubmission GetApplicationById(Guid id);
         IEnumerable<ApplicationSubmission> GetAllApplications();
+        Task<int> ChangeApplicationStatus(ApplicationSubmission application, int newStatusId);
         void ProcessModel(ApplicationSubmission vm);
     }
 }

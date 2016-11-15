@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
@@ -17,10 +18,16 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             return _dbContext.ApplicationSubmissions.AsQueryable();
         }
 
-        public Task<int> AddAsync(ApplicationSubmission submission)
+        public async Task<int> AddAsync(ApplicationSubmission submission)
         {
             _dbContext.ApplicationSubmissions.Add(submission);
-            return SaveChangesAsync();
+            return await SaveChangesAsync();
+        }
+
+        public async Task<int> ModifyApplication(ApplicationSubmission submission)
+        {
+            _dbContext.Entry(submission).State = EntityState.Modified;
+            return await SaveChangesAsync();
         }
 
         public Task<int> SaveChangesAsync()
