@@ -187,7 +187,7 @@ module.exports = function(ngModule) {
 
 
         // methods for validating each section (primarily used internally)
-        
+
         this.validateAssurances = function() {
             section = "__assurances";
 
@@ -235,6 +235,8 @@ module.exports = function(ngModule) {
 
         this.validateEmployer = function() {
             section = "__employer";
+
+            this.checkRequiredString("employer.legalName");
 
             let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName");
             if (hasTradeName === true) {
