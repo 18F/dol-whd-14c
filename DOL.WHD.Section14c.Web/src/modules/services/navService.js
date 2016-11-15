@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($location, $route, autoSaveService) {
+    ngModule.service('navService', function($rootScope, $location, $route, autoSaveService, stateService) {
         'ngInject';
         'use strict';
 
@@ -79,14 +79,25 @@ module.exports = function(ngModule) {
         }
 
         this.gotoSection = function(section) {
-            if (sectionArray.indexOf(section) === -1) {
+            if (sectionArray.indexOf(section) === -1 && (!$rootScope.isAdmin || section !== "summary")) {
                 return;
             }
 
             this.clearBackQuery();
             this.clearNextQuery();
             state.backStack.length = 0;
-            $location.path("/section/" + section).search({});
+            if ($rootScope.isAdmin) {
+                if (stateService.appData.applicationId) {
+                    $location.path("/admin/" + stateService.appData.applicationId + "/section/" + section).search({});
+                }
+                else {
+                    // no application loaded so redirect back to the dashboard
+                    $location.path("/admin").search({});
+                }
+            }
+            else {
+                $location.path("/section/" + section).search({});
+            }
 
             autoSaveService.save();
         }
