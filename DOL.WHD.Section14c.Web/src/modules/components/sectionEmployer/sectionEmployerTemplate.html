@@ -1,9 +1,17 @@
+<div class="dol-form-section-title">
+    <h2>Employer</h2>
+
+    <div class="dol-form-section-help">
+        <ul>
+            <li><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a></li>
+        </ul>
+    </div>
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__employer')">
     <div class="usa-alert-body">
         <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
     </div>
 </div>
-<a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a>
 <div class="form-page">
     <h3>Employer Information</h3>
     <hr />
@@ -313,7 +321,7 @@
             </ul>
         </fieldset>
     </div>
-    <h3>Label for Section?</h3>
+    <h3>Additional Questions</h3>
     <hr />
     <div class="form-question-block" ng-class="validate('employer.representativePayee') ? 'usa-input-error' : ''">
         <div class="form-question-text">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</div>
@@ -371,7 +379,7 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.temporaryAuthority') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Is this a request for Temporarty Authority?</div>
+        <div class="form-question-text">Is this a request for Temporary Authority?</div>
         <div class="form-question-subtext">Answer Yes if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration.</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">

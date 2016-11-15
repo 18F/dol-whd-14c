@@ -1,3 +1,13 @@
+<div class="dol-form-section-title">
+    <h2>Wage Data</h2>
+
+    <div class="dol-form-section-help">
+        <ul>
+            <li><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a></li>
+            <li><a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></li>
+        </ul>
+    </div>
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__wagedata')">
     <div class="usa-alert-body">
         <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
@@ -27,7 +37,6 @@
     <wage-data-pay-type-form paytype="piecerate" show-all-help="vm.showAllHelp" ng-show="formData.payTypeId === 22 || (formData.payTypeId === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
 <div class="form-sidebar">
-    <div><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a> | <a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></div>
     <div class="links-block" ng-show="vm.showLinks === true">
         Prevailing Wage Calculators:<br>
         <a href="">Straight or Simple Average</a><br>

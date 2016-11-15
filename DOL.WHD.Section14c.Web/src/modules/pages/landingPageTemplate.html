@@ -1,6 +1,16 @@
-<div class="usa-grid">
-  <h1>Section 14(c) Certificate Application</h1>
+<header role="header" class="dol-header-form">
+    <h1>Section 14(c) Certificate Application</h1>
 
+    <nav>
+        <ul>
+            <li><a href="">Dashboard</a></li>
+            <li><a href="" ng-click="vm.userClick()">{{ vm.stateService.user.email ? vm.stateService.user.email : "Username" }}</a></li>
+            <li><a href="" ng-click="vm.saveClick()">Sign Out</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="usa-grid">
   <div ng-if="!stateService.user.email">
     <div class="usa-width-one-half">
       <user-registration-form></user-registration-form>

@@ -1,3 +1,58 @@
+
+.form-content,
+.form-page-full {
+    h2 {
+        font-size: 3.4rem;
+    }
+
+    h3 {
+        font-size: 2.4rem;
+    }
+
+    .form-question-text {
+        font-size: 2rem;
+    }
+}
+
+.dol-form-section-title {
+    @include clearfix();
+
+    h2 {
+        margin: 0;
+        float: left;
+    }
+}
+
+.dol-form-section-help {
+    float: right;
+
+    ul {
+        padding: 0;
+        margin: 0;
+         
+        li {
+            list-style-type: none;
+            display: inline-block;
+            padding-left: 1.5rem;
+            margin-top: 1.5rem;
+
+            &:first-of-type {
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 7px;
+                    vertical-align: middle;
+                    background: url('../images/dol-help-blue.png') center center;
+                    background: url('../images/dol-help-blue.svg') center center;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+}
+
 @include nested(12) {
 
     .form-page {
@@ -46,27 +101,32 @@
         }
 
         label.example {
-            color: lighten($text-color, 25%);
+            color: #666;
+            margin-left: 1.5rem;
         }
 
         .help-link {
             display: inline-block;
-            width: 1.1em;
-            height: 1.1em;
-            line-height: 1.1em;
-            font-weight: 700;
-            border-radius: 50%;
-            vertical-align: middle;
-            text-align: center;
-            background-color: $help-link-color;
-            color: #fff;
+            width: 20px;
+            height: 20px;
+            vertical-align: -1px;
+            margin-left: 7px;
             cursor: pointer;
+            background: url('../images/dol-help-blue.png') center center;
+            background: url('../images/dol-help-blue.svg') center center;
+            background-size: contain;
+            text-indent: -9999px;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
 
         .help-text {
             font-weight: 400;
             background-color: $help-em-color;
-            padding: 10px;
+            padding: 1rem;
+            margin-top: 1.5rem;
             display: none;
 
             &.show {
@@ -224,7 +284,7 @@
         }
 
         h2.form-section-header {
-            font: 20px $font-stack;
+            font-size: 20px;
             font-weight: bold;
         }
 
@@ -274,7 +334,7 @@
             }
 
             thead th, thead td {
-                background-color: $button-grey;
+                background-color: $color-gray-light;
             }
 
             td.button-column {
