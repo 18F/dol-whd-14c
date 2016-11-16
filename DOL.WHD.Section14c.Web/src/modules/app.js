@@ -104,17 +104,13 @@ app.config(function($routeProvider, $compileProvider) {
     });
 });
 
-app.run(function($rootScope, $location, stateService, autoSaveService) {
+app.run(function($rootScope, $location, stateService, autoSaveService, authService) {
     // check cookie to see if we're logged in
     const accessToken = stateService.access_token;
     if(accessToken) {
-        stateService.loadState().then(function(result) {
-            $rootScope.loggedIn = true;
-
-            // start auto-save
-            if(stateService.ein){
-                autoSaveService.start();
-            }
+        // authenticate the user based on token
+        authService.authenticateUser().then(undefined, function errorCallback(error) {
+            console.log(error);
         });
     }
 
@@ -122,15 +118,15 @@ app.run(function($rootScope, $location, stateService, autoSaveService) {
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-            if ( !$rootScope.loggedIn && next.$$route.public !== true ) {
+            if (!stateService.loggedIn && next.$$route.public !== true ) {
                 // not logged in
                 $location.path( "/" );
             }
-            else if (next.$$route.admin === true && !$rootScope.isAdmin) {
+            else if (next.$$route.admin === true && !stateService.isAdmin) {
                 // non-admin trying to access admin page
                 $location.path( "/" );
             }
-            else if ($rootScope.isAdmin && next.$$route.admin !== true) {
+            else if (stateService.isAdmin && next.$$route.admin !== true) {
                 // admin trying to access application form pages
                 $location.path( "/admin" );
             }

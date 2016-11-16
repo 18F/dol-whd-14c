@@ -77,26 +77,6 @@ module.exports = function(ngModule) {
             return d.promise;
         };
 
-        this.userLogin = function(email, password) {
-
-            let url = _env.api_url + '/Token';
-            let d = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: url,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: $.param({"grant_type": "password", "userName": email, "password": password})
-            }).then(function successCallback (data) {
-                d.resolve(data);
-            }, function errorCallback (error) {
-                //console.log(error);
-                d.reject(error);
-            });
-
-            return d.promise;
-        };
-
         this.userRegister = function(ein, email, password, confirmPassword, reCaptchaResponse, emailVerificationUrl) {
 
             let url = _env.api_url + '/api/Account/Register';

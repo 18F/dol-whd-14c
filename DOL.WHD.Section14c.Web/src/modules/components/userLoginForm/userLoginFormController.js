@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, apiService, autoSaveService) {
+    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, authService, autoSaveService) {
         'ngInject';
         'use strict';
 
@@ -24,19 +24,9 @@ module.exports = function(ngModule) {
             vm.clearError();
 
             //  Call Token Service
-            apiService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
-                var data = result.data;
-                $rootScope.loggedIn = true;
-                stateService.access_token = data.access_token;
-                stateService.loadState().then(function() {
-                    // start auto-save 
-                    if(stateService.ein){
-                        autoSaveService.start();
-                    }
-                    
-                    $location.path("/");
-                }, handleError);
+            authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(function (result) {
                 vm.submittingForm = false;
+                $location.path("/");
             }, function (error) {
                 handleError(error);
                 vm.submittingForm = false;
