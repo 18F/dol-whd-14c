@@ -14,7 +14,10 @@
 </div>
 <div class="form-page-full">
     <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
+        <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?
+            <helplink></helplink>
+            <helptext>Provide the total number of work sites for which the employer is seeking approval to employ workers at subminimum wages. Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
         <div class="form-question-answer">
             <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
@@ -37,7 +40,17 @@
         <div>First, we'll collect information about the Work Site / Establishment.</div>
 
         <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
-            <div class="form-question-text">What type of establishment is this?</div>
+            <div class="form-question-text">What type of establishment is this?
+                <helplink></helplink>
+                <helptext>
+                    <p>Indicate whether the work site is the main establishment, a branch establishment, an off-site work location, or a School Work Experience Program
+                    work site.</p>
+                    <p><strong>Main Establishment:</strong> The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)</p>
+                    <p><strong>Branch Establishment:</strong> A branch establishment is a physically separate work site that is part of the same organization as the main establishment.</p>
+                    <p><strong>Off-site Work Location:</strong> An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities, or a group of workers with disabilities, are placed in work settings along with job coaches (staff of the rehabilitation or work center).</p>
+                    <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</p>
+                </helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -99,7 +112,10 @@
         </div>
 
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</div>
+            <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?
+                <helplink></helplink>
+                <helptext>Mark "yes" if the employer has a Service Contract Act (SCA)-covered contract to provide services to the Federal Government and work under that contract is performed at this work site.</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -118,7 +134,10 @@
         </div>
 
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?</div>
+            <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?
+                <helplink></helplink>
+                <helptext>Mark "yes" if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -137,7 +156,10 @@
         </div>
 
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Total Number of employees employed at this establishment / work site at any time during the most recently completed fiscal quarter:</div>
+            <div class="form-question-text">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
+                <helplink></helplink>
+                <helptext>Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
             <div class="form-question-answer">
                 <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
@@ -147,7 +169,7 @@
 
     <!-- Tab 2 (Add Employees) -->
     <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 2">
-        <div>You indicated this Establishment / Work Site employed {{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
+        <div class="usa-content">You indicated this Establishment / Work Site employed {{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
 
         <div class="form-spaced-div">
             <span>We'll need to collect specific information for each employee:</span>
