@@ -10,7 +10,6 @@ module.exports = function(ngModule) {
     ngModule.service('stateService', function($cookies, moment, apiService, $q) {
         'use strict';
 
-        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
         const accessTokenCookieName = 'api_access_token';
 
         let state;
@@ -49,8 +48,11 @@ module.exports = function(ngModule) {
         });
 
         Object.defineProperty(this, 'appData', {
-            get: function() { return state.app_data; },
-            set: function(value) { state.app_data = value; }
+            get: function() { return state.app_data; }
+        });
+
+        Object.defineProperty(this, 'appList', {
+            get: function() { return state.app_list; }
         });
 
         this.hasClaim = function(claimName) {
@@ -67,6 +69,14 @@ module.exports = function(ngModule) {
 
         this.setFormValue = function(property, value) {
             merge(state.form_data, { [property]: value });
+        }
+
+        this.setAppData = function(value) {
+            merge(state.app_data, value);
+        }
+
+        this.setAppList = function(value) {
+            state.app_list = value;
         }
 
         this.logOut = function() {
@@ -106,12 +116,43 @@ module.exports = function(ngModule) {
             state = {
                 form_data: { },
                 app_data: { },
+                app_list: [],
                 activeEIN: undefined,
                 user: {
                     email: '',
                     claims: []
                 }
             };
+        }
+
+        this.loadApplicationData = function(appid) {
+            const self = this;
+            const d = $q.defer();
+
+            apiService.getSubmittedApplication(self.access_token, appid).then(function (result) {
+                const data = result.data;
+                self.setAppData(JSON.parse(data));
+                d.resolve(data);
+            }, function (error) {
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.loadApplicationList = function() {
+            const self = this;
+            const d = $q.defer();
+
+            apiService.getSubmittedApplications(self.access_token).then(function (result) {
+                const data = result.data;
+                self.setAppList(JSON.parse(data));
+                d.resolve(data);
+            }, function (error) {
+                d.reject(error);
+            });
+
+            return d.promise;
         }
     });
 }

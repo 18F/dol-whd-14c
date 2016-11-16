@@ -12,7 +12,7 @@ module.exports = function(ngModule) {
             let url = _env.api_url + '/api/Account/ChangePassword';
             let d = $q.defer();
             let headerVal;
-            
+
             if(access_token !== undefined){
                 headerVal = {
                     'Authorization': 'bearer ' + access_token,
@@ -162,7 +162,7 @@ module.exports = function(ngModule) {
         this.saveApplication = function(access_token, ein, applicationData) {
             let url = _env.api_url + '/api/save/' + ein;
             let d = $q.defer();
-            
+
             applicationData.saved = moment.utc();
 
             $http({
@@ -197,6 +197,48 @@ module.exports = function(ngModule) {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 data: applicationData
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getSubmittedApplication = function(access_token, appid) {
+            let url = _env.api_url + '/api/application?' + appid;
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getSubmittedApplications = function(access_token) {
+            let url = _env.api_url + '/api/application/summary';
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
@@ -359,7 +401,7 @@ module.exports = function(ngModule) {
             });
 
             return d.promise;
-        }        
+        }
 
         this.parseErrors = function(response) {
             var errors = [];
@@ -396,6 +438,6 @@ module.exports = function(ngModule) {
 
             return d.promise;
         }
-        
+
     });
 }
