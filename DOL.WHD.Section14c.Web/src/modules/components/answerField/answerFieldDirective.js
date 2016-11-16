@@ -9,7 +9,9 @@ module.exports = function(ngModule) {
             template: require('./answerFieldTemplate.html'),
             replace: true,
             scope: {
-                answer: '='
+                answer: '=',
+                addressField: '=',
+                datefield: '='
             }
         }
     });

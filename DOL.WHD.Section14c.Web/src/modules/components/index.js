@@ -13,6 +13,7 @@ module.exports = function(ngModule) {
     require('./mainNavigationControl')(ngModule);
     require('./resetPasswordForm')(ngModule);
     require('./sectionAdminAppInfo')(ngModule);
+    require('./sectionAdminEmployer')(ngModule);
     require('./sectionAppInfo')(ngModule);
     require('./sectionAssurances')(ngModule);
     require('./sectionEmployer')(ngModule);
