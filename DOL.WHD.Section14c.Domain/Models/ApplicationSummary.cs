@@ -15,5 +15,6 @@ namespace DOL.WHD.Section14c.Domain.Models
         public int NumWorkSites { get; set; }
         public int NumWorkers { get; set; }
         public string ApplicationType { get; set; }
+        public string EmployerName { get; set; }
     }
 }
