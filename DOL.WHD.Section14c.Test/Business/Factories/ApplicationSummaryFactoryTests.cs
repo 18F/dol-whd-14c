@@ -31,6 +31,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             var types = new List<string> {"Business", "Hospital"};
             var numWorkSites = 3;
             var numWorkersPerSite = 5;
+            var employerName = "Employer Name";
             var submission = new ApplicationSubmission
             {
                 Id = appId,
@@ -45,7 +46,8 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
                         .ToList(),
                 Employer = new EmployerInfo
                 {
-                    PhysicalAddress = new Address {State = state}
+                    PhysicalAddress = new Address {State = state},
+                    LegalName = employerName
                 },
                 WorkSites =
                     Enumerable.Repeat(
@@ -70,6 +72,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             Assert.AreEqual(numWorkSites, summary.NumWorkSites);
             Assert.AreEqual(numWorkSites * numWorkersPerSite, summary.NumWorkers);
             Assert.AreEqual(applicationType, summary.ApplicationType);
+            Assert.AreEqual(employerName, summary.EmployerName);
         }
     }
 }
