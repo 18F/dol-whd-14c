@@ -2,13 +2,15 @@
 
 import isEmpty from 'lodash/isEmpty'
 import merge from 'lodash/merge'
+import find from 'lodash/find'
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService) {
+    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
+        $scope.validate = validationService.getValidationErrors;
 
         if (!$scope.formData.workSites) {
             $scope.formData.workSites = [];
@@ -136,6 +138,51 @@ module.exports = function(ngModule) {
             row.toggleClass("expanded");
             row.next().toggleClass("show");
         }
+
+        this.getDisabilityDisplay = function(employee) {
+            if (!employee) {
+                return undefined;
+            }
+
+            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisability });
+            if (disability) {
+                if (disability.otherValueKey) {
+                    return employee[disability.otherValueKey];
+                }
+                else {
+                    return disability.display;
+                }
+            }
+
+            return undefined;
+        }
+
+
+        // convenience methods to avoid lenghty template statements
+        this.validateActiveWorksiteProperty = function(prop) {
+            if (!prop || this.activeWorksiteIndex < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].' + prop);
+        }
+
+        this.validateActiveWorkerProperty = function(prop) {
+            if (!prop || this.activeWorksiteIndex < 0 || this.activeWorkerIndex < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + this.activeWorkerIndex + '].' + prop);
+        }
+
+        this.validateActiveWorksiteWorker = function(index) {
+            if (this.activeWorksiteIndex < 0 || index < 0) {
+                return undefined;
+            }
+
+            return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + index + ']');
+        }
+
 
         $scope.$on('$routeUpdate', function(){
             query = $location.search();

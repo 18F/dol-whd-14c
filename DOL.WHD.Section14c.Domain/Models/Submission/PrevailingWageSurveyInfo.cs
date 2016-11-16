@@ -1,19 +1,23 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class PrevailingWageSurveyInfo
+    public class PrevailingWageSurveyInfo : BaseEntity
     {
-        public int Id { get; set; }
+        public PrevailingWageSurveyInfo()
+        {
+            Id = Guid.NewGuid();
+        }
 
-        [Required]
-        public double PrevailingWageDetermined { get; set; }
+        public Guid Id { get; set; }
 
-        [Required]
+        public double? PrevailingWageDetermined { get; set; }
+
         public virtual ICollection<SourceEmployer> SourceEmployers { get; set; }
 
         // Prevailing Wage Determination - Hourly
+        public Guid? AttachmentId { get; set; }
         public Attachment Attachment { get; set; }
     }
 }

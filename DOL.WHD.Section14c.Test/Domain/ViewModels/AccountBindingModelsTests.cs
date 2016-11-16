@@ -10,7 +10,7 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
         [TestMethod]
         public void ChangePasswordBindingModel_PublicProperties()
         {
-            var obj = new ChangePasswordBindingModel
+            var obj = new ChangePasswordViewModel
             {
                 Email = "email",
                 ConfirmPassword = "confirmpassword",
@@ -27,12 +27,14 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
         [TestMethod]
         public void RegisterBindingModel_PublicProperties()
         {
-            var obj = new RegisterBindingModel
+            var uri = new Uri("http://www.gsa.gov");
+            var obj = new RegisterViewModel
             {
                 Email = "email",
                 ConfirmPassword = "confirmpassword",
                 Password = "password",
                 EIN = "ein",
+                EmailVerificationUrl = uri,
                 ReCaptchaResponse = "recaptchresponse"
             };
 
@@ -40,13 +42,14 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
             Assert.AreEqual("confirmpassword", obj.ConfirmPassword);
             Assert.AreEqual("password", obj.Password);
             Assert.AreEqual("ein", obj.EIN);
+            Assert.AreEqual(uri, obj.EmailVerificationUrl);
             Assert.AreEqual("recaptchresponse", obj.ReCaptchaResponse);
         }
 
         [TestMethod]
         public void RemoveLoginBindingModel_PublicProperties()
         {
-            var obj = new RemoveLoginBindingModel
+            var obj = new RemoveLoginViewModel
             {
                 LoginProvider = "loginprovider",
                 ProviderKey = "providerkey"
@@ -59,7 +62,7 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
         [TestMethod]
         public void SetPasswordBindingModel_PublicProperties()
         {
-            var obj = new SetPasswordBindingModel
+            var obj = new SetPasswordViewModel
             {
                 NewPassword = "newpassword",
                 ConfirmPassword = "confirmpassword"

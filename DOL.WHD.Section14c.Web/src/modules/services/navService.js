@@ -1,10 +1,11 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($location, $route) {
+    ngModule.service('navService', function($location, $route, autoSaveService) {
+        'ngInject';
         'use strict';
 
-        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa', 'review'];
 
         let state = {
             backStack: []
@@ -41,6 +42,8 @@ module.exports = function(ngModule) {
                 $location.path("/section/" + next).search({});
             }
 
+            autoSaveService.save();
+
             this.clearNextQuery();
         }
 
@@ -70,6 +73,8 @@ module.exports = function(ngModule) {
                 }
             }
 
+            autoSaveService.save();
+
             this.clearBackQuery();
         }
 
@@ -82,6 +87,8 @@ module.exports = function(ngModule) {
             this.clearNextQuery();
             state.backStack.length = 0;
             $location.path("/section/" + section).search({});
+
+            autoSaveService.save();
         }
 
         this.clearQuery = function() {

@@ -7,6 +7,7 @@ using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

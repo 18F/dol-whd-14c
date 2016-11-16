@@ -9,6 +9,11 @@ environment:
     secure: kgpVhh6JImpf/8CqurMx+Gu09f5p7eacm4WoxyTvOse0er3Z3JTGAeI4LEdVL2a628nzS9CVTLw6jQvFo9ejdowdNvrNcRe4K/WmfO02s7EI6nyBCwoGdlbNUyITl61l
   ApiUrl: https://dol-whd-section14c-api-dev.azurewebsites.net
   AttachmentRepositoryRootFolder: D:\home\site\wwwroot\App_Data\
+  SMTPServer: smtp.sendgrid.net
+  SMTPUserName:
+    secure: 2G/qZxgSeaJYIJTVdBHNoXrz+3o8wxM71lhREzIcEHb4H5EKNBX2nQ2CP1wpvGyS6/UFatohpZN9qyNkNClIRg==
+  SMTPPassword:
+    secure: qXz3nq0AGGz5mKq+ocCRbAqP6fz6LRCfdGytMBLUxS8=
 install:
 - cmd: >-
     nuget restore

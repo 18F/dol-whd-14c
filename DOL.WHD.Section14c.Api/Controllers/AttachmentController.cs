@@ -10,6 +10,7 @@ using System.Web.Http;
 using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -26,6 +27,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _identityService = identityService;
         }
         [Route("{EIN}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string EIN)
         {
             if (!Request.Content.IsMimeMultipartContent())
@@ -62,6 +64,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         [HttpGet]
         [Route("{EIN}/{fileId}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public HttpResponseMessage Download(string EIN, Guid fileId)
         {
             // make sure user has rights to the EIN
@@ -102,6 +105,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         [HttpDelete]
         [Route("{EIN}/{fileId}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult Delete(string EIN, Guid fileId)
         {
             // make sure user has rights to the EIN

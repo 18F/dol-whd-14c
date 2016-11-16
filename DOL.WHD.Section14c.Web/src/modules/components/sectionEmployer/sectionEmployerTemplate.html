@@ -1,60 +1,69 @@
+<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__employer')">
+    <div class="usa-alert-body">
+        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+    </div>
+</div>
 <a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a>
 <div class="form-page">
-    <h2 class="form-section-header">Employer Information</h2>
+    <h3>Employer Information</h3>
     <hr />
     <div class="form-question-block">
         <div class="form-question-text">Legal Name of Employer</div>
         <div class="form-question-subtext">If applying for a certificate as a School Work Experience Program (SWEP), enter the identifying information for the school. </div>
          <div class="form-question-answer">
-            <input id="legalName" name="legalName" type="text" ng-model="formData.employerInfo.legalName">
+            <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
         </div>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.hasTradeName') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does the Employer have a Trade Name?
             <helplink></helplink>
             <helptext>This is the help text.</helptext>
         </div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasTradeName_1" type="radio" name="hasTradeName" value="1" ng-model="formData.employerInfo.hasTradeName">
+                    <input id="hasTradeName_1" type="radio" name="hasTradeName" ng-value="true" ng-model="formData.employer.hasTradeName">
                     <label for="hasTradeName_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasTradeName_0" type="radio" name="hasTradeName" value="0" ng-model="formData.employerInfo.hasTradeName">
+                    <input id="hasTradeName_0" type="radio" name="hasTradeName" ng-value="false" ng-model="formData.employer.hasTradeName">
                     <label for="hasTradeName_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.hasTradeName == 1">
-            <div class="form-question-text">Trade Name</div>
-            <div class="form-question-answer">
-                <input id="tradeName" name="tradeName" type="text" ng-model="formData.employerInfo.tradeName">
-            </div>
+    </div>
+    <div ng-show="formData.employer.hasTradeName === true" ng-class="validate('employer.tradeName') ? 'usa-input-error' : ''">
+        <div class="form-question-text">Trade Name</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.tradeName')">{{ validate('employer.tradeName') }}</span>
+        <div class="form-question-answer">
+            <input id="tradeName" name="tradeName" type="text" ng-model="formData.employer.tradeName">
         </div>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.legalNameHasChanged') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has the Employer's legal name changed since its last application?
             <helplink></helplink>
             <helptext>This is the help text.</helptext>
         </div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" value="1" ng-model="formData.employerInfo.legalNameHasChanged">
+                    <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" ng-value="true" ng-model="formData.employer.legalNameHasChanged">
                     <label for="legalNameHasChanged_1">Yes</label>
                 </li>
                 <li>
-                    <input id="legalNameHasChanged_0" type="radio" name="legalNameHasChanged" value="0" ng-model="formData.employerInfo.legalNameHasChanged">
+                    <input id="legalNameHasChanged_0" type="radio" name="legalNameHasChanged" ng-value="false" ng-model="formData.employer.legalNameHasChanged">
                     <label for="legalNameHasChanged_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.legalNameHasChanged == 1">
-            <div class="form-question-text">Prior Legal Name of Employer</div>
-            <div class="form-question-answer">
-                <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employerInfo.priorLegalName">
-            </div>
+    </div>
+    <div ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
+        <div class="form-question-text">Prior Legal Name of Employer</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
+        <div class="form-question-answer">
+            <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
         </div>
     </div>
     <div class="form-question-block">
@@ -63,390 +72,316 @@
             <helptext>This is the help text.</helptext>
         </div>
         <fieldset>
-            <label for="mailing-address-1">Street Address</label>
-            <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="formData.employerInfo.physicalAddress.streetAddress">
+            <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
+                <label for="mailing-address-1">Street Address</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
+                <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="formData.employer.physicalAddress.streetAddress">
+            </div>
 
-            <div>
+            <div class="clearer" ng-class="validate(['employer.physicalAddress.city', 'employer.physicalAddress.state']) ? 'usa-input-error' : ''">
             <div class="usa-input-grid usa-input-grid-medium">
                 <label for="city">City</label>
-                <input id="city" name="city" type="text" ng-model="formData.employerInfo.physicalAddress.city">
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.city')">{{ validate('employer.physicalAddress.city') }}</span>
+                <input id="city" name="city" type="text" ng-model="formData.employer.physicalAddress.city">
             </div>
 
             <div class="usa-input-grid usa-input-grid-small">
                 <label for="state">State</label>
-                <select id="state" name="state" ng-model="formData.employerInfo.physicalAddress.state">
-                <option value></option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DE">Delaware</option>
-                <option value="DC">District of Columbia</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="IA">Iowa</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="ME">Maine</option>
-                <option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MI">Michigan</option>
-                <option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option>
-                <option value="MO">Missouri</option>
-                <option value="MT">Montana</option>
-                <option value="NE">Nebraska</option>
-                <option value="NV">Nevada</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NY">New York</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VT">Vermont</option>
-                <option value="VA">Virginia</option>
-                <option value="WA">Washington</option>
-                <option value="WV">West Virginia</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
-                <option value="AS">American Samoa</option>
-                <option value="GU">Guam</option>
-                <option value="MP">Northern Mariana Islands</option>
-                <option value="PR">Puerto Rico</option>
-                <option value="UM">United States Minor Outlying Islands</option>
-                <option value="VI">Virgin Islands</option>
-                </select>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.state')">{{ validate('employer.physicalAddress.state') }}</span>
+                <state-field name="state" selected-state="formData.employer.physicalAddress.state"></state-field>
             </div>
             </div>
 
-            <label for="zip">Zip Code</label>
-            <input class="usa-input-medium" id="zip" name="zip" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.physicalAddress.zipCode">
+            <div ng-class="validate('employer.physicalAddress.zipCode') ? 'usa-input-error' : ''">
+                <label for="zip">Zip Code</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
+                <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.physicalAddress.zipCode">
+            </div>
 
-        <div class="usa-input-grid usa-input-grid-medium">
-            <label for="country">Country</label>
-            <input id="country" name="country" type="text" ng-model="formData.employerInfo.physicalAddress.country">
-        </div>
+            <div class="usa-input-grid usa-input-grid-medium" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+                <label for="county">County</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
+                <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
+            </div>
 
         </fieldset>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.hasParentOrg') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does the Employer have a Parent Organization?</div>
         <div class="form-question-subtext">For example, if applying for a certificate as a School Work Experience Program (SWEP), enter the school district's information here.</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasParentOrg_1" type="radio" name="hasParentOrg" value="1" ng-model="formData.employerInfo.hasParentOrg">
+                    <input id="hasParentOrg_1" type="radio" name="hasParentOrg" ng-value="true" ng-model="formData.employer.hasParentOrg">
                     <label for="hasParentOrg_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasParentOrg_0" type="radio" name="hasParentOrg" value="0" ng-model="formData.employerInfo.hasParentOrg">
+                    <input id="hasParentOrg_0" type="radio" name="hasParentOrg" ng-value="false" ng-model="formData.employer.hasParentOrg">
                     <label for="hasParentOrg_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <fieldset ng-show="formData.employerInfo.hasParentOrg == 1">
-            <label for="parentLegalName">Legal Name</label>
-            <input id="parentLegalName" name="parentLegalName" type="text" ng-model="formData.employerInfo.parentLegalName">
+    </div>
+    <div class="form-question-block">
+        <fieldset ng-show="formData.employer.hasParentOrg === true">
+            <div ng-class="validate('employer.parentLegalName') ? 'usa-input-error' : ''">
+                <label for="parentLegalName">Legal Name</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentLegalName')">{{ validate('employer.parentLegalName') }}</span>
+                <input id="parentLegalName" name="parentLegalName" type="text" ng-model="formData.employer.parentLegalName">
+            </div>
 
             <label for="parentTradename">Trade Name</label>
-            <input id="parentTradename" name="parentTradename" type="text" ng-model="formData.employerInfo.parentTradename">
+            <input id="parentTradename" name="parentTradename" type="text" ng-model="formData.employer.parentTradename">
 
-            <label for="parentAddressStreet">Street Address</label>
-            <input id="parentAddressStreet" name="parentAddressStreet" type="text" ng-model="formData.employerInfo.parentAddress.streetAddress">
-
-            <div>
-            <div class="usa-input-grid usa-input-grid-medium">
-                <label for="parentAddressCity">City</label>
-                <input id="parentAddressCity" name="parentAddressCity" type="text" ng-model="formData.employerInfo.parentAddress.city">
+            <div ng-class="validate('employer.parentAddress.streetAddress') ? 'usa-input-error' : ''">
+                <label for="parentAddressStreet">Street Address</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.streetAddress')">{{ validate('employer.parentAddress.streetAddress') }}</span>
+                <input id="parentAddressStreet" name="parentAddressStreet" type="text" ng-model="formData.employer.parentAddress.streetAddress">
             </div>
 
-            <div class="usa-input-grid usa-input-grid-small">
-                <label for="parentAddressState">State</label>
-                <select id="parentAddressState" name="parentAddressState" ng-model="formData.employerInfo.parentAddress.state">
-                <option value></option>
-                <option value="AL">Alabama</option>
-                <option value="AK">Alaska</option>
-                <option value="AZ">Arizona</option>
-                <option value="AR">Arkansas</option>
-                <option value="CA">California</option>
-                <option value="CO">Colorado</option>
-                <option value="CT">Connecticut</option>
-                <option value="DE">Delaware</option>
-                <option value="DC">District of Columbia</option>
-                <option value="FL">Florida</option>
-                <option value="GA">Georgia</option>
-                <option value="HI">Hawaii</option>
-                <option value="ID">Idaho</option>
-                <option value="IL">Illinois</option>
-                <option value="IN">Indiana</option>
-                <option value="IA">Iowa</option>
-                <option value="KS">Kansas</option>
-                <option value="KY">Kentucky</option>
-                <option value="LA">Louisiana</option>
-                <option value="ME">Maine</option>
-                <option value="MD">Maryland</option>
-                <option value="MA">Massachusetts</option>
-                <option value="MI">Michigan</option>
-                <option value="MN">Minnesota</option>
-                <option value="MS">Mississippi</option>
-                <option value="MO">Missouri</option>
-                <option value="MT">Montana</option>
-                <option value="NE">Nebraska</option>
-                <option value="NV">Nevada</option>
-                <option value="NH">New Hampshire</option>
-                <option value="NJ">New Jersey</option>
-                <option value="NM">New Mexico</option>
-                <option value="NY">New York</option>
-                <option value="NC">North Carolina</option>
-                <option value="ND">North Dakota</option>
-                <option value="OH">Ohio</option>
-                <option value="OK">Oklahoma</option>
-                <option value="OR">Oregon</option>
-                <option value="PA">Pennsylvania</option>
-                <option value="RI">Rhode Island</option>
-                <option value="SC">South Carolina</option>
-                <option value="SD">South Dakota</option>
-                <option value="TN">Tennessee</option>
-                <option value="TX">Texas</option>
-                <option value="UT">Utah</option>
-                <option value="VT">Vermont</option>
-                <option value="VA">Virginia</option>
-                <option value="WA">Washington</option>
-                <option value="WV">West Virginia</option>
-                <option value="WI">Wisconsin</option>
-                <option value="WY">Wyoming</option>
-                <option value="AS">American Samoa</option>
-                <option value="GU">Guam</option>
-                <option value="MP">Northern Mariana Islands</option>
-                <option value="PR">Puerto Rico</option>
-                <option value="UM">United States Minor Outlying Islands</option>
-                <option value="VI">Virgin Islands</option>
-                </select>
-            </div>
+            <div class="clearer" ng-class="validate(['employer.parentAddress.city', 'employer.parentAddress.state']) ? 'usa-input-error' : ''">
+                <div class="usa-input-grid usa-input-grid-medium">
+                    <label for="parentAddressCity">City</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.city')">{{ validate('employer.parentAddress.city') }}</span>
+                    <input id="parentAddressCity" name="parentAddressCity" type="text" ng-model="formData.employer.parentAddress.city">
+                </div>
+
+                <div class="usa-input-grid usa-input-grid-small">
+                    <label for="parentAddressState">State</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.state')">{{ validate('employer.parentAddress.state') }}</span>
+                    <state-field name="parentAddressState" selected-state="formData.employer.parentAddress.state"></state-field>
+                </div>
             </div>
 
-            <label for="parentAddressZipCode">Zip Code</label>
-            <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employerInfo.parentAddress.zipCode">
+            <div ng-class="validate('employer.parentAddress.zipCode') ? 'usa-input-error' : ''">
+                <label for="parentAddressZipCode">Zip Code</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.zipCode')">{{ validate('employer.parentAddress.zipCode') }}</span>
+                <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.parentAddress.zipCode">
+            </div>
 
-        <div class="usa-input-grid usa-input-grid-medium">
-            <label for="parentAddressCountry">Country</label>
-            <input id="parentAddressCountry" name="parentAddressCountry" type="text" ng-model="formData.employerInfo.parentAddress.country">
-        </div>
+            <div class="usa-input-grid usa-input-grid-medium" ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
+                <label for="parentAddressCounty">County</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
+                <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
+            </div>
 
-        <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employerInfo.sendMailToParent">
-        <label for="sendMailToParent">Check if mail should be sent here</label>
+            <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
+            <label for="sendMailToParent">Check if mail should be sent here</label>
 
         </fieldset>
     </div>
-    <div class="form-question-block">
+
+    <div class="form-question-block" ng-class="validate(['employer.employerStatusId', 'employer.employerStatusOther']) ? 'usa-input-error' : ''">
         <div class="form-question-text">Employer Status
             <helplink></helplink>
             <helptext>This is the help text.</helptext>
         </div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.EmployerStatus">
-                    <input id="paytype_{{ response.id }}" type="radio" name="employerStatus" ng-value="response.id" ng-model="formData.employerInfo.employerStatus">
+                    <input id="paytype_{{ response.id }}" type="radio" name="employerStatus" ng-value="response.id" ng-model="formData.employer.employerStatusId">
                     <label for="paytype_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
-            <input id="employerStatusOther" name="employerStatusOther" type="text" ng-model="formData.employerInfo.employerStatusOther">
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusOther')">{{ validate('employer.employerStatusOther') }}</span>
+            <input id="employerStatusOther" name="employerStatusOther" type="text" ng-model="formData.employer.employerStatusOther">
         </fieldset>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.isEducationalAgency') ? 'usa-input-error' : ''">
         <div class="form-question-text">Is this employer a local or State educational agency?</div>
         <div class="form-question-subtext">The term “local educational agency” means a public board of education or other public authority legally constituted within a State... [See More]</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" value="1" ng-model="formData.employerInfo.isEducationalAgency">
+                    <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" ng-value="true" ng-model="formData.employer.isEducationalAgency">
                     <label for="isEducationalAgency_1">Yes</label>
                 </li>
                 <li>
-                    <input id="isEducationalAgency_0" type="radio" name="isEducationalAgency" value="0" ng-model="formData.employerInfo.isEducationalAgency">
+                    <input id="isEducationalAgency_0" type="radio" name="isEducationalAgency" ng-value="false" ng-model="formData.employer.isEducationalAgency">
                     <label for="isEducationalAgency_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <h2 class="form-section-header">Number of Workers With Disabilities</h2>
+    <h3>Number of Workers With Disabilities</h3>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.fiscalQuarterEndDate') ? 'usa-input-error' : ''">
         <div class="form-question-text">When did the Employer's most recently completed fiscal quarter end?
             <helplink></helplink>
             <helptext>Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
         </div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
         <fieldset>
-            <div class="usa-date-of-birth">
-                <div class="usa-form-group usa-form-group-month">
-                <label for="fiscalQuarterEndMonth">Month</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndMonth" name="fiscalQuarterEndMonth" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="formData.employerInfo.fiscalQuarterEndDate.month">
-                </div>
-                <div class="usa-form-group usa-form-group-day">
-                <label for="fiscalQuarterEndDay">Day</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndDay" name="fiscalQuarterEndDay" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="formData.employerInfo.fiscalQuarterEndDate.day">
-                </div>
-                <div class="usa-form-group usa-form-group-year">
-                <label for="fiscalQuarterEndYear">Year</label>
-                <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="fiscalQuarterEndYear" name="fiscalQuarterEndYear" pattern="[0-9]{4}" type="number" min="1900" max="2000" value="" ng-model="formData.employerInfo.fiscalQuarterEndDate.year">
-                </div>
-            </div>
+            <date-field date-val="formData.employer.fiscalQuarterEndDate" />
             <label class="example">Example: 04 30 2016</label>
         </fieldset>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.numSubminimalWageWorkers.total') ? 'usa-input-error' : ''">
         <div class="form-question-text">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
          <div class="form-question-answer">
-            <input id="workerCountInfoTotal" name="workerCountInfoTotal" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.total">
+            <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
         </div>
     </div>
     <div class="form-question-block">
         <div class="form-question-text">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</div>
-        <label for="workerCountInfoWorkCenter">Community Rehabilitation Program (Work Center)</label>
-        <div class="form-question-answer">
-            <input id="workerCountInfoWorkCenter" name="workerCountInfoWorkCenter" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.workCenter">
+        <div ng-class="validate('employer.numSubminimalWageWorkers.workCenter') ? 'usa-input-error' : ''">
+            <label for="numSubminimalWageWorkersWorkCenter">Community Rehabilitation Program (Work Center)</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
+            <div class="form-question-answer">
+                <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter">
+            </div>
         </div>
-        <label for="workerCountInfoPatientWorkers">Hospital/Residential Care Facility (Patient Workers)</label>
-        <div class="form-question-answer">
-            <input id="workerCountInfoPatientWorkers" name="workerCountInfoPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.patientWorkers">
+        <div ng-class="validate('employer.numSubminimalWageWorkers.patientWorkers') ? 'usa-input-error' : ''">
+            <label for="numSubminimalWageWorkersPatientWorkers">Hospital/Residential Care Facility (Patient Workers)</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
+            <div class="form-question-answer">
+                <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers">
+            </div>
         </div>
-        <label for="workerCountInfoSWEP">School Work Experience Program (SWEP)</label>
-        <div class="form-question-answer">
-            <input id="workerCountInfoSWEP" name="workerCountInfoSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.SWEP">
+        <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
+            <label for="numSubminimalWageWorkersSWEP">School Work Experience Program (SWEP)</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
+            <div class="form-question-answer">
+                <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep">
+            </div>
         </div>
-        <label for="workerCountInfoTotBusinessEstablishmental">Business Establishment</label>
-        <div class="form-question-answer">
-            <input id="workerCountInfoTotBusinessEstablishmental" name="workerCountInfoTotBusinessEstablishmental" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.workerCountInfo.totBusinessEstablishmental">
+        <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
+            <label for="numSubminimalWageWorkersBusinessEstablishment">Business Establishment</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
+            <div class="form-question-answer">
+                <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment">
+            </div>
         </div>
     </div>
-    <h2 class="form-section-header">Government Contracts</h2>
+    <h3>Government Contracts</h3>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.pca') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="PCA_1" type="radio" name="PCA" value="1" ng-model="formData.employerInfo.PCA">
+                    <input id="PCA_1" type="radio" name="PCA" ng-value="true" ng-model="formData.employer.pca">
                     <label for="PCA_1">Yes</label>
                 </li>
                 <li>
-                    <input id="PCA_0" type="radio" name="PCA" value="0" ng-model="formData.employerInfo.PCA">
+                    <input id="PCA_0" type="radio" name="PCA" ng-value="false" ng-model="formData.employer.pca">
                     <label for="PCA_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.scaId') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.SCA">
-                    <input id="SCA_{{ response.id }}" type="radio" name="SCA" ng-value="response.id" ng-model="formData.employerInfo.SCA">
+                    <input id="SCA_{{ response.id }}" type="radio" name="SCA" ng-value="response.id" ng-model="formData.employer.scaId">
                     <label for="SCA_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.SCA == 11">
-            <label for="SCACount">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</label>
-            <div class="form-question-answer">
-                <input id="SCACount" name="SCACount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employerInfo.SCACount">
+        <div ng-show="formData.employer.scaId == 11">
+            <div ng-class="validate('employer.scaCount') ? 'usa-input-error' : ''">
+                <label for="scaCount">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaCount')">{{ validate('employer.scaCount') }}</span>
+                <div class="form-question-answer">
+                    <input id="scaCount" name="scaCount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.scaCount">
+                </div>
             </div>
-            <label for="SCAAttachment">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-            <div ng-show="formData.employerInfo.SCAAttachment == undefined">
-                <input id="hourlyDeterminationFileInput" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onSCAAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-                <label for="hourlyDeterminationFileInput" class="upload-label usa-button-primary">Browse</label><input id="SCAAttachment" name="SCAAttachment" class="upload-input" type="text" disabled>
-                <label class="underlabel" for="SCAAttachment">File types accepted: PDF, Word, Excel, JPG, PNG</label>
-            </div>
-            <div ng-show="formData.employerInfo.SCAAttachment != undefined">
-                <a ng-href="{{vm.attachmentApiURL}}/{{formData.employerInfo.SCAAttachment.id}}?access_token={{vm.access_token}}">{{formData.employerInfo.SCAAttachment.originalFileName}}</a>
-                <button class="usa-button-secondary" ng-click="vm.deleteSCAAttachment(formData.employerInfo.SCAAttachment.id)">Delete</button>
+            <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
+                <label for="SCAAttachment">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
+                <attachment-field attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
             </div>
         </div>
     </div>
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.eo13658Id') ? 'usa-input-error' : ''">
         <div class="form-question-text">Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.EO13658">
-                    <input id="EO13658_{{ response.id }}" type="radio" name="EO13658" ng-value="response.id" ng-model="formData.employerInfo.EO13658">
+                    <input id="EO13658_{{ response.id }}" type="radio" name="EO13658" ng-value="response.id" ng-model="formData.employer.eo13658Id">
                     <label for="EO13658_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <h2 class="form-section-header">Label for Section?</h2>
+    <h3>Label for Section?</h3>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.representativePayee') ? 'usa-input-error' : ''">
         <div class="form-question-text">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="representativePayee_1" type="radio" name="representativePayee" value="1" ng-model="formData.employerInfo.representativePayee">
+                    <input id="representativePayee_1" type="radio" name="representativePayee" ng-value="true" ng-model="formData.employer.representativePayee">
                     <label for="representativePayee_1">Yes</label>
                 </li>
                 <li>
-                    <input id="representativePayee_0" type="radio" name="representativePayee" value="0" ng-model="formData.employerInfo.representativePayee">
+                    <input id="representativePayee_0" type="radio" name="representativePayee" ng-value="false" ng-model="formData.employer.representativePayee">
                     <label for="representativePayee_0">No</label>
                 </li>
             </ul>
         </fieldset>
     </div>
-    <div class="form-question-block">
+
+    <div class="form-question-block" ng-show="formData.employer.representativePayee === true" ng-class="validate('employer.totalDisabledWorkers') ? 'usa-input-error' : ''">
+        <div class="form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+        <div class="form-question-answer">
+            <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employer.totalDisabledWorkers">
+        </div>
+    </div>
+
+    <div class="form-question-block" ng-class="validate('employer.takeCreditForCosts') ? 'usa-input-error' : ''">
         <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" value="1" ng-model="formData.employerInfo.takeCreditForCosts">
+                    <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" ng-value="true" ng-model="formData.employer.takeCreditForCosts">
                     <label for="takeCreditForCosts_1">Yes</label>
                 </li>
                 <li>
-                    <input id="takeCreditForCosts_0" type="radio" name="takeCreditForCosts" value="0" ng-model="formData.employerInfo.takeCreditForCosts">
+                    <input id="takeCreditForCosts_0" type="radio" name="takeCreditForCosts" ng-value="false" ng-model="formData.employer.takeCreditForCosts">
                     <label for="takeCreditForCosts_0">No</label>
                 </li>
             </ul>
         </fieldset>
-        <div ng-show="formData.employerInfo.takeCreditForCosts == 1">
-            <label for="deductionType">Which type of deduction(s) did the employer take?</label>
-            <fieldset class="usa-fieldset-inputs form-question-answer">
-                <ul class="usa-unstyled-list">
-                    <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
-                        <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-model="formData.employerInfo.providingFacilitiesDeductionType">
-                        <label for="deductionType_{{ response.id }}">{{ response.display }}</label>
-                    </li>
-                </ul>
-                <input id="deductionTypeOther" name="deductionTypeOther" type="text" ng-model="formData.employerInfo.providingFacilitiesDeductionTypeOther">
-            </fieldset>
-        </div>
     </div>
-    <div class="form-question-block">
+    <div ng-show="formData.employer.takeCreditForCosts === true" ng-class="validate(['employer.providingFacilitiesDeductionTypeId', 'employer.providingFacilitiesDeductionTypeOther']) ? 'usa-input-error' : ''">
+        <label for="deductionType">Which type of deduction(s) did the employer take?</label>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.providingFacilitiesDeductionTypeId')">{{ validate('employer.providingFacilitiesDeductionTypeId') }}</span>
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+            <ul class="usa-unstyled-list">
+                <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
+                    <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-checked="formData.employer.providingFacilitiesDeductionTypeId.indexOf(response.id) > -1" ng-click="vm.toggleDeductionType(response.id)">
+                    <label for="deductionType_{{ response.id }}">{{ response.display }}</label>
+                </li>
+            </ul>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.providingFacilitiesDeductionTypeOther')">{{ validate('employer.providingFacilitiesDeductionTypeOther') }}</span>
+            <input id="deductionTypeOther" name="deductionTypeOther" type="text" ng-model="formData.employer.providingFacilitiesDeductionTypeOther">
+        </fieldset>
+    </div>
+    <div class="form-question-block" ng-class="validate('employer.temporaryAuthority') ? 'usa-input-error' : ''">
         <div class="form-question-text">Is this a request for Temporarty Authority?</div>
         <div class="form-question-subtext">Answer Yes if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration.</div>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" value="1" ng-model="formData.employerInfo.temporaryAuthority">
+                    <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" ng-value="true" ng-model="formData.employer.temporaryAuthority">
                     <label for="temporaryAuthority_1">Yes</label>
                 </li>
                 <li>
-                    <input id="temporaryAuthority_0" type="radio" name="temporaryAuthority" value="0" ng-model="formData.employerInfo.temporaryAuthority">
+                    <input id="temporaryAuthority_0" type="radio" name="temporaryAuthority" ng-value="false" ng-model="formData.employer.temporaryAuthority">
                     <label for="temporaryAuthority_0">No</label>
                 </li>
             </ul>

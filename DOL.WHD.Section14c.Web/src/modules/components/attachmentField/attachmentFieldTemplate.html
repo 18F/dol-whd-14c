@@ -1,0 +1,9 @@
+<div ng-show="attachmentId == undefined">
+    <input id="{{::$id}}_FileUpload" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+    <label for="{{::$id}}_FileUpload" class="upload-label usa-button-primary">Browse</label><input id="{{::$id}}" name="{{::$id}}" class="upload-input" type="text" disabled>
+    <label class="underlabel" for="{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+</div>
+<div ng-show="attachmentId != undefined">
+    <a ng-href="{{vm.attachmentApiURL}}/{{scaAttachmentId}}?access_token={{vm.access_token}}" id="{{scaAttachmentId}}"><span>{{attachmentName}}</span></a>
+    <button class="usa-button-secondary" ng-click="vm.deleteAttachment(attachmentId)">Delete</button>
+</div>

@@ -1,3 +1,4 @@
+@import "defaults";
 @import "~uswds/src/stylesheets/all";
 @import "~susy/sass/susy";
 @import "bourbon";
@@ -6,6 +7,7 @@
 @import "modules/formFooterControls";
 @import "modules/mainNavigationControl";
 @import "modules/mainHeaderControl";
+@import "modules/reviewSectionControl";
 @import "loginReg";
 
 $susy: (
@@ -19,11 +21,18 @@ $susy: (
     margin-top: 40px;
 }
 
+@media only screen and (max-width : 1120px) {
+    .full-view {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
 @include nested(12) {
 
     .main-content {
         @include span(12);
         margin-top: 40px;
     }
-    
+
 }

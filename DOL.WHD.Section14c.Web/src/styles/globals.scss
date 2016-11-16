@@ -33,6 +33,15 @@ $help-em-color: #D0E2FB;
     }
 }
 
+.disabled-button {
+    background-color: $button-grey;
+    color: $text-color;
+
+    &:hover {
+        background-color: $button-grey;
+    }
+}
+
 .green-button {
     margin-left: 40px;
     background-color: $button-green;
@@ -40,4 +49,14 @@ $help-em-color: #D0E2FB;
     &:hover {
         background-color: darken($button-green, 10%);
     }
+}
+
+.loading-blue {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-image: url('../images/dol-loading-small-blue.gif');
+    background-size: contain;
+    vertical-align: middle;    
 }

@@ -1,0 +1,47 @@
+
+<div class="usa-alert usa-alert-error" role="alert" ng-show="vm.savingError">
+    <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">An error occurred while saving the account. 
+            <ul ng-show="savingErrors.length > 0">
+                <li ng-repeat="error in savingErrors">{{error}}</li>
+            </u>
+        </p>
+    </div>
+</div>
+
+<div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loadingError">
+    <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Error</h3>
+        <p class="usa-alert-text">An error occurred while loading account.</p>
+    </div>
+</div>
+
+<form class="usa-form" ng-submit="vm.submitForm()">
+    <div>
+        <h2 ng-if="vm.isEditAccount">Edit Account</h2>
+        <h2 ng-if="!vm.isEditAccount">Create Account</h2>
+
+        <div><label for="userName">Email</label><input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" /></div>
+        <div>
+            <label for="options">Roles</label>
+            <ul class="usa-unstyled-list">
+                <li ng-repeat="role in roles track by role.id">
+                    <input id="role_{{ role.id }}" type="checkbox" name="role_{{ role.id }}" ng-value="role.id" ng-checked="vm.roleExists(role.id) > -1" ng-click="vm.toggleRole(role)" >
+                    <label for="role_{{ role.id }}">{{ role.name }}</label>
+                </li>
+            </ul>
+        </div>
+        <div ng-if="vm.isEditAccount">
+            <div><label>Password Last Changed</label><span am-time-ago="formVals.lastPasswordChangedDate"></span></div>
+            <div><label>Email Confirmed</label><span>{{formVals.emailConfirmed}}</span></div>
+            <div ng-if="formVals.lockoutEndDateUtc !== null"><label>Account Locked</label>End Date: <span am-time-ago="formVals.lockoutEndDateUtc | amUtc"></div>
+            <div class="form-spaced-div">
+                <span><button type="submit">Update Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
+            </div>
+        </div>
+        <div ng-if="!vm.isEditAccount" class="form-spaced-div">
+            <span><button type="submit">Create Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
+        </div>
+    </div>
+</form>

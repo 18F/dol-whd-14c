@@ -1,21 +1,20 @@
 'use strict';
 
 import merge from 'lodash/merge'
+import some from 'lodash/some'
+import has from 'lodash/has'
+import property from 'lodash/property'
+
 
 module.exports = function(ngModule) {
-    ngModule.service('stateService', function() {
+    ngModule.service('stateService', function($cookies, moment, apiService, $q) {
         'use strict';
 
         const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
+        const accessTokenCookieName = 'api_access_token';
 
-        let state = {
-            form_data: { },
-            activeEIN: undefined,
-            user: {
-                email: ''
-            }
-        };
-
+        let state;
+        setInitialState();
 
         /*** Properties ***/
 
@@ -32,8 +31,15 @@ module.exports = function(ngModule) {
 
         // REST access token
         Object.defineProperty(this, 'access_token', {
-            get: function() { return state.access_token; },
-            set: function(value) { state.access_token = value; }
+            get: function() { 
+                return $cookies.get(accessTokenCookieName);
+            },
+            set: function(value) {
+                $cookies.put(accessTokenCookieName, value, {
+                    secure: true,
+                    expires: moment().add(1, 'y').toDate()
+                });
+            }
         });
 
         // Core form data object model
@@ -42,6 +48,11 @@ module.exports = function(ngModule) {
             set: function(value) { state.form_data = value; }
         });
 
+        this.hasClaim = function(claimName) {
+            return some(state.user.applicationClaims, function(claim){
+                return claim === 'DOL.WHD.Section14c.' + claimName;
+            });
+        }
 
         /*** Methods ***/
 
@@ -51,6 +62,50 @@ module.exports = function(ngModule) {
 
         this.setFormValue = function(property, value) {
             merge(state.form_data, { [property]: value });
+        }
+
+        this.logOut = function() {
+            // remove access_token cookie
+            $cookies.remove(accessTokenCookieName);
+
+            setInitialState();
+        }
+
+        this.loadState = function() {
+            const self = this;
+            const d = $q.defer();
+
+            // Get User Info
+            apiService.userInfo(self.access_token).then(function (result) {
+                const data = result.data;
+                self.user = data;
+                self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
+
+                // Get Application State for Organization
+                apiService.getApplication(self.access_token, self.ein).then(function (result) {
+                    const data = result.data;
+                    self.setFormData(JSON.parse(data));
+                    d.resolve(data);
+                }, function (error) {
+                    d.reject(error);
+                });
+
+            }, function (error) {
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        function setInitialState() {
+            state = {
+                form_data: { },
+                activeEIN: undefined,
+                user: {
+                    email: '',
+                    claims: []
+                }
+            };
         }
     });
 }
