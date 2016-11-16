@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.controller('adminDashboardController', function($scope) {
+  ngModule.controller('adminDashboardController', function($scope, stateService) {
       'ngInject';
       'use strict';
 
-      $scope.answerVal = "This is the answer";
+      $scope.appList = stateService.appList;
   });
 }

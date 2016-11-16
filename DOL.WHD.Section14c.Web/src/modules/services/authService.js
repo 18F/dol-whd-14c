@@ -43,7 +43,7 @@ module.exports = function(ngModule) {
                 }
                 if(!stateService.isAdmin) {
                     stateService.loadSavedApplication().then(function() {
-                        // start auto-save 
+                        // start auto-save
                         if(stateService.ein){
                             autoSaveService.start();
                         }
@@ -53,7 +53,11 @@ module.exports = function(ngModule) {
                     });
                 }
                 else {
-                    d.resolve();
+                    stateService.loadApplicationList().then(function() {
+                        d.resolve();
+                    }, function(error) {
+                        d.reject(error);
+                    });
                 }
             }, function (error) {
                 d.reject(error);

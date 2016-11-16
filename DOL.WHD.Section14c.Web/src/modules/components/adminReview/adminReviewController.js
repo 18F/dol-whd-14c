@@ -7,7 +7,7 @@ module.exports = function(ngModule) {
 
         $scope.appData = stateService.appData;
 
-        if ($scope.appid && $scope.appid != $scope.appData.id) {
+        if ($scope.appid && $scope.appid !== $scope.appData.id) {
             stateService.loadApplicationData()
         }
     });
