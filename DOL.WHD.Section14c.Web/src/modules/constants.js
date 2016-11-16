@@ -69,6 +69,11 @@ module.exports = function(ngModule) {
                     no: 40,
                     notRequired: 41
                 }
+            },
+            applicationClaimTypes: {
+                viewAdminUI: "Application.ViewAdminUI",
+                viewAllApplications: "Application.ViewAll",
+                changeApplicationStatus: "Application.ChangeStatus"
             }
         };
 

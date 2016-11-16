@@ -132,6 +132,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
             context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
             context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+            context.AddFeature(ApplicationClaimTypes.ViewAdminUI, "Access to the admin UI");
             context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
             context.AddFeature(ApplicationClaimTypes.ChangeApplicationStatus, "Change the Status of a Submitted Application");
 
@@ -144,6 +145,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAdminUI);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
 

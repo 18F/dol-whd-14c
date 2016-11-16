@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
+  require('./authService')(ngModule);
   require('./apiService')(ngModule);
   require('./assetService')(ngModule);
   require('./responsesService')(ngModule);

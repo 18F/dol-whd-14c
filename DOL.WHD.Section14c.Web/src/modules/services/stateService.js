@@ -7,7 +7,7 @@ import property from 'lodash/property'
 
 
 module.exports = function(ngModule) {
-    ngModule.service('stateService', function($cookies, moment, apiService, $q) {
+    ngModule.service('stateService', function($cookies, moment, apiService, $q, $rootScope, _constants) {
         'use strict';
 
         const accessTokenCookieName = 'api_access_token';
@@ -28,6 +28,15 @@ module.exports = function(ngModule) {
             set: function(value) { state.activeEIN = value; }
         });
 
+        Object.defineProperty(this, 'loggedIn', {
+            get: function() { return state.loggedIn; },
+            set: function(value) { state.loggedIn = value; }
+        })
+
+        Object.defineProperty(this, 'isAdmin', {
+            get: function() { return this.hasClaim(_constants.applicationClaimTypes.viewAdminUI); }
+        });
+
         // REST access token
         Object.defineProperty(this, 'access_token', {
             get: function() {
@@ -35,7 +44,7 @@ module.exports = function(ngModule) {
             },
             set: function(value) {
                 $cookies.put(accessTokenCookieName, value, {
-                    secure: true,
+                    secure: false,
                     expires: moment().add(1, 'y').toDate()
                 });
             }
@@ -86,25 +95,15 @@ module.exports = function(ngModule) {
             setInitialState();
         }
 
-        this.loadState = function() {
+        this.loadSavedApplication = function() {
             const self = this;
             const d = $q.defer();
 
-            // Get User Info
-            apiService.userInfo(self.access_token).then(function (result) {
+            // Get Application State for Organization
+            apiService.getApplication(self.access_token, self.ein).then(function (result) {
                 const data = result.data;
-                self.user = data;
-                if(data.organizations.length > 0){
-                    self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-                    // Get Application State for Organization
-                    apiService.getApplication(self.access_token, self.ein).then(function (result) {
-                        const data = result.data;
-                        self.setFormData(JSON.parse(data));
-                        d.resolve(data);
-                    }, function (error) {
-                        d.reject(error);
-                    });
-                }
+                self.setFormData(JSON.parse(data));
+                d.resolve(data);
             }, function (error) {
                 d.reject(error);
             });
@@ -121,7 +120,8 @@ module.exports = function(ngModule) {
                 user: {
                     email: '',
                     claims: []
-                }
+                },
+                loggedIn: false
             };
         }
 

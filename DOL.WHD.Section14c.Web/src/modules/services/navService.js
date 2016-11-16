@@ -3,7 +3,7 @@
 import findIndex from 'lodash/findIndex';
 
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($rootScope, $location, $route, autoSaveService, stateService) {
+    ngModule.service('navService', function($location, $route, autoSaveService, stateService) {
         'ngInject';
         'use strict';
 
@@ -82,7 +82,7 @@ module.exports = function(ngModule) {
         });
 
         this.getSections = function() {
-            return $rootScope.isAdmin ? adminSectionArray : userSectionArray;
+            return stateService.isAdmin ? adminSectionArray : userSectionArray;
         }
 
         this.hasNext = function() {
@@ -154,7 +154,7 @@ module.exports = function(ngModule) {
             this.clearBackQuery();
             this.clearNextQuery();
             state.backStack.length = 0;
-            if ($rootScope.isAdmin) {
+            if (stateService.isAdmin) {
                 if (stateService.appData.applicationId) {
                     $location.path("/admin/" + stateService.appData.applicationId + "/section/" + section).search({});
                 }
