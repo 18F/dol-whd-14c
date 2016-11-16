@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,6 +17,7 @@ using System.Security.Claims;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
@@ -56,8 +56,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             // Validate Recaptcha
-            var reCaptchaVerfiyUrl = ConfigurationManager.AppSettings["ReCaptchaVerfiyUrl"];
-            var reCaptchaSecretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
+            var reCaptchaVerfiyUrl = AppSettings.Get<string>("ReCaptchaVerfiyUrl");
+            var reCaptchaSecretKey = AppSettings.Get<string>("ReCaptchaSecretKey");
             if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
             {
                 var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;

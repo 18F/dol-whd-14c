@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess.Identity;
-using DOL.WHD.Section14c.Domain.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using System.Linq;
-using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
@@ -38,7 +35,7 @@ namespace DOL.WHD.Section14c.Api.Providers
             if (user != null)
             {
                 var passwordExpired = false;
-                var passwordExpirationDays = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordExpirationDays"]);
+                var passwordExpirationDays = AppSettings.Get<int>("PasswordExpirationDays");
                 if (passwordExpirationDays > 0)
                 {
                     passwordExpired = user.LastPasswordChangedDate.AddDays(passwordExpirationDays) < DateTime.Now;

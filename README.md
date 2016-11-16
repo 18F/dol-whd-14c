@@ -85,6 +85,8 @@ All configurations for the Web project are set in the env.js. This file is exclu
 | --- | --- | ---
 api_url* | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
 reCaptchaSiteKey* | reCaptcha Site Key | (Development Key with localhost enabled)
+requireHttps | Use secure cookie | true
+tokenCookieDurationMinutes | Token Cookie Expiration in Minutes | 20160 (14 days to match server AccessTokenExpireTimeSpanMinutes)
 
 \* Must be configured during deployment
 
@@ -111,6 +113,7 @@ MaxFailedAccessAttemptsBeforeLockout | Login attempts befer user is locked out |
 PasswordExpirationDays | Number of days before password must be changes | 90
 AccessTokenExpireTimeSpanMinutes | Token Expiration Minutes for Reset Password and Email Verification Links | 20160 (14 days, ASP.net Default)
 AllowedFileNamesRegex | Regex for allowed filenames | ^(.*\.(doc|docx|xls|xlsx|ppt|pptx|pdf)$)?[^.]*$
+RequireHttps | Require HTTPS for secure communication | true
 
 \* Must be configured during deployment
 

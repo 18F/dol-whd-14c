@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Configuration;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using DOL.WHD.Section14c.Api.Providers;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Identity;
-using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
@@ -36,7 +32,7 @@ namespace DOL.WHD.Section14c.Api
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                ExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["AccessTokenExpireTimeSpanMinutes"])),
+                ExpireTimeSpan = TimeSpan.FromMinutes(AppSettings.Get<double>("AccessTokenExpireTimeSpanMinutes")),
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = ctx =>
@@ -67,9 +63,8 @@ namespace DOL.WHD.Section14c.Api
             {
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(Convert.ToDouble(ConfigurationManager.AppSettings["AccessTokenExpireTimeSpanMinutes"])),
-                // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = false
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(AppSettings.Get<double>("AccessTokenExpireTimeSpanMinutes")),
+                AllowInsecureHttp = !AppSettings.Get<bool>("RequireHttps")
             };
 
             app.Use(async (context, next) =>

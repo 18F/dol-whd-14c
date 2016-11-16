@@ -249,6 +249,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9C06ABE3-28D2-4BAB-BAA4-11B6C404B329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
