@@ -10,8 +10,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
     [TestClass]
     public class PieceRateWageInfoValidatorTests
     {
-        private static readonly IAddressValidator AddressValidator = new AddressValidator();
-        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidator);
+        private static readonly IAddressValidatorNoCounty AddressValidatorNoCounty = new AddressValidatorNoCounty();
+        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidatorNoCounty);
         private static readonly IPrevailingWageSurveyInfoValidator PrevailingWageSurveyInfoValidator = new PrevailingWageSurveyInfoValidator(SourceEmployerValidator);
         private static readonly IAlternateWageDataValidator AlternateWageDataValidator = new AlternateWageDataValidator();
         private static readonly IPieceRateWageInfoValidator PieceRateWageInfoValidator = new PieceRateWageInfoValidator(PrevailingWageSurveyInfoValidator, AlternateWageDataValidator);
