@@ -92,6 +92,11 @@ app.config(function($routeProvider, $compileProvider) {
         template: require('./pages/adminDashboardTemplate.html'),
         admin: true
     })
+    .when('/admin/users', {
+        controller: 'userManagementPageController',
+        template: require('./pages/userManagementPageTemplate.html'),
+        admin: true
+    })
     .when('/admin/:app_id', {
         redirectTo: function(params){ return '/admin/' + params.app_id + '/section/summary'; }
     })
