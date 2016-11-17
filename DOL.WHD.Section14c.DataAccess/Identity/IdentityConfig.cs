@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Threading.Tasks;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.DataAccess.Validators;
-using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -44,9 +43,9 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
             };
 
             // Configure lockout
-            manager.UserLockoutEnabledByDefault = Convert.ToBoolean(ConfigurationManager.AppSettings["UserLockoutEnabledByDefault"]);
-            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(Double.Parse(ConfigurationManager.AppSettings["DefaultAccountLockoutTimeSpan"]));
-            manager.MaxFailedAccessAttemptsBeforeLockout = Convert.ToInt32(ConfigurationManager.AppSettings["MaxFailedAccessAttemptsBeforeLockout"]);
+            manager.UserLockoutEnabledByDefault = AppSettings.Get<bool>("UserLockoutEnabledByDefault");
+            manager.DefaultAccountLockoutTimeSpan = TimeSpan.FromMinutes(AppSettings.Get<double>("DefaultAccountLockoutTimeSpan"));
+            manager.MaxFailedAccessAttemptsBeforeLockout = AppSettings.Get<int>("MaxFailedAccessAttemptsBeforeLockout");
 
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
@@ -54,7 +53,7 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
                 {
                     //Code for email confirmation and reset password life time
-                    TokenLifespan = TimeSpan.FromHours(Double.Parse(ConfigurationManager.AppSettings["EmailVeriryAndPaswordRestTokenExpireHours"]))
+                    TokenLifespan = TimeSpan.FromHours(AppSettings.Get<double>("EmailVeriryAndPaswordRestTokenExpireHours"))
                 };
             }
             return manager;

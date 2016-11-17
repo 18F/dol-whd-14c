@@ -16,7 +16,10 @@
     <h3>Employer Information</h3>
     <hr />
     <div class="form-question-block">
-        <div class="form-question-text">Legal Name of Employer</div>
+        <div class="form-question-text">Legal Name of Employer
+            <helplink></helplink>
+            <helptext>Provide the full legal and trade name(s) of the employer, and previous name, if applicable. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
+        </div>
         <div class="form-question-subtext">If applying for a certificate as a School Work Experience Program (SWEP), enter the identifying information for the school. </div>
          <div class="form-question-answer">
             <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
@@ -25,7 +28,7 @@
     <div class="form-question-block" ng-class="validate('employer.hasTradeName') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does the Employer have a Trade Name?
             <helplink></helplink>
-            <helptext>This is the help text.</helptext>
+            <helptext>Provide the full legal and trade name(s) of the employer, and previous name, if applicable. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -50,8 +53,6 @@
     </div>
     <div class="form-question-block" ng-class="validate('employer.legalNameHasChanged') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has the Employer's legal name changed since its last application?
-            <helplink></helplink>
-            <helptext>This is the help text.</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -75,11 +76,8 @@
         </div>
     </div>
     <div class="form-question-block">
-        <div class="form-question-text">Physical Address of Employer's Main Establishment
-            <helplink></helplink>
-            <helptext>This is the help text.</helptext>
-        </div>
-        <fieldset>
+        <div class="form-question-text">Physical Address of Employer's Main Establishment</div>
+        <fieldset class="usa-form-large">
             <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
                 <label for="mailing-address-1">Street Address</label>
                 <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
@@ -115,7 +113,10 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.hasParentOrg') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Does the Employer have a Parent Organization?</div>
+        <div class="form-question-text">Does the Employer have a Parent Organization?
+            <helplink></helplink>
+            <helptext>SWEPs should enter the school district's information in Item 4.</helptext>
+        </div>
         <div class="form-question-subtext">For example, if applying for a certificate as a School Work Experience Program (SWEP), enter the school district's information here.</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -142,40 +143,42 @@
             <label for="parentTradename">Trade Name</label>
             <input id="parentTradename" name="parentTradename" type="text" ng-model="formData.employer.parentTradename">
 
-            <div ng-class="validate('employer.parentAddress.streetAddress') ? 'usa-input-error' : ''">
-                <label for="parentAddressStreet">Street Address</label>
-                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.streetAddress')">{{ validate('employer.parentAddress.streetAddress') }}</span>
-                <input id="parentAddressStreet" name="parentAddressStreet" type="text" ng-model="formData.employer.parentAddress.streetAddress">
-            </div>
-
-            <div class="clearer" ng-class="validate(['employer.parentAddress.city', 'employer.parentAddress.state']) ? 'usa-input-error' : ''">
-                <div class="usa-input-grid usa-input-grid-medium">
-                    <label for="parentAddressCity">City</label>
-                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.city')">{{ validate('employer.parentAddress.city') }}</span>
-                    <input id="parentAddressCity" name="parentAddressCity" type="text" ng-model="formData.employer.parentAddress.city">
+            <div class="usa-form-large">
+                <div ng-class="validate('employer.parentAddress.streetAddress') ? 'usa-input-error' : ''">
+                    <label for="parentAddressStreet">Street Address</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.streetAddress')">{{ validate('employer.parentAddress.streetAddress') }}</span>
+                    <input id="parentAddressStreet" name="parentAddressStreet" type="text" ng-model="formData.employer.parentAddress.streetAddress">
                 </div>
 
-                <div class="usa-input-grid usa-input-grid-small">
-                    <label for="parentAddressState">State</label>
-                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.state')">{{ validate('employer.parentAddress.state') }}</span>
-                    <state-field name="parentAddressState" selected-state="formData.employer.parentAddress.state"></state-field>
+                <div class="clearer" ng-class="validate(['employer.parentAddress.city', 'employer.parentAddress.state']) ? 'usa-input-error' : ''">
+                    <div class="usa-input-grid usa-input-grid-medium">
+                        <label for="parentAddressCity">City</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.city')">{{ validate('employer.parentAddress.city') }}</span>
+                        <input id="parentAddressCity" name="parentAddressCity" type="text" ng-model="formData.employer.parentAddress.city">
+                    </div>
+
+                    <div class="usa-input-grid usa-input-grid-small">
+                        <label for="parentAddressState">State</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.state')">{{ validate('employer.parentAddress.state') }}</span>
+                        <state-field name="parentAddressState" selected-state="formData.employer.parentAddress.state"></state-field>
+                    </div>
                 </div>
-            </div>
 
-            <div ng-class="validate('employer.parentAddress.zipCode') ? 'usa-input-error' : ''">
-                <label for="parentAddressZipCode">Zip Code</label>
-                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.zipCode')">{{ validate('employer.parentAddress.zipCode') }}</span>
-                <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.parentAddress.zipCode">
-            </div>
+                <div ng-class="validate('employer.parentAddress.zipCode') ? 'usa-input-error' : ''">
+                    <label for="parentAddressZipCode">Zip Code</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.zipCode')">{{ validate('employer.parentAddress.zipCode') }}</span>
+                    <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.parentAddress.zipCode">
+                </div>
 
-            <div class="usa-input-grid usa-input-grid-medium" ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
-                <label for="parentAddressCounty">County</label>
-                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
-                <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
-            </div>
+                <div ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
+                    <label for="parentAddressCounty">County</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
+                    <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
+                </div>
 
-            <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
-            <label for="sendMailToParent">Check if mail should be sent here</label>
+                <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
+                <label for="sendMailToParent">Check if mail should be sent here</label>
+            </div>
 
         </fieldset>
     </div>
@@ -183,7 +186,7 @@
     <div class="form-question-block" ng-class="validate(['employer.employerStatusId', 'employer.employerStatusOther']) ? 'usa-input-error' : ''">
         <div class="form-question-text">Employer Status
             <helplink></helplink>
-            <helptext>This is the help text.</helptext>
+            <helptext>Select the option that describes the employer’s status. For example, a SWEP operated by a public school system should check "Public."</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -198,8 +201,11 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.isEducationalAgency') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Is this employer a local or State educational agency?</div>
-        <div class="form-question-subtext">The term “local educational agency” means a public board of education or other public authority legally constituted within a State... [See More]</div>
+        <div class="form-question-text">Is this employer a local or State educational agency?
+            <helplink></helplink>
+            <helptext>The term "local educational agency" means a public board of education or other public authority legally constituted within a State for either administrative control or direction of, or to perform a service function for, public elementary schools or secondary schoolsin a city, county, township, school district, or other political subdivision of a State, or of or for a combination of school districts orcounties that is recognized in a State as an administrative agency for its public elementary schools or secondary schools. The term "State educational agency" means the agency primarily responsible for the State supervision of public elementary schoolsand secondary schools. See 20 U.S.C. 7801, the Elementary and Secondary Education Act of 1965.</helptext>
+        </div>
+        <div class="form-question-subtext">The term "local educational agency" means a public board of education or other public authority legally constituted within a State... [See More]</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -228,14 +234,20 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.numSubminimalWageWorkers.total') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</div>
+        <div class="form-question-text">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
+            <helplink></helplink>
+            <helptext>Provide the total number of workers with disabilities who were paid subminimum wages at all establishments and work sites during the most recently completed fiscal quarter. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
          <div class="form-question-answer">
             <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
         </div>
     </div>
     <div class="form-question-block">
-        <div class="form-question-text">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</div>
+        <div class="form-question-text">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
+            <helplink></helplink>
+            <helptext>Provide the number of workers with disabilities for the same period employed at subminimum wages in the specified categories. Refer to the definitions provided in the instructions for Item 2(a).</helptext>
+        </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.workCenter') ? 'usa-input-error' : ''">
             <label for="numSubminimalWageWorkersWorkCenter">Community Rehabilitation Program (Work Center)</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
@@ -268,7 +280,10 @@
     <h3>Government Contracts</h3>
     <hr />
     <div class="form-question-block" ng-class="validate('employer.pca') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</div>
+        <div class="form-question-text">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?
+            <helplink></helplink>
+            <helptext>Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Walsh-Healey Public Contracts Act (PCA). Additional information about contracts with the Federal Government can be found at <a href="www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -284,7 +299,10 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.scaId') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</div>
+        <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?
+            <helplink></helplink>
+            <helptext>Make the appropriate selection if the employer has, or intends to receive, any contracts with the McNamara-O’Hara Service Contract Act (SCA). If the employer had one or more SCA-covered contracts during the last completed fiscal quarter, provide the total number of SCA contracts and attach the SCA Wage Determinations for each contract. Additional information about contracts with the Federal Government can be found at <a href="www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -310,7 +328,10 @@
         </div>
     </div>
     <div class="form-question-block" ng-class="validate('employer.eo13658Id') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</div>
+        <div class="form-question-text">Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
+            <helplink></helplink>
+            <helptext>Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to Executive Order 13658, Establishing a Minimum Wage for Contractors. Section 14(c) workers performing on or in connection with a contract covered by Executive Order 13658 are generally entitled to be paid at least the Executive Order minimum wage. Additional information about contracts with the Federal Government can be found at <a href="www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -324,7 +345,10 @@
     <h3>Additional Questions</h3>
     <hr />
     <div class="form-question-block" ng-class="validate('employer.representativePayee') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</div>
+        <div class="form-question-text">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?
+            <helplink></helplink>
+            <helptext>If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -349,7 +373,10 @@
     </div>
 
     <div class="form-question-block" ng-class="validate('employer.takeCreditForCosts') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</div>
+        <div class="form-question-text">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?
+            <helplink></helplink>
+            <helptext>Indicate if the employer provided facilities such as lodging, board, and transportation to any employee, and took credit for those costs toward meeting the minimum wage or subminimum wage obligations to employees with disabilities during the most recently completed fiscal quarter. See 29 C.F.R. § 531 and 29 C.F.R. &sect; 516. Provide a brief description of the type of deduction taken by the employer (e.g., transportation, rent, meals).</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
@@ -379,7 +406,10 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.temporaryAuthority') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Is this a request for Temporary Authority?</div>
+        <div class="form-question-text">Is this a request for Temporary Authority?
+            <helplink></helplink>
+            <helptext>Answer yes only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. See 29 C.F.R. &sect; 525.8.</helptext>
+        </div>
         <div class="form-question-subtext">Answer Yes if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration.</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
