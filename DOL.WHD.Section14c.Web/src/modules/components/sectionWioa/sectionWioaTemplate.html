@@ -39,18 +39,18 @@
         </p>
     </div>
 
-    <div class="form-question-block" ng-class="validate('WIOA.hasVerfiedDocumentation') ? 'usa-input-error' : ''">
+    <div class="form-question-block" ng-class="validate('WIOA.hasVerifiedDocumentation') ? 'usa-input-error' : ''">
         <div class="form-question-text">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasVerfiedDocumentation')">{{ validate('WIOA.hasVerfiedDocumentation') }}</span>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasVerifiedDocumentation')">{{ validate('WIOA.hasVerifiedDocumentation') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
                 <li>
-                    <input id="hasVerfiedDocumentation_1" type="radio" name="hasVerifiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerifiedDocumentation">
-                    <label for="hasVerfiedDocumentation_1">Yes</label>
+                    <input id="hasVerifiedDocumentation_1" type="radio" name="hasVerifiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerifiedDocumentation">
+                    <label for="hasVerifiedDocumentation_1">Yes</label>
                 </li>
                 <li>
-                    <input id="hasVerfiedDocumentation_0" type="radio" name="hasVerifiedDocumentation" ng-value="false" ng-model="formData.WIOA.hasVerifiedDocumentation">
-                    <label for="hasVerfiedDocumentation_0">No</label>
+                    <input id="hasVerifiedDocumentation_0" type="radio" name="hasVerifiedDocumentation" ng-value="false" ng-model="formData.WIOA.hasVerifiedDocumentation">
+                    <label for="hasVerifiedDocumentation_0">No</label>
                 </li>
             </ul>
         </fieldset>
