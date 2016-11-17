@@ -165,7 +165,7 @@ module.exports = function(ngModule) {
             return d.promise;
         }
 
-        this.getApplication = function(access_token, ein, applicationData) {
+        this.getApplication = function(access_token, ein) {
             let url = _env.api_url + '/api/save/' + ein;
             let d = $q.defer();
 
@@ -173,10 +173,8 @@ module.exports = function(ngModule) {
                 method: 'GET',
                 url: url,
                 headers: {
-                    'Authorization': 'bearer ' + access_token,
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: applicationData
+                    'Authorization': 'bearer ' + access_token
+                }
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
