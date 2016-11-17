@@ -3,7 +3,7 @@
         <div class="form-question-text">
             How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?
             <helplink></helplink>
-            <helptext>Count the total number of workers paid an <strong>TO DO: HOURLY/PIECE RATE</strong> subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+            <helptext>Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
         <div class="form-question-answer">
