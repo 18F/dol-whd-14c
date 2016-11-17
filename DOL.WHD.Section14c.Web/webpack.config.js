@@ -18,7 +18,7 @@ module.exports = {
 	devServer: {
 		inline: true,
 		port: 3333,
-        https: true,
+        https: true
 	},
 	module: {
         preLoaders: [

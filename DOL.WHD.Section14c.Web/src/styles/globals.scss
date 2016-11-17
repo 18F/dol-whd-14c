@@ -45,10 +45,12 @@ h6 {
 
     &:hover {
         background-color: $color-gray-medium;
+        color: $text-color;
     }
 
     &:active {
         background-color: $color-gray;
+        color: $text-color;
     }
 }
 

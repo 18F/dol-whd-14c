@@ -1,9 +1,9 @@
-﻿using System.Configuration;
-using System.Web.Http;
+﻿using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Business.Factories;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
@@ -23,7 +23,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<ISaveRepository, SaveRepository>(Lifestyle.Scoped);
             container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
             container.Register<IIdentityService, IdentityService>(Lifestyle.Scoped);
-            container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
+            container.Register<IFileRepository>(() => new FileRepository(AppSettings.Get<string>("AttachmentRepositoryRootFolder")), Lifestyle.Scoped);
             container.Register<IApplicationRepository, ApplicationRepository>(Lifestyle.Scoped);
             container.Register<IApplicationService, ApplicationService>(Lifestyle.Scoped);
             container.Register<IApplicationSummaryFactory, ApplicationSummaryFactory>(Lifestyle.Scoped);

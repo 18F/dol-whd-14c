@@ -7,7 +7,7 @@ import property from 'lodash/property'
 
 
 module.exports = function(ngModule) {
-    ngModule.service('stateService', function($cookies, moment, apiService, $q, $rootScope, _constants) {
+    ngModule.service('stateService', function($cookies, moment, apiService, $q, _env, $rootScope, _constants) {
         'use strict';
 
         const accessTokenCookieName = 'api_access_token';
@@ -44,8 +44,8 @@ module.exports = function(ngModule) {
             },
             set: function(value) {
                 $cookies.put(accessTokenCookieName, value, {
-                    secure: false,
-                    expires: moment().add(1, 'y').toDate()
+                    secure: _env.requireHttps,
+                    expires: moment().add(_env.tokenCookieDurationMinutes, 'm').toDate()
                 });
             }
         });

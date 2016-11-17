@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,6 +17,7 @@ using System.Security.Claims;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
@@ -45,6 +45,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Creates a User Account
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>HTTP status code</returns>
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
@@ -56,8 +61,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             // Validate Recaptcha
-            var reCaptchaVerfiyUrl = ConfigurationManager.AppSettings["ReCaptchaVerfiyUrl"];
-            var reCaptchaSecretKey = ConfigurationManager.AppSettings["ReCaptchaSecretKey"];
+            var reCaptchaVerfiyUrl = AppSettings.Get<string>("ReCaptchaVerfiyUrl");
+            var reCaptchaSecretKey = AppSettings.Get<string>("ReCaptchaSecretKey");
             if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
             {
                 var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
@@ -104,6 +109,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Returns user information for provided access_token
+        /// </summary>
+        /// <returns>User information, including; Email Address, Organizations, Roles, Application Claims</returns>
         // GET api/Account/UserInfo
         [Route("UserInfo")]
         public UserInfoViewModel GetUserInfo()
@@ -122,6 +131,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             };
         }
 
+        /// <summary>
+        /// Sends reset password email if account exists
+        /// </summary>
+        /// <param name="model">ResetPasswordViewModel</param>
+        /// <returns>Http status code, for information security it will return success even if account is not found</returns>
         // POST api/Account/ResetPassword
         [AllowAnonymous]
         [Route("ResetPassword")]
@@ -152,6 +166,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         }
 
+        /// <summary>
+        /// Verifies the reset password token and resets users password.  Updates email address as confirmed if not previously confirmed.
+        /// </summary>
+        /// <param name="model">VerifyResetPasswordViewModel</param>
+        /// <returns>Http status code</returns>
         // POST api/Account/VerifyResetPassword
         [AllowAnonymous]
         [Route("VerifyResetPassword")]
@@ -175,6 +194,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Changes password by username or bearer token
+        /// </summary>
+        /// <param name="model">ChangePasswordViewModel</param>
+        /// <returns>Http status code</returns>
         // POST api/Account/ChangePassword
         [AllowAnonymous]
         [Route("ChangePassword")]
@@ -228,6 +252,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Verifies code sent during registration and updates user as email confirmed.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         // POST api/Account/VerifyEmail
         [AllowAnonymous]
         [Route("VerifyEmail")]
@@ -243,6 +272,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Updates security stamp so token can be validated
+        /// </summary>
+        /// <returns></returns>
         // POST api/Account/Logout
         [Route("LogOut")]
         public async Task<IHttpActionResult> Logout()
@@ -254,6 +288,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
         #region Account Management
 
+        /// <summary>
+        /// Returns collection of user accounts
+        /// </summary>
         // GET api/Account
         [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
         [HttpGet]
@@ -271,6 +308,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }).ToListAsync();
         }
 
+        /// <summary>
+        /// Returns user account by Id
+        /// </summary>
+        /// <param name="userId">User Id</param>
         // POST api/Account/{userId}
         [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
         [HttpGet]
@@ -296,6 +337,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     .Select(i => i.Feature.Key)});
         }
 
+        /// <summary>
+        /// Returns all available roles in system
+        /// </summary>
         // GET api/Account/Roles
         [AuthorizeClaims(ApplicationClaimTypes.GetRoles)]
         [HttpGet]
@@ -309,6 +353,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }).OrderBy(x => x.Name).ToListAsync();
         }
 
+        /// <summary>
+        /// Creates User Account
+        /// </summary>
+        /// <param name="model">UserInfoViewModel</param>
+        /// <returns>Http status code</returns>
         // POST api/Account
         [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
         [HttpPost]
@@ -342,6 +391,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Updates User Account
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <param name="model">UserInfoViewModel</param>
+        /// <returns>Http status code</returns>
         // POST api/Account/{userId}
         [AuthorizeClaims(ApplicationClaimTypes.ModifyAccount)]
         [HttpPost]
@@ -402,6 +457,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
         #endregion
 
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
         [AllowAnonymous]
         public HttpResponseMessage Options()
         {

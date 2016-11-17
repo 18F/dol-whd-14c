@@ -27,6 +27,7 @@ $susy: (
 @include nested(12) {
 
     .main-content {
+        position: relative;
         @include span(12);
         margin-top: 40px;
     }

@@ -31,6 +31,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _statusService = statusService;
         }
 
+        /// <summary>
+        /// Submit 14c application
+        /// </summary>
+        /// <returns>Http status code</returns>
         [HttpPost]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
@@ -54,6 +58,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 
+        /// <summary>
+        /// Returns 14c application by Id
+        /// </summary>
+        /// <param name="id">Id</param>
         [HttpGet]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
         public HttpResponseMessage GetApplication(Guid id)
@@ -66,6 +74,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
+        /// <summary>
+        /// Gets summary collection of all 14c applications
+        /// </summary>
         [HttpGet]
         [Route("summary")]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
@@ -76,6 +87,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, applicationSummaries);
         }
 
+        /// <summary>
+        /// Change application status
+        /// </summary>
+        /// <param name="id">Application Id</param>
+        /// <param name="statusId">Status Id</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("status")]
         [AuthorizeClaims(ApplicationClaimTypes.ChangeApplicationStatus)]
@@ -98,6 +115,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, $"/api/application?id={id}");
         }
 
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
         [AllowAnonymous]
         public HttpResponseMessage Options()
         {
