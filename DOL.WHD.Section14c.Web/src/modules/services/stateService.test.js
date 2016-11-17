@@ -8,8 +8,12 @@ describe('stateService', function() {
         apiService = _apiService_;
         $q = _$q_;
         getApplication = $q.defer();
-        $scope = _$rootScope_.$new();
+        getSubmittedApplication = $q.defer();
+        getSubmittedApplications = $q.defer();
+        $rootScope = _$rootScope_;
         spyOn(apiService, 'getApplication').and.returnValue(getApplication.promise);
+        spyOn(apiService, 'getSubmittedApplication').and.returnValue(getSubmittedApplication.promise);
+        spyOn(apiService, 'getSubmittedApplications').and.returnValue(getSubmittedApplications.promise);
     }));
 
     it('should set form data', function() {
@@ -56,18 +60,81 @@ describe('stateService', function() {
 
     it('should load user info and application data', function() {
         stateService.loadSavedApplication();
-        getApplication.resolve({data: '{}'});
-        $scope.$digest();
+        getApplication.resolve({ data: '{ "applicationTypeId": 1 }' });
+        $rootScope.$digest();
 
-        //TODO: Add asseritions
+        expect(stateService.formData.applicationTypeId).toEqual(1);
     });     
 
     it('should load user info and fail on application data', function() {
-        stateService.loadSavedApplication();
-        getApplication.reject();
-        $scope.$digest();
+        var result;
+        var isResolved;
+        stateService.loadSavedApplication().then(undefined, function(error) {
+            result = error;
+            isResolved = false;
+        });
+        getApplication.reject('error');
+        $rootScope.$digest();
 
-        //TODO: Add asseritions
-    });               
-    
+        expect(result).toEqual('error');
+        expect(isResolved).toEqual(false);
+    });
+
+    it('should load submitted application data', function() {
+        var result;
+        var isResolved;
+        var data = { data: '{ "applicationTypeId": 1 }' };
+        stateService.loadApplicationData().then(function(data) {
+            isResolved = true;
+            result = data;
+        });
+        getSubmittedApplication.resolve(data);
+        $rootScope.$digest();
+
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual(data.data);
+    });
+
+    it('should fail loading submitted application data', function() {
+        var result;
+        var isResolved;
+        stateService.loadApplicationData().then(undefined, function(error) {
+            isResolved = false;
+            result = error;
+        });
+        getSubmittedApplication.reject('error');
+        $rootScope.$digest();
+
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('error');
+    });
+
+    it('should load application list', function() {
+        var result;
+        var isResolved;
+        var data = { data: '[{ "applicationTypeId": 1 }]' };
+        stateService.loadApplicationList().then(function(data) {
+            isResolved = true;
+            result = data;
+        });
+        getSubmittedApplications.resolve(data);
+        $rootScope.$digest();
+
+        expect(isResolved).toEqual(true);
+        expect(result).toEqual(data.data);
+    });
+
+    it('should fail loading application list', function() {
+        var result;
+        var isResolved;
+        stateService.loadApplicationList().then(undefined, function(error) {
+            isResolved = false;
+            result = error;
+        });
+        getSubmittedApplications.reject('error');
+        $rootScope.$digest();
+
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('error');
+    });
 });
