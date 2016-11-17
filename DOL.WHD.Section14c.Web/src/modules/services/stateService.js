@@ -7,10 +7,9 @@ import property from 'lodash/property'
 
 
 module.exports = function(ngModule) {
-    ngModule.service('stateService', function($cookies, moment, apiService, $q, _env) {
+    ngModule.service('stateService', function($cookies, moment, apiService, $q, _env, $rootScope, _constants) {
         'use strict';
 
-        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
         const accessTokenCookieName = 'api_access_token';
 
         let state;
@@ -29,9 +28,18 @@ module.exports = function(ngModule) {
             set: function(value) { state.activeEIN = value; }
         });
 
+        Object.defineProperty(this, 'loggedIn', {
+            get: function() { return state.loggedIn; },
+            set: function(value) { state.loggedIn = value; }
+        })
+
+        Object.defineProperty(this, 'isAdmin', {
+            get: function() { return this.hasClaim(_constants.applicationClaimTypes.viewAdminUI); }
+        });
+
         // REST access token
         Object.defineProperty(this, 'access_token', {
-            get: function() { 
+            get: function() {
                 return $cookies.get(accessTokenCookieName);
             },
             set: function(value) {
@@ -46,6 +54,14 @@ module.exports = function(ngModule) {
         Object.defineProperty(this, 'formData', {
             get: function() { return state.form_data; },
             set: function(value) { state.form_data = value; }
+        });
+
+        Object.defineProperty(this, 'appData', {
+            get: function() { return state.app_data; }
+        });
+
+        Object.defineProperty(this, 'appList', {
+            get: function() { return state.app_list; }
         });
 
         this.hasClaim = function(claimName) {
@@ -64,6 +80,14 @@ module.exports = function(ngModule) {
             merge(state.form_data, { [property]: value });
         }
 
+        this.setAppData = function(value) {
+            merge(state.app_data, value);
+        }
+
+        this.setAppList = function(value) {
+            state.app_list = value;
+        }
+
         this.logOut = function() {
             // remove access_token cookie
             $cookies.remove(accessTokenCookieName);
@@ -71,27 +95,15 @@ module.exports = function(ngModule) {
             setInitialState();
         }
 
-        this.loadState = function() {
+        this.loadSavedApplication = function() {
             const self = this;
             const d = $q.defer();
 
-            // Get User Info
-            apiService.userInfo(self.access_token).then(function (result) {
+            // Get Application State for Organization
+            apiService.getApplication(self.access_token, self.ein).then(function (result) {
                 const data = result.data;
-                self.user = data;
-                if(data.organizations.length > 0){
-                    self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-                    // Get Application State for Organization
-                    apiService.getApplication(self.access_token, self.ein).then(function (result) {
-                        const data = result.data;
-                        self.setFormData(JSON.parse(data));
-                        d.resolve(data);
-                    }, function (error) {
-                        d.reject(error);
-                    });
-                } else {
-                    d.resolve();
-                }
+                self.setFormData(JSON.parse(data));
+                d.resolve(data);
             }, function (error) {
                 d.reject(error);
             });
@@ -102,12 +114,45 @@ module.exports = function(ngModule) {
         function setInitialState() {
             state = {
                 form_data: { },
+                app_data: { },
+                app_list: [],
                 activeEIN: undefined,
                 user: {
                     email: '',
                     claims: []
-                }
+                },
+                loggedIn: false
             };
+        }
+
+        this.loadApplicationData = function(appid) {
+            const self = this;
+            const d = $q.defer();
+
+            apiService.getSubmittedApplication(self.access_token, appid).then(function (result) {
+                const data = result.data;
+                self.setAppData(JSON.parse(data));
+                d.resolve(data);
+            }, function (error) {
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.loadApplicationList = function() {
+            const self = this;
+            const d = $q.defer();
+
+            apiService.getSubmittedApplications(self.access_token).then(function (result) {
+                const data = result.data;
+                self.setAppList(JSON.parse(data));
+                d.resolve(data);
+            }, function (error) {
+                d.reject(error);
+            });
+
+            return d.promise;
         }
     });
 }

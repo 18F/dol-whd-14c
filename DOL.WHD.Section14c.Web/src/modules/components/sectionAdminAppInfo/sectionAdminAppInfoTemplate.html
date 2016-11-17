@@ -1,0 +1,47 @@
+<div class="admin-page">
+
+    <h1>Application Info</h1>
+
+    <h2>Application Type</h2>
+    <hr>
+
+    <answer-field answer="appData.applicationType.display">
+        What type of application is this?
+    </answer-field>
+
+    <answer-field answer="appData.hasPreviousApplication">
+        Has this employer ever previously applied for a 14(c) certificate?
+    </answer-field>
+
+    <answer-field answer="appData.hasPreviousCertificate">
+        Has this employer ever previously held a 14(c) certificate?
+    </answer-field>
+
+    <answer-field answer="appData.previousCertificateNumber" ng-show="appData.hasPreviousCertificate">
+        What is the most recently held certificate number for the main establishment?
+    </answer-field>
+
+    <answer-field answer="appData.establishmentType.display">
+        What type of establishment(s) is this request for authority to employ workers with disabilities for?
+    </answer-field>
+
+    <h2>Application Contact Person</h2>
+    <hr>
+
+    <answer-field answer="appData.contactName">
+        <span class="subtext">Full Name</span>
+    </answer-field>
+
+    <answer-field answer="appData.contactPhone">
+        <span class="subtext">Telephone Number</span>
+    </answer-field>
+
+    <answer-field answer="appData.contactFax ? appData.contactFax : 'No Fax Number available'">
+        <span class="subtext">Fax Number</span>
+    </answer-field>
+
+    <answer-field answer="appData.contactEmail">
+        <span class="subtext">Email Address</span>
+    </answer-field>
+
+</div>

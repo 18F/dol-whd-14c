@@ -10,8 +10,11 @@
     </nav>
 </header>
 <div class="dol-applicant-meta">
-    <div class="dol-applicant-ein">
+    <div class="dol-applicant-ein" ng-show="!admin">
         Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span>
+    </div>
+    <div class="dol-applicant-ein" ng-show="admin">
+        {{ appData.employer.legalName }}
     </div>
 
     <div class="dol-feedback-save">
@@ -25,12 +28,17 @@
 </div>
 <div class="dol-form-meta">
     <div class="usa-content">
-        <p>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
+        <p ng-show="!admin">Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
+        <p ng-show="admin">Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
     </div>
 
-    <div class="dol-form-omb">
+    <div class="dol-form-omb" ng-show="!admin">
         <p>OMB NO: 1235-0001</p>
         <p>REV XX/20XX</p>
     </div>
+
+    <div class="dol-form-status" ng-show="admin">
+        Status: {{ appData.applicationStatus ? appData.applicationStatus : 'Unknown' }}
+    </div>
 </div>
-<main-navigation-control></main-navigation-control>
+<main-navigation-control admin="admin"></main-navigation-control>

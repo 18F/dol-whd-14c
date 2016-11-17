@@ -1,11 +1,73 @@
 'use strict';
 
+import findIndex from 'lodash/findIndex';
+
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($location, $route, autoSaveService) {
+    ngModule.service('navService', function($location, $route, autoSaveService, stateService) {
         'ngInject';
         'use strict';
 
-        const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa', 'review'];
+        const userSectionArray = [
+            {
+                id: 'assurances',
+                display: 'Assurances'
+            },
+            {
+                id: 'app-info',
+                display: 'Application Info'
+            },
+            {
+                id: 'employer',
+                display: 'Employer'
+            },
+            {
+                id: 'wage-data',
+                display: 'Wage Data'
+            },
+            {
+                id: 'work-sites',
+                display: 'Work Sites & Employees'
+            },
+            {
+                id: 'wioa',
+                display: 'WIOA'
+            },
+            {
+                id: 'review',
+                display: 'Review & Submit'
+            }
+        ];
+
+        const adminSectionArray = [
+            {
+                id: 'summary',
+                display: 'Summary'
+            },
+            {
+                id: 'assurances',
+                display: 'Assurances'
+            },
+            {
+                id: 'app-info',
+                display: 'Application Info'
+            },
+            {
+                id: 'employer',
+                display: 'Employer'
+            },
+            {
+                id: 'wage-data',
+                display: 'Wage Data'
+            },
+            {
+                id: 'work-sites',
+                display: 'Work Sites & Employees'
+            },
+            {
+                id: 'wioa',
+                display: 'WIOA'
+            }
+        ];
 
         let state = {
             backStack: []
@@ -18,6 +80,10 @@ module.exports = function(ngModule) {
         Object.defineProperty(this, 'backLabel', {
             get: function() { return state.backQuery ? state.backQuery.label : undefined }
         });
+
+        this.getSections = function() {
+            return stateService.isAdmin ? adminSectionArray : userSectionArray;
+        }
 
         this.hasNext = function() {
             return state.nextQuery || this.getNextSection();
@@ -79,14 +145,27 @@ module.exports = function(ngModule) {
         }
 
         this.gotoSection = function(section) {
-            if (sectionArray.indexOf(section) === -1) {
+            var sectionArray = this.getSections();
+
+            if (findIndex(sectionArray, { 'id': section }) === -1) {
                 return;
             }
 
             this.clearBackQuery();
             this.clearNextQuery();
             state.backStack.length = 0;
-            $location.path("/section/" + section).search({});
+            if (stateService.isAdmin) {
+                if (stateService.appData.applicationId) {
+                    $location.path("/admin/" + stateService.appData.applicationId + "/section/" + section).search({});
+                }
+                else {
+                    // no application loaded so redirect back to the dashboard
+                    $location.path("/admin").search({});
+                }
+            }
+            else {
+                $location.path("/section/" + section).search({});
+            }
 
             autoSaveService.save();
         }
@@ -120,9 +199,11 @@ module.exports = function(ngModule) {
                 current = $route.current.params.section_id;
             }
 
-            let index = sectionArray.indexOf(current) + 1;
+            var sectionArray = this.getSections();
+
+            let index = findIndex(sectionArray, { 'id': current }) + 1;
             if (index < sectionArray.length) {
-                return sectionArray[index];
+                return sectionArray[index].id;
             }
 
             return undefined;
@@ -133,9 +214,11 @@ module.exports = function(ngModule) {
                 current = $route.current.params.section_id;
             }
 
-            let index = sectionArray.indexOf(current) - 1;
+            var sectionArray = this.getSections();
+
+            let index = findIndex(sectionArray, { 'id': current }) - 1;
             if (index >= 0) {
-                return sectionArray[index];
+                return sectionArray[index].id;
             }
 
             return undefined;

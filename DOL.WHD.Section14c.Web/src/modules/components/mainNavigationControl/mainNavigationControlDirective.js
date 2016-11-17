@@ -9,7 +9,9 @@ module.exports = function(ngModule) {
           restrict: 'EA',
           template: require('./mainNavigationControlTemplate.html'),
           controller: 'mainNavigationControlController',
-          scope: {},
+          scope: {
+              admin: '='
+          },
           controllerAs: 'vm'
       };
   });

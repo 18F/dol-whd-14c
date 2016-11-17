@@ -19,7 +19,8 @@ namespace DOL.WHD.Section14c.Business.Factories
                 NumWorkers = submission.WorkSites.Sum(x => x.Employees.Count),
                 NumWorkSites = submission.WorkSites.Count,
                 State = submission.Employer.PhysicalAddress.State,
-                StatusName = submission.Status.Name
+                StatusName = submission.Status.Name,
+                EmployerName = submission.Employer.LegalName
             };
 
             return obj;

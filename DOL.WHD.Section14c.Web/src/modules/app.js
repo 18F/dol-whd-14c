@@ -60,12 +60,14 @@ app.config(function($routeProvider, $compileProvider) {
     .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
-        public: true
+        public: true,
+        admin: true
     })
     .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
-        public: true
+        public: true,
+        admin: true
     })
     .when('/login', {
         controller: 'userLoginPageController',
@@ -85,22 +87,31 @@ app.config(function($routeProvider, $compileProvider) {
         template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
         reloadOnSearch: false
     })
+    .when('/admin', {
+        controller: 'adminDashboardController',
+        template: require('./pages/adminDashboardTemplate.html'),
+        admin: true
+    })
+    .when('/admin/:app_id', {
+        redirectTo: function(params){ return '/admin/' + params.app_id + '/section/summary'; }
+    })
+    .when('/admin/:app_id/section/:section_id', {
+        template: function(params){ return '<admin-review appid=' + params.app_id + '><section-admin-' + params.section_id + '></section-admin-' + params.section_id + '></admin-review>'; },
+        reloadOnSearch: false,
+        admin: true
+    })
     .otherwise({
         redirectTo: '/'
     });
 });
 
-app.run(function($rootScope, $location, stateService, autoSaveService) {
+app.run(function($rootScope, $location, stateService, autoSaveService, authService) {
     // check cookie to see if we're logged in
     const accessToken = stateService.access_token;
     if(accessToken) {
-        stateService.loadState().then(function(result) {
-            $rootScope.loggedIn = true;
-
-            // start auto-save 
-            if(stateService.ein){
-                autoSaveService.start();
-            }
+        // authenticate the user based on token
+        authService.authenticateUser().then(undefined, function errorCallback(error) {
+            console.log(error);
         });
     }
 
@@ -108,8 +119,17 @@ app.run(function($rootScope, $location, stateService, autoSaveService) {
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-            if ( !$rootScope.loggedIn && next.$$route.public !== true ) {
+            if (!stateService.loggedIn && next.$$route.public !== true ) {
+                // not logged in
                 $location.path( "/" );
+            }
+            else if (next.$$route.admin === true && !stateService.isAdmin) {
+                // non-admin trying to access admin page
+                $location.path( "/" );
+            }
+            else if (stateService.isAdmin && next.$$route.admin !== true) {
+                // admin trying to access application form pages
+                $location.path( "/admin" );
             }
         });
     }

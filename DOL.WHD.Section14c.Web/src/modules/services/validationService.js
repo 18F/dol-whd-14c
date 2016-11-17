@@ -327,7 +327,7 @@ module.exports = function(ngModule) {
                 let sourceEmployers = this.checkRequiredValueArray(prefix + ".mostRecentPrevailingWageSurvey.sourceEmployers", "Please provide 3 source employers");
                 if (sourceEmployers) {
                     for (let i=0; i < sourceEmployers.length; i++) {
-                        let subprefix = prefix + ".sourceEmployers[" + i + "]";
+                        let subprefix = prefix + ".mostRecentPrevailingWageSurvey.sourceEmployers[" + i + "]";
 
                         this.checkRequiredString(subprefix + ".employerName");
                         this.checkRequiredString(subprefix + ".address.streetAddress");
@@ -478,7 +478,7 @@ module.exports = function(ngModule) {
         this.validateWIOA = function() {
             section = "__wioa";
 
-            this.checkRequiredMultipleChoice("WIOA.hasVerfiedDocumentation");
+            this.checkRequiredMultipleChoice("WIOA.hasVerifiedDocumentation");
 
             let hasWIOAWorkers = this.checkRequiredMultipleChoice("WIOA.hasWIOAWorkers");
             if (hasWIOAWorkers === true) {

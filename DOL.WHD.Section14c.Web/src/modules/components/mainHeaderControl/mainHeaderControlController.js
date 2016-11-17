@@ -5,6 +5,8 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
+        $scope.appData = stateService.appData;
+
         var vm = this;
         vm.stateService = stateService;
         vm.assetService = assetService;

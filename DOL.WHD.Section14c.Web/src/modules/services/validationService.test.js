@@ -29,7 +29,7 @@ describe('validationService', function() {
                         }
                     }
                 ],
-                "hasVerfiedDocumentation": false,
+                "hasVerifiedDocumentation": false,
                 "hasWIOAWorkers": true
             },
             "workSites": [

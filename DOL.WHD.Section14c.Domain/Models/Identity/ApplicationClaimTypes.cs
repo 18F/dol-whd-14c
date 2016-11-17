@@ -14,6 +14,7 @@
         public const string GetRoles = ClaimPrefix + "UserManagement.GetRoles";
 
         // Application Management
+        public const string ViewAdminUI = ClaimPrefix + "Application.ViewAdminUI";
         public const string ViewAllApplications = ClaimPrefix + "Application.ViewAll";
         public const string ChangeApplicationStatus = ClaimPrefix + "Application.ChangeStatus";
 

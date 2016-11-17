@@ -114,36 +114,7 @@ describe('apiService', function() {
         $httpBackend.flush();
         expect(isResolved).toEqual(true);
         expect(result).toEqual('value');
-    });   
-
-//userLogin
-    it('userLogin error should reject deferred', function() {   
-        var isResolved;
-        var result;
-        api.userLogin().then(undefined, function (error) {
-            result = error.data;
-            isResolved = false;
-        });
-
-        $httpBackend.expectPOST(env.api_url + '/Token').respond(400, 'value');
-        $httpBackend.flush();
-        expect(isResolved).toEqual(false);
-        expect(result).toEqual('value');
-    });      
-
-    it('userLogin success should resolve deferred', function() {   
-        var isResolved;
-        var result;
-        api.userLogin().then(function (data) {
-            result = data.data;
-            isResolved = true;
-        });
-
-        $httpBackend.expectPOST(env.api_url + '/Token').respond(200, 'value');
-        $httpBackend.flush();
-        expect(isResolved).toEqual(true);
-        expect(result).toEqual('value');
-    });   
+    });
 
 //userRegister
     it('userLogin error should reject deferred', function() {   

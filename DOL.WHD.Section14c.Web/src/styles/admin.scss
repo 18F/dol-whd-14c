@@ -1,0 +1,7 @@
+@include nested(12) {
+
+    .admin-page {
+        @include span(12);
+    }
+
+}

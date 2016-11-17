@@ -5,6 +5,8 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
+        $scope.sections = navService.getSections();
+
         var vm = this;
         vm.stateService = stateService;
         vm.current = $route.current.params.section_id;
