@@ -263,6 +263,10 @@
                 margin-top: 4rem;
             }
 
+            &.margintop {
+                margin-top: 40px;
+            }
+
             .form-question-text {
                 margin-bottom: 20px;
                 font-weight: 700;
@@ -484,6 +488,10 @@
                 border-top: 1px solid $text-color;
                 padding: 8px 2px;
             }
+        }
+
+        .full-width-label {
+            max-width: none;
         }
     }
 
