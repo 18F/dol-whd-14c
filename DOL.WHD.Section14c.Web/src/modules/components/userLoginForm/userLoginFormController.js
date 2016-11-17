@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, authService, autoSaveService) {
+    ngModule.controller('userLoginFormController', function($rootScope, $scope, $location, stateService, authService) {
         'ngInject';
         'use strict';
 

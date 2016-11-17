@@ -7,10 +7,8 @@ describe('stateService', function() {
         stateService = _stateService_;
         apiService = _apiService_;
         $q = _$q_;
-        userInfo = $q.defer();
         getApplication = $q.defer();
         $scope = _$rootScope_.$new();
-        spyOn(apiService, 'userInfo').and.returnValue(userInfo.promise);
         spyOn(apiService, 'getApplication').and.returnValue(getApplication.promise);
     }));
 
@@ -57,8 +55,7 @@ describe('stateService', function() {
     });   
 
     it('should load user info and application data', function() {
-        stateService.loadState();
-        userInfo.resolve({data: { organizations: [ {ein: '12-1234567'}] }});
+        stateService.loadSavedApplication();
         getApplication.resolve({data: '{}'});
         $scope.$digest();
 
@@ -66,8 +63,7 @@ describe('stateService', function() {
     });     
 
     it('should load user info and fail on application data', function() {
-        stateService.loadState();
-        userInfo.resolve({data: { organizations: [ {ein: '12-1234567'}] }});
+        stateService.loadSavedApplication();
         getApplication.reject();
         $scope.$digest();
 
