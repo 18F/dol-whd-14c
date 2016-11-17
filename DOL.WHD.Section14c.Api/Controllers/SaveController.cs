@@ -23,6 +23,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _identityService = identityService;
         }
 
+        /// <summary>
+        /// Returns pre-submission 14c application
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
         [HttpGet]
         [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -44,6 +48,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return NotFound();
         }
 
+        /// <summary>
+        /// Creates or updates pre-submission 14c application
+        /// </summary>
+        /// <param name="EIN"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -69,7 +78,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService.AddOrUpdate(EIN, state);
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
         }
-
+        
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
         [AllowAnonymous]
         public HttpResponseMessage Options()
         {

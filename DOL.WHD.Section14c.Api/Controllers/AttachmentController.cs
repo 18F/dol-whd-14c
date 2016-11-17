@@ -26,6 +26,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService = saveService;
             _identityService = identityService;
         }
+
+        /// <summary>
+        /// Upload Attachment
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <returns>Http status code</returns>
         [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string EIN)
@@ -62,6 +68,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(files);
         }
 
+        /// <summary>
+        /// Download attachment by Id
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="fileId">File Id</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{EIN}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -103,6 +115,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete Attachment by Id
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="fileId">File Id</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{EIN}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -127,6 +145,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
         [AllowAnonymous]
         public HttpResponseMessage Options()
         {
