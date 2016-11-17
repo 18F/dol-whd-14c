@@ -15,7 +15,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         private static readonly IAddressValidator AddressValidator = new AddressValidator();
         private static readonly IWorkerCountInfoValidator WorkerCountInfoValidator = new WorkerCountInfoValidator();
         private static readonly IEmployerValidator EmployerValidator = new EmployerValidator(AddressValidator, WorkerCountInfoValidator);
-        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidator);
+        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidatorNoCounty);
         private static readonly IPrevailingWageSurveyInfoValidator PrevailingWageSurveyInfoValidator = new PrevailingWageSurveyInfoValidator(SourceEmployerValidator);
         private static readonly IAlternateWageDataValidator AlternateWageDataValidator = new AlternateWageDataValidator();
         private static readonly IHourlyWageInfoValidator HourlyWageInfoValidator = new HourlyWageInfoValidator(PrevailingWageSurveyInfoValidator, AlternateWageDataValidator);
