@@ -2,6 +2,12 @@
 
     .admin-page {
         @include span(12);
+
+        .usa-content {
+            p {
+                max-width: none;
+            }
+        }
     }
 
 }
