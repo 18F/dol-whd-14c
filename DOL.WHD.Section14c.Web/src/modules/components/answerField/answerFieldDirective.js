@@ -11,8 +11,11 @@ module.exports = function(ngModule) {
             scope: {
                 answer: '=',
                 addressField: '=',
-                datefield: '='
-            }
+                datefield: '=',
+                attachmentField: '='
+            },
+            controller: 'answerFieldController',
+            controllerAs: 'vm'
         }
     });
 }
