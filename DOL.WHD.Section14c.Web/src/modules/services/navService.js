@@ -155,8 +155,8 @@ module.exports = function(ngModule) {
             this.clearNextQuery();
             state.backStack.length = 0;
             if (stateService.isAdmin) {
-                if (stateService.appData.applicationId) {
-                    $location.path("/admin/" + stateService.appData.applicationId + "/section/" + section).search({});
+                if (stateService.appData.id) {
+                    $location.path("/admin/" + stateService.appData.id + "/section/" + section).search({});
                 }
                 else {
                     // no application loaded so redirect back to the dashboard
