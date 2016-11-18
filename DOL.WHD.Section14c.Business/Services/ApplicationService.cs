@@ -70,6 +70,19 @@ namespace DOL.WHD.Section14c.Business.Services
             model.CertificateEffectiveDate = null;
             model.CertificateExpirationDate = null;
             model.CertificateNumber = null;
+
+            // default checkboxes
+            if (model.Employer != null)
+            {
+                if (model.Employer.HasParentOrg.GetValueOrDefault())
+                {
+                    model.Employer.SendMailToParent = model.Employer.SendMailToParent ?? false;
+                }
+                else
+                {
+                    model.Employer.SendMailToParent = null;
+                }
+            }
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)

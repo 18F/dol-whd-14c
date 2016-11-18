@@ -224,5 +224,44 @@ namespace DOL.WHD.Section14c.Test.Business
             Assert.IsNull(obj.CertificateExpirationDate);
             Assert.IsNull(obj.CertificateNumber);
         }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_SendMailToParent_Null()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission {Employer = new EmployerInfo {HasParentOrg = true}};
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsFalse(obj.Employer.SendMailToParent.Value);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_SendMailToParent_NotNull()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission { Employer = new EmployerInfo { HasParentOrg = true, SendMailToParent = true} };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsTrue(obj.Employer.SendMailToParent.Value);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Cleans_SendMailToParent()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission { Employer = new EmployerInfo { SendMailToParent = true } };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.Employer.SendMailToParent);
+        }
     }
 }
