@@ -3,7 +3,7 @@
         <ng-transclude></ng-transclude>
     </div>
     <div class="answer-answer" ng-show="answer !== undefined">
-        <div ng-show="!addressField && !datefield">
+        <div ng-show="!addressField && !datefield && !attachmentField">
             {{ answer === true ? 'Yes' : answer === false ? 'No' : answer }}
         </div>
         <div ng-show="addressField">
@@ -13,6 +13,9 @@
         </div>
         <div ng-show="datefield">
             {{ answer | dateFilter }}
+        </div>
+        <div ng-show="attachmentField">
+            <a ng-href="{{vm.attachmentApiURL}}/{{answer.id}}?access_token={{vm.access_token}}"><span>{{answer.originalFileName}}</span></a>
         </div>
     </div>
     <div class="answer-answer" ng-show="answer === undefined">

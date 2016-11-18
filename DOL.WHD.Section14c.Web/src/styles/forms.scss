@@ -166,57 +166,6 @@
             }
         }
 
-        // Custom form tabs (as seen in Wage Data section) 
-        .form-tabbed-section {
-            @include clearfix;
-
-            margin-top: 40px;
-
-            .form-tab {
-                @include span(6);
-
-                border-top: .6rem solid transparent;
-                padding: 1.4rem 2rem 2rem 2rem;
-                font-size: 2.4rem;
-                font-weight: 700;
-                cursor: pointer;
-                margin-right: 0px;
-                
-
-                &:not(:first-of-type) {
-                    border-left: 1px solid #aeb0b5;
-                }
-
-                &.active {
-                    border-top: .6rem solid $color-primary;
-                    //padding-top: 2rem;
-                }
-
-                &:not(.active) {
-                    border-bottom: 1px solid #aeb0b5;
-                    background-color: $color-gray-lightest;
-
-                    &:hover {
-                        background-color: darken($color-gray-lightest, 5%);
-                    }
-                }
-
-                .circle {
-                    display: inline-block;
-                    font-size: 1.7rem;
-                    width: 3rem;
-                    height: 3rem;
-                    border-radius: 50%;
-                    background-color: $color-gray-darker;
-                    color: $color-white;
-                    text-align: center;
-                    vertical-align: middle;
-                    padding-top: .3rem;
-                    margin-right: .7rem;
-                }
-            }
-        }
-
         /* Form input sizing */
         input.phoneno {
             max-width: 18.2rem;
@@ -492,6 +441,57 @@
 
         .full-width-label {
             max-width: none;
+        }
+    }
+
+    // Custom form tabs (as seen in Wage Data section) 
+    .form-tabbed-section {
+        @include clearfix;
+
+        margin-top: 40px;
+
+        .form-tab {
+            @include span(6);
+
+            border-top: .6rem solid transparent;
+            padding: 1.4rem 2rem 2rem 2rem;
+            font-size: 2.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: 0px;
+            
+
+            &:not(:first-of-type) {
+                border-left: 1px solid #aeb0b5;
+            }
+
+            &.active {
+                border-top: .6rem solid $color-primary;
+                //padding-top: 2rem;
+            }
+
+            &:not(.active) {
+                border-bottom: 1px solid #aeb0b5;
+                background-color: $color-gray-lightest;
+
+                &:hover {
+                    background-color: darken($color-gray-lightest, 5%);
+                }
+            }
+
+            .circle {
+                display: inline-block;
+                font-size: 1.7rem;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+                background-color: $color-gray-darker;
+                color: $color-white;
+                text-align: center;
+                vertical-align: middle;
+                padding-top: .3rem;
+                margin-right: .7rem;
+            }
         }
     }
 
