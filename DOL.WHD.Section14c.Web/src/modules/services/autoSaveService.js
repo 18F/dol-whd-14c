@@ -13,6 +13,10 @@ module.exports = function(ngModule) {
         }
 
         let save = function save(callback){
+            if (!stateService.access_token || !stateService.ein) {
+                return;
+            }
+
             return apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData).then(function () {
                 if(callback) callback();
                 console.log("autosave");

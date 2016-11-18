@@ -127,29 +127,37 @@ app.config(function($routeProvider, $compileProvider) {
     });
 });
 
-app.run(function($rootScope, $location, stateService, autoSaveService, authService) {
+app.run(function($rootScope, $location, stateService, autoSaveService, authService, $q) {
     // check cookie to see if we're logged in
     const accessToken = stateService.access_token;
+    let authenticatedPromise;
     if(accessToken) {
         // authenticate the user based on token
-        authService.authenticateUser().then(undefined, function errorCallback(error) {
+        authenticatedPromise = authService.authenticateUser();
+        authenticatedPromise.then(undefined, function errorCallback(error) {
             console.log(error);
         });
+    } else {
+        const d = $q.defer();
+        authenticatedPromise = d.promise;
+        d.resolve();
     }
 
     //TODO: remove dev_flag check
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-            let userAccess = stateService.isAdmin ? ROUTE_ADMIN : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
-            if (!checkRouteAccess(next.$$route, userAccess)) {
-                // user does not have adequate permissions to access the route so redirect
-                $location.path("/" + (userAccess === ROUTE_ADMIN ? "admin" : ""));
-            }
-            else if (next.$$route.isLanding && userAccess === ROUTE_ADMIN) {
-                // redirect admin users to the admin dashboard
-                $location.path("/admin");
-            }
+            authenticatedPromise.then(function() {
+                let userAccess = stateService.isAdmin ? ROUTE_ADMIN : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
+                if (!checkRouteAccess(next.$$route, userAccess)) {
+                    // user does not have adequate permissions to access the route so redirect
+                    $location.path("/" + (userAccess === ROUTE_ADMIN ? "admin" : ""));
+                }
+                else if (next.$$route.isLanding && userAccess === ROUTE_ADMIN) {
+                    // redirect admin users to the admin dashboard
+                    $location.path("/admin");
+                }
+            });
         });
     }
 });
