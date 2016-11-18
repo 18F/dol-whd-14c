@@ -46,6 +46,7 @@ app.constant('_env', env);
 // Load Application Components
 require('./constants')(app);
 require('./components')(app);
+require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
 

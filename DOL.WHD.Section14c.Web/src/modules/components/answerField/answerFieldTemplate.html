@@ -12,7 +12,7 @@
             <p ng-show="answer.county"><em>County:</em> {{ answer.county }}</p>
         </div>
         <div ng-show="datefield">
-            {{ answer.month }} / {{ answer.day }} / {{ answer.year }}
+            {{ answer | dateFilter }}
         </div>
     </div>
     <div class="answer-answer" ng-show="answer === undefined">
