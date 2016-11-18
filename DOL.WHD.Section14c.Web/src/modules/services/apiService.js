@@ -186,15 +186,14 @@ module.exports = function(ngModule) {
         }
 
         this.getSubmittedApplication = function(access_token, appid) {
-            let url = _env.api_url + '/api/application?' + appid;
+            let url = _env.api_url + '/api/application?id=' + appid;
             let d = $q.defer();
 
             $http({
                 method: 'GET',
                 url: url,
                 headers: {
-                    'Authorization': 'bearer ' + access_token,
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Authorization': 'bearer ' + access_token
                 }
             }).then(function successCallback (data) {
                 d.resolve(data);

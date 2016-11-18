@@ -131,7 +131,7 @@ module.exports = function(ngModule) {
 
             apiService.getSubmittedApplication(self.access_token, appid).then(function (result) {
                 const data = result.data;
-                self.setAppData(JSON.parse(data));
+                self.setAppData(data);
                 d.resolve(data);
             }, function (error) {
                 d.reject(error);
@@ -146,7 +146,7 @@ module.exports = function(ngModule) {
 
             apiService.getSubmittedApplications(self.access_token).then(function (result) {
                 const data = result.data;
-                self.setAppList(JSON.parse(data));
+                self.setAppList(data);
                 d.resolve(data);
             }, function (error) {
                 d.reject(error);
