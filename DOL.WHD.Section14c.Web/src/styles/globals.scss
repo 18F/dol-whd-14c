@@ -64,7 +64,10 @@ h6 {
 }
 
 .green-button {
-    margin-left: 40px;
+    &:not(.nomargin) {
+        margin-left: 40px;
+    }
+    
     background-color: $color-green;
 
     &:hover {
