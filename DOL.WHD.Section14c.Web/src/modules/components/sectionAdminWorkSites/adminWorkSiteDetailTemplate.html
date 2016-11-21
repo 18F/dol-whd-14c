@@ -1,0 +1,80 @@
+<div class="admin-page">
+    <h1>Work Sites &amp; Employees</h1>
+
+    <div class="form-tabbed-section">
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> Work Site</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> Employees</div>
+    </div>
+
+    <div class="form-spaced-div" ng-show="vm.activeTab === 1">
+        <answer-field answer="$parent.appData.workSites[itemId - 1].workSiteType.display">
+            What type of establishment is this?
+        </answer-field>
+
+        <answer-field answer="$parent.appData.workSites[itemId - 1].name">
+            Name of Establishment / Work Site
+        </answer-field>
+
+        <answer-field answer="$parent.appData.workSites[itemId - 1].address" address-field="true">
+            Address of Establishment / Work Site
+        </answer-field>
+
+        <answer-field answer="$parent.appData.workSites[itemId - 1].sca">
+            Is Service Contract Act (SCA)-covered work performed at this establishment / work site?
+        </answer-field>
+
+        <answer-field answer="$parent.appData.workSites[itemId - 1].federalContractWorkPerformed">
+            Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?
+        </answer-field>
+        
+        <answer-field answer="$parent.appData.workSites[itemId - 1].numEmployees">
+            Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
+        </answer-field>
+        <div class="form-footer-controls">
+            <button class="blue-button" ng-click="vm.viewAllWorkSites()">View All Work Sites &amp; Employees</button>
+            <button class="green-button pull-right" ng-click="vm.setActiveTab(2)">View Employees</button>
+        </div>
+    </div>
+
+    <div class="form-spaced-div" ng-show="vm.activeTab === 2">
+        <div class="usa-content">You indicated this Establishment / Work Site employed {{ $parent.appData.workSites[itemId - 1].numEmployees ? $parent.appData.workSites[itemId - 1].numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
+        <table class="usa-table-borderless expandable-table" ng-show="$parent.appData.workSites[itemId - 1].employees.length">
+            <thead>
+                <tr>
+                    <td></td>
+                    <th scope="col">Name</th>
+                    <th scope="col">Disability</th>
+                    <th scope="col">Work Performed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="employee in $parent.appData.workSites[itemId - 1].employees">
+                    <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
+                    <th scope="row">{{ employee.name }}</th>
+                    <td>{{ employee.primaryDisability.display }}</td>
+                    <td>{{ employee.workType }}</td>
+                </tr>
+                <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+                    <td></td>
+                    <td colspan="3">
+                        <div class="subtable">
+                            <div>Number of Jobs<div>{{ employee.numJobs}}</div></div>
+                            <div>Average Hours per Week<div>{{ employee.avgWeeklyHours}}</div></div>
+                            <div>Average Earnings per Hours<div>${{ employee.avgHourlyEarnings}}</div></div>
+                            <div>Prevailing Wage Rate<div>${{ employee.prevailingWage}}</div></div>
+                            <div>Productivity Measure<div>{{ employee.productivityMeasure}}</div></div>
+                            <div>Commensurate Wage Rate<div>${{ employee.commensurateWageRate}}</div></div>
+                            <div>Total Hours Worked<div>{{ employee.totalHours}}</div></div>
+                            <div>Work at Other Site?<div>{{ employee.workAtOtherSite ? "Yes" : "No" }}</div></div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-footer-controls">
+            <button class="green-button nomargin" ng-click="vm.setActiveTab(1)">View Work Site</button>
+            <button class="blue-button pull-right" ng-click="vm.viewAllWorkSites()">View All Work Sites &amp; Employees</button>
+        </div>
+    </div>
+</div>

@@ -118,7 +118,7 @@ app.config(function($routeProvider, $compileProvider) {
         access: ROUTE_ADMIN
     })
     .when('/admin/:app_id/section/:section_id', {
-        template: function(params){ return '<admin-review appid=' + params.app_id + '><section-admin-' + params.section_id + '></section-admin-' + params.section_id + '></admin-review>'; },
+        template: function(params){ return '<admin-review appid=' + params.app_id + '><section-admin-' + params.section_id + ' item-id=' + (params.item_id || "") + '></section-admin-' + params.section_id + '></admin-review>'; },
         reloadOnSearch: false,
         access: ROUTE_ADMIN
     })
