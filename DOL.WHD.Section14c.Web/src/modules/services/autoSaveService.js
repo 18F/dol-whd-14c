@@ -14,7 +14,8 @@ module.exports = function(ngModule) {
 
         let save = function save(callback){
             if (!stateService.access_token || !stateService.ein) {
-                return;
+                if(callback) callback();
+                return undefined;
             }
 
             return apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData).then(function () {
