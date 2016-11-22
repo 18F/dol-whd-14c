@@ -19,7 +19,11 @@ module.exports = function(ngModule) {
         }
 
         $scope.$watch('dateVal', function(newValue, oldValue) {
-            if(moment.isDate(newValue) && !moment(newValue).isSame(oldValue)) {
+            if(!newValue) {
+                vm.year = undefined;
+                vm.month = undefined;
+                vm.day = undefined;
+            } else {
                 updateLocalScope();
             }
         });
