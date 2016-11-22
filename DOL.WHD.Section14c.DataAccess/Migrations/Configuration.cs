@@ -48,7 +48,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Public, QuestionKey = "EmployerStatus", Display = "Public (State or Local Government)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateForProfit, QuestionKey = "EmployerStatus", Display = "Private, For Profit", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateNotForProfit, QuestionKey = "EmployerStatus", Display = "Private, Not For Profit", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "EmployerStatusOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "employerStatusOther", IsActive = true });
 
             // SCA
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.SCA.Yes, QuestionKey = "SCA", Display = "Yes", IsActive = true });
@@ -64,7 +64,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Transportation, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Transportation", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Rent, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Rent", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Meals, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Meals", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other, please specify:", OtherValueKey = "ProvidingFacilitiesDeductionTypeOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other, please specify:", OtherValueKey = "providingFacilitiesDeductionTypeOther", IsActive = true });
 
             // PayType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PayType.Hourly, QuestionKey = "PayType", Display = "Hourly", IsActive = true });
@@ -90,7 +90,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.SubstanceAbuse, QuestionKey = "PrimaryDisability", Display = "Substance Abuse (SA)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Neuromuscular, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.AgeRelated, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "PrimaryDisabilityOther" });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "primaryDisabilityOther" });
 
             //WIOAWorkerVerified
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.Yes, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
