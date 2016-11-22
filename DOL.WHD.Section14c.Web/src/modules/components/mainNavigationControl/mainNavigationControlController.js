@@ -5,7 +5,11 @@ module.exports = function(ngModule) {
         'ngInject';
         'use strict';
 
-        $scope.sections = navService.getSections();
+        $scope.$watch(() => {
+            return navService.getSections();
+        }, (newVal, oldVal) => {
+            $scope.sections = navService.getSections();
+        });
 
         var vm = this;
         vm.stateService = stateService;

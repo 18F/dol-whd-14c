@@ -416,5 +416,22 @@ module.exports = function(ngModule) {
             return d.promise;
         }
 
+        this.changeApplicationStatus = function(access_token, appId, newStatusId) {
+            const url = `${_env.api_url}/api/application/status?id=${appId}&statusId=${newStatusId}`;
+            const d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                }
+            }).then(function successCallback() {
+                d.resolve();
+            }, function errorCallback(error) {
+                d.reject(error);
+            });
+        }
+
     });
 }

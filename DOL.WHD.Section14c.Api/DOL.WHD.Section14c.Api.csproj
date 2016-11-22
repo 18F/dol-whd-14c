@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Filters\AuthorizeClaims.cs" />
     <Compile Include="Filters\AuthorizeHttps.cs" />
     <Compile Include="Global.asax.cs">

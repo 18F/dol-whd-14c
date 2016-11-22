@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.Business.Services;
+﻿using System.Linq;
+using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -26,6 +27,19 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.AreEqual("Pending", statusObj.Name);
+        }
+
+        [TestMethod]
+        public void ReturnsAllStatuses()
+        {
+            // Arrange
+            var service = new StatusService(_statusRepositoryMock);
+
+            // Act
+            var allStatuses = service.GetAllStatuses();
+
+            // Assert
+            Assert.AreEqual(7, allStatuses.Count());
         }
 
         [TestMethod]
