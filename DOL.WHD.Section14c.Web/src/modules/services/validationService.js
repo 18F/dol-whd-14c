@@ -443,7 +443,7 @@ module.exports = function(ngModule) {
 
                             let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisabilityId");
                             if (primaryDisability === _constants.responses.primaryDisability.other) {
-                                this.checkRequiredString(subprefix + "." + _constants.primaryDisability.otherValueKey);
+                                this.checkRequiredString(subprefix + "." + _constants.responses.primaryDisability.otherValueKey);
                             }
 
                             this.checkRequiredString(subprefix + ".workType");
