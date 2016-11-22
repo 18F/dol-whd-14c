@@ -5,8 +5,83 @@
         <a href="" ng-click="gotoUsers()">Manage Users</a>
     </div>
 
-    <div ng-repeat="application in appList">
-        <strong>{{ application.employerName }}</strong><br>
-        Status: {{ application.statusName }}
+    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+        <div class="form-group items-per-page">
+            <label for="itemsOnPageSelect1">Items per page:</label>
+            <select id="itemsOnPageSelect1" class="form-control input-sm"
+                    ng-init="paginationOptions.itemsPerPage = '2'"
+                    ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+                <option>2</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th sortable="employerName" class="sortable">
+                        Employer Name
+                    </th>
+                    <th sortable="id" class="sortable">
+                        ID
+                    </th>
+                    <th sortable="certificateEffectiveDate" class="sortable">
+                        Certificate Effective Date
+                    </th>
+                    <th sortable="certificateExpirationDate" class="sortable">
+                        Certificate Expiration Date
+                    </th>
+                    <th>
+                        Certificate Status
+                    </th>
+                    <th>
+                        Certificate Type
+                    </th>
+                    <th>
+                        Certificate Number
+                    </th>
+                    <th sortable="state" class="sortable">
+                        State
+                    </th>
+                    <th>
+                        Number of Work Sites
+                    </th>
+                    <th>
+                        Number or Workers
+                    </th>
+                    <th>
+                        Application Type
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
+                    <td><a href="" ng-click="gotoApplication(item.id)">{{ item.employerName }}</a></td>
+                    <td ng-bind="item.id"></td>
+                    <td ng-bind="item.certificateEffectiveDate | date:'MM/dd/yyyy'"></td>
+                    <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
+                    <td ng-bind="item.statusName"></td>
+                    <td ng-bind="item.certificateType"></td>
+                    <td ng-bind="item.certificateNumber"></td>
+                    <td ng-bind="item.state"></td>
+                    <td ng-bind="item.numWorkSites"></td>
+                    <td ng-bind="item.numWorkers"></td>
+                    <td ng-bind="item.applicationType"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-group">
+            <grid-pagination max-size="5"
+                             boundary-links="true"
+                             class="pagination-sm"
+                             total-items="paginationOptions.totalItems"
+                             ng-model="paginationOptions.currentPage"
+                             ng-change="reloadGrid()"
+                             items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+        </div>
     </div>
+
 </div>

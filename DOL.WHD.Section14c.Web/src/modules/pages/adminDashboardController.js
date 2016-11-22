@@ -1,14 +1,26 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.controller('adminDashboardController', function($scope, $location, stateService) {
-      'ngInject';
-      'use strict';
+    ngModule.controller('adminDashboardController', function($scope, $location, stateService) {
+        'ngInject';
+        'use strict';
 
-      $scope.appList = stateService.appList;
+        $scope.gridOptions = {
+            data: stateService.appList,
+            sort: {
+                predicate: 'employerName',
+                direction: 'asc'
+            }
+        };
 
-      $scope.gotoUsers = function() {
-          $location.path("/admin/users");
-      }
-  });
+        //$scope.gridActions = {};
+
+        $scope.gotoApplication = function(id) {
+            $location.path("/admin/" + id);
+        }
+
+        $scope.gotoUsers = function() {
+            $location.path("/admin/users");
+        }
+    });
 }

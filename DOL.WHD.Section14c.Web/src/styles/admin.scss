@@ -12,6 +12,61 @@
         .form-spaced-div {
             margin-top: 40px;
         }
+
+        // angular-data-grid styling
+        .table > thead > tr > th {
+          vertical-align: middle;
+        }
+        .p-t-8 {
+          padding-top: 8px;
+        }
+        .margin-bottom-basic {
+          margin-bottom: 15px;
+        }
+
+        .pagination {
+          margin: 0;
+        }
+
+        .items-per-page {
+          margin-left: 15px;
+        }
+
+        .sortable {
+          &:after {
+            font: 14px/1 FontAwesome;
+            content: "\f0dc";
+          }
+          &.sort-ascent:after {
+            content: '\f0de';
+            vertical-align: bottom;
+          }
+          &.sort-descent:after {
+            content: "\f0dd";
+            vertical-align: top;
+          }
+        }
+
+        #loading-bar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.2);
+          z-index: 11002;
+        }
+
+        #loading-bar-spinner {
+          display: block;
+          position: fixed;
+          z-index: 11002;
+          top: 50%;
+          left: 50%;
+          margin-left: -15px;
+          margin-right: -15px;
+        }
+
     }
 
 }

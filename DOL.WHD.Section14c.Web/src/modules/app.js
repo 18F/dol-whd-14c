@@ -8,6 +8,9 @@ if (typeof console === 'undefined') {
 require('jquery');
 require('babel-polyfill');
 //require('lodash');
+require('font-awesome/css/font-awesome.css');
+require('angular-data-grid/dist/dataGrid.min.js')
+require('angular-data-grid/dist/pagination.min.js')
 
 // Angular
 import angular from 'angular';
@@ -32,7 +35,9 @@ let app = angular.module('14c', [
     'vcRecaptcha',
     'angularMoment',
     'ngMask',
-    'ngCookies'
+    'ngCookies',
+    'dataGrid',
+    'pagination'
 ]);
 
 // Environment config loaded from env.js
@@ -57,8 +62,8 @@ const ROUTE_USER = 7;
 const ROUTE_ADMIN = 11;
 
 let checkRouteAccess = function(route, userAccess) {
-    if (!route.access) {
-        return false;
+    if (!route || !route.access) {
+        return true;
     }
 
     return (route.access & userAccess) === route.access;
@@ -148,6 +153,9 @@ app.run(function($rootScope, $location, stateService, autoSaveService, authServi
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
             authenticatedPromise.then(function() {
+                
+                if (!next.$$route){ return; }
+
                 let userAccess = stateService.isAdmin ? ROUTE_ADMIN : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
                 if (!checkRouteAccess(next.$$route, userAccess)) {
                     // user does not have adequate permissions to access the route so redirect
