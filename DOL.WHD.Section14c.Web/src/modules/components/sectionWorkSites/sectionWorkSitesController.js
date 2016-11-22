@@ -144,7 +144,7 @@ module.exports = function(ngModule) {
                 return undefined;
             }
 
-            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisability });
+            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisabilityId });
             if (disability) {
                 if (disability.otherValueKey) {
                     return employee[disability.otherValueKey];
