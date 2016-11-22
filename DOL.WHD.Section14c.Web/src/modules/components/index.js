@@ -15,6 +15,7 @@ module.exports = function(ngModule) {
     require('./sectionAdminAppInfo')(ngModule);
     require('./sectionAdminAssurances')(ngModule);
     require('./sectionAdminEmployer')(ngModule);
+    require('./sectionAdminSummary')(ngModule);
     require('./sectionAdminWageData')(ngModule);
     require('./sectionAdminWioa')(ngModule);
     require('./sectionAdminWorkSites')(ngModule);
