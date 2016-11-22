@@ -14,6 +14,10 @@
         }
 
         // angular-data-grid styling
+        .table {
+            margin: 1rem 0;
+        }
+
         .table > thead > tr > th {
           vertical-align: middle;
         }
@@ -26,10 +30,48 @@
 
         .pagination {
           margin: 0;
+
+          li {
+              position: relative;
+              display: inline-block;
+              list-style-type: none;
+              padding: 2rem 1.5rem;
+              margin-bottom: 0;
+              line-height: 1;
+              cursor: pointer;
+              border: 1px solid $color-black;
+
+              a {
+                  text-decoration: none;
+                  color: $color-link;
+              }
+
+              &.active {
+                  border: none;
+                  
+                  a {
+                      color: $color-black;
+                  }
+              }
+          }
+        }
+
+        .items-shown {
+            white-space: nowrap;
+            vertical-align: middle;
         }
 
         .items-per-page {
-          margin-left: 15px;
+          white-space: nowrap;
+
+          select {
+              max-width: 5.3rem;
+              display: inline-block;
+          }
+        }
+
+        .pages-list {
+            text-align: center;
         }
 
         .sortable {
