@@ -76,7 +76,7 @@ module.exports = function(ngModule) {
                 return undefined;
             }
 
-            return validationService.getValidationErrors($scope.modelPrefix() +   '.sourceEmployers[' + index + ']');
+            return validationService.getValidationErrors($scope.modelPrefix() +   '.mostRecentPrevailingWageSurvey.sourceEmployers[' + index + ']');
         }
 
         this.validateActiveSourceEmployerProperty = function(prop) {
@@ -84,7 +84,7 @@ module.exports = function(ngModule) {
                 return undefined;
             }
 
-            return validationService.getValidationErrors($scope.modelPrefix() +   '.sourceEmployers[' + this.activeSourceEmployerIndex + '].' + prop);
+            return validationService.getValidationErrors($scope.modelPrefix() +   '.mostRecentPrevailingWageSurvey.sourceEmployers[' + this.activeSourceEmployerIndex + '].' + prop);
         }
   });
 }
