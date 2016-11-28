@@ -18,12 +18,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
     [RoutePrefix("api/attachment")]
     public class AttachmentController : ApiController
     {
-        private readonly ISaveService _saveService;
+        private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
 
-        public AttachmentController(ISaveService saveService, IIdentityService identityService)
+        public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService)
         {
-            _saveService = saveService;
+            _attachmentService = attachmentService;
             _identityService = identityService;
         }
 
@@ -60,7 +60,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     await stream.CopyToAsync(memoryStream);
                     var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                     var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
-                    var fileUpload = _saveService.UploadAttachment(EIN, memoryStream, fileName, fileType);
+                    var fileUpload = _attachmentService.UploadAttachment(EIN, memoryStream, fileName, fileType);
                     files.Add(fileUpload);
                 }
 
@@ -90,7 +90,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
                 
-                var attachmentDownload = _saveService.DownloadAttachment(memoryStream, EIN, fileId);
+                var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
 
                 var result = new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -135,7 +135,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             try
             {
-                _saveService.DeleteAttachement(EIN, fileId);
+                _attachmentService.DeleteAttachement(EIN, fileId);
             }
             catch (ObjectNotFoundException)
             {

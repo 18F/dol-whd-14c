@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DOL.WHD.Section14c.DataAccess;
-using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Identity;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.RepositoryMocks
 {
@@ -35,14 +32,14 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             _data.Add(applicationSave.EIN, applicationSave);
         }
 
+        public void Remove(string EIN)
+        {
+            _data.Remove(EIN);
+        }
+
         public int SaveChanges()
         {
             return 1;
-        }
-
-        public IQueryable<Attachment> GetAttachments()
-        {
-            throw new NotImplementedException();
         }
 
         public void Dispose()

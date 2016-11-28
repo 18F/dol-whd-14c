@@ -1,11 +1,5 @@
-﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Migrations;
-using System.Linq;
-using DOL.WHD.Section14c.Domain.Models;
+﻿using System.Linq;
 using DOL.WHD.Section14c.Domain.Models.Identity;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
@@ -28,14 +22,18 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             SaveChanges();
         }
 
+        public void Remove(string EIN)
+        {
+            var save = _dbContext.ApplicationSaves.SingleOrDefault(x => x.EIN == EIN);
+            if (save != null)
+            {
+                _dbContext.ApplicationSaves.Remove(save);
+            }
+        }
+
         public int SaveChanges()
         {
             return _dbContext.SaveChanges();
-        }
-
-        public IQueryable<Attachment> GetAttachments()
-        {
-            return _dbContext.FileUploads.AsQueryable();
         }
 
         public void Dispose()

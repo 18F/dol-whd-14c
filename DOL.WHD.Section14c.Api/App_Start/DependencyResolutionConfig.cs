@@ -29,6 +29,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IApplicationSummaryFactory, ApplicationSummaryFactory>(Lifestyle.Scoped);
             container.Register<IStatusRepository, StatusRepository>(Lifestyle.Scoped);
             container.Register<IStatusService, StatusService>(Lifestyle.Scoped);
+            container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
+            container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
