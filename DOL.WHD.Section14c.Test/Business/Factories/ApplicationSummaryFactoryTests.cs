@@ -60,13 +60,13 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
 
             // Assert
             Assert.AreEqual(appId, summary.Id);
-            Assert.AreEqual(certificateStatusName, summary.StatusName);
+            Assert.AreEqual(certificateStatusName, summary.Status.Name);
             Assert.AreEqual(certificateEffectiveDate, summary.CertificateEffectiveDate);
             Assert.AreEqual(certificateExpirationDate, summary.CertificateExpirationDate);
             Assert.AreEqual(certificateNumber, summary.CertificateNumber);
             for (int i = 0; i < types.Count; i++)
             {
-                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i));
+                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).Display);
             }
             Assert.AreEqual(state, summary.State);
             Assert.AreEqual(numWorkSites, summary.NumWorkSites);

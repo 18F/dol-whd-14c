@@ -15,11 +15,11 @@ namespace DOL.WHD.Section14c.Business.Factories
                 CertificateEffectiveDate = submission.CertificateEffectiveDate,
                 CertificateExpirationDate = submission.CertificateExpirationDate,
                 CertificateNumber = submission.CertificateNumber,
-                CertificateType = submission.EstablishmentType.Select(x => x.EstablishmentType.Display),
+                CertificateType = submission.EstablishmentType.Select(x => x.EstablishmentType),
                 NumWorkers = submission.WorkSites.Sum(x => x.Employees.Count),
                 NumWorkSites = submission.WorkSites.Count,
                 State = submission.Employer.PhysicalAddress.State,
-                StatusName = submission.Status.Name,
+                Status = submission.Status,
                 EmployerName = submission.Employer.LegalName
             };
 
