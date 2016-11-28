@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201611270149122_AttachmentDecoupleSave.Designer.cs">
       <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.cs" />
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.Designer.cs">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -360,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611270149122_AttachmentDecoupleSave.resx">
       <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281633439_RenameSCAWageDetermination.resx">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

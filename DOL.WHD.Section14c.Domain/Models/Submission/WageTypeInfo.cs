@@ -24,8 +24,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual AlternateWageData AlternateWageData { get; set; }
 
-        public Guid? SCAWageDeterminationId { get; set; }
-        public virtual Attachment SCAWageDetermination { get; set; }
+        public Guid? SCAWageDeterminationAttachmentId { get; set; }
+        public virtual Attachment SCAWageDeterminationAttachment { get; set; }
 
         // Documentation
         public Guid? AttachmentId { get; set; }
