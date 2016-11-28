@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.DataAccess
     {
         IQueryable<ApplicationSave> Get();
 
-        void Add(ApplicationSave applicationSave);
+        void AddOrUpdate(ApplicationSave applicationSave);
         void Remove(string EIN);
 
         int SaveChanges();

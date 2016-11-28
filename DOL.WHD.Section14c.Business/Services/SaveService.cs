@@ -20,24 +20,8 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public void AddOrUpdate(string EIN, string state)
         {
-            var applicationSave = GetSave(EIN);
-            if (applicationSave != null)
-            {
-                // if save already exists just update the state
-                applicationSave.ApplicationState = state;
-
-                _repository.SaveChanges();
-            }
-            else
-            {
-                applicationSave = new ApplicationSave
-                {
-                    EIN = EIN,
-                    ApplicationState = state
-                };
-
-                _repository.Add(applicationSave);
-            }
+            var applicationSave = new ApplicationSave {EIN = EIN, ApplicationState = state};
+            _repository.AddOrUpdate(applicationSave);
         }
 
         public void Remove(string EIN)
