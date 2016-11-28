@@ -74,6 +74,7 @@ deploy:
   artifact: DOL.WHD.Section14c.Api.zip
   remove_files: true
   app_offline: true
+  skip_dirs: '\\App_Data'
 - provider: WebDeploy
   server: https://dol-whd-section14c-coverage-dev.scm.azurewebsites.net/msdeploy.axd?site=dol-whd-section14c-coverage-dev
   website: dol-whd-section14c-coverage-dev
