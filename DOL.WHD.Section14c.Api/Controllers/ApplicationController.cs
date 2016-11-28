@@ -13,6 +13,9 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
+    /// <summary>
+    /// Operations on a submitted application
+    /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/application")]
     public class ApplicationController : ApiController
@@ -22,13 +25,24 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IApplicationSubmissionValidator _applicationSubmissionValidator;
         private readonly IApplicationSummaryFactory _applicationSummaryFactory;
         private readonly IStatusService _statusService;
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService)
+        private readonly ISaveService _saveService;
+        /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="identityService"></param>
+        /// <param name="applicationService"></param>
+        /// <param name="applicationSubmissionValidator"></param>
+        /// <param name="applicationSummaryFactory"></param>
+        /// <param name="statusService"></param>
+        /// <param name="saveService"></param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
             _applicationSubmissionValidator = applicationSubmissionValidator;
             _applicationSummaryFactory = applicationSummaryFactory;
             _statusService = statusService;
+            _saveService = saveService;
         }
 
         /// <summary>
@@ -55,6 +69,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
+
+            // remove the associated application save
+            _saveService.Remove(submission.EIN);
+
             return Request.CreateResponse(HttpStatusCode.Created);
         }
 

@@ -67,6 +67,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IReCaptchaService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\AttachmentService.cs" />
+    <Compile Include="IAttachmentService.cs" />
     <Compile Include="Services\IdentityService.cs" />
     <Compile Include="Services\ReCaptchaService.cs" />
     <Compile Include="Services\ResponseService.cs" />

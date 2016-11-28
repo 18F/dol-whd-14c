@@ -10,6 +10,9 @@ using Newtonsoft.Json.Linq;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
+    /// <summary>
+    /// Controller to manage application save states
+    /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/save")]
     public class SaveController : ApiController
@@ -17,6 +20,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly ISaveService _saveService;
         private readonly IIdentityService _identityService;
 
+        /// <summary>
+        /// Constructor to inject services
+        /// </summary>
+        /// <param name="saveService"></param>
+        /// <param name="identityService"></param>
         public SaveController(ISaveService saveService, IIdentityService identityService)
         {
             _saveService = saveService;
@@ -77,6 +85,27 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             _saveService.AddOrUpdate(EIN, state);
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
+        }
+
+        /// <summary>
+        /// Removes pre-submission 14c application
+        /// </summary>
+        /// <param name="EIN"></param>
+        /// <returns></returns>
+        [HttpDelete]
+        [Route("{EIN}")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
+        public IHttpActionResult DeleteSave(string EIN)
+        {
+            // make sure user has rights to the EIN
+            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
+            if (!hasEINClaim)
+            {
+                return Unauthorized();
+            }
+
+            _saveService.Remove(EIN);
+            return Ok();
         }
         
         /// <summary>
