@@ -1,4 +1,4 @@
-<div class="form-page-full">
+<div class="form-page-full" ng-hide="vm.submissionSuccess">
     <h2>Review & Submit</h2>
     <p>We've checked your responses from each section to make sure there were no errors or missing information before submission.</p>
     <p>Below is a summary of the results:</p>
@@ -67,6 +67,14 @@
         <button ng-click="navService.gotoSection('wioa')" ng-show="validation.__wioa">Edit Responses</button>
     </div>
 
+    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.submissionError">
+        <div class="usa-alert-body">
+            <!--<h3 class="usa-alert-heading">Error Status</h3>-->
+            <p class="usa-alert-text">An error occurred while submitting your application. Please try again later if the error persists:</p>
+            <p class="usa-alert-text">{{ "ERROR " + vm.submissionError.status + ":  " + (vm.submissionError.data.error_description ? vm.submissionError.data.error_description : "unknown error") }}</p>
+        </div>
+    </div>
+
     <div class="clearer submit-button">
         <button class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
     </div>
@@ -86,4 +94,10 @@
             20210 and reference the OMB Control Number.</p>
     </div>
 
+</div>
+
+<div class="form-page-full submission-success" ng-show="vm.submissionSuccess">
+    <h1>Success!</h1>
+    <p>Your application has been submitted. You may sign out now or click the link below to return to your dashboard.</p>
+    <button class="green-button" ng-click="vm.onHomeClick()">Return to Dashboard</button>
 </div>
