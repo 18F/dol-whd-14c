@@ -29,7 +29,7 @@
     ul {
         padding: 0;
         margin: 0;
-         
+
         li {
             list-style-type: none;
             display: inline-block;
@@ -59,7 +59,7 @@
         @include span(12);
     }
 
-    .form-page, 
+    .form-page,
     .form-page-full {
         margin-top: 4rem;
 
@@ -67,7 +67,7 @@
         // Within the form, increase the default width b/c the default font size is larger
         .usa-content,
         .usa-content p:not(.usa-font-lead),
-        ul, 
+        ul,
         ol,
         .form-question-block label,
         .form-question-text,
@@ -235,7 +235,7 @@
         // Remove bottom margins for address layout
         .usa-input-grid-medium,
         .usa-input-grid-small {
-            input, 
+            input,
             select {
                 margin-bottom: 0;
             }
@@ -444,7 +444,7 @@
         }
     }
 
-    // Custom form tabs (as seen in Wage Data section) 
+    // Custom form tabs (as seen in Wage Data section)
     .form-tabbed-section {
         @include clearfix;
 
@@ -459,7 +459,7 @@
             font-weight: 700;
             cursor: pointer;
             margin-right: 0px;
-            
+
 
             &:not(:first-of-type) {
                 border-left: 1px solid #aeb0b5;
@@ -527,6 +527,10 @@
             transition: all linear 0.4s;
         }
     }
+}
+
+.submission-success {
+    text-align: center;
 }
 
 @media (min-width: $medium-screen) {
