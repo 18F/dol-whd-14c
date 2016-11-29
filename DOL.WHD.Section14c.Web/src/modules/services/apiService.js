@@ -431,6 +431,8 @@ module.exports = function(ngModule) {
             }, function errorCallback(error) {
                 d.reject(error);
             });
+
+            return d.promise;
         }
 
     });
