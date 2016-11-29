@@ -8,7 +8,6 @@ module.exports = function(ngModule) {
         'use strict';
 
         statusesService.getStatuses().then((data) => {
-            console.log(data);
             $scope.filterStatuses = data;
         });
 

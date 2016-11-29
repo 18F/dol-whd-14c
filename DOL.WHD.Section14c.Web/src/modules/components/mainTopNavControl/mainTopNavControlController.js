@@ -13,7 +13,6 @@ module.exports = function(ngModule) {
         }
 
         this.userClick = function() {
-            console.log(stateService.user);
             if (stateService.user && stateService.user.userId) {
                 $location.path("/account/" + stateService.user.userId);
             }
