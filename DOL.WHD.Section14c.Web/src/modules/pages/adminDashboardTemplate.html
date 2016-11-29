@@ -1,13 +1,11 @@
 <div class="admin-page">
     <main-top-nav-control></main-top-nav-control>
-    
-    <h1>Dashboard</h1>
 
-    <div>
+    <div class="manage-users-block">
         <a href="" ng-click="gotoUsers()">Manage Users</a>
     </div>
-    <br>
-    <br>
+
+    <h1>Dashboard</h1>
 
     <div class="admin-filter-bar clearer">
         <div class="admin-filter">
@@ -30,7 +28,7 @@
 
     <hr>
 
-    <div grid-data grid-options="gridOptions" grid-actions="gridActions">
+    <div class="admin-table-block" grid-data grid-options="gridOptions" grid-actions="gridActions">
         <div class="clearer">
             <div class="items-shown pull-left">
                 Showing {{ (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) < paginationOptions.itemsPerPage ? (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) : paginationOptions.itemsPerPage }} of {{ paginationOptions.totalItems === undefined ? 0 : paginationOptions.totalItems }} Applicants

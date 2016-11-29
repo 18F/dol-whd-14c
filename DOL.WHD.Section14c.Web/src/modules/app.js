@@ -132,6 +132,7 @@ app.config(function($routeProvider, $compileProvider) {
     });
 });
 
+/* eslint-disable complexity */
 app.run(function($rootScope, $location, stateService, autoSaveService, authService, $q) {
     // check cookie to see if we're logged in
     const accessToken = stateService.access_token;
@@ -153,7 +154,7 @@ app.run(function($rootScope, $location, stateService, autoSaveService, authServi
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
             authenticatedPromise.then(function() {
-                
+
                 if (!next.$$route){ return; }
 
                 let userAccess = stateService.isAdmin ? ROUTE_ADMIN : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
@@ -169,3 +170,4 @@ app.run(function($rootScope, $location, stateService, autoSaveService, authServi
         });
     }
 });
+/* eslint-enable complexity */
