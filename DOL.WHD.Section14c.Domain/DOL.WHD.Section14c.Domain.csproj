@@ -68,7 +68,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="IAuditedEntity.cs" />
     <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\ApplicationSummary.cs" />
+    <Compile Include="ViewModels\Summary\ApplicationSummary.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationSave.cs" />
     <Compile Include="Models\Identity\ApplicationUserLogin.cs" />
@@ -107,6 +107,8 @@
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\AccountDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Summary\ResponseSummary.cs" />
+    <Compile Include="ViewModels\Summary\StatusSummary.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

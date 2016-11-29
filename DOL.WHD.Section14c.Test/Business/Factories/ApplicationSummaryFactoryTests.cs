@@ -42,7 +42,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
                 CertificateNumber = certificateNumber,
                 EstablishmentType =
                     types.Select(
-                            x => new ApplicationSubmissionEstablishmentType {EstablishmentType = new Response {Display = x}})
+                            x => new ApplicationSubmissionEstablishmentType {EstablishmentType = new Response {ShortDisplay = x}})
                         .ToList(),
                 Employer = new EmployerInfo
                 {
@@ -66,12 +66,12 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             Assert.AreEqual(certificateNumber, summary.CertificateNumber);
             for (int i = 0; i < types.Count; i++)
             {
-                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).Display);
+                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).ShortDisplay);
             }
             Assert.AreEqual(state, summary.State);
             Assert.AreEqual(numWorkSites, summary.NumWorkSites);
             Assert.AreEqual(numWorkSites * numWorkersPerSite, summary.NumWorkers);
-            Assert.AreEqual(applicationType, summary.ApplicationType);
+            Assert.AreEqual(applicationType, summary.ApplicationType.Display);
             Assert.AreEqual(employerName, summary.EmployerName);
         }
     }
