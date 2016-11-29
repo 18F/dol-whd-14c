@@ -3,6 +3,20 @@
     .admin-page {
         @include span(12);
 
+        .admin-filter-bar {
+            .admin-filter {
+                @include span(4 of 12);
+
+                &:last-child {
+                    @include last;
+                }
+            }
+        }
+
+        hr {
+            margin: 2.5rem 0;
+        }
+
         .usa-content {
             p {
                 max-width: none;
@@ -16,6 +30,10 @@
         // angular-data-grid styling
         .table {
             margin: 1rem 0;
+
+            .certificate-type:after {
+                content: "\A"
+            }
         }
 
         .table > thead > tr > th {
@@ -35,23 +53,20 @@
               position: relative;
               display: inline-block;
               list-style-type: none;
-              padding: 2rem 1.5rem;
-              margin-bottom: 0;
+              padding: 1rem;
+              margin: 0;
               line-height: 1;
               cursor: pointer;
-              border: 1px solid $color-black;
+              background-color: #ddd;
 
               a {
                   text-decoration: none;
-                  color: $color-link;
+                  color: $color-black;
               }
 
               &.active {
                   border: none;
-                  
-                  a {
-                      color: $color-black;
-                  }
+                  background-color: $color-white;
               }
           }
         }

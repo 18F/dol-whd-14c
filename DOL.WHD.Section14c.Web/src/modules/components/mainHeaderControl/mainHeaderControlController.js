@@ -10,16 +10,5 @@ module.exports = function(ngModule) {
         var vm = this;
         vm.stateService = stateService;
         vm.assetService = assetService;
-
-        this.userClick = function() {
-            $location.path("/");
-        }
-
-        this.saveClick = function() {
-            autoSaveService.save(function () {
-                stateService.logOut();
-                $location.path("/");
-            });
-        }
     });
 }
