@@ -20,7 +20,7 @@
         </div>
         <div class="admin-filter">
             <label for="admin_filter_type">Filter by Certificate Type</label>
-            <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-options="estType.id as estType.display for estType in establishmentTypes" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
+            <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-options="estType.id as estType.shortDisplay for estType in establishmentTypes" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
                 <option value="">All</option>
             </select>
         </div>
@@ -90,7 +90,7 @@
                     <td ng-bind="item.certificateEffectiveDate | date:'MM/dd/yyyy'"></td>
                     <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
                     <td ng-bind="item.statusName"></td>
-                    <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span></td>
+                    <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.shortDisplay }}</span></td>
                     <td ng-bind="item.certificateNumber"></td>
                     <td ng-bind="item.state"></td>
                     <td ng-bind="item.numWorkSites"></td>
