@@ -2,13 +2,16 @@ describe('sectionReviewController', function() {
 
     beforeEach(module('14c'));
 
-    beforeEach(inject(function ($rootScope, $controller, apiService) {
+    beforeEach(inject(function ($rootScope, $location, $controller, apiService, $q) {
         scope = $rootScope.$new();
+        mockLocation = $location;
         mockApiService = apiService;
+        q = $q;
 
         sectionReviewController = function() {
             return $controller('sectionReviewController', {
-                '$scope': scope, 
+                '$scope': scope,
+                '$location': mockLocation,
                 'navService': mockNavService,
                 '$route': route
             });
@@ -26,10 +29,14 @@ describe('sectionReviewController', function() {
 
     it('submitApplication valid form', function() {
         var controller = sectionReviewController();
-        spyOn(mockApiService, 'submitApplication')
+        var d = q.defer();
+        spyOn(mockApiService, 'submitApplication').and.returnValue(d.promise);
+
         scope.isValid = true;
         controller.onSubmit();
+        d.resolve();
+        scope.$apply();
 
-        expect(mockApiService.submitApplication).toHaveBeenCalled()
-    });    
+        expect(controller.submissionSuccess).toBe(true);
+    });
 });
