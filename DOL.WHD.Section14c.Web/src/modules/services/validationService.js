@@ -185,6 +185,10 @@ module.exports = function(ngModule) {
             return match !== null;
         }
 
+        this.checkIsInitial = function() {
+            return this.checkRequiredMultipleChoice("applicationTypeId") === _constants.responses.applicationType.initial;
+        }
+
 
         // methods for validating each section (primarily used internally)
 
@@ -278,12 +282,15 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredMultipleChoice("employer.isEducationalAgency");
-            this.checkRequiredDateComponent("employer.fiscalQuarterEndDate");
-            this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", undefined, 0);
-            this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", undefined, 0);
-            this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", undefined, 0);
-            this.checkRequiredNumber("employer.numSubminimalWageWorkers.swep", undefined, 0);
-            this.checkRequiredNumber("employer.numSubminimalWageWorkers.businessEstablishment", undefined, 0);
+
+            if (!this.checkIsInitial()) {
+                this.checkRequiredDateComponent("employer.fiscalQuarterEndDate");
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", undefined, 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", undefined, 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", undefined, 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.swep", undefined, 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.businessEstablishment", undefined, 0);
+            }
 
             this.checkRequiredMultipleChoice("employer.pca");
 
@@ -433,35 +440,37 @@ module.exports = function(ngModule) {
                     this.checkRequiredMultipleChoice(prefix + ".sca");
                     this.checkRequiredMultipleChoice(prefix + ".federalContractWorkPerformed");
 
-                    let numEmployees = this.checkRequiredNumber(prefix + ".numEmployees", undefined, 0);
+                    if (!this.checkIsInitial()) {
+                        let numEmployees = this.checkRequiredNumber(prefix + ".numEmployees", undefined, 0);
 
-                    let employees = this.checkRequiredValueArray(prefix + ".employees", "Please provide the required information for employees");
-                    if (employees) {
-                        for (let j=0; j < employees.length; j++) {
-                            let subprefix = prefix + ".employees[" + j + "]";
-                            this.checkRequiredString(subprefix + ".name");
+                        let employees = this.checkRequiredValueArray(prefix + ".employees", "Please provide the required information for employees");
+                        if (employees) {
+                            for (let j=0; j < employees.length; j++) {
+                                let subprefix = prefix + ".employees[" + j + "]";
+                                this.checkRequiredString(subprefix + ".name");
 
-                            let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisabilityId");
-                            if (primaryDisability === _constants.responses.primaryDisability.other) {
-                                this.checkRequiredString(subprefix + "." + _constants.responses.primaryDisability.otherValueKey);
+                                let primaryDisability = this.checkRequiredMultipleChoice(subprefix + ".primaryDisabilityId");
+                                if (primaryDisability === _constants.responses.primaryDisability.other) {
+                                    this.checkRequiredString(subprefix + "." + _constants.responses.primaryDisability.otherValueKey);
+                                }
+
+                                this.checkRequiredString(subprefix + ".workType");
+
+                                this.checkRequiredNumber(subprefix + ".numJobs", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".avgWeeklyHours", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".avgHourlyEarnings", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".prevailingWage", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".productivityMeasure", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".commensurateWageRate", undefined, 0);
+                                this.checkRequiredNumber(subprefix + ".totalHours", undefined, 0);
+                                this.checkRequiredMultipleChoice(subprefix + ".workAtOtherSite");
                             }
-
-                            this.checkRequiredString(subprefix + ".workType");
-
-                            this.checkRequiredNumber(subprefix + ".numJobs", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".avgWeeklyHours", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".avgHourlyEarnings", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".prevailingWage", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".productivityMeasure", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".commensurateWageRate", undefined, 0);
-                            this.checkRequiredNumber(subprefix + ".totalHours", undefined, 0);
-                            this.checkRequiredMultipleChoice(subprefix + ".workAtOtherSite");
                         }
-                    }
 
-                    let totalEmployees = employees ? employees.length : 0;
-                    if (numEmployees !== totalEmployees) {
-                        this.setValidationError(prefix + ".employee_count", "The number of employees reported (" + (numEmployees === undefined ? '0' : numEmployees) + ") does not match the number of employees entered (" + totalEmployees + ") for this worksite");
+                        let totalEmployees = employees ? employees.length : 0;
+                        if (numEmployees !== totalEmployees) {
+                            this.setValidationError(prefix + ".employee_count", "The number of employees reported (" + (numEmployees === undefined ? '0' : numEmployees) + ") does not match the number of employees entered (" + totalEmployees + ") for this worksite");
+                        }
                     }
                 }
 
@@ -498,10 +507,15 @@ module.exports = function(ngModule) {
         // main method to be called for application validation
         this.validateForm = function() {
             this.resetState();
+
             this.validateAssurances();
             this.validateAppInfo();
             this.validateEmployer();
-            this.validateWageData();
+
+            if (!this.checkIsInitial()) {
+                this.validateWageData();
+            }
+
             this.validateWorkSites();
             this.validateWIOA();
 
