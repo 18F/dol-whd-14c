@@ -305,7 +305,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var obj = new ApplicationSubmission
             {
-                ApplicationTypeId = ResponseIds.ApplicationType.Initial,
+                ApplicationTypeId = ResponseIds.ApplicationType.Renewal,
                 Employer =
                     new EmployerInfo
                     {
