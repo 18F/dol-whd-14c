@@ -9,11 +9,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DOL.WHD.Section14c.Test.Business.Validators
 {
     [TestClass]
-    public class EmployerValidatorTests
+    public class EmployerValidatorRenewalTests
     {
         private static readonly IAddressValidator AddressValidator = new AddressValidator();
         private static readonly IWorkerCountInfoValidator WorkerCountInfoValidator = new WorkerCountInfoValidator();
-        private static readonly IEmployerValidator EmployerValidator = new EmployerValidator(AddressValidator, WorkerCountInfoValidator);
+        private static readonly IEmployerValidatorRenewal EmployerValidator = new EmployerValidatorRenewal(AddressValidator, WorkerCountInfoValidator);
 
         [TestMethod]
         public void Should_Require_LegalName()
@@ -67,7 +67,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_FiscalQuarterEndDate()
         {
-            EmployerValidator.ShouldHaveValidationErrorFor(x => x.FiscalQuarterEndDate, default(DateTime));
+            EmployerValidator.ShouldHaveValidationErrorFor(x => x.FiscalQuarterEndDate, null as DateTime?);
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.FiscalQuarterEndDate, DateTime.Now);
         }
 

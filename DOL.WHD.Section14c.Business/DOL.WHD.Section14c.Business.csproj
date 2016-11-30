@@ -80,22 +80,25 @@
     <Compile Include="Validators\ApplicationSubmissionValidator.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\EmployeeValidator.cs" />
-    <Compile Include="Validators\EmployerValidator.cs" />
+    <Compile Include="Validators\EmployerValidatorRenewal.cs" />
+    <Compile Include="Validators\EmployerValidatorInitial.cs" />
     <Compile Include="Validators\IAddressValidatorNoCounty.cs" />
     <Compile Include="Validators\IAddressValidator.cs" />
     <Compile Include="Validators\IAlternateWageDataValidator.cs" />
     <Compile Include="Validators\IEmployeeValidator.cs" />
+    <Compile Include="Validators\IEmployerValidatorRenewal.cs" />
     <Compile Include="Validators\IPrevailingWageSurveyInfoValidator.cs" />
     <Compile Include="Validators\ISignatureValidator.cs" />
     <Compile Include="Validators\ISourceEmployerValidator.cs" />
     <Compile Include="Validators\IWIOAValidator.cs" />
     <Compile Include="Validators\IWIOAWorkerValidator.cs" />
     <Compile Include="Validators\IWorkerCountInfoValidator.cs" />
-    <Compile Include="Validators\IWorkSiteValidator.cs" />
+    <Compile Include="Validators\IWorkSiteValidatorRenewal.cs" />
+    <Compile Include="Validators\IWorkSiteValidatorInitial.cs" />
     <Compile Include="Validators\PieceRateWageInfoValidator.cs" />
     <Compile Include="Validators\HourlyWageInfoValidator.cs" />
     <Compile Include="Validators\IApplicationSubmissionValidator.cs" />
-    <Compile Include="Validators\IEmployerValidator.cs" />
+    <Compile Include="Validators\IEmployerValidatorInitial.cs" />
     <Compile Include="Validators\IPieceRateWageInfoValidator.cs" />
     <Compile Include="Validators\IHourlyWageInfoValidator.cs" />
     <Compile Include="Validators\PrevailingWageSurveyInfoValidator.cs" />
@@ -105,7 +108,8 @@
     <Compile Include="Validators\WIOAValidator.cs" />
     <Compile Include="Validators\WIOAWorkerValidator.cs" />
     <Compile Include="Validators\WorkerCountInfoValidator.cs" />
-    <Compile Include="Validators\WorkSiteValidator.cs" />
+    <Compile Include="Validators\WorkSiteValidatorRenewal.cs" />
+    <Compile Include="Validators\WorkSiteValidatorInitial.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">

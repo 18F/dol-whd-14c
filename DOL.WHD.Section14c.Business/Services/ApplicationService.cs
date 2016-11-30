@@ -58,6 +58,21 @@ namespace DOL.WHD.Section14c.Business.Services
             // clear out non-selected prevailing wage method
             CleanupWageTypeInfo(model.HourlyWageInfo);
             CleanupWageTypeInfo(model.PieceRateWageInfo);
+
+            // clear out fields for initial application
+            if (model.ApplicationTypeId == ResponseIds.ApplicationType.Initial)
+            {
+                model.Employer.FiscalQuarterEndDate = null;
+                model.Employer.NumSubminimalWageWorkers = null;
+                model.PayTypeId = null;
+                model.HourlyWageInfo = null;
+                model.PieceRateWageInfo = null;
+                foreach (var workSite in model.WorkSites)
+                {
+                    workSite.NumEmployees = null;
+                    workSite.Employees = null;
+                }
+            }
         }
 
         private void SetDefaults(ApplicationSubmission model)

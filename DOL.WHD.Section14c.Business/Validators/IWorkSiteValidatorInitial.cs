@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public interface IWorkSiteValidator : IValidator<WorkSite>
+    public interface IWorkSiteValidatorInitial : IValidator<WorkSite>
     {
     }
 }

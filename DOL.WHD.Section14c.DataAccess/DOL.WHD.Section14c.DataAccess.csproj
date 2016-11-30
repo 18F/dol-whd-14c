@@ -246,6 +246,10 @@
     <Compile Include="Migrations\201611291446074_ResponsesAddShortDisplay.Designer.cs">
       <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.cs" />
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.Designer.cs">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -374,6 +378,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611291446074_ResponsesAddShortDisplay.resx">
       <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301612331_InitialApplicationRequiredFields.resx">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
