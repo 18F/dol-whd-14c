@@ -169,7 +169,10 @@
 
     <!-- Tab 2 (Add Employees) -->
     <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
-        <div class="usa-content">You indicated this Establishment / Work Site employed {{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
+        <div class="usa-content worksite-title">
+            <h3>{{ vm.activeWorksite.name }}</h3>
+            <h4>Number of Employees: <strong>{{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }}</strong></h4>
+        </div>
 
         <div class="form-spaced-div">
             <span>We'll need to collect specific information for each employee:</span>
