@@ -3,7 +3,7 @@
 import findIndex from 'lodash/findIndex';
 
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($location, $route, autoSaveService, stateService) {
+    ngModule.service('navService', function($location, $route, autoSaveService, stateService, _constants) {
         'ngInject';
         'use strict';
 
@@ -82,7 +82,20 @@ module.exports = function(ngModule) {
         });
 
         this.getSections = function() {
-            return stateService.isAdmin ? adminSectionArray : userSectionArray;
+            if (stateService.isAdmin) {
+                return adminSectionArray;
+            }
+            else {
+                if (stateService.formData.applicationTypeId === _constants.responses.applicationType.initial)
+                {
+                    let index = findIndex(userSectionArray, { 'id': 'wage-data' });
+                    if (index >= 0) {
+                        return userSectionArray.slice(0, index).concat(userSectionArray.slice(index + 1));
+                    }
+                }
+
+                return userSectionArray;
+            }
         }
 
         this.hasNext = function() {

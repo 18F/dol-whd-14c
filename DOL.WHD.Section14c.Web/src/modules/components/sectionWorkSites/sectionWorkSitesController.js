@@ -5,7 +5,7 @@ import merge from 'lodash/merge'
 import find from 'lodash/find'
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService) {
+    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService, _constants) {
         'ngInject';
         'use strict';
 
@@ -123,7 +123,7 @@ module.exports = function(ngModule) {
 
             vm.activeTab = tab;
 
-            if (tab === 1) {
+            if (tab === 1 && vm.notInitialApp()) {
                 navService.setNextQuery({ t: 2 }, "Next: Add Employee(s)");
                 navService.setBackQuery({ doCancel: true }, "Cancel");
             }
@@ -181,6 +181,10 @@ module.exports = function(ngModule) {
             }
 
             return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + index + ']');
+        }
+
+        this.notInitialApp = function() {
+            return $scope.formData.applicationTypeId !== _constants.responses.applicationType.initial;
         }
 
 

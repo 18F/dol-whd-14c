@@ -1,12 +1,19 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService, validationService) {
+    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService, validationService, _constants) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
         $scope.validate = validationService.getValidationErrors;
+
+        // the Wage Data section should not be completed for Initial applications,
+        // so redirect if necessary.
+        if ($scope.formData.applicationTypeId === _constants.responses.applicationType.initial) {
+            navService.clearNextQuery();
+            navService.goNext();
+        }
 
         // multiple choice responses
         let questionKeys = [ 'PayType' ];

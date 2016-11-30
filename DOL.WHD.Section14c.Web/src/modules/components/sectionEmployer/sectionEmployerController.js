@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService, validationService) {
+    ngModule.controller('sectionEmployerController', function($scope, stateService, apiService, responsesService, validationService, _constants) {
         'ngInject';
         'use strict';
 
@@ -44,6 +44,10 @@ module.exports = function(ngModule) {
             else {
                 $scope.formData.employer.providingFacilitiesDeductionTypeId.push(id);
             }
+        }
+
+        this.notInitialApp = function() {
+            return $scope.formData.applicationTypeId !== _constants.responses.applicationType.initial;
         }
   });
 }

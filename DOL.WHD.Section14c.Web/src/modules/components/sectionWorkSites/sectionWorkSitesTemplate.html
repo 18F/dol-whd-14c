@@ -30,7 +30,7 @@
         <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
     </div>
 
-    <div class="form-tabbed-section" ng-show="vm.addingWorkSite">
+    <div class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
         <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> Add Work Site</div>
         <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> Add Employees</div>
     </div>
@@ -155,7 +155,7 @@
             </div>
         </div>
 
-        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''">
+        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''" ng-show="vm.notInitialApp()">
             <div class="form-question-text">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
                 <helplink></helplink>
                 <helptext>Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
@@ -168,7 +168,7 @@
     </div>
 
     <!-- Tab 2 (Add Employees) -->
-    <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 2">
+    <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
         <div class="usa-content">You indicated this Establishment / Work Site employed {{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
 
         <div class="form-spaced-div">
