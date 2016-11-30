@@ -124,7 +124,7 @@ module.exports = function(ngModule) {
             vm.activeTab = tab;
 
             if (tab === 1 && vm.notInitialApp()) {
-                navService.setNextQuery({ t: 2 }, "Next: Add Employee(s)");
+                navService.setNextQuery({ t: 2 }, "Next: Add Employee(s)", "worksite_tab_box");
                 navService.setBackQuery({ doCancel: true }, "Cancel");
             }
             else {

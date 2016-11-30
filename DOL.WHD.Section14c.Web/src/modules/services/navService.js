@@ -3,7 +3,7 @@
 import findIndex from 'lodash/findIndex';
 
 module.exports = function(ngModule) {
-    ngModule.service('navService', function($location, $route, autoSaveService, stateService, _constants) {
+    ngModule.service('navService', function($location, $route, $window, $anchorScroll, autoSaveService, stateService, _constants) {
         'ngInject';
         'use strict';
 
@@ -106,6 +106,18 @@ module.exports = function(ngModule) {
             return state.backStack.length > 0 || this.getPreviousSection();
         }
 
+        this.scrollPage = function(anchor) {
+            if (anchor) {
+                $location.hash(anchor);
+                $anchorScroll();
+            }
+            else {
+                $window.scrollTo(0, 0);
+            }
+
+            $location.hash("");
+        }
+
         this.goNext = function() {
             this.clearBackQuery();
 
@@ -115,10 +127,12 @@ module.exports = function(ngModule) {
             if (state.nextQuery) {
                 this.pushToBack(current, $location.search());
                 $location.search(state.nextQuery.query);
+                this.scrollPage(state.nextQuery.scrollAnchor);
             }
             else if (next) {
                 state.backStack.length = 0;
                 $location.path("/section/" + next).search({});
+                this.scrollPage();
             }
 
             autoSaveService.save();
@@ -133,6 +147,7 @@ module.exports = function(ngModule) {
 
             if (state.backQuery) {
                 $location.search(state.backQuery.query);
+                this.scrollPage(back.query.scrollAnchor);
             }
             else {
                 if (state.backStack.length > 0) {
@@ -141,14 +156,17 @@ module.exports = function(ngModule) {
                     if (back && back.section) {
                         if (back.query) {
                             $location.path("/section/" + back.section).search(back.query);
+                            this.scrollPage(back.query.scrollAnchor);
                         }
                         else {
                             $location.path("/section/" + back.section).search({});
+                            this.scrollPage();
                         }
                     }
                 }
                 else if (previous) {
                     $location.path("/section/" + previous).search({});
+                    this.scrollPage();
                 }
             }
 
@@ -170,14 +188,17 @@ module.exports = function(ngModule) {
             if (stateService.isAdmin) {
                 if (stateService.appData.id) {
                     $location.path("/admin/" + stateService.appData.id + "/section/" + section).search({});
+                    this.scrollPage();
                 }
                 else {
                     // no application loaded so redirect back to the dashboard
                     $location.path("/admin").search({});
+                    this.scrollPage();
                 }
             }
             else {
                 $location.path("/section/" + section).search({});
+                this.scrollPage();
             }
 
             autoSaveService.save();
@@ -191,16 +212,16 @@ module.exports = function(ngModule) {
             state.backStack.push({ section: section, query: query });
         }
 
-        this.setNextQuery = function(query, label) {
-            state.nextQuery = { query: query, label: label };
+        this.setNextQuery = function(query, label, scrollAnchor) {
+            state.nextQuery = { query: query, label: label, scrollAnchor: scrollAnchor };
         }
 
         this.clearNextQuery = function() {
             state.nextQuery = undefined;
         }
 
-        this.setBackQuery = function(query, label) {
-            state.backQuery = { query: query, label: label };
+        this.setBackQuery = function(query, label, scrollAnchor) {
+            state.backQuery = { query: query, label: label, scrollAnchor: scrollAnchor};
         }
 
         this.clearBackQuery = function() {
