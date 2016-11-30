@@ -1,14 +1,16 @@
 <form ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest">
-    <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
-    <ul>
-        <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants,
-            will have to create an account in order to submit the form electronically.</li>
-        <li>The Employer's EIN is required to create an account.</li>
-        <li>Once the Employer's account is created, additional users can be added.</li>
-        <li>The electronic form includes both form WH-226 and WH-226A.</li>
-    </ul>
-    <p>Read our <a>FAQs for Electronic Section 14(c) Certificate Application</a></p>
-    <hr/>
+    <div class="usa-content">
+        <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
+        <ul>
+            <li>All employers, including current Certificate Holders, previous Certificate Holders and new applicants,
+                will have to create an account in order to submit the form electronically.</li>
+            <li>The Employer's EIN is required to create an account.</li>
+            <li>Once the Employer's account is created, additional users can be added.</li>
+            <li>The electronic form includes both form WH-226 and WH-226A.</li>
+        </ul>
+        <p>Read our <a href="#">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
+    </div>
+
     <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.accountCreated">
         <div class="usa-alert-body">
             <h2 class="usa-alert-heading">Account Created</h2>
@@ -36,15 +38,14 @@
                 <p>Invalid EIN format. Example XX-XXXXXXX</p>
             </div>            
         </span>
-        <input class="ein" name="EIN" id="EIN" type="text" mask="99-9999999" placeholder="EIN (XX-XXXXXXX)" ng-model="formVals.ein" />
-        <div>
-            <a href ng-click="vm.toggleEinHelp()">Why do you need an EIN to create an account?</a>
-        </div>
+        <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formVals.ein" />
+        <span class="example">Example: XX-XXXXXXX</span>
+        <a class="dol-additional-info" href ng-click="vm.toggleEinHelp()">Why do you need an EIN to create an account?</a>
     </div>
     <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp">
         <div class="usa-alert-body">
             <p class="usa-alert-text">Providing the EIN at Registration helps us ensure there is only one account per Employer.</p>    
-            <p class="usa-alert-text">Additional user can be added once the Employer is registered.</p>           
+            <p>Additional users can be added once the Employer is registered.</p>           
         </div>
     </div>
     <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
@@ -56,7 +57,7 @@
         <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
             <p>Email address is required.</p>
         </span>
-        <input type="email" name="registerEmail" id="registerEmail" placeholder="Email" ng-model="formVals.email" />
+        <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" />
     </div>
     <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp">
         <div class="usa-alert-body"> 
@@ -82,22 +83,26 @@
                 <p>Passwords do not match.</p>
             </div>      
         </span>
-        <input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Password" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
-        <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
-        <div ng-switch="passwordStrength.score">Password Strength: 
-                <span ng-switch-when="0"></span>
-                <span ng-switch-when="1">Weak</span>
-                <span ng-switch-when="2">Fair</span>
-                <span ng-switch-when="3">Good</span>
-                <span ng-switch-when="4">Strong</span>
-            <div class="showpass">
-                <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+        <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+        <div class="dol-password-help">
+            <div class="usa-content">
+                <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
+                <div ng-switch="passwordStrength.score">Password Strength: 
+                    <span ng-switch-when="0"></span>
+                    <span ng-switch-when="1">Weak</span>
+                    <span ng-switch-when="2">Fair</span>
+                    <span ng-switch-when="3">Good</span>
+                    <span ng-switch-when="4">Strong</span>
+                </div>
+                <div class="showpass">
+                    <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+                </div>
             </div>
-        </div>
+        </div>    
     </div>
     <div ng-class="vm.passwordRequired || vm.passwordsDontMatch ? 'usa-input-error' : ''">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+        <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
     <div ng-class="vm.reCaptchaError ? 'usa-input-error' : ''">
         <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.reCaptchaError">
