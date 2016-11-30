@@ -97,6 +97,14 @@ namespace DOL.WHD.Section14c.Business.Services
                 {
                     model.Employer.SendMailToParent = null;
                 }
+
+                // default to false if no value was passed
+                model.Employer.HasMailingAddress = model.Employer.HasMailingAddress ?? false;
+                if (!model.Employer.HasMailingAddress.GetValueOrDefault())
+                {
+                    // remove mailing address if hasMailingAddress == false
+                    model.Employer.MailingAddress = null;
+                }
             }
         }
 

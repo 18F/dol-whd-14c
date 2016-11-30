@@ -333,5 +333,31 @@ namespace DOL.WHD.Section14c.Test.Business
             Assert.IsNotNull(obj.WorkSites.ElementAt(0).NumEmployees);
             Assert.IsNotNull(obj.WorkSites.ElementAt(0).Employees);
         }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_HasMailingAddress_Null()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission { Employer = new EmployerInfo { HasMailingAddress = null } };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsFalse(obj.Employer.HasMailingAddress.Value);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Defaults_HasMailingAddress_NotNull()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission { Employer = new EmployerInfo { HasMailingAddress = true } };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsTrue(obj.Employer.HasMailingAddress.Value);
+        }
     }
 }

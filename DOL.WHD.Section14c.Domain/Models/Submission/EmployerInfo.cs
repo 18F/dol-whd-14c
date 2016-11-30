@@ -25,6 +25,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual Address PhysicalAddress { get; set; }
 
+        public bool? HasMailingAddress { get; set; }
+
+        public virtual Address MailingAddress { get; set; }
+
         public bool? HasParentOrg { get; set; }
 
         public string ParentLegalName { get; set; }
