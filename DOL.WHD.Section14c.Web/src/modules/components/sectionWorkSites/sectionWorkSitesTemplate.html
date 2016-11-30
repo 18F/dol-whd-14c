@@ -30,7 +30,7 @@
         <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
     </div>
 
-    <div class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
+    <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
         <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> Add Work Site</div>
         <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> Add Employees</div>
     </div>

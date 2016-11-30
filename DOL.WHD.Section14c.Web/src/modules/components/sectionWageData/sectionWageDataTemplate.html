@@ -29,7 +29,7 @@
         </fieldset>
     </div>
 
-    <div class="form-tabbed-section" ng-show="formData.payTypeId === 23">
+    <div id="wagedata_tab_box" class="form-tabbed-section" ng-show="formData.payTypeId === 23">
         <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.onTabClick(1)"><div class="circle">1</div> Hourly</div>
         <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.onTabClick(2)"><div class="circle">2</div> Piece Rate</div>
     </div>
