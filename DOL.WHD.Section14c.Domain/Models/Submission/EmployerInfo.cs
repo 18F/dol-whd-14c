@@ -42,7 +42,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? IsEducationalAgency { get; set; }
 
-        public DateTime FiscalQuarterEndDate { get; set; }
+        public DateTime? FiscalQuarterEndDate { get; set; }
 
         public virtual WorkerCountInfo NumSubminimalWageWorkers { get; set; }
 

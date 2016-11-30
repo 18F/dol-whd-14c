@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public interface IEmployerValidator : IValidator<EmployerInfo>
+    public interface IEmployerValidatorRenewal : IValidator<EmployerInfo>
     {
     }
 }

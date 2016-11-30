@@ -4,16 +4,14 @@ using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
 {
     [TestClass]
-    public class WorkSiteValidatorTests
+    public class WorkSiteValidatorInitialTests
     {
         private static readonly IAddressValidatorNoCounty AddressValidatorNoCounty = new AddressValidatorNoCounty();
-        private static readonly IEmployeeValidator EmployeeValidator = new EmployeeValidator();
-        private static readonly IWorkSiteValidator WorkSiteValidator = new WorkSiteValidator(AddressValidatorNoCounty, EmployeeValidator);
+        private static readonly IWorkSiteValidatorInitial WorkSiteValidator = new WorkSiteValidatorInitial(AddressValidatorNoCounty);
 
         [TestMethod]
         public void Should_Require_WorkSiteType()
@@ -51,17 +49,15 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_NumEmployees()
+        public void Should_Not_Require_NumEmployees()
         {
-            WorkSiteValidator.ShouldHaveValidationErrorFor(x => x.NumEmployees, null as int?);
-            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.NumEmployees, 5);
+            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.NumEmployees, null as int?);
         }
 
         [TestMethod]
-        public void Should_Require_Employees()
+        public void Should_Not_Require_Employees()
         {
-            WorkSiteValidator.ShouldHaveValidationErrorFor(x => x.Employees, null as ICollection<Employee>);
-            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.Employees, new List<Employee> {new Employee()});
+            WorkSiteValidator.ShouldNotHaveValidationErrorFor(x => x.Employees, null as ICollection<Employee>);
         }
 
         [TestMethod]

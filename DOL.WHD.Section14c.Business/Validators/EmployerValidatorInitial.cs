@@ -5,9 +5,9 @@ using FluentValidation;
 
 namespace DOL.WHD.Section14c.Business.Validators
 {
-    public class EmployerValidator : BaseValidator<EmployerInfo>, IEmployerValidator
+    public class EmployerValidatorInitial : BaseValidator<EmployerInfo>, IEmployerValidatorInitial
     {
-        public EmployerValidator(IAddressValidator addressValidator, IWorkerCountInfoValidator workerCountInfoValidator)
+        public EmployerValidatorInitial(IAddressValidator addressValidator)
         {
             // required
             RuleFor(e => e.LegalName).NotEmpty();
@@ -17,8 +17,6 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.HasParentOrg).NotNull();
             RuleFor(e => e.EmployerStatusId).NotNull().InclusiveBetween(ResponseIds.EmployerStatus.Public, ResponseIds.EmployerStatus.Other);
             RuleFor(e => e.IsEducationalAgency).NotNull();
-            RuleFor(e => e.FiscalQuarterEndDate).NotEmpty();
-            RuleFor(e => e.NumSubminimalWageWorkers).NotNull().SetValidator(workerCountInfoValidator);
             RuleFor(e => e.PCA).NotNull();
             RuleFor(e => e.SCAId).NotNull().InclusiveBetween(ResponseIds.SCA.Yes, ResponseIds.SCA.NoButIntendTo);
             RuleFor(e => e.EO13658Id).NotNull().InclusiveBetween(ResponseIds.EO13658.Yes, ResponseIds.EO13658.NoButIntendTo);

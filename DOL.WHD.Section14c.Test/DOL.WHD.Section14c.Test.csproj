@@ -105,7 +105,8 @@
     <Compile Include="Business\Validators\AlternateWageDataValidatorTests.cs" />
     <Compile Include="Business\Validators\ApplicationSubmissionValidatorTests.cs" />
     <Compile Include="Business\Validators\EmployeeValidatorTests.cs" />
-    <Compile Include="Business\Validators\EmployerValidatorTests.cs" />
+    <Compile Include="Business\Validators\EmployerValidatorInitialTests.cs" />
+    <Compile Include="Business\Validators\EmployerValidatorRenewalTests.cs" />
     <Compile Include="Business\Validators\HourlyWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PieceRateWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PrevailingWageSurveyInfoValidatorTests.cs" />
@@ -114,7 +115,8 @@
     <Compile Include="Business\Validators\WIOAValidatorTests.cs" />
     <Compile Include="Business\Validators\WIOAWorkerValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkerCountInfoValidatorTests.cs" />
-    <Compile Include="Business\Validators\WorkSiteValidatorTests.cs" />
+    <Compile Include="Business\Validators\WorkSiteValidatorRenewalTests.cs" />
+    <Compile Include="Business\Validators\WorkSiteValidatorInitialTests.cs" />
     <Compile Include="Common\AppSettingsTests.cs" />
     <Compile Include="Domain\BaseEntityTests.cs" />
     <Compile Include="Domain\Models\FeatureTests.cs" />

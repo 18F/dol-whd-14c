@@ -263,5 +263,75 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsNull(obj.Employer.SendMailToParent);
         }
+
+        [TestMethod]
+        public void ApplicationService_CleansUp_Initial_Application()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                ApplicationTypeId = ResponseIds.ApplicationType.Initial,
+                Employer =
+                    new EmployerInfo
+                    {
+                        FiscalQuarterEndDate = DateTime.Now,
+                        NumSubminimalWageWorkers = new WorkerCountInfo()
+                    },
+                PayTypeId = ResponseIds.PayType.Both,
+                HourlyWageInfo = new HourlyWageInfo(),
+                PieceRateWageInfo = new PieceRateWageInfo(),
+                WorkSites = new List<WorkSite>
+                {
+                    new WorkSite { NumEmployees = 1, Employees = new List<Employee> { new Employee() }}
+                }
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNull(obj.Employer.FiscalQuarterEndDate);
+            Assert.IsNull(obj.Employer.NumSubminimalWageWorkers);
+            Assert.IsNull(obj.PayTypeId);
+            Assert.IsNull(obj.HourlyWageInfo);
+            Assert.IsNull(obj.PieceRateWageInfo);
+            Assert.IsNull(obj.WorkSites.ElementAt(0).NumEmployees);
+            Assert.IsNull(obj.WorkSites.ElementAt(0).Employees);
+        }
+
+        [TestMethod]
+        public void ApplicationService_Does_Not_CleanUp_Renewal_Application()
+        {
+            // Arrange
+            var obj = new ApplicationSubmission
+            {
+                ApplicationTypeId = ResponseIds.ApplicationType.Initial,
+                Employer =
+                    new EmployerInfo
+                    {
+                        FiscalQuarterEndDate = DateTime.Now,
+                        NumSubminimalWageWorkers = new WorkerCountInfo()
+                    },
+                PayTypeId = ResponseIds.PayType.Both,
+                HourlyWageInfo = new HourlyWageInfo(),
+                PieceRateWageInfo = new PieceRateWageInfo(),
+                WorkSites = new List<WorkSite>
+                {
+                    new WorkSite { NumEmployees = 1, Employees = new List<Employee> { new Employee() }}
+                }
+            };
+
+            // Act
+            _applicationService.ProcessModel(obj);
+
+            // Assert
+            Assert.IsNotNull(obj.Employer.FiscalQuarterEndDate);
+            Assert.IsNotNull(obj.Employer.NumSubminimalWageWorkers);
+            Assert.IsNotNull(obj.PayTypeId);
+            Assert.IsNotNull(obj.HourlyWageInfo);
+            Assert.IsNotNull(obj.PieceRateWageInfo);
+            Assert.IsNotNull(obj.WorkSites.ElementAt(0).NumEmployees);
+            Assert.IsNotNull(obj.WorkSites.ElementAt(0).Employees);
+        }
     }
 }
