@@ -1,3 +1,4 @@
+<button class="dol-nav-toggle" type="button">Form Menu</button>
 <nav role="navigation" class="main-nav-bar">
     <ul>
         <li ng-repeat="section in vm.navService.getSections()" class="nav-button {{ vm.current === section.id ? 'active' : '' }}" data-sectionid="{{ section.id }}" ng-click="vm.onNavClick($event)" ng-show="section.id !== 'review' || vm.stateService.inReview">{{ section.display }}</li>

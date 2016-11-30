@@ -31,8 +31,8 @@
     </div>
 
     <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
-        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> Add Work Site</div>
-        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> Add Employees</div>
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> <span>Add</span> Work Site</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> <span>Add</span> Employees</div>
     </div>
 
     <!-- Tab 1 (Add Work Site) -->

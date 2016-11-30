@@ -5,12 +5,9 @@
     h1 {
         font-size: 2.4rem;
         margin: 0;
-        float: left;
     }
 
     nav {
-        float: right;
-
         ul {
             padding: 0;
             margin: 0;
@@ -19,45 +16,48 @@
                 list-style-type: none;
                 display: inline-block;
                 margin: 0;
-                padding-left: 1.5rem;
+                padding-top: 1.5rem;
+
+                + li {
+                    padding-left: 1.5rem;
+                }
             }
         }
     }
 }
 
 .dol-form-meta {
+    font-size: 1.2rem;
     background-color: $color-gray-lightest;
-    padding: 1.5rem;
+    padding: 1rem;
     border-top: 1px solid #aeb0b5;
     border-bottom: 1px solid #aeb0b5;
     @include clearfix();
 
     .usa-content {
-        float: left;
-
         p {
             margin: 0;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
         }
     }
 }
 
 .dol-form-omb {
-    float: right;
-    font-size: 1.4rem;
-    text-align: right;
-
     p {
-        margin: 0;
+        display: inline-block;
+        margin: 0 1rem 0 0;
     }
 }
 
 .dol-applicant-meta {
     position: relative;
-    padding: 1.5rem;
     background-color: $color-gray-darker;
 }
 
 .dol-applicant-ein {
+    padding: 1.5rem;
     color: $color-white;
 }
 
@@ -65,65 +65,39 @@
     //TODO
 }
 
-.dol-feedback-save {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: $color-white;
-
-    span {
-        display: block;
+@media (min-width: 68.75em) {
+    .dol-form-meta {
+        font-size: 1.4rem;
         padding: 1.5rem;
 
-        &.dol-feedback-save-success {
-            border-top: .6rem solid $color-green;
-            padding-top: .9rem;
-
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-checkmark-green.png') center center;
-                background: url('../images/dol-checkmark-green.svg') center center;
-                background-size: contain;
-            }
+        .usa-content {
+            float: left;
+        }
+    }
+    .dol-header-form {
+        h1 {
+            float: left;
         }
 
-        &.dol-feedback-save-error {
-            border-top: .6rem solid $color-secondary;
-            padding-top: .9rem;
+        nav {
+            float: right;
 
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-error-red.png') center center;
-                background: url('../images/dol-error-red.svg') center center;
-                background-size: contain;
+            ul {
+                text-align: left;
+
+                li {
+                    padding-top: 0;
+                }
             }
         }
+    }
 
-        &.dol-feedback-save-process {
-            border-top: .6rem solid $color-green;
-            padding-top: .9rem;
+    .dol-form-omb {
+        float: right;
+        text-align: right;
 
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-saving-small-green.gif') center center;
-                background-size: contain;
-            }
+        p {
+            margin: 0 0 0 1rem;
         }
     }
 }

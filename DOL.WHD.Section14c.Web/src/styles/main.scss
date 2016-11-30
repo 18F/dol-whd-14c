@@ -5,6 +5,8 @@
 @import "globals";
 @import "admin";
 @import "forms";
+@import "layout";
+@import "feedback";
 @import "modules/answerFieldControl";
 @import "modules/formFooterControls";
 @import "modules/mainNavigationControl";
@@ -12,24 +14,5 @@
 @import "modules/reviewSectionControl";
 @import "loginReg";
 
-$susy: (
-    columns: 12,
-    container: 1200px,
-    global-box-sizing: border-box
-);
 
-.full-view {
-    @include container;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
 
-@include nested(12) {
-
-    .main-content {
-        position: relative;
-        @include span(12);
-        margin-top: 40px;
-    }
-
-}

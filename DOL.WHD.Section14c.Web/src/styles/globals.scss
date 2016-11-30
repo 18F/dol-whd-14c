@@ -67,7 +67,6 @@ h6 {
     &:not(.nomargin) {
         margin-left: 40px;
     }
-    
     background-color: $color-green;
 
     &:hover {
@@ -77,6 +76,10 @@ h6 {
     &:active {
         background-color: $color-green-darker;
     }
+}
+
+button + .green-button {
+    margin-left: 4rem;
 }
 
 .loading-blue {

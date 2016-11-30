@@ -19,13 +19,10 @@
 
     h2 {
         margin: 0;
-        float: left;
     }
 }
 
 .dol-form-section-help {
-    float: right;
-
     ul {
         padding: 0;
         margin: 0;
@@ -33,7 +30,6 @@
         li {
             list-style-type: none;
             display: inline-block;
-            padding-left: 1.5rem;
             margin-top: 1.5rem;
 
             &:first-of-type {
@@ -49,8 +45,82 @@
                     background-size: contain;
                 }
             }
+
+            + li {
+                padding-left: 1.5rem;
+            }
         }
     }
+}
+
+@media (min-width: 50em) {
+    .dol-form-section-title {
+        h2 {
+            float: left;
+        }
+    }
+
+    .dol-form-section-help {
+        float: right;
+    }
+}
+
+// Form input sizing 
+input.phoneno {
+    max-width: 18.2rem;
+}
+
+input.ein, 
+input.certificateno {
+    max-width: 15.4rem;
+}
+
+input.other {
+    max-width: 25rem;
+}
+
+input.numeric2 {
+    max-width: 5rem;
+}
+
+input.numeric3 {
+    max-width: 6.6rem;
+}
+
+input.numeric5 {
+    max-width: 8.4rem;
+}
+
+input.numeric7 {
+    max-width: 10rem;
+}
+
+input.wage-rate {
+    max-width: 8.4rem;
+}
+
+input.wage-rate-ext {
+    max-width: 11.2rem;
+}
+
+input.email {
+    max-width: 32rem;
+}
+
+input.sidelabeled {
+    display: inline-block;
+
+    & + label,
+    & + span {
+        display: inline-block;
+        margin-top: 0px;
+    }
+}
+
+label.example,
+span.example {
+    color: #666;
+    margin-left: 1.5rem;
 }
 
 @include nested(12) {
@@ -104,20 +174,6 @@
             }
         }
 
-        .sidelabeled {
-            display: inline-block;
-
-            & + label {
-                display: inline-block;
-                margin-top: 0px;
-            }
-        }
-
-        label.example {
-            color: #666;
-            margin-left: 1.5rem;
-        }
-
         .help-link {
             display: inline-block;
             width: 20px;
@@ -164,47 +220,6 @@
             li {
                 margin-bottom: 0;
             }
-        }
-
-        /* Form input sizing */
-        input.phoneno {
-            max-width: 18.2rem;
-        }
-
-        input.ein, input.certificateno {
-            max-width: 15.4rem;
-        }
-
-        input.other {
-            max-width: 25rem;
-        }
-
-        input.numeric2 {
-            max-width: 5rem;
-        }
-
-        input.numeric3 {
-            max-width: 6.6rem;
-        }
-
-        input.numeric5 {
-            max-width: 8.4rem;
-        }
-
-        input.numeric7 {
-            max-width: 10rem;
-        }
-
-        input.wage-rate {
-            max-width: 8.4rem;
-        }
-
-        input.wage-rate-ext {
-            max-width: 11.2rem;
-        }
-
-        input.email {
-            max-width: 32rem;
         }
 
         .form-question-block {
@@ -281,7 +296,7 @@
             max-width: 10rem;
         }
 
-        /* Styling for upload button/input combos */
+        // Styling for upload button/input combos 
         .upload-label {
             margin-right: 0px;
             border-top-right-radius: 0px;
@@ -455,57 +470,6 @@
         }
     }
 
-    // Custom form tabs (as seen in Wage Data section)
-    .form-tabbed-section {
-        @include clearfix;
-
-        margin-top: 40px;
-
-        .form-tab {
-            @include span(6);
-
-            border-top: .6rem solid transparent;
-            padding: 1.4rem 2rem 2rem 2rem;
-            font-size: 2.4rem;
-            font-weight: 700;
-            cursor: pointer;
-            margin-right: 0px;
-
-
-            &:not(:first-of-type) {
-                border-left: 1px solid #aeb0b5;
-            }
-
-            &.active {
-                border-top: .6rem solid $color-primary;
-                //padding-top: 2rem;
-            }
-
-            &:not(.active) {
-                border-bottom: 1px solid #aeb0b5;
-                background-color: $color-gray-lightest;
-
-                &:hover {
-                    background-color: darken($color-gray-lightest, 5%);
-                }
-            }
-
-            .circle {
-                display: inline-block;
-                font-size: 1.7rem;
-                width: 3rem;
-                height: 3rem;
-                border-radius: 50%;
-                background-color: $color-gray-darker;
-                color: $color-white;
-                text-align: center;
-                vertical-align: middle;
-                padding-top: .3rem;
-                margin-right: .7rem;
-            }
-        }
-    }
-
     .form-content {
         div.usa-alert-error {
             @include clearfix;
@@ -513,6 +477,56 @@
             div.usa-alert-body {
                 @include span(8);
             }
+        }
+    }
+}
+
+// Custom form tabs (as seen in Wage Data section) 
+.form-tabbed-section {
+    @include clearfix;
+
+    margin-top: 40px;
+
+    .form-tab {
+        @include span(6);
+
+        border-top: .6rem solid transparent;
+        padding: 1.4rem 2rem 2rem 2rem;
+        font-size: 1.6rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-right: 0px;
+        
+
+        &:not(:first-of-type) {
+            border-left: 1px solid #aeb0b5;
+        }
+
+        &.active {
+            border-top: .6rem solid $color-primary;
+        }
+
+        &:not(.active) {
+            border-bottom: 1px solid #aeb0b5;
+            background-color: $color-gray-lightest;
+
+            &:hover {
+                background-color: darken($color-gray-lightest, 5%);
+            }
+        }
+
+        .circle {
+            display: inline-block;
+            font-size: 1.2rem;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background-color: $color-gray-darker;
+            color: $color-white;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: .15rem;
+            margin-right: .7rem;
         }
     }
 }
@@ -544,7 +558,31 @@
     text-align: center;
 }
 
-@media (min-width: $medium-screen) {
+@media (max-width: 37.5em) {
+    .form-tabbed-section {
+        .form-tab {
+            span {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (min-width: 37.5em) {
+    .form-tabbed-section {
+        .form-tab {
+           font-size: 2.4rem; 
+
+           .circle {
+               font-size: 1.7rem;
+               width: 3rem;
+               height: 3rem;
+               padding-top: .3rem;
+
+           }
+        }
+    }
+
     .form-sidebar {
         width: 33%;
     }
