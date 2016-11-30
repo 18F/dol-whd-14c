@@ -34,7 +34,7 @@ module.exports = function(ngModule) {
 
         vm.setNextTabQuery = function(id) {
             if (id === 1) {
-                navService.setNextQuery({ t: 2 }, "Next: Add Piece Rate");
+                navService.setNextQuery({ t: 2 }, "Next: Add Piece Rate", "wagedata_tab_box");
             }
             else {
                 navService.clearNextQuery();
@@ -47,7 +47,7 @@ module.exports = function(ngModule) {
             vm.setNextTabQuery(vm.activeTab);
         });
 
-        $scope.$watch('formData.payType', function(value) {
+        $scope.$watch('formData.payTypeId', function(value) {
             if (value === 23 && vm.activeTab === 1) {
                 vm.setNextTabQuery(1);
             }
