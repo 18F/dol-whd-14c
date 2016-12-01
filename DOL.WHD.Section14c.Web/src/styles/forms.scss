@@ -141,7 +141,8 @@ span.example {
         ol,
         .form-question-block label,
         .form-question-text,
-        .form-question-subtext {
+        .form-question-subtext,
+        .usa-input-error-message {
             max-width: 60rem;
         }
 
@@ -488,7 +489,7 @@ span.example {
     margin-top: 40px;
 
     .form-tab {
-        @include span(6);
+        @include span(6 of 12);
 
         border-top: .6rem solid transparent;
         padding: 1.4rem 2rem 2rem 2rem;
@@ -568,6 +569,53 @@ span.example {
     }
 }
 
+// List of instructions for Employee section
+.dol-help-employee-info {
+    background: $color-gray-lightest;
+    padding: 2.5rem;
+
+    ul {
+        max-width: 100%;
+        padding: 0;
+        margin: 0;
+
+        li {
+            list-style-type: none;
+            border-bottom: 1px solid #aeb0b5;
+            padding: 1.5rem 0;
+
+            span {
+                &:first-of-type {
+                    font-weight: 700;
+                    display: block;
+                }
+
+                p {
+                    &:last-of-type {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+
+            &:first-of-type {
+                padding-top: 0;
+            }
+
+            &:last-of-type {
+                border: 0;
+                padding-bottom: 0;
+            }
+        }
+    }
+}
+
+//Example of Employee data
+.dol-help-employee-example {
+    .dol-view-large {
+        display: none;
+    }
+}
+
 @media (min-width: 37.5em) {
     .form-tabbed-section {
         .form-tab {
@@ -585,5 +633,53 @@ span.example {
 
     .form-sidebar {
         width: 33%;
+    }
+
+    .dol-help-employee-info {
+        ul {
+            display: table;
+
+            li {
+                display: table-row;
+                border: 0;
+                padding: 0;
+
+                span {
+                    display: table-cell;
+                    padding: 2rem;
+                    border-bottom: 1px solid #aeb0b5;
+
+                    &:first-of-type {
+                        min-width: 20rem;
+                        display: table-cell;
+                    }
+                }
+
+                &:first-of-type {
+                    span {
+                        padding-top: 0;
+                    }
+                }
+
+                &:last-of-type {
+                    span {
+                        padding-bottom: 0;
+                        border: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 50em) {
+    .dol-help-employee-example {
+        .dol-view-small {
+            display: none;
+        }
+
+        .dol-view-large {
+            display: block;
+        }
     }
 }

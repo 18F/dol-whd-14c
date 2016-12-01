@@ -15,12 +15,13 @@
 <div class="form-page">
     <h3>Employer Information</h3>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
         <div class="form-question-text">Legal Name of Employer
             <helplink></helplink>
             <helptext>Provide the full legal and trade name(s) of the employer, and previous name, if applicable. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
         </div>
         <div class="form-question-subtext">If applying for a certificate as a School Work Experience Program (SWEP), enter the identifying information for the school. </div>
+         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
          <div class="form-question-answer">
             <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
         </div>
