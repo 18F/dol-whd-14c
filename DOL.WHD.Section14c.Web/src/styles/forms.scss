@@ -65,12 +65,12 @@
     }
 }
 
-// Form input sizing 
+// Form input sizing
 input.phoneno {
     max-width: 18.2rem;
 }
 
-input.ein, 
+input.ein,
 input.certificateno {
     max-width: 15.4rem;
 }
@@ -297,7 +297,7 @@ span.example {
             max-width: 10rem;
         }
 
-        // Styling for upload button/input combos 
+        // Styling for upload button/input combos
         .upload-label {
             margin-right: 0px;
             border-top-right-radius: 0px;
@@ -365,6 +365,10 @@ span.example {
                 margin-top: 4px;
                 font-weight: 400;
             }
+        }
+
+        .wage-data-table li > input[type="radio"] {
+            width: auto;
         }
     }
 
@@ -482,7 +486,7 @@ span.example {
     }
 }
 
-// Custom form tabs (as seen in Wage Data section) 
+// Custom form tabs (as seen in Wage Data section)
 .form-tabbed-section {
     @include clearfix;
 
@@ -497,7 +501,7 @@ span.example {
         font-weight: 700;
         cursor: pointer;
         margin-right: 0px;
-        
+
 
         &:not(:first-of-type) {
             border-left: 1px solid #aeb0b5;
@@ -619,7 +623,7 @@ span.example {
 @media (min-width: 37.5em) {
     .form-tabbed-section {
         .form-tab {
-           font-size: 2.4rem; 
+           font-size: 2.4rem;
 
            .circle {
                font-size: 1.7rem;

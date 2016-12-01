@@ -312,7 +312,19 @@
                                     <td>
                                         <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
                                             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
-                                            <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure">
+
+                                            <ul class="usa-unstyled-list">
+                                                <li>
+                                                    <input id="workerProductivityNA" type="radio" name="workerProductivityToggle" ng-value="undefined" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged()">
+                                                    <label for="workerProductivityNA">n/a - piece rate</label>
+                                                </li>
+                                                <li>
+                                                    <input id="workerProductivityStudy" type="radio" name="workerProductivityToggle" ng-value="true" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged(true)">
+                                                    <label for="workerProductivityStudy">Time Study,</label>
+                                                </li>
+                                            </ul>
+
+                                            <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure" ng-disabled="!vm.activeWorker.hasProductivityMeasure">
                                         </div>
                                     </td>
                                     <td>
