@@ -271,5 +271,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             model = new EmployerInfo { SCAId = ResponseIds.SCA.Yes, SCAAttachmentId = null };
             EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachmentId, model);
         }
+
+        [TestMethod]
+        public void Should_Not_Require_TotalDisabledWorkers_No_RepresentativePayee()
+        {
+            var model = new EmployerInfo {RepresentativePayee = false, TotalDisabledWorkers = null};
+            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.TotalDisabledWorkers, model);
+        }
+
+        [TestMethod]
+        public void Should_Require_TotalDisabledWorkers_RepresentativePayee()
+        {
+            var model = new EmployerInfo { RepresentativePayee = true, TotalDisabledWorkers = null };
+            EmployerValidator.ShouldHaveValidationErrorFor(e => e.TotalDisabledWorkers, model);
+            model = new EmployerInfo { RepresentativePayee = true, TotalDisabledWorkers = 4 };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.TotalDisabledWorkers, model);
+        }
     }
 }
