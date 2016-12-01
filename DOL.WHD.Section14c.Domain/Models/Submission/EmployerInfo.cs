@@ -86,8 +86,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         }
         public virtual ICollection<EmployerInfoProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
 
-        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
-
         public bool? TemporaryAuthority { get; set; }
 
     }

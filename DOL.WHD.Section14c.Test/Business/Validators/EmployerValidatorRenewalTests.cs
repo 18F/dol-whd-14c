@@ -132,16 +132,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_ProvidingFacilitiesDeductionTypeOther()
-        {
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, "");
-            var model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { ResponseIds.ProvidingFacilitiesDeductionType.Other }, ProvidingFacilitiesDeductionTypeOther = null };
-            EmployerValidator.ShouldHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
-            model = new EmployerInfo { TakeCreditForCosts = true, ProvidingFacilitiesDeductionTypeId = new List<int> { ResponseIds.ProvidingFacilitiesDeductionType.Other }, ProvidingFacilitiesDeductionTypeOther = "Other" };
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ProvidingFacilitiesDeductionTypeOther, model);
-        }
-
-        [TestMethod]
         public void Should_Require_TemporaryAuthority()
         {
             EmployerValidator.ShouldHaveValidationErrorFor(x => x.TemporaryAuthority, null as bool?);
