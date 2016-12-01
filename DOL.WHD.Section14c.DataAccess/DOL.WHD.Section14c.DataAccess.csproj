@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.Designer.cs">
       <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.cs" />
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.Designer.cs">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -395,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.resx">
       <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011931409_ProductivityMeasureNotRequired.resx">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
