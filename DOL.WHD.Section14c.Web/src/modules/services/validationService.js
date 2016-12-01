@@ -195,43 +195,43 @@ module.exports = function(ngModule) {
         this.validateAssurances = function() {
             section = "__assurances";
 
-            this.checkRequiredBoolean("signature.agreement", "Please agree to use an electronic signature");
-            this.checkRequiredString("signature.fullName", "Please enter your full name");
-            this.checkRequiredString("signature.title", "Please enter your title");
-            this.checkRequiredDateComponent("signature.date", "Please enter today's date");
+            this.checkRequiredBoolean("signature.agreement", "An electronic signature must be provided in order to submit this application");
+            this.checkRequiredString("signature.fullName", "Please provide the full name of the authorized representative");
+            this.checkRequiredString("signature.title", "Please provide the title of the authorized representative");
+            this.checkRequiredDateComponent("signature.date", "Please provide the date");
         }
 
         /* eslint-disable complexity */
         this.validateAppInfo = function() {
             section = "__appinfo";
 
-            this.checkRequiredMultipleChoice("applicationTypeId");
-            this.checkRequiredMultipleChoice("hasPreviousApplication");
+            this.checkRequiredMultipleChoice("applicationTypeId", "Please choose which type of application you are submitting");
+            this.checkRequiredMultipleChoice("hasPreviousApplication", "Please indicate if the employer has previously applied a 14(c) certificate");
 
             let hasPreviousCert = this.checkRequiredMultipleChoice("hasPreviousCertificate");
             if (hasPreviousCert) {
                 let certNo = this.getFormValue("previousCertificateNumber");
                 if (!certNo || certNo.length !== 14) {
                     //TODO: better test against actual cert number rules
-                    this.setValidationError("previousCertificateNumber", "Please enter a valid certificate number");
+                    this.setValidationError("previousCertificateNumber", "Please provide the most recently held certificate number for the employer's main establishment");
                 }
             }
 
-            this.checkRequiredValueArray("establishmentTypeId", "Please select all that apply");
+            this.checkRequiredValueArray("establishmentTypeId", "Please select at least one establishment type. You can choose more than one if needed.");
 
-            this.checkRequiredString("contactName");
+            this.checkRequiredString("contactName", "Please provide the full name of the Applicant Contact person");
 
             if (!this.validateTelephoneNumber(this.getFormValue("contactPhone"))) {
-                this.setValidationError("contactPhone", "Please enter a valid telephone number");
+                this.setValidationError("contactPhone", "Please provide a valid contact telephone number");
             }
 
             let fax = this.getFormValue("contactFax");
             if (fax && !this.validateTelephoneNumber(fax)) {
-                this.setValidationError("contactFax", "Please enter a valid fax number or leave blank");
+                this.setValidationError("contactFax", "If available, please provide a fax number");
             }
 
             if (!this.validateEmailAddress(this.getFormValue("contactEmail"))) {
-                this.setValidationError("contactEmail", "Please enter a valid email address");
+                this.setValidationError("contactEmail", "Please provide a valid contact email address");
             }
 
             section = undefined;
@@ -240,121 +240,120 @@ module.exports = function(ngModule) {
         this.validateEmployer = function() {
             section = "__employer";
 
-            this.checkRequiredString("employer.legalName");
+            this.checkRequiredString("employer.legalName", "Please provide the full Legal Name of the employer");
 
-            let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName");
+            let hasTradeName = this.checkRequiredMultipleChoice("employer.hasTradeName", "Please indicate if the employer has a Trade Name");
             if (hasTradeName === true) {
-                this.checkRequiredString("employer.tradeName");
+                this.checkRequiredString("employer.tradeName", "You indicated the employer has a Trade Name. Please provide the Trade name here.");
             }
 
-            let legalNameHasChanged = this.checkRequiredMultipleChoice("employer.legalNameHasChanged");
+            let legalNameHasChanged = this.checkRequiredMultipleChoice("employer.legalNameHasChanged", "Please indicate if the employer's Legal Name has changed");
             if (legalNameHasChanged === true) {
-                this.checkRequiredString("employer.priorLegalName");
+                this.checkRequiredString("employer.priorLegalName", "You have indicated that the employer's legal name has changed since its last application. Please provide the prior legal name here.");
             }
 
-            this.checkRequiredString("employer.physicalAddress.streetAddress");
-            this.checkRequiredString("employer.physicalAddress.city");
-            this.checkRequiredValue("employer.physicalAddress.state", "Please select a state or territory");
+            this.checkRequiredString("employer.physicalAddress.streetAddress", "Please provide the street address for the employer's main establishment");
+            this.checkRequiredString("employer.physicalAddress.city", "Please provide the city for the employer's main establishment");
+            this.checkRequiredValue("employer.physicalAddress.state", "Please select a state or territory for the employer's main establishment");
 
             if (!this.validateZipCode(this.getFormValue("employer.physicalAddress.zipCode"))) {
-                this.setValidationError("employer.physicalAddress.zipCode", "Please enter a valid zip code");
+                this.setValidationError("employer.physicalAddress.zipCode", "Please provide a valid zip code for the employer's main establishment");
             }
 
-            this.checkRequiredString("employer.physicalAddress.county", "Please enter a county");
+            this.checkRequiredString("employer.physicalAddress.county", "Please provide the county for the employer's main establishment");
 
-            let hasParentOrg = this.checkRequiredMultipleChoice("employer.hasParentOrg");
+            let hasParentOrg = this.checkRequiredMultipleChoice("employer.hasParentOrg", "Please indicate if the employer has a Parent Organization");
             if (hasParentOrg === true) {
-                this.checkRequiredString("employer.parentLegalName");
-                this.checkRequiredString("employer.parentAddress.streetAddress");
-                this.checkRequiredString("employer.parentAddress.city");
-                this.checkRequiredValue("employer.parentAddress.state", "Please select a state or territory");
+                this.checkRequiredString("employer.parentLegalName", "Please provide the Parent Organization's legal name");
+                this.checkRequiredString("employer.parentAddress.streetAddress", "Please provide the street for the employer's Parent Organization");
+                this.checkRequiredString("employer.parentAddress.city", "Please provide the city for the employer's Parent Organization");
+                this.checkRequiredValue("employer.parentAddress.state", "Please select a state or territory for the employer's Parent Organization");
 
                 if (!this.validateZipCode(this.getFormValue("employer.parentAddress.zipCode"))) {
-                    this.setValidationError("employer.parentAddress.zipCode", "Please enter a valid zip code");
+                    this.setValidationError("employer.parentAddress.zipCode", "Please enter a valid zip code for the employer's Parent Organization");
                 }
 
-                this.checkRequiredString("employer.parentAddress.county", "Please enter a county");
+                this.checkRequiredString("employer.parentAddress.county", "Please provide the county for the employer's Parent Organization");
             }
 
-            let employerStatus = this.checkRequiredMultipleChoice("employer.employerStatusId");
+            let employerStatus = this.checkRequiredMultipleChoice("employer.employerStatusId", "Please provide the employer's status");
             if (employerStatus === _constants.responses.employerStatus.other) {
-                this.checkRequiredString("employer.employerStatusOther");
+                this.checkRequiredString("employer.employerStatusOther", "Please provide a brief description of the employer's status or choose from the options above.");
             }
 
-            this.checkRequiredMultipleChoice("employer.isEducationalAgency");
+            this.checkRequiredMultipleChoice("employer.isEducationalAgency", "Please indicate if the employer is a Local or State educational agency");
 
             if (!this.checkIsInitial()) {
-                this.checkRequiredDateComponent("employer.fiscalQuarterEndDate");
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", undefined, 0);
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", undefined, 0);
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", undefined, 0);
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.swep", undefined, 0);
-                this.checkRequiredNumber("employer.numSubminimalWageWorkers.businessEstablishment", undefined, 0);
+                this.checkRequiredDateComponent("employer.fiscalQuarterEndDate", "Please provide the date for the most recently compelted fiscal quarter");
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.total", "Please provide the total number of workers with disabilities employed at subminimum wages.", 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.workCenter", "Please indicate how many workers were employed at Work Center", 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.patientWorkers", "Please indicate how many workers were employed as Patient Workers", 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.swep", "Please indicate how many workers were employed by a School Work Experience Program", 0);
+                this.checkRequiredNumber("employer.numSubminimalWageWorkers.businessEstablishment", "Please indicate how many workers were employed at a business establishment", 0);
             }
 
-            this.checkRequiredMultipleChoice("employer.pca");
-
-            let sca = this.checkRequiredMultipleChoice("employer.scaId");
+            this.checkRequiredMultipleChoice("employer.pca", "Please indicate if the employer manufactures items under the PCA");
+            
+            let sca = this.checkRequiredMultipleChoice("employer.scaId", "Please indicate if the employer holds any SCA-covered contracts");
             if (sca === _constants.responses.sca.yes) {
-                let scaCount = this.checkRequiredNumber("employer.scaCount", undefined, 0);
+                let scaCount = this.checkRequiredNumber("employer.scaCount", "Please provide the total number of workers employed under SCA-covered contracts", 0);
 
                 //TODO: validate number of uploads with scaCount ???
                 this.checkRequiredValue("employer.scaAttachmentId", "Please upload the required SCA Wage Determinations");
             }
 
-            this.checkRequiredMultipleChoice("employer.eo13658Id");
+            this.checkRequiredMultipleChoice("employer.eo13658Id", "Please indicate if the employer is under contract for services with the Federal Government subject to Executive Order 13658");
 
-            let representativePayee = this.checkRequiredMultipleChoice("employer.representativePayee");
+            let representativePayee = this.checkRequiredMultipleChoice("employer.representativePayee", "Please indicate if the employer was a representative payee");
             if (representativePayee === true) {
-                this.checkRequiredNumber("employer.totalDisabledWorkers", undefined, 0);
+                this.checkRequiredNumber("employer.totalDisabledWorkers", "You indicated the employer was a representative payee for Social Security Benefits. Please provide the total number of workers the facility was a representative payee for.", 0);
             }
 
-            let takeCreditForCosts = this.checkRequiredMultipleChoice("employer.takeCreditForCosts");
+            let takeCreditForCosts = this.checkRequiredMultipleChoice("employer.takeCreditForCosts", "Please indicate if the employer took credit for facility costs");
             if (takeCreditForCosts === true) {
-                let deductions = this.checkRequiredValueArray("employer.providingFacilitiesDeductionTypeId", "Please select all that apply");
+                let deductions = this.checkRequiredValueArray("employer.providingFacilitiesDeductionTypeId", "Please select at least one deduction");
                 if (isArray(deductions) && deductions.includes(_constants.responses.providingFacilitiesDeductionType.other)) {
-                    this.checkRequiredString("employer.providingFacilitiesDeductionTypeOther", "Please specify");
+                    this.checkRequiredString("employer.providingFacilitiesDeductionTypeOther", "Please specify the type of deduction taken, or choose from one of the options above.");
                 }
             }
 
-            this.checkRequiredMultipleChoice("employer.temporaryAuthority");
+            this.checkRequiredMultipleChoice("employer.temporaryAuthority", "Please indicate if this is a request for temporary authority");
 
             section = undefined;
         }
 
         this.validateWageDataPayType = function(prefix) {
             this.checkRequiredNumber(prefix + ".numWorkers", undefined, 0);
-            this.checkRequiredString(prefix + ".jobName");
-            this.checkRequiredString(prefix + ".jobDescription");
+            this.checkRequiredString(prefix + ".jobName", "Please provide the name of the job or contract");
 
-            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethodId");
+            let prevailingWageMethod = this.checkRequiredMultipleChoice(prefix + ".prevailingWageMethodId", "Please indicate which method was used");
             if (prevailingWageMethod === _constants.responses.prevailingWageMethod.survey) {
-                this.checkRequiredNumber(prefix + ".mostRecentPrevailingWageSurvey.prevailingWageDetermined", undefined, 0);
+                this.checkRequiredNumber(prefix + ".mostRecentPrevailingWageSurvey.prevailingWageDetermined", "Please provide the Prevailing Wage calculated based on the survey.", 0);
 
                 let sourceEmployers = this.checkRequiredValueArray(prefix + ".mostRecentPrevailingWageSurvey.sourceEmployers", "Please provide 3 source employers");
                 if (sourceEmployers) {
                     for (let i=0; i < sourceEmployers.length; i++) {
                         let subprefix = prefix + ".mostRecentPrevailingWageSurvey.sourceEmployers[" + i + "]";
 
-                        this.checkRequiredString(subprefix + ".employerName");
-                        this.checkRequiredString(subprefix + ".address.streetAddress");
-                        this.checkRequiredString(subprefix + ".address.city");
-                        this.checkRequiredValue(subprefix + ".address.state", "Please select a state or territory");
+                        this.checkRequiredString(subprefix + ".employerName", "Please provide the name of the Source Employer");
+                        this.checkRequiredString(subprefix + ".address.streetAddress", "Please provide the street address of the Source Employer");
+                        this.checkRequiredString(subprefix + ".address.city", "Please provide the city for the Source Employer");
+                        this.checkRequiredValue(subprefix + ".address.state", "Please select a state or territory for the Source Employer");
 
                         if (!this.validateZipCode(this.getFormValue(subprefix + ".address.zipCode"))) {
-                            this.setValidationError(subprefix + ".address.zipCode", "Please enter a valid zip code");
+                            this.setValidationError(subprefix + ".address.zipCode", "Please enter a valid zip code for the Source Employer");
                         }
 
                         if (!this.validateTelephoneNumber(this.getFormValue(subprefix + ".phone"))) {
-                            this.setValidationError(subprefix + ".phone", "Please enter a valid telephone number");
+                            this.setValidationError(subprefix + ".phone", "Please enter a valid telephone number for the Source Employer");
                         }
 
-                        this.checkRequiredString(subprefix + ".contactName");
-                        this.checkRequiredString(subprefix + ".contactTitle");
-                        this.checkRequiredDateComponent(subprefix + ".contactDate");
-                        this.checkRequiredString(subprefix + ".jobDescription");
-                        this.checkRequiredNumber(subprefix + ".experiencedWorkerWageProvided", undefined, 0);
-                        this.checkRequiredString(subprefix + ".conclusionWageRateNotBasedOnEntry");
+                        this.checkRequiredString(subprefix + ".contactName", "Please provide the name of the Source Employer contact");
+                        this.checkRequiredString(subprefix + ".contactTitle", "Please provide the title for the Source Employer contact");
+                        this.checkRequiredDateComponent(subprefix + ".contactDate", "Please provide the date the Source Employer was contacted");
+                        this.checkRequiredString(subprefix + ".jobDescription", "Please provide a brief description of the job");
+                        this.checkRequiredNumber(subprefix + ".experiencedWorkerWageProvided", "Please provide the experienced worker wage provided", 0);
+                        this.checkRequiredString(subprefix + ".conclusionWageRateNotBasedOnEntry", "Please provide a bassi for conclusion that the wage rate is not based on entry");
                     }
 
                     if (sourceEmployers.length < 3) {
@@ -363,13 +362,13 @@ module.exports = function(ngModule) {
                 }
             }
             else if (prevailingWageMethod === _constants.responses.prevailingWageMethod.alternate) {
-                this.checkRequiredString(prefix + ".alternateWageData.alternateWorkDescription");
-                this.checkRequiredString(prefix + ".alternateWageData.alternateDataSourceUsed");
-                this.checkRequiredNumber(prefix + ".alternateWageData.prevailingWageProvidedBySource");
-                this.checkRequiredDateComponent(prefix + ".alternateWageData.dataRetrieved");
+                this.checkRequiredString(prefix + ".alternateWageData.alternateWorkDescription", "Please provide a description of the work");
+                this.checkRequiredString(prefix + ".alternateWageData.alternateDataSourceUsed", "Please provide the source used for alternate data");
+                this.checkRequiredNumber(prefix + ".alternateWageData.prevailingWageProvidedBySource", "Please provide the prevailing wage provided by source");
+                this.checkRequiredDateComponent(prefix + ".alternateWageData.dataRetrieved", "Please provide the date the alternate wage data was retrieved");
             }
             else if (prevailingWageMethod === _constants.responses.prevailingWageMethod.sca) {
-                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please upload the applicable documentation");
+                this.checkRequiredValue(prefix + ".scaWageDeterminationAttachmentId", "Please provide the SCA Wage Determination survey");
             }
         }
 
@@ -385,7 +384,8 @@ module.exports = function(ngModule) {
 
                 this.validateWageDataPayType(prefix);
 
-                this.checkRequiredValue(prefix + ".workMeasurementFrequency");
+                this.checkRequiredString(prefix + ".jobDescription", "Please provide a brief description of the work performed. For example: Kitchen cleaning—sink, counters, stove, refrigerator, microwave cleaning duties.");
+                this.checkRequiredValue(prefix + ".workMeasurementFrequency", "Please indicate how frequently the employer conducts work measurements or time studies");
                 this.checkRequiredValue(prefix + ".attachmentId", "Please upload a work measurement or time study");
             }
 
@@ -394,11 +394,12 @@ module.exports = function(ngModule) {
 
                 this.validateWageDataPayType(prefix);
 
-                this.checkRequiredString(prefix + ".pieceRateWorkDescription");
-                this.checkRequiredNumber(prefix + ".prevailingWageDeterminedForJob", undefined, 0);
-                this.checkRequiredNumber(prefix + ".standardProductivity", undefined, 0);
-                this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", undefined, 0);
-                this.checkRequiredValue(prefix + ".attachmentId", "Pleas upload the required docments")
+                this.checkRequiredString(prefix + ".jobDescription", "Please provide a brief description of the work performed. For example: Gadget dissasembly, or Contract No. 000-111 with Widgets Inc.--Hand Assebmly of Boxes (28\" x 12\").");
+                this.checkRequiredString(prefix + ".pieceRateWorkDescription", "Please provide a description of the job tasks");
+                this.checkRequiredNumber(prefix + ".prevailingWageDeterminedForJob", "Please provide the hourly prevailing wage for the job", 0);
+                this.checkRequiredNumber(prefix + ".standardProductivity", "Please provide the standard productivity", 0);
+                this.checkRequiredNumber(prefix + ".pieceRatePaidToWorkers", "Please provide the piece rate paid to workers", 0);
+                this.checkRequiredValue(prefix + ".attachmentId", "Please upload at least one piece of documentation")
             }
 
             section = undefined;
@@ -407,7 +408,7 @@ module.exports = function(ngModule) {
         this.validateWorkSites = function() {
             section = "__worksites";
 
-            let totalNumWorkSites = this.checkRequiredNumber("totalNumWorkSites", undefined, 1);
+            let totalNumWorkSites = this.checkRequiredNumber("totalNumWorkSites", "You must provide the total number of establishments and/or work sites to be covered by the certificate", 1);
 
             let worksites = this.checkRequiredValueArray("workSites", "Please provide information for each work site");
             if (worksites) {
@@ -419,29 +420,29 @@ module.exports = function(ngModule) {
                     let worksiteType = this.checkRequiredMultipleChoice(prefix + ".workSiteTypeId");
                     if (worksiteType === _constants.responses.workSiteType.main) {
                         if (mainWorksite !== -1) {
-                            this.setValidationError(prefix + ".workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
-                            this.setValidationError("workSites[" + mainWorksite + "].workSiteTypeId", "Only one Work Site can be the \"Main Establishment\" but you have multiple.");
+                            this.setValidationError(prefix + ".workSiteTypeId", "There can only be one Main Establishment. You indicated a work site already added was the Main Establishment.");
+                            this.setValidationError("workSites[" + mainWorksite + "].workSiteTypeId", "There can only be one Main Establishment. You indicated a work site already added was the Main Establishment.");
                         }
                         else {
                             mainWorksite = i;
                         }
                     }
 
-                    this.checkRequiredString(prefix + ".name");
+                    this.checkRequiredString(prefix + ".name", "Please provide the name of this establishment/work site");
 
-                    this.checkRequiredString(prefix + ".address.streetAddress");
-                    this.checkRequiredString(prefix + ".address.city");
-                    this.checkRequiredValue(prefix + ".address.state", "Please select a state or territory");
+                    this.checkRequiredString(prefix + ".address.streetAddress", "Please provide the street address for the establishment/work site");
+                    this.checkRequiredString(prefix + ".address.city", "Please provide the city for the establishment/work site");
+                    this.checkRequiredValue(prefix + ".address.state", "Please select a state or territory for the establishment/work site");
 
                     if (!this.validateZipCode(this.getFormValue(prefix + ".address.zipCode"))) {
-                        this.setValidationError(prefix + ".address.zipCode", "Please enter a valid zip code");
+                        this.setValidationError(prefix + ".address.zipCode", "Please enter a valid zip code for the establishment/work site");
                     }
 
-                    this.checkRequiredMultipleChoice(prefix + ".sca");
-                    this.checkRequiredMultipleChoice(prefix + ".federalContractWorkPerformed");
+                    this.checkRequiredMultipleChoice(prefix + ".sca", "Please indicated if SCA-covered work is performed at this establishment/work site");
+                    this.checkRequiredMultipleChoice(prefix + ".federalContractWorkPerformed", "Please indicate if work performed at this establishment/work site is pursuant to a Federal contract");
 
                     if (!this.checkIsInitial()) {
-                        let numEmployees = this.checkRequiredNumber(prefix + ".numEmployees", undefined, 0);
+                        let numEmployees = this.checkRequiredNumber(prefix + ".numEmployees", "Please provide the number of workers employed at this establishment/work site", 0);
 
                         let employees = this.checkRequiredValueArray(prefix + ".employees", "Please provide the required information for employees");
                         if (employees) {
@@ -454,16 +455,16 @@ module.exports = function(ngModule) {
                                     this.checkRequiredString(subprefix + "." + _constants.responses.primaryDisability.otherValueKey);
                                 }
 
-                                this.checkRequiredString(subprefix + ".workType");
+                                this.checkRequiredString(subprefix + ".workType", "Please describe the type of work performed by this worker");
 
-                                this.checkRequiredNumber(subprefix + ".numJobs", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".avgWeeklyHours", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".avgHourlyEarnings", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".prevailingWage", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".productivityMeasure", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".commensurateWageRate", undefined, 0);
-                                this.checkRequiredNumber(subprefix + ".totalHours", undefined, 0);
-                                this.checkRequiredMultipleChoice(subprefix + ".workAtOtherSite");
+                                this.checkRequiredNumber(subprefix + ".numJobs", "Please indicated the number of jobs the employee performed", 0);
+                                this.checkRequiredNumber(subprefix + ".avgWeeklyHours", "Please provide the average number of hours per week the employee worked on all jobs", 0);
+                                this.checkRequiredNumber(subprefix + ".avgHourlyEarnings", "Please provide the average earings per hour for this employee", 0);
+                                this.checkRequiredNumber(subprefix + ".prevailingWage", "Please provide the prevailing wage rate for the job identified", 0);
+                                this.checkRequiredNumber(subprefix + ".productivityMeasure", "Please provide the productivity measure for the job identified", 0);
+                                this.checkRequiredNumber(subprefix + ".commensurateWageRate", "Please provide the commensurage wage rate for the job identified", 0);
+                                this.checkRequiredNumber(subprefix + ".totalHours", "Please provide the employee's total hours worked on the job identified", 0);
+                                this.checkRequiredMultipleChoice(subprefix + ".workAtOtherSite", "Please indicate if the employee also performed work at another site included with this application");
                             }
                         }
 
@@ -487,15 +488,15 @@ module.exports = function(ngModule) {
         this.validateWIOA = function() {
             section = "__wioa";
 
-            this.checkRequiredMultipleChoice("WIOA.hasVerifiedDocumentation");
+            this.checkRequiredMultipleChoice("WIOA.hasVerifiedDocumentation", "Please indicate if the employer reviewed & verified documentation as required by WIOA");
 
             let hasWIOAWorkers = this.checkRequiredMultipleChoice("WIOA.hasWIOAWorkers");
             if (hasWIOAWorkers === true) {
                 let workers = this.checkRequiredValueArray("WIOA.WIOAWorkers", "Please list all applicable workers");
                 if (workers) {
                     for (let i=0; i < workers.length; i++) {
-                        this.checkRequiredString("WIOA.WIOAWorkers[" + i + "].fullName", "Please specify the worker's full name");
-                        this.checkRequiredMultipleChoice("WIOA.WIOAWorkers[" + i + "].WIOAWorkerVerified");
+                        this.checkRequiredString("WIOA.WIOAWorkers[" + i + "].fullName", "Please provide the full name of the worker");
+                        this.checkRequiredMultipleChoice("WIOA.WIOAWorkers[" + i + "].WIOAWorkerVerified", "Please choose a response for this worker");
                     }
                 }
             }
