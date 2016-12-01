@@ -46,6 +46,7 @@ namespace DOL.WHD.Section14c.Business.Validators
                 RuleFor(e => e.SCACount).NotNull();
                 RuleFor(e => e.SCAAttachmentId).NotNull();
             });
+            RuleFor(e => e.TotalDisabledWorkers).NotNull().When(e => e.RepresentativePayee.GetValueOrDefault());
         }
     }
 }

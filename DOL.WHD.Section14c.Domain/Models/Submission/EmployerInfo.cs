@@ -66,6 +66,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? RepresentativePayee { get; set; }
 
+        public int? TotalDisabledWorkers { get; set; }
+
         public bool? TakeCreditForCosts { get; set; }
 
         public IEnumerable<int> ProvidingFacilitiesDeductionTypeId
