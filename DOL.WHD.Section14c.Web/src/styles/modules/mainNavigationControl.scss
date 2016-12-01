@@ -7,6 +7,10 @@
 }
 
 .main-nav-bar {
+    &.collapsed {
+        display: none;
+    }
+
     ul {
         padding: 0;
         margin: 0;
@@ -43,6 +47,10 @@
     }
 
     .main-nav-bar {
+        &.collapsed {
+            display: block;
+        }
+
         ul {
             border-bottom: 1px solid #aeb0b5;
 
