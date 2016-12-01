@@ -111,8 +111,54 @@
                 <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
             </div>
 
+            <div class="usa-input-grid usa-input-grid-large">
+                <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
+                <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
+            </div>
         </fieldset>
     </div>
+
+    <div class="form-question-block" ng-show="formData.employer.hasMailingAddress === true">
+        <div class="form-question-text">Mailing Address of Employer's Main Establishment</div>
+        <fieldset>
+            <div class="usa-form-large">
+                <div ng-class="validate('employer.mailingAddress.streetAddress') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressStreet">Street Address</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.streetAddress')">{{ validate('employer.mailingAddress.streetAddress') }}</span>
+                    <input id="mailingAddressStreet" name="mailingAddressStreet" type="text" ng-model="formData.employer.mailingAddress.streetAddress">
+                </div>
+
+                <div class="clearer" ng-class="validate(['employer.mailingAddress.city', 'employer.mailingAddress.state']) ? 'usa-input-error' : ''">
+                    <div class="usa-input-grid usa-input-grid-medium">
+                        <label for="mailingAddressCity">City</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.city')">{{ validate('employer.mailingAddress.city') }}</span>
+                        <input id="mailingAddressCity" name="mailingAddressCity" type="text" ng-model="formData.employer.mailingAddress.city">
+                    </div>
+
+                    <div class="usa-input-grid usa-input-grid-small">
+                        <label for="mailingAddressState">State</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.state')">{{ validate('employer.mailingAddress.state') }}</span>
+                        <state-field name="mailingAddressState" selected-state="formData.employer.mailingAddress.state"></state-field>
+                    </div>
+                </div>
+
+                <div ng-class="validate('employer.mailingAddress.zipCode') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressZipCode">Zip Code</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.zipCode')">{{ validate('employer.mailingAddress.zipCode') }}</span>
+                    <input class="usa-input-medium" id="mailingAddressZipCode" name="mailingAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.mailingAddress.zipCode">
+                </div>
+
+                <div ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressCounty">County</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
+                    <input id="mailingAddressCounty" name="mailingAddressCounty" type="text" ng-model="formData.employer.mailingAddress.county">
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+
+
     <div class="form-question-block" ng-class="validate('employer.hasParentOrg') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does the Employer have a Parent Organization?
             <helplink></helplink>
