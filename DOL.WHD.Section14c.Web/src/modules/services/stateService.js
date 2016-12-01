@@ -4,6 +4,8 @@ import merge from 'lodash/merge'
 import some from 'lodash/some'
 import has from 'lodash/has'
 import property from 'lodash/property'
+import omit from 'lodash/omit'
+import isEmpty from 'lodash/isEmpty'
 
 
 module.exports = function(ngModule) {
@@ -123,6 +125,14 @@ module.exports = function(ngModule) {
                 },
                 loggedIn: false
             };
+        }
+
+        this.applicationStarted = function() {
+            return !isEmpty(omit(state.form_data, ["saved", "lastSaved"]));
+        }
+
+        this.resetFormData = function() {
+            state.form_data = { }
         }
 
         this.loadApplicationData = function(appid) {
