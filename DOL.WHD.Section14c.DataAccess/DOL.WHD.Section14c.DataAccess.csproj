@@ -262,6 +262,10 @@
     <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.Designer.cs">
       <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612012033496_FixMigrations.cs" />
+    <Compile Include="Migrations\201612012033496_FixMigrations.Designer.cs">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -402,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612011931409_ProductivityMeasureNotRequired.resx">
       <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612012033496_FixMigrations.resx">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
