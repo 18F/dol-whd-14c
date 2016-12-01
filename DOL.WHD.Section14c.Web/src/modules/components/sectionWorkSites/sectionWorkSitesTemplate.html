@@ -176,9 +176,9 @@
 
         <div class="form-spaced-div">
             <p>We'll need collect specific information for each employee.</p>
-            <p><a href="">See detailed instructions on employee information</a></p>
+            <p><a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
 
-            <div class="dol-help-employee-info">
+            <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
                 <ul>
                     <li><span>Full Name of Worker</span><span>Provide the full name of the worker.</span></li>
                     <li><span>Primary Disability</span><span>Identify the primary disability that affects the worker's productivity for the job identified using the categories provided.</span></li>
@@ -216,7 +216,7 @@
                     <li><span>Work at Other Site?</span><span>Answer "yes" if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span></li>
                 </ul>
             </div>
-            
+
             <!--<span>We'll need to collect specific information for each employee:</span>
             <ul class="compact-list">
                 <li>Name</li>
@@ -358,8 +358,8 @@
 
             <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
-                <div ng-hide="vm.addingEmployee"><button ng-click="vm.addingEmployee = true">Add Employee</button> <a href="" ng-click="">Show Me an Example</a></div>
-                <div class="dol-help-employee-example">
+                <div ng-hide="vm.addingEmployee"><button ng-click="vm.addingEmployee = true">Add Employee</button> <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a></div>
+                <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
                     <div class="dol-view-large">
                         <img src="/images/add-employee-example-large.png" alt="">
                     </div>
