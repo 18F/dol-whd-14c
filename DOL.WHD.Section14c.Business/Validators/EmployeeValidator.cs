@@ -15,7 +15,6 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(e => e.AvgWeeklyHours).NotNull();
             RuleFor(e => e.AvgHourlyEarnings).NotNull();
             RuleFor(e => e.PrevailingWage).NotNull();
-            RuleFor(e => e.ProductivityMeasure).NotNull();
             RuleFor(e => e.CommensurateWageRate).NotEmpty();
             RuleFor(e => e.TotalHours).NotNull();
             RuleFor(e => e.WorkAtOtherSite).NotNull();

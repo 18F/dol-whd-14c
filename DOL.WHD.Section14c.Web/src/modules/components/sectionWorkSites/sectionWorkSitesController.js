@@ -157,6 +157,12 @@ module.exports = function(ngModule) {
             return undefined;
         }
 
+        this.workerProductivityChanged = function(study) {
+            if (!study && vm.activeWorker) {
+                vm.activeWorker.productivityMeasure = undefined;
+            }
+        }
+
 
         // convenience methods to avoid lenghty template statements
         this.validateActiveWorksiteProperty = function(prop) {

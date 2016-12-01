@@ -306,7 +306,7 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredMultipleChoice("employer.pca", "Please indicate if the employer manufactures items under the PCA");
-            
+
             let sca = this.checkRequiredMultipleChoice("employer.scaId", "Please indicate if the employer holds any SCA-covered contracts");
             if (sca === _constants.responses.sca.yes) {
                 let scaCount = this.checkRequiredNumber("employer.scaCount", "Please provide the total number of workers employed under SCA-covered contracts", 0);
@@ -471,7 +471,11 @@ module.exports = function(ngModule) {
                                 this.checkRequiredNumber(subprefix + ".avgWeeklyHours", "Please provide the average number of hours per week the employee worked on all jobs", 0);
                                 this.checkRequiredNumber(subprefix + ".avgHourlyEarnings", "Please provide the average earings per hour for this employee", 0);
                                 this.checkRequiredNumber(subprefix + ".prevailingWage", "Please provide the prevailing wage rate for the job identified", 0);
-                                this.checkRequiredNumber(subprefix + ".productivityMeasure", "Please provide the productivity measure for the job identified", 0);
+
+                                if (this.getFormValue(subprefix + ".hasProductivityMeasure")) {
+                                    this.checkRequiredNumber(subprefix + ".productivityMeasure", "Please provide the productivity measure for the job identified", 0);
+                                }
+
                                 this.checkRequiredNumber(subprefix + ".commensurateWageRate", "Please provide the commensurage wage rate for the job identified", 0);
                                 this.checkRequiredNumber(subprefix + ".totalHours", "Please provide the employee's total hours worked on the job identified", 0);
                                 this.checkRequiredMultipleChoice(subprefix + ".workAtOtherSite", "Please indicate if the employee also performed work at another site included with this application");
