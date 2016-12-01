@@ -325,9 +325,6 @@ module.exports = function(ngModule) {
             let takeCreditForCosts = this.checkRequiredMultipleChoice("employer.takeCreditForCosts", "Please indicate if the employer took credit for facility costs");
             if (takeCreditForCosts === true) {
                 let deductions = this.checkRequiredValueArray("employer.providingFacilitiesDeductionTypeId", "Please select at least one deduction");
-                if (isArray(deductions) && deductions.includes(_constants.responses.providingFacilitiesDeductionType.other)) {
-                    this.checkRequiredString("employer.providingFacilitiesDeductionTypeOther", "Please specify the type of deduction taken, or choose from one of the options above.");
-                }
             }
 
             this.checkRequiredMultipleChoice("employer.temporaryAuthority", "Please indicate if this is a request for temporary authority");

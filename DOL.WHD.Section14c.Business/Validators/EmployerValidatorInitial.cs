@@ -30,9 +30,6 @@ namespace DOL.WHD.Section14c.Business.Validators
                 RuleFor(a => a.ProvidingFacilitiesDeductionType)
                     .NotNull()
                     .Must(p => p.Any() && !p.Any(x => x.ProvidingFacilitiesDeductionTypeId < ResponseIds.ProvidingFacilitiesDeductionType.Transportation) && !p.Any(x => x.ProvidingFacilitiesDeductionTypeId > ResponseIds.ProvidingFacilitiesDeductionType.Other));
-                RuleFor(a => a.ProvidingFacilitiesDeductionTypeOther)
-                    .NotEmpty()
-                    .When(a => a.ProvidingFacilitiesDeductionType != null && a.ProvidingFacilitiesDeductionType.Any(x => x.ProvidingFacilitiesDeductionTypeId == ResponseIds.ProvidingFacilitiesDeductionType.Other));
             });
             RuleFor(e => e.TradeName).NotEmpty().When(e => e.HasTradeName.GetValueOrDefault());
             RuleFor(e => e.PriorLegalName).NotEmpty().When(e => e.LegalNameHasChanged.GetValueOrDefault());

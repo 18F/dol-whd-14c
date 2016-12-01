@@ -254,6 +254,10 @@
     <Compile Include="Migrations\201611301931465_AddEmployerMailingAddress.Designer.cs">
       <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs" />
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.Designer.cs">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
@@ -388,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611301931465_AddEmployerMailingAddress.resx">
       <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.resx">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
