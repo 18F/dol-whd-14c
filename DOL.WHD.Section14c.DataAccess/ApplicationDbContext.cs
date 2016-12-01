@@ -79,7 +79,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Employee>().Property(a => a.AvgWeeklyHours).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.AvgHourlyEarnings).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.PrevailingWage).IsRequired();
-            modelBuilder.Entity<Employee>().Property(a => a.ProductivityMeasure).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.CommensurateWageRate).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.TotalHours).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.WorkAtOtherSite).IsRequired();
