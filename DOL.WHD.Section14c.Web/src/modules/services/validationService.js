@@ -186,7 +186,7 @@ module.exports = function(ngModule) {
         }
 
         this.checkIsInitial = function() {
-            return this.checkRequiredMultipleChoice("applicationTypeId") === _constants.responses.applicationType.initial;
+            return this.getFormValue("applicationTypeId") === _constants.responses.applicationType.initial;
         }
 
 
@@ -201,7 +201,7 @@ module.exports = function(ngModule) {
             this.checkRequiredDateComponent("signature.date", "Please provide the date");
         }
 
-        /* eslint-disable complexity */
+        /* eslint-disable complexity, max-statements */
         this.validateAppInfo = function() {
             section = "__appinfo";
 
@@ -261,6 +261,19 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredString("employer.physicalAddress.county", "Please provide the county for the employer's main establishment");
+
+            let hasMailingAddress = this.getFormValue("employer.hasMailingAddress");
+            if(hasMailingAddress === true) {
+                this.checkRequiredString("employer.mailingAddress.streetAddress", "Please provide the street address for the employer's mailing address");
+                this.checkRequiredString("employer.mailingAddress.city", "Please provide the city for the employer's mailing address");
+                this.checkRequiredValue("employer.mailingAddress.state", "Please select a state or territory for the employer's mailing address");
+
+                if (!this.validateZipCode(this.getFormValue("employer.mailingAddress.zipCode"))) {
+                    this.setValidationError("employer.mailingAddress.zipCode", "Please provide a valid zip code for the employer's mailing address");
+                }
+
+                this.checkRequiredString("employer.mailingAddress.county", "Please provide the county for the employer's mailing address");
+            }
 
             let hasParentOrg = this.checkRequiredMultipleChoice("employer.hasParentOrg", "Please indicate if the employer has a Parent Organization");
             if (hasParentOrg === true) {
@@ -508,7 +521,6 @@ module.exports = function(ngModule) {
         // main method to be called for application validation
         this.validateForm = function() {
             this.resetState();
-
             this.validateAssurances();
             this.validateAppInfo();
             this.validateEmployer();
@@ -516,7 +528,6 @@ module.exports = function(ngModule) {
             if (!this.checkIsInitial()) {
                 this.validateWageData();
             }
-
             this.validateWorkSites();
             this.validateWIOA();
 
