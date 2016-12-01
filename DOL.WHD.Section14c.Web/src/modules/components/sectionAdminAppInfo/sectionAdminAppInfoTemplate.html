@@ -22,9 +22,15 @@
         What is the most recently held certificate number for the main establishment?
     </answer-field>
 
-    <answer-field answer="appData.establishmentType.display">
+    <answer-field answer="''">
         What type of establishment(s) is this request for authority to employ workers with disabilities for?
     </answer-field>
+
+    <ul class="usa-unstyled-list">
+        <li ng-repeat="establishmentTypeObj in appData.establishmentType">
+            {{ establishmentTypeObj.establishmentType.display }}
+        </li>
+    </ul>
 
     <h3>Application Contact Person</h3>
     <hr>

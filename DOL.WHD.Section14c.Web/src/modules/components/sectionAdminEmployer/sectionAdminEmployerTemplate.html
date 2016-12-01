@@ -75,7 +75,7 @@
         What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
     </answer-field>
 
-    <answer-field answer="">
+    <answer-field answer="''">
         Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
     </answer-field>
 
@@ -114,7 +114,7 @@
         SCA Wage Determination Attachment
     </answer-field>
 
-    <answer-field answer="appData.employer.eo13658.display">
+    <answer-field answer="appData.employer.eO13658.display">
         Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
     </answer-field>
 
@@ -134,13 +134,13 @@
     </answer-field>
 
     <div ng-show="appData.employer.takeCreditForCosts">
-        <answer-field answer="">
+        <answer-field answer="''">
             Which type of deduction(s) did the employer take?
         </answer-field>
 
         <ul class="usa-unstyled-list">
             <li ng-repeat="deduction in appData.employer.providingFacilitiesDeductionType">
-                {{ deduction.id === constants.responses.providingFacilitiesDeductionType.other ? "Other: " + appData.employer.providingFacilitiesDeductionTypeOther : deduction.display }}
+                {{ deduction.providingFacilitiesDeductionType.display }}
             </li>
         </ul>
     </div>
