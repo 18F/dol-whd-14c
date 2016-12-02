@@ -136,11 +136,49 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
             context.AddFeature(ApplicationClaimTypes.ChangeApplicationStatus, "Change the Status of a Submitted Application");
 
+            // Seed application statuses
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Issued, Name = "Issued", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Withdrawn, Name = "Withdrawn", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Amending, Name = "Amending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
+
+            // Commit changes so that roles/features can be assigned
             context.SaveChanges();
 
             // Map Features to Roles
+            // Applicant
             context.AddRoleFeature(Roles.Applicant, ApplicationClaimTypes.SubmitApplication);
 
+            // ApplicantAdministrator
+            context.AddRoleFeature(Roles.ApplicantAdministrator, ApplicationClaimTypes.SubmitApplication);
+
+            // CertificationTeamManager
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ChangeApplicationStatus);
+
+            // CertificationTeamMember
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ChangeApplicationStatus);
+
+            // PolicyTeamMember
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.ViewAllApplications);
+
+            // SystemAdministrator
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetAccounts);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
@@ -149,14 +187,13 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
 
-            // seed application statuses
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Issued, Name = "Issued", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Withdrawn, Name = "Withdrawn", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Amending, Name = "Amending", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
-            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
+            // WageAndHourFieldManager
+            context.AddRoleFeature(Roles.WageAndHourFieldManager, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.WageAndHourFieldManager, ApplicationClaimTypes.ViewAllApplications);
+
+            // WageAndHourInvestigator
+            context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAllApplications);
         }
 
     }
