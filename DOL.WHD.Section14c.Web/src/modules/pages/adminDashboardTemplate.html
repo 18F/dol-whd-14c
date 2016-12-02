@@ -14,14 +14,16 @@
         </div>
         <div class="admin-filter">
             <label for="admin_filter_status">Filter by Certificate Status</label>
-            <select id="admin_filter_status" name="admin_filter_status" ng-model="filterStatus" ng-options="status.id as status.name for status in filterStatuses" ng-change="gridActions.filter()" filter-by="status.id" filter-type="select">
+            <select id="admin_filter_status" name="admin_filter_status" ng-model="filterStatus" ng-change="gridActions.filter()" filter-by="status.id" filter-type="select">
                 <option value="">All</option>
+                <option ng-repeat="status in filterStatuses track by status.id" value="{{status.id}}">{{ status.name }}</option>
             </select>
         </div>
         <div class="admin-filter">
             <label for="admin_filter_type">Filter by Certificate Type</label>
-            <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-options="estType.id as estType.display for estType in establishmentTypes" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
+            <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
                 <option value="">All</option>
+                <option ng-repeat="estType in establishmentTypes track by estType.id" value="{{estType.id}}">{{ estType.display }}</option>
             </select>
         </div>
     </div>
