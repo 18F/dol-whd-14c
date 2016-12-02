@@ -90,7 +90,7 @@
                         <td><a href="" ng-click="gotoApplication(item.id)">{{ item.employerName }}</a></td>
                         <td ng-bind="item.certificateEffectiveDate | date:'MM/dd/yyyy'"></td>
                         <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
-                        <td ng-bind="item.statusName"></td>
+                        <td ng-bind="item.status.name"></td>
                         <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span></td>
                         <td ng-bind="item.certificateNumber"></td>
                         <td ng-bind="item.state"></td>

@@ -1,6 +1,7 @@
 'use strict';
 
 import findIndex from 'lodash/findIndex'
+import get from 'lodash/get';
 
 module.exports = function(ngModule) {
     ngModule.controller('adminDashboardController', function($scope, $location, responsesService, stateService, statusesService) {
@@ -26,6 +27,11 @@ module.exports = function(ngModule) {
                 filterType: function (items, value, predicate) {
                     return items.filter(function (item) {
                         return value && item[predicate] ? findIndex(item[predicate], ['id', value]) !== -1 : true;
+                    });
+                },
+                filterStatus: function (items, value, predicate) {
+                    return items.filter(function (item) {
+                        return value ? get(item, predicate, undefined) === value : true;
                     });
                 }
             }
