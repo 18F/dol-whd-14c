@@ -2,6 +2,19 @@
 
     .admin-page {
         @include span(12);
+        padding-bottom: 7.55rem;
+
+        .usa-content {
+            p:not(.usa-font-lead), 
+            ul,
+            ol {
+                max-width: 60rem;
+            }
+        }
+
+        h3 {
+            font-size: 2.4rem;
+        }
 
         .admin-filter-bar {
             .admin-filter {
@@ -15,12 +28,6 @@
 
         hr {
             margin: 2.5rem 0;
-        }
-
-        .usa-content {
-            p {
-                max-width: none;
-            }
         }
 
         .form-spaced-div {
@@ -108,4 +115,10 @@
         text-align: right;
     }
 
+}
+
+@media (min-width: 50rem) {
+    .admin-page {
+        padding-bottom: 15rem;
+    }
 }
