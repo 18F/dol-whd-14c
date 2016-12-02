@@ -66,7 +66,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             Assert.AreEqual(certificateNumber, summary.CertificateNumber);
             for (int i = 0; i < types.Count; i++)
             {
-                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).ShortDisplay);
+                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).Display);
             }
             Assert.AreEqual(state, summary.State);
             Assert.AreEqual(numWorkSites, summary.NumWorkSites);

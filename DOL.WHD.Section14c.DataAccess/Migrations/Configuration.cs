@@ -35,8 +35,8 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             // NOTE: Do not edit or remove values. If you need to change a value, set its IsActive flag to false and add a new value. This protects data integrity
 
             // ApplicationType
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", ShortDisplay = "Initial", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", ShortDisplay = "Renewal", IsActive = true });
 
             // Establishment Type
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", ShortDisplay = "CRP", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });

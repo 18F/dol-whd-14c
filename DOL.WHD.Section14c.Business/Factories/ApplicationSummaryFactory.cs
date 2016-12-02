@@ -31,8 +31,7 @@ namespace DOL.WHD.Section14c.Business.Factories
             var obj = new ResponseSummary
             {
                 Id = response.Id,
-                Display = response.Display,
-                ShortDisplay = response.ShortDisplay
+                Display = response.ShortDisplay ?? response.Display
             };
 
             return obj;
