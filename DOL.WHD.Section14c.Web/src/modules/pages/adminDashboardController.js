@@ -26,12 +26,12 @@ module.exports = function(ngModule) {
             customFilters: {
                 filterType: function (items, value, predicate) {
                     return items.filter(function (item) {
-                        return value && item[predicate] ? findIndex(item[predicate], ['id', value]) !== -1 : true;
+                        return value && item[predicate] ? findIndex(item[predicate], ['id', +value]) !== -1 : true;
                     });
                 },
                 filterStatus: function (items, value, predicate) {
                     return items.filter(function (item) {
-                        return value ? get(item, predicate, undefined) === value : true;
+                        return value ? get(item, predicate, undefined) === +value : true;
                     });
                 }
             }
@@ -46,5 +46,6 @@ module.exports = function(ngModule) {
         $scope.gotoUsers = function() {
             $location.path("/admin/users");
         }
+
     });
 }
