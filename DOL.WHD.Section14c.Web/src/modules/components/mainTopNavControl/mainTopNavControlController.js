@@ -13,12 +13,7 @@ module.exports = function(ngModule) {
         }
 
         this.userClick = function() {
-            if (stateService.user && stateService.user.userId) {
-                $location.path("/account/" + stateService.user.userId);
-            }
-            else {
-                $location.path("/");
-            }
+            $location.path("/changePassword")
         }
 
         this.saveClick = function() {
