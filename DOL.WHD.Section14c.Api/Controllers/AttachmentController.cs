@@ -76,12 +76,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("{EIN}/{fileId}")]
-        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public HttpResponseMessage Download(string EIN, Guid fileId)
         {
-            // make sure user has rights to the EIN
+            // make sure user has rights to the EIN or has View All Application rights
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
+            if (!hasEINClaim && !hasViewAllFeature)
             {
                 return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
