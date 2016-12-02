@@ -91,9 +91,3 @@ button + .green-button {
     background-size: contain;
     vertical-align: middle;
 }
-
-// this is to override the normalize.css setting (included by uswds) that
-// resulted in missing down arrows on select inputs
-select {
-    -webkit-appearance: menulist;
-}
