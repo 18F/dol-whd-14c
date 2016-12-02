@@ -20,6 +20,7 @@ module.exports = function(ngModule) {
             if($scope.isValid) {
                 apiService.submitApplication(stateService.access_token, stateService.ein, stateService.formData).then(function (result) {
                     vm.submissionSuccess = true;
+                    stateService.resetFormData();
                 }, function (error) {
                     console.log(error);
                     vm.submissionError = error;
