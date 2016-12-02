@@ -19,7 +19,7 @@
 <div class="dol-form-meta">
     <div class="usa-content">
         <p ng-show="!admin">Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
-        <p ng-show="admin">Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
+        <p ng-show="admin">Applicant EIN: <span>{{ appData.ein ? appData.ein : "XX-XXXXXXX" }}</span></p>
     </div>
 
     <div class="dol-form-omb" ng-show="!admin">
@@ -28,7 +28,7 @@
     </div>
 
     <div class="dol-form-status" ng-show="admin">
-        Status: {{ appData.applicationStatus ? appData.applicationStatus : 'Unknown' }}
+        Status: {{ appData.status ? appData.status.name : 'Unknown' }}
     </div>
 </div>
 <main-navigation-control admin="admin"></main-navigation-control>
