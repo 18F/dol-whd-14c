@@ -92,6 +92,8 @@
                         <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
                         <td ng-bind="item.statusName"></td>
                         <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span></td>
+                        <td ng-bind="item.status.name"></td>
+                        <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span></td>
                         <td ng-bind="item.certificateNumber"></td>
                         <td ng-bind="item.state"></td>
                         <td ng-bind="item.numWorkSites"></td>

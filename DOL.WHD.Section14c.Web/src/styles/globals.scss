@@ -17,18 +17,18 @@ $help-em-color: #D0E2FB;
     @include clearfix;
 }
 
-// Links 
+// Links
 a {
     // Modified from USWDS for DOL
     color: $color-link;
-    
+
     &:hover,
     &:active {
         color: $text-color;
     }
 }
 
-// Typography 
+// Typography
 h1,
 h2,
 h3,
@@ -89,5 +89,11 @@ button + .green-button {
     margin-right: 5px;
     background-image: url('../images/dol-loading-small-blue.gif');
     background-size: contain;
-    vertical-align: middle;    
+    vertical-align: middle;
+}
+
+// this is to override the normalize.css setting (included by uswds) that
+// resulted in missing down arrows on select inputs
+select {
+    -webkit-appearance: menulist;
 }
