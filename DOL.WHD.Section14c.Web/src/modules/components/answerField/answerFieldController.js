@@ -6,7 +6,7 @@ module.exports = function(ngModule) {
         'use strict';
 
         var vm = this;
-        vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
+        vm.attachmentApiURL = apiService.attachmentApiURL;
         vm.access_token = stateService.access_token;
     });
 }
