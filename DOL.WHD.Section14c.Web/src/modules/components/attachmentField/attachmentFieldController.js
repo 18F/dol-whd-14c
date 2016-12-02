@@ -6,8 +6,8 @@ module.exports = function(ngModule) {
         'use strict';
 
         var vm = this;
-        vm.attachmentApiURL = apiService.attachmentApiURL + stateService.ein;
-        vm.access_token = stateService.access_token;
+        vm.stateService = stateService;
+        vm.apiService = apiService;
         
         this.onAttachmentSelected = function(fileinput) {
             if(fileinput.files.length > 0){

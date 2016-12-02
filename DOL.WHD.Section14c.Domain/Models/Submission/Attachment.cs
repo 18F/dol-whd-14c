@@ -30,6 +30,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public string MimeType { get; set; }
 
+        public string EIN { get; set; }
+
         [IgnoreDataMember]
         public bool Deleted { get; set; }
 

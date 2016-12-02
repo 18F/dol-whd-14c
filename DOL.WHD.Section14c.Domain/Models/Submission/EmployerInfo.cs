@@ -25,6 +25,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual Address PhysicalAddress { get; set; }
 
+        public bool? HasMailingAddress { get; set; }
+
+        public virtual Address MailingAddress { get; set; }
+
         public bool? HasParentOrg { get; set; }
 
         public string ParentLegalName { get; set; }
@@ -42,7 +46,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? IsEducationalAgency { get; set; }
 
-        public DateTime FiscalQuarterEndDate { get; set; }
+        public DateTime? FiscalQuarterEndDate { get; set; }
 
         public virtual WorkerCountInfo NumSubminimalWageWorkers { get; set; }
 
@@ -61,6 +65,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public virtual Response EO13658 { get; set; }
 
         public bool? RepresentativePayee { get; set; }
+
+        public int? TotalDisabledWorkers { get; set; }
 
         public bool? TakeCreditForCosts { get; set; }
 
@@ -81,8 +87,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
             }
         }
         public virtual ICollection<EmployerInfoProvidingFacilitiesDeductionType> ProvidingFacilitiesDeductionType { get; set; }
-
-        public string ProvidingFacilitiesDeductionTypeOther { get; set; }
 
         public bool? TemporaryAuthority { get; set; }
 

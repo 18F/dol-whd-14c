@@ -6,7 +6,7 @@ module.exports = function(ngModule) {
       'use strict';
 
       return {
-          restrict: 'EA',
+          restrict: 'E',
           template: require('./attachmentFieldTemplate.html'),
           controller: 'attachmentFieldController',
           scope: {

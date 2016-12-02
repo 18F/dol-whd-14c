@@ -29,10 +29,13 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IApplicationSummaryFactory, ApplicationSummaryFactory>(Lifestyle.Scoped);
             container.Register<IStatusRepository, StatusRepository>(Lifestyle.Scoped);
             container.Register<IStatusService, StatusService>(Lifestyle.Scoped);
+            container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
+            container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
-            container.Register<IEmployerValidator, EmployerValidator>(Lifestyle.Singleton);
+            container.Register<IEmployerValidatorInitial, EmployerValidatorInitial>(Lifestyle.Singleton);
+            container.Register<IEmployerValidatorRenewal, EmployerValidatorRenewal>(Lifestyle.Singleton);
             container.Register<IHourlyWageInfoValidator, HourlyWageInfoValidator>(Lifestyle.Singleton);
             container.Register<IPieceRateWageInfoValidator, PieceRateWageInfoValidator>(Lifestyle.Singleton);
             container.Register<IWIOAValidator, WIOAValidator>(Lifestyle.Singleton);
@@ -41,7 +44,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IPrevailingWageSurveyInfoValidator, PrevailingWageSurveyInfoValidator>(Lifestyle.Singleton);
             container.Register<IAlternateWageDataValidator, AlternateWageDataValidator>(Lifestyle.Singleton);
             container.Register<ISourceEmployerValidator, SourceEmployerValidator>(Lifestyle.Singleton);
-            container.Register<IWorkSiteValidator, WorkSiteValidator>(Lifestyle.Singleton);
+            container.Register<IWorkSiteValidatorInitial, WorkSiteValidatorInitial>(Lifestyle.Singleton);
+            container.Register<IWorkSiteValidatorRenewal, WorkSiteValidatorRenewal>(Lifestyle.Singleton);
             container.Register<IEmployeeValidator, EmployeeValidator>(Lifestyle.Singleton);
             container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);

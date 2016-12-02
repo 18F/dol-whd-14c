@@ -15,12 +15,13 @@
 <div class="form-page">
     <h3>Employer Information</h3>
     <hr />
-    <div class="form-question-block">
+    <div class="form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
         <div class="form-question-text">Legal Name of Employer
             <helplink></helplink>
             <helptext>Provide the full legal and trade name(s) of the employer, and previous name, if applicable. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
         </div>
         <div class="form-question-subtext">If applying for a certificate as a School Work Experience Program (SWEP), enter the identifying information for the school. </div>
+         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
          <div class="form-question-answer">
             <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
         </div>
@@ -110,8 +111,54 @@
                 <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
             </div>
 
+            <div class="usa-input-grid usa-input-grid-large">
+                <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
+                <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
+            </div>
         </fieldset>
     </div>
+
+    <div class="form-question-block" ng-show="formData.employer.hasMailingAddress === true">
+        <div class="form-question-text">Mailing Address of Employer's Main Establishment</div>
+        <fieldset>
+            <div class="usa-form-large">
+                <div ng-class="validate('employer.mailingAddress.streetAddress') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressStreet">Street Address</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.streetAddress')">{{ validate('employer.mailingAddress.streetAddress') }}</span>
+                    <input id="mailingAddressStreet" name="mailingAddressStreet" type="text" ng-model="formData.employer.mailingAddress.streetAddress">
+                </div>
+
+                <div class="clearer" ng-class="validate(['employer.mailingAddress.city', 'employer.mailingAddress.state']) ? 'usa-input-error' : ''">
+                    <div class="usa-input-grid usa-input-grid-medium">
+                        <label for="mailingAddressCity">City</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.city')">{{ validate('employer.mailingAddress.city') }}</span>
+                        <input id="mailingAddressCity" name="mailingAddressCity" type="text" ng-model="formData.employer.mailingAddress.city">
+                    </div>
+
+                    <div class="usa-input-grid usa-input-grid-small">
+                        <label for="mailingAddressState">State</label>
+                        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.state')">{{ validate('employer.mailingAddress.state') }}</span>
+                        <state-field name="mailingAddressState" selected-state="formData.employer.mailingAddress.state"></state-field>
+                    </div>
+                </div>
+
+                <div ng-class="validate('employer.mailingAddress.zipCode') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressZipCode">Zip Code</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.zipCode')">{{ validate('employer.mailingAddress.zipCode') }}</span>
+                    <input class="usa-input-medium" id="mailingAddressZipCode" name="mailingAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace  ng-model="formData.employer.mailingAddress.zipCode">
+                </div>
+
+                <div ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
+                    <label for="mailingAddressCounty">County</label>
+                    <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
+                    <input id="mailingAddressCounty" name="mailingAddressCounty" type="text" ng-model="formData.employer.mailingAddress.county">
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+
+
     <div class="form-question-block" ng-class="validate('employer.hasParentOrg') ? 'usa-input-error' : ''">
         <div class="form-question-text">Does the Employer have a Parent Organization?
             <helplink></helplink>
@@ -186,7 +233,7 @@
     <div class="form-question-block" ng-class="validate(['employer.employerStatusId', 'employer.employerStatusOther']) ? 'usa-input-error' : ''">
         <div class="form-question-text">Employer Status
             <helplink></helplink>
-            <helptext>Select the option that describes the employer’s status. For example, a SWEP operated by a public school system should check "Public."</helptext>
+            <helptext>Select the option that describes the employer's status. For example, a SWEP operated by a public school system should check "Public."</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -220,60 +267,62 @@
             </ul>
         </fieldset>
     </div>
-    <h3>Number of Workers With Disabilities</h3>
-    <hr />
-    <div class="form-question-block" ng-class="validate('employer.fiscalQuarterEndDate') ? 'usa-input-error' : ''">
-        <div class="form-question-text">When did the Employer's most recently completed fiscal quarter end?
-            <helplink></helplink>
-            <helptext>Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
+    <div ng-show="vm.notInitialApp()">
+        <h3>Number of Workers With Disabilities</h3>
+        <hr />
+        <div class="form-question-block" ng-class="validate('employer.fiscalQuarterEndDate') ? 'usa-input-error' : ''">
+            <div class="form-question-text">When did the Employer's most recently completed fiscal quarter end?
+                <helplink></helplink>
+                <helptext>Provide the ending date of the employer's most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
+            </div>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
+            <fieldset>
+                <date-field date-val="formData.employer.fiscalQuarterEndDate"></date-field>
+                <label class="example">Example: 04 30 2016</label>
+            </fieldset>
         </div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
-        <fieldset>
-            <date-field date-val="formData.employer.fiscalQuarterEndDate" />
-            <label class="example">Example: 04 30 2016</label>
-        </fieldset>
-    </div>
-    <div class="form-question-block" ng-class="validate('employer.numSubminimalWageWorkers.total') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
-            <helplink></helplink>
-            <helptext>Provide the total number of workers with disabilities who were paid subminimum wages at all establishments and work sites during the most recently completed fiscal quarter. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
-        </div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
-         <div class="form-question-answer">
-            <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
-        </div>
-    </div>
-    <div class="form-question-block">
-        <div class="form-question-text">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
-            <helplink></helplink>
-            <helptext>Provide the number of workers with disabilities for the same period employed at subminimum wages in the specified categories. Refer to the definitions provided in the instructions for Item 2(a).</helptext>
-        </div>
-        <div ng-class="validate('employer.numSubminimalWageWorkers.workCenter') ? 'usa-input-error' : ''">
-            <label for="numSubminimalWageWorkersWorkCenter">Community Rehabilitation Program (Work Center)</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
-            <div class="form-question-answer">
-                <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter">
+        <div class="form-question-block" ng-class="validate('employer.numSubminimalWageWorkers.total') ? 'usa-input-error' : ''">
+            <div class="form-question-text">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
+                <helplink></helplink>
+                <helptext>Provide the total number of workers with disabilities who were paid subminimum wages at all establishments and work sites during the most recently completed fiscal quarter. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+            </div>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
+             <div class="form-question-answer">
+                <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
             </div>
         </div>
-        <div ng-class="validate('employer.numSubminimalWageWorkers.patientWorkers') ? 'usa-input-error' : ''">
-            <label for="numSubminimalWageWorkersPatientWorkers">Hospital/Residential Care Facility (Patient Workers)</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
-            <div class="form-question-answer">
-                <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers">
+        <div class="form-question-block">
+            <div class="form-question-text">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
+                <helplink></helplink>
+                <helptext>Provide the number of workers with disabilities for the same period employed at subminimum wages in the specified categories. Refer to the definitions provided in the instructions for Item 2(a).</helptext>
             </div>
-        </div>
-        <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
-            <label for="numSubminimalWageWorkersSWEP">School Work Experience Program (SWEP)</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
-            <div class="form-question-answer">
-                <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep">
+            <div ng-class="validate('employer.numSubminimalWageWorkers.workCenter') ? 'usa-input-error' : ''">
+                <label for="numSubminimalWageWorkersWorkCenter">Community Rehabilitation Program (Work Center)</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
+                <div class="form-question-answer">
+                    <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter">
+                </div>
             </div>
-        </div>
-        <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
-            <label for="numSubminimalWageWorkersBusinessEstablishment">Business Establishment</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
-            <div class="form-question-answer">
-                <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment">
+            <div ng-class="validate('employer.numSubminimalWageWorkers.patientWorkers') ? 'usa-input-error' : ''">
+                <label for="numSubminimalWageWorkersPatientWorkers">Hospital/Residential Care Facility (Patient Workers)</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
+                <div class="form-question-answer">
+                    <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers">
+                </div>
+            </div>
+            <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
+                <label for="numSubminimalWageWorkersSWEP">School Work Experience Program (SWEP)</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
+                <div class="form-question-answer">
+                    <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep">
+                </div>
+            </div>
+            <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
+                <label for="numSubminimalWageWorkersBusinessEstablishment">Business Establishment</label>
+                <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
+                <div class="form-question-answer">
+                    <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment">
+                </div>
             </div>
         </div>
     </div>
@@ -299,9 +348,9 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.scaId') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?
+        <div class="form-question-text">Does this employer currently hold any contracts covered by the McNamara-O'Hara Service Contract Act (SCA)?
             <helplink></helplink>
-            <helptext>Make the appropriate selection if the employer has, or intends to receive, any contracts with the McNamara-O’Hara Service Contract Act (SCA). If the employer had one or more SCA-covered contracts during the last completed fiscal quarter, provide the total number of SCA contracts and attach the SCA Wage Determinations for each contract. Additional information about contracts with the Federal Government can be found at <a href="www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+            <helptext>Make the appropriate selection if the employer has, or intends to receive, any contracts with the McNamara-O'Hara Service Contract Act (SCA). If the employer had one or more SCA-covered contracts during the last completed fiscal quarter, provide the total number of SCA contracts and attach the SCA Wage Determinations for each contract. Additional information about contracts with the Federal Government can be found at <a href="www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -401,8 +450,6 @@
                     <label for="deductionType_{{ response.id }}">{{ response.display }}</label>
                 </li>
             </ul>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.providingFacilitiesDeductionTypeOther')">{{ validate('employer.providingFacilitiesDeductionTypeOther') }}</span>
-            <input id="deductionTypeOther" name="deductionTypeOther" type="text" ng-model="formData.employer.providingFacilitiesDeductionTypeOther">
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.temporaryAuthority') ? 'usa-input-error' : ''">

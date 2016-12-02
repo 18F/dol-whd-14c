@@ -7,7 +7,7 @@ namespace DOL.WHD.Section14c.Business.Validators
 {
     public class ApplicationSubmissionValidator : BaseValidator<ApplicationSubmission>, IApplicationSubmissionValidator
     {
-        public ApplicationSubmissionValidator(ISignatureValidator signatureValidator, IEmployerValidator employerValidator, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidator workSiteValidator, IWIOAValidator wioaValidator)
+        public ApplicationSubmissionValidator(ISignatureValidator signatureValidator, IEmployerValidatorInitial employerValidatorInitial, IEmployerValidatorRenewal employerValidatorRenewal, IHourlyWageInfoValidator hourlyWageInfoValidator, IPieceRateWageInfoValidator pieceRateWageInfoValidator, IWorkSiteValidatorInitial workSiteValidatorInitial, IWorkSiteValidatorRenewal workSiteValidatorRenewal, IWIOAValidator wioaValidator)
         {
             // required
             RuleFor(a => a.EIN).NotEmpty();
@@ -21,10 +21,12 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(a => a.ContactName).NotEmpty();
             RuleFor(a => a.ContactPhone).NotEmpty();
             RuleFor(a => a.ContactEmail).NotEmpty();
-            RuleFor(a => a.PayTypeId).NotEmpty().InclusiveBetween(ResponseIds.PayType.Hourly, ResponseIds.PayType.Both);
+            RuleFor(a => a.PayTypeId).NotEmpty().InclusiveBetween(ResponseIds.PayType.Hourly, ResponseIds.PayType.Both).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Renewal);
             RuleFor(a => a.TotalNumWorkSites).NotNull();
-            RuleFor(a => a.Employer).NotNull().SetValidator(employerValidator);
-            RuleFor(a => a.WorkSites).NotNull().Must(w => w.Any()).SetCollectionValidator(workSiteValidator);
+            RuleFor(a => a.Employer).NotNull().SetValidator(employerValidatorInitial).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Initial);
+            RuleFor(a => a.Employer).NotNull().SetValidator(employerValidatorRenewal).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Renewal);
+            RuleFor(a => a.WorkSites).NotNull().Must(w => w.Any()).SetCollectionValidator(workSiteValidatorInitial).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Initial);
+            RuleFor(a => a.WorkSites).NotNull().Must(w => w.Any()).SetCollectionValidator(workSiteValidatorRenewal).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Renewal);
             RuleFor(a => a.WIOA).NotNull().SetValidator(wioaValidator);
 
             // conditional required

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Linq;
-using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Identity;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
@@ -10,10 +8,9 @@ namespace DOL.WHD.Section14c.DataAccess
     {
         IQueryable<ApplicationSave> Get();
 
-        void Add(ApplicationSave applicationSave);
+        void AddOrUpdate(ApplicationSave applicationSave);
+        void Remove(string EIN);
 
         int SaveChanges();
-
-        IQueryable<Attachment> GetAttachments();
     }
 }

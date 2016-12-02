@@ -17,18 +17,18 @@ $help-em-color: #D0E2FB;
     @include clearfix;
 }
 
-// Links 
+// Links
 a {
     // Modified from USWDS for DOL
     color: $color-link;
-    
+
     &:hover,
     &:active {
         color: $text-color;
     }
 }
 
-// Typography 
+// Typography
 h1,
 h2,
 h3,
@@ -64,7 +64,9 @@ h6 {
 }
 
 .green-button {
-    margin-left: 40px;
+    &:not(.nomargin) {
+        margin-left: 40px;
+    }
     background-color: $color-green;
 
     &:hover {
@@ -76,6 +78,10 @@ h6 {
     }
 }
 
+button + .green-button {
+    margin-left: 4rem;
+}
+
 .loading-blue {
     display: inline-block;
     width: 20px;
@@ -83,5 +89,5 @@ h6 {
     margin-right: 5px;
     background-image: url('../images/dol-loading-small-blue.gif');
     background-size: contain;
-    vertical-align: middle;    
+    vertical-align: middle;
 }

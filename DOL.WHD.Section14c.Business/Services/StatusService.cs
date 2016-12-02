@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 
@@ -10,6 +11,11 @@ namespace DOL.WHD.Section14c.Business.Services
         public StatusService(IStatusRepository repository)
         {
             _repository = repository;
+        }
+
+        public IEnumerable<Status> GetAllStatuses()
+        {
+            return _repository.Get().ToList();
         }
 
         public Status GetStatus(int id)

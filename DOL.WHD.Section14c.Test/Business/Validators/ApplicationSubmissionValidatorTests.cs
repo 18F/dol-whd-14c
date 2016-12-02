@@ -14,19 +14,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         private static readonly IAddressValidatorNoCounty AddressValidatorNoCounty = new AddressValidatorNoCounty();
         private static readonly IAddressValidator AddressValidator = new AddressValidator();
         private static readonly IWorkerCountInfoValidator WorkerCountInfoValidator = new WorkerCountInfoValidator();
-        private static readonly IEmployerValidator EmployerValidator = new EmployerValidator(AddressValidator, WorkerCountInfoValidator);
-        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidator);
+        private static readonly IEmployerValidatorInitial EmployerValidatorInitial = new EmployerValidatorInitial(AddressValidator);
+        private static readonly IEmployerValidatorRenewal EmployerValidatorRenewal = new EmployerValidatorRenewal(AddressValidator, WorkerCountInfoValidator);
+        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidatorNoCounty);
         private static readonly IPrevailingWageSurveyInfoValidator PrevailingWageSurveyInfoValidator = new PrevailingWageSurveyInfoValidator(SourceEmployerValidator);
         private static readonly IAlternateWageDataValidator AlternateWageDataValidator = new AlternateWageDataValidator();
         private static readonly IHourlyWageInfoValidator HourlyWageInfoValidator = new HourlyWageInfoValidator(PrevailingWageSurveyInfoValidator, AlternateWageDataValidator);
         private static readonly IPieceRateWageInfoValidator PieceRateWageInfoValidator = new PieceRateWageInfoValidator(PrevailingWageSurveyInfoValidator, AlternateWageDataValidator);
         private static readonly IEmployeeValidator EmployeeValidator = new EmployeeValidator();
-        private static readonly IWorkSiteValidator WorkSiteValidator = new WorkSiteValidator(AddressValidatorNoCounty, EmployeeValidator);
+        private static readonly IWorkSiteValidatorInitial WorkSiteValidatorInitial = new WorkSiteValidatorInitial(AddressValidatorNoCounty);
+        private static readonly IWorkSiteValidatorRenewal WorkSiteValidatorRenewal = new WorkSiteValidatorRenewal(AddressValidatorNoCounty, EmployeeValidator);
         private static readonly IWIOAWorkerValidator WIOAWorkerValidator = new WIOAWorkerValidator();
         private static readonly IWIOAValidator WIOAValidator = new WIOAValidator(WIOAWorkerValidator);
         private static readonly ISignatureValidator SignatureValidator = new SignatureValidator();
 
-        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(SignatureValidator, EmployerValidator, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidator, WIOAValidator);
+        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(SignatureValidator, EmployerValidatorInitial, EmployerValidatorRenewal, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidatorInitial, WorkSiteValidatorRenewal, WIOAValidator);
 
         [TestMethod]
         public void Should_Require_EIN()
@@ -85,10 +87,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_PayTypeId()
+        public void Should_Not_Require_PayTypeId_Initial()
         {
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, null as int?);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, ResponseIds.PayType.PieceRate);
+            var model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Initial, PayTypeId = null };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Renewal, PayTypeId = ResponseIds.PayType.PieceRate };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, model);
+        }
+
+        [TestMethod]
+        public void Should_Require_PayTypeId_Renewal()
+        {
+            var model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Renewal, PayTypeId = null };
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Renewal, PayTypeId = ResponseIds.PayType.PieceRate };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, model);
         }
 
         [TestMethod]
@@ -101,16 +114,21 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_Employer()
         {
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.Employer, null as EmployerInfo);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.Employer, new EmployerInfo());
+            var model = new ApplicationSubmission {ApplicationTypeId = ResponseIds.ApplicationType.Initial, Employer = null};
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.Employer, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Initial, Employer = new EmployerInfo() };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.Employer, model);
         }
 
         [TestMethod]
         public void Should_Require_WorkSites()
         {
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.WorkSites, null as ICollection<WorkSite>);
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.WorkSites, new List<WorkSite>());
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSites, new List<WorkSite> { new WorkSite() });
+            var model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Initial, WorkSites = null };
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.WorkSites, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Initial, WorkSites = new List<WorkSite>() };
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.WorkSites, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Initial, WorkSites = new List<WorkSite> { new WorkSite() } };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.WorkSites, model);
         }
 
         [TestMethod]
@@ -183,8 +201,10 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Validate_PayType()
         {
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, 30);
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, ResponseIds.PayType.PieceRate);
+            var model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Renewal, PayTypeId = 30 };
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PayTypeId, model);
+            model = new ApplicationSubmission { ApplicationTypeId = ResponseIds.ApplicationType.Renewal, PayTypeId = ResponseIds.PayType.PieceRate };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PayTypeId, model);
         }
     }
 }

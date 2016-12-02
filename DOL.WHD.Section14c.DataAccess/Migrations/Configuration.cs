@@ -35,20 +35,20 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             // NOTE: Do not edit or remove values. If you need to change a value, set its IsActive flag to false and add a new value. This protects data integrity
 
             // ApplicationType
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", ShortDisplay = "Initial", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", ShortDisplay = "Renewal", IsActive = true });
 
             // Establishment Type
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", ShortDisplay = "CRP", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", ShortDisplay = "Hospital", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", ShortDisplay = "SWEP", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", ShortDisplay = "Business", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP", IsActive = true });
 
             // Employer Status
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Public, QuestionKey = "EmployerStatus", Display = "Public (State or Local Government)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateForProfit, QuestionKey = "EmployerStatus", Display = "Private, For Profit", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateNotForProfit, QuestionKey = "EmployerStatus", Display = "Private, Not For Profit", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "EmployerStatusOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "employerStatusOther", IsActive = true });
 
             // SCA
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.SCA.Yes, QuestionKey = "SCA", Display = "Yes", IsActive = true });
@@ -64,7 +64,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Transportation, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Transportation", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Rent, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Rent", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Meals, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Meals", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other, please specify:", OtherValueKey = "ProvidingFacilitiesDeductionTypeOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other Facilities", IsActive = true });
 
             // PayType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PayType.Hourly, QuestionKey = "PayType", Display = "Hourly", IsActive = true });
@@ -90,7 +90,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.SubstanceAbuse, QuestionKey = "PrimaryDisability", Display = "Substance Abuse (SA)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Neuromuscular, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.AgeRelated, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "PrimaryDisabilityOther" });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "primaryDisabilityOther" });
 
             //WIOAWorkerVerified
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.Yes, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
@@ -132,22 +132,11 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
             context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
             context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+            context.AddFeature(ApplicationClaimTypes.ViewAdminUI, "Access to the admin UI");
             context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
             context.AddFeature(ApplicationClaimTypes.ChangeApplicationStatus, "Change the Status of a Submitted Application");
 
-            context.SaveChanges();
-
-            // Map Features to Roles
-            context.AddRoleFeature(Roles.Applicant, ApplicationClaimTypes.SubmitApplication);
-
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetAccounts);
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
-            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
-
-            // seed application statuses
+            // Seed application statuses
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Issued, Name = "Issued", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Withdrawn, Name = "Withdrawn", IsActive = true });
@@ -155,6 +144,56 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
+
+            // Commit changes so that roles/features can be assigned
+            context.SaveChanges();
+
+            // Map Features to Roles
+            // Applicant
+            context.AddRoleFeature(Roles.Applicant, ApplicationClaimTypes.SubmitApplication);
+
+            // ApplicantAdministrator
+            context.AddRoleFeature(Roles.ApplicantAdministrator, ApplicationClaimTypes.SubmitApplication);
+
+            // CertificationTeamManager
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.CertificationTeamManager, ApplicationClaimTypes.ChangeApplicationStatus);
+
+            // CertificationTeamMember
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.CertificationTeamMember, ApplicationClaimTypes.ChangeApplicationStatus);
+
+            // PolicyTeamMember
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.SubmitApplication);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.PolicyTeamMember, ApplicationClaimTypes.ViewAllApplications);
+
+            // SystemAdministrator
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetAccounts);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
+
+            // WageAndHourFieldManager
+            context.AddRoleFeature(Roles.WageAndHourFieldManager, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.WageAndHourFieldManager, ApplicationClaimTypes.ViewAllApplications);
+
+            // WageAndHourInvestigator
+            context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAllApplications);
         }
 
     }

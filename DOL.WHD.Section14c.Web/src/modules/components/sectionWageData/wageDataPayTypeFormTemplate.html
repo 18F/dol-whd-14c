@@ -3,7 +3,7 @@
         <div class="form-question-text">
             How many workers did the employer pay {{ paytype === 'hourly' ? 'hourly' : 'on a piece rate basis'}}?
             <helplink></helplink>
-            <helptext>Count the total number of workers paid an <strong>TO DO: HOURLY/PIECE RATE</strong> subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+            <helptext>Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
         <div class="form-question-answer">
@@ -195,7 +195,7 @@
                         <label>Date of Contact</label>
                         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
                         <fieldset>
-                            <date-field date-val="vm.activeSourceEmployer.contactDate" />
+                            <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
                         </fieldset>
                     </div>
 
@@ -229,7 +229,7 @@
                 <table class="usa-table-borderless" ng-show="formData[modelPrefix()].mostRecentPrevailingWageSurvey.sourceEmployers.length">
                     <thead>
                         <tr>
-                            <th scope="col">Work Site Name</th>
+                            <th scope="col">Source Employer Name</th>
                             <th scope="col">Experienced Wage Provided</th>
                             <th scope="col"></th>
                         </tr>
@@ -287,7 +287,7 @@
                     <label>Date data retrieved</label>
                     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
                     <fieldset>
-                        <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved" />
+                        <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>
                         <label class="example">Example: 04 30 2016</label>
                     </fieldset>
                 </div>

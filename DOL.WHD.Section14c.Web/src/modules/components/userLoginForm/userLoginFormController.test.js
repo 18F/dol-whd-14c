@@ -2,30 +2,24 @@ describe('userLoginFormController', function() {
 
     beforeEach(module('14c'));
 
-    beforeEach(inject(function ($rootScope, $controller, _$q_, apiService, stateService, $location) {
+    beforeEach(inject(function ($rootScope, $controller, _$q_, authService, stateService, $location) {
         scope = $rootScope.$new();
         $q = _$q_;
         mockLocation = $location;
-        mockapiService = apiService;
+        mockauthService = authService;
         mockstateService = stateService;
         userLoginFormController = function() {
             return $controller('userLoginFormController', {
                 '$scope': scope, 
                 '$route': route,
-                'apiService': mockapiService,
+                'authService': mockauthService,
                 'stateService': mockstateService,
                 '$location': mockLocation
             });
         };
 
         userLogin = $q.defer();
-        spyOn(mockapiService, 'userLogin').and.returnValue(userLogin.promise);
-
-        userInfo = $q.defer();
-        spyOn(mockapiService, 'userInfo').and.returnValue(userInfo.promise);
-
-        loadState = $q.defer();
-        spyOn(stateService, 'loadState').and.returnValue(loadState.promise);
+        spyOn(mockauthService, 'userLogin').and.returnValue(userLogin.promise);
     }));
 
     it('userLoginFormController has clearError', function() {
@@ -91,7 +85,7 @@ describe('userLoginFormController', function() {
         userLogin.resolve({ data: {} });
         scope.$apply(); 
 
-        expect(mockstateService.loadState).toHaveBeenCalled();
+        expect(mockauthService.userLogin).toHaveBeenCalled();
     });        
 
     it('toggle hideShowPassword should show password if it is hidden', function() {
@@ -110,18 +104,5 @@ describe('userLoginFormController', function() {
         scope.$apply();
 
         expect(scope.inputType).toBe("password");
-    });         
-
-
-    it('on state loads', function() {
-        var controller = userLoginFormController();
-        scope.onSubmitClick();
-        userLogin.resolve({ data: {} });
-        userInfo.resolve({ data: {} });
-        loadState.resolve();
-        scope.$apply(); 
-
-        expect(mockstateService.loadState).toHaveBeenCalled();
-    });        
-
+    });
 });

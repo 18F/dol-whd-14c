@@ -58,6 +58,21 @@ namespace DOL.WHD.Section14c.Business.Services
             // clear out non-selected prevailing wage method
             CleanupWageTypeInfo(model.HourlyWageInfo);
             CleanupWageTypeInfo(model.PieceRateWageInfo);
+
+            // clear out fields for initial application
+            if (model.ApplicationTypeId == ResponseIds.ApplicationType.Initial)
+            {
+                model.Employer.FiscalQuarterEndDate = null;
+                model.Employer.NumSubminimalWageWorkers = null;
+                model.PayTypeId = null;
+                model.HourlyWageInfo = null;
+                model.PieceRateWageInfo = null;
+                foreach (var workSite in model.WorkSites)
+                {
+                    workSite.NumEmployees = null;
+                    workSite.Employees = null;
+                }
+            }
         }
 
         private void SetDefaults(ApplicationSubmission model)
@@ -70,6 +85,27 @@ namespace DOL.WHD.Section14c.Business.Services
             model.CertificateEffectiveDate = null;
             model.CertificateExpirationDate = null;
             model.CertificateNumber = null;
+
+            // default checkboxes
+            if (model.Employer != null)
+            {
+                if (model.Employer.HasParentOrg.GetValueOrDefault())
+                {
+                    model.Employer.SendMailToParent = model.Employer.SendMailToParent ?? false;
+                }
+                else
+                {
+                    model.Employer.SendMailToParent = null;
+                }
+
+                // default to false if no value was passed
+                model.Employer.HasMailingAddress = model.Employer.HasMailingAddress ?? false;
+                if (!model.Employer.HasMailingAddress.GetValueOrDefault())
+                {
+                    // remove mailing address if hasMailingAddress == false
+                    model.Employer.MailingAddress = null;
+                }
+            }
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)
@@ -78,12 +114,12 @@ namespace DOL.WHD.Section14c.Business.Services
             if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.PrevailingWageSurvey)
             {
                 wageTypeInfo.AlternateWageData = null;
-                wageTypeInfo.SCAWageDeterminationId = null;
+                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.AlternateWageData)
             {
                 wageTypeInfo.MostRecentPrevailingWageSurvey = null;
-                wageTypeInfo.SCAWageDeterminationId = null;
+                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.SCAWageDetermination)
             {

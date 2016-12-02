@@ -1,40 +1,111 @@
-@include nested(12) {
 
-    div.login {
-        background-color: #f0f0f0;
-        width: 350px;
-        padding:20px;
-        margin-bottom: 30px;
-    }
+.dol-landing-public {
+    padding-bottom: 5rem;
+    @include clearfix();
 
-    div.showpass {
-        float: right;
-    }
-
-    div.loginbtn {
-        padding-top: 50px;
-    }
-
-    div.forgotpass {
-        padding-top: 30px;
-    }
-
-    div.regcapt {
-        padding-top: 30px;
-    }
-
-    div.regbtn {
-        padding-top: 30px;
-    }
-
-    div.createAcct {
-        width: 46rem;
-    }
-
-    .password-wrap.usa-input-error {
-        margin-top: 0px;
+    h1 {
+        &:first-of-type {
+            margin-top: 0;
+        }
     }
 }
+
+.dol-panel-login {
+    background-color: $color-gray-lightest;
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 30px;
+
+    h2 {
+        margin-top: 0;
+    }
+}
+
+.dol-panel-info {
+    background: $color-gray-light;
+    padding: 2rem;
+
+    h2, h3, h4, h5, h6 {
+        &:first-of-type {
+            margin-top: 0;
+        }
+    }
+
+    p {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.dol-additional-info {
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.dol-password-help {
+    @include clearfix();
+
+    width: 100%;
+    max-width: 46rem;
+}
+
+
+// Override USWDS default for small screens on landing page
+@media (max-width: 50em) {
+    .dol-landing-public {
+        h1 {
+            font-size: 3rem;
+        }
+    }
+}
+
+@media (min-width: 50em) {
+    .dol-landing-public {
+        padding-bottom: 15rem;
+
+        .dol-panel-login,
+        .dol-panel-info {
+            float: right;
+        }
+
+        .dol-panel-info {
+            max-width: 40.6rem;
+            padding: 3.3rem;
+        }
+    }
+
+    .dol-panel-login {
+        max-width: 40.6rem;
+        padding: 4.5rem;
+    }
+}
+
+
+.showpass {
+    float: right;
+}
+
+.loginbtn {
+    padding-top: 5rem;
+}
+
+.forgotpass {
+    padding-top: 1.5rem;
+}
+
+.regcapt {
+    padding-top: 3rem;
+}
+
+.regbtn {
+    padding-top: 3rem;
+}
+
+.password-wrap.usa-input-error {
+    margin-top: 0px;
+}
+
 
 meter {
   margin: 0 auto 1em;
@@ -43,35 +114,36 @@ meter {
 
   /* Applicable only to Firefox */
   background: none;
-  background-color: #F3F3F3;
+  background-color: $color-gray-lightest;
 }
 
 meter::-webkit-meter-bar {
   background: none;
-  background-color: #F3F3F3;
+  background-color: $color-gray-lightest;
 }
 
 /* Webkit based browsers */
-meter[value="1"]::-webkit-meter-optimum-value { background: #990000; }
+meter[value="1"]::-webkit-meter-optimum-value { background: $color-secondary; }
 meter[value="2"]::-webkit-meter-optimum-value { background: #E7D32C; }
-meter[value="3"]::-webkit-meter-optimum-value { background: #224687; }
-meter[value="4"]::-webkit-meter-optimum-value { background: #187D35; }
+meter[value="3"]::-webkit-meter-optimum-value { background: $color-primary; }
+meter[value="4"]::-webkit-meter-optimum-value { background: $color-green; }
 
 /* Gecko based browsers */
-meter[value="1"]::-moz-meter-bar { background: #990000; }
+meter[value="1"]::-moz-meter-bar { background: $color-secondary; }
 meter[value="2"]::-moz-meter-bar { background: #E7D32C; }
-meter[value="3"]::-moz-meter-bar { background: #224687; }
-meter[value="4"]::-moz-meter-bar { background: #187D35; }
+meter[value="3"]::-moz-meter-bar { background: $color-primary; }
+meter[value="4"]::-moz-meter-bar { background: $color-green; }
 
 
 .checkmark {
     display: inline-block;
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
+    width: 18px;
+    height: 18px;
+    margin-right: 7px;
 
     &.checked {
-        background-image: url('../images/correct9.png');
+        background: url('../images/correct9.png') center center;
+        background: url('../images/correct9.svg') center center;
         background-size: contain;
         vertical-align: middle;
     }

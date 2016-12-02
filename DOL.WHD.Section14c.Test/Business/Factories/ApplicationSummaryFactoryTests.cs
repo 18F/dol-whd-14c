@@ -31,6 +31,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
             var types = new List<string> {"Business", "Hospital"};
             var numWorkSites = 3;
             var numWorkersPerSite = 5;
+            var employerName = "Employer Name";
             var submission = new ApplicationSubmission
             {
                 Id = appId,
@@ -41,11 +42,12 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
                 CertificateNumber = certificateNumber,
                 EstablishmentType =
                     types.Select(
-                            x => new ApplicationSubmissionEstablishmentType {EstablishmentType = new Response {Display = x}})
+                            x => new ApplicationSubmissionEstablishmentType {EstablishmentType = new Response {ShortDisplay = x}})
                         .ToList(),
                 Employer = new EmployerInfo
                 {
-                    PhysicalAddress = new Address {State = state}
+                    PhysicalAddress = new Address {State = state},
+                    LegalName = employerName
                 },
                 WorkSites =
                     Enumerable.Repeat(
@@ -58,18 +60,19 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
 
             // Assert
             Assert.AreEqual(appId, summary.Id);
-            Assert.AreEqual(certificateStatusName, summary.StatusName);
+            Assert.AreEqual(certificateStatusName, summary.Status.Name);
             Assert.AreEqual(certificateEffectiveDate, summary.CertificateEffectiveDate);
             Assert.AreEqual(certificateExpirationDate, summary.CertificateExpirationDate);
             Assert.AreEqual(certificateNumber, summary.CertificateNumber);
             for (int i = 0; i < types.Count; i++)
             {
-                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i));
+                Assert.AreEqual(types[i], summary.CertificateType.ElementAt(i).Display);
             }
             Assert.AreEqual(state, summary.State);
             Assert.AreEqual(numWorkSites, summary.NumWorkSites);
             Assert.AreEqual(numWorkSites * numWorkersPerSite, summary.NumWorkers);
-            Assert.AreEqual(applicationType, summary.ApplicationType);
+            Assert.AreEqual(applicationType, summary.ApplicationType.Display);
+            Assert.AreEqual(employerName, summary.EmployerName);
         }
     }
 }

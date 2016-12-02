@@ -1,0 +1,17 @@
+<div class="admin-page">
+    <div class="dol-form-section-title">
+        <h2>Wage Data</h2>
+    </div>
+
+    <answer-field answer="appData.payType.display">
+        Pay Type
+    </answer-field>
+
+    <div class="form-tabbed-section" ng-show="appData.payTypeId === constants.responses.payType.both">
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.onTabClick(1)"><div class="circle">1</div> Hourly</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.onTabClick(2)"><div class="circle">2</div> Piece Rate</div>
+    </div>
+
+    <admin-wage-data-pay-type paytype="constants.responses.payType.hourly" data="appData.hourlyWageInfo"  ng-show="appData.payTypeId === constants.responses.payType.hourly || (appData.payTypeId === constants.responses.payType.both && vm.activeTab !== 2)"></admin-wage-data-pay-type>
+    <admin-wage-data-pay-type paytype="constants.responses.payType.pieceRate" data="appData.pieceRateWageInfo" ng-show="appData.payTypeId === constants.responses.payType.pieceRate || (appData.payTypeId === constants.responses.payType.both && vm.activeTab === 2)"></admin-wage-data-pay-type>
+</div>

@@ -33,7 +33,7 @@ module.exports = {
             {
                 test: /\.html$/,
                 exclude: /node_modules/,
-                loader: 'html'
+                loader: 'html?-minimize'
             },
             {
 				test: /\.scss$/,
@@ -42,11 +42,11 @@ module.exports = {
 			},
 			{ test: /\.css$/, loader: "style-loader!css-loader" },
   		    {
-                test: /\.(png|gif|jpg|jpeg|svg)$/,
+                test: /\.(png|gif|jpg|jpeg)$/,
                 loader: 'file-loader?name=images/[name].[ext]'
             },
             {
-    			test: /\.(ttf|eot|woff|woff2)$/,
+                test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
                 loader: 'file-loader?name=fonts/[name].[ext]'
             },
             {

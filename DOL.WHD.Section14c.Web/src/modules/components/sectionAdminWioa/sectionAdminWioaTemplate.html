@@ -1,0 +1,33 @@
+<div class="admin-page">
+    <div class="dol-form-section-title">
+        <h2>Workforce Innovation and Opportunity Act (WIOA)</h2>
+    </div>
+
+    <answer-field answer="appData.wioa.hasVerifiedDocumentation">
+        Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?
+    </answer-field>
+
+    <answer-field answer="appData.wioa.hasWIOAWorkers">
+        Were any workers paid a subminimum wage age 24 or younger?
+    </answer-field>
+
+    <div ng-show="appData.wioa.hasWIOAWorkers">
+        <answer-field answer="''">
+            List the name of each worker with a disability age 24 or younger and provide a response for each individual.
+        </answer-field>
+        <table class="usa-table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col">Name of Worker</th>
+                    <th scope="col">Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="worker in appData.wioa.wioaWorkers">
+                    <td scope="row">{{ worker.fullName }}</td>
+                    <td> {{ worker.wioaWorkerVerified.display }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -2,6 +2,8 @@
 
 module.exports = function(ngModule) {
     require('./accountManagementControls')(ngModule);
+    require('./adminReview')(ngModule);
+    require('./answerField')(ngModule);
     require('./attachmentField')(ngModule);
     require('./changePasswordForm')(ngModule);
     require('./dateField')(ngModule);
@@ -9,7 +11,15 @@ module.exports = function(ngModule) {
     require('./formSection')(ngModule);
     require('./mainHeaderControl')(ngModule);
     require('./mainNavigationControl')(ngModule);
+    require('./mainTopNavControl')(ngModule);
     require('./resetPasswordForm')(ngModule);
+    require('./sectionAdminAppInfo')(ngModule);
+    require('./sectionAdminAssurances')(ngModule);
+    require('./sectionAdminEmployer')(ngModule);
+    require('./sectionAdminSummary')(ngModule);
+    require('./sectionAdminWageData')(ngModule);
+    require('./sectionAdminWioa')(ngModule);
+    require('./sectionAdminWorkSites')(ngModule);
     require('./sectionAppInfo')(ngModule);
     require('./sectionAssurances')(ngModule);
     require('./sectionEmployer')(ngModule);
