@@ -27,6 +27,7 @@
 }
 
 .dol-form-meta {
+    position: relative;
     font-size: 1.2rem;
     background-color: $color-gray-lightest;
     padding: 1rem;
@@ -40,6 +41,11 @@
             white-space: nowrap;
             overflow-x: hidden;
             text-overflow: ellipsis;
+
+            &[ng-show="admin"] {
+                font-size: 1.7rem;
+                font-weight: 700;
+            }
         }
     }
 }
@@ -62,18 +68,11 @@
 }
 
 .dol-form-status {
-    //TODO
+    font-size: 1.7rem;
+    padding: 1rem 0;
 }
 
-@media (min-width: 68.75em) {
-    .dol-form-meta {
-        font-size: 1.4rem;
-        padding: 1.5rem;
-
-        .usa-content {
-            float: left;
-        }
-    }
+@media (min-width: 50em) {
     .dol-header-form {
         h1 {
             float: left;
@@ -91,6 +90,17 @@
             }
         }
     }
+}
+
+@media (min-width: 68.75em) {
+    .dol-form-meta {
+        font-size: 1.4rem;
+        padding: 1.5rem;
+
+        .usa-content {
+            float: left;
+        }
+    }
 
     .dol-form-omb {
         float: right;
@@ -99,5 +109,14 @@
         p {
             margin: 0 0 0 1rem;
         }
+    }
+
+    .dol-form-status {
+        position: absolute;
+        right: 0;
+        background: $color-white;
+        top: 0;
+        bottom: 0;
+        padding: 1.5rem;
     }
 }

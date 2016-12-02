@@ -2,7 +2,7 @@
 
     .admin-page {
         @include span(12);
-        padding-bottom: 7.55rem;
+        padding-bottom: 7.5rem;
 
         .usa-content {
             p:not(.usa-font-lead), 
@@ -14,16 +14,6 @@
 
         h3 {
             font-size: 2.4rem;
-        }
-
-        .admin-filter-bar {
-            .admin-filter {
-                @include span(4 of 12);
-
-                &:last-child {
-                    @include last;
-                }
-            }
         }
 
         hr {
@@ -52,27 +42,57 @@
             margin-bottom: 2rem;
         }
 
+        .pages-list {
+            padding-top: 2rem;
+        }
+
         .pagination {
           margin: 0;
+          padding: 0;
 
           li {
               position: relative;
               display: inline-block;
               list-style-type: none;
-              padding: 1rem;
-              margin: 0;
+              margin: 0 2px 0 0;
               line-height: 1;
-              cursor: pointer;
-              background-color: #ddd;
-
+              
               a {
+                  display: block;
+                  position: relative;
+                  color: white;
+                  background-color: $color-primary;
+                  padding: 1rem 1.5rem;
                   text-decoration: none;
-                  color: $color-black;
+                  border: 1px solid $color-primary;
+
+                  &:hover {
+                      background-color: $color-primary-darkest;
+                  }
               }
 
               &.active {
-                  border: none;
-                  background-color: $color-white;
+                  a {
+                      color: $text-color;
+                      border: 1px solid #aeb0b5;
+                      background-color: white;
+
+                      &:after {
+                          content: "";
+                          display: block;
+                          height: 3px;
+                          position: absolute;
+                          bottom: -1px;
+                          left: -1px;
+                          right: -1px;
+                          background-color: #0175bf;
+                          z-index: 1;
+                      }
+                  }
+              }
+
+              &.disabled {
+                  display: none;
               }
           }
         }
@@ -80,13 +100,19 @@
         .items-shown {
             white-space: nowrap;
             vertical-align: middle;
+            text-align: center;
+        }
+
+        .items-view {
+            text-align: center;
+            padding: 3rem 0 2rem 0;
         }
 
         .items-per-page {
           white-space: nowrap;
 
           select {
-              max-width: 5.3rem;
+              max-width: 7rem;
               display: inline-block;
           }
         }
@@ -96,29 +122,111 @@
         }
 
         .sortable {
+            position: relative;
+            padding-right: 3.2rem;
+
           &:after {
-            font: 14px/1 FontAwesome;
+            font: 18px/1 FontAwesome;
             content: "\f0dc";
+            padding: .8rem;
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            right: 5px;
+            cursor: pointer;
+
           }
+
           &.sort-ascent:after {
             content: '\f0de';
             vertical-align: bottom;
           }
+
           &.sort-descent:after {
             content: "\f0dd";
             vertical-align: top;
           }
+
+          &:hover {
+              &:after {
+                  color: lighten($text-color, 20%);
+              }
+          }
+
         }
     }
+}
 
-    .manage-users-block {
-        text-align: right;
+// Make table scroll on small screens 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.usa-table-borderless {
+    thead {
+        td {
+            border: 0;
+        }
     }
+}
 
+@media (min-width: 31.25em) and (max-width: 49em) {
+    .admin-filter-bar {
+        .admin-filter {
+            @include span(6 of 12); 
+
+            &:first-child {
+                @include span(12 of 12);
+
+                input {
+                    max-width: 100%;
+                }
+            }
+
+            &:last-child {
+                @include last;
+            }
+        }
+    }
+}
+
+@media (min-width: 37.5em) {
+    .admin-page {
+        .items-shown {
+            float: left;
+            text-align: left;
+            padding-top: 1.5rem;
+        }
+
+        .items-view {
+            float: right;
+            text-align: right;
+            padding: 0;
+            min-width: 21rem;
+        }
+    }
 }
 
 @media (min-width: 50rem) {
     .admin-page {
         padding-bottom: 15rem;
+    }
+
+    .admin-filter-bar {
+        .admin-filter {
+            @include span(4 of 12);
+
+            &:last-child {
+                @include last;
+            }
+        }
+    }
+}
+
+@media (min-width: 50em) {
+    .manage-users-block {
+        text-align: right;
     }
 }
