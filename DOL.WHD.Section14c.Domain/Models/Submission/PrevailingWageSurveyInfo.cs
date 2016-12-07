@@ -18,6 +18,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         // Prevailing Wage Determination - Hourly
         public Guid? AttachmentId { get; set; }
-        public Attachment Attachment { get; set; }
+        public virtual Attachment Attachment { get; set; }
     }
 }

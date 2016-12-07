@@ -7,7 +7,7 @@ import property from 'lodash/property'
 
 
 module.exports = function(ngModule) {
-    ngModule.service('stateService', function($cookies, moment, apiService, $q) {
+    ngModule.service('stateService', function($cookies, moment, apiService, $q, _env) {
         'use strict';
 
         const sectionArray = ['assurances', 'app-info', 'employer', 'wage-data', 'work-sites', 'wioa'];
@@ -36,8 +36,8 @@ module.exports = function(ngModule) {
             },
             set: function(value) {
                 $cookies.put(accessTokenCookieName, value, {
-                    secure: true,
-                    expires: moment().add(1, 'y').toDate()
+                    secure: _env.requireHttps,
+                    expires: moment().add(_env.tokenCookieDurationMinutes, 'm').toDate()
                 });
             }
         });
@@ -79,17 +79,19 @@ module.exports = function(ngModule) {
             apiService.userInfo(self.access_token).then(function (result) {
                 const data = result.data;
                 self.user = data;
-                self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-
-                // Get Application State for Organization
-                apiService.getApplication(self.access_token, self.ein).then(function (result) {
-                    const data = result.data;
-                    self.setFormData(JSON.parse(data));
-                    d.resolve(data);
-                }, function (error) {
-                    d.reject(error);
-                });
-
+                if(data.organizations.length > 0){
+                    self.ein = data.organizations[0].ein; //TODO: Add EIN selection?
+                    // Get Application State for Organization
+                    apiService.getApplication(self.access_token, self.ein).then(function (result) {
+                        const data = result.data;
+                        self.setFormData(JSON.parse(data));
+                        d.resolve(data);
+                    }, function (error) {
+                        d.reject(error);
+                    });
+                } else {
+                    d.resolve();
+                }
             }, function (error) {
                 d.reject(error);
             });

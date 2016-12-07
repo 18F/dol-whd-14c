@@ -22,7 +22,7 @@ namespace DOL.WHD.Section14c.Test.Business
         public SaveServiceTests()
         {
             _saveRepositoryMock = new SaveRepositoryMock();
-            _fileRepositoryMock = new FileRepository("TestUploads");
+            _fileRepositoryMock = new FileRepository(@"TestUploads\");
         }
 
         [TestMethod]

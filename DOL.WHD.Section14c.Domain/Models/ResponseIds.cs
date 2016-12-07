@@ -1,6 +1,4 @@
-﻿using System.Security.Policy;
-
-namespace DOL.WHD.Section14c.Domain.Models
+﻿namespace DOL.WHD.Section14c.Domain.Models
 {
     public static class ResponseIds
     {

@@ -95,7 +95,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Business\ApplicationServiceTests.cs" />
+    <Compile Include="Business\Factories\ApplicationSummaryFactoryTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
+    <Compile Include="Business\StatusServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorNoCountyTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorTests.cs" />
@@ -106,11 +108,13 @@
     <Compile Include="Business\Validators\HourlyWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PieceRateWageInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\PrevailingWageSurveyInfoValidatorTests.cs" />
+    <Compile Include="Business\Validators\SignatureValidatorTests.cs" />
     <Compile Include="Business\Validators\SourceEmployerValidatorTests.cs" />
     <Compile Include="Business\Validators\WIOAValidatorTests.cs" />
     <Compile Include="Business\Validators\WIOAWorkerValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkerCountInfoValidatorTests.cs" />
     <Compile Include="Business\Validators\WorkSiteValidatorTests.cs" />
+    <Compile Include="Common\AppSettingsTests.cs" />
     <Compile Include="Domain\BaseEntityTests.cs" />
     <Compile Include="Domain\Models\FeatureTests.cs" />
     <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
@@ -125,6 +129,8 @@
     <Compile Include="Domain\Models\Submission\PieceRateWageInfoTests.cs" />
     <Compile Include="Domain\Models\Submission\PrevailingWageSurveyInfoTests.cs" />
     <Compile Include="Domain\Models\Submission\ResponseTests.cs" />
+    <Compile Include="Domain\Models\Submission\SignatureTests.cs" />
+    <Compile Include="Domain\Models\Submission\StatusTests.cs" />
     <Compile Include="Domain\Models\Submission\WIOAWorkerTests.cs" />
     <Compile Include="Domain\Models\Submission\WorkSiteTests.cs" />
     <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />
@@ -133,6 +139,7 @@
     <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
+    <Compile Include="RepositoryMocks\StatusRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <None Include="app.config" />
@@ -152,6 +159,10 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
       <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9C06ABE3-28D2-4BAB-BAA4-11B6C404B329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
       <Project>{f7033f89-ed1b-4784-aeab-d8808fbbec92}</Project>

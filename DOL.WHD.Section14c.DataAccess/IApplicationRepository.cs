@@ -9,6 +9,7 @@ namespace DOL.WHD.Section14c.DataAccess
     {
         IQueryable<ApplicationSubmission> Get();
         Task<int> AddAsync(ApplicationSubmission submission);
+        Task<int> ModifyApplication(ApplicationSubmission submission);
         Task<int> SaveChangesAsync();
     }
 }

@@ -13,6 +13,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public Guid Id { get; set; }
 
+        #region Assurances
+
+        public virtual Signature Signature { get; set; }
+
+        #endregion
+
         #region Application Info
 
         public string EIN { get; set; }
@@ -24,7 +30,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public bool? HasPreviousCertificate { get; set; }
 
-        public string CertificateNumber { get; set; }
+        public string PreviousCertificateNumber { get; set; }
 
         public IEnumerable<int> EstablishmentTypeId
         {
@@ -83,6 +89,16 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         #region WIOA
 
         public virtual WIOA WIOA { get; set; }
+
+        #endregion
+
+        #region admin fields
+
+        public int? StatusId { get; set; }
+        public virtual Status Status { get; set; }
+        public DateTime? CertificateEffectiveDate { get; set; }
+        public DateTime? CertificateExpirationDate { get; set; }
+        public string CertificateNumber { get; set; }
 
         #endregion
     }

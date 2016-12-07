@@ -24,8 +24,9 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         private static readonly IWorkSiteValidator WorkSiteValidator = new WorkSiteValidator(AddressValidatorNoCounty, EmployeeValidator);
         private static readonly IWIOAWorkerValidator WIOAWorkerValidator = new WIOAWorkerValidator();
         private static readonly IWIOAValidator WIOAValidator = new WIOAValidator(WIOAWorkerValidator);
+        private static readonly ISignatureValidator SignatureValidator = new SignatureValidator();
 
-        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(EmployerValidator, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidator, WIOAValidator);
+        private static readonly ApplicationSubmissionValidator ApplicationSubmissionValidator = new ApplicationSubmissionValidator(SignatureValidator, EmployerValidator, HourlyWageInfoValidator, PieceRateWageInfoValidator, WorkSiteValidator, WIOAValidator);
 
         [TestMethod]
         public void Should_Require_EIN()
@@ -120,13 +121,13 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_CertificateNumber()
+        public void Should_Require_PreviousCertificateNumber()
         {
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.CertificateNumber, "");
-            var model = new ApplicationSubmission {HasPreviousCertificate = true, CertificateNumber = null};
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.CertificateNumber, model);
-            model = new ApplicationSubmission { HasPreviousCertificate = true, CertificateNumber = "12345" };
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.CertificateNumber, model);
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PreviousCertificateNumber, "");
+            var model = new ApplicationSubmission {HasPreviousCertificate = true, PreviousCertificateNumber = null};
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.PreviousCertificateNumber, model);
+            model = new ApplicationSubmission { HasPreviousCertificate = true, PreviousCertificateNumber = "12345" };
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.PreviousCertificateNumber, model);
         }
 
         [TestMethod]

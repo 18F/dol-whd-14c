@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Filters
 {
@@ -10,10 +11,7 @@ namespace DOL.WHD.Section14c.Api.Filters
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (SkipAuthorization(actionContext))
-                return;
-
-            if (actionContext.Request.RequestUri.Scheme != Uri.UriSchemeHttps)
+            if (actionContext.Request.RequestUri.Scheme != Uri.UriSchemeHttps  && AppSettings.Get<bool>("RequireHttps"))
             {
                 actionContext.Response = new HttpResponseMessage(System.Net.HttpStatusCode.Forbidden)
                 {
@@ -22,6 +20,9 @@ namespace DOL.WHD.Section14c.Api.Filters
             }
             else
             {
+                if (SkipAuthorization(actionContext))
+                    return;
+
                 base.OnAuthorization(actionContext);
             }
         }

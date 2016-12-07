@@ -2,7 +2,8 @@
 
     .form-footer-controls {
         @include span(12);
-        margin-top: 80px;
+        padding-top: 8rem;
+        padding-bottom: 15rem;
 
         .back-button {
             @extend .grey-button;

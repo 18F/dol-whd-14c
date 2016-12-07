@@ -1,25 +1,93 @@
+
+.form-content,
+.form-page-full {
+    h2 {
+        font-size: 3.4rem;
+    }
+
+    h3 {
+        font-size: 2.4rem;
+    }
+
+    .form-question-text {
+        font-size: 2rem;
+    }
+}
+
+.dol-form-section-title {
+    @include clearfix();
+
+    h2 {
+        margin: 0;
+        float: left;
+    }
+}
+
+.dol-form-section-help {
+    float: right;
+
+    ul {
+        padding: 0;
+        margin: 0;
+         
+        li {
+            list-style-type: none;
+            display: inline-block;
+            padding-left: 1.5rem;
+            margin-top: 1.5rem;
+
+            &:first-of-type {
+                &:before {
+                    content: "";
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 7px;
+                    vertical-align: middle;
+                    background: url('../images/dol-help-blue.png') center center;
+                    background: url('../images/dol-help-blue.svg') center center;
+                    background-size: contain;
+                }
+            }
+        }
+    }
+}
+
 @include nested(12) {
 
     .form-page {
-        @include span(8);
+        @include span(12);
     }
 
-    @media only screen and (max-width : 800px) {
-        .form-page {
-            @include span(12);
+    .form-page, 
+    .form-page-full {
+        margin-top: 4rem;
+
+        // Limit the width of text in the form per USWDS recommendation
+        // Within the form, increase the default width b/c the default font size is larger
+        .usa-content,
+        .usa-content p:not(.usa-font-lead),
+        ul, 
+        ol,
+        .form-question-block label,
+        .form-question-text,
+        .form-question-subtext {
+            max-width: 60rem;
         }
-    }
 
-    .form-page, .form-page-full {
-        margin-top: 40px;
+        p {
+            &:first-of-type {
+                margin-top: 0;
+            }
+        }
 
         & > h3:first-of-type {
             margin-top: 0px;
         }
 
         .em-block {
-            background-color: $form-em-grey;
-            padding: 20px 30px;
+            background-color: $color-gray-lightest;
+            padding: 2rem;
 
             table thead th {
                 background-color: darken($form-em-grey, 10%);
@@ -46,28 +114,44 @@
         }
 
         label.example {
-            color: lighten($text-color, 25%);
+            color: #666;
+            margin-left: 1.5rem;
         }
 
         .help-link {
             display: inline-block;
-            width: 1.1em;
-            height: 1.1em;
-            line-height: 1.1em;
-            font-weight: 700;
-            border-radius: 50%;
-            vertical-align: middle;
-            text-align: center;
-            background-color: $help-link-color;
-            color: #fff;
+            width: 20px;
+            height: 20px;
+            vertical-align: -1px;
+            margin-left: 7px;
             cursor: pointer;
+            background: url('../images/dol-help-blue.png') center center;
+            background: url('../images/dol-help-blue.svg') center center;
+            background-size: contain;
+            text-indent: -9999px;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
 
         .help-text {
+            font-size: 1.7rem;
             font-weight: 400;
             background-color: $help-em-color;
-            padding: 10px;
+            padding: 1.5rem 2rem;
+            margin-top: 1.5rem;
             display: none;
+
+            p {
+                &:first-of-type {
+                    margin-top: 0;
+                }
+
+                &:last-of-type {
+                    margin-bottom: 0;
+                }
+            }
 
             &.show {
                 display: block;
@@ -82,7 +166,7 @@
             }
         }
 
-        /* Custom form tabs (as seen in Wage Data section) */
+        // Custom form tabs (as seen in Wage Data section) 
         .form-tabbed-section {
             @include clearfix;
 
@@ -91,30 +175,44 @@
             .form-tab {
                 @include span(6);
 
-                padding: 10px;
+                border-top: .6rem solid transparent;
+                padding: 1.4rem 2rem 2rem 2rem;
+                font-size: 2.4rem;
+                font-weight: 700;
                 cursor: pointer;
                 margin-right: 0px;
+                
 
                 &:not(:first-of-type) {
-                    border-left: 1px solid $text-color;
+                    border-left: 1px solid #aeb0b5;
                 }
 
                 &.active {
-                    border-top: 1px solid $text-color;
+                    border-top: .6rem solid $color-primary;
+                    //padding-top: 2rem;
                 }
 
                 &:not(.active) {
-                    border-bottom: 1px solid $text-color;
-                    background-color: $form-em-grey;
+                    border-bottom: 1px solid #aeb0b5;
+                    background-color: $color-gray-lightest;
+
+                    &:hover {
+                        background-color: darken($color-gray-lightest, 5%);
+                    }
                 }
 
                 .circle {
                     display: inline-block;
-                    width: 24px;
-                    height: 24px;
+                    font-size: 1.7rem;
+                    width: 3rem;
+                    height: 3rem;
                     border-radius: 50%;
-                    border: 1px solid $text-color;
+                    background-color: $color-gray-darker;
+                    color: $color-white;
                     text-align: center;
+                    vertical-align: middle;
+                    padding-top: .3rem;
+                    margin-right: .7rem;
                 }
             }
         }
@@ -162,7 +260,7 @@
 
         .form-question-block {
             &:not(:first-of-type) {
-                margin-top: 40px;
+                margin-top: 4rem;
             }
 
             .form-question-text {
@@ -179,6 +277,29 @@
                 margin-top: -15px;
                 margin-bottom: 20px;
             }
+        }
+
+        // Remove bottom margins for address layout
+        .usa-input-grid-medium,
+        .usa-input-grid-small {
+            input, 
+            select {
+                margin-bottom: 0;
+            }
+        }
+
+        hr {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+            border: 0;
+            border-top: 1px solid #aeb0b5;
+        }
+
+        hr + .form-question-block {
+            &:not(:first-of-type) {
+                margin-top: 2rem;
+            }
+            margin-top: 2rem;
         }
 
         .form-question-group {
@@ -224,12 +345,8 @@
         }
 
         h2.form-section-header {
-            font: 20px $font-stack;
+            font-size: 20px;
             font-weight: bold;
-        }
-
-        hr {
-            margin-bottom: 20px;
         }
 
         .wage-data-table {
@@ -274,7 +391,7 @@
             }
 
             thead th, thead td {
-                background-color: $button-grey;
+                background-color: $color-gray-light;
             }
 
             td.button-column {
@@ -370,26 +487,6 @@
         }
     }
 
-    .form-sidebar {
-        @include span (last 4);
-        text-align: right;
-
-        .links-block {
-            background-color: $form-em-grey;
-            margin-top: 20px;
-            padding: 10px 20px;
-            text-align: left;
-
-            &.ng-hide {
-                transform: translateX(300%);
-            }
-
-            &.ng-hide-add, &.ng-hide-remove {
-                transition: all linear 0.4s;
-            }
-        }
-    }
-
     .form-content {
         div.usa-alert-error {
             @include clearfix;
@@ -398,5 +495,34 @@
                 @include span(8);
             }
         }
+    }
+}
+
+.form-sidebar {
+    width: 80%;
+    text-align: right;
+    position: absolute;
+    right: 0;
+    top: 7rem;
+
+    .links-block {
+        background-color: $color-gray-lightest;
+        padding: 1.5rem 2rem;
+        text-align: left;
+        box-shadow: -2px 2px 3px 0px rgba(0,0,0,.3);
+
+        &.ng-hide {
+            transform: translateX(300%);
+        }
+
+        &.ng-hide-add, &.ng-hide-remove {
+            transition: all linear 0.4s;
+        }
+    }
+}
+
+@media (min-width: $medium-screen) {
+    .form-sidebar {
+        width: 33%;
     }
 }

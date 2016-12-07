@@ -1,8 +1,9 @@
-﻿using System.Configuration;
-using System.Web.Http;
+﻿using System.Web.Http;
 using DOL.WHD.Section14c.Business;
+using DOL.WHD.Section14c.Business.Factories;
 using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.Business.Validators;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
@@ -22,9 +23,12 @@ namespace DOL.WHD.Section14c.Api
             container.Register<ISaveRepository, SaveRepository>(Lifestyle.Scoped);
             container.Register<ISaveService, SaveService>(Lifestyle.Scoped);
             container.Register<IIdentityService, IdentityService>(Lifestyle.Scoped);
-            container.Register<IFileRepository>(() => new FileRepository(ConfigurationManager.AppSettings["AttachmentRepositoryRootFolder"]), Lifestyle.Scoped);
+            container.Register<IFileRepository>(() => new FileRepository(AppSettings.Get<string>("AttachmentRepositoryRootFolder")), Lifestyle.Scoped);
             container.Register<IApplicationRepository, ApplicationRepository>(Lifestyle.Scoped);
             container.Register<IApplicationService, ApplicationService>(Lifestyle.Scoped);
+            container.Register<IApplicationSummaryFactory, ApplicationSummaryFactory>(Lifestyle.Scoped);
+            container.Register<IStatusRepository, StatusRepository>(Lifestyle.Scoped);
+            container.Register<IStatusService, StatusService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
@@ -41,6 +45,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IEmployeeValidator, EmployeeValidator>(Lifestyle.Singleton);
             container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);
+            container.Register<ISignatureValidator, SignatureValidator>(Lifestyle.Singleton);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
