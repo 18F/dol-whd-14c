@@ -1,3 +1,12 @@
+<div class="dol-form-section-title">
+    <h2>Work Sites &amp; Employees</h2>
+
+    <div class="dol-form-section-help">
+        <ul>
+            <li><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a></li>
+        </ul>
+    </div>
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
     <div class="usa-alert-body">
         <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
@@ -5,7 +14,10 @@
 </div>
 <div class="form-page-full">
     <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?</div>
+        <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?
+            <helplink></helplink>
+            <helptext>Provide the total number of work sites for which the employer is seeking approval to employ workers at subminimum wages. Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites.</helptext>
+        </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
         <div class="form-question-answer">
             <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
@@ -18,9 +30,9 @@
         <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
     </div>
 
-    <div class="form-tabbed-section" ng-show="vm.addingWorkSite">
-        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> Add Work Site</div>
-        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> Add Employees</div>
+    <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
+        <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)"><div class="circle">1</div> <span>Add</span> Work Site</div>
+        <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)"><div class="circle">2</div> <span>Add</span> Employees</div>
     </div>
 
     <!-- Tab 1 (Add Work Site) -->
@@ -28,7 +40,17 @@
         <div>First, we'll collect information about the Work Site / Establishment.</div>
 
         <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
-            <div class="form-question-text">What type of establishment is this?</div>
+            <div class="form-question-text">What type of establishment is this?
+                <helplink></helplink>
+                <helptext>
+                    <p>Indicate whether the work site is the main establishment, a branch establishment, an off-site work location, or a School Work Experience Program
+                    work site.</p>
+                    <p><strong>Main Establishment:</strong> The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)</p>
+                    <p><strong>Branch Establishment:</strong> A branch establishment is a physically separate work site that is part of the same organization as the main establishment.</p>
+                    <p><strong>Off-site Work Location:</strong> An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities, or a group of workers with disabilities, are placed in work settings along with job coaches (staff of the rehabilitation or work center).</p>
+                    <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</p>
+                </helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -90,7 +112,10 @@
         </div>
 
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</div>
+            <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?
+                <helplink></helplink>
+                <helptext>Mark "yes" if the employer has a Service Contract Act (SCA)-covered contract to provide services to the Federal Government and work under that contract is performed at this work site.</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -109,7 +134,10 @@
         </div>
 
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?</div>
+            <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions?
+                <helplink></helplink>
+                <helptext>Mark "yes" if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
             <div class="form-question-answer">
                 <fieldset class="usa-fieldset-inputs usa-sans">
@@ -127,8 +155,11 @@
             </div>
         </div>
 
-        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''">
-            <div class="form-question-text">Total Number of employees employed at this establishment / work site at any time during the most recently completed fiscal quarter:</div>
+        <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''" ng-show="vm.notInitialApp()">
+            <div class="form-question-text">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
+                <helplink></helplink>
+                <helptext>Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+            </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
             <div class="form-question-answer">
                 <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
@@ -137,11 +168,56 @@
     </div>
 
     <!-- Tab 2 (Add Employees) -->
-    <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 2">
-        <div>You indicated this Establishment / Work Site employed {{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }} employees in the most recently completed fiscal quarter.</div>
+    <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
+        <div class="usa-content worksite-title">
+            <h3>{{ vm.activeWorksite.name }}</h3>
+            <h4>Number of Employees: <strong>{{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }}</strong></h4>
+        </div>
 
         <div class="form-spaced-div">
-            <span>We'll need to collect specific information for each employee:</span>
+            <p>We'll need collect specific information for each employee.</p>
+            <p><a href="">See detailed instructions on employee information</a></p>
+
+            <div class="dol-help-employee-info">
+                <ul>
+                    <li><span>Full Name of Worker</span><span>Provide the full name of the worker.</span></li>
+                    <li><span>Primary Disability</span><span>Identify the primary disability that affects the worker's productivity for the job identified using the categories provided.</span></li>
+                    <li><span>Type of Work</span><span><p>Descibe the work peformed by this worker in the job for which the worker worked the most number of hours at a subminimum wage.</p><p>Examples may include: sewing, janitorial, box assembly, laundry, etc.</p></span></li>
+                    <li><span>Number of Jobs</span><span>If the worker performed more than one job at this work site during the most recently compelted fiscal quarter provide the total number of jobs.</span></li>
+                    <li><span>Average Hours per Week</span>
+                        <span>
+                            <p>Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter.</p>
+                            <p>Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks).</p>
+                            <p>For example: 260 hours worked in the quarter ÷ 13 weeks per quarter = 20 hours per week average.</p>
+                        </span>
+                    </li>
+                    <li><span>Average Earnings per Hour</span>
+                        <span>
+                            <p>Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter.</p>
+                            <p>Note:The total number of hours worked should only include the compensable work time (for example: generally would not include time spent in rehabilitation, therapy, etc.)</p>
+                            <p>For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones's average earnings per hour are $3.00.</p>
+                        </span>
+                    </li>
+                    <li><span>Prevailing Wage</span><span>Provide the prevailing wage rate for the job identified.</span></li>
+                    <li><span>Productivity Measure</span>
+                        <span>
+                            <p>Provide the employee's most recent productivity rating the job identified.</p>
+                            <p>For work paid hourly, the productivity rating is the employee's productivity in proportion to the standard-setter's that was determined by the employee's time study.</p>
+                            <p>For piece rate work, no calculation is required, choose "n/a - piece rate".</p>
+                        </span>
+                    </li>
+                    <li><span>Commensurate Wage Rate</span>
+                        <span>
+                            <p>For work paid hourly, provide the employee's commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job.</p>
+                            <p>For piece rate work, provide the employee's average earnings per hour for the job identified.</p>
+                        </span>
+                    </li>
+                    <li><span>Total Hours</span><span>Provide the employee's total hours worked on the job identified over the most recently completed fiscal quarter.</span></li>
+                    <li><span>Work at Other Site?</span><span>Answer "yes" if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span></li>
+                </ul>
+            </div>
+            
+            <!--<span>We'll need to collect specific information for each employee:</span>
             <ul class="compact-list">
                 <li>Name</li>
                 <li>Number of Jobs Performed at Work Site / Establishment</li>
@@ -154,7 +230,7 @@
                 <li>Commensurate wage rate/average earnings per hour for job described</li>
                 <li>Total hours worked for job descirbed</li>
                 <li>Indicate if the worker performs work for this employer at any other work site</li>
-            </ul>
+            </ul>-->
         </div>
 
         <div class="form-question-group">
@@ -283,6 +359,14 @@
             <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
                 <div ng-hide="vm.addingEmployee"><button ng-click="vm.addingEmployee = true">Add Employee</button> <a href="" ng-click="">Show Me an Example</a></div>
+                <div class="dol-help-employee-example">
+                    <div class="dol-view-large">
+                        <img src="/images/add-employee-example-large.png" alt="">
+                    </div>
+                    <div class="dol-view-small">
+                        <img src="/images/add-employee-example-small.png" alt="">
+                    </div>
+                </div>
                 <table class="usa-table-borderless expandable-table" ng-show="vm.activeWorksite.employees.length">
                     <thead>
                         <tr>

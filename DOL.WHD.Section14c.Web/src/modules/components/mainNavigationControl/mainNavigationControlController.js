@@ -7,6 +7,7 @@ module.exports = function(ngModule) {
 
         var vm = this;
         vm.stateService = stateService;
+        vm.navService = navService;
         vm.current = $route.current.params.section_id;
 
         this.onNavClick = function(event) {

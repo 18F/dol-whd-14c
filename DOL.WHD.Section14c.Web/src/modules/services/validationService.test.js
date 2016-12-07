@@ -29,7 +29,7 @@ describe('validationService', function() {
                         }
                     }
                 ],
-                "hasVerfiedDocumentation": false,
+                "hasVerifiedDocumentation": false,
                 "hasWIOAWorkers": true
             },
             "workSites": [
@@ -101,7 +101,7 @@ describe('validationService', function() {
                 4
             ],
             "lastSaved": "2016-11-07T21:05:08.780Z",
-            "applicationType": 1,
+            "applicationType": 2,
             "hasPreviousApplication": false,
             "hasPreviousCertificate": true,
             "certificateNumber": "12-34567-H-89",
@@ -181,7 +181,7 @@ describe('validationService', function() {
                 "prevailingWageMethodId": 25
             },
             "totalNumWorkSites": 3,
-            "applicationTypeId": 1,
+            "applicationTypeId": 2,
             "payTypeId": 23,
             "establishmentTypeId": [
             4,

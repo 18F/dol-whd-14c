@@ -1,0 +1,14 @@
+<div class="admin-page">
+
+    <h1>Summary</h1>
+    <hr>
+
+    <div class="answer-block">
+        <div class="answer-question">Application Status</div>
+         <div class="answer-answer">
+             <select ng-model="appData.statusId" ng-options="status.id as status.name for status in vm.statuses"></select>
+        </div>
+    </div>
+
+    <button class="green-button nomargin" ng-click="vm.updateStatus()">Update Status</button>
+</div>

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -13,30 +16,88 @@ namespace DOL.WHD.Section14c.Business.Services
             _applicationRepository = applicationRepository;
         }
 
-        public Task<int> SubmitApplicationAsync(ApplicationSubmission submission)
+        public async Task<int> SubmitApplicationAsync(ApplicationSubmission submission)
         {
-            return _applicationRepository.AddAsync(submission);
+            return await _applicationRepository.AddAsync(submission);
         }
 
-        public ApplicationSubmission CleanupModel(ApplicationSubmission vm)
+        public ApplicationSubmission GetApplicationById(Guid id)
         {
-            var result = vm;
+            return _applicationRepository.Get().SingleOrDefault(x => x.Id == id);
+        }
 
+        public IEnumerable<ApplicationSubmission> GetAllApplications()
+        {
+            return _applicationRepository.Get().ToList();
+        }
+
+        public async Task<int> ChangeApplicationStatus(ApplicationSubmission application, int newStatusId)
+        {
+            application.StatusId = newStatusId;
+            return await _applicationRepository.ModifyApplication(application);
+        }
+
+        public void ProcessModel(ApplicationSubmission vm)
+        {
+            CleanupModel(vm);
+            SetDefaults(vm);
+        }
+
+        private void CleanupModel(ApplicationSubmission model)
+        {
             // clear out non-selected wage type
-            if (result.PayTypeId == ResponseIds.PayType.Hourly)
+            if (model.PayTypeId == ResponseIds.PayType.Hourly)
             {
-                result.PieceRateWageInfo = null;
+                model.PieceRateWageInfo = null;
             }
-            else if (result.PayTypeId == ResponseIds.PayType.PieceRate)
+            else if (model.PayTypeId == ResponseIds.PayType.PieceRate)
             {
-                result.HourlyWageInfo = null;
+                model.HourlyWageInfo = null;
             }
 
             // clear out non-selected prevailing wage method
-            CleanupWageTypeInfo(result.HourlyWageInfo);
-            CleanupWageTypeInfo(result.PieceRateWageInfo);
+            CleanupWageTypeInfo(model.HourlyWageInfo);
+            CleanupWageTypeInfo(model.PieceRateWageInfo);
 
-            return result;
+            // clear out fields for initial application
+            if (model.ApplicationTypeId == ResponseIds.ApplicationType.Initial)
+            {
+                model.Employer.FiscalQuarterEndDate = null;
+                model.Employer.NumSubminimalWageWorkers = null;
+                model.PayTypeId = null;
+                model.HourlyWageInfo = null;
+                model.PieceRateWageInfo = null;
+                foreach (var workSite in model.WorkSites)
+                {
+                    workSite.NumEmployees = null;
+                    workSite.Employees = null;
+                }
+            }
+        }
+
+        private void SetDefaults(ApplicationSubmission model)
+        {
+            // set status
+            model.Status = null;
+            model.StatusId = StatusIds.Pending;
+
+            // default admin fields
+            model.CertificateEffectiveDate = null;
+            model.CertificateExpirationDate = null;
+            model.CertificateNumber = null;
+
+            // default checkboxes
+            if (model.Employer != null)
+            {
+                if (model.Employer.HasParentOrg.GetValueOrDefault())
+                {
+                    model.Employer.SendMailToParent = model.Employer.SendMailToParent ?? false;
+                }
+                else
+                {
+                    model.Employer.SendMailToParent = null;
+                }
+            }
         }
 
         private void CleanupWageTypeInfo(WageTypeInfo wageTypeInfo)
@@ -45,12 +106,12 @@ namespace DOL.WHD.Section14c.Business.Services
             if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.PrevailingWageSurvey)
             {
                 wageTypeInfo.AlternateWageData = null;
-                wageTypeInfo.SCAWageDeterminationId = null;
+                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.AlternateWageData)
             {
                 wageTypeInfo.MostRecentPrevailingWageSurvey = null;
-                wageTypeInfo.SCAWageDeterminationId = null;
+                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.SCAWageDetermination)
             {

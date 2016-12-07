@@ -1,16 +1,31 @@
-<div class="usa-grid">
-  <h1>Section 14(c) Certificate Application</h1>
 
+<div class="main-content">
   <div ng-if="!stateService.user.email">
-    <div class="usa-width-one-half">
-      <user-registration-form></user-registration-form>
-    </div>
-    <div class="usa-width-one-half">
-      <user-login></user-login>
+    <div class="dol-landing-public">  
+      <h1>Section 14(c) Certificate Application</h1>
+
+      <div class="dol-width-one-half">
+        <user-login></user-login>
+      </div>
+      <div class="dol-width-one-half">
+        <user-registration-form></user-registration-form>
+      </div>
+      
     </div>
   </div>
 
   <div ng-if="stateService.hasClaim('Application.Submit')">
+    <header role="header" class="dol-header-form">
+        <h1>Section 14(c) Certificate Application</h1>
+
+        <nav>
+            <ul>
+                <li><a href="">Dashboard</a></li>
+                <li><a href="" ng-click="vm.userClick()">{{ vm.stateService.user.email ? vm.stateService.user.email : "Username" }}</a></li>
+                <li><a href="" ng-click="vm.saveClick()">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
     <div ng-show="!stateService.formData.saved">
       <button class="save-button"
               onclick="window.location='#/section/assurances';">Start A New Application</button>
@@ -19,9 +34,11 @@
       <button class="save-button" onclick="window.location='#/section/assurances';">Continue Application</button>
     </div>
   </div>
+
   <div ng-if="stateService.user.email">
     <a href ng-click="changePassword()" name="Change Password">Change Password</a>
   </div>
+  
   <h2 ng-if="stateService.hasClaim('UserManagement.CreateAccount') || stateService.hasClaim('UserManagement.GetAccounts')">User Management</h2>
   <div ng-if="stateService.hasClaim('UserManagement.CreateAccount')">
     <account-create-button></account-create-button>
@@ -30,4 +47,3 @@
     <account-grid></account-grid>
   </div>
 </div>
-

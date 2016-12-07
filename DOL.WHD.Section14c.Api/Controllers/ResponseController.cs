@@ -14,6 +14,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _responseService = responseService;
         }
 
+        /// <summary>
+        /// Returns list of Responses for us on dynamic questions
+        /// </summary>
+        /// <param name="questionKey">Optional Question Key</param>
+        /// <param name="onlyActive">Only return active responses</param>
+        /// <returns>All options by default, specific question key limits results.</returns>
         public IEnumerable<Response> Get(string questionKey = null, bool onlyActive = true)
         {
             return _responseService.GetResponses(questionKey, onlyActive);

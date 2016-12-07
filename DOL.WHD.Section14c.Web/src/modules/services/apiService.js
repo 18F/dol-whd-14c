@@ -12,7 +12,7 @@ module.exports = function(ngModule) {
             let url = _env.api_url + '/api/Account/ChangePassword';
             let d = $q.defer();
             let headerVal;
-            
+
             if(access_token !== undefined){
                 headerVal = {
                     'Authorization': 'bearer ' + access_token,
@@ -67,26 +67,6 @@ module.exports = function(ngModule) {
                 url: url,
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data: $.param({"NewPassword": newPassword, "ConfirmPassword": confirmPassword, "UserId": userId, "Nounce": code})
-            }).then(function successCallback (data) {
-                d.resolve(data);
-            }, function errorCallback (error) {
-                //console.log(error);
-                d.reject(error);
-            });
-
-            return d.promise;
-        };
-
-        this.userLogin = function(email, password) {
-
-            let url = _env.api_url + '/Token';
-            let d = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: url,
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data: $.param({"grant_type": "password", "userName": email, "password": password})
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
@@ -162,7 +142,7 @@ module.exports = function(ngModule) {
         this.saveApplication = function(access_token, ein, applicationData) {
             let url = _env.api_url + '/api/save/' + ein;
             let d = $q.defer();
-            
+
             applicationData.saved = moment.utc();
 
             $http({
@@ -185,8 +165,48 @@ module.exports = function(ngModule) {
             return d.promise;
         }
 
-        this.getApplication = function(access_token, ein, applicationData) {
+        this.getApplication = function(access_token, ein) {
             let url = _env.api_url + '/api/save/' + ein;
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getSubmittedApplication = function(access_token, appid) {
+            let url = _env.api_url + '/api/application?id=' + appid;
+            let d = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                }
+            }).then(function successCallback (data) {
+                d.resolve(data);
+            }, function errorCallback (error) {
+                //console.log(error);
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
+        this.getSubmittedApplications = function(access_token) {
+            let url = _env.api_url + '/api/application/summary';
             let d = $q.defer();
 
             $http({
@@ -195,8 +215,7 @@ module.exports = function(ngModule) {
                 headers: {
                     'Authorization': 'bearer ' + access_token,
                     'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                data: applicationData
+                }
             }).then(function successCallback (data) {
                 d.resolve(data);
             }, function errorCallback (error) {
@@ -359,7 +378,7 @@ module.exports = function(ngModule) {
             });
 
             return d.promise;
-        }        
+        }
 
         this.parseErrors = function(response) {
             var errors = [];
@@ -396,6 +415,25 @@ module.exports = function(ngModule) {
 
             return d.promise;
         }
-        
+
+        this.changeApplicationStatus = function(access_token, appId, newStatusId) {
+            const url = `${_env.api_url}/api/application/status?id=${appId}&statusId=${newStatusId}`;
+            const d = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url,
+                headers: {
+                    'Authorization': 'bearer ' + access_token
+                }
+            }).then(function successCallback() {
+                d.resolve();
+            }, function errorCallback(error) {
+                d.reject(error);
+            });
+
+            return d.promise;
+        }
+
     });
 }

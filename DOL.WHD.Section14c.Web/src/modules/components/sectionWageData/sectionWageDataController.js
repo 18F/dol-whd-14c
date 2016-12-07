@@ -1,12 +1,19 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService, validationService) {
+    ngModule.controller('sectionWageDataController', function($scope, $location, stateService, navService, responsesService, validationService, _constants) {
         'ngInject';
         'use strict';
 
         $scope.formData = stateService.formData;
         $scope.validate = validationService.getValidationErrors;
+
+        // the Wage Data section should not be completed for Initial applications,
+        // so redirect if necessary.
+        if ($scope.formData.applicationTypeId === _constants.responses.applicationType.initial) {
+            navService.clearNextQuery();
+            navService.goNext();
+        }
 
         // multiple choice responses
         let questionKeys = [ 'PayType' ];
@@ -27,7 +34,7 @@ module.exports = function(ngModule) {
 
         vm.setNextTabQuery = function(id) {
             if (id === 1) {
-                navService.setNextQuery({ t: 2 }, "Next: Add Piece Rate");
+                navService.setNextQuery({ t: 2 }, "Next: Add Piece Rate", "wagedata_tab_box");
             }
             else {
                 navService.clearNextQuery();
@@ -40,7 +47,7 @@ module.exports = function(ngModule) {
             vm.setNextTabQuery(vm.activeTab);
         });
 
-        $scope.$watch('formData.payType', function(value) {
+        $scope.$watch('formData.payTypeId', function(value) {
             if (value === 23 && vm.activeTab === 1) {
                 vm.setNextTabQuery(1);
             }

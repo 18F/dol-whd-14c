@@ -8,6 +8,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public ApplicationSubmission ApplicationSubmission { get; set; }
 
         public int EstablishmentTypeId { get; set; }
-        public Response EstablishmentType { get; set; }
+        public virtual Response EstablishmentType { get; set; }
     }
 }

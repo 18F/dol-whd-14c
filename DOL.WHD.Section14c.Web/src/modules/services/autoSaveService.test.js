@@ -11,11 +11,13 @@ describe('autoSaveService', function() {
     var deferred;
     var $scope;
     var current;
-    beforeEach(inject(function($injector, _$timeout_, _$q_, _$rootScope_, _autoSaveService_, _apiService_) {
+    beforeEach(inject(function($injector, _$timeout_, _$q_, _$rootScope_, _autoSaveService_, _apiService_, _stateService_, _$cookies_) {
         autoSave = _autoSaveService_;
         api = _apiService_;
         $timeout = _$timeout_;
         $q = _$q_;
+        stateService = _stateService_;
+        $cookies = _$cookies_;
         deferred = $q.defer();
         $scope = _$rootScope_.$new();
         spyOn(api, 'saveApplication').and.returnValue(deferred.promise);
@@ -55,17 +57,33 @@ describe('autoSaveService', function() {
         expect(hasRun).toBe(true);
     });    
 
-    it('should call the save method, fail and call the callback', function() {
-        autoSave.save();
+    it('should call the save method, succeed and call the callback', function() {
+        // mock a token cookie
+        spyOn($cookies, 'get').and.returnValue('token');
+        stateService.ein = '30-1234567';
+        var hasRun = false;
+        var callback = function() {
+            hasRun=true;
+        };
+        autoSave.save(callback);
         deferred.resolve();
         $scope.$digest();
+        expect(hasRun).toBe(true);
     });    
 
     it('should call the save method, fail and call the callback', function() {
-        autoSave.save();
+        // mock a token cookie
+        spyOn($cookies, 'get').and.returnValue('token');
+        stateService.ein = '30-1234567';
+        var hasRun = false;
+        var callback = function() {
+            hasRun=true;
+        };
+        autoSave.save(callback);
         deferred.reject();
         $scope.$digest();
-    });     
+        expect(hasRun).toBe(true);
+    });
 
     it('should call the nextTimer method', function() {
         autoSave.start();

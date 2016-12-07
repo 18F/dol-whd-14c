@@ -53,5 +53,7 @@
   <parameter name="EmailFrom" defaultValue="no-reply@dol.gov">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/system.net/mailSettings/smtp/@from" />
   </parameter>
-
+  <parameter name="RequireHttps" defaultValue="true">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='RequireHttps']/@value" />
+  </parameter>
 </parameters>

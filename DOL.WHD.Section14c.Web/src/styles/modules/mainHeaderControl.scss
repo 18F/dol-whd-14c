@@ -1,52 +1,103 @@
-@include nested(12) {
+.dol-header-form {
+    padding: 2rem 0;
+    @include clearfix();
 
-    .header-title-bar {
-        @include span(12);
-        padding: 0px 15px 10px;
+    h1 {
+        font-size: 2.4rem;
+        margin: 0;
+    }
 
-        h1 {
-            font: 20px $font-stack;
-            /*font-weight: 700;*/
-            margin-top: 0px;
-        }
+    nav {
+        ul {
+            padding: 0;
+            margin: 0;
 
-        h2 {
-            font: 12px $font-stack;
-            margin: 0px;
-            font-weight: 400;
-        }
+            li {
+                list-style-type: none;
+                display: inline-block;
+                margin: 0;
+                padding-top: 1.5rem;
 
-        .header-title {
-            @include span(7);
-        }
-
-        .header-logo {
-            @include span(last 5);
-            text-align: right;
-
-            img {
-                height: 80px;
-                margin-left: 10px;
+                + li {
+                    padding-left: 1.5rem;
+                }
             }
+        }
+    }
+}
 
-            /* TEMPORARY */
-            .temp-logo {
-                background-color: #999;
-                height: 100px;
+.dol-form-meta {
+    font-size: 1.2rem;
+    background-color: $color-gray-lightest;
+    padding: 1rem;
+    border-top: 1px solid #aeb0b5;
+    border-bottom: 1px solid #aeb0b5;
+    @include clearfix();
+
+    .usa-content {
+        p {
+            margin: 0;
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
+.dol-form-omb {
+    p {
+        display: inline-block;
+        margin: 0 1rem 0 0;
+    }
+}
+
+.dol-applicant-meta {
+    position: relative;
+    background-color: $color-gray-darker;
+}
+
+.dol-applicant-ein {
+    padding: 1.5rem;
+    color: $color-white;
+}
+
+.dol-form-status {
+    //TODO
+}
+
+@media (min-width: 68.75em) {
+    .dol-form-meta {
+        font-size: 1.4rem;
+        padding: 1.5rem;
+
+        .usa-content {
+            float: left;
+        }
+    }
+    .dol-header-form {
+        h1 {
+            float: left;
+        }
+
+        nav {
+            float: right;
+
+            ul {
+                text-align: left;
+
+                li {
+                    padding-top: 0;
+                }
             }
         }
     }
 
-    .header-status-bar {
-        @include span(12);
-        margin-bottom: 20px;
-        background-color: #eee;
-        font-size: 14px;
-        padding: 10px 15px;
+    .dol-form-omb {
+        float: right;
+        text-align: right;
 
         p {
-            margin: 0px;
+            margin: 0 0 0 1rem;
         }
     }
-
 }

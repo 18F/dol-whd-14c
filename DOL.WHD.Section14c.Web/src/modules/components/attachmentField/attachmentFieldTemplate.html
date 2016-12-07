@@ -4,6 +4,6 @@
     <label class="underlabel" for="{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</label>
 </div>
 <div ng-show="attachmentId != undefined">
-    <a ng-href="{{vm.attachmentApiURL}}/{{scaAttachmentId}}?access_token={{vm.access_token}}" id="{{scaAttachmentId}}"><span>{{attachmentName}}</span></a>
+    <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}"><span>{{attachmentName}}</span></a>
     <button class="usa-button-secondary" ng-click="vm.deleteAttachment(attachmentId)">Delete</button>
 </div>

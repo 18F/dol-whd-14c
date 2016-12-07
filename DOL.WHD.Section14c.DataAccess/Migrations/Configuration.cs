@@ -39,16 +39,16 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", IsActive = true });
 
             // Establishment Type
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", ShortDisplay = "CRP", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", ShortDisplay = "Hospital", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", ShortDisplay = "SWEP", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", ShortDisplay = "Business", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP", IsActive = true });
 
             // Employer Status
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Public, QuestionKey = "EmployerStatus", Display = "Public (State or Local Government)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateForProfit, QuestionKey = "EmployerStatus", Display = "Private, For Profit", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.PrivateNotForProfit, QuestionKey = "EmployerStatus", Display = "Private, Not For Profit", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "EmployerStatusOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Other, QuestionKey = "EmployerStatus", Display = "Other, please describe:", OtherValueKey = "employerStatusOther", IsActive = true });
 
             // SCA
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.SCA.Yes, QuestionKey = "SCA", Display = "Yes", IsActive = true });
@@ -64,7 +64,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Transportation, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Transportation", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Rent, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Rent", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Meals, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Meals", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other, please specify:", OtherValueKey = "ProvidingFacilitiesDeductionTypeOther", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ProvidingFacilitiesDeductionType.Other, QuestionKey = "ProvidingFacilitiesDeductionType", Display = "Other, please specify:", OtherValueKey = "providingFacilitiesDeductionTypeOther", IsActive = true });
 
             // PayType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PayType.Hourly, QuestionKey = "PayType", Display = "Hourly", IsActive = true });
@@ -90,13 +90,13 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.SubstanceAbuse, QuestionKey = "PrimaryDisability", Display = "Substance Abuse (SA)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Neuromuscular, QuestionKey = "PrimaryDisability", Display = "Neuromuscular Disability (NM)", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.AgeRelated, QuestionKey = "PrimaryDisability", Display = "Age Related Disability (AR)", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "PrimaryDisabilityOther" });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrimaryDisability.Other, QuestionKey = "PrimaryDisability", Display = "Other, please specify:", IsActive = true, OtherValueKey = "primaryDisabilityOther" });
 
             //WIOAWorkerVerified
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.Yes, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.No, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.NotRequired, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
-
+            
             // Seed External Roles
             context.SeedRole(Roles.Applicant);
             context.SeedRole(Roles.ApplicantAdministrator);
@@ -132,6 +132,9 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddFeature(ApplicationClaimTypes.ModifyAccount, "Change Application Accounts");
             context.AddFeature(ApplicationClaimTypes.SubmitApplication, "Submit Application");
             context.AddFeature(ApplicationClaimTypes.GetRoles, "Get list of Application Roles");
+            context.AddFeature(ApplicationClaimTypes.ViewAdminUI, "Access to the admin UI");
+            context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
+            context.AddFeature(ApplicationClaimTypes.ChangeApplicationStatus, "Change the Status of a Submitted Application");
 
             context.SaveChanges();
 
@@ -142,7 +145,18 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.CreateAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ModifyAccount);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.GetRoles);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAdminUI);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
 
+            // seed application statuses
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Issued, Name = "Issued", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Withdrawn, Name = "Withdrawn", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Amending, Name = "Amending", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
         }
 
     }

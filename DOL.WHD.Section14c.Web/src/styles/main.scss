@@ -3,36 +3,16 @@
 @import "~susy/sass/susy";
 @import "bourbon";
 @import "globals";
+@import "admin";
 @import "forms";
+@import "layout";
+@import "feedback";
+@import "modules/answerFieldControl";
 @import "modules/formFooterControls";
 @import "modules/mainNavigationControl";
 @import "modules/mainHeaderControl";
 @import "modules/reviewSectionControl";
 @import "loginReg";
 
-$susy: (
-    columns: 12,
-    container: 1120px,
-    global-box-sizing: border-box
-);
 
-.full-view {
-    @include container;
-    margin-top: 40px;
-}
 
-@media only screen and (max-width : 1120px) {
-    .full-view {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
-
-@include nested(12) {
-
-    .main-content {
-        @include span(12);
-        margin-top: 40px;
-    }
-
-}

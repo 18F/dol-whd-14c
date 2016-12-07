@@ -8,6 +8,9 @@ if (typeof console === 'undefined') {
 require('jquery');
 require('babel-polyfill');
 //require('lodash');
+require('font-awesome/css/font-awesome.css');
+require('angular-data-grid/dist/dataGrid.min.js')
+require('angular-data-grid/dist/pagination.min.js')
 
 // Angular
 import angular from 'angular';
@@ -32,7 +35,9 @@ let app = angular.module('14c', [
     'vcRecaptcha',
     'angularMoment',
     'ngMask',
-    'ngCookies'
+    'ngCookies',
+    'dataGrid',
+    'pagination'
 ]);
 
 // Environment config loaded from env.js
@@ -46,8 +51,23 @@ app.constant('_env', env);
 // Load Application Components
 require('./constants')(app);
 require('./components')(app);
+require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
+
+// route access states
+const ROUTE_PUBLIC = 1;
+const ROUTE_LOGGEDIN = 3;
+const ROUTE_USER = 7;
+const ROUTE_ADMIN = 11;
+
+let checkRouteAccess = function(route, userAccess) {
+    if (!route || !route.access) {
+        return true;
+    }
+
+    return (route.access & userAccess) === route.access;
+}
 
 app.config(function($routeProvider, $compileProvider) {
     $routeProvider
@@ -55,60 +75,99 @@ app.config(function($routeProvider, $compileProvider) {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
-        public: true
+        access: ROUTE_PUBLIC,
+        isLanding: true
     })
     .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
-        public: true
+        access: ROUTE_PUBLIC
     })
     .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
-        public: true
+        access: ROUTE_PUBLIC
     })
     .when('/login', {
         controller: 'userLoginPageController',
         template: require('./pages/userLoginPageTemplate.html'),
-        public: true
+        access: ROUTE_PUBLIC
     })
     .when('/register', {
         controller: 'userRegistrationPageController',
         template: require('./pages/userRegistrationPageTemplate.html'),
-        public: true
+        access: ROUTE_PUBLIC
     })
     .when('/account/:userId', {
         controller: 'accountPageController',
-        template: require('./pages/accountPageTemplate.html')
+        template: require('./pages/accountPageTemplate.html'),
+        access: ROUTE_LOGGEDIN
     })
     .when('/section/:section_id', {
         template: function(params){ return '<form-section><section-' + params.section_id + '></section-' + params.section_id + '></form-section>'; },
-        reloadOnSearch: false
+        reloadOnSearch: false,
+        access: ROUTE_USER
+    })
+    .when('/admin', {
+        controller: 'adminDashboardController',
+        template: require('./pages/adminDashboardTemplate.html'),
+        access: ROUTE_ADMIN
+    })
+    .when('/admin/users', {
+        controller: 'userManagementPageController',
+        template: require('./pages/userManagementPageTemplate.html'),
+        access: ROUTE_ADMIN
+    })
+    .when('/admin/:app_id', {
+        redirectTo: function(params){ return '/admin/' + params.app_id + '/section/summary'; },
+        access: ROUTE_ADMIN
+    })
+    .when('/admin/:app_id/section/:section_id', {
+        template: function(params){ return '<admin-review appid=' + params.app_id + '><section-admin-' + params.section_id + ' item-id=' + (params.item_id || "") + '></section-admin-' + params.section_id + '></admin-review>'; },
+        reloadOnSearch: false,
+        access: ROUTE_ADMIN
     })
     .otherwise({
         redirectTo: '/'
     });
 });
 
-app.run(function($rootScope, $location, stateService, autoSaveService) {
+/* eslint-disable complexity */
+app.run(function($rootScope, $location, stateService, autoSaveService, authService, $q) {
     // check cookie to see if we're logged in
     const accessToken = stateService.access_token;
+    let authenticatedPromise;
     if(accessToken) {
-        stateService.loadState().then(function(result) {
-            $rootScope.loggedIn = true;
-
-            // start auto-save 
-            autoSaveService.start();
+        // authenticate the user based on token
+        authenticatedPromise = authService.authenticateUser();
+        authenticatedPromise.then(undefined, function errorCallback(error) {
+            console.log(error);
         });
+    } else {
+        const d = $q.defer();
+        authenticatedPromise = d.promise;
+        d.resolve();
     }
 
     //TODO: remove dev_flag check
     if (!env.dev_flag === true) {
         // watch for route changes and redirect non-public routes if not logged in
         $rootScope.$on( "$routeChangeStart", function(event, next, current) {
-            if ( !$rootScope.loggedIn && next.$$route.public !== true ) {
-                $location.path( "/" );
-            }
+            authenticatedPromise.then(function() {
+
+                if (!next.$$route){ return; }
+
+                let userAccess = stateService.isAdmin ? ROUTE_ADMIN : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
+                if (!checkRouteAccess(next.$$route, userAccess)) {
+                    // user does not have adequate permissions to access the route so redirect
+                    $location.path("/" + (userAccess === ROUTE_ADMIN ? "admin" : ""));
+                }
+                else if (next.$$route.isLanding && userAccess === ROUTE_ADMIN) {
+                    // redirect admin users to the admin dashboard
+                    $location.path("/admin");
+                }
+            });
         });
     }
 });
+/* eslint-enable complexity */

@@ -1,24 +1,34 @@
-<div class="header-title-bar">
-    <div class="header-title">
-        <h1>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</h1>
-        <h2>OMB NO: 1235-0001</h2>
-        <h2>REVXX/20XX</h2>
+<main-top-nav-control></main-top-nav-control>
+<div class="dol-applicant-meta">
+    <div class="dol-feedback-save">
+        <span class="dol-feedback-save-success" ng-show="vm.stateService.formData.lastSaved > 0">
+            Saved {{vm.stateService.formData.lastSaved  | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
+        </span>
+        <span class="dol-feedback-save-error" ng-show="vm.stateService.formData.lastSaved === 0">
+            Error Saving Form
+        </span>
     </div>
-    <div class="header-logo">
-        <img ng-src="{{ vm.assetService.loadImage('dol_seal.svg') }}" />
-        <img ng-src="{{ vm.assetService.loadImage('whd_logo.jpg') }}" />
+
+    <div class="dol-applicant-ein" ng-show="!admin">
+        Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span>
+    </div>
+    <div class="dol-applicant-ein" ng-show="admin">
+        {{ appData.employer.legalName }}
     </div>
 </div>
-<div class="header-status-bar" ng-show="vm.stateService.user.email">
-    <p class="pull-left">EIN: <span class="header-ein">{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
+<div class="dol-form-meta">
+    <div class="usa-content">
+        <p ng-show="!admin">Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
+        <p ng-show="admin">Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span></p>
+    </div>
 
-    <p class="pull-right"><a href="" ng-click="vm.userClick()">{{ vm.stateService.user.email ? vm.stateService.user.email : "Username" }}</a> | <a href="" ng-click="vm.saveClick()">Save Work & Sign Out</a></p>
+    <div class="dol-form-omb" ng-show="!admin">
+        <p>OMB NO: 1235-0001</p>
+        <p>REV XX/20XX</p>
+    </div>
+
+    <div class="dol-form-status" ng-show="admin">
+        Status: {{ appData.applicationStatus ? appData.applicationStatus : 'Unknown' }}
+    </div>
 </div>
-<main-navigation-control></main-navigation-control>
-
-<p class="pull-right" ng-show="vm.stateService.formData.lastSaved > 0">
-    Saved {{vm.stateService.formData.lastSaved  | amUtc | amLocal | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a'}}
-<p>
-<p class="pull-right" ng-show="vm.stateService.formData.lastSaved === 0">
-    Error Saving Form
-<p>
+<main-navigation-control admin="admin"></main-navigation-control>

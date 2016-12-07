@@ -1,0 +1,111 @@
+@include nested(12) {
+
+    .admin-page {
+        @include span(12);
+
+        .admin-filter-bar {
+            .admin-filter {
+                @include span(4 of 12);
+
+                &:last-child {
+                    @include last;
+                }
+            }
+        }
+
+        hr {
+            margin: 2.5rem 0;
+        }
+
+        .usa-content {
+            p {
+                max-width: none;
+            }
+        }
+
+        .form-spaced-div {
+            margin-top: 40px;
+        }
+
+        // angular-data-grid styling
+        .table {
+            margin: 1rem 0;
+
+            .certificate-type:after {
+                content: "\A";
+                white-space: pre;
+            }
+
+            thead > tr > th {
+              vertical-align: middle;
+            }
+        }
+
+        .admin-table-block {
+            margin-bottom: 2rem;
+        }
+
+        .pagination {
+          margin: 0;
+
+          li {
+              position: relative;
+              display: inline-block;
+              list-style-type: none;
+              padding: 1rem;
+              margin: 0;
+              line-height: 1;
+              cursor: pointer;
+              background-color: #ddd;
+
+              a {
+                  text-decoration: none;
+                  color: $color-black;
+              }
+
+              &.active {
+                  border: none;
+                  background-color: $color-white;
+              }
+          }
+        }
+
+        .items-shown {
+            white-space: nowrap;
+            vertical-align: middle;
+        }
+
+        .items-per-page {
+          white-space: nowrap;
+
+          select {
+              max-width: 5.3rem;
+              display: inline-block;
+          }
+        }
+
+        .pages-list {
+            text-align: center;
+        }
+
+        .sortable {
+          &:after {
+            font: 14px/1 FontAwesome;
+            content: "\f0dc";
+          }
+          &.sort-ascent:after {
+            content: '\f0de';
+            vertical-align: bottom;
+          }
+          &.sort-descent:after {
+            content: "\f0dd";
+            vertical-align: top;
+          }
+        }
+    }
+
+    .manage-users-block {
+        text-align: right;
+    }
+
+}

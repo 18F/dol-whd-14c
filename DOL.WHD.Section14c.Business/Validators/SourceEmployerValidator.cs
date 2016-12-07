@@ -5,10 +5,10 @@ namespace DOL.WHD.Section14c.Business.Validators
 {
     public class SourceEmployerValidator : BaseValidator<SourceEmployer>, ISourceEmployerValidator
     {
-        public SourceEmployerValidator(IAddressValidator addressValidator)
+        public SourceEmployerValidator(IAddressValidatorNoCounty addressValidatorNoCounty)
         {
             RuleFor(s => s.EmployerName).NotEmpty();
-            RuleFor(s => s.Address).NotNull().SetValidator(addressValidator);
+            RuleFor(s => s.Address).NotNull().SetValidator(addressValidatorNoCounty);
             RuleFor(s => s.Phone).NotEmpty();
             RuleFor(s => s.ContactName).NotEmpty();
             RuleFor(s => s.ContactTitle).NotEmpty();

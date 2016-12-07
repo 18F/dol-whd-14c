@@ -68,6 +68,7 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="IAuditedEntity.cs" />
     <Compile Include="Models\Address.cs" />
+    <Compile Include="ViewModels\Summary\ApplicationSummary.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationSave.cs" />
     <Compile Include="Models\Identity\ApplicationUserLogin.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Models\Identity\Feature.cs" />
     <Compile Include="Models\Identity\ApplicationUserClaim.cs" />
     <Compile Include="Models\ResponseIds.cs" />
+    <Compile Include="Models\StatusIds.cs" />
     <Compile Include="Models\Submission\ApplicationSubmissionEstablishmentType.cs" />
     <Compile Include="Models\Identity\ApplicationClaimTypes.cs" />
     <Compile Include="Models\OrganizationMembership.cs" />
@@ -90,7 +92,9 @@
     <Compile Include="Models\Submission\PieceRateWageInfo.cs" />
     <Compile Include="Models\Submission\PrevailingWageSurveyInfo.cs" />
     <Compile Include="Models\Submission\Response.cs" />
+    <Compile Include="Models\Submission\Signature.cs" />
     <Compile Include="Models\Submission\SourceEmployer.cs" />
+    <Compile Include="Models\Submission\Status.cs" />
     <Compile Include="Models\Submission\WageTypeInfo.cs" />
     <Compile Include="Models\Submission\WIOA.cs" />
     <Compile Include="Models\Submission\WIOAWorker.cs" />
@@ -103,6 +107,8 @@
     <Compile Include="ViewModels\RoleViewModel.cs" />
     <Compile Include="ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="ViewModels\AccountDetailsViewModel.cs" />
+    <Compile Include="ViewModels\Summary\ResponseSummary.cs" />
+    <Compile Include="ViewModels\Summary\StatusSummary.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
