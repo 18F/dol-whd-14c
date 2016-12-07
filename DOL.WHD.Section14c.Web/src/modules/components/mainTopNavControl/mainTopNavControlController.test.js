@@ -35,4 +35,12 @@ describe('mainTopNavControlController', function() {
         expect(mockStateService.logOut).toHaveBeenCalled();
         expect(mockLocation.path).toHaveBeenCalledWith('/');
     });
+
+    it('dashboard click', function() {
+        var controller = mainTopNavControlController();
+        spyOn(mockLocation, 'path');
+        controller.dashboardClick();
+
+        expect(mockLocation.path).toHaveBeenCalledWith('/');
+    });
 });

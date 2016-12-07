@@ -1,6 +1,6 @@
 describe('authService', function() {
     beforeEach(module('14c'));
-    
+
     beforeEach(inject(function(_$httpBackend_, _authService_, __env_, _stateService_, _$q_, _$rootScope_) {
         authService = _authService_;
         $httpBackend = _$httpBackend_;
@@ -11,7 +11,7 @@ describe('authService', function() {
     }));
 
     //userLogin
-    it('userLogin error should reject deferred', function() {   
+    it('userLogin error should reject deferred', function() {
         var isResolved;
         var result;
         authService.userLogin().then(undefined, function (error) {
@@ -25,7 +25,7 @@ describe('authService', function() {
         expect(result).toEqual('value');
     });
 
-    it('userLogin error should reject deferred if authenticateUser fails', function() {   
+    it('userLogin error should reject deferred if authenticateUser fails', function() {
         var isResolved;
         var result;
         var authenticateUser = $q.defer();
@@ -43,7 +43,7 @@ describe('authService', function() {
         expect(result).toEqual('error');
     });
 
-    it('userLogin error should resolve deferred', function() {   
+    it('userLogin success should resolve deferred', function() {
         var isResolved;
         var authenticateUser = $q.defer();
         spyOn(authService, 'authenticateUser').and.returnValue(authenticateUser.promise);
@@ -72,7 +72,7 @@ describe('authService', function() {
         expect(result).toEqual('value');
     });
 
-    it('authenticateUser error should resolve deferred non admin', function() {   
+    it('authenticateUser success should resolve deferred non admin', function() {
         var isResolved;
         var data = { organizations: [ {ein: '12-1234567'}] };
         var loadSavedApplication = $q.defer();
@@ -91,7 +91,7 @@ describe('authService', function() {
         expect(stateService.ein).toEqual('12-1234567');
     });
 
-    it('authenticateUser error should resolve deferred admin', function() {   
+    it('authenticateUser success should resolve deferred admin', function() {
         var isResolved;
         var data = { organizations: [ {ein: '12-1234567'}], applicationClaims: [ "DOL.WHD.Section14c.Application.ViewAdminUI" ] };
         var loadApplicationList = $q.defer();
@@ -110,7 +110,7 @@ describe('authService', function() {
     });
 
     it('authenticateUser error should reject deferred non admin', function() {
-        var result;  
+        var result;
         var isResolved;
         var data = { organizations: [ {ein: '12-1234567'}] };
         var loadSavedApplication = $q.defer();
@@ -129,7 +129,7 @@ describe('authService', function() {
     });
 
     it('authenticateUser error should reject deferred admin', function() {
-        var result;   
+        var result;
         var isResolved;
         var data = { organizations: [ {ein: '12-1234567'}], applicationClaims: [ "DOL.WHD.Section14c.Application.ViewAdminUI" ] };
         var loadApplicationList = $q.defer();
