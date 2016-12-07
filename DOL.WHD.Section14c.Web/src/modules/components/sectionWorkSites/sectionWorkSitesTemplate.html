@@ -391,7 +391,7 @@
                     </thead>
                     <tbody>
                         <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="employee in vm.activeWorksite.employees">
-                            <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
+                            <td><a id="employee_row_toggle_{{$index}}" href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
                             <th scope="row">
                                 <div ng-class="vm.validateActiveWorksiteWorker($index) ? 'usa-input-error' : ''">
                                     <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteWorker($index)">Please review this worker</span>
@@ -436,7 +436,7 @@
             </thead>
             <tbody>
                 <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
-                    <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
+                    <td><a id="worksite_row_toggle_{{$index}}" href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
                     <th scope="row">
                         <div ng-class="validate('workSites[' + $index + ']') ? 'usa-input-error' : ''">
                             <span class="usa-input-error-message" role="alert" ng-show="validate('workSites[' + $index + ']')">Please review this work site</span>
