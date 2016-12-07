@@ -30,6 +30,19 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
+        public void ReturnsStatus_Invalid()
+        {
+            // Arrange
+            var service = new StatusService(_statusRepositoryMock);
+
+            // Act
+            var statusObj = service.GetStatus(100);
+
+            // Assert
+            Assert.IsNull(statusObj);
+        }
+
+        [TestMethod]
         public void ReturnsAllStatuses()
         {
             // Arrange
