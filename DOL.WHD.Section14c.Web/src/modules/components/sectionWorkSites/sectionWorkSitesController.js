@@ -5,7 +5,7 @@ import merge from 'lodash/merge'
 import find from 'lodash/find'
 
 module.exports = function(ngModule) {
-    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService) {
+    ngModule.controller('sectionWorkSitesController', function($scope, $location, navService, responsesService, stateService, validationService, _constants) {
         'ngInject';
         'use strict';
 
@@ -123,8 +123,8 @@ module.exports = function(ngModule) {
 
             vm.activeTab = tab;
 
-            if (tab === 1) {
-                navService.setNextQuery({ t: 2 }, "Next: Add Employee(s)");
+            if (tab === 1 && vm.notInitialApp()) {
+                navService.setNextQuery({ t: 2 }, "Next: Add Employee(s)", "worksite_tab_box");
                 navService.setBackQuery({ doCancel: true }, "Cancel");
             }
             else {
@@ -144,7 +144,7 @@ module.exports = function(ngModule) {
                 return undefined;
             }
 
-            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisability });
+            var disability = find($scope.responses.PrimaryDisability, { 'id': employee.primaryDisabilityId });
             if (disability) {
                 if (disability.otherValueKey) {
                     return employee[disability.otherValueKey];
@@ -155,6 +155,12 @@ module.exports = function(ngModule) {
             }
 
             return undefined;
+        }
+
+        this.workerProductivityChanged = function(study) {
+            if (!study && vm.activeWorker) {
+                vm.activeWorker.productivityMeasure = undefined;
+            }
         }
 
 
@@ -181,6 +187,10 @@ module.exports = function(ngModule) {
             }
 
             return validationService.getValidationErrors('workSites[' + this.activeWorksiteIndex + '].employees[' + index + ']');
+        }
+
+        this.notInitialApp = function() {
+            return $scope.formData.applicationTypeId !== _constants.responses.applicationType.initial;
         }
 
 

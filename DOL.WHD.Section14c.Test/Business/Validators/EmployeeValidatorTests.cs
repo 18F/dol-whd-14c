@@ -61,9 +61,9 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         }
 
         [TestMethod]
-        public void Should_Require_ProductivityMeasure()
+        public void Should_Not_Require_ProductivityMeasure()
         {
-            EmployeeValidator.ShouldHaveValidationErrorFor(e => e.ProductivityMeasure, null as double?);
+            EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.ProductivityMeasure, null as double?);
             EmployeeValidator.ShouldNotHaveValidationErrorFor(e => e.ProductivityMeasure, 15.32);
         }
 

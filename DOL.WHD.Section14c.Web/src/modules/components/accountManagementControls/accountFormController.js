@@ -1,12 +1,13 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.controller('accountFormController', function($scope, $location, $routeParams, stateService, apiService) {
+    ngModule.controller('accountFormController', function($scope, $location, $routeParams, stateService, apiService, moment) {
         'ngInject';
         'use strict';
 
         var vm = this;
         vm.stateService = stateService;
+        vm.moment = moment;
 
         vm.resetErrors = function() {
             vm.savingError = false;

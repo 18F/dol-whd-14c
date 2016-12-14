@@ -41,7 +41,6 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var representativePayee = true;
             var takeCreditForCosts = true;
             var providingFacilitiesDeductionTypeId = new List<int> {15, 16, 17};
-            var providingFacilitiesDeductionTypeOther = "providingFacilitiesDeductionTypeOther";
             var temporaryAuthority = true;
 
             var model = new EmployerInfo
@@ -74,7 +73,6 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 RepresentativePayee = representativePayee,
                 TakeCreditForCosts = takeCreditForCosts,
                 ProvidingFacilitiesDeductionTypeId = providingFacilitiesDeductionTypeId,
-                ProvidingFacilitiesDeductionTypeOther = providingFacilitiesDeductionTypeOther,
                 TemporaryAuthority = temporaryAuthority
             };
 
@@ -108,7 +106,6 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(providingFacilitiesDeductionTypeId[0], model.ProvidingFacilitiesDeductionType.ElementAt(0).ProvidingFacilitiesDeductionTypeId);
             Assert.AreEqual(providingFacilitiesDeductionTypeId[1], model.ProvidingFacilitiesDeductionType.ElementAt(1).ProvidingFacilitiesDeductionTypeId);
             Assert.AreEqual(providingFacilitiesDeductionTypeId[2], model.ProvidingFacilitiesDeductionType.ElementAt(2).ProvidingFacilitiesDeductionTypeId);
-            Assert.AreEqual(providingFacilitiesDeductionTypeOther, model.ProvidingFacilitiesDeductionTypeOther);
             Assert.AreEqual(temporaryAuthority, model.TemporaryAuthority);
         }
 

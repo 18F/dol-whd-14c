@@ -9,8 +9,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
     [TestClass]
     public class SourceEmployerValidatorTests
     {
-        private static readonly IAddressValidator AddressValidator = new AddressValidator();
-        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidator);
+        private static readonly IAddressValidatorNoCounty AddressValidatorNoCounty = new AddressValidatorNoCounty();
+        private static readonly ISourceEmployerValidator SourceEmployerValidator = new SourceEmployerValidator(AddressValidatorNoCounty);
 
         [TestMethod]
         public void Should_Require_EmployerName()

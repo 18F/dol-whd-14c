@@ -109,6 +109,7 @@
     <Compile Include="IFileRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
+    <Compile Include="IStatusRepository.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>
@@ -221,13 +222,64 @@
     <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.Designer.cs">
       <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611101838282_AddSignature.cs" />
+    <Compile Include="Migrations\201611101838282_AddSignature.Designer.cs">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.cs" />
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.Designer.cs">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141912005_AddApplicationAdminFields.cs" />
+    <Compile Include="Migrations\201611141912005_AddApplicationAdminFields.Designer.cs">
+      <DependentUpon>201611141912005_AddApplicationAdminFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611270149122_AttachmentDecoupleSave.cs" />
+    <Compile Include="Migrations\201611270149122_AttachmentDecoupleSave.Designer.cs">
+      <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.cs" />
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.Designer.cs">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611291446074_ResponsesAddShortDisplay.cs" />
+    <Compile Include="Migrations\201611291446074_ResponsesAddShortDisplay.Designer.cs">
+      <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.cs" />
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.Designer.cs">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301931465_AddEmployerMailingAddress.cs" />
+    <Compile Include="Migrations\201611301931465_AddEmployerMailingAddress.Designer.cs">
+      <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs" />
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.Designer.cs">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.cs" />
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.Designer.cs">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612012033496_FixMigrations.cs" />
+    <Compile Include="Migrations\201612012033496_FixMigrations.Designer.cs">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612012113292_AddTotalDisabledWorkers.cs" />
+    <Compile Include="Migrations\201612012113292_AddTotalDisabledWorkers.Designer.cs">
+      <DependentUpon>201612012113292_AddTotalDisabledWorkers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationRepository.cs" />
+    <Compile Include="Repositories\AttachmentRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
+    <Compile Include="IAttachmentRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
+    <Compile Include="Repositories\StatusRepository.cs" />
     <Compile Include="Validators\Section14cPasswordValidator.cs" />
     <Compile Include="Validators\Section14cUserValidator.cs" />
   </ItemGroup>
@@ -235,6 +287,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9C06ABE3-28D2-4BAB-BAA4-11B6C404B329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
@@ -324,6 +380,42 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611081954473_RemoveRequiredCounty.resx">
       <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101838282_AddSignature.resx">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141640048_AddApplicationStatus.resx">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141912005_AddApplicationAdminFields.resx">
+      <DependentUpon>201611141912005_AddApplicationAdminFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611270149122_AttachmentDecoupleSave.resx">
+      <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281633439_RenameSCAWageDetermination.resx">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611291446074_ResponsesAddShortDisplay.resx">
+      <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301612331_InitialApplicationRequiredFields.resx">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301931465_AddEmployerMailingAddress.resx">
+      <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.resx">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011931409_ProductivityMeasureNotRequired.resx">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612012033496_FixMigrations.resx">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612012113292_AddTotalDisabledWorkers.resx">
+      <DependentUpon>201612012113292_AddTotalDisabledWorkers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

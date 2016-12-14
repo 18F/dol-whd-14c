@@ -114,36 +114,7 @@ describe('apiService', function() {
         $httpBackend.flush();
         expect(isResolved).toEqual(true);
         expect(result).toEqual('value');
-    });   
-
-//userLogin
-    it('userLogin error should reject deferred', function() {   
-        var isResolved;
-        var result;
-        api.userLogin().then(undefined, function (error) {
-            result = error.data;
-            isResolved = false;
-        });
-
-        $httpBackend.expectPOST(env.api_url + '/Token').respond(400, 'value');
-        $httpBackend.flush();
-        expect(isResolved).toEqual(false);
-        expect(result).toEqual('value');
-    });      
-
-    it('userLogin success should resolve deferred', function() {   
-        var isResolved;
-        var result;
-        api.userLogin().then(function (data) {
-            result = data.data;
-            isResolved = true;
-        });
-
-        $httpBackend.expectPOST(env.api_url + '/Token').respond(200, 'value');
-        $httpBackend.flush();
-        expect(isResolved).toEqual(true);
-        expect(result).toEqual('value');
-    });   
+    });
 
 //userRegister
     it('userLogin error should reject deferred', function() {   
@@ -558,5 +529,97 @@ describe('apiService', function() {
         $httpBackend.flush();
         expect(isResolved).toEqual(true);
         expect(result).toEqual('value');
+    });
+
+    //getSubmittedApplication
+    it('getSubmittedApplication error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var appid = '12345';
+        api.getSubmittedApplication(access_token, appid, {}).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/application?id=' + appid).respond(404, 'not found');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('not found');
+    });      
+
+    it('getSubmittedApplication success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var appid = '12345';
+        var ein = "30-1234567";
+        api.getSubmittedApplication(access_token, appid, {}).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/application?id=' + appid).respond(200, { ein: ein });
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result.ein).toEqual(ein);
+    });
+
+    //getSubmittedApplications
+    it('getSubmittedApplications error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        api.getSubmittedApplications(access_token, {}).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/application/summary').respond(404, 'not found');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('not found');
+    });      
+
+    it('getSubmittedApplications success should resolve deferred', function() {   
+        var isResolved;
+        var result;
+        var ein = "30-1234567";
+        api.getSubmittedApplications(access_token, {}).then(function (data) {
+            result = data.data;
+            isResolved = true;
+        });
+
+        $httpBackend.expectGET(env.api_url + '/api/application/summary').respond(200, [{ ein: ein }]);
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
+        expect(result[0].ein).toEqual(ein);
+    });
+
+    //changeApplicationStatus
+    it('changeApplicationStatus error should reject deferred', function() {   
+        var isResolved;
+        var result;
+        var appid = '12345';
+        var newStatusId = '5';
+        api.changeApplicationStatus(access_token, appid, newStatusId).then(undefined, function (error) {
+            result = error.data;
+            isResolved = false;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/application/status?id=' + appid + '&statusId=' + newStatusId).respond(400, 'error');
+        $httpBackend.flush();
+        expect(isResolved).toEqual(false);
+        expect(result).toEqual('error');
+    });      
+
+    it('changeApplicationStatus success should resolve deferred', function() {   
+        var isResolved;
+        var appid = '12345';
+        var newStatusId = '5';
+        api.changeApplicationStatus(access_token, appid, newStatusId).then(function () {
+            isResolved = true;
+        });
+
+        $httpBackend.expectPOST(env.api_url + '/api/application/status?id=' + appid + '&statusId=' + newStatusId).respond(200);
+        $httpBackend.flush();
+        expect(isResolved).toEqual(true);
     });
 });

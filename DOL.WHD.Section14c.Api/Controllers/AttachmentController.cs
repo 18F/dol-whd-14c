@@ -18,14 +18,20 @@ namespace DOL.WHD.Section14c.Api.Controllers
     [RoutePrefix("api/attachment")]
     public class AttachmentController : ApiController
     {
-        private readonly ISaveService _saveService;
+        private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
 
-        public AttachmentController(ISaveService saveService, IIdentityService identityService)
+        public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService)
         {
-            _saveService = saveService;
+            _attachmentService = attachmentService;
             _identityService = identityService;
         }
+
+        /// <summary>
+        /// Upload Attachment
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <returns>Http status code</returns>
         [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string EIN)
@@ -54,7 +60,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     await stream.CopyToAsync(memoryStream);
                     var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                     var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
-                    var fileUpload = _saveService.UploadAttachment(EIN, memoryStream, fileName, fileType);
+                    var fileUpload = _attachmentService.UploadAttachment(EIN, memoryStream, fileName, fileType);
                     files.Add(fileUpload);
                 }
 
@@ -62,14 +68,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(files);
         }
 
+        /// <summary>
+        /// Download attachment by Id
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="fileId">File Id</param>
+        /// <returns></returns>
         [HttpGet]
         [Route("{EIN}/{fileId}")]
-        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public HttpResponseMessage Download(string EIN, Guid fileId)
         {
-            // make sure user has rights to the EIN
+            // make sure user has rights to the EIN or has View All Application rights
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
+            if (!hasEINClaim && !hasViewAllFeature)
             {
                 return new HttpResponseMessage(HttpStatusCode.Unauthorized);
             }
@@ -78,7 +91,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
                 
-                var attachmentDownload = _saveService.DownloadAttachment(memoryStream, EIN, fileId);
+                var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
 
                 var result = new HttpResponseMessage(HttpStatusCode.OK)
                 {
@@ -103,6 +116,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete Attachment by Id
+        /// </summary>
+        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="fileId">File Id</param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("{EIN}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -117,7 +136,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             try
             {
-                _saveService.DeleteAttachement(EIN, fileId);
+                _attachmentService.DeleteAttachement(EIN, fileId);
             }
             catch (ObjectNotFoundException)
             {
@@ -127,6 +146,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
         [AllowAnonymous]
         public HttpResponseMessage Options()
         {

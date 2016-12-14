@@ -37,6 +37,8 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
+        public DbSet<Status> ApplicationStatuses { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -60,10 +62,10 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactName).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactPhone).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactEmail).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.PayTypeId).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.TotalNumWorkSites).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.Employer);
             modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.WIOA);
+            modelBuilder.Entity<ApplicationSubmission>().HasRequired(a => a.Status);
             // Attachment
             modelBuilder.Entity<Attachment>().Property(a => a.OriginalFileName).IsRequired().HasMaxLength(255);
             modelBuilder.Entity<Attachment>().Property(a => a.RepositoryFilePath).IsRequired().HasMaxLength(255);
@@ -77,7 +79,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Employee>().Property(a => a.AvgWeeklyHours).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.AvgHourlyEarnings).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.PrevailingWage).IsRequired();
-            modelBuilder.Entity<Employee>().Property(a => a.ProductivityMeasure).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.CommensurateWageRate).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.TotalHours).IsRequired();
             modelBuilder.Entity<Employee>().Property(a => a.WorkAtOtherSite).IsRequired();
@@ -88,7 +89,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfo>().Property(a => a.HasParentOrg).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.EmployerStatusId).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.IsEducationalAgency).IsRequired();
-            modelBuilder.Entity<EmployerInfo>().Property(a => a.FiscalQuarterEndDate).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.PCA).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.SCAId).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.EO13658Id).IsRequired();
@@ -96,7 +96,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TakeCreditForCosts).IsRequired();
             modelBuilder.Entity<EmployerInfo>().Property(a => a.TemporaryAuthority).IsRequired();
             modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.PhysicalAddress);
-            modelBuilder.Entity<EmployerInfo>().HasRequired(a => a.NumSubminimalWageWorkers);
             // HourlyWageInfo
             modelBuilder.Entity<HourlyWageInfo>().Property(a => a.WorkMeasurementFrequency).IsRequired();
             modelBuilder.Entity<HourlyWageInfo>().Property(a => a.NumWorkers).IsRequired();
@@ -120,6 +119,11 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Response>().Property(a => a.QuestionKey).IsRequired();
             modelBuilder.Entity<Response>().Property(a => a.Display).IsRequired();
             modelBuilder.Entity<Response>().Property(a => a.IsActive).IsRequired();
+            // Signature
+            modelBuilder.Entity<Signature>().Property(a => a.Agreement).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.Title).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.Date).IsRequired();
             // SourceEmployer
             modelBuilder.Entity<SourceEmployer>().Property(a => a.EmployerName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.Phone).IsRequired();
@@ -130,6 +134,9 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ExperiencedWorkerWageProvided).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ConclusionWageRateNotBasedOnEntry).IsRequired();
             modelBuilder.Entity<SourceEmployer>().HasRequired(a => a.Address);
+            // Status
+            modelBuilder.Entity<Status>().Property(a => a.Name).IsRequired();
+            modelBuilder.Entity<Status>().Property(a => a.IsActive).IsRequired();
             // WIOA
             modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
@@ -147,7 +154,6 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WorkSite>().Property(a => a.Name).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.SCA).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.FederalContractWorkPerformed).IsRequired();
-            modelBuilder.Entity<WorkSite>().Property(a => a.NumEmployees).IsRequired();
             modelBuilder.Entity<WorkSite>().HasRequired(a => a.Address);
 
             // many to many relationships

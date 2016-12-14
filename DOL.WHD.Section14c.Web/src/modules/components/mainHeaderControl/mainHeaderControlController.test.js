@@ -15,7 +15,7 @@ describe('mainHeaderControlController', function() {
 
         mainHeaderControlController = function() {
             return $controller('mainHeaderControlController', {
-                '$scope': scope, 
+                '$scope': scope,
                 'navService': mockNavService,
                 '$location': mockLocation,
                 'autoSaveService': mockAutoSaveService,
@@ -23,22 +23,4 @@ describe('mainHeaderControlController', function() {
             });
         };
     }));
-
-    it('user click', function() {
-        var controller = mainHeaderControlController();
-        spyOn(mockLocation, 'path'); 
-        controller.userClick();
-
-        expect(mockLocation.path).toHaveBeenCalledWith('/');
-    });
-
-    it('save click', function() {
-        var controller = mainHeaderControlController();
-        spyOn(mockLocation, 'path'); 
-        spyOn(mockStateService, 'logOut');
-        controller.saveClick();
-        
-        expect(mockStateService.logOut).toHaveBeenCalled();
-        expect(mockLocation.path).toHaveBeenCalledWith('/');
-    });    
 });

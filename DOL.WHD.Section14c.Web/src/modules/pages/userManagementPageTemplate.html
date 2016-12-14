@@ -1,0 +1,11 @@
+<main-top-nav-control></main-top-nav-control>
+
+<div class="usa-grid">
+  <h2 ng-if="stateService.hasClaim('UserManagement.CreateAccount') || stateService.hasClaim('UserManagement.GetAccounts')">User Management</h2>
+  <div ng-if="stateService.hasClaim('UserManagement.CreateAccount')">
+    <account-create-button></account-create-button>
+  </div>
+  <div ng-if="stateService.hasClaim('UserManagement.GetAccounts')">
+    <account-grid></account-grid>
+  </div>
+</div>

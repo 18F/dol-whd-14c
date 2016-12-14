@@ -35,7 +35,8 @@
         <div ng-if="vm.isEditAccount">
             <div><label>Password Last Changed</label><span am-time-ago="formVals.lastPasswordChangedDate"></span></div>
             <div><label>Email Confirmed</label><span>{{formVals.emailConfirmed}}</span></div>
-            <div ng-if="formVals.lockoutEndDateUtc !== null"><label>Account Locked</label>End Date: <span am-time-ago="formVals.lockoutEndDateUtc | amUtc"></div>
+            
+            <div ng-if="vm.moment.utc(formVals.lockoutEndDateUtc).diff(moment.utc()) > 0"><label>Account Locked</label>End Date: <span am-time-ago="formVals.lockoutEndDateUtc | amUtc"></div>
             <div class="form-spaced-div">
                 <span><button type="submit">Update Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
             </div>
@@ -43,5 +44,5 @@
         <div ng-if="!vm.isEditAccount" class="form-spaced-div">
             <span><button type="submit">Create Account</button></span><button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
         </div>
-    </div>
+        </div>
 </form>
