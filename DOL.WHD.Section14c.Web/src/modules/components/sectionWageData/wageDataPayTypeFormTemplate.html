@@ -206,7 +206,7 @@
                     </div>
 
                     <div ng-class="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') ? 'usa-input-error' : ''">
-                        <label for="sourceEmployerWage">Experience Worker Wage Provided</label>
+                        <label for="sourceEmployerWage">Experienced Worker Wage Provided</label>
                         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
                         <input id="sourceEmployerWage" name="sourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
                     </div>
