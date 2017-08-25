@@ -1,0 +1,93 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+assembly_info:
+  patch: true
+  file: '**\AssemblyInfo.*'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}-alpha'
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: Kddo/RjSZXFb9lLk3XL8lH3mb0A9i1koBq+Zp3IIKG5oAU5di672aBcL6H/FPUGF
+  ApplicationDbContext-Web.config Connection String:
+    secure: kgpVhh6JImpf/8CqurMx+Gu09f5p7eacm4WoxyTvOse0er3Z3JTGAeI4LEdVL2a628nzS9CVTLw6jQvFo9ejdowdNvrNcRe4K/WmfO02s7EI6nyBCwoGdlbNUyITl61l
+  ApiUrl: https://dol-whd-section14c-api-dev.azurewebsites.net
+  AttachmentRepositoryRootFolder: D:\home\site\wwwroot\App_Data\
+  SMTPServer: smtp.sendgrid.net
+  SMTPUserName:
+    secure: 2G/qZxgSeaJYIJTVdBHNoXrz+3o8wxM71lhREzIcEHb4H5EKNBX2nQ2CP1wpvGyS6/UFatohpZN9qyNkNClIRg==
+  SMTPPassword:
+    secure: qXz3nq0AGGz5mKq+ocCRbAqP6fz6LRCfdGytMBLUxS8=
+install:
+- cmd: >-
+    nuget restore
+
+    cd DOL.WHD.Section14c.Web
+
+    npm install
+cache:
+- packages
+- DOL.WHD.Section14c.Web\node_modules
+- DOL.WHD.Section14c.Test\CoverageReport\History
+build:
+  project: DOL.WHD.Section14c.sln
+  publish_wap: true
+  parallel: true
+  verbosity: minimal
+before_package:
+- cmd: npm run deploy
+test:
+  assemblies: DOL.WHD.Section14c.Test\bin\Debug\DOL.WHD.Section14c.Test.dll
+after_test:
+- cmd: >-
+    npm test
+
+    cd ..
+
+    .\DOL.WHD.Section14c.Test\CodeCoverage.bat
+artifacts:
+- path: DOL.WHD.Section14c.Web\dist
+  name: DOL.WHD.Section14c.Web
+  type: WebDeployPackage
+- path: DOL.WHD.Section14c.Test\CoverageReport
+  name: DotNet.CoverageReport
+  type: WebDeployPackage
+deploy:
+- provider: WebDeploy
+  server: https://dol-whd-section14c-dev.scm.azurewebsites.net/msdeploy.axd?site=dol-whd-section14c-dev
+  website: dol-whd-section14c-dev
+  username: dol-whd-section14c-dev
+  password:
+    secure: 6AT/7k4pbcJ4bhHuTspZ50p0ytbF+TIsS9i65Vd7FX4=
+  artifact: DOL.WHD.Section14c.Web\DOL.WHD.Section14c.Web.zip
+  remove_files: true
+  app_offline: true
+  skip_files: '\\env.js'
+- provider: WebDeploy
+  server: https://dol-whd-section14c-api-dev.scm.azurewebsites.net/msdeploy.axd?site=dol-whd-section14c-api-dev
+  website: dol-whd-section14c-api-dev
+  username: dol-whd-section14c-dev
+  password:
+    secure: 6AT/7k4pbcJ4bhHuTspZ50p0ytbF+TIsS9i65Vd7FX4=
+  artifact: DOL.WHD.Section14c.Api.zip
+  remove_files: true
+  app_offline: true
+  skip_dirs: '\\App_Data'
+- provider: WebDeploy
+  server: https://dol-whd-section14c-coverage-dev.scm.azurewebsites.net/msdeploy.axd?site=dol-whd-section14c-coverage-dev
+  website: dol-whd-section14c-coverage-dev
+  username: dol-whd-section14c-dev
+  password:
+    secure: 6AT/7k4pbcJ4bhHuTspZ50p0ytbF+TIsS9i65Vd7FX4=
+  artifact: DOL.WHD.Section14c.Test\DotNet.CoverageReport.zip
+  remove_files: true
+notifications:
+- provider: Slack
+  auth_token:
+    secure: 8qkXyRmhQ0dJFp+EURck8nr+9WyLN4tdhzOQkLiGrKBJkXUzO8/aTCkU8wXJgfkLLgq0IZrpnDEoozBFqPO6csXbqXu7B0qE/xFR1uWTfwU=
+  channel: '#builds'
+  on_build_success: true
+  on_build_failure: true
+  on_build_status_changed: true

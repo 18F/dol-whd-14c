@@ -1,0 +1,39 @@
+<form ng-submit="onSubmitClick()">
+    <div class="dol-panel-login">
+        <h2>Log in</h2>
+
+        <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.unknownError">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
+            </div>
+        </div>
+
+        <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loginError">
+            <div class="usa-alert-body">
+                <p class="usa-alert-text">The email or password entered does not match our records.</p>
+            </div>
+        </div>
+        <div ng-class="vm.loginError ? 'usa-input-error' : ''">
+            <label for="userName">Email</label>
+            <input name="userName" id="userName" type="email" ng-model="formVals.email" />
+        </div>
+        <div ng-class="(vm.loginError ? 'usa-input-error' : '') + ' ' + 'password-wrap'">
+            <label for="password">Password</label>
+            <input name="password" id="password" type="{{inputType}}" ng-model="formVals.pass" />
+            <div class="showpass">
+                <a href="" ng-click="hideShowPassword()"><span ng-show="inputType != 'password'">Hide</span><span ng-show="inputType === 'password'">Show</span> Password</a>
+            </div>
+        </div>
+        <div class="loginbtn">
+            <button type="submit" ng-show="!vm.submittingForm">Log in</button>
+            <button type="button" ng-show="vm.submittingForm" class='usa-button-active'><span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
+        </div>
+        <div class="forgotpass">
+            <a href="" ng-click="forgotPassword()">Forgot Your Password?</a>
+        </div>
+    </div>
+    <div class="dol-panel-info">
+        <h3>Questions?</h3>
+        <p>Contact the <a href="#">Wage and Hour office closest to you.</a></p>
+    </div>
+</form>

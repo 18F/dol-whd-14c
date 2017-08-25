@@ -1,0 +1,429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DOL.WHD.Section14c.DataAccess</RootNamespace>
+    <AssemblyName>DOL.WHD.Section14c.DataAccess</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework6.Npgsql, Version=3.1.1.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework6.Npgsql.3.1.1\lib\net45\EntityFramework6.Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=3.1.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.7\lib\net451\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="zxcvbn-core, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zxcvbn-core.1.1.10\lib\net451\zxcvbn-core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Extensions\ContextSeedRole.cs" />
+    <Compile Include="Identity\EmailService.cs" />
+    <Compile Include="Identity\IdentityConfig.cs" />
+    <Compile Include="IFileRepository.cs" />
+    <Compile Include="ISaveRepository.cs" />
+    <Compile Include="IResponseRepository.cs" />
+    <Compile Include="IStatusRepository.cs" />
+    <Compile Include="Migrations\201609221644036_initial.cs" />
+    <Compile Include="Migrations\201609221644036_initial.Designer.cs">
+      <DependentUpon>201609221644036_initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609291537213_LastPasswordChangedDate.cs" />
+    <Compile Include="Migrations\201609291537213_LastPasswordChangedDate.Designer.cs">
+      <DependentUpon>201609291537213_LastPasswordChangedDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609302018469_AddOrganizationMembership.cs" />
+    <Compile Include="Migrations\201609302018469_AddOrganizationMembership.Designer.cs">
+      <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610062018437_AddApplicationSubmission.cs" />
+    <Compile Include="Migrations\201610062018437_AddApplicationSubmission.Designer.cs">
+      <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610102032087_AddResponses.cs" />
+    <Compile Include="Migrations\201610102032087_AddResponses.Designer.cs">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610112015599_AddApplicationSaves.cs" />
+    <Compile Include="Migrations\201610112015599_AddApplicationSaves.Designer.cs">
+      <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610131906531_RemoveExample.cs" />
+    <Compile Include="Migrations\201610131906531_RemoveExample.Designer.cs">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610141921103_UpdateApplicationSaveKey.cs" />
+    <Compile Include="Migrations\201610141921103_UpdateApplicationSaveKey.Designer.cs">
+      <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.cs" />
+    <Compile Include="Migrations\201610150004056_AttachmentUpdates.Designer.cs">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.cs" />
+    <Compile Include="Migrations\201610181406066_WageDataModelUpdate.Designer.cs">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.cs" />
+    <Compile Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.Designer.cs">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.cs" />
+    <Compile Include="Migrations\201610191541037_EmpolyerInfoUpdates.Designer.cs">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.cs" />
+    <Compile Include="Migrations\201610191846129_WIOAUpdates.Designer.cs">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610212140188_RemoveApplicationId.cs" />
+    <Compile Include="Migrations\201610212140188_RemoveApplicationId.Designer.cs">
+      <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252128299_EmployerUpdate.cs" />
+    <Compile Include="Migrations\201610252128299_EmployerUpdate.Designer.cs">
+      <DependentUpon>201610252128299_EmployerUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610261540007_AuditFields.cs" />
+    <Compile Include="Migrations\201610261540007_AuditFields.Designer.cs">
+      <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610261825305_KeyUpdates.cs" />
+    <Compile Include="Migrations\201610261825305_KeyUpdates.Designer.cs">
+      <DependentUpon>201610261825305_KeyUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610262048363_RequiredFieldUpdates.cs" />
+    <Compile Include="Migrations\201610262048363_RequiredFieldUpdates.Designer.cs">
+      <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.cs" />
+    <Compile Include="Migrations\201610282013443_AlternateWageDataConstraints.Designer.cs">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.cs" />
+    <Compile Include="Migrations\201610282056202_NullablePrimitives.Designer.cs">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.cs" />
+    <Compile Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.Designer.cs">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.cs" />
+    <Compile Include="Migrations\201610301837290_TableKeyUpdates.Designer.cs">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611011606064_MoveProvidingFacilitiesField.cs" />
+    <Compile Include="Migrations\201611011606064_MoveProvidingFacilitiesField.Designer.cs">
+      <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.cs" />
+    <Compile Include="Migrations\201611021325062_IdentityUpdates.Designer.cs">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611042002563_AddSCACountField.cs" />
+    <Compile Include="Migrations\201611042002563_AddSCACountField.Designer.cs">
+      <DependentUpon>201611042002563_AddSCACountField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.cs" />
+    <Compile Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.Designer.cs">
+      <DependentUpon>201611081608033_WorkSiteTypeSingleSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.cs" />
+    <Compile Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.Designer.cs">
+      <DependentUpon>201611081804301_RemoveHasDifferentMailingAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.cs" />
+    <Compile Include="Migrations\201611081954473_RemoveRequiredCounty.Designer.cs">
+      <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611101838282_AddSignature.cs" />
+    <Compile Include="Migrations\201611101838282_AddSignature.Designer.cs">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.cs" />
+    <Compile Include="Migrations\201611141640048_AddApplicationStatus.Designer.cs">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611141912005_AddApplicationAdminFields.cs" />
+    <Compile Include="Migrations\201611141912005_AddApplicationAdminFields.Designer.cs">
+      <DependentUpon>201611141912005_AddApplicationAdminFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611270149122_AttachmentDecoupleSave.cs" />
+    <Compile Include="Migrations\201611270149122_AttachmentDecoupleSave.Designer.cs">
+      <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.cs" />
+    <Compile Include="Migrations\201611281633439_RenameSCAWageDetermination.Designer.cs">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611291446074_ResponsesAddShortDisplay.cs" />
+    <Compile Include="Migrations\201611291446074_ResponsesAddShortDisplay.Designer.cs">
+      <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.cs" />
+    <Compile Include="Migrations\201611301612331_InitialApplicationRequiredFields.Designer.cs">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611301931465_AddEmployerMailingAddress.cs" />
+    <Compile Include="Migrations\201611301931465_AddEmployerMailingAddress.Designer.cs">
+      <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs" />
+    <Compile Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.Designer.cs">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.cs" />
+    <Compile Include="Migrations\201612011931409_ProductivityMeasureNotRequired.Designer.cs">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612012033496_FixMigrations.cs" />
+    <Compile Include="Migrations\201612012033496_FixMigrations.Designer.cs">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612012113292_AddTotalDisabledWorkers.cs" />
+    <Compile Include="Migrations\201612012113292_AddTotalDisabledWorkers.Designer.cs">
+      <DependentUpon>201612012113292_AddTotalDisabledWorkers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationRepository.cs" />
+    <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\FileRepository.cs" />
+    <Compile Include="IApplicationRepository.cs" />
+    <Compile Include="IAttachmentRepository.cs" />
+    <Compile Include="Repositories\ResponseRepository.cs" />
+    <Compile Include="Repositories\SaveRepository.cs" />
+    <Compile Include="Repositories\StatusRepository.cs" />
+    <Compile Include="Validators\Section14cPasswordValidator.cs" />
+    <Compile Include="Validators\Section14cUserValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9C06ABE3-28D2-4BAB-BAA4-11B6C404B329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
+      <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
+      <Name>DOL.WHD.Section14c.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
+      <DependentUpon>201609221644036_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609291537213_LastPasswordChangedDate.resx">
+      <DependentUpon>201609291537213_LastPasswordChangedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609302018469_AddOrganizationMembership.resx">
+      <DependentUpon>201609302018469_AddOrganizationMembership.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610062018437_AddApplicationSubmission.resx">
+      <DependentUpon>201610062018437_AddApplicationSubmission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610102032087_AddResponses.resx">
+      <DependentUpon>201610102032087_AddResponses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610112015599_AddApplicationSaves.resx">
+      <DependentUpon>201610112015599_AddApplicationSaves.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610131906531_RemoveExample.resx">
+      <DependentUpon>201610131906531_RemoveExample.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610141921103_UpdateApplicationSaveKey.resx">
+      <DependentUpon>201610141921103_UpdateApplicationSaveKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610150004056_AttachmentUpdates.resx">
+      <DependentUpon>201610150004056_AttachmentUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181406066_WageDataModelUpdate.resx">
+      <DependentUpon>201610181406066_WageDataModelUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610181530498_WageDataModelUpdateAddWageInfo.resx">
+      <DependentUpon>201610181530498_WageDataModelUpdateAddWageInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191541037_EmpolyerInfoUpdates.resx">
+      <DependentUpon>201610191541037_EmpolyerInfoUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610191846129_WIOAUpdates.resx">
+      <DependentUpon>201610191846129_WIOAUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610212140188_RemoveApplicationId.resx">
+      <DependentUpon>201610212140188_RemoveApplicationId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252128299_EmployerUpdate.resx">
+      <DependentUpon>201610252128299_EmployerUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610261540007_AuditFields.resx">
+      <DependentUpon>201610261540007_AuditFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610261825305_KeyUpdates.resx">
+      <DependentUpon>201610261825305_KeyUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610262048363_RequiredFieldUpdates.resx">
+      <DependentUpon>201610262048363_RequiredFieldUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282013443_AlternateWageDataConstraints.resx">
+      <DependentUpon>201610282013443_AlternateWageDataConstraints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610282056202_NullablePrimitives.resx">
+      <DependentUpon>201610282056202_NullablePrimitives.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301825278_HasVerifiedDocumentationTypo.resx">
+      <DependentUpon>201610301825278_HasVerifiedDocumentationTypo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610301837290_TableKeyUpdates.resx">
+      <DependentUpon>201610301837290_TableKeyUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611011606064_MoveProvidingFacilitiesField.resx">
+      <DependentUpon>201611011606064_MoveProvidingFacilitiesField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021325062_IdentityUpdates.resx">
+      <DependentUpon>201611021325062_IdentityUpdates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611042002563_AddSCACountField.resx">
+      <DependentUpon>201611042002563_AddSCACountField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081608033_WorkSiteTypeSingleSelection.resx">
+      <DependentUpon>201611081608033_WorkSiteTypeSingleSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081804301_RemoveHasDifferentMailingAddress.resx">
+      <DependentUpon>201611081804301_RemoveHasDifferentMailingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611081954473_RemoveRequiredCounty.resx">
+      <DependentUpon>201611081954473_RemoveRequiredCounty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611101838282_AddSignature.resx">
+      <DependentUpon>201611101838282_AddSignature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141640048_AddApplicationStatus.resx">
+      <DependentUpon>201611141640048_AddApplicationStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141912005_AddApplicationAdminFields.resx">
+      <DependentUpon>201611141912005_AddApplicationAdminFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611270149122_AttachmentDecoupleSave.resx">
+      <DependentUpon>201611270149122_AttachmentDecoupleSave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611281633439_RenameSCAWageDetermination.resx">
+      <DependentUpon>201611281633439_RenameSCAWageDetermination.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611291446074_ResponsesAddShortDisplay.resx">
+      <DependentUpon>201611291446074_ResponsesAddShortDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301612331_InitialApplicationRequiredFields.resx">
+      <DependentUpon>201611301612331_InitialApplicationRequiredFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611301931465_AddEmployerMailingAddress.resx">
+      <DependentUpon>201611301931465_AddEmployerMailingAddress.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.resx">
+      <DependentUpon>201612011901196_RemoveProvidingFacilitiesDeductionTypeOther.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612011931409_ProductivityMeasureNotRequired.resx">
+      <DependentUpon>201612011931409_ProductivityMeasureNotRequired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612012033496_FixMigrations.resx">
+      <DependentUpon>201612012033496_FixMigrations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612012113292_AddTotalDisabledWorkers.resx">
+      <DependentUpon>201612012113292_AddTotalDisabledWorkers.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,6 @@
+<button class="dol-nav-toggle" type="button" ng-click="vm.collapseMenu = !vm.collapseMenu">Form Menu</button>
+<nav role="navigation" class="main-nav-bar" ng-class="vm.collapseMenu ? 'collapsed' : ''">
+    <ul>
+        <li ng-repeat="section in vm.navService.getSections()" class="nav-button {{ vm.current === section.id ? 'active' : '' }}" data-sectionid="{{ section.id }}" ng-click="vm.onNavClick($event)" ng-show="section.id !== 'review' || vm.stateService.inReview">{{ section.display }}</li>
+    </ul>
+</nav>

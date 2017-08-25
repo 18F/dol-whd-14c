@@ -1,0 +1,93 @@
+
+// Colors
+$form-em-grey: #f0f0f0;
+$help-link-color: #5A7FA8;
+$help-em-color: #D0E2FB;
+
+// Layout
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+.clearer {
+    @include clearfix;
+}
+
+// Links
+a {
+    // Modified from USWDS for DOL
+    color: $color-link;
+
+    &:hover,
+    &:active {
+        color: $text-color;
+    }
+}
+
+// Typography
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-sans;
+}
+
+// Button Customizations
+.grey-button {
+    background-color: $color-gray-light;
+    color: $text-color;
+
+    &:hover {
+        background-color: $color-gray-medium;
+        color: $text-color;
+    }
+
+    &:active {
+        background-color: $color-gray;
+        color: $text-color;
+    }
+}
+
+.disabled-button {
+    background-color: $color-gray-light;
+    color: $text-color;
+
+    &:hover {
+        background-color: $color-gray-light;
+    }
+}
+
+.green-button {
+    &:not(.nomargin) {
+        margin-left: 40px;
+    }
+    background-color: $color-green;
+
+    &:hover {
+        background-color: $color-green-dark;
+    }
+
+    &:active {
+        background-color: $color-green-darker;
+    }
+}
+
+button + .green-button {
+    margin-left: 4rem;
+}
+
+.loading-blue {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    background-image: url('../images/dol-loading-small-blue.gif');
+    background-size: contain;
+    vertical-align: middle;
+}

@@ -1,0 +1,28 @@
+@include nested(12) {
+
+    .form-footer-controls {
+        padding-top: 8rem;
+        padding-bottom: 15rem;
+
+        .button-group {
+            @include clearfix();
+
+            .pull-right {
+                button {
+                    &:last-of-type {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        .back-button {
+            @extend .grey-button;
+        }
+
+        .next-button {
+            @extend .green-button;
+        }
+    }
+
+}

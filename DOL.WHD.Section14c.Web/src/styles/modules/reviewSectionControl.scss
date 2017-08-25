@@ -1,0 +1,78 @@
+@include nested(12) {
+
+    .section-results {
+        margin: 30px 0px;
+    }
+
+    .reviewbar {
+        @include clearfix;
+
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 40px;
+
+        .reviewbar-container {
+            .reviewbar-bar {
+                height: 14px;
+                width: 25%;
+                min-width: 100px;
+                display: inline-block;
+                vertical-align: middle;
+                background-color: #187D35;
+                border-radius: 0.3rem;
+                margin-right: 0px;
+                position: relative;
+                z-index: 1;
+            }
+
+            .reviewbar-circle {
+                display:inline-block;
+                height: 36px;
+                width: 36px;
+                vertical-align: middle;
+                /*border-radius: 50%;*/
+                /*background-color: #187D35;*/
+                background-image: url('../images/dol-checkmark-green.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center center;
+                margin-left: -4px;
+                margin-right: 20px;
+                position: relative;
+                z-index: 100;
+            }
+
+            &:after {
+                content: "Looks good!"
+            }
+        }
+
+        &.error {
+            .reviewbar-container {
+                .reviewbar-bar {
+                    background-color: #990000;
+                }
+
+                .reviewbar-circle {
+                    background-image: url('../images/dol-error-red.svg');
+                }
+
+                &:after {
+                    content: "Needs Review"
+                }
+            }
+        }
+    }
+
+    div.submit-button {
+        margin: 60px 0px;
+
+        button {
+            @extend .green-button;
+
+            &.disabled {
+                @extend .disabled-button;
+            }
+        }
+    }
+}

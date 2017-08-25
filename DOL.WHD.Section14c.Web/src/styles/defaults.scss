@@ -1,0 +1,41 @@
+// Modified USWDS variables for DOL 
+
+
+// Typography 
+$font-sans:                  "Source Sans Pro", "Tahoma", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+
+// Color
+$color-primary:              #224687 !default;
+$color-primary-darker:       #1E4072 !default;
+$color-primary-darkest:      #183560 !default;
+
+$color-secondary:            #990000;
+$color-secondary-dark:       #7b0000;
+$color-secondary-darkest:    #610000;
+
+$color-white:                #ffffff;
+$color-base:                 #212121;
+$color-black:                #000000;
+
+$color-gray-darker:          #333333;
+$color-gray-dark:            #b3b3b3;
+$color-gray:                 #afafaf;
+$color-gray-medium:          #c7c7c7; 
+$color-gray-light:           #d9d9d9; 
+$color-gray-lighter:         lighten($color-gray-dark, 80%); 
+$color-gray-lightest:        #f3f3f3; 
+
+$color-green:                #187d35;
+$color-green-dark:           #146a2d;
+$color-green-darker:         #115926;   
+
+$color-link:                 #003399;
+$color-hover:                $color-base;
+$color-visited:              #800080;
+
+$text-color:                 $color-base;
+
+// Mobile First Breakpoints
+$small-screen:      37.5em;
+$medium-screen:     50em;
+$large-screen:      1201px;
