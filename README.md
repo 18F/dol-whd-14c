@@ -1,12 +1,12 @@
 # Department of Labor - Wage and Hour - Section 14c
 
-[![Build status](https://ci.appveyor.com/api/projects/status/gmq5jhbib0ug3rat?svg=true)](https://ci.appveyor.com/project/DOL-WHD-Section14c/master) 
-[![Code Climate](https://codeclimate.com/github/AppliedIS/dol-whd-14c/badges/gpa.svg)](https://codeclimate.com/github/AppliedIS/dol-whd-14c) 
+[![Build status](https://ci.appveyor.com/api/projects/status/gmq5jhbib0ug3rat?svg=true)](https://ci.appveyor.com/project/DOL-WHD-Section14c/master)
+[![Code Climate](https://codeclimate.com/github/AppliedIS/dol-whd-14c/badges/gpa.svg)](https://codeclimate.com/github/AppliedIS/dol-whd-14c)
 [![Javascript Coverage Status](https://coveralls.io/repos/github/AppliedIS/dol-whd-14c/badge.svg?branch=master)](https://coveralls.io/github/AppliedIS/dol-whd-14c?branch=master)
 [![DotNet Coverage Status](http://dol-whd-section14c-coverage-dev.azurewebsites.net/badge_combined.svg)](http://dol-whd-section14c-coverage-dev.azurewebsites.net/)
 [![dependencies Status](https://david-dm.org/AppliedIS/dol-whd-14c/status.svg?path=DOL.WHD.Section14c.Web)](https://david-dm.org/AppliedIS/dol-whd-14c?path=DOL.WHD.Section14c.Web)
 
-TODO: Project Summary 
+TODO: Project Summary
 
 ## Table of contents
 
@@ -26,7 +26,7 @@ TODO: Project Summary
      2. [DOL.WHD.Section14c.API.zip](#2-dolwhdsection14capizip)
        * [Configuration Settings](#configuration-settings-1)
      3. [DotNet.CoverageReport.zip](#3-dotnetcoveragereportzip)
-        
+
 ## Project Management
 
 Install [Zenhub](https://www.zenhub.com/) extension and view [project board](https://github.com/18F/dol-whd-14c#boards).
@@ -50,7 +50,7 @@ Install [Zenhub](https://www.zenhub.com/) extension and view [project board](htt
 See [DOL.WHD.Section14c.Web Readme](DOL.WHD.Section14c.Web/Readme.md)
 
 | Project | Description     
-| --- | --- 
+| --- | ---
 DOL.WHD.Section14c.Web | AngularJS front-end
 
 ### REST Services
@@ -58,7 +58,7 @@ DOL.WHD.Section14c.Web | AngularJS front-end
 DOL.WHD.Section14c.sln
 ```
 | Project | Description     
-| --- | --- 
+| --- | ---
 DOL.WHD.Section14c.Api | ASP.Net WebAPI REST Services
 DOL.WHD.Section14c.Business | .Net Class Library for business services
 DOL.WHD.Section14c.Business.Test | MSTest Unit Tests
@@ -134,3 +134,14 @@ RequireHttps | Require HTTPS for secure communication | true
 ### 3. DotNet.CoverageReport.zip
 
 This artifact contains static files of a ReportGenerator code coverage report for .Net.  This is a development artifact and is not needed for production.
+
+## Public domain
+
+This project is in the worldwide [public domain](LICENSE.md).   As stated in [CONTRIBUTING](CONTRIBUTING.md):
+
+> This project is in the public domain within   the United States, and copyright and related rights in the
+> work worldwide are waived through the
+> [CC0 1.0 Universal public domain dedication](https://creativecommons.org/publicdomain/zero/1.0/).  
+>
+> All contributions to this project will be released under the CC0 dedication. By submitting a pull request,
+> you are agreeing to comply with this waiver of copyright interest.
