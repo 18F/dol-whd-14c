@@ -452,11 +452,11 @@
         </fieldset>
     </div>
     <div class="form-question-block" ng-class="validate('employer.temporaryAuthority') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Is this a request for Temporary Authority?
+        <div class="form-question-text">
+            Is this a request for Temporary Authority by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration?
             <helplink></helplink>
-            <helptext>Answer yes only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. See 29 C.F.R. &sect; 525.8.</helptext>
+            <helptext>Select “Yes” only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. See 29 C.F.R. § 525.8.</helptext>
         </div>
-        <div class="form-question-subtext">Answer Yes if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration.</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
