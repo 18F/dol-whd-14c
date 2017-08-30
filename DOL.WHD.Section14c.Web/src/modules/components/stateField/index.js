@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    require('./stateFieldDirective')(ngModule);
+  require('./stateFieldDirective')(ngModule);
 };

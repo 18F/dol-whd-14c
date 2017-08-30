@@ -2,14 +2,13 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('changePasswordForm', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./changePasswordFormTemplate.html'),
-          controller: 'changePasswordFormController',
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./changePasswordFormTemplate.html'),
+      controller: 'changePasswordFormController',
+      controllerAs: 'vm'
+    };
   });
-}
+};

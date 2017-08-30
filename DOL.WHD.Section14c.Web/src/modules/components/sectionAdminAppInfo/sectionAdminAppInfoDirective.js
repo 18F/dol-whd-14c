@@ -2,12 +2,11 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAdminAppInfo', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAdminAppInfoTemplate.html')
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAdminAppInfoTemplate.html')
+    };
   });
-}
+};

@@ -1,25 +1,26 @@
 describe('sectionAssurancesController', function() {
+  beforeEach(module('14c'));
 
-    beforeEach(module('14c'));
+  beforeEach(
+    inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
+      mockStateService.formData = 'value';
 
-        mockStateService.formData = 'value';
+      sectionAssurancesController = function() {
+        return $controller('sectionAssurancesController', {
+          $scope: scope,
+          navService: mockNavService,
+          $route: route,
+          stateService: mockStateService
+        });
+      };
+    })
+  );
 
-        sectionAssurancesController = function() {
-            return $controller('sectionAssurancesController', {
-                '$scope': scope, 
-                'navService': mockNavService,
-                '$route': route,
-                'stateService': mockStateService
-            });
-        };
-    }));
+  it('invoke controller, intialize formData from state service', function() {
+    var controller = sectionAssurancesController();
 
-    it('invoke controller, intialize formData from state service', function() {
-        var controller = sectionAssurancesController();
-
-        expect(scope.formData).toBe('value');
-    });
+    expect(scope.formData).toBe('value');
+  });
 });

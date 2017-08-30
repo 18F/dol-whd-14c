@@ -2,17 +2,16 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('dateField', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./dateFieldTemplate.html'),
-          controller: 'dateFieldController',
-          scope: {
-              dateVal: '='
-          },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./dateFieldTemplate.html'),
+      controller: 'dateFieldController',
+      scope: {
+        dateVal: '='
+      },
+      controllerAs: 'vm'
+    };
   });
-}
+};

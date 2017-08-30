@@ -2,16 +2,15 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('adminWageDataPayType', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./adminWageDataPayTypeTemplate.html'),
-          scope: {
-              paytype: '=',
-              data: '='
-          }
-      };
+    return {
+      restrict: 'EA',
+      template: require('./adminWageDataPayTypeTemplate.html'),
+      scope: {
+        paytype: '=',
+        data: '='
+      }
+    };
   });
-}
+};

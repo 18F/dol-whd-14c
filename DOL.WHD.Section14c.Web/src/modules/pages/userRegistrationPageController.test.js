@@ -1,18 +1,19 @@
 describe('userRegistrationPageController', function() {
+  beforeEach(module('14c'));
 
-    beforeEach(module('14c'));
+  beforeEach(
+    inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
+      userRegistrationPageController = function() {
+        return $controller('userRegistrationPageController', {
+          $scope: scope
+        });
+      };
+    })
+  );
 
-        userRegistrationPageController = function() {
-            return $controller('userRegistrationPageController', {
-                '$scope': scope
-            });
-        };
-    }));
-
-    it('invoke controller', function() {
-        var controller = userRegistrationPageController();
-    });
+  it('invoke controller', function() {
+    var controller = userRegistrationPageController();
+  });
 });

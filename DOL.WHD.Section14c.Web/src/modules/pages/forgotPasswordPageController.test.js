@@ -1,18 +1,19 @@
 describe('forgotPasswordPageController', function() {
+  beforeEach(module('14c'));
 
-    beforeEach(module('14c'));
+  beforeEach(
+    inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
+      forgotPasswordPageController = function() {
+        return $controller('forgotPasswordPageController', {
+          $scope: scope
+        });
+      };
+    })
+  );
 
-        forgotPasswordPageController = function() {
-            return $controller('forgotPasswordPageController', {
-                '$scope': scope
-            });
-        };
-    }));
-
-    it('invoke controller', function() {
-        var controller = forgotPasswordPageController();
-    });
+  it('invoke controller', function() {
+    var controller = forgotPasswordPageController();
+  });
 });

@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    require('./formSectionDirective')(ngModule);
+  require('./formSectionDirective')(ngModule);
 };
