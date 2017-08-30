@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="form-question-block" ng-class="validate('employer.legalNameHasChanged') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Has the Employer's legal name changed since its last application?
+        <div class="form-question-text">Has the Employer's name(s) changed since its last application?
         </div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
@@ -70,7 +70,7 @@
         </fieldset>
     </div>
     <div ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Prior Legal Name of Employer</div>
+        <div class="form-question-text">Prior Legal Name(s) of Employer</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
         <div class="form-question-answer">
             <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
