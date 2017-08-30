@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAppInfo', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAppInfoTemplate.html'),
-          controller: 'sectionAppInfoController',
-          scope: { },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAppInfoTemplate.html'),
+      controller: 'sectionAppInfoController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};

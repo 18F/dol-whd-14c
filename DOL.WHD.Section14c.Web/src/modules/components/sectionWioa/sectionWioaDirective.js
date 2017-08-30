@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionWioa', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionWioaTemplate.html'),
-          controller: 'sectionWioaController',
-          scope: { },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionWioaTemplate.html'),
+      controller: 'sectionWioaController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};

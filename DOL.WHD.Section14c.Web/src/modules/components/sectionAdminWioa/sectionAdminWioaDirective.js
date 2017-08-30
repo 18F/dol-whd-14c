@@ -2,12 +2,11 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAdminWioa', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAdminWioaTemplate.html')
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAdminWioaTemplate.html')
+    };
   });
-}
+};

@@ -8,7 +8,10 @@
     "testd": "DEBUG=true karma start",
     "start": "webpack-dev-server",
     "clean": "rimraf ./dist/*",
-    "deploy": "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
+    "prettier":
+      "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.js\"",
+    "deploy":
+      "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
   },
   "author": "",
   "license": "CC0-1.0",
@@ -39,6 +42,7 @@
     "ngtemplate-loader": "^1.3.1",
     "node-bourbon": "^4.2.8",
     "node-sass": "^3.10.0",
+    "prettier": "^1.6.1",
     "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",

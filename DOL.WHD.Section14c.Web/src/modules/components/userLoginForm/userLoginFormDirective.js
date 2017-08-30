@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('userLogin', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./userLoginFormTemplate.html'),
-          controller: 'userLoginFormController',
-          scope: {},
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./userLoginFormTemplate.html'),
+      controller: 'userLoginFormController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};

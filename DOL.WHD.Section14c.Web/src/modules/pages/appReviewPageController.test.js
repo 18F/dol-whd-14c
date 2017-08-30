@@ -1,18 +1,19 @@
 describe('appReviewPageController', function() {
+  beforeEach(module('14c'));
 
-    beforeEach(module('14c'));
+  beforeEach(
+    inject(function($rootScope, $controller) {
+      scope = $rootScope.$new();
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
+      appReviewPageController = function() {
+        return $controller('appReviewPageController', {
+          $scope: scope
+        });
+      };
+    })
+  );
 
-        appReviewPageController = function() {
-            return $controller('appReviewPageController', {
-                '$scope': scope
-            });
-        };
-    }));
-
-    it('invoke controller', function() {
-        var controller = appReviewPageController();
-    });
+  it('invoke controller', function() {
+    var controller = appReviewPageController();
+  });
 });

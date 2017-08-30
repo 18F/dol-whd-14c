@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('formFooterControls', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./formFooterControlsTemplate.html'),
-          controller: 'formFooterControlsController',
-          scope: {},
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./formFooterControlsTemplate.html'),
+      controller: 'formFooterControlsController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};
