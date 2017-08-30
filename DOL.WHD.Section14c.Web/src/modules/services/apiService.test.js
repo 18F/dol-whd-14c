@@ -1,3 +1,4 @@
+/* eslint-disable max-statements */
 describe('apiService', function() {
   beforeEach(module('14c'));
 

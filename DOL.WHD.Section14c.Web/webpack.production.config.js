@@ -1,22 +1,20 @@
-var webpack = require("webpack");
+var webpack = require('webpack');
 var failPlugin = require('webpack-fail-plugin');
 var copyWebpackPlugin = require('copy-webpack-plugin');
 var bourbon = require('node-bourbon').includePaths;
 
 module.exports = {
     devtool: 'source-map',
-	entry: './src/modules/app.js',
-	output: {
-		path: './dist/',
-		filename: 'index.js'
-	},
-	//externals: {
-    //},
+    entry: './src/modules/app.js',
+    output: {
+        path: './dist/',
+        filename: 'index.js'
+    },
     eslint: {
         failOnWarning: false,
         failOnError: true
     },
-	module: {
+    module: {
         preLoaders: [
             {
                 test: /\.jsx?$/,
@@ -24,24 +22,29 @@ module.exports = {
                 loader: 'eslint'
             }
         ],
-		loaders: [
-			{
-				test: /\.js$/,
-				exclude: /node_modules/,
-				loaders: ['ng-annotate','babel?presets[]=es2015']
-			},
+        loaders: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loaders: ['ng-annotate', 'babel?presets[]=es2015']
+            },
             {
                 test: /\.html$/,
                 exclude: /node_modules/,
                 loader: 'html?-minimize'
             },
             {
-				test: /\.scss$/,
-				exclude: /node_modules/,
-				loaders: ['style', 'css', 'resolve-url', 'sass?sourceMap&includePaths[]=' + bourbon]
-			},
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
-  		    {
+                test: /\.scss$/,
+                exclude: /node_modules/,
+                loaders: [
+                    'style',
+                    'css',
+                    'resolve-url',
+                    'sass?sourceMap&includePaths[]=' + bourbon
+                ]
+            },
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            {
                 test: /\.(png|gif|jpg|jpeg)$/,
                 loader: 'file-loader?name=images/[name].[ext]'
             },
@@ -50,19 +53,19 @@ module.exports = {
                 loader: 'file-loader?name=fonts/[name].[ext]'
             },
             {
-    			test: /\.(config|xml)$/,
+                test: /\.(config|xml)$/,
                 loader: 'file'
             }
-		]
-	},
-	plugins: [
+        ]
+    },
+    plugins: [
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': JSON.stringify('production')
+                NODE_ENV: JSON.stringify('production')
             }
         }),
         new webpack.optimize.UglifyJsPlugin({
@@ -71,9 +74,6 @@ module.exports = {
             }
         }),
         failPlugin,
-        new copyWebpackPlugin([
-            { from: './src/deploy' }
-            ]
-        )
-	]
-}
+        new copyWebpackPlugin([{ from: './src/deploy' }])
+    ]
+};
