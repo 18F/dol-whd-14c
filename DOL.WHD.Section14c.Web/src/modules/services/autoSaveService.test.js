@@ -38,11 +38,6 @@ describe('autoSaveService', function() {
     //expect(timer).toNotBe(undefined);
   });
 
-  it('should call the stop method', function() {
-    autoSave.stop;
-    //expect(autoSave.stop).toEqual('value');
-  });
-
   it('should call the save method, succeed and call the callback', function() {
     var hasRun = false;
     var callback = function() {
