@@ -1,7 +1,7 @@
 <div class="form-question-group force-margin" ng-show="paytype">
     <div class="form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
         <div class="form-question-text">
-            How many workers with disabilities were paid {{ paytype === 'hourly' ? 'an hourly' : 'on a piece rate basis'}} subminimum wage during the most recently completed fiscal quarter?
+            {{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}
             <helplink></helplink>
             <helptext>Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
         </div>
