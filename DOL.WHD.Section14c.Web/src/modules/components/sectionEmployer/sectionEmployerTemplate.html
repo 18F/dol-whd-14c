@@ -20,9 +20,8 @@
             <helplink></helplink>
             <helptext>Provide the full legal and trade name(s) of the employer, and previous name, if applicable. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
         </div>
-        <div class="form-question-subtext">If applying for a certificate as a School Work Experience Program (SWEP), enter the identifying information for the school. </div>
-         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
-         <div class="form-question-answer">
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
+        <div class="form-question-answer">
             <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
         </div>
     </div>
@@ -251,7 +250,6 @@
             <helplink></helplink>
             <helptext>The term "local educational agency" means a public board of education or other public authority legally constituted within a State for either administrative control or direction of, or to perform a service function for, public elementary schools or secondary schoolsin a city, county, township, school district, or other political subdivision of a State, or of or for a combination of school districts orcounties that is recognized in a State as an administrative agency for its public elementary schools or secondary schools. The term "State educational agency" means the agency primarily responsible for the State supervision of public elementary schoolsand secondary schools. See 20 U.S.C. 7801, the Elementary and Secondary Education Act of 1965.</helptext>
         </div>
-        <div class="form-question-subtext">The term "local educational agency" means a public board of education or other public authority legally constituted within a State... [See More]</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
         <fieldset class="usa-fieldset-inputs form-question-answer">
             <ul class="usa-unstyled-list">
