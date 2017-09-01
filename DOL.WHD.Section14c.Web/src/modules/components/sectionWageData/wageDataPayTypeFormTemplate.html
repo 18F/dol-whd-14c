@@ -86,9 +86,6 @@
                                 <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="vm.activeSourceEmployer.address.streetAddress">
                             </div>
 
-                          <!--<label for="mailing-address-2">Street address 2 <span class="usa-additional_text">Optional</span></label>
-                          <input id="mailing-address-2" name="mailing-address-2" type="text">-->
-
                           <div class="clearer" ng-class="vm.validateActiveSourceEmployerProperty('address.city') || vm.validateActiveSourceEmployerProperty('address.state') ? 'usa-input-error' : ''">
                             <div class="usa-input-grid usa-input-grid-medium">
                               <label for="city">City</label>
@@ -374,13 +371,13 @@
                 <helptext>Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
                     <ul>
                         <li>detailed task analysis (including quality and quantity measures), and</li>
-                        <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., "standard setter").</li>
+                        <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
                     </ul>
                 </helptext>
             </div>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
             <div class="form-question-answer">
-                <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. "standard setter").</span>
+                <span>Examples include detailed task analysis(including quality and quantity measures), and productivity of an experienced worker who is not disabled for the work performing the same job (i.e. “standard setter”).</span>
                 <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
             </div>
         </div>

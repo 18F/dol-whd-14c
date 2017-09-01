@@ -1,5 +1,5 @@
 <div class="dol-form-section-title">
-    <h2>Work Sites &amp; Employees</h2>
+    <h2>Work Sites & Employees</h2>
 
     <div class="dol-form-section-help">
         <ul>
@@ -25,9 +25,9 @@
     </div>
 
     <div class="form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
-        <div class="form-question-text">We'll need to collect information about each worksite and its employees.</div>
+        <div class="form-question-text">We’ll need to collect information about each worksite and its employees.</div>
         <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
-        <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site &amp; Employee(s)</button>
+        <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site & Employee(s)</button>
     </div>
 
     <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
@@ -37,7 +37,7 @@
 
     <!-- Tab 1 (Add Work Site) -->
     <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 1">
-        <div>First, we'll collect information about the Work Site / Establishment.</div>
+        <div>First, we’ll collect information about the Work Site / Establishment.</div>
 
         <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
             <div class="form-question-text">What type of establishment is this?
@@ -83,9 +83,6 @@
                             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
                             <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
                         </div>
-
-                        <!--<label for="worksiteAddress2">Street address 2 <span class="usa-additional_text">Optional</span></label>
-                        <input id="worksiteAddress2" name="worksiteAddress2" type="text" ng-model="vm.activeWorksite.address.streetAddress2">-->
 
                     <div class="clearer" ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
                     <div class="usa-input-grid usa-input-grid-medium">
@@ -136,7 +133,7 @@
         <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
             <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
                 <helplink></helplink>
-                <helptext>Mark "yes" if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to <a href='https://www.federalregister.gov/documents/2014/02/20/2014-03805/establishing-a-minimum-wage-for-contractors' target='_blank'>Executive Order 13658</a> (Establishing a Minimum Wage for Contractors).</helptext>
+                <helptext>Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to <a href='https://www.federalregister.gov/documents/2014/02/20/2014-03805/establishing-a-minimum-wage-for-contractors' target='_blank'>Executive Order 13658</a> (Establishing a Minimum Wage for Contractors).</helptext>
             </div>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
             <div class="form-question-answer">
@@ -175,13 +172,13 @@
         </div>
 
         <div class="form-spaced-div">
-            <p>We'll need collect specific information for each employee.</p>
+            <p>We’ll need collect specific information for each employee.</p>
             <p><a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
 
             <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
                 <ul>
                     <li><span>Full Name of Worker</span><span>Provide the full name of the worker.</span></li>
-                    <li><span>Primary Disability</span><span>Identify the primary disability that affects the worker's productivity for the job identified using the categories provided.</span></li>
+                    <li><span>Primary Disability</span><span>Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.</span></li>
                     <li><span>Type of Work</span><span><p>Descibe the work peformed by this worker in the job for which the worker worked the most number of hours at a subminimum wage.</p><p>Examples may include: sewing, janitorial, box assembly, laundry, etc.</p></span></li>
                     <li><span>Number of Jobs</span><span>If the worker performed more than one job at this work site during the most recently compelted fiscal quarter provide the total number of jobs.</span></li>
                     <li><span>Average Hours per Week</span>
@@ -195,25 +192,25 @@
                         <span>
                             <p>Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter.</p>
                             <p>Note:The total number of hours worked should only include the compensable work time (for example: generally would not include time spent in rehabilitation, therapy, etc.)</p>
-                            <p>For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones's average earnings per hour are $3.00.</p>
+                            <p>For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.</p>
                         </span>
                     </li>
                     <li><span>Prevailing Wage</span><span>Provide the prevailing wage rate for the job identified.</span></li>
                     <li><span>Productivity Measure</span>
                         <span>
-                            <p>Provide the employee's most recent productivity rating the job identified.</p>
-                            <p>For work paid hourly, the productivity rating is the employee's productivity in proportion to the standard-setter's that was determined by the employee's time study.</p>
-                            <p>For piece rate work, no calculation is required, choose "n/a - piece rate".</p>
+                            <p>Provide the employee’s most recent productivity rating the job identified.</p>
+                            <p>For work paid hourly, the productivity rating is the employee’s productivity in proportion to the standard-setter’s that was determined by the employee’s time study.</p>
+                            <p>For piece rate work, no calculation is required, choose “n/a - piece rate”.</p>
                         </span>
                     </li>
                     <li><span>Commensurate Wage Rate</span>
                         <span>
-                            <p>For work paid hourly, provide the employee's commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job.</p>
-                            <p>For piece rate work, provide the employee's average earnings per hour for the job identified.</p>
+                            <p>For work paid hourly, provide the employee’s commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job.</p>
+                            <p>For piece rate work, provide the employee’s average earnings per hour for the job identified.</p>
                         </span>
                     </li>
-                    <li><span>Total Hours</span><span>Provide the employee's total hours worked on the job identified over the most recently completed fiscal quarter.</span></li>
-                    <li><span>Work at Other Site?</span><span>Answer "yes" if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span></li>
+                    <li><span>Total Hours</span><span>Provide the employee’s total hours worked on the job identified over the most recently completed fiscal quarter.</span></li>
+                    <li><span>Work at Other Site?</span><span>Answer “yes” if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span></li>
                 </ul>
             </div>
 
