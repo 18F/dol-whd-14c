@@ -1,5 +1,5 @@
 <answer-field answer="data.numWorkers">
-    How many workers did the employer pay {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'hourly' : 'on a piece rate basis'}}?
+    {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}
 </answer-field>
 
 <answer-field answer="data.jobName">
