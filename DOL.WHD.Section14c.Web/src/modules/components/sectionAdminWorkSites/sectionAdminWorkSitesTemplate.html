@@ -1,38 +1,44 @@
 <div class="admin-page">
-    <div class="dol-form-section-title">
-        <h2>Worksites & Employees</h2>
-    </div>
-        
-    <answer-field answer="$parent.appData.totalNumWorkSites">
-        What is the total number of establishments and work sites to be covered by this certificate?
-    </answer-field>
+  <div class="dol-form-section-title">
+    <h2>Worksites & Employees</h2>
+  </div>
 
-    <div class="table-responsive">
-        <table class="usa-table-borderless expandable-table">
-            <thead>
-                <tr>
-                    <td></td>
-                    <th scope="col">Work Site Name</th>
-                    <th scope="col">Number of Workers</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in $parent.appData.workSites">
-                    <td><a href="" ng-click="vm.siteRowClicked($event)"><div class="arrow-expander"></div></a></td>
-                    <th scope="row">{{ site.name }}</th>
-                    <td>{{ site.numEmployees }}</td>
-                    <td><button class="blue-button" ng-click="vm.viewWorkSite($index)">View</button></td>
-                </tr>
-                <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
-                    <td></td>
-                    <td colspan="3">
-                        <div ng-repeat="employee in site.employees">
-                            {{ employee.name }}
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  <answer-field answer="$parent.appData.totalNumWorkSites">
+    What is the total number of establishments and work sites to be covered by this certificate?
+  </answer-field>
+
+  <div class="table-responsive">
+    <table class="usa-table-borderless expandable-table">
+      <thead>
+        <tr>
+          <td></td>
+          <th scope="col">Work Site Name</th>
+          <th scope="col">Number of Workers</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in $parent.appData.workSites">
+          <td>
+            <a href="" ng-click="vm.siteRowClicked($event)">
+              <div class="arrow-expander"></div>
+            </a>
+          </td>
+          <th scope="row">{{ site.name }}</th>
+          <td>{{ site.numEmployees }}</td>
+          <td>
+            <button class="blue-button" ng-click="vm.viewWorkSite($index)">View</button>
+          </td>
+        </tr>
+        <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
+          <td></td>
+          <td colspan="3">
+            <div ng-repeat="employee in site.employees">
+              {{ employee.name }}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -1,151 +1,151 @@
 <div class="admin-page">
-    <div class="dol-form-section-title">
-        <h2>Employer</h2>
-    </div>
+  <div class="dol-form-section-title">
+    <h2>Employer</h2>
+  </div>
 
-    <h3>Employer Information</h3>
-    <hr>
+  <h3>Employer Information</h3>
+  <hr>
 
-    <answer-field answer="appData.employer.legalName">
-        Legal Name of Employer
+  <answer-field answer="appData.employer.legalName">
+    Legal Name of Employer
+  </answer-field>
+
+  <answer-field answer="appData.employer.hasTradeName">
+    Does the Employer have a Trade Name?
+  </answer-field>
+
+  <answer-field answer="appData.employer.tradeName" ng-show="appData.employer.hasTradeName">
+    Trade Name
+  </answer-field>
+
+  <answer-field answer="appData.employer.legalNameHasChanged">
+    Has the Employer’s legal name changed since its last application?
+  </answer-field>
+
+  <answer-field answer="appData.employer.priorLegalName" ng-show="appData.employer.legalNameHasChanged">
+    Prior Legal Name of Employer
+  </answer-field>
+
+  <answer-field answer="appData.employer.physicalAddress" address-field="true">
+    Physical Address of Employer’s Main Establishment
+  </answer-field>
+
+  <answer-field answer="appData.employer.hasParentOrg">
+    Does the Employer have a Parent Organization?
+  </answer-field>
+
+  <div ng-show="appData.employer.hasParentOrg">
+    <answer-field answer="appData.employer.parentLegalName" ng-show="appData.employer.parentLegalName">
+      Parent Organization Legal Name
     </answer-field>
 
-    <answer-field answer="appData.employer.hasTradeName">
-        Does the Employer have a Trade Name?
+    <answer-field answer="appData.employer.parentTradename" ng-show="appData.employer.parentTradename">
+      Parent Organization Trade Name
     </answer-field>
 
-    <answer-field answer="appData.employer.tradeName" ng-show="appData.employer.hasTradeName">
-        Trade Name
+    <answer-field answer="appData.employer.parentAddress" address-field="true">
+      Parent Organization Address
     </answer-field>
 
-    <answer-field answer="appData.employer.legalNameHasChanged">
-        Has the Employer’s legal name changed since its last application?
+    <answer-field answer="appData.employer.sendMailToParent">
+      Send mail to Parent Organiation address?
     </answer-field>
+  </div>
 
-    <answer-field answer="appData.employer.priorLegalName" ng-show="appData.employer.legalNameHasChanged">
-        Prior Legal Name of Employer
-    </answer-field>
+  <answer-field answer="appData.employer.employerStatus.display">
+    Employer Status
+  </answer-field>
+  <span ng-show="appData.employer.employerStatusId === constants.responses.employerStatus.other">{{ appData.employer.employerStatusOther }}</span>
 
-    <answer-field answer="appData.employer.physicalAddress" address-field="true">
-        Physical Address of Employer’s Main Establishment
-    </answer-field>
-
-    <answer-field answer="appData.employer.hasParentOrg">
-        Does the Employer have a Parent Organization?
-    </answer-field>
-
-    <div ng-show="appData.employer.hasParentOrg">
-        <answer-field answer="appData.employer.parentLegalName" ng-show="appData.employer.parentLegalName">
-            Parent Organization Legal Name
-        </answer-field>
-
-        <answer-field answer="appData.employer.parentTradename" ng-show="appData.employer.parentTradename">
-            Parent Organization Trade Name
-        </answer-field>
-
-        <answer-field answer="appData.employer.parentAddress" address-field="true">
-            Parent Organization Address
-        </answer-field>
-
-        <answer-field answer="appData.employer.sendMailToParent">
-            Send mail to Parent Organiation address?
-        </answer-field>
-    </div>
-
-    <answer-field answer="appData.employer.employerStatus.display">
-        Employer Status
-    </answer-field>
-    <span ng-show="appData.employer.employerStatusId === constants.responses.employerStatus.other">{{ appData.employer.employerStatusOther }}</span>
-
-    <!--<answer-field answer="appData.employer.employerStatusOther" ng-show="appData.employer.employerStatusId === constants.responses.employerStatus.other">
+  <!--<answer-field answer="appData.employer.employerStatusOther" ng-show="appData.employer.employerStatusId === constants.responses.employerStatus.other">
     </answer-field>-->
 
-    <answer-field answer="appData.employer.isEducationalAgency">
-        Is this employer a local or State educational agency?
-    </answer-field>
+  <answer-field answer="appData.employer.isEducationalAgency">
+    Is this employer a local or State educational agency?
+  </answer-field>
 
-    <h3>Number of Workers With Disabilities</h3>
-    <hr>
+  <h3>Number of Workers With Disabilities</h3>
+  <hr>
 
-    <answer-field answer="appData.employer.fiscalQuarterEndDate" datefield="true">
-        When did the Employer’s most recently completed fiscal quarter end?
-    </answer-field>
+  <answer-field answer="appData.employer.fiscalQuarterEndDate" datefield="true">
+    When did the Employer’s most recently completed fiscal quarter end?
+  </answer-field>
 
-    <answer-field answer="appData.employer.numSubminimalWageWorkers.total">
-        What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
-    </answer-field>
+  <answer-field answer="appData.employer.numSubminimalWageWorkers.total">
+    What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?
+  </answer-field>
 
+  <answer-field answer="''">
+    Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
+  </answer-field>
+
+  <answer-field answer="appData.employer.numSubminimalWageWorkers.workCenter">
+    <span class="subtext">Community Rehabilitation Program (Work Center)</span>
+  </answer-field>
+
+  <answer-field answer="appData.employer.numSubminimalWageWorkers.patientWorkers">
+    <span class="subtext">Hospital/Residential Care Facility (Patient Workers)</span>
+  </answer-field>
+
+  <answer-field answer="appData.employer.numSubminimalWageWorkers.swep">
+    <span class="subtext">School Work Experience Program (SWEP)</span>
+  </answer-field>
+
+  <answer-field answer="appData.employer.numSubminimalWageWorkers.businessEstablishment">
+    <span class="subtext">Business Establishment</span>
+  </answer-field>
+
+  <h3>Government Contracts</h3>
+  <hr>
+
+  <answer-field answer="appData.employer.pca">
+    Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?
+  </answer-field>
+
+  <answer-field answer="appData.employer.sca.display">
+    Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?
+  </answer-field>
+
+  <answer-field answer="appData.employer.scaCount" ng-show="appData.employer.scaId === constants.responses.sca.yes">
+    What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?
+  </answer-field>
+
+  <answer-field answer="appData.employer.scaAttachment" attachment-field="true" ng-show="appData.employer.scaId === constants.responses.sca.yes">
+    SCA Wage Determination Attachment
+  </answer-field>
+
+  <answer-field answer="appData.employer.eO13658.display">
+    Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
+  </answer-field>
+
+  <h3>Additional Questions</h3>
+  <hr>
+
+  <answer-field answer="appData.employer.representativePayee">
+    Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?
+  </answer-field>
+
+  <answer-field answer="appData.employer.totalDisabledWorkers" ng-show="appData.employer.representativePayee">
+    Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?
+  </answer-field>
+
+  <answer-field answer="appData.employer.takeCreditForCosts">
+    Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?
+  </answer-field>
+
+  <div ng-show="appData.employer.takeCreditForCosts">
     <answer-field answer="''">
-        Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:
+      Which type of deduction(s) did the employer take?
     </answer-field>
 
-    <answer-field answer="appData.employer.numSubminimalWageWorkers.workCenter">
-        <span class="subtext">Community Rehabilitation Program (Work Center)</span>
-    </answer-field>
+    <ul class="usa-unstyled-list">
+      <li ng-repeat="deduction in appData.employer.providingFacilitiesDeductionType">
+        {{ deduction.providingFacilitiesDeductionType.display }}
+      </li>
+    </ul>
+  </div>
 
-    <answer-field answer="appData.employer.numSubminimalWageWorkers.patientWorkers">
-        <span class="subtext">Hospital/Residential Care Facility (Patient Workers)</span>
-    </answer-field>
-
-    <answer-field answer="appData.employer.numSubminimalWageWorkers.swep">
-        <span class="subtext">School Work Experience Program (SWEP)</span>
-    </answer-field>
-
-    <answer-field answer="appData.employer.numSubminimalWageWorkers.businessEstablishment">
-        <span class="subtext">Business Establishment</span>
-    </answer-field>
-
-    <h3>Government Contracts</h3>
-    <hr>
-
-    <answer-field answer="appData.employer.pca">
-        Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?
-    </answer-field>
-
-    <answer-field answer="appData.employer.sca.display">
-        Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?
-    </answer-field>
-
-    <answer-field answer="appData.employer.scaCount" ng-show="appData.employer.scaId === constants.responses.sca.yes">
-        What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?
-    </answer-field>
-
-    <answer-field answer="appData.employer.scaAttachment" attachment-field="true" ng-show="appData.employer.scaId === constants.responses.sca.yes">
-        SCA Wage Determination Attachment
-    </answer-field>
-
-    <answer-field answer="appData.employer.eO13658.display">
-        Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government  that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
-    </answer-field>
-
-    <h3>Additional Questions</h3>
-    <hr>
-
-    <answer-field answer="appData.employer.representativePayee">
-        Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?
-    </answer-field>
-
-    <answer-field answer="appData.employer.totalDisabledWorkers" ng-show="appData.employer.representativePayee">
-        Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?
-    </answer-field>
-
-    <answer-field answer="appData.employer.takeCreditForCosts">
-        Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?
-    </answer-field>
-
-    <div ng-show="appData.employer.takeCreditForCosts">
-        <answer-field answer="''">
-            Which type of deduction(s) did the employer take?
-        </answer-field>
-
-        <ul class="usa-unstyled-list">
-            <li ng-repeat="deduction in appData.employer.providingFacilitiesDeductionType">
-                {{ deduction.providingFacilitiesDeductionType.display }}
-            </li>
-        </ul>
-    </div>
-
-    <answer-field answer="appData.employer.temporaryAuthority">
-        Is this a request for Temporary Authority?
-    </answer-field>
+  <answer-field answer="appData.employer.temporaryAuthority">
+    Is this a request for Temporary Authority?
+  </answer-field>
 </div>

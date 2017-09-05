@@ -1,102 +1,92 @@
 <div class="form-page-full" ng-hide="vm.submissionSuccess">
-    <h2>Review & Submit</h2>
-    <p>We’ve checked your responses from each section to make sure there were no errors or missing information before submission.</p>
-    <p>Below is a summary of the results:</p>
+  <h2>Review & Submit</h2>
+  <p>We’ve checked your responses from each section to make sure there were no errors or missing information before submission.</p>
+  <p>Below is a summary of the results:</p>
 
-    <div class="section-results">
-        <h3>Assurances</h3>
-        <reviewbar errorstate="{{ validation.__assurances }}"></reviewbar>
-        <div ng-hide="validation.__assurances">
-            <a href="" ng-click="navService.gotoSection('assurances')">Review Assurances</a>
-        </div>
-        <button ng-click="navService.gotoSection('assurances')" ng-show="validation.__assurances">Edit Responses</button>
+  <div class="section-results">
+    <h3>Assurances</h3>
+    <reviewbar errorstate="{{ validation.__assurances }}"></reviewbar>
+    <div ng-hide="validation.__assurances">
+      <a href="" ng-click="navService.gotoSection('assurances')">Review Assurances</a>
     </div>
+    <button ng-click="navService.gotoSection('assurances')" ng-show="validation.__assurances">Edit Responses</button>
+  </div>
 
+  <hr>
+
+  <div class="section-results">
+    <h3>Application Info</h3>
+    <reviewbar errorstate="{{ validation.__appinfo }}"></reviewbar>
+    <div ng-hide="validation.__appinfo">
+      <a href="" ng-click="navService.gotoSection('app-info')">Review Application Info</a>
+    </div>
+    <button ng-click="navService.gotoSection('app-info')" ng-show="validation.__appinfo">Edit Responses</button>
+  </div>
+
+  <hr>
+
+  <div class="section-results">
+    <h3>Employer</h3>
+    <reviewbar errorstate="{{ validation.__employer }}"></reviewbar>
+    <div ng-hide="validation.__employer">
+      <a href="" ng-click="navService.gotoSection('employer')">Review Employer</a>
+    </div>
+    <button ng-click="navService.gotoSection('employer')" ng-show="validation.__employer">Edit Responses</button>
+  </div>
+
+  <hr>
+
+  <div class="section-results">
+    <h3>Wage Data</h3>
+    <reviewbar errorstate="{{ validation.__wagedata }}"></reviewbar>
+    <div ng-hide="validation.__wagedata">
+      <a href="" ng-click="navService.gotoSection('wage-data')">Review Wage Data</a>
+    </div>
+    <button ng-click="navService.gotoSection('wage-data')" ng-show="validation.__wagedata">Edit Responses</button>
+  </div>
+
+  <hr>
+
+  <div class="section-results">
+    <h3>Work Sites & Employees</h3>
+    <reviewbar errorstate="{{ validation.__worksites }}"></reviewbar>
+    <div ng-hide="validation.__worksites">
+      <a href="" ng-click="navService.gotoSection('work-sites')">Review Work Sites & Employees</a>
+    </div>
+    <button ng-click="navService.gotoSection('work-sites')" ng-show="validation.__worksites">Edit Responses</button>
+  </div>
+
+  <hr>
+
+  <div class="section-results">
+    <h3>WIOA</h3>
+    <reviewbar errorstate="{{ validation.__wioa }}"></reviewbar>
+    <div ng-hide="validation.__wioa">
+      <a href="" ng-click="navService.gotoSection('wioa')">Review WIOA</a>
+    </div>
+    <button ng-click="navService.gotoSection('wioa')" ng-show="validation.__wioa">Edit Responses</button>
+  </div>
+
+  <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.submissionError">
+    <div class="usa-alert-body">
+      <p class="usa-alert-text">An error occurred while submitting your application. Please try again later if the error persists:</p>
+      <p class="usa-alert-text">{{ "ERROR " + vm.submissionError.status + ": " + (vm.submissionError.data.error_description ? vm.submissionError.data.error_description : "unknown error") }}</p>
+    </div>
+  </div>
+
+  <div class="clearer submit-button">
+    <button class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
+  </div>
+
+  <div>
+    <h3>Public Burden Statement</h3>
     <hr>
-
-    <div class="section-results">
-        <h3>Application Info</h3>
-        <reviewbar errorstate="{{ validation.__appinfo }}"></reviewbar>
-        <div ng-hide="validation.__appinfo">
-            <a href="" ng-click="navService.gotoSection('app-info')">Review Application Info</a>
-        </div>
-        <button ng-click="navService.gotoSection('app-info')" ng-show="validation.__appinfo">Edit Responses</button>
-    </div>
-
-    <hr>
-
-    <div class="section-results">
-        <h3>Employer</h3>
-        <reviewbar errorstate="{{ validation.__employer }}"></reviewbar>
-        <div ng-hide="validation.__employer">
-            <a href="" ng-click="navService.gotoSection('employer')">Review Employer</a>
-        </div>
-        <button ng-click="navService.gotoSection('employer')" ng-show="validation.__employer">Edit Responses</button>
-    </div>
-
-    <hr>
-
-    <div class="section-results">
-        <h3>Wage Data</h3>
-        <reviewbar errorstate="{{ validation.__wagedata }}"></reviewbar>
-        <div ng-hide="validation.__wagedata">
-            <a href="" ng-click="navService.gotoSection('wage-data')">Review Wage Data</a>
-        </div>
-        <button ng-click="navService.gotoSection('wage-data')" ng-show="validation.__wagedata">Edit Responses</button>
-    </div>
-
-    <hr>
-
-    <div class="section-results">
-        <h3>Work Sites & Employees</h3>
-        <reviewbar errorstate="{{ validation.__worksites }}"></reviewbar>
-        <div ng-hide="validation.__worksites">
-            <a href="" ng-click="navService.gotoSection('work-sites')">Review Work Sites & Employees</a>
-        </div>
-        <button ng-click="navService.gotoSection('work-sites')" ng-show="validation.__worksites">Edit Responses</button>
-    </div>
-
-    <hr>
-
-    <div class="section-results">
-        <h3>WIOA</h3>
-        <reviewbar errorstate="{{ validation.__wioa }}"></reviewbar>
-        <div ng-hide="validation.__wioa">
-            <a href="" ng-click="navService.gotoSection('wioa')">Review WIOA</a>
-        </div>
-        <button ng-click="navService.gotoSection('wioa')" ng-show="validation.__wioa">Edit Responses</button>
-    </div>
-
-    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.submissionError">
-        <div class="usa-alert-body">
-            <p class="usa-alert-text">An error occurred while submitting your application. Please try again later if the error persists:</p>
-            <p class="usa-alert-text">{{ "ERROR " + vm.submissionError.status + ":  " + (vm.submissionError.data.error_description ? vm.submissionError.data.error_description : "unknown error") }}</p>
-        </div>
-    </div>
-
-    <div class="clearer submit-button">
-        <button class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
-    </div>
-
-    <div>
-        <h3>Public Burden Statement</h3>
-        <hr>
-        <p>According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information
-            unless such collection displays a valid OMB control number. The Department of Labor estimates that the public
-            reporting burden for this collection of information will average 50 minutes per response for the initial applicant
-            and 75 minutes per response for the renewal applicant, including time for reviewing instructions, searching existing
-            data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information.
-            The obligation to respond to this collection is mandatory in order to obtain the authority to pay less than the
-            applicable minimum wage. 29 C.F.R. §§ 525.7-9, 12-13. Send comments regarding the burden estimate or any other
-            aspect of this collection of information, including suggestions for reducing this burden, to the Administrator,
-            Wage and Hour Division, U.S. Department of Labor, Room S-3502, 200 Constitution Avenue, N.W., Washington, DC
-            20210 and reference the OMB Control Number.</p>
-    </div>
-
+    <p>According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless such collection displays a valid OMB control number. The Department of Labor estimates that the public reporting burden for this collection of information will average 50 minutes per response for the initial applicant and 75 minutes per response for the renewal applicant, including time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information. The obligation to respond to this collection is mandatory in order to obtain the authority to pay less than the applicable minimum wage. 29 C.F.R. §§ 525.7-9, 12-13. Send comments regarding the burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to the Administrator, Wage and Hour Division, U.S. Department of Labor, Room S-3502, 200 Constitution Avenue, N.W., Washington, DC 20210 and reference the OMB Control Number.</p>
+  </div>
 </div>
 
 <div class="form-page-full submission-success" ng-show="vm.submissionSuccess">
-    <h1>Success!</h1>
-    <p>Your application has been submitted. You may sign out now or click the link below to return to your dashboard.</p>
-    <button class="green-button" ng-click="vm.onHomeClick()">Return to Dashboard</button>
+  <h1>Success!</h1>
+  <p>Your application has been submitted. You may sign out now or click the link below to return to your dashboard.</p>
+  <button class="green-button" ng-click="vm.onHomeClick()">Return to Dashboard</button>
 </div>

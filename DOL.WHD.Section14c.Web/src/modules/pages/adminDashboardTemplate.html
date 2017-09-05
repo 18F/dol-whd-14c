@@ -1,137 +1,129 @@
 <div class="admin-page">
-    <main-top-nav-control></main-top-nav-control>
+  <main-top-nav-control></main-top-nav-control>
 
-    <div class="manage-users-block">
-        <a href="" ng-click="gotoUsers()">Manage Users</a>
+  <div class="manage-users-block">
+    <a href="" ng-click="gotoUsers()">Manage Users</a>
+  </div>
+
+  <h1>Dashboard</h1>
+
+  <div class="admin-filter-bar clearer">
+    <div class="admin-filter">
+      <label for="admin_filter_name">Search by Employer Name</label>
+      <input id="admin_filter_name" name="admin_filter_name" type="text" ng-model="filterName" ng-change="gridActions.filter()" filter-by="employerName" filter-type="text">
+    </div>
+    <div class="admin-filter">
+      <label for="admin_filter_status">Filter by Certificate Status</label>
+      <select id="admin_filter_status" name="admin_filter_status" ng-model="filterStatus" ng-change="gridActions.filter()" filter-by="status.id" filter-type="select">
+        <option value="">All</option>
+        <option ng-repeat="status in filterStatuses track by status.id" value="{{status.id}}">{{ status.name }}</option>
+      </select>
+    </div>
+    <div class="admin-filter">
+      <label for="admin_filter_type">Filter by Certificate Type</label>
+      <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
+        <option value="">All</option>
+        <option ng-repeat="estType in establishmentTypes track by estType.id" value="{{estType.id}}">{{ estType.display }}</option>
+      </select>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="admin-table-block" grid-data grid-options="gridOptions" grid-actions="gridActions">
+    <div class="clearer">
+      <div class="items-shown">
+        Showing {{ (paginationOptions.totalItems - (paginationOptions.currentPage - 1) * paginationOptions.itemsPerPage) < paginationOptions.itemsPerPage ? (paginationOptions.totalItems - (paginationOptions.currentPage - 1) * paginationOptions.itemsPerPage) : paginationOptions.itemsPerPage }} of {{ paginationOptions.totalItems === undefined ? 0 : paginationOptions.totalItems }} Applicants
+      </div>
+      <div class="items-view">
+        <div class="form-group items-per-page">
+          Show &nbsp;
+          <select id="itemsOnPageSelect1" class="form-control input-sm" ng-init="paginationOptions.itemsPerPage = '10'" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+          &nbsp; Applicants
+        </div>
+      </div>
     </div>
 
-    <h1>Dashboard</h1>
-
-    <div class="admin-filter-bar clearer">
-        <div class="admin-filter">
-            <label for="admin_filter_name">Search by Employer Name</label>
-            <input id="admin_filter_name" name="admin_filter_name" type="text" ng-model="filterName" ng-change="gridActions.filter()" filter-by="employerName" filter-type="text">
-        </div>
-        <div class="admin-filter">
-            <label for="admin_filter_status">Filter by Certificate Status</label>
-            <select id="admin_filter_status" name="admin_filter_status" ng-model="filterStatus" ng-change="gridActions.filter()" filter-by="status.id" filter-type="select">
-                <option value="">All</option>
-                <option ng-repeat="status in filterStatuses track by status.id" value="{{status.id}}">{{ status.name }}</option>
-            </select>
-        </div>
-        <div class="admin-filter">
-            <label for="admin_filter_type">Filter by Certificate Type</label>
-            <select id="admin_filter_type" name="admin_filter_type" ng-model="filterType" ng-change="gridActions.filter()" filter-by="certificateType" filter-type="select">
-                <option value="">All</option>
-                <option ng-repeat="estType in establishmentTypes track by estType.id" value="{{estType.id}}">{{ estType.display }}</option>
-            </select>
-        </div>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th sortable="employerName" class="sortable">
+              Employer Name
+            </th>
+            <th sortable="certificateEffectiveDate" class="sortable">
+              Certificate Effective Date
+            </th>
+            <th sortable="certificateExpirationDate" class="sortable">
+              Certificate Expiration Date
+            </th>
+            <th>
+              Certificate Status
+            </th>
+            <th>
+              Certificate Type
+            </th>
+            <th>
+              Certificate Number
+            </th>
+            <th sortable="state" class="sortable">
+              State
+            </th>
+            <th>
+              Number of Work Sites
+            </th>
+            <th>
+              Number of Workers
+            </th>
+            <th>
+              Application Type
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="item in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
+            <td><a href="" ng-click="gotoApplication(item.id)">{{ item.employerName }}</a></td>
+            <td ng-bind="item.certificateEffectiveDate | date:'MM/dd/yyyy'"></td>
+            <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
+            <td ng-bind="item.status.name"></td>
+            <td>
+              <span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span>
+            </td>
+            <td ng-bind="item.certificateNumber"></td>
+            <td ng-bind="item.state"></td>
+            <td ng-bind="item.numWorkSites"></td>
+            <td ng-bind="item.numWorkers"></td>
+            <td ng-bind="item.applicationType.display"></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <hr>
-
-    <div class="admin-table-block" grid-data grid-options="gridOptions" grid-actions="gridActions">
-        <div class="clearer">
-            <div class="items-shown">
-                Showing {{ (paginationOptions.totalItems - (paginationOptions.currentPage - 1) * paginationOptions.itemsPerPage) < paginationOptions.itemsPerPage ? (paginationOptions.totalItems - (paginationOptions.currentPage - 1) * paginationOptions.itemsPerPage) : paginationOptions.itemsPerPage }} of {{ paginationOptions.totalItems === undefined ? 0 : paginationOptions.totalItems }} Applicants
-            </div>
-            <div class="items-view">
-                <div class="form-group items-per-page">
-                    Show &nbsp;
-                    <select id="itemsOnPageSelect1" class="form-control input-sm"
-                            ng-init="paginationOptions.itemsPerPage = '10'"
-                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>100</option>
-                    </select>
-                    &nbsp; Applicants
-                </div>
-            </div>
+    <div class="clearer">
+      <div class="items-shown">
+        Showing {{ (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) < paginationOptions.itemsPerPage ? (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) : paginationOptions.itemsPerPage }} of {{ paginationOptions.totalItems === undefined ? 0 : paginationOptions.totalItems }} Applicants
+      </div>
+      <div class="items-view">
+        <div class="form-group items-per-page">
+          Show &nbsp;
+          <select id="itemsOnPageSelect1" class="form-control input-sm" ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+            <option>10</option>
+            <option>25</option>
+            <option>50</option>
+            <option>100</option>
+          </select>
+          &nbsp; Applicants
         </div>
-
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th sortable="employerName" class="sortable">
-                            Employer Name
-                        </th>
-                        <th sortable="certificateEffectiveDate" class="sortable">
-                            Certificate Effective Date
-                        </th>
-                        <th sortable="certificateExpirationDate" class="sortable">
-                            Certificate Expiration Date
-                        </th>
-                        <th>
-                            Certificate Status
-                        </th>
-                        <th>
-                            Certificate Type
-                        </th>
-                        <th>
-                            Certificate Number
-                        </th>
-                        <th sortable="state" class="sortable">
-                            State
-                        </th>
-                        <th>
-                            Number of Work Sites
-                        </th>
-                        <th>
-                            Number of Workers
-                        </th>
-                        <th>
-                            Application Type
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="item in filtered | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage | limitTo:paginationOptions.itemsPerPage track by $index">
-                        <td><a href="" ng-click="gotoApplication(item.id)">{{ item.employerName }}</a></td>
-                        <td ng-bind="item.certificateEffectiveDate | date:'MM/dd/yyyy'"></td>
-                        <td ng-bind="item.certificateExpirationDate | date:'MM/dd/yyyy'"></td>
-                        <td ng-bind="item.status.name"></td>
-                        <td><span class="certificate-type" ng-repeat="certType in item.certificateType">{{ certType.display }}</span></td>
-                        <td ng-bind="item.certificateNumber"></td>
-                        <td ng-bind="item.state"></td>
-                        <td ng-bind="item.numWorkSites"></td>
-                        <td ng-bind="item.numWorkers"></td>
-                        <td ng-bind="item.applicationType.display"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="clearer">
-            <div class="items-shown">
-                Showing {{ (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) < paginationOptions.itemsPerPage ? (paginationOptions.totalItems - (paginationOptions.currentPage-1)*paginationOptions.itemsPerPage) : paginationOptions.itemsPerPage }} of {{ paginationOptions.totalItems === undefined ? 0 : paginationOptions.totalItems }} Applicants
-            </div>
-            <div class="items-view">
-                <div class="form-group items-per-page">
-                    Show &nbsp;
-                    <select id="itemsOnPageSelect1" class="form-control input-sm"
-                            ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
-                        <option>100</option>
-                    </select>
-                    &nbsp; Applicants
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group pages-list">
-            <grid-pagination max-size="5"
-                             boundary-links="false"
-                             class="pagination-sm"
-                             total-items="paginationOptions.totalItems"
-                             ng-model="paginationOptions.currentPage"
-                             ng-change="reloadGrid()"
-                             items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
-        </div>
+      </div>
     </div>
 
+    <div class="form-group pages-list">
+      <grid-pagination max-size="5" boundary-links="false" class="pagination-sm" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage" ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage"></grid-pagination>
+    </div>
+  </div>
 </div>

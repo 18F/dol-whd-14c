@@ -1,18 +1,16 @@
 <div class="form-footer-controls" ng-show="vm.hasNext">
-    <div class="button-group">
-        <button class="back-button" ng-show="vm.hasBack" ng-click="vm.onBackClick()">{{ vm.backLabel }}</button>
-        <div class="pull-right">
-            <button class="next-button" ng-click="vm.onNextClick()">{{ vm.nextLabel }}</button>
-        </div>
+  <div class="button-group">
+    <button class="back-button" ng-show="vm.hasBack" ng-click="vm.onBackClick()">{{ vm.backLabel }}</button>
+    <div class="pull-right">
+      <button class="next-button" ng-click="vm.onNextClick()">{{ vm.nextLabel }}</button>
     </div>
-
-    <div class="dol-feedback-save">
-        <span class="dol-feedback-save-success" ng-show="vm.stateService.formData.lastSaved > 0">
-            Saved {{vm.stateService.formData.lastSaved  | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
-        </span>
-        <span class="dol-feedback-save-error" ng-show="vm.stateService.formData.lastSaved === 0">
-            Error Saving Form
-        </span>
-    </div>
+  </div>
+  <div class="dol-feedback-save">
+    <span class="dol-feedback-save-success" ng-show="vm.stateService.formData.lastSaved > 0">
+      Saved {{vm.stateService.formData.lastSaved | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
+    </span>
+    <span class="dol-feedback-save-error" ng-show="vm.stateService.formData.lastSaved === 0">
+      Error Saving Form
+    </span>
+  </div>
 </div>
-

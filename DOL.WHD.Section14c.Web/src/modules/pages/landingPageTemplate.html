@@ -1,4 +1,3 @@
-
 <div class="main-content">
   <div ng-if="!stateService.user.email">
     <div class="dol-landing-public">
@@ -10,15 +9,13 @@
       <div class="dol-width-one-half">
         <user-registration-form></user-registration-form>
       </div>
-
     </div>
   </div>
 
   <div ng-if="stateService.hasClaim('Application.Submit')">
     <main-top-nav-control></main-top-nav-control>
     <div ng-show="!stateService.applicationStarted()">
-      <button class="save-button"
-              onclick="window.location='#/section/assurances';">Start A New Application</button>
+      <button class="save-button" onclick="window.location='#/section/assurances';">Start A New Application</button>
     </div>
     <div ng-show="stateService.applicationStarted()">
       <button class="save-button" onclick="window.location='#/section/assurances';">Continue Application</button>
