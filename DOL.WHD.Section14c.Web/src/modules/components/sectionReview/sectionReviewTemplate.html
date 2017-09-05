@@ -1,6 +1,6 @@
 <div class="form-page-full" ng-hide="vm.submissionSuccess">
     <h2>Review & Submit</h2>
-    <p>We've checked your responses from each section to make sure there were no errors or missing information before submission.</p>
+    <p>We’ve checked your responses from each section to make sure there were no errors or missing information before submission.</p>
     <p>Below is a summary of the results:</p>
 
     <div class="section-results">
@@ -48,10 +48,10 @@
     <hr>
 
     <div class="section-results">
-        <h3>Work Sites &amp; Employees</h3>
+        <h3>Work Sites & Employees</h3>
         <reviewbar errorstate="{{ validation.__worksites }}"></reviewbar>
         <div ng-hide="validation.__worksites">
-            <a href="" ng-click="navService.gotoSection('work-sites')">Review Work Sites &amp; Employees</a>
+            <a href="" ng-click="navService.gotoSection('work-sites')">Review Work Sites & Employees</a>
         </div>
         <button ng-click="navService.gotoSection('work-sites')" ng-show="validation.__worksites">Edit Responses</button>
     </div>
@@ -69,7 +69,6 @@
 
     <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.submissionError">
         <div class="usa-alert-body">
-            <!--<h3 class="usa-alert-heading">Error Status</h3>-->
             <p class="usa-alert-text">An error occurred while submitting your application. Please try again later if the error persists:</p>
             <p class="usa-alert-text">{{ "ERROR " + vm.submissionError.status + ":  " + (vm.submissionError.data.error_description ? vm.submissionError.data.error_description : "unknown error") }}</p>
         </div>
