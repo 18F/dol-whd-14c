@@ -1,0 +1,103 @@
+<h1>UI Library</h1>
+
+<h2>Basic elements</h2>
+
+<div class="form-footer-controls p0">
+  <button type='button'>Button 1</button>
+  <button class="back-button">Button 2</button>
+  <button class="next-button ml0">Button 3</button>
+</div>
+
+<h2>Forms</h2>
+
+<div class="form-page float-inherit">
+  <div class="form-question-block">
+    <div class="form-question-text">Which bear is best?
+      <div class="help-link">?</div>
+      <div class="help-text show">
+        It’s a simple question :)
+      </div>
+    </div>
+    <fieldset class="usa-fieldset-inputs form-question-answer">
+      <ul class="usa-unstyled-list">
+        <li>
+          <input id="q1_0" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched" value="true">
+          <label for="q1_0">Black</label>
+        </li>
+        <li>
+          <input id="q1_1" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" value="false">
+          <label for="q1_1">Polar</label>
+        </li>
+        <li>
+          <input id="q1_2" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" value="false">
+          <label for="q1_2">Panda</label>
+        </li>
+      </ul>
+    </fieldset>
+  </div>
+</div>
+
+<h2>Tables</h2>
+
+<table class="usa-table-borderless expandable-table">
+  <thead>
+    <tr>
+      <td></td>
+      <th scope="col">Column 1</th>
+      <th scope="col">Column 2</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="expanding-row">
+      <td>
+        <div class="arrow-expander"></div>
+      </td>
+      <th scope="row">
+        <div class="ng-binding">Foo</div>
+      </th>
+      <td class="ng-binding"></td>
+      <td>
+        <button class="green-button">Edit</button>
+        <button class="usa-button-secondary">Delete</button>
+      </td>
+    </tr>
+    <tr class="expanded-row " ng-repeat-end="">
+      <td></td>
+      <td colspan="3">
+      </td>
+    </tr>
+    <tr class="expanding-row greyed">
+      <td>
+        <div class="arrow-expander"></div>
+      </td>
+      <th scope="row">
+        <div class="ng-binding">Bar</div>
+      </th>
+      <td class="ng-binding"></td>
+      <td>
+        <button class="green-button">Edit</button>
+        <button class="usa-button-secondary">Delete</button>
+      </td>
+    </tr>
+    <tr class="expanded-row greyed" ng-repeat-end="">
+      <td></td>
+      <td colspan="3">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Misc</h2>
+
+<nav role="navigation" class="main-nav-bar collapsed">
+  <ul>
+    <li class="nav-button active" data-sectionid="assurances">Assurances</li>
+    <li class="nav-button" data-sectionid="app-info">Application Info</li>
+    <li class="nav-button" data-sectionid="employer">Employer</li>
+    <li class="nav-button" data-sectionid="wage-data">Wage Data</li>
+    <li class="nav-button" data-sectionid="work-sites">Work Sites & Employees</li>
+    <li class="nav-button" data-sectionid="wioa">WIOA</li>
+    <li class="nav-button ng-hide" data-sectionid="review">Review & Submit</li>
+  </ul>
+</nav>

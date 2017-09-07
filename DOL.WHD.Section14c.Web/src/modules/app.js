@@ -25,6 +25,7 @@ import ngCookies from 'angular-cookies';
 // angular 4 components (& downgrade dependencies)
 import { downgradeComponent } from '@angular/upgrade/static';
 import { HelloWorldComponent } from '../v4/hello-world.component';
+import { UiLibraryComponent } from '../v4/ui-library.component';
 
 // Styles
 import '../styles/main.scss';
@@ -43,12 +44,15 @@ let app = angular.module('14c', [
   'pagination'
 ]);
 
-app.directive(
-  'helloWorld',
-  downgradeComponent({
-    component: HelloWorldComponent
-  })
-);
+app
+  .directive(
+    'helloWorld',
+    downgradeComponent({ component: HelloWorldComponent })
+  )
+  .directive(
+    'uiLibrary',
+    downgradeComponent({ component: UiLibraryComponent })
+  );
 
 // Environment config loaded from env.js
 let env = {};
@@ -160,6 +164,7 @@ app.config(function($routeProvider, $compileProvider) {
       access: ROUTE_ADMIN
     })
     .when('/v4/hello', { template: '<hello-world></hello-world>' })
+    .when('/v4/ui-library', { template: '<ui-library></ui-library>' })
     .otherwise({
       redirectTo: '/'
     });
