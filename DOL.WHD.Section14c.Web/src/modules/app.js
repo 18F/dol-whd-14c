@@ -7,8 +7,6 @@ if (typeof console === 'undefined') {
 
 // Global Dependencies
 require('jquery');
-require('babel-polyfill');
-//require('lodash');
 require('font-awesome/css/font-awesome.css');
 require('angular-data-grid/dist/dataGrid.min.js');
 require('angular-data-grid/dist/pagination.min.js');
@@ -23,6 +21,10 @@ import vcRecaptcha from 'angular-recaptcha';
 import angularMoment from 'angular-moment';
 import ngMask from 'ng-mask';
 import ngCookies from 'angular-cookies';
+
+// angular 4 components (& downgrade dependencies)
+import { downgradeComponent } from '@angular/upgrade/static';
+import { HelloWorldComponent } from '../v4/hello-world.component';
 
 // Styles
 import '../styles/main.scss';
@@ -40,6 +42,13 @@ let app = angular.module('14c', [
   'dataGrid',
   'pagination'
 ]);
+
+app.directive(
+  'helloWorld',
+  downgradeComponent({
+    component: HelloWorldComponent
+  })
+);
 
 // Environment config loaded from env.js
 let env = {};
@@ -150,6 +159,7 @@ app.config(function($routeProvider, $compileProvider) {
       reloadOnSearch: false,
       access: ROUTE_ADMIN
     })
+    .when('/v4/hello', { template: '<hello-world></hello-world>' })
     .otherwise({
       redirectTo: '/'
     });
@@ -203,3 +213,5 @@ app.run(function(
   }
 });
 /* eslint-enable complexity */
+
+export { app };
