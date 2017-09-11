@@ -1,16 +1,20 @@
 <h1>UI Library</h1>
 
-<h2>Basic elements</h2>
+<h2 class="mb3">Basic elements</h2>
+
+<div class="mb2">
+  <a href="#!/v4/ui-library">A lovely link</a>
+</div>
 
 <div class="form-footer-controls p0">
-  <button type='button'>Button 1</button>
+  <button type="button">Button 1</button>
   <button class="back-button">Button 2</button>
   <button class="next-button ml0">Button 3</button>
 </div>
 
-<h2>Forms</h2>
+<h2 class="mb3">Form elements</h2>
 
-<div class="form-page float-inherit">
+<div class="form-page float-inherit m0">
   <div class="form-question-block">
     <div class="form-question-text">Which bear is best?
       <div class="help-link">?</div>
@@ -35,9 +39,58 @@
       </ul>
     </fieldset>
   </div>
+
+  <div class="form-question-block">
+    <div class="form-question-text">
+      Please attach your long-form birth certificate. Just kidding :)
+      <div class="help-link">?</div>
+      <div class="help-text"></div>
+    </div>
+    <div>
+      <input id="99_FileUpload" class="upload-file-input ng-hide" type="file" ng-hide="true" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+      <label for="99_FileUpload" class="upload-label usa-button-primary">Browse</label>
+      <input id="99" name="99" class="upload-input" type="text" disabled="">
+      <label class="underlabel" for="99">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+    </div>
+  </div>
+
+  <div class="form-question-block">
+    <fieldset class="usa-fieldset-inputs form-question-answer">
+      <ul class="usa-unstyled-list">
+        <li>
+          <input id="agreement" type="checkbox" name="agreement" class="ng-valid ng-dirty ng-valid-parse ng-not-empty ng-touched" value="true">
+          <label for="agreement" class="full-width-label">I agree to check this box.</label>
+        </li>
+      </ul>
+    </fieldset>
+  </div>
+
+  <div class="form-question-block">
+    <div class="form-question-answer">
+      <label for="contactName">Full Name</label>
+      <input id="contactName" name="contactName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+    </div>
+  </div>
+
+  <div class="form-question-block">
+    <div class="form-question-answer">
+      <label for="contactEmail">Email Address</label>
+      <input id="contactEmail" name="contactEmail" type="email" class="sidelabeled email ng-pristine ng-untouched ng-valid ng-empty ng-valid-email">
+      <label class="example">Example: contact.name@company.com</label>
+    </div>
+  </div>
+
+  <div class="form-question-block usa-input-error">
+    <div class="form-question-answer">
+      <label for="contactPhone">Telephone Number</label>
+      <span class="usa-input-error-message ng-binding" role="alert">Please provide a valid contact telephone number</span>
+      <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" class="sidelabeled phoneno ng-pristine ng-untouched ng-valid ng-empty">
+      <label class="example">Example: 123-456-7890</label>
+    </div>
+  </div>
 </div>
 
-<h2>Tables</h2>
+<h2 class="mb3">Tables</h2>
 
 <table class="usa-table-borderless expandable-table">
   <thead>
@@ -58,8 +111,8 @@
       </th>
       <td class="ng-binding"></td>
       <td>
-        <button class="green-button">Edit</button>
-        <button class="usa-button-secondary">Delete</button>
+        <button class="green-button">A</button>
+        <button class="usa-button-secondary">B</button>
       </td>
     </tr>
     <tr class="expanded-row " ng-repeat-end="">
@@ -76,8 +129,8 @@
       </th>
       <td class="ng-binding"></td>
       <td>
-        <button class="green-button">Edit</button>
-        <button class="usa-button-secondary">Delete</button>
+        <button class="green-button">A</button>
+        <button class="usa-button-secondary">B</button>
       </td>
     </tr>
     <tr class="expanded-row greyed" ng-repeat-end="">
@@ -88,16 +141,94 @@
   </tbody>
 </table>
 
-<h2>Misc</h2>
+<h2 class="mb3">Misc</h2>
 
-<nav role="navigation" class="main-nav-bar collapsed">
-  <ul>
-    <li class="nav-button active" data-sectionid="assurances">Assurances</li>
-    <li class="nav-button" data-sectionid="app-info">Application Info</li>
-    <li class="nav-button" data-sectionid="employer">Employer</li>
-    <li class="nav-button" data-sectionid="wage-data">Wage Data</li>
-    <li class="nav-button" data-sectionid="work-sites">Work Sites & Employees</li>
-    <li class="nav-button" data-sectionid="wioa">WIOA</li>
-    <li class="nav-button ng-hide" data-sectionid="review">Review & Submit</li>
-  </ul>
-</nav>
+<div class="mb5">
+  <nav role="navigation" class="main-nav-bar collapsed">
+    <ul>
+      <li class="nav-button active" data-sectionid="assurances">Assurances</li>
+      <li class="nav-button" data-sectionid="app-info">Application Info</li>
+      <li class="nav-button" data-sectionid="employer">Employer</li>
+      <li class="nav-button" data-sectionid="wage-data">Wage Data</li>
+      <li class="nav-button" data-sectionid="work-sites">Work Sites & Employees</li>
+      <li class="nav-button" data-sectionid="wioa">WIOA</li>
+      <li class="nav-button ng-hide" data-sectionid="review">Review & Submit</li>
+    </ul>
+  </nav>
+</div>
+
+<div class="mb5">
+  <div id="wagedata_tab_box" class="form-tabbed-section">
+    <div class="form-tab active">
+      <div class="circle">1</div> Hourly
+    </div>
+    <div class="form-tab ">
+      <div class="circle">2</div> Piece Rate
+    </div>
+  </div>
+</div>
+
+<div class="mb5">
+  <div class="dol-applicant-meta">
+    <div class="dol-feedback-save">
+      <span class="dol-feedback-save-success ng-binding">
+        Saved 09/11/2017, 11:53 AM
+      </span>
+    </div>
+    <div class="dol-applicant-ein">
+      Applicant EIN:
+      <span class="ng-binding">12-1233333</span>
+    </div>
+  </div>
+  <div class="dol-form-meta">
+    <div class="usa-content">
+      <p>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
+      <p class="ng-hide">Applicant EIN:
+        <span class="ng-binding">XX-XXXXXXX</span>
+      </p>
+    </div>
+    <div class="dol-form-omb" ng-show="!admin">
+      <p>OMB NO: 1235-0001</p>
+      <p>REV XX/20XX</p>
+    </div>
+  </div>
+</div>
+
+<div class="mb5">
+  <div class="main-content form-content">
+    <div class="usa-alert usa-alert-error" role="alert">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mb5">
+  <div class="reviewbar">
+    <div class="reviewbar-container">
+      <div class="reviewbar-bar"></div>
+      <div class="reviewbar-circle"></div>
+    </div>
+  </div>
+  <div class="reviewbar error">
+    <div class="reviewbar-container">
+      <div class="reviewbar-bar"></div>
+      <div class="reviewbar-circle"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mb5">
+  <div class="dol-panel-login">
+    <h2>Log in</h2>
+    <p>...</p>
+  </div>
+</div>
+
+<div class="mb5">
+  <div class="dol-panel-info mw-300p">
+    <h3>Questions?</h3>
+    <p>Contact the <a href="#">Wage and Hour office closest to you.</a></p>
+  </div>
+</div>
