@@ -1,4 +1,8 @@
-/* misc custom styles */
+/*
+  misc custom styles needed to reset / override
+  existing ones so that UI components can nicely
+  show up on one page together
+*/
 
 .float-inherit { float: inherit !important; }
 .p0 { padding: 0 !important; }
