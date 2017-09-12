@@ -1,17 +1,5 @@
-'use strict';
+import { mainTopNav } from './mainTopNav.component';
 
 module.exports = function(ngModule) {
-  ngModule.directive('mainTopNavControl', function() {
-    'use strict';
-
-    return {
-      restrict: 'EA',
-      template: require('./mainTopNavControlTemplate.html'),
-      controller: 'mainTopNavControlController',
-      scope: {
-        admin: '='
-      },
-      controllerAs: 'vm'
-    };
-  });
+  ngModule.component('mainTopNavControl', mainTopNav);
 };
