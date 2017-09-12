@@ -18,7 +18,7 @@ All contributions to this project will be released under the CC0
 dedication. By submitting a pull request, you are agreeing to comply
 with this waiver of copyright interest.
 
-## Internal Collaboration Workflow
+## Collaboration Workflow
 
 Our team strives to deliver the highest value and quality product possible by implementing fully tested, incremental updates as frequently as possible.
 
