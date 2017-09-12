@@ -79,9 +79,7 @@ The ***master*** branch of this repository contains production ready code that h
   $ git checkout -b [new branch name]
 
   ```
-  **Branch naming**
-
-  - No branches should be prefixed with the name master.
+  - Branches should not be prefixed with the name master.
   - Sprint branches should be prefixed with "sprint" (i.e sprint1, sprintA)
   - Feature branch names should feature its parent sprint branch name along with a name for the feature (i.e. sprint1/feature1, sprint2/test1, sprint2/fix1)
   
