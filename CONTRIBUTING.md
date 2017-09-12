@@ -61,7 +61,9 @@ The ***master*** branch of this repository contains production ready code that h
 
 #### Workflow
 
-1. If you are contributing from outside of our organization, you will need to create your own fork of this repository before continuing. [Read more about forking a repo](https://help.github.com/articles/fork-a-repo/)... If are within our organization and have write access to the repository, you can skip this step.
+1. If you are contributing from outside of our organization, you will need to create your own fork of this repository before continuing. [Read more about forking a repo](https://help.github.com/articles/fork-a-repo/)... 
+
+            If are within our organization and have write access to the repository, you can skip this step.
 
 2. After cloning your copy of this repository to your local machine, checkout an existing branch that you want to create a new branch from.
 
@@ -79,7 +81,6 @@ The ***master*** branch of this repository contains production ready code that h
   $ git checkout -b [new branch name]
 
   ```
-
   **Branch naming**
 
   - No branches should be prefixed with the name master.
