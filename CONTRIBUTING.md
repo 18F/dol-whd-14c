@@ -63,7 +63,7 @@ The ***master*** branch of this repository contains production ready code that h
 
 1. If you are contributing from outside of our organization, you will need to create your own fork of this repository before continuing. [Read more about forking a repo](https://help.github.com/articles/fork-a-repo/)... 
 
-            If are within our organization and have write access to the repository, you can skip this step.
+If are within our organization and have write access to the repository, you can skip this step.
 
 2. After cloning your copy of this repository to your local machine, checkout an existing branch that you want to create a new branch from.
 
@@ -97,22 +97,14 @@ The ***master*** branch of this repository contains production ready code that h
     - (test) ...
     - (doc) ...
 
-    \* Make changes and commits on your branch, and make sure that you
-    only make changes that are relevant to this branch. If you find
-    yourself making unrelated changes, make a new branch for those
-    changes.
+    \* Make changes and commits on your branch, and make sure that you only make changes that are relevant to this branch. If you find yourself making unrelated changes, make a new branch for those changes.
 
   **Commit Message Guidelines**
-      - Commit messages should be written in the present tense; e.g. "Fix continuous
-        integration script".
-      - The first line of your commit message should be a ***brief summary*** of what the
-        commit changes. Aim for about 70 characters max.
-      - If you want to explain the commit in more depth, following the first line should
-        be a blank line and then a more detailed description of the commit. This can be
-        as detailed as you want, so dig into details here and keep the first line short.
+  - Commit messages should be written in the present tense; e.g. "Fix continuous integration script".
+  - The first line of your commit message should be a ***brief summary*** of what the commit changes. Aim for about 70 characters max.
+  - If you want to explain the commit in more depth, following the first line should be a blank line and then a more detailed description of the commit. This can be as detailed as you want, so dig into details here and keep the first line short.
 
 5. Once a feature is finished, [rebase upstream changes](#rebase-upstream-changes into your branch) into your feature branch.
-
 6. Create a [pull request](#make-a-pull-request) from your feature branch to the respective sprint branch it came from. For example, if you cut your feature branch from sprint A, create a pull request to the sprint A branch.
 7. Pull requests to a sprint branch are merged after review.
 8. When sprint is complete, the respective sprint branch will be merged into the master branch.
