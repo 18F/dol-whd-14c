@@ -61,9 +61,7 @@ The ***master*** branch of this repository contains production ready code that h
 
 #### Workflow
 
-1. If you are contributing from outside of our organization, you will need to create your own fork of this repository before continuing. [Read more about forking a repo](https://help.github.com/articles/fork-a-repo/)... 
-
-If are within our organization and have write access to the repository, you can skip this step.
+1. If you are contributing from outside of our organization, you will need to [create your own fork](https://help.github.com/articles/fork-a-repo/) of this repository before continuing.  If are within our organization and have write access to the repository, you can skip this step.
 
 2. After cloning your copy of this repository to your local machine, checkout an existing branch that you want to create a new branch from.
 
@@ -87,7 +85,7 @@ If are within our organization and have write access to the repository, you can 
   - Sprint branches should be prefixed with "sprint" (i.e sprint1, sprintA)
   - Feature branch names should feature its parent sprint branch name along with a name for the feature (i.e. sprint1/feature1, sprint2/test1, sprint2/fix1)
   
-4. Make commits to feature branch. Commit early and often. Write concise and clear commit messages.
+4. Make commits to feature branch. Commit early and often. Write concise and clear commit messages. [Read more on writing commit messages](#commit-message-guidelines)...
 
     Prefix each commit like so:
     - (feat) Added a new feature
@@ -99,11 +97,6 @@ If are within our organization and have write access to the repository, you can 
 
     \* Make changes and commits on your branch, and make sure that you only make changes that are relevant to this branch. If you find yourself making unrelated changes, make a new branch for those changes.
 
-  **Commit Message Guidelines**
-  - Commit messages should be written in the present tense; e.g. "Fix continuous integration script".
-  - The first line of your commit message should be a ***brief summary*** of what the commit changes. Aim for about 70 characters max.
-  - If you want to explain the commit in more depth, following the first line should be a blank line and then a more detailed description of the commit. This can be as detailed as you want, so dig into details here and keep the first line short.
-
 5. Once a feature is finished, [rebase upstream changes](#rebase-upstream-changes into your branch) into your feature branch.
 6. Create a [pull request](#make-a-pull-request) from your feature branch to the respective sprint branch it came from. For example, if you cut your feature branch from sprint A, create a pull request to the sprint A branch.
 7. Pull requests to a sprint branch are merged after review.
@@ -111,6 +104,10 @@ If are within our organization and have write access to the repository, you can 
 
 \*\* After a sprint is merged into master, a new branch should be created for the next sprint.
 
+##### Commit Message Guidelines
+  - Commit messages should be written in the present tense; e.g. "Fix continuous integration script".
+  - The first line of your commit message should be a ***brief summary*** of what the commit changes. Aim for about 70 characters max.
+  - If you want to explain the commit in more depth, following the first line should be a blank line and then a more detailed description of the commit. This can be as detailed as you want, so dig into details here and keep the first line short.
 ##### Rebase upstream changes into your branch
 
 Once you are done making changes, you can begin the process of getting
