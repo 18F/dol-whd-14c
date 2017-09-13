@@ -111,13 +111,12 @@ The ***master*** branch of this repository contains production ready code that h
 Once you are done committing changes to your branch, you can begin the process of getting your code merged into the branch of the main repository that your feature branch was cut from. First, you must rebase "upstream" changes to your branch. Rebasing upstream changes will grab any commits made by other developers and place your local commits on top of them -- this ensures that you are always applying your local changes to the latest version of the code base. If there are merge conflicts, you will need to resolve them locally. "Upstream" refers to the git remote pointer of the repository where you cut your feature branch from. If you forked this repository, and want to make contributions to this 18F/dol-whd-14c repo, you can consider the 18F/dol-whd-14c repo as your upstream remote. 
 ```
 UPSTREAM
-18F/dol-whd-14c (18F repo that contains sprint A branch)
+https://github.com/18F/dol-whd-14c.git (18F repo that contains sprint A branch)
                    |     
                    |       fork          DOWNSTREAM 
-                   -------------------> user/dol-whd-14c (local dev repo that will contain sprint A branch from 18F repo)
+                   -------------------> https://github.com/user/dol-whd-14c.git 
+                                        (local dev repo that will contain sprint A branch from 18F repo)
 ```
-
-If you 
 
 To see what remotes your repository can push to, run the following command:
 
@@ -128,7 +127,7 @@ git remote -v
 Your local repository will have one remote by default (origin). This will point to the url of the repository that you cloned your local repository from. If you forked your repository, you will need to add an upstream remote that points this repo (18F/dol-whd-14c). If you are a part of the 18F organization and did not fork this repo, you do not need to add a remote because your upstream remote and origin/downstream remote are the same). To add a remote, run the following command:
 
 ```
-git remote add <new name of remote e.g. upstream> <url of git repo for new remote>
+git remote add <new name of remote e.g. upstream> <url of git repo for new remote e.g https://github.com/18F/dol-whd-14c.git>
 ```
 
 Now that you have an upstream remote set up, you can rebase upstream changes by running the following command:
@@ -139,7 +138,7 @@ git pull --rebase <remote name> <branch name>
 
 This will start the rebase process. You must commit all of your changes before doing this. If there are no conflicts, this should just roll all of your changes back on top of the changes from upstream, leading to a nice, clean, linear commit history.
 
-If there are conflicting changes, git will start yelling at you part way through the rebasing process. Git will pause rebasing to allow you to sort out the conflicts. You do this the same way you solve merge conflicts, by checking all of the files git says have been changed in both histories and picking the versions you want. Be aware that these changes will show up in your pull request, so try and incorporate upstream changes as much as possible.
+If there are conflicting changes, git will notify you during the rebasing process. Git will pause rebasing to allow you to sort out the conflicts. You do this the same way you solve merge conflicts, by checking all of the files git says have been changed in both histories and picking the versions you want. Be aware that these changes will show up in your pull request, so try and incorporate upstream changes as much as possible.
 
 You pick a file by `git add`ing it - you do not make commits during a rebase.
 
