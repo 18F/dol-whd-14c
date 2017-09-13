@@ -106,13 +106,35 @@ The ***master*** branch of this repository contains production ready code that h
   - Commit messages should be written in the present tense; e.g. "Fix continuous integration script".
   - The first line of your commit message should be a ***brief summary*** of what the commit changes. Aim for about 70 characters max.
   - If you want to explain the commit in more depth, following the first line should be a blank line and then a more detailed description of the commit. This can be as detailed as you want, so dig into details here and keep the first line short.
-##### Rebase upstream changes into your branch
+##### Rebase "upstream" changes into your branch
 
-Once you are done making and committing changes to your branch, you can begin the process of getting
-your code merged into the main repo. Step 1 is to rebase upstream changes to the master branch into yours by running this command from your branch:
+Once you are done committing changes to your branch, you can begin the process of getting your code merged into the branch of the main repository that your feature branch was cut from. First, you must rebase "upstream" changes to your branch. Rebasing upstream changes will grab any commits made by other developers and place your local commits on top of them -- this ensures that you are always applying your local changes to the latest version of the code base. If there are merge conflicts, you will need to resolve them locally. "Upstream" refers to the git remote pointer of the repository where you cut your feature branch from. If you forked this repository, and want to make contributions to this 18F/dol-whd-14c repo, you can consider the 18F/dol-whd-14c repo as your upstream remote. 
+```
+UPSTREAM
+18F/dol-whd-14c (18F repo that contains sprint A branch)
+                   |     
+                   |       fork          DOWNSTREAM 
+                   -------------------> user/dol-whd-14c (local dev repo that will contain sprint A branch from 18F repo)
+```
 
-```bash
-git pull --rebase upstream master
+If you 
+
+To see what remotes your repository can push to, run the following command:
+
+```
+git remote -v
+```
+
+Your local repository will have one remote by default (origin). This will point to the url of the repository that you cloned your local repository from. If you forked your repository, you will need to add an upstream remote that points this repo (18F/dol-whd-14c). If you are a part of the 18F organization and did not fork this repo, you do not need to add a remote because your upstream remote and origin/downstream remote are the same). To add a remote, run the following command:
+
+```
+git remote add <new name of remote e.g. upstream> <url of git repo for new remote>
+```
+
+Now that you have an upstream remote set up, you can rebase upstream changes by running the following command:
+
+```
+git pull --rebase <remote name> <branch name>
 ```
 
 This will start the rebase process. You must commit all of your changes before doing this. If there are no conflicts, this should just roll all of your changes back on top of the changes from upstream, leading to a nice, clean, linear commit history.
