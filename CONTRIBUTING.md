@@ -95,7 +95,7 @@ The ***master*** branch of this repository contains production ready code that h
 
     \* Make changes and commits on your branch, and make sure that you only make changes that are relevant to this branch. If you find yourself making unrelated changes, make a new branch for those changes.
 
-5. Once a feature is finished, [rebase upstream changes](#rebase-upstream-changes into your branch) into your feature branch.
+5. Once a feature is finished, [rebase upstream changes](#rebase-upstream-changes-into-your-branch) into your feature branch.
 6. Create a [pull request](#make-a-pull-request) from your feature branch to the respective sprint branch it came from. For example, if you cut your feature branch from sprint A, create a pull request to the sprint A branch.
 7. Pull requests to a sprint branch are merged after review.
 8. When sprint is complete, the respective sprint branch will be merged into the master branch.
