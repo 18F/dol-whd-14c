@@ -2,8 +2,6 @@ As a [type of user] I would like [functionality, behavior, etc.] so that [a part
 
 ## Acceptance Criteria
 
-> **NOTE**: Remove any accessibility criteria that don't apply to this user story.  For the full list of accessibility requirements, see [issue #198, Fully Accessible Experience](#198).
-
 #### Functionality
 
 - [ ] functionality criteria 1
@@ -11,6 +9,8 @@ As a [type of user] I would like [functionality, behavior, etc.] so that [a part
 - [ ] etc.
 
 #### Accessibility
+
+> **NOTE**: Remove any accessibility criteria that don't apply to this user story.  For the full list of accessibility requirements, see [issue #198, Fully Accessible Experience](#198).
 
 ##### Keyboard Accessibility
 
