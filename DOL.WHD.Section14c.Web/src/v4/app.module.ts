@@ -7,7 +7,7 @@ import { mainTopNavDirective } from '../modules/components/mainTopNavControl/mai
 
 @NgModule({
   imports: [BrowserModule, UpgradeModule],
-  declarations: [HelloWorldComponent, mainTopNavDirective],
+  declarations: [HelloWorldComponent, UiLibraryComponent, mainTopNavDirective],
   entryComponents: [HelloWorldComponent]
 })
 export class AppModule {
