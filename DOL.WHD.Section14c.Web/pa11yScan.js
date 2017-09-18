@@ -54,38 +54,32 @@ const runner = pa11y({
       });
     }
 
-    // redirect to proper (authenticated) page, then start pa11y
+    // redirect related methods
+
+    function doRedirect(args) {
+      document.location = args.url;
+      document.location.reload();
+    }
+
+    function checkRedirect(args) {
+      // check that current url = target url
+      return window.location.href === args.url;
+    }
+
+    function startPa11y() {
+      setTimeout(next, 1000);
+    }
+
+    function postRedirect() {
+      waitUntil(checkRedirect, 10, startPa11y);
+    }
+
     function pageRedirect() {
       console.log('Redirecting to proper url...');
-
-      page.evaluate(
-        function(args) {
-          document.location = args.url;
-          document.location.reload();
-        },
-        PARAMS,
-        function() {
-          waitUntil(
-            function(args) {
-              return window.location.href === args.url; // current = target
-            },
-            10,
-            function() {
-              setTimeout(next, 1000);
-            }
-          );
-        }
-      );
+      page.evaluate(doRedirect, PARAMS, postRedirect);
     }
 
-    // user input shouldn't be on page if login successful
-    function authCheck() {
-      return document.querySelector('#userName') === null;
-    }
-
-    function postAuth() {
-      waitUntil(authCheck, 10, pageRedirect);
-    }
+    // auth related methods
 
     function doAuth(args) {
       console.log('args:', JSON.stringify(args));
@@ -108,9 +102,16 @@ const runner = pa11y({
       submit.click();
     }
 
-    // 1. log in
-    // 2. check that auth was successful
-    // 3. do post auth stuff
+    function checkAuth() {
+      // user input shouldn't be on page if login successful
+      return document.querySelector('#userName') === null;
+    }
+
+    function postAuth() {
+      waitUntil(checkAuth, 10, pageRedirect);
+    }
+
+    // kick things off (log in -> go to proper page)
     page.evaluate(doAuth, PARAMS, postAuth);
   }
 });
