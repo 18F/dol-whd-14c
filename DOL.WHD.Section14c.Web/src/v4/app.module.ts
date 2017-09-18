@@ -8,7 +8,7 @@ import { mainTopNavDirective } from '../modules/components/mainTopNavControl/mai
 @NgModule({
   imports: [BrowserModule, UpgradeModule],
   declarations: [HelloWorldComponent, UiLibraryComponent, mainTopNavDirective],
-  entryComponents: [HelloWorldComponent]
+  entryComponents: [HelloWorldComponent, UiLibraryComponent]
 })
 export class AppModule {
   ngDoBootstrap() {}
