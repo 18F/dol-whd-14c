@@ -6,6 +6,7 @@
 // -p 'password123' \
 // -u 'https://dol-whd-section14c-stg.azurewebsites.net/#/section/work-sites'
 
+const _ = require('lodash');
 const pa11y = require('pa11y');
 const program = require('commander');
 
@@ -57,13 +58,15 @@ const runner = pa11y({
     // redirect related methods
 
     function doRedirect(args) {
-      document.location = args.url;
-      document.location.reload();
+      window.location = args.url;
+      window.location.reload();
     }
 
     function checkRedirect(args) {
       // check that current url = target url
-      return window.location.href === args.url;
+      const currUrl = window.location.href;
+      console.log('Current url:', currUrl);
+      return currUrl === args.url;
     }
 
     function startPa11y() {
@@ -116,10 +119,25 @@ const runner = pa11y({
   }
 });
 
+function prettyEntry(e) {
+  return `${e.code}\n\n${e.message}\n\n${e.context}\n\n---\n`;
+}
+
+function handleResults(data) {
+  console.log('\n\nPa11y results:\n------\n');
+  const dataGrouped = _.groupBy(data, d => d.type);
+
+  for (const key in dataGrouped) {
+    const entries = dataGrouped[key];
+    console.log(`"${key}" entries: ${entries.length}`);
+  }
+
+  console.log('\n\nHere are the error entries:\n------\n');
+  const errors = dataGrouped.error || [];
+  errors.forEach(e => console.log(prettyEntry(e)));
+}
+
 runner.run(PARAMS.url, (error, results) => {
   if (error) return console.error(error.message);
-
-  console.log(results);
-  console.log();
-  console.log(`number of pa11y results: ${results.length}`);
+  handleResults(results);
 });
