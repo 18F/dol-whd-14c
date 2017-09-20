@@ -1,10 +1,25 @@
 #!/usr/bin/env node
 
-// example command:
-// ./pa11yScan.js \
-// -e 'somebody@gmail.com' \
-// -p 'password123' \
-// -u 'https://dol-whd-section14c-stg.azurewebsites.net/#/section/work-sites'
+/*
+
+  examples:
+
+  basic example:
+
+  ./pa11yScan.js \
+  --email='brendan@foobar.com' \
+  --password='abc123 ;)' \
+  --url-path='section/work-sites'
+
+  use "url-base" to specify a different URL origin (i.e., localhost):
+
+  ./pa11yScan.js \
+  --email='brendan.sudol@gsa.gov' \
+  --password='Boom18f!!' \
+  --url-base='https://localhost:3333' \
+  --url-path='section/work-sites'
+
+*/
 
 const _ = require('lodash');
 const pa11y = require('pa11y');
@@ -14,7 +29,12 @@ program
   .description('Run an accessibility test against a 14(c) app URL')
   .option('-e, --email <email>', 'Add user email')
   .option('-p, --password <password>', 'Add user password')
-  .option('-u, --url <url>', 'Add URL to scan')
+  .option(
+    '-b, --url-base <url_base>',
+    'Add URL base',
+    'https://dol-whd-section14c-stg.azurewebsites.net'
+  )
+  .option('-u, --url-path <url_path>', 'Add URL path to scan')
   .parse(process.argv);
 
 const errMsg = `
@@ -22,16 +42,21 @@ const errMsg = `
   For help, run: ./pa11yScan.js --help
 `;
 
-if (!program.email || !program.password || !program.url) {
+if (!program.email || !program.password || !program.urlPath) {
   console.error(errMsg);
   process.exit(1);
 }
 
+const urlConnect = program.urlBase.includes('localhost') ? '#!' : '#';
+const urlPath = `${urlConnect}/${program.urlPath}`;
+
 const PARAMS = {
   userVal: program.email,
   pwVal: program.password,
-  url: program.url
+  url: { full: `${program.urlBase}/${urlPath}`, path: urlPath }
 };
+
+console.log('RUN PARAMS:', JSON.stringify(PARAMS));
 
 const runner = pa11y({
   log: {
@@ -58,7 +83,10 @@ const runner = pa11y({
     // redirect related methods
 
     function doRedirect(args) {
-      window.location = args.url;
+      const redirectUrl = args.url.full;
+      console.log('Redirecting to', redirectUrl);
+
+      window.location = redirectUrl;
       window.location.reload();
     }
 
@@ -66,7 +94,7 @@ const runner = pa11y({
       // check that current url = target url
       const currUrl = window.location.href;
       console.log('Current url:', currUrl);
-      return currUrl === args.url;
+      return currUrl === args.url.full;
     }
 
     function startPa11y() {
@@ -78,7 +106,6 @@ const runner = pa11y({
     }
 
     function pageRedirect() {
-      console.log('Redirecting to proper url...');
       page.evaluate(doRedirect, PARAMS, postRedirect);
     }
 
@@ -137,7 +164,7 @@ function handleResults(data) {
   errors.forEach(e => console.log(prettyEntry(e)));
 }
 
-runner.run(PARAMS.url, (error, results) => {
+runner.run(PARAMS.url.full, (error, results) => {
   if (error) return console.error(error.message);
   handleResults(results);
 });
