@@ -159,9 +159,13 @@ function handleResults(data) {
     console.log(`"${key}" entries: ${entries.length}`);
   }
 
-  console.log('\n\nHere are the error entries:\n------\n');
   const errors = dataGrouped.error || [];
-  errors.forEach(e => console.log(prettyEntry(e)));
+  if (!errors.length) {
+    console.log('\n\nWoohoo! No accessibility errors!');
+  } else {
+    console.log('\n\nHere are the error entries:\n------\n');
+    errors.forEach(e => console.log(prettyEntry(e)));
+  }
 }
 
 runner.run(PARAMS.url.full, (error, results) => {

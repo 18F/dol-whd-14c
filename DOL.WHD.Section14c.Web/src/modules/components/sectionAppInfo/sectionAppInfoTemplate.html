@@ -23,6 +23,7 @@
     <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Application type</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.ApplicationType">
           <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
@@ -36,6 +37,7 @@
     <div class="form-question-text">Has this employer ever applied for a 14(c) certificate?</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has previous application</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
@@ -53,6 +55,7 @@
     <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has previous certificate</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
@@ -71,7 +74,7 @@
     <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
     <div class="form-question-answer">
       <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="sidelabeled certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber">
-      <label class="example">Example: 12-34567-H-890</label>
+      <label for="previousCertificateNumber" class="example">Example: 12-34567-H-890</label>
     </div>
   </div>
 
@@ -88,6 +91,7 @@
     <div class="form-question-subtext">Select all that apply</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Establishment type ID</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.EstablishmentType">
           <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
