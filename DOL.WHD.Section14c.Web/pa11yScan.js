@@ -35,6 +35,7 @@ program
     'https://dol-whd-section14c-stg.azurewebsites.net'
   )
   .option('-u, --url-path <url_path>', 'Add URL path to scan')
+  .option('-w, --show-warnings', 'Show warnings')
   .parse(process.argv);
 
 const errMsg = `
@@ -53,7 +54,8 @@ const urlPath = `${urlConnect}/${program.urlPath}`;
 const PARAMS = {
   userVal: program.email,
   pwVal: program.password,
-  url: { full: `${program.urlBase}/${urlPath}`, path: urlPath }
+  url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
+  showWarnings: !!program.showWarnings
 };
 
 console.log('RUN PARAMS:', JSON.stringify(PARAMS));
@@ -146,8 +148,19 @@ const runner = pa11y({
   }
 });
 
-function prettyEntry(e) {
+function prettify(e) {
   return `${e.code}\n\n${e.message}\n\n${e.context}\n\n---\n`;
+}
+
+function displayEntries(data, key) {
+  const entries = data[key] || [];
+
+  if (!entries.length) {
+    return console.log(`\n\nWoohoo! No ${key}s!`);
+  }
+
+  console.log(`\n\nHere are the ${key} entries:\n------\n`);
+  entries.forEach(e => console.log(prettify(e)));
 }
 
 function handleResults(data) {
@@ -159,13 +172,8 @@ function handleResults(data) {
     console.log(`"${key}" entries: ${entries.length}`);
   }
 
-  const errors = dataGrouped.error || [];
-  if (!errors.length) {
-    console.log('\n\nWoohoo! No accessibility errors!');
-  } else {
-    console.log('\n\nHere are the error entries:\n------\n');
-    errors.forEach(e => console.log(prettyEntry(e)));
-  }
+  if (PARAMS.showWarnings) displayEntries(dataGrouped, 'warning');
+  displayEntries(dataGrouped, 'error');
 }
 
 runner.run(PARAMS.url.full, (error, results) => {
