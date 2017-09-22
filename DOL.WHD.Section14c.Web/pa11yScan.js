@@ -21,6 +21,7 @@
 
 */
 
+const fs = require('fs');
 const _ = require('lodash');
 const pa11y = require('pa11y');
 const program = require('commander');
@@ -143,8 +144,23 @@ const runner = pa11y({
       waitUntil(checkAuth, 10, pageRedirect);
     }
 
+    function setEnvGlobal(envFnStr) {
+      // Loads env into window.__env
+      eval(envFnStr); // eslint-disable-line no-eval
+
+      // The _env global is an object, so while we can't change
+      // the reference, we CAN change its properties.
+      var globalEnvObject = angular.element(document.body).injector().get('_env');
+      Object.assign(globalEnvObject, window.__env);
+    }
+
+    function setEnv(callback) {
+      const envFnStr = fs.readFileSync('env.js', { encoding: 'utf-8' });
+      page.evaluate(setEnvGlobal, envFnStr, callback);
+    }
+
     // kick things off (log in -> go to proper page)
-    page.evaluate(doAuth, PARAMS, postAuth);
+    setEnv(() => page.evaluate(doAuth, PARAMS, postAuth));
   }
 });
 
