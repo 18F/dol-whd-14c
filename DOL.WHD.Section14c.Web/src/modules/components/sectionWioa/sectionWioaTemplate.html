@@ -64,18 +64,23 @@
     </fieldset>
   </div>
   <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1" ng-class="validate('WIOA.WIOAWorkers') ? 'usa-input-error' : ''">
-    <div class="form-question-text">List the name of each worker with a disability age 24 or younger and provide a response for each individual. </div>
-    <div class="usa-content">
-      Accepted Responses:
-      <p><strong>Yes</strong> - The employer reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
-      <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
-      <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
+    <div class="form-question-text">
+      Please list the name of each worker who is age 24 or younger and answer yes/no/not required to the following question for each worker listed.
+      <br><br>
+      Did the employer review, verify, and maintain documentation showing that the worker received all services and counseling required by WIOA before paying the worker a subminimum wage?
+      <helplink></helplink>
+      <helptext>
+        Accepted Responses:
+        <p><strong>Yes</strong> - The employer reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
+        <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
+        <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
+      </helptext>
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers')">{{ validate('WIOA.WIOAWorkers') }}</span>
     <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
     <div class="form-question-block em-block" ng-show="vm.addingWorker">
       <div class="usa-content">
-        <div class="form-question-text">Full Name of Worker</div>
+        <div class="form-question-text">Name of worker</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
           <div class="usa-input-grid usa-input-grid-medium">
             <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">

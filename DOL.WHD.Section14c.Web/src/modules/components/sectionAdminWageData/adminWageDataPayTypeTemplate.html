@@ -3,7 +3,7 @@
 </answer-field>
 
 <answer-field answer="data.jobName">
-  What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?
+  What was the job or contract on which the employer employed the largest number of workers {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates' }} during the most recently completed fiscal quarter?
 </answer-field>
 
 <answer-field answer="data.jobDescription">
@@ -46,7 +46,7 @@
     Experienced Worker Wage Provided
   </answer-field>
   <answer-field answer="employer.conclusionWageRateNotBasedOnEntry">
-    Basis for Conclusion Wage Rate is Not Based on Entry
+    Basis for Conclusion Wage Rate is Not Based on Entry Level
   </answer-field>
   <hr>
 </div>
@@ -92,5 +92,5 @@
 </answer-field>
 
 <answer-field answer="data.attachment" attachment-field="true" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-  Attach all documents of the methods used to determine the standard productivity and the piece rate.
+  Attach all documentation of the methods used to determine the standard productivity and the piece rate.
 </answer-field>
