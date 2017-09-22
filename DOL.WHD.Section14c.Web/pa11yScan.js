@@ -150,7 +150,11 @@ const runner = pa11y({
 
       // The _env global is an object, so while we can't change
       // the reference, we CAN change its properties.
-      var globalEnvObject = angular.element(document.body).injector().get('_env');
+      var globalEnvObject = angular
+        .element(document.body)
+        .injector()
+        .get('_env');
+
       Object.assign(globalEnvObject, window.__env);
     }
 
