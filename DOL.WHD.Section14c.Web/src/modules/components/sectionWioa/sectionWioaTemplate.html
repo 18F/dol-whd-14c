@@ -32,6 +32,7 @@
     <div class="form-question-text">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasVerifiedDocumentation')">{{ validate('WIOA.hasVerifiedDocumentation') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has verified documentation?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasVerifiedDocumentation_1" type="radio" name="hasVerifiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerifiedDocumentation">
@@ -51,6 +52,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasWIOAWorkers')">{{ validate('WIOA.hasWIOAWorkers') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has WIOA workers?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" ng-value="true" ng-model="formData.WIOA.hasWIOAWorkers">
@@ -77,10 +79,13 @@
       <div class="usa-content">
         <div class="form-question-text">Full Name of Worker</div>
         <fieldset class="usa-fieldset-inputs form-question-answer">
+          <legend class="hide">Full name of worker</legend>
           <div class="usa-input-grid usa-input-grid-medium">
+            <label for="fullName" class="hide">Full name of worker</label>
             <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">
           </div>
           <div class="usa-input-grid usa-input-grid-small">
+            <label for="WIOAWorkerVerified" class="hide">WIOA worker verified</label>
             <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
           </div>
         </fieldset>
