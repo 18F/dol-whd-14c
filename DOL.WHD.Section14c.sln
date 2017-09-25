@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Api", "DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj", "{7F947D49-DE51-4B9E-95E0-AFA3D5577C59}"
+	ProjectSection(ProjectDependencies) = postProject
+		{56B20A89-8219-49B4-80E2-753D8EBD3DDE} = {56B20A89-8219-49B4-80E2-753D8EBD3DDE}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Domain", "DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj", "{CAE5367B-F6CD-440F-9524-5AE43A38116E}"
 EndProject
