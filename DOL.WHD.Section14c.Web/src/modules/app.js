@@ -24,6 +24,7 @@ import ngCookies from 'angular-cookies';
 
 // angular 4 components (& downgrade dependencies)
 import { downgradeComponent } from '@angular/upgrade/static';
+import { DolHeaderComponent } from '../v4/dol-header.component';
 import { HelloWorldComponent } from '../v4/hello-world.component';
 import { UiLibraryComponent } from '../v4/ui-library.component';
 
@@ -45,6 +46,7 @@ let app = angular.module('14c', [
 ]);
 
 app
+  .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive(
     'helloWorld',
     downgradeComponent({ component: HelloWorldComponent })
