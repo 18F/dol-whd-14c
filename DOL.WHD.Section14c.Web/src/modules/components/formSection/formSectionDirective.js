@@ -16,7 +16,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     return {
-      template: '<div class="help-link">?</div>',
+      template: '<button type="button" class="help-link">?</button>',
       replace: true,
       link: function(scope, element, attrs) {
         element.bind('click', function() {
