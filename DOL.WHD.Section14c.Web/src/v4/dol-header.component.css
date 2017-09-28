@@ -1,19 +1,19 @@
 .dol-header {
   background-color: #900;
-  padding: 10px;
+  padding: 16px;
 }
 
-.dol-brand {
+.brand {
   align-items: center;
   display: flex;
   text-decoration: none;
 }
 
-.dol-brand--img {
+.brand--img {
   margin-right: 10px;
 }
 
-.dol-brand--text {
+.brand--text {
   color: #fff;
   flex: 1;
   font-size: 24px;

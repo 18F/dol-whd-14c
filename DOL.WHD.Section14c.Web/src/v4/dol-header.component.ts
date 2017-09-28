@@ -5,15 +5,15 @@ import { Component } from '@angular/core';
   styleUrls: ['src/v4/dol-header.component.css'],
   template: `
     <header class="dol-header">
-      <a class="dol-brand" href="/">
+      <a class="brand" href="/">
         <img
-          class="dol-brand--img"
-          src="https://www.savingmatters.dol.gov/homepage/img/logo.png"
+          class="brand--img"
+          src="https://www.dol.gov/profiles/dol_profile/themes/opa_theme/img/dol-logo-low-res.png"
           alt="DOL Logo"
           width="70"
           height="70"
         />
-        <div class="dol-brand--text">
+        <div class="brand--text">
           UNITED STATES<br>DEPARTMENT OF LABOR
         </div>
       </a>
