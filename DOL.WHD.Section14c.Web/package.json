@@ -10,7 +10,7 @@
     "start": "webpack-dev-server",
     "clean": "rimraf ./dist/*",
     "pa11y": "pa11y",
-    "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.js\"",
+    "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.{js,css,scss}\"",
     "deploy": "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
   },
   "author": "",
