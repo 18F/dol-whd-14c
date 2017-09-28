@@ -18,11 +18,11 @@
   <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
     <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?
       <helplink></helplink>
-      <helptext>Provide the total number of work sites for which the employer is seeking approval to employ workers at subminimum wages. Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites.</helptext>
+      <helptext id="numWorkSitesHelp">Provide the total number of work sites for which the employer is seeking approval to employ workers at subminimum wages. Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites.</helptext>
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
     <div class="form-question-answer">
-      <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
+      <input id="numWorkSites" name="numWorkSites" aria-describedby="numWorkSitesHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
     </div>
   </div>
 
@@ -48,7 +48,7 @@
     <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <div class="form-question-text">What type of establishment is this?
         <helplink></helplink>
-        <helptext>
+        <helptext id="establishmentTypeHelp">
           <p>Indicate whether the work site is the main establishment, a branch establishment, an off-site work location, or a School Work Experience Program work site.</p>
           <p><strong>Main Establishment:</strong> The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)</p>
           <p><strong>Branch Establishment:</strong> A branch establishment is a physically separate work site that is part of the same organization as the main establishment.</p>
@@ -62,7 +62,7 @@
           <legend class="hide">Work site type</legend>
           <ul class="usa-unstyled-list">
             <li ng-repeat="response in responses.WorkSiteType">
-              <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
+              <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" aria-describedby="establishmentTypeHelp" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
               <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
               <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
             </li>
@@ -119,7 +119,7 @@
     <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
       <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?
         <helplink></helplink>
-        <helptext>Mark "yes" if the employer has a Service Contract Act (SCA)-covered contract to provide services to the Federal Government and work under that contract is performed at this work site.</helptext>
+        <helptext id="worksiteScaHelp">Mark "yes" if the employer has a Service Contract Act (SCA)-covered contract to provide services to the Federal Government and work under that contract is performed at this work site.</helptext>
       </div>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
       <div class="form-question-answer">
@@ -127,11 +127,11 @@
           <legend class="hide">(SCA)-covered?</legend>
           <ul class="usa-unstyled-list">
             <li>
-              <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.activeWorksite.sca">
+              <input id="worksiteScaYes" type="radio" name="worksiteSca" aria-describedby="worksiteScaHelp" ng-value="true" ng-model="vm.activeWorksite.sca">
               <label for="worksiteScaYes">Yes</label>
             </li>
             <li>
-              <input id="worksiteScaNo" type="radio" name="worksiteSca" ng-value="false" ng-model="vm.activeWorksite.sca">
+              <input id="worksiteScaNo" type="radio" name="worksiteSca" aria-describedby="worksiteScaHelp" ng-value="false" ng-model="vm.activeWorksite.sca">
               <label for="worksiteScaNo">No</label>
             </li>
           </ul>
@@ -142,7 +142,7 @@
     <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
       <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
         <helplink></helplink>
-        <helptext>Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to <a href='https://www.federalregister.gov/documents/2014/02/20/2014-03805/establishing-a-minimum-wage-for-contractors' target='_blank'>Executive Order 13658</a> (Establishing a Minimum Wage for Contractors).</helptext>
+        <helptext id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to <a href='https://www.federalregister.gov/documents/2014/02/20/2014-03805/establishing-a-minimum-wage-for-contractors' target='_blank'>Executive Order 13658</a> (Establishing a Minimum Wage for Contractors).</helptext>
       </div>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
       <div class="form-question-answer">
@@ -150,11 +150,11 @@
           <legend class="hide">Federal contract work performed?</legend>
           <ul class="usa-unstyled-list">
             <li>
-              <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
+              <input id="worksiteFederalYes" type="radio" name="worksiteFederal" aria-describedby="worksiteFederalHelp" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
               <label for="worksiteFederalYes">Yes</label>
             </li>
             <li>
-              <input id="worksiteFederalNo" type="radio" name="worksiteFederal" ng-value="false" ng-model="vm.activeWorksite.federalContractWorkPerformed">
+              <input id="worksiteFederalNo" type="radio" name="worksiteFederal" aria-describedby="worksiteFederalHelp" ng-value="false" ng-model="vm.activeWorksite.federalContractWorkPerformed">
               <label for="worksiteFederalNo">No</label>
             </li>
           </ul>
@@ -165,11 +165,11 @@
     <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''" ng-show="vm.notInitialApp()">
       <div class="form-question-text">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
         <helplink></helplink>
-        <helptext>Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+        <helptext id="worksiteNumEmployeesHelp">Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
       </div>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
       <div class="form-question-answer">
-        <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
+        <input id="worksiteNumEmployees" name="worksiteNumEmployees" aria-describedby="worksiteNumEmployeesHelp" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
       </div>
     </div>
   </div>

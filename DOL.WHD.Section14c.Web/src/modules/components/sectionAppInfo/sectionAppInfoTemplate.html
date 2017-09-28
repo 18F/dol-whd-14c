@@ -18,7 +18,7 @@
   <div class="form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
     <div class="form-question-text">What type of application is this?
       <helplink></helplink>
-      <helptext>Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+      <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
     </div>
     <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
@@ -26,7 +26,7 @@
       <legend class="hide">Application type</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.ApplicationType">
-          <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
+          <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" aria-describedby="applicationTypeIdHelp" ng-value="response.id" ng-model="formData.applicationTypeId">
           <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
         </li>
       </ul>
@@ -81,7 +81,7 @@
   <div class="form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
     <div class="form-question-text">What type of establishment(s) is this request for authority to employ workers with disabilities for?
       <helplink></helplink>
-      <helptext>
+      <helptext id="establishmentTypeIdHelp">
         <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
         <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
         <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
@@ -94,7 +94,7 @@
       <legend class="hide">Establishment type ID</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.EstablishmentType">
-          <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
+          <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="establishmentTypeIdHelp" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
           <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
           <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
         </li>

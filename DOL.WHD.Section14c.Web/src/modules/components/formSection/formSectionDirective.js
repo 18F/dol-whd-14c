@@ -31,7 +31,11 @@ module.exports = function(ngModule) {
 
     return {
       transclude: true,
-      template: '<div class="help-text"><ng-transclude></ng-transclude></div>',
+      template: `
+        <div id="{{ id }}" class="help-text">
+          <ng-transclude></ng-transclude>
+        </div>
+      `,
       replace: true,
       link: function(scope, element, attrs) {
         scope.$watch('showAllHelp', function() {
