@@ -78,8 +78,9 @@
             <input id="sourceEmployerName" name="sourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
           </div>
 
-          <form class="usa-form-large">
+          <div class="usa-form-large">
             <fieldset>
+              <legend class="hide">Active source employer location</legend>
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.streetAddress') ? 'usa-input-error' : ''">
                 <label for="mailing-address-1">Street address</label>
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.streetAddress')">{{ vm.validateActiveSourceEmployerProperty('address.streetAddress') }}</span>
@@ -165,7 +166,7 @@
                 <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
               </div>
             </fieldset>
-          </form>
+          </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('phone') ? 'usa-input-error' : ''">
             <label for="sourceEmployerPhone">Telephone Number</label>
@@ -189,6 +190,7 @@
             <label>Date of Contact</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
             <fieldset>
+              <legend class="hide">Contact date</legend>
               <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
             </fieldset>
           </div>
@@ -285,6 +287,7 @@
             <label>Date data retrieved</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
             <fieldset>
+              <legend class="hide">Date data retrieved</legend>
               <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>
               <label class="example">Example: 04 30 2016</label>
             </fieldset>
@@ -318,6 +321,7 @@
       </div>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
       <div class="form-question-answer">
+        <label for="workMeasurementFrequency" class="hide">Work measurement frequency</label>
         <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
       </div>
     </div>

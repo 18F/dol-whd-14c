@@ -59,6 +59,7 @@
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
       <div class="form-question-answer">
         <fieldset class="usa-fieldset-inputs usa-sans">
+          <legend class="hide">Work site type</legend>
           <ul class="usa-unstyled-list">
             <li ng-repeat="response in responses.WorkSiteType">
               <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
@@ -74,6 +75,7 @@
       <div class="form-question-text">Name of Establishment / Work Site</div>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('name')">{{ vm.validateActiveWorksiteProperty('name') }}</span>
       <div class="form-question-answer">
+        <label for="worksiteName" class="hide">Name of Establishment / Work Site</label>
         <input id="worksiteName" name="worksiteName" type="text" ng-model="vm.activeWorksite.name">
       </div>
     </div>
@@ -81,8 +83,9 @@
     <div class="form-question-block">
       <div class="form-question-text">Address of Establishment / Work Site</div>
       <div class="fomr-question-answer">
-        <form class="usa-form-large">
+        <div class="usa-form-large">
           <fieldset>
+            <legend class="hide">Address of Establishment / Work Site</legend>
             <div ng-class="vm.validateActiveWorksiteProperty('address.streetAddress') ? 'usa-input-error' : ''">
               <label for="worksiteAddress1">Street address</label>
               <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
@@ -91,7 +94,7 @@
 
             <div class="clearer" ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
               <div class="usa-input-grid usa-input-grid-medium">
-                <label for="city">City</label>
+                <label for="workAddressCity">City</label>
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')">{{ vm.validateActiveWorksiteProperty('address.city') }}</span>
                 <input id="workAddressCity" name="workAddressCity" type="text" ng-model="vm.activeWorksite.address.city">
               </div>
@@ -109,7 +112,7 @@
               <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeWorksite.address.zipCode">
             </div>
           </fieldset>
-        </form>
+        </div>
       </div>
     </div>
 
@@ -121,6 +124,7 @@
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
       <div class="form-question-answer">
         <fieldset class="usa-fieldset-inputs usa-sans">
+          <legend class="hide">(SCA)-covered?</legend>
           <ul class="usa-unstyled-list">
             <li>
               <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.activeWorksite.sca">
@@ -143,6 +147,7 @@
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
       <div class="form-question-answer">
         <fieldset class="usa-fieldset-inputs usa-sans">
+          <legend class="hide">Federal contract work performed?</legend>
           <ul class="usa-unstyled-list">
             <li>
               <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
@@ -172,7 +177,7 @@
   <!-- Tab 2 (Add Employees) -->
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
     <div class="usa-content worksite-title">
-      <h3>{{ vm.activeWorksite.name }}</h3>
+      <h3 ng-if="!!vm.activeWorksite.name">{{ vm.activeWorksite.name }}</h3>
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }}</strong></h4>
     </div>
 
@@ -269,6 +274,7 @@
           <div class="form-question-text">Full Name of Worker</div>
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
           <div class="form-question-answer">
+            <label for="workerName" class="hide">Full Name of Worker</label>
             <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
           </div>
         </div>
@@ -278,11 +284,13 @@
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
           <div class="form-question-answer">
             <fieldset class="usa-fieldset-inputs usa-sans">
+              <legend class="hide">Primary disability</legend>
               <ul class="usa-unstyled-list">
                 <li ng-repeat="response in responses.PrimaryDisability">
                   <input id="primaryDisability_{{ response.id }}" type="radio" name="primaryDisability" ng-value="{{ response.id }}" ng-model="vm.activeWorker.primaryDisabilityId">
                   <label for="primaryDisability_{{ response.id }}">{{ response.display }}</label>
                   <input id="primaryDisabilityOther" name="primaryDisabilityOther" type="text" ng-model="vm.activeWorker[response.otherValueKey]" ng-if="response.otherValueKey">
+                  <label for="primaryDisabilityOther" class="hide">Primary disability (other)</label>
                 </li>
               </ul>
             </fieldset>
@@ -293,6 +301,7 @@
           <div class="form-question-text">Type of Work</div>
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
           <div class="form-question-answer">
+            <label for="workType" class="hide">Type of Work</label>
             <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
           </div>
         </div>

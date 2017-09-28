@@ -13,16 +13,19 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
 
-    this.dashboardClick = function() {
+    this.dashboardClick = e => {
+      e.preventDefault();
       $location.path('/');
     };
 
-    this.userClick = function() {
+    this.userClick = e => {
+      e.preventDefault();
       $location.path('/changePassword');
     };
 
-    this.saveClick = function() {
-      autoSaveService.save(function() {
+    this.saveClick = e => {
+      e.preventDefault();
+      autoSaveService.save(() => {
         stateService.logOut();
         $location.path('/');
       });

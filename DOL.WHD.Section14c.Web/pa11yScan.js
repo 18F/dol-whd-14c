@@ -1,11 +1,27 @@
 #!/usr/bin/env node
 
-// example command:
-// ./pa11yScan.js \
-// -e 'somebody@gmail.com' \
-// -p 'password123' \
-// -u 'https://dol-whd-section14c-stg.azurewebsites.net/#/section/work-sites'
+/*
 
+  examples:
+
+  basic example:
+
+  ./pa11yScan.js \
+  --email='brendan@foobar.com' \
+  --password='abc123 ;)' \
+  --url-path='section/work-sites'
+
+  use "url-base" to specify a different URL origin (i.e., localhost):
+
+  ./pa11yScan.js \
+  --email='brendan.sudol@gsa.gov' \
+  --password='Boom18f!!' \
+  --url-base='https://localhost:3333' \
+  --url-path='section/work-sites'
+
+*/
+
+const fs = require('fs');
 const _ = require('lodash');
 const pa11y = require('pa11y');
 const program = require('commander');
@@ -14,7 +30,13 @@ program
   .description('Run an accessibility test against a 14(c) app URL')
   .option('-e, --email <email>', 'Add user email')
   .option('-p, --password <password>', 'Add user password')
-  .option('-u, --url <url>', 'Add URL to scan')
+  .option(
+    '-b, --url-base <url_base>',
+    'Add URL base',
+    'https://dol-whd-section14c-stg.azurewebsites.net'
+  )
+  .option('-u, --url-path <url_path>', 'Add URL path to scan')
+  .option('-w, --show-warnings', 'Show warnings')
   .parse(process.argv);
 
 const errMsg = `
@@ -22,16 +44,22 @@ const errMsg = `
   For help, run: ./pa11yScan.js --help
 `;
 
-if (!program.email || !program.password || !program.url) {
+if (!program.email || !program.password || !program.urlPath) {
   console.error(errMsg);
   process.exit(1);
 }
 
+const urlConnect = program.urlBase.includes('localhost') ? '#!' : '#';
+const urlPath = `${urlConnect}/${program.urlPath}`;
+
 const PARAMS = {
   userVal: program.email,
   pwVal: program.password,
-  url: program.url
+  url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
+  showWarnings: !!program.showWarnings
 };
+
+console.log('RUN PARAMS:', JSON.stringify(PARAMS));
 
 const runner = pa11y({
   log: {
@@ -58,7 +86,10 @@ const runner = pa11y({
     // redirect related methods
 
     function doRedirect(args) {
-      window.location = args.url;
+      const redirectUrl = args.url.full;
+      console.log('Redirecting to', redirectUrl);
+
+      window.location = redirectUrl;
       window.location.reload();
     }
 
@@ -66,7 +97,7 @@ const runner = pa11y({
       // check that current url = target url
       const currUrl = window.location.href;
       console.log('Current url:', currUrl);
-      return currUrl === args.url;
+      return currUrl === args.url.full;
     }
 
     function startPa11y() {
@@ -78,7 +109,6 @@ const runner = pa11y({
     }
 
     function pageRedirect() {
-      console.log('Redirecting to proper url...');
       page.evaluate(doRedirect, PARAMS, postRedirect);
     }
 
@@ -114,13 +144,43 @@ const runner = pa11y({
       waitUntil(checkAuth, 10, pageRedirect);
     }
 
+    function setEnvGlobal(envFnStr) {
+      // Loads env into window.__env
+      eval(envFnStr); // eslint-disable-line no-eval
+
+      // The _env global is an object, so while we can't change
+      // the reference, we CAN change its properties.
+      var globalEnvObject = angular
+        .element(document.body)
+        .injector()
+        .get('_env');
+
+      Object.assign(globalEnvObject, window.__env);
+    }
+
+    function setEnv(callback) {
+      const envFnStr = fs.readFileSync('env.js', { encoding: 'utf-8' });
+      page.evaluate(setEnvGlobal, envFnStr, callback);
+    }
+
     // kick things off (log in -> go to proper page)
-    page.evaluate(doAuth, PARAMS, postAuth);
+    setEnv(() => page.evaluate(doAuth, PARAMS, postAuth));
   }
 });
 
-function prettyEntry(e) {
+function prettify(e) {
   return `${e.code}\n\n${e.message}\n\n${e.context}\n\n---\n`;
+}
+
+function displayEntries(data, key) {
+  const entries = data[key] || [];
+
+  if (!entries.length) {
+    return console.log(`\n\nWoohoo! No ${key}s!`);
+  }
+
+  console.log(`\n\nHere are the ${key} entries:\n------\n`);
+  entries.forEach(e => console.log(prettify(e)));
 }
 
 function handleResults(data) {
@@ -132,12 +192,11 @@ function handleResults(data) {
     console.log(`"${key}" entries: ${entries.length}`);
   }
 
-  console.log('\n\nHere are the error entries:\n------\n');
-  const errors = dataGrouped.error || [];
-  errors.forEach(e => console.log(prettyEntry(e)));
+  if (PARAMS.showWarnings) displayEntries(dataGrouped, 'warning');
+  displayEntries(dataGrouped, 'error');
 }
 
-runner.run(PARAMS.url, (error, results) => {
+runner.run(PARAMS.url.full, (error, results) => {
   if (error) return console.error(error.message);
   handleResults(results);
 });
