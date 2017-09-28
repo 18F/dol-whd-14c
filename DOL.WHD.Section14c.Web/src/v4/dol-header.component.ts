@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
       <a class="brand" href="/">
         <img
           class="brand--img"
-          src="https://www.dol.gov/profiles/dol_profile/themes/opa_theme/img/dol-logo-low-res.png"
+          src="/images/dol-logo.png"
           alt="DOL Logo"
           width="70"
           height="70"

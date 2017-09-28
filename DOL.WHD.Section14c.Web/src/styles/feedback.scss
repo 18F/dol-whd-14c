@@ -1,102 +1,100 @@
-
 // System Save Feedback
 // Appears in form header and form footer
 // ----------------------------------------
 // Global styling for both locations
 .dol-feedback-save {
-    span {
-        display: block;
-        padding: 1.5rem;
+  span {
+    display: block;
+    padding: 1.5rem;
 
-        &.dol-feedback-save-success {
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-checkmark-green.png') center center;
-                background: url('../images/dol-checkmark-green.svg') center center;
-                background-size: contain;
-            }
-        }
-
-        &.dol-feedback-save-error {
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-error-red.png') center center;
-                background: url('../images/dol-error-red.svg') center center;
-                background-size: contain;
-            }
-        }
-
-        &.dol-feedback-save-process {
-            &:before {
-                content: "";
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 7px;
-                width: 20px;
-                height: 20px;
-                background: url('../images/dol-saving-small-green.gif') center center;
-                background-size: contain;
-            }
-        }
+    &.dol-feedback-save-success {
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 7px;
+        width: 20px;
+        height: 20px;
+        background: url('../images/dol-checkmark-green.png') center center;
+        background: url('../images/dol-checkmark-green.svg') center center;
+        background-size: contain;
+      }
     }
+
+    &.dol-feedback-save-error {
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 7px;
+        width: 20px;
+        height: 20px;
+        background: url('../images/dol-error-red.png') center center;
+        background: url('../images/dol-error-red.svg') center center;
+        background-size: contain;
+      }
+    }
+
+    &.dol-feedback-save-process {
+      &:before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 7px;
+        width: 20px;
+        height: 20px;
+        background: url('../images/dol-saving-small-green.gif') center center;
+        background-size: contain;
+      }
+    }
+  }
 }
 
 // Styling & positioning for System Save Feedback in form header
 .dol-applicant-meta {
-    .dol-feedback-save {
-        
-        background-color: $color-white;
+  .dol-feedback-save {
+    background-color: $color-white;
 
-        span {
-            &.dol-feedback-save-success,
-            &.dol-feedback-save-process {
-                border-top: .6rem solid $color-green;
-                padding-top: .9rem;
-            }
+    span {
+      &.dol-feedback-save-success,
+      &.dol-feedback-save-process {
+        border-top: 0.6rem solid $color-green;
+        padding-top: 0.9rem;
+      }
 
-            &.dol-feedback-save-error {
-                border-top: .6rem solid $color-secondary;
-                padding-top: .9rem;
-            }
-        }
+      &.dol-feedback-save-error {
+        border-top: 0.6rem solid $color-secondary;
+        padding-top: 0.9rem;
+      }
     }
+  }
 }
 
 // Styling & positiong for System Save Feedback in form footer
 .form-footer-controls {
-    .dol-feedback-save {
-        text-align: right;
-        border-top: 1px solid #aeb0b5;
-        margin-top: 1.5rem;
+  .dol-feedback-save {
+    text-align: right;
+    border-top: 1px solid #aeb0b5;
+    margin-top: 1.5rem;
 
-        span {
-            padding-top: 2rem;
-            padding-right: 0;
+    span {
+      padding-top: 2rem;
+      padding-right: 0;
 
-            &.dol-feedback-save-success {
-                display: block !important; // TEMPORARY FOR TESTING
-            }
-        }
+      &.dol-feedback-save-success {
+        display: block !important; // TEMPORARY FOR TESTING
+      }
     }
+  }
 }
 
 @media (min-width: 50em) {
-    .dol-applicant-meta {
-        .dol-feedback-save {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-        }
+  .dol-applicant-meta {
+    .dol-feedback-save {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
     }
+  }
 }

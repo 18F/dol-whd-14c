@@ -1,31 +1,30 @@
-
 // Colors
 $form-em-grey: #f0f0f0;
-$help-link-color: #5A7FA8;
-$help-em-color: #D0E2FB;
+$help-link-color: #5a7fa8;
+$help-em-color: #d0e2fb;
 
 // Layout
 .pull-left {
-    float: left;
+  float: left;
 }
 
 .pull-right {
-    float: right;
+  float: right;
 }
 
 .clearer {
-    @include clearfix;
+  @include clearfix;
 }
 
 // Links
 a {
-    // Modified from USWDS for DOL
-    color: $color-link;
+  // Modified from USWDS for DOL
+  color: $color-link;
 
-    &:hover,
-    &:active {
-        color: $color-hover;
-    }
+  &:hover,
+  &:active {
+    color: $color-hover;
+  }
 }
 
 // Typography
@@ -40,62 +39,62 @@ h6 {
 
 // Button Customizations
 .grey-button {
-    background-color: $color-gray-light;
+  background-color: $color-gray-light;
+  color: $text-color;
+
+  &:hover {
+    background-color: $color-gray-medium;
     color: $text-color;
+  }
 
-    &:hover {
-        background-color: $color-gray-medium;
-        color: $text-color;
-    }
-
-    &:active {
-        background-color: $color-gray;
-        color: $text-color;
-    }
+  &:active {
+    background-color: $color-gray;
+    color: $text-color;
+  }
 }
 
 .disabled-button {
-    background-color: $color-gray-light;
-    color: $text-color;
+  background-color: $color-gray-light;
+  color: $text-color;
 
-    &:hover {
-        background-color: $color-gray-light;
-    }
+  &:hover {
+    background-color: $color-gray-light;
+  }
 }
 
 .green-button {
-    &:not(.nomargin) {
-        margin-left: 40px;
-    }
-    background-color: $color-green;
+  &:not(.nomargin) {
+    margin-left: 40px;
+  }
+  background-color: $color-green;
 
-    &:hover {
-        background-color: $color-green-dark;
-    }
+  &:hover {
+    background-color: $color-green-dark;
+  }
 
-    &:active {
-        background-color: $color-green-darker;
-    }
+  &:active {
+    background-color: $color-green-darker;
+  }
 }
 
 button + .green-button {
-    margin-left: 4rem;
+  margin-left: 4rem;
 }
 
 .loading-blue {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    background-image: url('../images/dol-loading-small-blue.gif');
-    background-size: contain;
-    vertical-align: middle;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background-image: url('../images/dol-loading-small-blue.gif');
+  background-size: contain;
+  vertical-align: middle;
 }
 
 .hide {
-    position: absolute!important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px,1px,1px,1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
 }

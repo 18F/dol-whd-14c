@@ -1,28 +1,26 @@
 @include nested(12) {
+  .form-footer-controls {
+    padding-top: 8rem;
+    padding-bottom: 2rem;
 
-    .form-footer-controls {
-        padding-top: 8rem;
-        padding-bottom: 2rem;
+    .button-group {
+      @include clearfix();
 
-        .button-group {
-            @include clearfix();
-
-            .pull-right {
-                button {
-                    &:last-of-type {
-                        margin-right: 0;
-                    }
-                }
-            }
+      .pull-right {
+        button {
+          &:last-of-type {
+            margin-right: 0;
+          }
         }
-
-        .back-button {
-            @extend .grey-button;
-        }
-
-        .next-button {
-            @extend .green-button;
-        }
+      }
     }
 
+    .back-button {
+      @extend .grey-button;
+    }
+
+    .next-button {
+      @extend .green-button;
+    }
+  }
 }

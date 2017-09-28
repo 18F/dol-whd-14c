@@ -1,109 +1,108 @@
 .dol-nav-toggle {
-    position: relative;
-    border-radius: 0;
-    margin: 0;
-    width: 100%;
-    text-align: left;
-    padding: 1.5rem;
+  position: relative;
+  border-radius: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem;
 
-    &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 50%;
-        margin-top: -4px;
-        right: 1.5rem;
-        width: 0; 
-        height: 0; 
-        border-left: 8px solid transparent;
-        border-right: 8px solid transparent;
-        border-top: 8px solid #fff;
-    }
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -4px;
+    right: 1.5rem;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #fff;
+  }
 }
 
 .main-nav-bar {
+  &.collapsed {
+    display: none;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0;
+    @include clearfix();
+
+    li {
+      position: relative;
+      list-style-type: none;
+      color: $color-primary;
+      text-decoration: underline;
+      padding: 1.5rem;
+      margin-bottom: 0;
+      line-height: 1;
+      cursor: pointer;
+      background-color: $color-white;
+      border-bottom: 1px solid #aeb0b5;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      &.active {
+        text-decoration: none;
+        border-left: 6px solid #0175bf;
+      }
+    }
+  }
+}
+
+@media (min-width: 55em) {
+  .dol-nav-toggle {
+    display: none;
+  }
+
+  .main-nav-bar {
     &.collapsed {
-        display: none;
+      display: block;
     }
 
     ul {
-        padding: 0;
-        margin: 0;
-        @include clearfix();
+      border-bottom: 1px solid #aeb0b5;
 
-        li {
-            position: relative;
-            list-style-type: none;
-            color: $color-primary;
-            text-decoration: underline;
-            padding: 1.5rem;
-            margin-bottom: 0;
-            line-height: 1;
-            cursor: pointer;
-            background-color: $color-white;
-            border-bottom: 1px solid #aeb0b5;
+      li {
+        float: left;
+        padding: 2rem 1.5rem;
+        border: 0;
 
-            &:hover {
-                text-decoration: none;
-            }
-
-            &.active {
-                text-decoration: none;
-                border-left: 6px solid #0175bf;
-            }
-        }
-    }
-}
-
-
-@media (min-width: 55em) {
-    .dol-nav-toggle {
-        display: none;
-    }
-
-    .main-nav-bar {
-        &.collapsed {
+        &:hover {
+          &:after {
+            content: '';
             display: block;
+            height: 6px;
+            position: absolute;
+            bottom: 0;
+            left: 1.5rem;
+            right: 1.5rem;
+            background-color: #0175bf;
+          }
         }
 
-        ul {
-            border-bottom: 1px solid #aeb0b5;
+        &.active {
+          color: $color-white;
+          background-color: $color-primary;
+          border: 0;
 
-            li {
-                float: left;
-                padding: 2rem 1.5rem;
-                border: 0;
-
-                &:hover {
-                    &:after {
-                        content: "";
-                        display: block;
-                        height: 6px;
-                        position: absolute;
-                        bottom: 0;
-                        left: 1.5rem;
-                        right: 1.5rem;
-                        background-color: #0175bf;
-                    }
-                }
-
-                &.active {
-                    color: $color-white;
-                    background-color: $color-primary;
-                    border: 0;
-
-                    &:after {
-                        content: "";
-                        display: block;
-                        height: 6px;
-                        position: absolute;
-                        bottom: 0;
-                        left: 1.5rem;
-                        right: 1.5rem;
-                        background-color: #0175bf;
-                    }
-                }
-            }
+          &:after {
+            content: '';
+            display: block;
+            height: 6px;
+            position: absolute;
+            bottom: 0;
+            left: 1.5rem;
+            right: 1.5rem;
+            background-color: #0175bf;
+          }
         }
+      }
     }
+  }
 }

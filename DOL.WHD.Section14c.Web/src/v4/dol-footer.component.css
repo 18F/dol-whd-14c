@@ -1,14 +1,10 @@
 .dol-footer {
-  margin-top: 32px;
-}
-
-.dol-footer--brand,
-.dol-footer--content {
-  padding: 16px;
+  margin-top: 40px;
 }
 
 .dol-footer--brand {
   background-color: #b54645;
+  padding: 8px 16px;
 }
 
 .brand {
@@ -34,6 +30,7 @@
   color: #fff;
   font-size: 14px;
   line-height: 1.5;
+  padding: 16px;
 }
 
 .dol-footer--content .usa-grid-full {
