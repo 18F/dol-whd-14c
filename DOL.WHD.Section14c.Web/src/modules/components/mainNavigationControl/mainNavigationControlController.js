@@ -22,5 +22,9 @@ module.exports = function(ngModule) {
       var id = event.target.dataset.sectionid;
       navService.gotoSection(id);
     };
+
+    this.onKeyPress = e => {
+      if (e.which === 13) this.onNavClick(e);
+    };
   });
 };
