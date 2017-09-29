@@ -16,7 +16,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     return {
-      template: '<div class="help-link">?</div>',
+      template: '<button type="button" class="help-link">?</button>',
       replace: true,
       link: function(scope, element, attrs) {
         element.bind('click', function() {
@@ -31,7 +31,11 @@ module.exports = function(ngModule) {
 
     return {
       transclude: true,
-      template: '<div class="help-text"><ng-transclude></ng-transclude></div>',
+      template: `
+        <div id="{{ id }}" class="help-text">
+          <ng-transclude></ng-transclude>
+        </div>
+      `,
       replace: true,
       link: function(scope, element, attrs) {
         scope.$watch('showAllHelp', function() {

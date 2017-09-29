@@ -1,4 +1,5 @@
-<select ng-attr-name="{{name}}" ng-model="selectedState">
+<label for="{{ name }}" class="hide">State</label>
+<select id="{{ name }}" ng-attr-name="{{name}}" ng-model="selectedState">
   <option value></option>
   <option value="AL">Alabama</option>
   <option value="AK">Alaska</option>

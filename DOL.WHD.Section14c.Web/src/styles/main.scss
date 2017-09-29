@@ -1,18 +1,15 @@
-@import "defaults";
-@import "~uswds/src/stylesheets/all";
-@import "~susy/sass/susy";
-@import "bourbon";
-@import "globals";
-@import "admin";
-@import "forms";
-@import "layout";
-@import "feedback";
-@import "modules/answerFieldControl";
-@import "modules/formFooterControls";
-@import "modules/mainNavigationControl";
-@import "modules/mainHeaderControl";
-@import "modules/reviewSectionControl";
-@import "loginReg";
-
-
-
+@import 'defaults';
+@import '~uswds/src/stylesheets/all';
+@import '~susy/sass/susy';
+@import 'bourbon';
+@import 'globals';
+@import 'admin';
+@import 'forms';
+@import 'layout';
+@import 'feedback';
+@import 'modules/answerFieldControl';
+@import 'modules/formFooterControls';
+@import 'modules/mainNavigationControl';
+@import 'modules/mainHeaderControl';
+@import 'modules/reviewSectionControl';
+@import 'loginReg';

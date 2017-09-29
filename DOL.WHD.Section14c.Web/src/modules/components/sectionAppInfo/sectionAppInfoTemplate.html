@@ -3,7 +3,7 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a href="">Show Help for All Items</a></li>
+      <li><a href="#" ng-click="$event.preventDefault()">Show Help for All Items</a></li>
     </ul>
   </div>
 </div>
@@ -18,14 +18,15 @@
   <div class="form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
     <div class="form-question-text">What type of application is this?
       <helplink></helplink>
-      <helptext>Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+      <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
     </div>
     <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Application type</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.ApplicationType">
-          <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
+          <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" aria-describedby="applicationTypeIdHelp" ng-value="response.id" ng-model="formData.applicationTypeId">
           <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
         </li>
       </ul>
@@ -36,6 +37,7 @@
     <div class="form-question-text">Has this employer ever previously applied for a 14(c) certificate?</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has previous application</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
@@ -53,6 +55,7 @@
     <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has previous certificate</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
@@ -71,15 +74,15 @@
     <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
     <div class="form-question-answer">
       <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="sidelabeled certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber">
-      <label class="example">Example: 12-34567-H-890</label>
+      <label for="previousCertificateNumber" class="example">Example: 12-34567-H-890</label>
     </div>
   </div>
 
   <div class="form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
     <div class="form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?
       <helplink></helplink>
-      <helptext>
-        <p><strong>Community Rehabilitation Program (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
+      <helptext id="establishmentTypeIdHelp">
+        <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
         <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
         <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
         <p><strong>Business Establishment:</strong> Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</p>
@@ -88,9 +91,10 @@
     <div class="form-question-subtext">Select all that apply</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Establishment type ID</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.EstablishmentType">
-          <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
+          <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="establishmentTypeIdHelp" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
           <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
           <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
         </li>
@@ -115,7 +119,7 @@
       <label for="contactPhone">Telephone Number</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
       <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="sidelabeled phoneno"></input>
-      <label class="example">Example: 123-456-7890</label>
+      <span class="example">Example: 123-456-7890</span>
     </div>
   </div>
 
@@ -124,7 +128,7 @@
       <label for="contactFax">Fax Number</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
       <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="sidelabeled phoneno"></input>
-      <label class="example">Example: 123-456-7890</label>
+      <span class="example">Example: 123-456-7890</span>
     </div>
   </div>
 
@@ -133,7 +137,7 @@
       <label for="contactEmail">Email Address</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
       <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="sidelabeled email"></input>
-      <label class="example">Example: contact.name@company.com</label>
+      <span class="example">Example: contact.name@company.com</span>
     </div>
   </div>
 </div>
