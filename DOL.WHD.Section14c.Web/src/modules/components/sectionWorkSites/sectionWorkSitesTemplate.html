@@ -188,15 +188,15 @@
       <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
         <ul>
           <li>
-            <span>Full Name of Worker</span>
+            <span>Name of worker</span>
             <span>Provide the full name of the worker.</span>
           </li>
           <li>
-            <span>Primary Disability</span>
+            <span>Primary disability</span>
             <span>Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.</span>
           </li>
           <li>
-            <span>Type of Work</span>
+            <span>Type of work</span>
             <span>
               <p>Descibe the work peformed by this worker in the job for which the worker worked the most number of hours at a subminimum wage.</p>
               <p>Examples may include: sewing, janitorial, box assembly, laundry, etc.</p>
@@ -271,7 +271,7 @@
     <div class="form-question-group">
       <div class="em-block" ng-show="vm.addingEmployee">
         <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
-          <div class="form-question-text">Full Name of Worker</div>
+          <div class="form-question-text">Name of worker</div>
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
           <div class="form-question-answer">
             <label for="workerName" class="hide">Full Name of Worker</label>
@@ -279,8 +279,16 @@
           </div>
         </div>
 
+        <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('workType') ? 'usa-input-error' : ''">
+          <div class="form-question-text">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</div>
+          <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
+          <div class="form-question-answer">
+            <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
+          </div>
+        </div>
+
         <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('primaryDisabilityId') ? 'usa-input-error' : ''">
-          <div class="form-question-text">Primary Disability</div>
+          <div class="form-question-text">Primary disability that affects productivity for job described above. Pick only one.</div>
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
           <div class="form-question-answer">
             <fieldset class="usa-fieldset-inputs usa-sans">
@@ -312,14 +320,14 @@
             <table class="wage-data-table">
               <thead>
                 <tr>
-                  <th scope="col">Number of Jobs</th>
-                  <th scope="col">Average Hours per Week</th>
-                  <th scope="col">Average Earnings per Hour</th>
-                  <th scope="col">Prevailing Wage</th>
-                  <th scope="col">Productivity Measure</th>
-                  <th scope="col">Commensurate Wage Rate</th>
-                  <th scope="col">Total Hours</th>
-                  <th scope="col">Work at Other Site?</th>
+                  <th scope="col">How many jobs did this worker perform at this work site?</th>
+                  <th scope="col">Average # of hours worked per week on all jobs at this work site</th>
+                  <th scope="col">Average earnings per hour for all jobs at this work site</th>
+                  <th scope="col">Prevailing wage rate for job described above</th>
+                  <th scope="col">Productivity measure/rating for job described above</th>
+                  <th scope="col">Commensurate wage rate/average earnings per hour for job described above</th>
+                  <th scope="col">Total hours worked for job described above</th>
+                  <th scope="col">Does worker perform work for this employer at any other work site?</th>
                 </tr>
               </thead>
               <tbody>
@@ -359,7 +367,7 @@
                         </li>
                         <li>
                           <input id="workerProductivityStudy" type="radio" name="workerProductivityToggle" ng-value="true" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged(true)">
-                          <label for="workerProductivityStudy">Time Study,</label>
+                          <label for="workerProductivityStudy">hourly,</label>
                         </li>
                       </ul>
 
