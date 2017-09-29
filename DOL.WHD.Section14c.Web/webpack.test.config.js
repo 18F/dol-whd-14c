@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var bourbon = require('node-bourbon').includePaths;
+var helpers = require('./helpers');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -33,7 +34,7 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loader: 'ts-loader'
+        loaders: ['ts-loader', 'angular2-template-loader']
       },
       {
         test: /\.js$/,
@@ -58,7 +59,16 @@ module.exports = {
           'sass?sourceMap&includePaths[]=' + bourbon
         ]
       },
-      { test: /\.css$/, loader: 'style-loader!css-loader' },
+      {
+        test: /\.css$/,
+        exclude: helpers.root('src', 'v4'),
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.css$/,
+        include: helpers.root('src', 'v4'),
+        loader: 'raw-loader'
+      },
       {
         test: /\.(png|gif|jpg|jpeg)$/,
         loader: 'url-loader?name=images/[name].[ext]'
