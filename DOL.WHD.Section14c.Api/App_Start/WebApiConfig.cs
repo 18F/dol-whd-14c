@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
+using System.Web.Http.Cors;
 
 namespace DOL.WHD.Section14c.Api
 {
@@ -8,7 +9,7 @@ namespace DOL.WHD.Section14c.Api
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support
-            config.EnableCors();
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
