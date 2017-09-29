@@ -1,690 +1,693 @@
-
 .form-content,
 .form-page-full {
-    h2 {
-        font-size: 3.4rem;
-    }
+  h2 {
+    font-size: 3.4rem;
+  }
 
-    h3 {
-        font-size: 2.4rem;
-    }
+  h3 {
+    font-size: 2.4rem;
+  }
 
-    .form-question-text {
-        font-size: 2rem;
-    }
+  .form-question-text {
+    font-size: 2rem;
+  }
 }
 
 .dol-form-section-title {
-    @include clearfix();
+  @include clearfix();
 
-    h2 {
-        margin: 0;
-    }
+  h2 {
+    margin: 0;
+  }
 }
 
 .dol-form-section-help {
-    ul {
-        padding: 0;
-        margin: 0;
+  ul {
+    padding: 0;
+    margin: 0;
 
-        li {
-            list-style-type: none;
-            display: inline-block;
-            margin-top: 1.5rem;
+    li {
+      list-style-type: none;
+      display: inline-block;
+      margin-top: 1.5rem;
 
-            &:first-of-type {
-                &:before {
-                    content: "";
-                    display: inline-block;
-                    width: 20px;
-                    height: 20px;
-                    margin-right: 7px;
-                    vertical-align: middle;
-                    background: url('../images/dol-help-blue.png') center center;
-                    background: url('../images/dol-help-blue.svg') center center;
-                    background-size: contain;
-                }
-            }
-
-            + li {
-                padding-left: 1.5rem;
-            }
+      &:first-of-type {
+        &:before {
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+          margin-right: 7px;
+          vertical-align: middle;
+          background: url('../images/dol-help-blue.png') center center;
+          background: url('../images/dol-help-blue.svg') center center;
+          background-size: contain;
         }
+      }
+
+      + li {
+        padding-left: 1.5rem;
+      }
     }
+  }
 }
 
 @media (min-width: 50em) {
-    .dol-form-section-title {
-        h2 {
-            float: left;
-        }
+  .dol-form-section-title {
+    h2 {
+      float: left;
     }
+  }
 
-    .dol-form-section-help {
-        float: right;
-    }
+  .dol-form-section-help {
+    float: right;
+  }
 }
 
 // Form input sizing
 input.phoneno {
-    max-width: 18.2rem;
+  max-width: 18.2rem;
 }
 
 input.ein,
 input.certificateno {
-    max-width: 15.4rem;
+  max-width: 15.4rem;
 }
 
 input.other {
-    max-width: 25rem;
+  max-width: 25rem;
 }
 
 input.numeric2 {
-    max-width: 5rem;
+  max-width: 5rem;
 }
 
 input.numeric3 {
-    max-width: 6.6rem;
+  max-width: 6.6rem;
 }
 
 input.numeric5 {
-    max-width: 8.4rem;
+  max-width: 8.4rem;
 }
 
 input.numeric7 {
-    max-width: 10rem;
+  max-width: 10rem;
 }
 
 input.wage-rate {
-    max-width: 8.4rem;
+  max-width: 8.4rem;
 }
 
 input.wage-rate-ext {
-    max-width: 11.2rem;
+  max-width: 11.2rem;
 }
 
 input.email {
-    max-width: 32rem;
+  max-width: 32rem;
 }
 
 input.sidelabeled {
-    display: inline-block;
+  display: inline-block;
 
-    & + label,
-    & + span {
-        display: inline-block;
-        margin-top: 0px;
-    }
+  & + label,
+  & + span {
+    display: inline-block;
+    margin-top: 0px;
+  }
 }
 
 label.example,
 span.example {
-    color: #666;
-    margin-left: 1.5rem;
+  color: #666;
+  margin-left: 1.5rem;
 }
 
 @include nested(12) {
+  .form-page {
+    @include span(12);
+  }
 
-    .form-page {
-        @include span(12);
+  .form-page,
+  .form-page-full {
+    margin-top: 4rem;
+
+    // Limit the width of text in the form per USWDS recommendation
+    // Within the form, increase the default width b/c the default font size is larger
+    .usa-content,
+    .usa-content p:not(.usa-font-lead),
+    ul,
+    ol,
+    .form-question-block label,
+    .form-question-text,
+    .form-question-subtext,
+    .usa-input-error-message {
+      max-width: 60rem;
     }
 
-    .form-page,
-    .form-page-full {
+    p {
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    & > h3:first-of-type {
+      margin-top: 0px;
+    }
+
+    .em-block {
+      background-color: $color-gray-lightest;
+      padding: 2rem;
+
+      table thead th {
+        background-color: darken($form-em-grey, 10%);
+      }
+    }
+
+    .underlabel {
+      margin-top: 0px;
+
+      &.checkbox-indent {
+        margin-left: 3rem;
+        margin-top: -5px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .help-link {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      vertical-align: 2px;
+      margin: 0 0 0 4px;
+      padding: 0;
+      cursor: pointer;
+      background: url('../images/dol-help-blue.png') center center;
+      background: url('../images/dol-help-blue.svg') center center;
+      background-size: contain;
+      text-indent: -9999px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .help-text {
+      font-size: 1.7rem;
+      font-weight: 400;
+      background-color: $help-em-color;
+      padding: 1.5rem 2rem;
+      margin-top: 1.5rem;
+      display: none;
+
+      p {
+        &:first-of-type {
+          margin-top: 0;
+        }
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+
+      &.show {
+        display: block;
+      }
+    }
+
+    ul.compact-list {
+      margin-top: 0;
+
+      li {
+        margin-bottom: 0;
+      }
+    }
+
+    .form-question-block {
+      &:not(:first-of-type) {
         margin-top: 4rem;
+      }
 
-        // Limit the width of text in the form per USWDS recommendation
-        // Within the form, increase the default width b/c the default font size is larger
-        .usa-content,
-        .usa-content p:not(.usa-font-lead),
-        ul,
-        ol,
-        .form-question-block label,
-        .form-question-text,
-        .form-question-subtext,
-        .usa-input-error-message {
-            max-width: 60rem;
+      &.margintop {
+        margin-top: 40px;
+      }
+
+      .form-question-text {
+        margin-bottom: 20px;
+        font-weight: 700;
+
+        .form-question-subtext {
+          font-weight: 400;
+          margin-top: 5px;
         }
+      }
 
-        p {
-            &:first-of-type {
-                margin-top: 0;
-            }
-        }
-
-        & > h3:first-of-type {
-            margin-top: 0px;
-        }
-
-        .em-block {
-            background-color: $color-gray-lightest;
-            padding: 2rem;
-
-            table thead th {
-                background-color: darken($form-em-grey, 10%);
-            }
-        }
-
-        .underlabel {
-            margin-top: 0px;
-
-            &.checkbox-indent {
-                margin-left: 3.0rem;
-                margin-top: -5px;
-                margin-bottom: 20px;
-            }
-        }
-
-        .help-link {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            vertical-align: 2px;
-            margin: 0 0 0 4px;
-            padding: 0;
-            cursor: pointer;
-            background: url('../images/dol-help-blue.png') center center;
-            background: url('../images/dol-help-blue.svg') center center;
-            background-size: contain;
-            text-indent: -9999px;
-
-            &:hover {
-                opacity: 0.8;
-            }
-        }
-
-        .help-text {
-            font-size: 1.7rem;
-            font-weight: 400;
-            background-color: $help-em-color;
-            padding: 1.5rem 2rem;
-            margin-top: 1.5rem;
-            display: none;
-
-            p {
-                &:first-of-type {
-                    margin-top: 0;
-                }
-
-                &:last-of-type {
-                    margin-bottom: 0;
-                }
-            }
-
-            &.show {
-                display: block;
-            }
-        }
-
-        ul.compact-list {
-            margin-top: 0;
-
-            li {
-                margin-bottom: 0;
-            }
-        }
-
-        .form-question-block {
-            &:not(:first-of-type) {
-                margin-top: 4rem;
-            }
-
-            &.margintop {
-                margin-top: 40px;
-            }
-
-            .form-question-text {
-                margin-bottom: 20px;
-                font-weight: 700;
-
-                .form-question-subtext {
-                    font-weight: 400;
-                    margin-top: 5px;
-                }
-            }
-
-            .form-question-subtext {
-                margin-top: -15px;
-                margin-bottom: 20px;
-            }
-        }
-
-        // Remove bottom margins for address layout
-        .usa-input-grid-medium,
-        .usa-input-grid-small {
-            input,
-            select {
-                margin-bottom: 0;
-            }
-        }
-
-        hr {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-            border: 0;
-            border-top: 1px solid #aeb0b5;
-        }
-
-        hr + .form-question-block {
-            &:not(:first-of-type) {
-                margin-top: 2rem;
-            }
-            margin-top: 2rem;
-        }
-
-        .form-question-group {
-            &:not(:first-of-type), &.force-margin {
-                margin-top: 40px;
-            }
-        }
-
-        .form-spaced-div {
-            margin-top: 40px;
-        }
-
-        .compact-spaced {
-            margin-top: 0px;
-        }
-
-        .city-field {
-            max-width: 20rem;
-        }
-
-        .state-field {
-            max-width: 5rem;
-        }
-
-        .zip-field {
-            max-width: 10rem;
-        }
-
-        // Styling for upload button/input combos
-        .upload-label {
-            margin-right: 0px;
-            border-top-right-radius: 0px;
-            border-bottom-right-radius: 0px;
-            height: 4.4rem;
-            vertical-align: middle;
-            line-height: normal;
-        }
-
-        .upload-input {
-            display: inline-block;
-            margin-left: 0px;
-            vertical-align: middle;
-        }
-
-        h2.form-section-header {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .wage-data-table {
-            font-size: 12px;
-
-            td, th {
-                background-color: darken($form-em-grey, 10%);
-                padding: 2 !important;
-                border: none;
-                max-width: 89px;
-            }
-
-            thead tr {
-                border-bottom: 1px solid $text-color;
-            }
-
-            input {
-                font-size: 12px !important;
-                height: 2.4rem;
-
-                &.wage-rate {
-                    padding: 2px;
-                    max-width: 5rem;
-                }
-            }
-
-            input[type="radio"] + label {
-                margin-top: 2px;
-            }
-            input[type="radio"] + label::before {
-                height: 0.8rem;
-                width: 0.8rem;
-                line-height: 0.8rem;
-            }
-        }
-
-        .full-width-label {
-            max-width: none;
-        }
-
-        .worksite-title {
-            h3 {
-                margin-bottom: 0;
-            }
-
-            h4 {
-                margin-top: 4px;
-                font-weight: 400;
-            }
-        }
-
-        .wage-data-table li > input[type="radio"] {
-            width: auto;
-        }
+      .form-question-subtext {
+        margin-top: -15px;
+        margin-bottom: 20px;
+      }
     }
 
-    table {
-        border: 1px solid $text-color;
-
-        th, td {
-            background-color: transparent;
-        }
-
-        thead th, thead td {
-            background-color: $color-gray-light;
-        }
-
-        td.button-column {
-            white-space: nowrap;
-        }
-
-        tr {
-            background-color: #fff;
-        }
-
-        tr.greyed {
-            background-color: $form-em-grey;
-        }
-
-        .expanding-row {
-            *:focus {
-                outline: none;
-                box-shadow: none !important;
-            }
-
-            .arrow-expander {
-                display: inline-block;
-                width: 16px;
-                height: 16px;
-                background-image: url('../images/arrow-down.png');
-                background-size: contain;
-                vertical-align: middle;
-                margin-right: 5px;
-            }
-
-            &.expanded {
-                .arrow-expander {
-                    @include transform(scaleY(-1));
-                }
-            }
-        }
-
-        .subtable {
-            display: table;
-            width: 100%;
-            font-size: 14px;
-
-            & > div {
-                display: table-cell;
-                padding: 10px 5px;
-                font-weight: 700;
-
-                &:not(:last-of-type) {
-                    border-right: 1px solid $text-color;
-                }
-
-                & > div {
-                    margin-top: 4px;
-                    font-weight: 400;
-                }
-            }
-        }
-
-        &.expandable-table {
-            tr {
-                td:first-of-type {
-                    width: 1px;
-                }
-            }
-        }
-
-        div.usa-input-error {
-            margin-left: 8px;
-        }
+    // Remove bottom margins for address layout
+    .usa-input-grid-medium,
+    .usa-input-grid-small {
+      input,
+      select {
+        margin-bottom: 0;
+      }
     }
 
-    table .expanding-row th, table .expanding-row td {
-        border-bottom: none;
+    hr {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+      border: 0;
+      border-top: 1px solid #aeb0b5;
     }
 
-    table .expanded-row {
-        display: none;
-
-        &.show {
-            display: table-row;
-        }
+    hr + .form-question-block {
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
+      margin-top: 2rem;
     }
 
-    table .expanded-row th, table .expanded-row td {
+    .form-question-group {
+      &:not(:first-of-type),
+      &.force-margin {
+        margin-top: 40px;
+      }
+    }
+
+    .form-spaced-div {
+      margin-top: 40px;
+    }
+
+    .compact-spaced {
+      margin-top: 0px;
+    }
+
+    .city-field {
+      max-width: 20rem;
+    }
+
+    .state-field {
+      max-width: 5rem;
+    }
+
+    .zip-field {
+      max-width: 10rem;
+    }
+
+    // Styling for upload button/input combos
+    .upload-label {
+      margin-right: 0px;
+      border-top-right-radius: 0px;
+      border-bottom-right-radius: 0px;
+      height: 4.4rem;
+      vertical-align: middle;
+      line-height: normal;
+    }
+
+    .upload-input {
+      display: inline-block;
+      margin-left: 0px;
+      vertical-align: middle;
+    }
+
+    h2.form-section-header {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .wage-data-table {
+      font-size: 12px;
+
+      td,
+      th {
+        background-color: darken($form-em-grey, 10%);
+        padding: 2 !important;
         border: none;
-        padding-left: 20px;
-        padding-right: 20px;
+        max-width: 89px;
+      }
+
+      thead tr {
+        border-bottom: 1px solid $text-color;
+      }
+
+      input {
+        font-size: 12px !important;
+        height: 2.4rem;
+
+        &.wage-rate {
+          padding: 2px;
+          max-width: 5rem;
+        }
+      }
+
+      input[type='radio'] + label {
+        margin-top: 2px;
+      }
+      input[type='radio'] + label::before {
+        height: 0.8rem;
+        width: 0.8rem;
+        line-height: 0.8rem;
+      }
+    }
+
+    .full-width-label {
+      max-width: none;
+    }
+
+    .worksite-title {
+      h3 {
+        margin-bottom: 0;
+      }
+
+      h4 {
+        margin-top: 4px;
+        font-weight: 400;
+      }
+    }
+
+    .wage-data-table li > input[type='radio'] {
+      width: auto;
+    }
+  }
+
+  table {
+    border: 1px solid $text-color;
+
+    th,
+    td {
+      background-color: transparent;
+    }
+
+    thead th,
+    thead td {
+      background-color: $color-gray-light;
+    }
+
+    td.button-column {
+      white-space: nowrap;
+    }
+
+    tr {
+      background-color: #fff;
+    }
+
+    tr.greyed {
+      background-color: $form-em-grey;
+    }
+
+    .expanding-row {
+      *:focus {
+        outline: none;
+        box-shadow: none !important;
+      }
+
+      .arrow-expander {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background-image: url('../images/arrow-down.png');
+        background-size: contain;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+
+      &.expanded {
+        .arrow-expander {
+          @include transform(scaleY(-1));
+        }
+      }
+    }
+
+    .subtable {
+      display: table;
+      width: 100%;
+      font-size: 14px;
+
+      & > div {
+        display: table-cell;
+        padding: 10px 5px;
+        font-weight: 700;
+
+        &:not(:last-of-type) {
+          border-right: 1px solid $text-color;
+        }
 
         & > div {
-            border-top: 1px solid $text-color;
-            padding: 8px 2px;
+          margin-top: 4px;
+          font-weight: 400;
         }
+      }
     }
 
-    .form-content {
-        div.usa-alert-error {
-            @include clearfix;
-
-            div.usa-alert-body {
-                @include span(8);
-            }
+    &.expandable-table {
+      tr {
+        td:first-of-type {
+          width: 1px;
         }
+      }
     }
+
+    div.usa-input-error {
+      margin-left: 8px;
+    }
+  }
+
+  table .expanding-row th,
+  table .expanding-row td {
+    border-bottom: none;
+  }
+
+  table .expanded-row {
+    display: none;
+
+    &.show {
+      display: table-row;
+    }
+  }
+
+  table .expanded-row th,
+  table .expanded-row td {
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    & > div {
+      border-top: 1px solid $text-color;
+      padding: 8px 2px;
+    }
+  }
+
+  .form-content {
+    div.usa-alert-error {
+      @include clearfix;
+
+      div.usa-alert-body {
+        @include span(8);
+      }
+    }
+  }
 }
 
 // Custom form tabs (as seen in Wage Data section)
 .form-tabbed-section {
-    @include clearfix;
+  @include clearfix;
 
-    margin-top: 40px;
+  margin-top: 40px;
 
-    .form-tab {
-        @include span(6 of 12);
+  .form-tab {
+    @include span(6 of 12);
 
-        border-top: .6rem solid transparent;
-        padding: 1.4rem 2rem 2rem 2rem;
-        font-size: 1.6rem;
-        font-weight: 700;
-        cursor: pointer;
-        margin-right: 0px;
+    border-top: 0.6rem solid transparent;
+    padding: 1.4rem 2rem 2rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 0px;
 
-
-        &:not(:first-of-type) {
-            border-left: 1px solid #aeb0b5;
-        }
-
-        &.active {
-            border-top: .6rem solid $color-primary;
-        }
-
-        &:not(.active) {
-            border-bottom: 1px solid #aeb0b5;
-            background-color: $color-gray-lightest;
-
-            &:hover {
-                background-color: darken($color-gray-lightest, 5%);
-            }
-        }
-
-        .circle {
-            display: inline-block;
-            font-size: 1.2rem;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            background-color: $color-gray-darker;
-            color: $color-white;
-            text-align: center;
-            vertical-align: middle;
-            padding-top: .15rem;
-            margin-right: .7rem;
-        }
+    &:not(:first-of-type) {
+      border-left: 1px solid #aeb0b5;
     }
+
+    &.active {
+      border-top: 0.6rem solid $color-primary;
+    }
+
+    &:not(.active) {
+      border-bottom: 1px solid #aeb0b5;
+      background-color: $color-gray-lightest;
+
+      &:hover {
+        background-color: darken($color-gray-lightest, 5%);
+      }
+    }
+
+    .circle {
+      display: inline-block;
+      font-size: 1.2rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: $color-gray-darker;
+      color: $color-white;
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 0.15rem;
+      margin-right: 0.7rem;
+    }
+  }
 }
 
 .form-sidebar {
-    width: 80%;
-    text-align: right;
-    position: absolute;
-    right: 0;
-    top: 7rem;
+  width: 80%;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 7rem;
 
-    .links-block {
-        background-color: $color-gray-lightest;
-        padding: 1.5rem 2rem;
-        text-align: left;
-        box-shadow: -2px 2px 3px 0px rgba(0,0,0,.3);
+  .links-block {
+    background-color: $color-gray-lightest;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
 
-        &.ng-hide {
-            transform: translateX(300%);
-        }
-
-        &.ng-hide-add, &.ng-hide-remove {
-            transition: all linear 0.4s;
-        }
+    &.ng-hide {
+      transform: translateX(300%);
     }
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: all linear 0.4s;
+    }
+  }
 }
 
 .submission-success {
-    text-align: center;
+  text-align: center;
 }
 
 @media (max-width: 37.5em) {
-    .form-tabbed-section {
-        .form-tab {
-            span {
-                display: none;
-            }
-        }
+  .form-tabbed-section {
+    .form-tab {
+      span {
+        display: none;
+      }
     }
+  }
 }
 
 // List of instructions for Employee section
 .dol-help-employee-info {
-    background: $color-gray-lightest;
-    padding: 2.5rem;
+  background: $color-gray-lightest;
+  padding: 2.5rem;
 
-    ul {
-        max-width: 100%;
-        padding: 0;
-        margin: 0;
+  ul {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
 
-        li {
-            list-style-type: none;
-            border-bottom: 1px solid #aeb0b5;
-            padding: 1.5rem 0;
+    li {
+      list-style-type: none;
+      border-bottom: 1px solid #aeb0b5;
+      padding: 1.5rem 0;
 
-            span {
-                &:first-of-type {
-                    font-weight: 700;
-                    display: block;
-                }
-
-                p {
-                    &:last-of-type {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-
-            &:first-of-type {
-                padding-top: 0;
-            }
-
-            &:last-of-type {
-                border: 0;
-                padding-bottom: 0;
-            }
+      span {
+        &:first-of-type {
+          font-weight: 700;
+          display: block;
         }
+
+        p {
+          &:last-of-type {
+            margin-bottom: 0;
+          }
+        }
+      }
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+
+      &:last-of-type {
+        border: 0;
+        padding-bottom: 0;
+      }
     }
+  }
 }
 
 //Example of Employee data
 .dol-help-employee-example {
-    .dol-view-large {
-        display: none;
-    }
+  .dol-view-large {
+    display: none;
+  }
 }
 
 @media (min-width: 37.5em) {
-    .form-tabbed-section {
-        .form-tab {
-           font-size: 2.4rem;
+  .form-tabbed-section {
+    .form-tab {
+      font-size: 2.4rem;
 
-           .circle {
-               font-size: 1.7rem;
-               width: 3rem;
-               height: 3rem;
-               padding-top: .3rem;
+      .circle {
+        font-size: 1.7rem;
+        width: 3rem;
+        height: 3rem;
+        padding-top: 0.3rem;
+      }
+    }
+  }
 
-           }
+  .form-sidebar {
+    width: 33%;
+  }
+
+  .dol-help-employee-info {
+    ul {
+      display: table;
+
+      li {
+        display: table-row;
+        border: 0;
+        padding: 0;
+
+        span {
+          display: table-cell;
+          padding: 2rem;
+          border-bottom: 1px solid #aeb0b5;
+
+          &:first-of-type {
+            min-width: 20rem;
+            display: table-cell;
+          }
         }
-    }
 
-    .form-sidebar {
-        width: 33%;
-    }
-
-    .dol-help-employee-info {
-        ul {
-            display: table;
-
-            li {
-                display: table-row;
-                border: 0;
-                padding: 0;
-
-                span {
-                    display: table-cell;
-                    padding: 2rem;
-                    border-bottom: 1px solid #aeb0b5;
-
-                    &:first-of-type {
-                        min-width: 20rem;
-                        display: table-cell;
-                    }
-                }
-
-                &:first-of-type {
-                    span {
-                        padding-top: 0;
-                    }
-                }
-
-                &:last-of-type {
-                    span {
-                        padding-bottom: 0;
-                        border: 0;
-                    }
-                }
-            }
+        &:first-of-type {
+          span {
+            padding-top: 0;
+          }
         }
+
+        &:last-of-type {
+          span {
+            padding-bottom: 0;
+            border: 0;
+          }
+        }
+      }
     }
+  }
 }
 
 @media (min-width: 50em) {
-    .dol-help-employee-example {
-        .dol-view-small {
-            display: none;
-        }
-
-        .dol-view-large {
-            display: block;
-        }
+  .dol-help-employee-example {
+    .dol-view-small {
+      display: none;
     }
+
+    .dol-view-large {
+      display: block;
+    }
+  }
 }

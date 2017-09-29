@@ -4,12 +4,28 @@
   show up on one page together
 */
 
-.float-inherit { float: inherit !important; }
-.p0 { padding: 0 !important; }
-.m0 { margin: 0 !important; }
-.ml0 { margin-left: 0 !important; }
-.mb2 { margin-bottom: 2rem !important; }
-.mb3 { margin-bottom: 3rem !important; }
-.mb5 { margin-bottom: 5rem !important; }
+.float-inherit {
+  float: inherit !important;
+}
+.p0 {
+  padding: 0 !important;
+}
+.m0 {
+  margin: 0 !important;
+}
+.ml0 {
+  margin-left: 0 !important;
+}
+.mb2 {
+  margin-bottom: 2rem !important;
+}
+.mb3 {
+  margin-bottom: 3rem !important;
+}
+.mb5 {
+  margin-bottom: 5rem !important;
+}
 
-.mw-300p { max-width: 300px; }
+.mw-300p {
+  max-width: 300px;
+}
