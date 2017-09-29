@@ -15,7 +15,7 @@
 
   ./pa11yScan.js \
   --email='brendan.sudol@gsa.gov' \
-  --password='Boom18f!!' \
+  --password='abc123 ;)' \
   --url-base='https://localhost:3333' \
   --url-path='section/work-sites'
 
@@ -24,6 +24,7 @@
 const fs = require('fs');
 const _ = require('lodash');
 const pa11y = require('pa11y');
+const jsonReporter = require('pa11y/reporter/json');
 const program = require('commander');
 
 program
@@ -31,12 +32,18 @@ program
   .option('-e, --email <email>', 'Add user email')
   .option('-p, --password <password>', 'Add user password')
   .option(
+    '-s, --standard <standard>',
+    'Add accessibility standard (Section508, WCAG2A, WCAG2AA (default), WCAG2AAA)',
+    'WCAG2AA'
+  )
+  .option(
     '-b, --url-base <url_base>',
     'Add URL base',
     'https://dol-whd-section14c-stg.azurewebsites.net'
   )
   .option('-u, --url-path <url_path>', 'Add URL path to scan')
   .option('-w, --show-warnings', 'Show warnings')
+  .option('-j, --save-json', 'Save results to json file')
   .parse(process.argv);
 
 const errMsg = `
@@ -55,8 +62,10 @@ const urlPath = `${urlConnect}/${program.urlPath}`;
 const PARAMS = {
   userVal: program.email,
   pwVal: program.password,
+  standard: program.standard,
   url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
-  showWarnings: !!program.showWarnings
+  showWarnings: !!program.showWarnings,
+  saveJson: !!program.saveJson
 };
 
 console.log('RUN PARAMS:', JSON.stringify(PARAMS));
@@ -67,6 +76,8 @@ const runner = pa11y({
     error: console.error.bind(console),
     info: console.log.bind(console)
   },
+
+  standard: PARAMS.standard,
 
   beforeScript: function(page, options, next) {
     // show console messages from web page
@@ -194,6 +205,17 @@ function handleResults(data) {
 
   if (PARAMS.showWarnings) displayEntries(dataGrouped, 'warning');
   displayEntries(dataGrouped, 'error');
+
+  if (PARAMS.saveJson) {
+    const fname = `pa11y-results-${PARAMS.standard}.json`;
+    const json = {
+      url: PARAMS.url.full,
+      results: jsonReporter.process(data)
+    };
+
+    fs.writeFileSync(fname, JSON.stringify(json));
+    console.log(`Results saved to ${fname}!`);
+  }
 }
 
 runner.run(PARAMS.url.full, (error, results) => {
