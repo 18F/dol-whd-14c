@@ -5,7 +5,7 @@ namespace DOL.WHD.Section14c.Domain.ViewModels.Summary
 {
     public class ApplicationSummary
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public StatusSummary Status { get; set; }
         public DateTime? CertificateEffectiveDate { get; set; }
         public DateTime? CertificateExpirationDate { get; set; }

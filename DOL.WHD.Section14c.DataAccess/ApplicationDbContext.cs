@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using DOL.WHD.Section14c.DataAccess.MigrationsDB2;
 using DOL.WHD.Section14c.DataAccess.Migrations;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -15,7 +16,8 @@ namespace DOL.WHD.Section14c.DataAccess
     {
         public ApplicationDbContext() : base(nameOrConnectionString: "ApplicationDbContext")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, ConfigurationDB2>());
         }
 
         public static ApplicationDbContext Create()
@@ -39,10 +41,11 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<Status> ApplicationStatuses { get; set; }
 
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             // data constraints
             // Address
             modelBuilder.Entity<Address>().Property(a => a.StreetAddress).IsRequired();
@@ -155,7 +158,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WorkSite>().Property(a => a.SCA).IsRequired();
             modelBuilder.Entity<WorkSite>().Property(a => a.FederalContractWorkPerformed).IsRequired();
             modelBuilder.Entity<WorkSite>().HasRequired(a => a.Address);
-
+           
             // many to many relationships
             modelBuilder.Entity<ApplicationSubmissionEstablishmentType>()
                 .ToTable("AppSubmissionEstablishmentType")
@@ -170,6 +173,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+            
         }
 
         public override int SaveChanges()
@@ -213,5 +217,7 @@ namespace DOL.WHD.Section14c.DataAccess
 
             return base.SaveChanges();
         }
+
+    
     }
 }

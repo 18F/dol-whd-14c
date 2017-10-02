@@ -76,8 +76,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_AttachmentId()
         {
-            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AttachmentId, null as Guid?);
-            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AttachmentId, Guid.NewGuid());
+            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AttachmentId, null as String);
+            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AttachmentId, Guid.NewGuid().ToString());
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
             model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = null };
             PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = Guid.NewGuid() };
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = Guid.NewGuid().ToString() };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
         }
 

@@ -24,6 +24,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
     <div class="form-question-answer">
+      <label for="legalName" class="hide">Legal name of employer</label>
       <input id="legalName" name="legalName" type="text" ng-model="formData.employer.legalName">
     </div>
   </div>
@@ -34,6 +35,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has trade name?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasTradeName_1" type="radio" name="hasTradeName" ng-value="true" ng-model="formData.employer.hasTradeName">
@@ -50,6 +52,7 @@
     <div class="form-question-text">Trade Name</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.tradeName')">{{ validate('employer.tradeName') }}</span>
     <div class="form-question-answer">
+      <label for="tradeName" class="hide">Trade name</label>
       <input id="tradeName" name="tradeName" type="text" ng-model="formData.employer.tradeName">
     </div>
   </div>
@@ -58,6 +61,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Employer name change?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" ng-value="true" ng-model="formData.employer.legalNameHasChanged">
@@ -74,12 +78,14 @@
     <div class="form-question-text">Prior Legal Name(s) of Employer</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
     <div class="form-question-answer">
+      <label for="priorLegalName" class="hide">Prior legal name(s) of employer</label>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
   </div>
   <div class="form-question-block">
     <div class="form-question-text">Physical Address of Employer’s Main Establishment</div>
     <fieldset class="usa-form-large">
+      <legend class="hide">Physical address</legend>
       <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
         <label for="mailing-address-1">Street Address</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
@@ -122,6 +128,7 @@
   <div class="form-question-block" ng-show="formData.employer.hasMailingAddress === true">
     <div class="form-question-text">Mailing Address of Employer’s Main Establishment</div>
     <fieldset>
+      <legend class="hide">Mailing address</legend>
       <div class="usa-form-large">
         <div ng-class="validate('employer.mailingAddress.streetAddress') ? 'usa-input-error' : ''">
           <label for="mailingAddressStreet">Street Address</label>
@@ -165,6 +172,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Has parent organization?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="hasParentOrg_1" type="radio" name="hasParentOrg" ng-value="true" ng-model="formData.employer.hasParentOrg">
@@ -179,6 +187,7 @@
   </div>
   <div class="form-question-block">
     <fieldset ng-show="formData.employer.hasParentOrg === true">
+      <legend class="hide">Parent legal name</legend>
       <div ng-class="validate('employer.parentLegalName') ? 'usa-input-error' : ''">
         <label for="parentLegalName">Legal Name</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentLegalName')">{{ validate('employer.parentLegalName') }}</span>
@@ -235,6 +244,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Employer status</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.EmployerStatus">
           <input id="paytype_{{ response.id }}" type="radio" name="employerStatus" ng-value="response.id" ng-model="formData.employer.employerStatusId">
@@ -242,6 +252,7 @@
         </li>
       </ul>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusOther')">{{ validate('employer.employerStatusOther') }}</span>
+      <label for="employerStatusOther" class="hide">Employer status other</label>
       <input id="employerStatusOther" name="employerStatusOther" type="text" ng-model="formData.employer.employerStatusOther">
     </fieldset>
   </div>
@@ -252,6 +263,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Is educational agency?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" ng-value="true" ng-model="formData.employer.isEducationalAgency">
@@ -274,6 +286,7 @@
       </div>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
       <fieldset>
+        <legend class="hide">Fiscal quarter end date</legend>
         <date-field date-val="formData.employer.fiscalQuarterEndDate"></date-field>
         <label class="example">Example: 04 30 2016</label>
       </fieldset>
@@ -332,6 +345,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">PCA?</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="PCA_1" type="radio" name="PCA" ng-value="true" ng-model="formData.employer.pca">
@@ -351,6 +365,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">SCA?</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.SCA">
           <input id="SCA_{{ response.id }}" type="radio" name="SCA" ng-value="response.id" ng-model="formData.employer.scaId">
@@ -380,6 +395,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Subject to EO13658?</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.EO13658">
           <input id="EO13658_{{ response.id }}" type="radio" name="EO13658" ng-value="response.id" ng-model="formData.employer.eo13658Id">
@@ -397,6 +413,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Representative payee</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="representativePayee_1" type="radio" name="representativePayee" ng-value="true" ng-model="formData.employer.representativePayee">
@@ -425,6 +442,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Take credit for costs</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" ng-value="true" ng-model="formData.employer.takeCreditForCosts">
@@ -441,6 +459,7 @@
     <label for="deductionType">Which type of deduction(s) did the employer take?</label>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.providingFacilitiesDeductionTypeId')">{{ validate('employer.providingFacilitiesDeductionTypeId') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Providing facilities deduction type</legend>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
           <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-checked="formData.employer.providingFacilitiesDeductionTypeId.indexOf(response.id) > -1" ng-click="vm.toggleDeductionType(response.id)">
@@ -457,6 +476,7 @@
     </div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Temporary authority</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" ng-value="true" ng-model="formData.employer.temporaryAuthority">

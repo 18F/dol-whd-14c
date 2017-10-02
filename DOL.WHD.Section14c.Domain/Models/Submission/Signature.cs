@@ -6,10 +6,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public Signature()
         {
-            Id = Guid.NewGuid();
+            if (string.IsNullOrEmpty(Id))
+                Id = Guid.NewGuid().ToString();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public bool? Agreement { get; set; }
         public string FullName { get; set; }
         public string Title { get; set; }

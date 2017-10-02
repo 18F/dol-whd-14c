@@ -22,6 +22,7 @@
   <div class="form-question-block" ng-class="validate('signature.agreement') ? 'usa-input-error margintop' : 'margintop'">
     <span class="usa-input-error-message" role="alert" ng-show="validate('signature.agreement')">{{ validate('signature.agreement') }}</span>
     <fieldset class="usa-fieldset-inputs form-question-answer">
+      <legend class="hide">Signature agreement</legend>
       <ul class="usa-unstyled-list">
         <li>
           <input id="agreement" type="checkbox" name="agreement" ng-value="true" ng-model="formData.signature.agreement"></input>
@@ -34,6 +35,7 @@
     <div class="form-question-text">Full Name</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('signature.fullName')">{{ validate('signature.fullName') }}</span>
     <div class="form-question-answer">
+      <label for="fullName" class="hide">Full name</label>
       <input id="fullName" name="fullName" type="text" ng-model="formData.signature.fullName" />
     </div>
   </div>
@@ -41,6 +43,7 @@
     <div class="form-question-text">Title</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('signature.title')">{{ validate('signature.title') }}</span>
     <div class="form-question-answer">
+      <label for="title" class="hide">Title</label>
       <input id="title" name="title" type="text" ng-model="formData.signature.title" />
     </div>
   </div>
@@ -48,6 +51,7 @@
     <div class="form-question-text">Date</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('signature.date')">{{ validate('signature.date') }}</span>
     <fieldset>
+      <legend class="hide">Date</legend>
       <date-field date-val="formData.signature.date"></date-field>
       <label class="example">Example: 04 30 2016</label>
     </fieldset>

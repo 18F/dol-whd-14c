@@ -7,17 +7,19 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public PrevailingWageSurveyInfo()
         {
-            Id = Guid.NewGuid();
+            if (string.IsNullOrEmpty(Id))
+                Id = Guid.NewGuid().ToString();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public double? PrevailingWageDetermined { get; set; }
 
         public virtual ICollection<SourceEmployer> SourceEmployers { get; set; }
 
         // Prevailing Wage Determination - Hourly
-        public Guid? AttachmentId { get; set; }
+        //public Guid? AttachmentId { get; set; }
+        public string AttachmentId { get; set; }
         public virtual Attachment Attachment { get; set; }
     }
 }
