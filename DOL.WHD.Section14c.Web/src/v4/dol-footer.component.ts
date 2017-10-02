@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dol-footer',
-  styleUrls: ['src/v4/dol-footer.component.css'],
+  styleUrls: ['./dol-footer.component.css'],
   template: `
     <footer class="dol-footer">
       <div class="dol-footer--brand">
         <a class="brand" href="/">
           <img
             class="brand--img"
-            src="/images/dol-logo-white.png"
+            src="images/dol-logo-white.png"
             alt="DOL Logo"
             width="70"
             height="70"
