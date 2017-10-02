@@ -226,7 +226,7 @@ function handleResults(data) {
 
     fs.writeFileSync(fname, htmlReporter.process(data, url));
     console.log(`Results saved to ${fname}!`);
-  }  
+  }
 }
 
 runner.run(PARAMS.url.full, (error, results) => {

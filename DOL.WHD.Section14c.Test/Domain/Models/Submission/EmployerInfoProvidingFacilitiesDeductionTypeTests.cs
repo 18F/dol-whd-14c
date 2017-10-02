@@ -10,8 +10,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         [TestMethod]
         public void EmployerInfoProvidingFacilitiesDeductionType_PublicProperties()
         {
-            var employerInfoId = Guid.NewGuid();
-            var employerInfo = new EmployerInfo {Id = employerInfoId};
+            var employerInfoId = Guid.NewGuid().ToString();
+            var employerInfo = new EmployerInfo {Id = employerInfoId };
             var providingFacilitiesDeductionTypeId = 30;
             var providingFacilitiesDeductionType = new Response {Id = providingFacilitiesDeductionTypeId};
 

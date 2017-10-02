@@ -8,10 +8,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public EmployerInfo()
         {
-            Id = Guid.NewGuid();
+            if (string.IsNullOrEmpty(Id))
+                Id = Guid.NewGuid().ToString();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string LegalName { get; set; }
 
@@ -58,7 +59,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public int? SCACount { get; set; }
 
         //SCA Wage Determinations upload
-        public Guid? SCAAttachmentId { get; set; }
+        //public Guid? SCAAttachmentId { get; set; }
+        public string SCAAttachmentId { get; set; }
         public virtual Attachment SCAAttachment { get; set; }
 
         public int? EO13658Id { get; set; }

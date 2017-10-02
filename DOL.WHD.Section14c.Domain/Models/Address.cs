@@ -6,10 +6,10 @@ namespace DOL.WHD.Section14c.Domain.Models
     {
         public Address()
         {
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid().ToString();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string StreetAddress { get; set; }
 
@@ -20,5 +20,6 @@ namespace DOL.WHD.Section14c.Domain.Models
         public string ZipCode { get; set; }
 
         public string County { get; set; }
+        
     }
 }

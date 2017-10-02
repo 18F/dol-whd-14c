@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.Test.Business.Factories
         public void ApplicationSummaryFactory_Build()
         {
             // Arrange
-            var appId = Guid.NewGuid();
+            var appId = Guid.NewGuid().ToString();
             var applicationType = "New";
             var certificateStatusName = "Issued";
             var certificateEffectiveDate = DateTime.Now;
