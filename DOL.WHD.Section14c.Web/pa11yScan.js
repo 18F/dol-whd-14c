@@ -25,6 +25,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const pa11y = require('pa11y');
 const jsonReporter = require('pa11y/reporter/json');
+const htmlReporter = require('pa11y/reporter/html');
 const program = require('commander');
 
 program
@@ -44,6 +45,7 @@ program
   .option('-u, --url-path <url_path>', 'Add URL path to scan')
   .option('-w, --show-warnings', 'Show warnings')
   .option('-j, --save-json', 'Save results to json file')
+  .option('-h, --save-html', 'Save results to html file')
   .parse(process.argv);
 
 const errMsg = `
@@ -65,7 +67,8 @@ const PARAMS = {
   standard: program.standard,
   url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
   showWarnings: !!program.showWarnings,
-  saveJson: !!program.saveJson
+  saveJson: !!program.saveJson,
+  saveHtml: !!program.saveHtml
 };
 
 console.log('RUN PARAMS:', JSON.stringify(PARAMS));
@@ -216,6 +219,14 @@ function handleResults(data) {
     fs.writeFileSync(fname, JSON.stringify(json));
     console.log(`Results saved to ${fname}!`);
   }
+
+  if (PARAMS.saveHtml) {
+    const fname = `pa11y-results-${PARAMS.standard}.html`;
+    const url = PARAMS.url.full;
+
+    fs.writeFileSync(fname, htmlReporter.process(data, url));
+    console.log(`Results saved to ${fname}!`);
+  }  
 }
 
 runner.run(PARAMS.url.full, (error, results) => {
