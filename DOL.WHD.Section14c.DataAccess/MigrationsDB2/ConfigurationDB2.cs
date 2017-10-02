@@ -6,7 +6,6 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
 {
     using Extensions;
     using System;
-    using System.Data.DB2.EntityFramework.Migrations;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -20,7 +19,6 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             MigrationsDirectory = @"MigrationsDB2";
 
             AutomaticMigrationDataLossAllowed = true;
-            //SetSqlGenerator("IBM.Data.DB2", new DB2MigrationSqlGenerator());
             SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
             SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
             
