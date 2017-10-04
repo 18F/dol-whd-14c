@@ -8,10 +8,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public ApplicationSubmission()
         {
-            Id = Guid.NewGuid();
+            if (string.IsNullOrEmpty(Id))
+                Id = Guid.NewGuid().ToString();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         #region Assurances
 

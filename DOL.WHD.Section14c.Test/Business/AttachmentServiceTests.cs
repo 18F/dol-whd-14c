@@ -39,7 +39,7 @@ namespace DOL.WHD.Section14c.Test.Business
 
             using (var outMemoryStream = new MemoryStream())
             {
-                service.DownloadAttachment(outMemoryStream, einToTest, upload.Id);
+                service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
 
                 string outText = Encoding.ASCII.GetString(outMemoryStream.ToArray());
 
@@ -71,7 +71,7 @@ namespace DOL.WHD.Section14c.Test.Business
 
             using (var outMemoryStream = new MemoryStream())
             {
-                service.DownloadAttachment(outMemoryStream, einToTest, upload.Id);
+                service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
 
                 string outText = Encoding.ASCII.GetString(outMemoryStream.ToArray());
 
@@ -113,7 +113,7 @@ namespace DOL.WHD.Section14c.Test.Business
 
             using (var outMemoryStream = new MemoryStream())
             {
-                service.DownloadAttachment(outMemoryStream, einToTest, upload.Id);
+                service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
 
                 string outText = Encoding.ASCII.GetString(outMemoryStream.ToArray());
 
@@ -134,7 +134,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
             var upload = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
 
-            service.DeleteAttachement(einToTest, upload.Id);
+            service.DeleteAttachement(einToTest, new Guid( upload.Id));
 
             Assert.IsTrue(upload.Deleted);
         }

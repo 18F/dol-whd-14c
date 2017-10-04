@@ -204,8 +204,27 @@ span.example {
           margin-top: 0;
         }
 
+<<<<<<< HEAD
         &:last-of-type {
           margin-bottom: 0;
+=======
+        .help-link {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            vertical-align: 2px;
+            margin: 0 0 0 4px;
+            padding: 0;
+            cursor: pointer;
+            background: url('../images/dol-help-blue.png') center center;
+            background: url('../images/dol-help-blue.svg') center center;
+            background-size: contain;
+            text-indent: -9999px;
+
+            &:hover {
+                opacity: 0.8;
+            }
+>>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
         }
       }
 

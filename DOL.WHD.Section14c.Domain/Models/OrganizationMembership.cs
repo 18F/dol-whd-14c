@@ -9,11 +9,12 @@ namespace DOL.WHD.Section14c.Domain.Models
     {
         public OrganizationMembership()
         {
-            MembershipId = Guid.NewGuid();
+            if (string.IsNullOrEmpty(MembershipId))
+                MembershipId = Guid.NewGuid().ToString();
         }
 
         [Key]
-        public Guid MembershipId { get; set; }
+        public string MembershipId { get; set; }
 
         [Required]
         [DataMember]

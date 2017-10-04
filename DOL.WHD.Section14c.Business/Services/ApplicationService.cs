@@ -23,7 +23,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public ApplicationSubmission GetApplicationById(Guid id)
         {
-            return _applicationRepository.Get().SingleOrDefault(x => x.Id == id);
+            return _applicationRepository.Get().SingleOrDefault(x => x.Id == id.ToString());
         }
 
         public IEnumerable<ApplicationSubmission> GetAllApplications()

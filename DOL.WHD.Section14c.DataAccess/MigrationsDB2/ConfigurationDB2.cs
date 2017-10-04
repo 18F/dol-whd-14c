@@ -1,27 +1,30 @@
-using System;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
-using Devart.Data.DB2.Entity.Migrations;
 
-namespace DOL.WHD.Section14c.DataAccess.Migrations
+namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
 {
     using Extensions;
+    using System;
+    using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DOL.WHD.Section14c.DataAccess.ApplicationDbContext>
+
+    internal sealed class ConfigurationDB2 : DbMigrationsConfiguration<DOL.WHD.Section14c.DataAccess.ApplicationDbContext>
     {
-        public Configuration()
+        public ConfigurationDB2()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            MigrationsDirectory = @"MigrationsDB2";
 
             AutomaticMigrationDataLossAllowed = true;
-            SetSqlGenerator("Devart.Data.DB2", new DB2EntityMigrationSqlGenerator());
+            SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
             SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
+            
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(DOL.WHD.Section14c.DataAccess.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -35,9 +38,6 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-
-            // Responses
-            // NOTE: Do not edit or remove values. If you need to change a value, set its IsActive flag to false and add a new value. This protects data integrity
 
             // ApplicationType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", ShortDisplay = "Initial", IsActive = true });
@@ -101,7 +101,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.Yes, QuestionKey = "WIOAWorkerVerified", Display = "Yes", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.No, QuestionKey = "WIOAWorkerVerified", Display = "No", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WIOAWorkerVerified.NotRequired, QuestionKey = "WIOAWorkerVerified", Display = "Not Required", IsActive = true });
-            
+
             // Seed External Roles
             context.SeedRole(Roles.Applicant);
             context.SeedRole(Roles.ApplicantAdministrator);
@@ -200,6 +200,5 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAdminUI);
             context.AddRoleFeature(Roles.WageAndHourInvestigator, ApplicationClaimTypes.ViewAllApplications);
         }
-
     }
 }
