@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack -p --config ./webpack.production.config.js",
     "lint": "eslint src || exit 0",
     "test": "karma start --single-run",
     "testd": "DEBUG=true karma start",
@@ -11,7 +12,7 @@
     "clean": "rimraf ./dist/*",
     "pa11y": "pa11y",
     "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.{js,css,scss}\"",
-    "deploy": "npm run clean && webpack -p --config ./webpack.production.config.js && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
+    "deploy": "npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
   },
   "author": "",
   "license": "CC0-1.0",
@@ -20,6 +21,7 @@
     "@types/jasmine": "2.5.36",
     "@types/node": "^6.0.46",
     "angular-mocks": "^1.5.8",
+    "angular2-template-loader": "^0.6.2",
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.5",
     "babel-polyfill": "^6.16.0",
@@ -54,6 +56,7 @@
     "pa11y": "^4.13.0",
     "prettier": "^1.6.1",
     "protractor": "~4.0.14",
+    "raw-loader": "^0.5.1",
     "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
