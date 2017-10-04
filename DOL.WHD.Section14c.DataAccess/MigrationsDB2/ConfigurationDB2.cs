@@ -20,7 +20,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
 
             AutomaticMigrationDataLossAllowed = true;
             SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
-            SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
+            //SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
             
         }
 
