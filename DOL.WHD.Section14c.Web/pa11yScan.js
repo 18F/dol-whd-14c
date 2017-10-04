@@ -15,11 +15,7 @@
 
   ./pa11yScan.js \
   --email='brendan.sudol@gsa.gov' \
-<<<<<<< HEAD
   --password='abc123 ;)' \
-=======
-  --password='Boom18f!!' \
->>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
   --url-base='https://localhost:3333' \
   --url-path='section/work-sites'
 
@@ -37,25 +33,19 @@ program
   .option('-e, --email <email>', 'Add user email')
   .option('-p, --password <password>', 'Add user password')
   .option(
-<<<<<<< HEAD
     '-s, --standard <standard>',
     'Add accessibility standard (Section508, WCAG2A, WCAG2AA (default), WCAG2AAA)',
     'WCAG2AA'
   )
   .option(
-=======
->>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
     '-b, --url-base <url_base>',
     'Add URL base',
     'https://dol-whd-section14c-stg.azurewebsites.net'
   )
   .option('-u, --url-path <url_path>', 'Add URL path to scan')
   .option('-w, --show-warnings', 'Show warnings')
-<<<<<<< HEAD
   .option('-j, --save-json', 'Save results to json file')
   .option('-h, --save-html', 'Save results to html file')
-=======
->>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
   .parse(process.argv);
 
 const errMsg = `
@@ -74,16 +64,11 @@ const urlPath = `${urlConnect}/${program.urlPath}`;
 const PARAMS = {
   userVal: program.email,
   pwVal: program.password,
-<<<<<<< HEAD
   standard: program.standard,
   url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
   showWarnings: !!program.showWarnings,
   saveJson: !!program.saveJson,
   saveHtml: !!program.saveHtml
-=======
-  url: { full: `${program.urlBase}/${urlPath}`, path: urlPath },
-  showWarnings: !!program.showWarnings
->>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
 };
 
 console.log('RUN PARAMS:', JSON.stringify(PARAMS));
@@ -223,7 +208,6 @@ function handleResults(data) {
 
   if (PARAMS.showWarnings) displayEntries(dataGrouped, 'warning');
   displayEntries(dataGrouped, 'error');
-<<<<<<< HEAD
 
   if (PARAMS.saveJson) {
     const fname = `pa11y-results-${PARAMS.standard}.json`;
@@ -242,9 +226,7 @@ function handleResults(data) {
 
     fs.writeFileSync(fname, htmlReporter.process(data, url));
     console.log(`Results saved to ${fname}!`);
-  }  
-=======
->>>>>>> remotes/origin/origin/sprint/0/DOL-WHD-14c-184
+  }
 }
 
 runner.run(PARAMS.url.full, (error, results) => {
