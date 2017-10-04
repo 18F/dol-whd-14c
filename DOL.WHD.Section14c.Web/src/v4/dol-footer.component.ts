@@ -30,24 +30,24 @@ import { Component } from '@angular/core';
           </div>
           <ul class="usa-unstyled-list usa-width-one-fourth content-group">
             <li class="mb1"><strong>ABOUT THE SITE</strong></li>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
           </ul>
           <ul class="usa-unstyled-list usa-width-one-fourth content-group">
             <li class="mb1"><strong>LABOR DEPARTMENT</strong></li>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
           </ul>
           <ul class="usa-unstyled-list usa-width-one-fourth content-group">
             <li class="mb1"><strong>FEDERAL GOVERNMENT</strong></li>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
           </ul>
         </div>
       </div>
