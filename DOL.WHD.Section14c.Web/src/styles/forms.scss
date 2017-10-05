@@ -1,5 +1,10 @@
-.form-content,
-.form-page-full {
+// ----- begin NEW CSS RULES for semantic html restructuring and a11y remediation.
+// The legacy styles will be integrated here or deleted during a11y remediation.
+// This comment will be removed when a11y remediation is complete.
+// Pages updated with the new styles:
+// Application Info (in progress)
+
+.dol-form-page {
   h2 {
     font-size: 3.4rem;
   }
@@ -10,9 +15,10 @@
 
   .form-question-text {
     font-size: 2rem;
-  }
+  }  
 }
 
+// Section title and global Help toggle
 .dol-form-section-title {
   @include clearfix();
 
@@ -64,6 +70,52 @@
   }
 }
 
+// Sub-section fieldset
+
+
+// Help link and Help text
+button.dol-help-link {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: 2px;
+  margin: 0 0 0 4px;
+  padding: 0;
+  cursor: pointer;
+  background: url('../images/dol-help-blue.png') center center;
+  background: url('../images/dol-help-blue.svg') center center;
+  background-size: contain;
+  text-indent: -9999px;
+
+  &:hover {
+    opacity: 0.8; 
+    background-color: transparent;   
+  }
+}
+
+.dol-help-text {
+  font-size: 1.7rem;
+  font-weight: 400;
+  background-color: $help-em-color;
+  padding: 1.5rem 2rem;
+  margin-top: 1.5rem;
+  display: none;
+
+  p {
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &.show {
+    display: block;
+  }
+}
+
 // Form input sizing
 input.phoneno {
   max-width: 18.2rem;
@@ -106,6 +158,30 @@ input.email {
   max-width: 32rem;
 }
 
+// ----- end NEW CSS RULES
+
+// ----- begin LEGACY CSS RULES 
+// There may be duplicates with the new styles above.
+// The legacy styles will be integrated or deleted during a11y remediation.
+// This comment will be removed when a11y remediation is complete.
+
+.form-content,
+.form-page-full {
+  h2 {
+    font-size: 3.4rem;
+  }
+
+  h3 {
+    font-size: 2.4rem;
+  }
+
+  .form-question-text {
+    font-size: 2rem;
+  }
+}
+
+// TODO: needs a11y/semantic remediation
+// Example text should not be the field label.
 input.sidelabeled {
   display: inline-block;
 
@@ -116,6 +192,8 @@ input.sidelabeled {
   }
 }
 
+// TODO: needs a11y/semantic remediation
+// Example text should not be the field label.
 label.example,
 span.example {
   color: #666;
