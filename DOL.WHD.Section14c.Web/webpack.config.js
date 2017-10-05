@@ -82,6 +82,14 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
-    })
+    }),
+    new webpack.DefinePlugin({
+      'window.__env': {
+        api_url: JSON.stringify(process.env.api_url) || JSON.stringify('https://localhost:44399'),
+        reCaptchaSiteKey: JSON.stringify('6LeqeggUAAAAALC5zT4OHbDJk9gHNT0GGZbJMOnG'),
+        requireHttps: JSON.stringify(true),
+        tokenCookieDurationMinutes: JSON.stringify(20160)
+      }
+    }),
   ]
 };
