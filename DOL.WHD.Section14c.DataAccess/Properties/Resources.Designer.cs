@@ -59,5 +59,15 @@ namespace DOL.WHD.Section14c.DataAccess.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] licenses {
+            get {
+                object obj = ResourceManager.GetObject("licenses", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }
