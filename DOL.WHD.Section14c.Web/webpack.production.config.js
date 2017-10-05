@@ -83,6 +83,12 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')
+      },
+      'window.__env': {
+        api_url: JSON.stringify(process.env.api_url) || JSON.stringify('https://localhost:44399'),
+        reCaptchaSiteKey: JSON.stringify('6LeqeggUAAAAALC5zT4OHbDJk9gHNT0GGZbJMOnG'),
+        requireHttps: JSON.stringify(true),
+        tokenCookieDurationMinutes: JSON.stringify(20160)
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
@@ -91,6 +97,6 @@ module.exports = {
       }
     }),
     failPlugin,
-    new copyWebpackPlugin([{ from: './src/deploy' }])
+    //new copyWebpackPlugin([{ from: './src/deploy' }])
   ]
 };
