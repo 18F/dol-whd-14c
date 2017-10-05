@@ -63,9 +63,9 @@ namespace DOL.WHD.Section14c.DataAccess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] licenses {
+        internal static byte[] dol_whd_section14c_exe {
             get {
-                object obj = ResourceManager.GetObject("licenses", resourceCulture);
+                object obj = ResourceManager.GetObject("dol_whd_section14c_exe", resourceCulture);
                 return ((byte[])(obj));
             }
         }
