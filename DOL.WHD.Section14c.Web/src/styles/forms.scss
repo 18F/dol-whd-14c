@@ -70,7 +70,15 @@
   }
 }
 
-// Sub-section fieldset
+// Sub-section fieldset 
+
+.dol-form-sub-section {
+  > legend {
+    + p {
+      margin-top: -0.5em;
+    }
+  }
+}
 
 
 // Help link and Help text
