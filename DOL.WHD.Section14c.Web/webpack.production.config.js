@@ -97,6 +97,6 @@ module.exports = {
       }
     }),
     failPlugin,
-    new copyWebpackPlugin([{ from: './src/deploy' }])
+    //new copyWebpackPlugin([{ from: './src/deploy' }])
   ]
 };
