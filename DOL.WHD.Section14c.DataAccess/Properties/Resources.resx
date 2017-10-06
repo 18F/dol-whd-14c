@@ -121,7 +121,4 @@
   <data name="dol_whd_section14c_dataaccess_dll" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\dol.whd.section14c.dataaccess.dll.licenses;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="dol_whd_section14c_exe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dol.whd.section14c.exe.licenses;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

@@ -59,15 +59,5 @@ namespace DOL.WHD.Section14c.DataAccess.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        internal static byte[] dol_whd_section14c_dataaccess_dll {
-            get {
-                object obj = ResourceManager.GetObject("dol_whd_section14c_dataaccess_dll", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }
