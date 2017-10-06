@@ -126,6 +126,10 @@
   font-weight: 700;
   margin-bottom: 20px;
 }  
+label.dol-form-question-text {
+  margin-top: 0;
+  max-width: 60rem;  
+}
 
 .dol-form-question-subtext {
   margin: -0.5em 0 20px 0;
@@ -171,6 +175,18 @@ button.dol-help-link {
 
   &.show {
     display: block;
+  }
+}
+
+// Example text
+input.dol-side-example {
+  display: inline-block;
+
+  & + span.dol-example-text {
+    display: inline-block;
+    margin-top: 0px;
+    color: #666;
+    margin-left: 1.5rem;    
   }
 }
 
