@@ -83,7 +83,6 @@
 }
 
 // Sub-section fieldset 
-
 .dol-form-sub-section {
   &:first-of-type {
     > legend {
@@ -95,12 +94,12 @@
   > legend {
     + p {
       margin-top: -0.5em;
+      max-width: 60rem;
     }
   }
 }
 
 // Form questions
-
 .dol-form-question-block {
   &:not(:first-of-type) {
     margin-top: 4rem;
@@ -126,6 +125,7 @@
   font-weight: 700;
   margin-bottom: 20px;
 }  
+
 label.dol-form-question-text {
   margin-top: 0;
   max-width: 60rem;  
@@ -232,6 +232,19 @@ input.email {
   max-width: 32rem;
 }
 
+// Limit the width of text in the form per USWDS recommendation
+// Within the form, increase the default width b/c the default font size is larger
+.dol-form-page .usa-content,
+.dol-form-page .usa-content p:not(.usa-font-lead),
+.dol-form-page ul,
+.dol-form-page ol,
+.dol-form-question-block label,
+.dol-form-question-text,
+.dol-form-question-subtext,
+.dol-form-page .usa-input-error-message {
+  max-width: 60rem;
+}
+
 // ----- end NEW CSS RULES
 
 // ----- begin LEGACY CSS RULES 
@@ -285,14 +298,9 @@ span.example {
 
     // Limit the width of text in the form per USWDS recommendation
     // Within the form, increase the default width b/c the default font size is larger
-    .usa-content,
-    .usa-content p:not(.usa-font-lead),
-    ul,
-    ol,
     .form-question-block label,
     .form-question-text,
-    .form-question-subtext,
-    .usa-input-error-message {
+    .form-question-subtext {
       max-width: 60rem;
     }
 
