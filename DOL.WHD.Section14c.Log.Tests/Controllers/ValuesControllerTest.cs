@@ -64,18 +64,6 @@ namespace DOL.WHD.Section14c.Log.Tests.Controllers
             controller.Put(5, "value");
 
             // Assert
-        }
-
-        [TestMethod]
-        public void Delete()
-        {
-            // Arrange
-            LogsController controller = new LogsController();
-
-            // Act
-            controller.Delete(5);
-
-            // Assert
-        }
+        }        
     }
 }
