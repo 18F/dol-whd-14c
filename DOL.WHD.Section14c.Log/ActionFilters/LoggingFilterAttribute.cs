@@ -7,6 +7,8 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Tracing;
 using System.Web.Http;
 using DOL.WHD.Section14c.Log.Helpers;
+using DOL.WHD.Section14c.Log.Controllers;
+using DOL.WHD.Section14c.Log.Models;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {
@@ -17,6 +19,10 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
             GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
             trace.Info(filterContext.Request, "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action : " + filterContext.ActionDescriptor.ActionName, "JSON", filterContext.ActionArguments);
+            APIActivityLogs log = new APIActivityLogs {
+                Messages = "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action: " + filterContext.ActionDescriptor.ActionName+ "JSON" + filterContext.ActionArguments
+            };
+            var listOfFiles = new ActivityLogsController().PostActivityLogs(log);
         }
     }
 }

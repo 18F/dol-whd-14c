@@ -10,6 +10,8 @@ namespace DOL.WHD.Section14c.Log.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
+            SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
         }
 
         protected override void Seed(DOL.WHD.Section14c.Log.Models.DOLWHDSection14cLogContext context)

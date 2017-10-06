@@ -19,6 +19,7 @@ namespace DOL.WHD.Section14c.Log.Models
         {
         }
 
-        public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APILogs> APILogs { get; set; }
+        public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIActivityLogs> ActivityLogs { get; set; }
+        public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIErrorLogs> ErrorLogs { get; set; }
     }
 }
