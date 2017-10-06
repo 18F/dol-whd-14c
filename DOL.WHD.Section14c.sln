@@ -24,6 +24,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Log", "DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj", "{4F4E393E-5CC3-468F-8ABE-A44756A8851C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Log.Tests", "DOL.WHD.Section14c.Log.Tests\DOL.WHD.Section14c.Log.Tests.csproj", "{53864947-3EF9-4DFA-80E2-738790EDDD8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +58,14 @@ Global
 		{56B20A89-8219-49B4-80E2-753D8EBD3DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56B20A89-8219-49B4-80E2-753D8EBD3DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56B20A89-8219-49B4-80E2-753D8EBD3DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53864947-3EF9-4DFA-80E2-738790EDDD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53864947-3EF9-4DFA-80E2-738790EDDD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53864947-3EF9-4DFA-80E2-738790EDDD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53864947-3EF9-4DFA-80E2-738790EDDD8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

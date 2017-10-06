@@ -256,6 +256,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="App_GlobalResources\LocalizedText.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -289,6 +294,7 @@
     <Content Include="Parameters.xml">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Resources\dol.whd.section14c.api.dll.licenses" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -301,6 +307,7 @@
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="APILogs\" />
     <Folder Include="App_Data\" />
     <Folder Include="IdentityServices\" />
   </ItemGroup>
@@ -333,11 +340,19 @@
       <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
+      <Project>{4F4E393E-5CC3-468F-8ABE-A44756A8851C}</Project>
+      <Name>DOL.WHD.Section14c.Log</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\LocalizedText.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalizedText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

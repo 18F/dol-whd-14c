@@ -20,6 +20,7 @@ using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 
+
 namespace DOL.WHD.Section14c.Api.Controllers
 {
     [AuthorizeHttps]
@@ -53,6 +54,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
+        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)

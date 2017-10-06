@@ -16,9 +16,11 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "HelpPage_Default",
-                "Help/{action}/{apiId}",
-                new { controller = "Help", action = "Index", apiId = UrlParameter.Optional });
+                "LogHelpPage_Default",
+                "LogHelp/{action}/{apiId}",
+                new { controller = "LogHelp", action = "Index", apiId = UrlParameter.Optional },
+                namespaces: new[] { "DOL.WHD.Section14c.Log.Areas.HelpPage.Controllers" }
+                );
 
             HelpPageConfig.Register(GlobalConfiguration.Configuration);
         }
