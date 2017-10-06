@@ -16,15 +16,15 @@
   <fieldset class="dol-form-sub-section">
     <legend><h3>Application Type</h3></legend>
     <hr />
-    <div class="form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
-      <div class="form-question-text">What type of application is this?
-        <helplink></helplink>
-        <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
-      </div>
-      <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
-      <fieldset class="usa-fieldset-inputs form-question-answer">
-        <legend class="hide">Application type</legend>
+
+    <div class="dol-form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">What type of application is this?
+          <helplink></helplink>
+          <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+        </legend>
+        <p class="dol-form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</p>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>             
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.ApplicationType">
             <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" aria-describedby="applicationTypeIdHelp" ng-value="response.id" ng-model="formData.applicationTypeId">
@@ -34,11 +34,10 @@
       </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Has this employer ever previously applied for a 14(c) certificate?</div>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
-      <fieldset class="usa-fieldset-inputs form-question-answer">
-        <legend class="hide">Has previous application</legend>
+    <div class="dol-form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">Has this employer ever previously applied for a 14(c) certificate?</legend>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
@@ -52,11 +51,10 @@
       </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
-      <fieldset class="usa-fieldset-inputs form-question-answer">
-        <legend class="hide">Has previous certificate</legend>
+    <div class="dol-form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">Has this employer ever previously held a 14(c) certificate?</legend>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
@@ -70,7 +68,7 @@
       </fieldset>
     </div>
 
-    <div class="form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
       <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
       <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
       <div class="form-question-answer">
@@ -79,20 +77,19 @@
       </div>
     </div>
 
-    <div class="form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
-      <div class="form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?
-        <helplink></helplink>
-        <helptext id="establishmentTypeIdHelp">
-          <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
-          <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
-          <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
-          <p><strong>Business Establishment:</strong> Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</p>
-        </helptext>
-      </div>
-      <div class="form-question-subtext">Select all that apply</div>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
-      <fieldset class="usa-fieldset-inputs form-question-answer">
-        <legend class="hide">Establishment type ID</legend>
+    <div class="dol-form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?
+          <helplink></helplink>
+          <helptext id="establishmentTypeIdHelp">
+            <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
+            <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
+            <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
+            <p><strong>Business Establishment:</strong> Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</p>
+          </helptext>
+        </legend>
+        <p class="dol-form-question-subtext">Select all that apply</p>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>  
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.EstablishmentType">
             <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="establishmentTypeIdHelp" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
@@ -110,7 +107,7 @@
     <p>This should be a person who can best answer questions concerning information contained on this application.</p>
     <hr />
 
-    <div class="form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
       <div class="form-question-answer">
         <label for="contactName">Full Name</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
@@ -118,7 +115,7 @@
       </div>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
       <div class="form-question-answer">
         <label for="contactPhone">Telephone Number</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
@@ -127,7 +124,7 @@
       </div>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
       <div class="form-question-answer">
         <label for="contactFax">Fax Number</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
@@ -136,7 +133,7 @@
       </div>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
       <div class="form-question-answer">
         <label for="contactEmail">Email Address</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>

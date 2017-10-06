@@ -5,6 +5,8 @@
 // Application Info (in progress)
 
 .dol-form-page {
+  margin-top: 4rem;
+
   h2 {
     font-size: 3.4rem;
   }
@@ -13,9 +15,19 @@
     font-size: 2.4rem;
   }
 
-  .form-question-text {
-    font-size: 2rem;
-  }  
+  hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 0;
+    border-top: 1px solid #aeb0b5;
+
+    + .dol-form-question-block {
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
+      margin-top: 2rem;
+    }      
+  }
 }
 
 // Section title and global Help toggle
@@ -73,6 +85,13 @@
 // Sub-section fieldset 
 
 .dol-form-sub-section {
+  &:first-of-type {
+    > legend {
+      h3 {
+        margin: 0;
+      }
+    }
+  }
   > legend {
     + p {
       margin-top: -0.5em;
@@ -80,6 +99,37 @@
   }
 }
 
+// Form questions
+
+.dol-form-question-block {
+  &:not(:first-of-type) {
+    margin-top: 4rem;
+  }
+
+  &.margintop {
+    margin-top: 40px;
+  }
+
+  .underlabel {
+    margin-top: 0px;
+
+    &.checkbox-indent {
+      margin-left: 3rem;
+      margin-top: -5px;
+      margin-bottom: 20px;
+    }
+  }  
+}
+
+.dol-form-question-text {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}  
+
+.dol-form-question-subtext {
+  margin: -0.5em 0 20px 0;
+}
 
 // Help link and Help text
 button.dol-help-link {
