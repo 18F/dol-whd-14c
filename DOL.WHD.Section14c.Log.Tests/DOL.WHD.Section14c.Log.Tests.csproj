@@ -93,7 +93,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
-    <Compile Include="Controllers\ValuesControllerTest.cs" />
+    <Compile Include="Controllers\LogsControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -103,7 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
-      <Project>{4F4E393E-5CC3-468F-8ABE-A44756A8851C}</Project>
+      <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
       <Name>DOL.WHD.Section14c.Log</Name>
     </ProjectReference>
   </ItemGroup>

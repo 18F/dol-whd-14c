@@ -11,7 +11,7 @@ using DOL.WHD.Section14c.Log.Controllers;
 namespace DOL.WHD.Section14c.Log.Tests.Controllers
 {
     [TestClass]
-    public class ValuesControllerTest
+    public class LogsControllerTest
     {
         [TestMethod]
         public void Get()
