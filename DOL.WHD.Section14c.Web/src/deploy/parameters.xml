@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <parameters>
   <parameter name="ApiUrl" description="Please set the URL of the API" defaultValue="http://localhost:3334" tags="">
-    <parameterEntry type="TextFile" scope="\\env.js$" match="api_url_for_jenkins"/>
+    <parameterEntry type="TextFile" scope="\\env.js$" match="<api_url_for_jenkins>"/>
   </parameter>
   <parameter name="ReCaptchaSiteKey" description="Please set your reCaptcha Site Key" defaultValue="" tags="">
-    <parameterEntry type="TextFile" scope="\\env.js$" match="reCaptcha_site_key"/>
+    <parameterEntry type="TextFile" scope="\\env.js$" match="<reCaptchaSiteKey_for_jenkins>"/>
   </parameter>
 </parameters>
