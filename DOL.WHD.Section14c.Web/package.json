@@ -12,7 +12,7 @@
     "clean": "rimraf ./dist/*",
     "pa11y": "pa11y",
     "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.{js,css,scss}\"",
-    "deploy": "npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
+    "deploy": "npm run clean && npm run build && ncp index.html ./dist/index.html"
   },
   "author": "",
   "license": "CC0-1.0",
