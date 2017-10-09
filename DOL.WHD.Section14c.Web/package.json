@@ -11,9 +11,8 @@
     "start": "webpack-dev-server",
     "clean": "rimraf ./dist/*",
     "pa11y": "pa11y",
-    "pre-deploy":"./node_modules/.bin/replace 'api_url: null' 'api_url: api_url_for_jenkins' env.js && ./node_modules/.bin/replace 'reCaptchaSiteKey: null' 'reCaptchaSiteKey: reCaptcha_site_key' env.js",
     "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.{js,css,scss}\"",
-    "deploy": "npm run pre-deploy && npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
+    "deploy": "replace null 'api_url_for_jenkins' env.js && npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
   },
   "author": "",
   "license": "CC0-1.0",
