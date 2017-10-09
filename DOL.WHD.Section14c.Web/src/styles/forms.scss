@@ -13,6 +13,7 @@
 
   h3 {
     font-size: 2.4rem;
+    margin-bottom: 0;
   }
 
   hr {
@@ -87,14 +88,13 @@
   &:first-of-type {
     > legend {
       h3 {
-        margin: 0;
+        margin-top: 0;
       }
     }
   }
   > legend {
-    + p {
-      margin-top: -0.5em;
-      max-width: 60rem;
+    + .dol-help-text {
+      margin-top: 10px;
     }
   }
 }
@@ -109,6 +109,9 @@
     margin-top: 40px;
   }
 
+  // TODO: It's possible that the underlabels for checkboxes/radios
+  // will be removed from the app in favor of help text. In that case, 
+  // these CSS classes should be removed.
   .underlabel {
     margin-top: 0px;
 
@@ -135,7 +138,7 @@ label.dol-form-question-text {
   margin: -0.5em 0 20px 0;
 }
 
-// Help link and Help text
+// Help button
 button.dol-help-link {
   display: inline-block;
   width: 20px;
@@ -155,13 +158,14 @@ button.dol-help-link {
   }
 }
 
+//Help text
 .dol-help-text {
   font-size: 1.7rem;
   font-weight: 400;
   background-color: $help-em-color;
   padding: 1.5rem 2rem;
-  margin-top: 1.5rem;
-  display: none;
+  margin: 0 0 20px 0;
+  //display: none;
 
   p {
     &:first-of-type {
@@ -176,6 +180,16 @@ button.dol-help-link {
   &.show {
     display: block;
   }
+}
+
+// Checkbox and Radio lists with help buttons
+.dol-list-help {
+  input {
+    width: auto;
+  }
+  input[type="checkbox"] + label, input[type="radio"] + label {
+      display: inline-block;
+  }  
 }
 
 // Example text
@@ -241,6 +255,7 @@ input.email {
 .dol-form-question-block label,
 .dol-form-question-text,
 .dol-form-question-subtext,
+.dol-help-text,
 .dol-form-page .usa-input-error-message {
   max-width: 60rem;
 }

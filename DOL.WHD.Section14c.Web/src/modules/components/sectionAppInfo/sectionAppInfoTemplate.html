@@ -20,10 +20,13 @@
     <div class="dol-form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">What type of application is this?
-          <helplink></helplink>
-          <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+          <!-- <helplink aria-controls="applicationTypeIdHelp"></helplink>  -->
+          <button type="button" ng-click="appTypeHelp = !appTypeHelp ; appTypeExpanded = !appTypeExpanded" ng-init="appTypeExpanded = false" class="dol-help-link" aria-label="Instructions" aria-controls="appTypeHelpId" aria-expanded="{{appTypeExpanded}}">?</button> 
         </legend>
-        <p class="dol-form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</p>
+        <!-- <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext> -->   
+        <div id="appTypeHelpId" ng-show="appTypeHelp" class="dol-help-text">
+          Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.
+        </div>        
         <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>             
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.ApplicationType">
@@ -77,22 +80,19 @@
 
     <div class="dol-form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
-        <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?
-          <helplink></helplink>
-          <helptext id="establishmentTypeIdHelp">
-            <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
-            <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
-            <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
-            <p><strong>Business Establishment:</strong> Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</p>
-          </helptext>
-        </legend>
+        <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</legend>
         <p class="dol-form-question-subtext">Select all that apply</p>
         <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>  
-        <ul class="usa-unstyled-list">
+        <ul class="usa-unstyled-list dol-list-help">
           <li ng-repeat="response in responses.EstablishmentType">
             <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="establishmentTypeIdHelp" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
             <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
-            <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
+            <!--<helplink></helplink> -->
+            <button type="button" ng-click="" ng-init="" class="dol-help-link" aria-label="Instructions" aria-controls="" aria-expanded="">?</button>            
+            <div id="" ng-show="" class="dol-help-text">
+                {{ response.subDisplay }}
+            </div>
+            <!-- TODO: remove underlabel <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>-->
           </li>
         </ul>
       </fieldset>
@@ -101,8 +101,16 @@
   
   
   <fieldset class="dol-form-sub-section">
-    <legend><h3>Application Contact Person</h3></legend>
-    <p>This should be a person who can best answer questions concerning information contained on this application.</p>
+    <legend>
+      <h3>Application Contact Person 
+      <!--<helplink></helplink> -->
+      <button type="button" ng-click="appContactHelp = !appContactHelp ; appContactExpanded = !appContactExpanded" ng-init="appContactExpanded = false" class="dol-help-link" aria-label="Instructions" aria-controls="appContactHelpId" aria-expanded="{{appContactExpanded}}">?</button> 
+      </h3>
+    </legend>
+    <!-- <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext> -->
+    <div id="appContactHelpId" ng-show="appContactHelp" class="dol-help-text">
+        This should be a person who can best answer questions concerning information contained on this application.
+    </div>     
     <hr />
 
     <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
