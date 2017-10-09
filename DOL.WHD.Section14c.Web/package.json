@@ -12,7 +12,7 @@
     "clean": "rimraf ./dist/*",
     "pa11y": "pa11y",
     "prettier": "prettier --single-quote --trailing-comma none --semi true --write \"src/**/*.{js,css,scss}\"",
-    "deploy": "replace null 'api_url_for_jenkins' env.js && npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
+    "deploy": "npm run clean && npm run build && ncp index.html ./dist/index.html && ncp env.js ./dist/env.js"
   },
   "author": "",
   "license": "CC0-1.0",
@@ -57,7 +57,6 @@
     "prettier": "^1.6.1",
     "protractor": "~4.0.14",
     "raw-loader": "^0.5.1",
-    "replace": "^0.3.0",
     "resolve-url-loader": "^1.6.0",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
