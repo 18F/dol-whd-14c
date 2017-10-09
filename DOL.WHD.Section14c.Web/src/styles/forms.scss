@@ -147,10 +147,11 @@ button.dol-help-link {
   margin: 0 0 0 4px;
   padding: 0;
   cursor: pointer;
-  background: url('../images/dol-help-blue.png') center center;
-  background: url('../images/dol-help-blue.svg') center center;
+  background: #fff url('../images/dol-help-blue.png') center center;
+  background: #fff url('../images/dol-help-blue.svg') center center;
   background-size: contain;
   text-indent: -9999px;
+  color: #000;
 
   &:hover {
     opacity: 0.8; 
@@ -165,7 +166,7 @@ button.dol-help-link {
   background-color: $help-em-color;
   padding: 1.5rem 2rem;
   margin: 0 0 20px 0;
-  //display: none;
+  display: none;
 
   p {
     &:first-of-type {
