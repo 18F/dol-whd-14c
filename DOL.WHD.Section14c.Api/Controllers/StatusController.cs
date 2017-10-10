@@ -2,6 +2,9 @@
 using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System;
+using System.Net.Http;
+using System.Net;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -27,9 +30,22 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
+        [DOL.WHD.Section14c.Log.ActionFilters.GlobalException]
         public IEnumerable<Status> GetStatuses()
         {
-            return _statusService.GetAllStatuses();
+            var statuses = _statusService.GetAllStatuses();
+            throw new Exception("My Exception");
+            if (statuses == null)
+            {
+                var message = string.Format("Statuses not found");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+            }
+            else
+            {
+                return statuses;
+            }
         }
     }
 }

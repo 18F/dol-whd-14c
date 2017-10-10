@@ -68,7 +68,6 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="IAuditedEntity.cs" />
     <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\APILogs.cs" />
     <Compile Include="ViewModels\Summary\ApplicationSummary.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationSave.cs" />

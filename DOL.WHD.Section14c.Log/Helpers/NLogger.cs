@@ -6,7 +6,9 @@ using System.Web.Http.Tracing;
 using NLog;
 using System.Net.Http;
 using System.Text;
-using DOL.WHD.Section14c.Log.ErrorHelper;
+using DOL.WHD.Section14c.Log.LogHelper;
+using NLog.Config;
+using NLog.LayoutRenderers;
 
 namespace DOL.WHD.Section14c.Log.Helpers
 {
@@ -17,6 +19,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
     {
         #region Private member variables.
         private static readonly Logger ClassLogger = LogManager.GetCurrentClassLogger();
+
+        private static readonly LogEventInfo eventInfo = new LogEventInfo(LogLevel.Trace, "API Logger", ClassLogger.Name);
 
         private static readonly Lazy<Dictionary<TraceLevel, Action<string>>> LoggingMap = new Lazy<Dictionary<TraceLevel, Action<string>>>(() => new Dictionary<TraceLevel, Action<string>> { { TraceLevel.Info, ClassLogger.Info }, { TraceLevel.Debug, ClassLogger.Debug }, { TraceLevel.Error, ClassLogger.Error }, { TraceLevel.Fatal, ClassLogger.Fatal }, { TraceLevel.Warn, ClassLogger.Warn } });
         #endregion
@@ -49,6 +53,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
+                
                 Log(record);
             }
         }
@@ -62,6 +67,11 @@ namespace DOL.WHD.Section14c.Log.Helpers
         private void Log(TraceRecord record)
         {
             var message = new StringBuilder();
+            
+            eventInfo.Properties["CustomerID"] = "someCustID";
+
+            
+
 
             if (!string.IsNullOrWhiteSpace(record.Message))
                 message.Append("").Append(record.Message + Environment.NewLine);
@@ -117,9 +127,17 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
                 else
                     message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
+                    eventInfo.Exception = record.Exception.GetBaseException(); //set the exception for the eventInfo
             }
 
+            eventInfo.Message = Convert.ToString(message); 
+
+            
+
             Logger[record.Level](Convert.ToString(message) + Environment.NewLine);
+            ClassLogger.Log(eventInfo);
+            //test.Append("Test: This is my test" + Environment.NewLine);
+            //Logger[record.Level](Convert.ToString(test) + Environment.NewLine);
         }
         #endregion
     }

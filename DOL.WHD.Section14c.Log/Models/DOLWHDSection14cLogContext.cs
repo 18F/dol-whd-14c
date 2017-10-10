@@ -15,11 +15,32 @@ namespace DOL.WHD.Section14c.Log.Models
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
-        public DOLWHDSection14cLogContext() : base("name=DOLWHDSection14cLogContext")
+        public DOLWHDSection14cLogContext() : base("name=ApplicationLogContext")
         {
         }
 
         public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIActivityLogs> ActivityLogs { get; set; }
         public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIErrorLogs> ErrorLogs { get; set; }
+
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder
+            //  .Entity<APIActivityLogs>()
+            //  .MapToStoredProcedures(s =>
+            //     s.Insert(i => i.HasName("insert_activity_log")
+            //                   .Parameter(b => b.Message, "@message")
+            //                   .Parameter(b => b.Level, "@Level")
+            //                   .Parameter(b => b.LogTime, "CURRENT TIMESTAMP")
+            //                   .Parameter(b => b.User, "@logger")
+            //                   .Parameter(b => b.Method, "@properties")
+            //                   ));
+
+
+        }
+
+        
     }
 }

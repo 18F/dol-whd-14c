@@ -19,6 +19,8 @@ namespace DOL.WHD.Section14c.Log
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            NLog.LayoutRenderers.LayoutRenderer.Register("api-log", typeof(DOL.WHD.Section14c.Log.Helpers.LogLayoutRenderer));
         }
     }
 }

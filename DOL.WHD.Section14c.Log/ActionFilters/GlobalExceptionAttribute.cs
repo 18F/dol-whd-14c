@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net.Http;
 using System.Net;
 using DOL.WHD.Section14c.Log.Helpers;
-using DOL.WHD.Section14c.Log.ErrorHelper;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {

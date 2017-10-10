@@ -19,10 +19,11 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
             GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
             trace.Info(filterContext.Request, "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action : " + filterContext.ActionDescriptor.ActionName, "JSON", filterContext.ActionArguments);
-            APIActivityLogs log = new APIActivityLogs {
-                Messages = "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action: " + filterContext.ActionDescriptor.ActionName+ "JSON" + filterContext.ActionArguments
-            };
-            var listOfFiles = new ActivityLogsController().PostActivityLogs(log);
+            
+            //APIActivityLogs log = new APIActivityLogs {
+            //    Message = "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action: " + filterContext.ActionDescriptor.ActionName+ "JSON" + filterContext.ActionArguments
+            //};
+            //var listOfFiles = new ActivityLogsController().NewActivityLog(log);
         }
     }
 }

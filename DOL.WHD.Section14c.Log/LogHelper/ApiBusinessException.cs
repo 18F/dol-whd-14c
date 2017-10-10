@@ -5,7 +5,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace DOL.WHD.Section14c.Log.ErrorHelper
+namespace DOL.WHD.Section14c.Log.LogHelper
 { /// <summary>
   /// Api Business Exception
   /// </summary>

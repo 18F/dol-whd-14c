@@ -25,6 +25,7 @@ namespace DOL.WHD.Section14c.Api
             );
 
             config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
+            //config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
         }
     }
 }

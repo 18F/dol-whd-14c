@@ -72,6 +72,10 @@
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NLog.Web, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.Web.4.5.0\lib\net35\NLog.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -187,19 +191,20 @@
     <Compile Include="Controllers\APIActivityLogsController.cs" />
     <Compile Include="Controllers\APIErrorLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ErrorHelper\ApiBusinessException.cs" />
-    <Compile Include="ErrorHelper\ApiDataException.cs" />
-    <Compile Include="ErrorHelper\ApiException.cs" />
-    <Compile Include="ErrorHelper\IApiExceptions.cs" />
+    <Compile Include="Helpers\LogLayoutRenderer.cs" />
+    <Compile Include="LogHelper\ApiBusinessException.cs" />
+    <Compile Include="LogHelper\ApiDataException.cs" />
+    <Compile Include="LogHelper\ApiException.cs" />
+    <Compile Include="LogHelper\IApiExceptions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Helpers\NLogger.cs" />
     <Compile Include="Helpers\ServiceStatus.cs" />
-    <Compile Include="Migrations\201710061441188_Initial.cs" />
-    <Compile Include="Migrations\201710061441188_Initial.Designer.cs">
-      <DependentUpon>201710061441188_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201710091939392_Initial.cs" />
+    <Compile Include="Migrations\201710091939392_Initial.Designer.cs">
+      <DependentUpon>201710091939392_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIErrorLogs.cs" />
@@ -268,8 +273,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710061441188_Initial.resx">
-      <DependentUpon>201710061441188_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710091939392_Initial.resx">
+      <DependentUpon>201710091939392_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
