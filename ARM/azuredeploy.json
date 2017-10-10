@@ -85,7 +85,8 @@
     "publicIPAddressType": "Dynamic",
     "publicIPAddressNameAPI": "ip-api",
     "publicIPAddressNameUI": "ip-ui",
-    "nicName": "[concat(parameters('environmentPrefix'), 'NIC')]",
+    "nicNameAPI": "[concat(parameters('environmentPrefix'), '-nic-api')]",
+    "nicNameUI": "[concat(parameters('environmentPrefix'), '-nic-ui')]",
     "imagePublisher": "MicrosoftWindowsServer",
     "imageOffer": "WindowsServer",
     "vmExtensionName": "dscExtension"
@@ -287,10 +288,36 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Network/networkInterfaces",
-      "name": "[variables('nicName')]",
+      "name": "[variables('nicNameAPI')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressName'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameAPI'))]",
+        "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
+      ],
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+              },
+              "subnet": {
+                "id": "[variables('subnet1Ref')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "2015-05-01-preview",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('nicNameUI')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('publicIPAddressNameUI'))]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]"
       ],
       "properties": {
@@ -313,11 +340,11 @@
     {
       "apiVersion": "2015-05-01-preview",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[parameters('environmentPrefix')]",
+      "name": "[variables('vmNameAPI')]",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Storage/storageAccounts/', parameters('newStorageAccountName'))]",
-        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+        "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountNameAPI'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicNameAPI'))]"
       ],
       "properties": {
         "hardwareProfile": {
@@ -338,7 +365,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('newStorageAccountName'),'.blob.core.windows.net/vhds/','osdisk.vhd')]"
+              "uri": "[concat('http://',variables('storageAccountNameAPI'),'.blob.core.windows.net/vhds/','osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -347,7 +374,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicNameAPI'))]"
             }
           ]
         }
@@ -355,11 +382,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('environmentPrefix'),'/', variables('vmExtensionName'))]",
+      "name": "[concat(variables('vmNameAPI'),'/', variables('vmExtensionName'))]",
       "apiVersion": "2015-05-01-preview",
       "location": "[resourceGroup().location]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('environmentPrefix'))]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmNameAPI'))]"
       ],
       "properties": {
         "publisher": "Microsoft.Powershell",
@@ -370,7 +397,7 @@
           "ModulesUrl": "[parameters('modulesUrl')]",
           "ConfigurationFunction": "[parameters('configurationFunction')]",
           "Properties": {
-            "MachineName": "[parameters('environmentPrefix')]"
+            "MachineName": "[variables('vmNameAPI')]"
           }
         },
         "protectedSettings": null
