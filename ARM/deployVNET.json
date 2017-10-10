@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "type": "string"
+    },
+    "environmentPrefix": {
+      "type": "string"
+    },
+    "virtualNetworkAddressRange": {
+      "type": "string",
+      "metadata": {
+          "description": "The address range of the new VNET in CIDR format"
+      },
+      "defaultValue": "10.0.0.0/16"
+    }
+  },
+  "variables": {
+    "virtualNetworkName": "[concat(parameters('environmentPrefix'), '-vnet')]",
+    "subnet1Name": "defaultSubnet",
+    "subnet1Prefix": "10.0.0.0/24"
+  },
+  "resources": [
+    {
+      "name": "[variables('virtualNetworkName')]",
+      "type": "Microsoft.Network/virtualNetworks",
+      "dependsOn": [
+      ],
+      "location": "[parameters('location')]",
+      "apiVersion": "2015-06-15",
+      "tags": {
+        "Project": "BluePrint"
+      },
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('virtualNetworkAddressRange')]"
+          ]
+        },
+        "subnets": [{
+          "name": "[variables('subnet1Name')]",
+          "properties": {
+            "addressPrefix": "[variables('subnet1Prefix')]"
+          }
+        }]
+      }
+    }
+  ],
+  "outputs": {}
+}

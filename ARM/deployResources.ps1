@@ -56,15 +56,7 @@ function orchestration
 		[Parameter(Mandatory=$true)]
 		[SecureString]$azurePassword,
 		[Parameter(Mandatory=$true)]
-		[string]$resourceGroupName,
-		[Parameter(Mandatory=$true)]
-		[string]$keyVaultName,
-		[Parameter(Mandatory=$true)]
-		[string]$adminUsername,
-		[Parameter(Mandatory=$true)]
-		[SecureString]$adminPassword,
-		[Parameter(Mandatory=$true)]
-		[SecureString]$sqlServerServiceAccountPassword
+		[string]$environmentPrefix
 	)
 
 	$errorActionPreference = 'stop'
@@ -87,18 +79,41 @@ function orchestration
 	Write-Host "Selecting subscription as default"
 	Select-AzureRmSubscription -SubscriptionId $SubscriptionId | Out-String | Write-Verbose
 
-  New-AzureRmResourceGroup -Name $resourceGroupName -Location $location
+  New-AzureRmResourceGroup -Name $environmentPrefix -Location $location
 
-  New-AzureRmResourceGroupDeployment -Name "DOL-WHD-14c" -ResourceGroupName $resourceGroupName -TemplateFile ".\azuredeploy.json"
+  New-AzureRmResourceGroupDeployment -Name "DOL-WHD-14c-VNET" -ResourceGroupName $environmentPrefix -TemplateFile ".\deployVNET.json" -environmentPrefix $environmentPrefix -location $location
+
+  $vmNameSuffix = Read-Host "Enter the name of your VM suffix (api, ui, db etc)"
+  deployVM -location $location -environmentPrefix $environmentPrefix -vmName $vmNameSuffix
+
 }
 
+function deployVM
+{
+Param(
 
+  [string]$environmentName = "AzureCloud",
+  [Parameter(Mandatory=$true)]
+  [string]$vmName,
+  [Parameter(Mandatory=$true)]
+  [string]$location,
+  [Parameter(Mandatory=$true)]
+  [string]$environmentPrefix
+)
+New-AzureRmResourceGroupDeployment -Name $vmName -ResourceGroupName $environmentPrefix -TemplateFile ".\azuredeploy.json" -vmNameSuffix $vmName -virtualNetworkName "$($environmentPrefix)-vnet" -subnetName "defaultSubnet" -environmentPrefix $environmentPrefix
+$nextDeployment = Read-Host "do you want to create another vm?" -ValidateSet "yes","no"
+if($nextDeployment -eq "yes") {
+  $vmNameSuffix = Read-Host "Enter the name of your VM suffix (api, ui, db etc)"
+  deployVM -location $location -environmentPrefix $environmentPrefix -vmName $vmNameSuffix
+}
+
+}
 
 try{
 
   loginToAzure -lginCount 1
 
-  orchestration -azureUsername $global:azureUsername -adminUsername $adminUsername -azurePassword $global:azurePassword -adminPassword $passwords.adminPassword -sqlServerServiceAccountPassword $passwords.sqlServerServiceAccountPassword
+  orchestration -azureUsername $global:azureUsername -azurePassword $global:azurePassword
 
 }
 catch{
