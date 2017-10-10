@@ -209,7 +209,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIErrorLogs.cs" />
     <Compile Include="Models\APIActivityLogs.cs" />
-    <Compile Include="Models\DOLWHDSection14cLogContext.cs" />
+    <Compile Include="Models\ApplicationLogContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
 {
     public class ActivityLogsController : ApiController
     {
-        private DOLWHDSection14cLogContext db = new DOLWHDSection14cLogContext();
+        private ApplicationLogContext db = new ApplicationLogContext();
 
         // GET: api/GetAllActivityLogs
         /// <summary>
