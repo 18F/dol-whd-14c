@@ -101,7 +101,7 @@ Param(
   [string]$environmentPrefix
 )
 New-AzureRmResourceGroupDeployment -Name $vmName -ResourceGroupName $environmentPrefix -TemplateFile ".\azuredeploy.json" -vmNameSuffix $vmName -virtualNetworkName "$($environmentPrefix)-vnet" -subnetName "defaultSubnet" -environmentPrefix $environmentPrefix
-$nextDeployment = Read-Host "do you want to create another vm?" -ValidateSet "yes","no"
+$nextDeployment = Read-Host "do you want to create another vm? (enter 'yes' to create another vm)" 
 if($nextDeployment -eq "yes") {
   $vmNameSuffix = Read-Host "Enter the name of your VM suffix (api, ui, db etc)"
   deployVM -location $location -environmentPrefix $environmentPrefix -vmName $vmNameSuffix
