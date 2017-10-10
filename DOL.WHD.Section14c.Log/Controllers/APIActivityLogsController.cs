@@ -62,7 +62,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [Route("GetLogByID")]
         public async Task<IHttpActionResult> GetActivityLogByID(int id)
         {
-            APIActivityLogs logs = await activityLogRepository.GetActivityLogByIDAsync(id);
+            var logs = await activityLogRepository.GetActivityLogByIDAsync(id);
             if (logs == null)
             {
                 var message = string.Format("activity Log not found");
@@ -92,18 +92,25 @@ namespace DOL.WHD.Section14c.Log.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            APIActivityLogs log = await activityLogRepository.AddLogAsync(ActivityLog);
-            if (log == null)
+            try
             {
-                var message = string.Format("unable to add log");
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
+                var log = activityLogRepository.AddLog(ActivityLog);
+                if (log == null)
+                {
+                    var message = string.Format("unable to add log");
+                    throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
+                }
+                else
+                {
+                    return Ok(log);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return Ok(log);
-            }               
+                throw new HttpResponseException(
+                        Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex.Message));
+            }
         }
 
 

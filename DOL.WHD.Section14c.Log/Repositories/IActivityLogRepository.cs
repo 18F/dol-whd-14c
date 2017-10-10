@@ -11,7 +11,7 @@ namespace DOL.WHD.Section14c.Log.Repositories
 
         Task<APIActivityLogs> GetActivityLogByIDAsync(int id);
 
-        Task<APIActivityLogs> AddLogAsync(APIActivityLogs entity);
+        APIActivityLogs AddLog(APIActivityLogs entity);
 
     }
 }

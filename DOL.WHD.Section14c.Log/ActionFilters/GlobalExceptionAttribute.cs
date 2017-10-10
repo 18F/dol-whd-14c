@@ -25,7 +25,7 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
             GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
             trace.Error(context.Request, "Controller : " + context.ActionContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action : " + context.ActionContext.ActionDescriptor.ActionName, context.Exception);
-            
+
             var exceptionType = context.Exception.GetType();
 
             if (exceptionType == typeof(ValidationException))

@@ -122,9 +122,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
                     message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
             }            
 
-            Logger[record.Level](Convert.ToString(message) + Environment.NewLine);
-            //test.Append("Test: This is my test" + Environment.NewLine);
-            //Logger[record.Level](Convert.ToString(test) + Environment.NewLine);
+            ClassLogger.Log (LogLevel.FromString(record.Level.ToString()), record.Exception, Convert.ToString(message) );
+
         }
         #endregion
     }

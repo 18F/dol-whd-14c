@@ -2,23 +2,25 @@
 using NLog;
 using System;
 using System.Collections.Generic;
+using System.Web.Http.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Http;
+using DOL.WHD.Section14c.Log.Helpers;
 
 namespace DOL.WHD.Section14c.Log.Repositories
 {
     public class ActivityLogRepository : IActivityLogRepository
     {
         private readonly ApplicationLogContext _dbContext;
-        private readonly Logger _logger;
-
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();        
+        
         private Boolean Disposed;
 
         public ActivityLogRepository()
         {
             _dbContext = new ApplicationLogContext();
-            _logger = LogManager.GetCurrentClassLogger();
         }
 
         public IQueryable<APIActivityLogs> GetAllLogs()
@@ -31,28 +33,24 @@ namespace DOL.WHD.Section14c.Log.Repositories
             return await _dbContext.ActivityLogs.FindAsync(id);
         }
 
-        public async Task<APIActivityLogs> AddLogAsync(APIActivityLogs entity)
+        public APIActivityLogs AddLog(APIActivityLogs entity)
         {
-            LogEventInfo eventInfo = new LogEventInfo(LogLevel.Error, "NLog", entity.Message);
-            eventInfo.Properties["EIN"] = entity.EIN;
-            eventInfo.Message = entity.Message;
-            //eventInfo.Level = ActivityLogs.Level;
-            eventInfo.LoggerName = entity.User;
-            _logger.Log(eventInfo);
+            if (entity != null)
+            {
+                LogEventInfo eventInfo = new LogEventInfo();
 
+                eventInfo.Properties["EIN"] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
+                eventInfo.LoggerName = "NLog";
+                if (string.IsNullOrEmpty(entity.Message))
+                {
+                    throw new ArgumentException("Message cannot be null or empty string", "Log Message");
+                }
 
-            //GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
-            //var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
-            //trace.Info(filterContext.Request,
-            //    "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName +
-            //    Environment.NewLine +
-            //    "Action : " + filterContext.ActionDescriptor.ActionName,
-            //    "JSON", filterContext.ActionArguments);
-
-
-
-            //return CreatedAtRoute("DefaultApi", new { id = ActivityLogs.Id }, ActivityLogs);
-
+                eventInfo.Message = entity.Message;
+                eventInfo.Level = LogLevel.FromString(entity.Level);
+                eventInfo.LoggerName = entity.User;
+                _logger.Log(eventInfo);
+            }
             return entity;
         }
         public void Dispose()

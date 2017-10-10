@@ -13,6 +13,6 @@ namespace DOL.WHD.Section14c.Log.Repositories
 
         Task<APIErrorLogs> GetActivityLogByIDAsync(int id);
 
-        Task<APIErrorLogs> AddLogAsync(APIErrorLogs entity);
+        APIErrorLogs AddLog(APIErrorLogs entity);
     }
 }
