@@ -52,8 +52,8 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var applications = new List<ApplicationSubmission>
             {
-                new ApplicationSubmission {Id =string.Empty }, //Guid.NewGuid()},
-                new ApplicationSubmission {Id = string.Empty }// Guid.NewGuid()}
+                new ApplicationSubmission {Id =string.Empty },
+                new ApplicationSubmission {Id = string.Empty }
             };
             _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
 
@@ -71,7 +71,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var oldStatusId = 1;
             var newStatusId = 2;
             var application = new ApplicationSubmission {StatusId = oldStatusId};
-            
+
             // Act
             await _applicationService.ChangeApplicationStatus(application, newStatusId);
 

@@ -55,8 +55,6 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_AttachmentId()
         {
-            //HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AttachmentId, null as Guid?);
-            //HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AttachmentId, Guid.NewGuid());
             HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.AttachmentId, null as String);
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.AttachmentId, Guid.NewGuid().ToString());
         }

@@ -24,8 +24,6 @@ namespace DOL.WHD.Section14c.DataAccess
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<HistoryRow>().ToTable("MigrationHistory");
-            //modelBuilder.Entity<HistoryRow>().Property(p=>p.MigrationId).HasMaxLength(255).IsRequired();
-            //modelBuilder.Entity<HistoryRow>().Property(p => p.Model).IsOptional();
         }
     }
 }
