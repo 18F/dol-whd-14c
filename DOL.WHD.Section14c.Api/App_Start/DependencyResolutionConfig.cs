@@ -8,6 +8,7 @@ using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
+using DOL.WHD.Section14c.Log.Repositories;
 
 namespace DOL.WHD.Section14c.Api
 {
@@ -53,6 +54,10 @@ namespace DOL.WHD.Section14c.Api
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+
+
+            container.Register<IActivityLogRepository, ActivityLogRepository>(Lifestyle.Scoped);
+            container.Register<IErrorLogRepository, ErrorLogRepository>(Lifestyle.Scoped);
 
             container.Verify();
 

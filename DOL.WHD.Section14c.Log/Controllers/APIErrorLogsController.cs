@@ -10,22 +10,42 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DOL.WHD.Section14c.Log.Models;
+using DOL.WHD.Section14c.Log.Repositories;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
+    [RoutePrefix("api/ErrorLogs")]
     public class ErrorLogsController : ApiController
     {
-        private ApplicationLogContext db = new ApplicationLogContext();
+        private IErrorLogRepository errorLogRepository;
+
+
+        public ErrorLogsController(IErrorLogRepository repository)
+        {
+            errorLogRepository = repository;
+        }
 
         /// <summary>
         /// Gets a list of error logs
         /// </summary>
         /// <returns></returns>
+       
         [HttpGet]
-        // GET: api/ErrorLogs
-        public IQueryable<APIErrorLogs> GetAllErrorLogs()
+        [Route("GetAllLogs")]
+        public IQueryable<APIErrorLogs> GetAllLogs()
         {
-            return db.ErrorLogs;
+            var logs = errorLogRepository.GetAllLogs();
+            
+            if (logs == null)
+            {
+                var message = string.Format("activity Log not found");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+            }
+            else
+            {
+                return logs;
+            }
         }
 
         /// <summary>
@@ -35,56 +55,22 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // GET: api/ErrorLogs/5
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
+        [Route("GetLogByID")]
         public async Task<IHttpActionResult> GetErrorLogByID(int id)
         {
-            APIErrorLogs aPILogs = await db.ErrorLogs.FindAsync(id);
-            if (aPILogs == null)
+            APIErrorLogs logs = await errorLogRepository.GetActivityLogByIDAsync(id);
+            if (logs == null)
             {
-                return NotFound();
+                var message = string.Format("activity Log not found");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
             }
-
-            return Ok(aPILogs);
+            else
+            {
+                return Ok(logs);
+            }
         }
 
-        /// <summary>
-        /// Update error log by id
-        /// </summary>
-        /// <returns></returns>
-        // PUT: api/ErrorLogs/5
-        [HttpPut]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> UpdateErrorLogByID(int id, APIErrorLogs aPILogs)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != aPILogs.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(aPILogs).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!APILogsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
 
         /// <summary>
         /// Add a new error log
@@ -92,68 +78,34 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
         // POST: api/ErrorLogs
         [HttpPost]
-        [ResponseType(typeof(APIErrorLogs))]
-        public async Task<IHttpActionResult> NewErrorLog(APIErrorLogs aPILogs)
+        [Route("AddLog")]
+        //[ResponseType(typeof(APIErrorLogs))]
+        public async Task<IHttpActionResult> AddLog(APIErrorLogs errorLog)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ErrorLogs.Add(aPILogs);
-
-            try
+            APIErrorLogs log = await errorLogRepository.AddLogAsync(errorLog);
+            if (log == null)
             {
-                await db.SaveChangesAsync();
+                var message = string.Format("unable to add log");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
             }
-            catch (DbUpdateException)
+            else
             {
-                if (APILogsExists(aPILogs.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = aPILogs.Id }, aPILogs);
+                return Ok(log);
+            }            
         }
 
-        /// <summary>
-        /// Delete an error log by id
-        /// </summary>
-        /// <returns></returns>
-        // DELETE: api/ErrorLogs/5
-        [HttpDelete]
-        [ResponseType(typeof(APIErrorLogs))]
-        public async Task<IHttpActionResult> DeleteErrorLogByID(string id)
-        {
-            APIErrorLogs aPILogs = await db.ErrorLogs.FindAsync(id);
-            if (aPILogs == null)
-            {
-                return NotFound();
-            }
-
-            db.ErrorLogs.Remove(aPILogs);
-            await db.SaveChangesAsync();
-
-            return Ok(aPILogs);
-        }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            errorLogRepository?.Dispose();
 
-        private bool APILogsExists(int id)
-        {
-            return db.ErrorLogs.Count(e => e.Id == id) > 0;
-        }
+            base.Dispose(disposing);
+        }        
     }
 }

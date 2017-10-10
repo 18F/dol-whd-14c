@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net;
 using DOL.WHD.Section14c.Log.Helpers;
 using DOL.WHD.Section14c.Log.LogHelper;
+using NLog;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {
@@ -18,12 +19,13 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
     /// </summary>
     public class GlobalExceptionAttribute : ExceptionFilterAttribute
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public override void OnException(HttpActionExecutedContext context)
         {
             GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
             trace.Error(context.Request, "Controller : " + context.ActionContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + Environment.NewLine + "Action : " + context.ActionContext.ActionDescriptor.ActionName, context.Exception);
-
+            
             var exceptionType = context.Exception.GetType();
 
             if (exceptionType == typeof(ValidationException))

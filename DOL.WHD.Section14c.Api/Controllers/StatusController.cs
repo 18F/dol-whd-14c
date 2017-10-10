@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IEnumerable<Status> GetStatuses()
         {
             var statuses = _statusService.GetAllStatuses();
-            throw new Exception("My Exception");
+            //throw new Exception("My Exception");
             if (statuses == null)
             {
                 var message = string.Format("Statuses not found");

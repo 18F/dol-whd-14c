@@ -10,151 +10,108 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using DOL.WHD.Section14c.Log.Models;
+using NLog;
+using System.Web.Http.Tracing;
+using DOL.WHD.Section14c.Log.Helpers;
+using DOL.WHD.Section14c.Log.Repositories;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
+    [RoutePrefix("api/ActivityLogs")]
     public class ActivityLogsController : ApiController
     {
-        private ApplicationLogContext db = new ApplicationLogContext();
+        
 
-        // GET: api/GetAllActivityLogs
+        private IActivityLogRepository activityLogRepository;
+
+        public ActivityLogsController(IActivityLogRepository repository)
+        {
+            activityLogRepository = repository;
+        }
+
+
         /// <summary>
         /// Gets a list of Activity Logs
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IQueryable<APIActivityLogs> GetAllActivityLogs()
+        [Route("GetAllLogs")]
+        public IQueryable<APIActivityLogs> GetAllLogs()
         {
-            return db.ActivityLogs;
+            var activityLogs = activityLogRepository.GetAllLogs();
+            
+            if (activityLogs == null)
+            {
+                var message = string.Format("activity Log not found");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+            }
+            else
+            {
+                return activityLogs;
+            }            
         }
 
-        // GET: api/GetActivityLogByID/5
         /// <summary>
-        /// Gets activity log by id
+        /// Get an error log by id
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
-        public async Task<IHttpActionResult> GetActivityLogByID(string id)
+        [Route("GetLogByID")]
+        public async Task<IHttpActionResult> GetActivityLogByID(int id)
         {
-            APIActivityLogs ActivityLogs = await db.ActivityLogs.FindAsync(id);
-            if (ActivityLogs == null)
+            APIActivityLogs logs = await activityLogRepository.GetActivityLogByIDAsync(id);
+            if (logs == null)
             {
-                return NotFound();
+                var message = string.Format("activity Log not found");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
             }
-
-            return Ok(ActivityLogs);
+            else
+            {
+                return Ok(logs);
+            }
         }
 
-        // PUT: api/UpdateActivityLogByID/5
-        /// <summary>
-        /// Update activity by id
-        /// </summary>
-        /// <returns></returns>
-        [HttpPut]
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> UpdateActivityLogByID(int id, APIActivityLogs ActivityLogs)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (id != ActivityLogs.Id)
-            {
-                return BadRequest();
-            }
 
-            db.Entry(ActivityLogs).State = EntityState.Modified;
-
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ActivityLogsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/NewActivityLog
         /// <summary>
         /// Add new activity log
         /// </summary>
+        /// <param name="APIActivityLogs"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpPost]
-        [ResponseType(typeof(APIActivityLogs))]
-        public async Task<IHttpActionResult> NewActivityLog(APIActivityLogs ActivityLogs)
+        [Route("AddLog")]
+        //[ResponseType(typeof(APIActivityLogs))]
+        public async Task<IHttpActionResult> AddLog(APIActivityLogs ActivityLog)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.ActivityLogs.Add(ActivityLogs);
-
-            try
+            APIActivityLogs log = await activityLogRepository.AddLogAsync(ActivityLog);
+            if (log == null)
             {
-                await db.SaveChangesAsync();
+                var message = string.Format("unable to add log");
+                throw new HttpResponseException(
+                    Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
             }
-            catch (DbUpdateException)
+            else
             {
-                if (ActivityLogsExists(ActivityLogs.Id))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return CreatedAtRoute("DefaultApi", new { id = ActivityLogs.Id }, ActivityLogs);
+                return Ok(log);
+            }               
         }
 
-
-        // DELETE: api/DeleteActivityLogByID/5
-        /// <summary>
-        /// Delete activity log by id
-        /// </summary>
-        /// <returns></returns>
-        [ResponseType(typeof(APIActivityLogs))]
-        [HttpDelete]
-        public async Task<IHttpActionResult> DeleteActivityLogByID(string id)
-        {
-            APIActivityLogs ActivityLogs = await db.ActivityLogs.FindAsync(id);
-            if (ActivityLogs == null)
-            {
-                return NotFound();
-            }
-
-            db.ActivityLogs.Remove(ActivityLogs);
-            await db.SaveChangesAsync();
-
-            return Ok(ActivityLogs);
-        }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+            activityLogRepository?.Dispose();
 
-        private bool ActivityLogsExists(int id)
-        {
-            return db.ActivityLogs.Count(e => e.Id == id) > 0;
-        }
+            base.Dispose(disposing);
+        }        
     }
 }

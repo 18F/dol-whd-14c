@@ -24,7 +24,7 @@ namespace DOL.WHD.Section14c.Api
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
+            //config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
             //config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
         }
     }
