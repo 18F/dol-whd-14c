@@ -2,6 +2,8 @@ As a [type of user] I would like [functionality, behavior, etc.] so that [a part
 
 ## Acceptance Criteria
 
+> **NOTE**: Remove any accessibility criteria that don't apply to this user story.  For the full list of accessibility requirements, see [issue #198, Fully Accessible Experience](#198).
+
 #### Functionality
 
 - [ ] functionality criteria 1
@@ -44,11 +46,11 @@ As a [type of user] I would like [functionality, behavior, etc.] so that [a part
 
 ##### Web: Images
 
-> Web images include interactive images (links, buttons etc.), static images, charts, diagrams, text rendered as an image, etc. 
+> Web images include interactive images (links, buttons etc.), static images, charts, diagrams, text rendered as an image, etc.
 
-- [ ] All images have an ALT, TITLE, or ARIA attribute. 
+- [ ] All images have an ALT, TITLE, or ARIA attribute.
 - [ ] All meaningful images with ALT have an equivalent text description.
-- [ ] All decorative images with ALT have ALT="". 
+- [ ] All decorative images with ALT have ALT="".
 - [ ] All images that contain text with ALT have the same text in the ALT attribute.
 - [ ] CAPTCHA images describe their purpose. (DNA, after the captcha is removed)
 - [ ] All components that have multiple statuses provide their current status
@@ -87,7 +89,7 @@ Page titles Programmatically identify Page Titles.
 
 > Headings must be programmatically identified and must match the visual outline level.
 
-- [ ] All visually apparent headings are programmatically identified with an <H>. (<H> levels do not need to be correct.) 
+- [ ] All visually apparent headings are programmatically identified with an <H>. (<H> levels do not need to be correct.)
 - [ ] Programmatic <H> levels on all visually apparent headings match the visual structure.
 
 ##### Web: Data Tables (If no table, then DNA)
@@ -96,7 +98,7 @@ Page titles Programmatically identify Page Titles.
 
 - [ ] HTML data tables' row and/or column headers are correctly identified programmatically.
 - [ ] if there are data tables but none of them are images.
-- [ ] if all HTML complex data tables' data cells are associated with their headers programmatically. 
+- [ ] if all HTML complex data tables' data cells are associated with their headers programmatically.
 - [ ] if there are complex data tables but none of them are images
 
 ##### Web: Style sheet Dependence
