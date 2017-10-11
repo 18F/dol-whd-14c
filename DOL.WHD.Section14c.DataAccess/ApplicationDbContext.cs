@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using DOL.WHD.Section14c.DataAccess.MigrationsDB2;
 using DOL.WHD.Section14c.DataAccess.Migrations;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
@@ -15,7 +16,7 @@ namespace DOL.WHD.Section14c.DataAccess
     {
         public ApplicationDbContext() : base(nameOrConnectionString: "ApplicationDbContext")
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, ConfigurationDB2>());
         }
 
         public static ApplicationDbContext Create()
@@ -38,6 +39,7 @@ namespace DOL.WHD.Section14c.DataAccess
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
         public DbSet<Status> ApplicationStatuses { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -170,6 +172,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+
         }
 
         public override int SaveChanges()
@@ -213,5 +216,7 @@ namespace DOL.WHD.Section14c.DataAccess
 
             return base.SaveChanges();
         }
+
+
     }
 }

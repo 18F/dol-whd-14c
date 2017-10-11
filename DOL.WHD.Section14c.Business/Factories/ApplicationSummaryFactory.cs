@@ -10,7 +10,7 @@ namespace DOL.WHD.Section14c.Business.Factories
         {
             var obj = new ApplicationSummary
             {
-                Id = submission.Id,
+                Id = submission.Id.ToString(),
                 ApplicationType = BuildResponseSummary(submission.ApplicationType),
                 CertificateEffectiveDate = submission.CertificateEffectiveDate,
                 CertificateExpirationDate = submission.CertificateExpirationDate,

@@ -44,7 +44,7 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             var attachment = _attachmentRepository.Get()
                 .Where(x => x.EIN == EIN)
-                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId);
+                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
                 throw new ObjectNotFoundException();
@@ -62,7 +62,7 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             var attachment = _attachmentRepository.Get()
                 .Where(x => x.EIN == EIN)
-                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId);
+                .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
                 throw new ObjectNotFoundException();

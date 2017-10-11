@@ -34,8 +34,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var scaId = 41;
             var sca = new Response {Id = scaId};
             var scaCount = 5;
-            var scaAttachmentId = Guid.NewGuid();
-            var scaAttaachment = new Attachment {Id = scaAttachmentId};
+            var scaAttachmentId = Guid.NewGuid().ToString();
+            var scaAttaachment = new Attachment {Id = scaAttachmentId };
             var eo13658Id = 50;
             var eo13658 = new Response {Id = eo13658Id};
             var representativePayee = true;
@@ -66,7 +66,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 SCAId = scaId,
                 SCA = sca,
                 SCACount = scaCount,
-                SCAAttachmentId = scaAttachmentId,
+                SCAAttachmentId = scaAttachmentId.ToString(),
                 SCAAttachment = scaAttaachment,
                 EO13658Id = eo13658Id,
                 EO13658 = eo13658,
