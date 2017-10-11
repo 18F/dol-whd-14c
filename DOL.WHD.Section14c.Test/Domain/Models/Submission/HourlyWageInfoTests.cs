@@ -18,10 +18,10 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var prevailingWageMethod = new Response {Id = prevailingWageMethodId};
             var mostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo();
             var alternateWageData = new AlternateWageData();
-            var scaWageDeterminationId = Guid.NewGuid();
-            var scaWageDetermination = new Attachment {Id = scaWageDeterminationId};
-            var attachmentId = Guid.NewGuid();
-            var attachment = new Attachment {Id = attachmentId};
+            var scaWageDeterminationId = Guid.NewGuid().ToString();
+            var scaWageDetermination = new Attachment {Id = scaWageDeterminationId.ToString() };
+            var attachmentId = Guid.NewGuid().ToString();
+            var attachment = new Attachment {Id = attachmentId.ToString() };
 
             var model = new HourlyWageInfo
             {

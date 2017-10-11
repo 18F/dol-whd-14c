@@ -1,18 +1,37 @@
-.form-content,
-.form-page-full {
+// ----- begin NEW CSS RULES for semantic html restructuring and a11y remediation.
+// The legacy styles will be integrated here or deleted during a11y remediation.
+// This comment will be removed when a11y remediation is complete.
+// Pages updated with the new styles:
+// Application Info (in progress)
+
+.dol-form-page {
+  margin-top: 4rem;
+
   h2 {
     font-size: 3.4rem;
   }
 
   h3 {
     font-size: 2.4rem;
+    margin-bottom: 0;
   }
 
-  .form-question-text {
-    font-size: 2rem;
+  hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 0;
+    border-top: 1px solid #aeb0b5;
+
+    + .dol-form-question-block {
+      &:not(:first-of-type) {
+        margin-top: 2rem;
+      }
+      margin-top: 2rem;
+    }      
   }
 }
 
+// Section title and global Help toggle
 .dol-form-section-title {
   @include clearfix();
 
@@ -64,6 +83,128 @@
   }
 }
 
+// Sub-section fieldset 
+.dol-form-sub-section {
+  &:first-of-type {
+    > legend {
+      h3 {
+        margin-top: 0;
+      }
+    }
+  }
+  > legend {
+    + .dol-help-text {
+      margin-top: 10px;
+    }
+  }
+}
+
+// Form questions
+.dol-form-question-block {
+  &:not(:first-of-type) {
+    margin-top: 4rem;
+  }
+
+  &.margintop {
+    margin-top: 40px;
+  }
+
+  // TODO: It's possible that the underlabels for checkboxes/radios
+  // will be removed from the app in favor of help text. In that case, 
+  // these CSS classes should be removed.
+  .underlabel {
+    margin-top: 0px;
+
+    &.checkbox-indent {
+      margin-left: 3rem;
+      margin-top: -5px;
+      margin-bottom: 20px;
+    }
+  }  
+}
+
+.dol-form-question-text {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}  
+
+label.dol-form-question-text {
+  margin-top: 0;
+  max-width: 60rem;  
+}
+
+.dol-form-question-subtext {
+  margin: -0.5em 0 20px 0;
+}
+
+// Help button
+button.dol-help-link {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: 2px;
+  margin: 0 0 0 4px;
+  padding: 0;
+  cursor: pointer;
+  background: #fff url('../images/dol-help-blue.png') center center;
+  background: #fff url('../images/dol-help-blue.svg') center center;
+  background-size: contain;
+  text-indent: -9999px;
+  color: #000;
+
+  &:hover {
+    opacity: 0.8; 
+    background-color: transparent;   
+  }
+}
+
+//Help text
+.dol-help-text {
+  font-size: 1.7rem;
+  font-weight: 400;
+  background-color: $help-em-color;
+  padding: 1.5rem 2rem;
+  margin: 0 0 20px 0;
+  display: none;
+
+  p {
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  &.show {
+    display: block;
+  }
+}
+
+// Checkbox and Radio lists with help buttons
+.dol-list-help {
+  input {
+    width: auto;
+  }
+  input[type="checkbox"] + label, input[type="radio"] + label {
+      display: inline-block;
+  }  
+}
+
+// Example text
+input.dol-side-example {
+  display: inline-block;
+
+  & + span.dol-example-text {
+    display: inline-block;
+    margin-top: 0px;
+    color: #666;
+    margin-left: 1.5rem;    
+  }
+}
+
 // Form input sizing
 input.phoneno {
   max-width: 18.2rem;
@@ -106,6 +247,44 @@ input.email {
   max-width: 32rem;
 }
 
+// Limit the width of text in the form per USWDS recommendation
+// Within the form, increase the default width b/c the default font size is larger
+.dol-form-page .usa-content,
+.dol-form-page .usa-content p:not(.usa-font-lead),
+.dol-form-page ul,
+.dol-form-page ol,
+.dol-form-question-block label,
+.dol-form-question-text,
+.dol-form-question-subtext,
+.dol-help-text,
+.dol-form-page .usa-input-error-message {
+  max-width: 60rem;
+}
+
+// ----- end NEW CSS RULES
+
+// ----- begin LEGACY CSS RULES 
+// There may be duplicates with the new styles above.
+// The legacy styles will be integrated or deleted during a11y remediation.
+// This comment will be removed when a11y remediation is complete.
+
+.form-content,
+.form-page-full {
+  h2 {
+    font-size: 3.4rem;
+  }
+
+  h3 {
+    font-size: 2.4rem;
+  }
+
+  .form-question-text {
+    font-size: 2rem;
+  }
+}
+
+// TODO: Remove after new example styles are updated on all pages
+// Example text should not be the field label.
 input.sidelabeled {
   display: inline-block;
 
@@ -116,6 +295,8 @@ input.sidelabeled {
   }
 }
 
+// TODO: Remove after new example styles are updated on all pages
+// Example text should not be the field label.
 label.example,
 span.example {
   color: #666;
@@ -133,14 +314,9 @@ span.example {
 
     // Limit the width of text in the form per USWDS recommendation
     // Within the form, increase the default width b/c the default font size is larger
-    .usa-content,
-    .usa-content p:not(.usa-font-lead),
-    ul,
-    ol,
     .form-question-block label,
     .form-question-text,
-    .form-question-subtext,
-    .usa-input-error-message {
+    .form-question-subtext {
       max-width: 60rem;
     }
 

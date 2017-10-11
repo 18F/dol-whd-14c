@@ -8,12 +8,12 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
     {
         public Attachment()
         {
-            if (Id == Guid.Empty)
-                Id = Guid.NewGuid();
+            if (string.IsNullOrEmpty( Id) )
+                Id = Guid.NewGuid().ToString();
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Name of the file as uploaded by the end user
