@@ -4,12 +4,12 @@ import { Component } from '@angular/core';
   selector: 'dol-header',
   styleUrls: ['./dol-header.component.css'],
   template: `
-    <header class="dol-header">
+    <header class="dol-header" role="header">
       <a class="brand" href="/">
         <img
           class="brand--img"
           src="images/dol-logo.png"
-          alt="DOL Logo"
+          alt="Seal of the United States Department of Labor"
           width="70"
           height="70"
         />
