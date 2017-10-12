@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
   selector: 'dol-header',
   styleUrls: ['./dol-header.component.css'],
   template: `
+    <a href="#mainContent" class="dol-skip-to-main">skip to main content</a>
     <header class="dol-header" role="header">
       <a class="brand" href="/">
         <img
