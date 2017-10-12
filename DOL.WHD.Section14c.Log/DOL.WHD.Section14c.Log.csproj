@@ -207,7 +207,6 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\APIActivityLogsController.cs" />
     <Compile Include="Controllers\APIErrorLogsController.cs" />
-    <Compile Include="Controllers\DOLController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Migrations\201710121444243_Initial.cs" />
     <Compile Include="Migrations\201710121444243_Initial.Designer.cs">
