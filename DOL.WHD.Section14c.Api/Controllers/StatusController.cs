@@ -30,12 +30,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
-        //[DOL.WHD.Section14c.Log.ActionFilters.GlobalException]
+        //[Authorize]
         public IEnumerable<Status> GetStatuses()
         {
             var statuses = _statusService.GetAllStatuses();
-            throw new Exception("Throw new Exception on getStatuss(). This is a test.");
+            //throw new Exception("Throw new Exception on getStatuss(). This is a test.");
             if (statuses == null)
             {
                 var message = string.Format("Statuses not found");

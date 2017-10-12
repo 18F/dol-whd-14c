@@ -23,7 +23,7 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
                 Environment.NewLine + 
                 "Action : " + filterContext.ActionDescriptor.ActionName, 
                 "JSON", filterContext.ActionArguments);
-           
+            
         }
     }
 }

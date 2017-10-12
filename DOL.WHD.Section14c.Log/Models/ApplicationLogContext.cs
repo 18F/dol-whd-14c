@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DOL.WHD.Section14c.Log.Migrations;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace DOL.WHD.Section14c.Log.Models
+namespace DOL.WHD.Section14c.Log
 {
     public class ApplicationLogContext : DbContext
     {
@@ -17,6 +18,12 @@ namespace DOL.WHD.Section14c.Log.Models
     
         public ApplicationLogContext() : base("name=ApplicationLogContext")
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationLogContext, Configuration>());
+        }
+
+        public static ApplicationLogContext Create()
+        {
+            return new ApplicationLogContext();
         }
 
         public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIActivityLogs> ActivityLogs { get; set; }

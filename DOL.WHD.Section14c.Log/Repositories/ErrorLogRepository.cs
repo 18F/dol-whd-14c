@@ -46,9 +46,15 @@ namespace DOL.WHD.Section14c.Log.Repositories
                 }
 
                 eventInfo.Message = entity.Message;
-                eventInfo.Level = LogLevel.FromString(entity.Level);
+
+                if (!string.IsNullOrEmpty(entity.Exception))
+                {
+                    eventInfo.Exception = new Exception(entity.Exception);
+                }
                 
-                eventInfo.LoggerName = entity.User;
+                eventInfo.Level = LogLevel.FromString(entity.Level);
+                eventInfo.Properties["UserId"] = entity.UserId;
+                eventInfo.Properties["UserName"] = entity.User;
                 _logger.Log(eventInfo);
             }
             return entity;

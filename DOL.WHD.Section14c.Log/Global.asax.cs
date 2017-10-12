@@ -1,5 +1,8 @@
-﻿using System;
+﻿
+using DOL.WHD.Section14c.Log.Migrations;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -13,11 +16,14 @@ namespace DOL.WHD.Section14c.Log
     {
         protected void Application_Start()
         {
+            DependencyResolutionConfig.Register();
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationLogContext, Configuration>());
         }
     }
 }

@@ -76,10 +76,26 @@
       <HintPath>..\packages\NLog.Web.4.5.0\lib\net35\NLog.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.2.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Extensions.ExecutionContextScoping, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Extensions.ExecutionContextScoping.3.2.2\lib\net45\SimpleInjector.Extensions.ExecutionContextScoping.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.WebApi, Version=3.2.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Integration.WebApi.3.2.2\lib\net45\SimpleInjector.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.3\lib\net45\System.Web.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -157,6 +173,7 @@
     <Compile Include="ActionFilters\GlobalExceptionAttribute.cs" />
     <Compile Include="ActionFilters\LoggingFilterAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\DependencyResolutionConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -191,6 +208,11 @@
     <Compile Include="Controllers\APIActivityLogsController.cs" />
     <Compile Include="Controllers\APIErrorLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\201710121444243_Initial.cs" />
+    <Compile Include="Migrations\201710121444243_Initial.Designer.cs">
+      <DependentUpon>201710121444243_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LogDetails.cs" />
     <Compile Include="Helpers\LogLayoutRenderer.cs" />
     <Compile Include="LogHelper\ApiBusinessException.cs" />
     <Compile Include="LogHelper\ApiDataException.cs" />
@@ -202,10 +224,6 @@
     <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Helpers\NLogger.cs" />
     <Compile Include="Helpers\ServiceStatus.cs" />
-    <Compile Include="Migrations\201710091939392_Initial.cs" />
-    <Compile Include="Migrations\201710091939392_Initial.Designer.cs">
-      <DependentUpon>201710091939392_Initial.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\APIErrorLogs.cs" />
     <Compile Include="Models\APIActivityLogs.cs" />
@@ -277,8 +295,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710091939392_Initial.resx">
-      <DependentUpon>201710091939392_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710121444243_Initial.resx">
+      <DependentUpon>201710121444243_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

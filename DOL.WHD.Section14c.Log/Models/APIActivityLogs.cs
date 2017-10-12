@@ -8,26 +8,12 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Log.Models
 {
-    public class APIActivityLogs
+    public class APIActivityLogs: LogDetails
     {
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [Column(TypeName = "CLOB")]
-        public string Message { get; set; }
-        
-        public string EIN { get; set; }
-
-        public string UserId { get; set; }
-
-        public string User { get; set; }
-
         public string LogTime { get; set; }
-
-        public string Level { get; set; }
-
-        public string Exception { get; set; }
 
         public string StackTrace { get; set; }
 

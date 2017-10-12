@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Web.Http;
 
 namespace DOL.WHD.Section14c.Log
@@ -9,7 +7,8 @@ namespace DOL.WHD.Section14c.Log
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // Enable Cors Support
+            //config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

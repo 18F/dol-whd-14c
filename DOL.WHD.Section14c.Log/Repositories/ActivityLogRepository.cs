@@ -33,7 +33,7 @@ namespace DOL.WHD.Section14c.Log.Repositories
             return await _dbContext.ActivityLogs.FindAsync(id);
         }
 
-        public APIActivityLogs AddLog(APIActivityLogs entity)
+        public LogDetails AddLog(LogDetails entity)
         {
             if (entity != null)
             {
@@ -47,8 +47,17 @@ namespace DOL.WHD.Section14c.Log.Repositories
                 }
 
                 eventInfo.Message = entity.Message;
+
+                if (!string.IsNullOrEmpty(entity.Exception))
+                {
+                    eventInfo.Exception = new Exception(entity.Exception);
+                    eventInfo.SetStackTrace((new System.Diagnostics.StackTrace(new Exception(entity.Exception), false)), 1);
+                }
+
+                
                 eventInfo.Level = LogLevel.FromString(entity.Level);
-                eventInfo.LoggerName = entity.User;
+                eventInfo.Properties["UserId"] = entity.UserId;
+                eventInfo.Properties["UserName"] = entity.User;
                 _logger.Log(eventInfo);
             }
             return entity;

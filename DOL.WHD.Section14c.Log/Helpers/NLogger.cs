@@ -9,6 +9,8 @@ using System.Text;
 using DOL.WHD.Section14c.Log.LogHelper;
 using NLog.Config;
 using NLog.LayoutRenderers;
+using System.Threading;
+using System.Web.Http.Controllers;
 
 namespace DOL.WHD.Section14c.Log.Helpers
 {
@@ -56,6 +58,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             }
         }
         #endregion
+      
 
         #region Private member methods.
         /// <summary>
@@ -65,6 +68,9 @@ namespace DOL.WHD.Section14c.Log.Helpers
         private void Log(TraceRecord record)
         {
             var message = new StringBuilder();
+
+            LogEventInfo eventInfo = new LogEventInfo();
+            eventInfo.LoggerName = "NLog";            
 
             if (!string.IsNullOrWhiteSpace(record.Message))
                 message.Append("").Append(record.Message + Environment.NewLine);
@@ -89,6 +95,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
 
             if (record.Exception != null && !string.IsNullOrWhiteSpace(record.Exception.GetBaseException().Message))
             {
+                eventInfo.Exception = record.Exception;
+
                 var exceptionType = record.Exception.GetType();
                 message.Append(Environment.NewLine);
                 if (exceptionType == typeof(ApiException))
@@ -120,11 +128,74 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
                 else
                     message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
-            }            
+            }
 
-            ClassLogger.Log (LogLevel.FromString(record.Level.ToString()), record.Exception, Convert.ToString(message) );
+            var currentUserName = TryToFindUserName(record);
+            eventInfo.Properties["UserName"] = currentUserName;           
 
+            eventInfo.Message = Convert.ToString(message);
+            eventInfo.Level = LogLevel.FromString(record.Level.ToString());
+
+            if (record.Request != null && record.Request.RequestUri != null &&
+                record.Request.RequestUri.LocalPath != null &&
+                record.Request.RequestUri.LocalPath.ToLower().Contains("addlog"))
+            {
+                ClassLogger.Log(LogLevel.FromString(record.Level.ToString()), record.Exception, Convert.ToString(message) );
+            }
+            else
+            {
+                ClassLogger.Log(eventInfo);
+            }
         }
+
+        /// <summary>
+        /// Find Current Login User Name
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        private string TryToFindUserName(TraceRecord record)
+        {
+            string temp = string.Empty;
+            try
+            {
+                if (record.Request != null && record.Request.Properties.ContainsKey("MS_RequestContext"))
+                {
+                    var context = record.Request.Properties["MS_RequestContext"] as HttpRequestContext;
+                    temp = GetUserName(context);
+                }
+            }
+
+            catch (Exception ex)
+            {
+                // Do nothing is user not found.
+            }
+            return temp;
+        }
+   
+        /// <summary>
+        /// Get User Name
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        private string GetUserName(HttpRequestContext context)
+        {
+            var userName = string.Empty;
+            if (context != null && context.Principal != null && context.Principal.Identity.IsAuthenticated)
+            {
+                userName = context.Principal.Identity.Name;
+            }
+            else
+            {
+                var threadPincipal = Thread.CurrentPrincipal;
+                if (threadPincipal != null && threadPincipal.Identity.IsAuthenticated)
+                {
+                    userName = threadPincipal.Identity.Name;
+                }
+            }
+            return userName;
+        }
+
+
         #endregion
     }
 }
