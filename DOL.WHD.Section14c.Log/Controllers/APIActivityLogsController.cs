@@ -60,59 +60,18 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
         [Route("GetLogByID")]
-        public async Task<IHttpActionResult> GetActivityLogByID(int id)
+        public IHttpActionResult GetActivityLogByID(int id)
         {
-            var logs = await activityLogRepository.GetActivityLogByIDAsync(id);
+            var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.Id == id); 
             if (logs == null)
             {
-                var message = string.Format("activity Log not found");
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+                return NotFound();               
             }
             else
             {
                 return Ok(logs);
             }
         }
-
-
-
-        ///// <summary>
-        ///// Add new activity log
-        ///// </summary>
-        ///// <param name="APIActivityLogs"></param>
-        ///// <returns></returns>
-        //[AllowAnonymous]
-        //[HttpPost]
-        //[Route("AddLog")]
-        ////[ResponseType(typeof(APIActivityLogs))]
-        //public async Task<IHttpActionResult> AddLog(APIActivityLogs ActivityLog)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-        //    try
-        //    {
-        //        var log = activityLogRepository.AddLog(ActivityLog);
-        //        if (log == null)
-        //        {
-        //            var message = string.Format("unable to add log");
-        //            throw new HttpResponseException(
-        //                Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
-        //        }
-        //        else
-        //        {
-        //            return Ok(log);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new HttpResponseException(
-        //                Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex.Message));
-        //    }
-        //}
-
 
         protected override void Dispose(bool disposing)
         {

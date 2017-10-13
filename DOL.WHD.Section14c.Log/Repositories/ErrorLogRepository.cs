@@ -26,12 +26,7 @@ namespace DOL.WHD.Section14c.Log.Repositories
             return _dbContext.ErrorLogs.AsQueryable();
         }
 
-        public async Task<APIErrorLogs> GetActivityLogByIDAsync(int id)
-        {
-            return await _dbContext.ErrorLogs.FindAsync(id);
-        }
-
-        public APIErrorLogs AddLog(APIErrorLogs entity)
+        public LogDetails AddLog(LogDetails entity)
         {
             
             if (entity != null)

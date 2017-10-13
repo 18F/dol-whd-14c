@@ -56,14 +56,12 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
         [Route("GetLogByID")]
-        public async Task<IHttpActionResult> GetErrorLogByID(int id)
+        public IHttpActionResult GetErrorLogByID(int id)
         {
-            var logs = await errorLogRepository.GetActivityLogByIDAsync(id);
+            var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.Id == id);
             if (logs == null)
             {
-                var message = string.Format("activity Log not found");
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+                return NotFound();
             }
             else
             {
@@ -80,7 +78,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [HttpPost]
         [Route("AddLog")]
         //[ResponseType(typeof(APIErrorLogs))]
-        public async Task<IHttpActionResult> AddLog(APIErrorLogs errorLog)
+        public IHttpActionResult AddLog(LogDetails errorLog)
         {
             if (!ModelState.IsValid)
             {

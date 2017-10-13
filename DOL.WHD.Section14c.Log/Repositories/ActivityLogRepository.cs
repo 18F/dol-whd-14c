@@ -11,6 +11,9 @@ using DOL.WHD.Section14c.Log.Helpers;
 
 namespace DOL.WHD.Section14c.Log.Repositories
 {
+    /// <summary>
+    /// Activity Log Repository
+    /// </summary>
     public class ActivityLogRepository : IActivityLogRepository
     {
         private readonly ApplicationLogContext _dbContext;
@@ -18,21 +21,28 @@ namespace DOL.WHD.Section14c.Log.Repositories
         
         private Boolean Disposed;
 
+        /// <summary>
+        /// Activity Log Repository
+        /// </summary>
         public ActivityLogRepository()
         {
             _dbContext = new ApplicationLogContext();
         }
 
+        /// <summary>
+        /// Get ALl Logs
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<APIActivityLogs> GetAllLogs()
         {
             return _dbContext.ActivityLogs.AsQueryable();
         }
 
-        public async Task<APIActivityLogs> GetActivityLogByIDAsync(int id)
-        {
-            return await _dbContext.ActivityLogs.FindAsync(id);
-        }
-
+        /// <summary>
+        /// Add New Log
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public LogDetails AddLog(LogDetails entity)
         {
             if (entity != null)
@@ -62,6 +72,10 @@ namespace DOL.WHD.Section14c.Log.Repositories
             }
             return entity;
         }
+
+        /// <summary>
+        /// Dispose Object
+        /// </summary>
         public void Dispose()
         {
             if (!Disposed)

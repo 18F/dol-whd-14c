@@ -11,8 +11,6 @@ namespace DOL.WHD.Section14c.Log.Repositories
     {
         IQueryable<APIErrorLogs> GetAllLogs();
 
-        Task<APIErrorLogs> GetActivityLogByIDAsync(int id);
-
-        APIErrorLogs AddLog(APIErrorLogs entity);
+        LogDetails AddLog(LogDetails entity);
     }
 }
