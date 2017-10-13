@@ -26,16 +26,8 @@ namespace DOL.WHD.Section14c.Api
 
             config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
             config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
-            //config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.AuthorizationRequiredAttribute());
         }
 
-        //public static void RegisterNotFound(HttpConfiguration config)
-        //{
-        //    config.Routes.MapHttpRoute(
-        //        name: "Error404",
-        //        routeTemplate: "{*url}",
-        //        defaults: new { controller = "Error", action = "Handle404" }
-        //    );
-        //}
+        
     }
 }

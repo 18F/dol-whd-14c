@@ -30,7 +30,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize]
         public IEnumerable<Status> GetStatuses()
         {
             var statuses = _statusService.GetAllStatuses();
