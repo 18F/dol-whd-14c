@@ -25,8 +25,8 @@ module.exports = function(ngModule) {
           angular.element($document[0].getElementById(attr.ariaControls)).removeClass('ng-hide');
           angular.element($document[0].getElementById(attr.ariaControls)).toggleClass('show');
         });
-        scope.$watch('showAllHelp', function() {
-          scope.expanded = !scope.expanded;
+        scope.$watch('showAllHelp', function() {         
+          scope.expanded = scope.showAllHelp;
         });
 
       }
