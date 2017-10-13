@@ -3,7 +3,7 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a href="#" ng-click="$event.preventDefault()">Show Help for All Items</a></li>
+      <li><a ng-click="vm.toggleAllHelpText()">Show Help for All Items</a></li>
     </ul>
   </div>
 </div>
@@ -20,10 +20,10 @@
     <div class="dol-form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text" id="applicationTypeLabel">What type of application is this?
-          <helplink></helplink>       
+          <helplink aria-controls="applicationTypeIdHelp"></helplink>
         </legend>
-        <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>          
-        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>             
+        <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.ApplicationType">
             <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" aria-describedby="applicationTypeIdHelp" ng-value="response.id" ng-model="formData.applicationTypeId">
@@ -78,29 +78,29 @@
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</legend>
         <p class="dol-form-question-subtext">Select all that apply</p>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>  
+        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
         <ul class="usa-unstyled-list dol-list-help">
           <li ng-repeat="response in responses.EstablishmentType">
             <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
             <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
-            <helplink></helplink>
-            <helptext id="">
+            <helplink aria-controls="establishmentType_{{ response.id }}Help"></helplink>
+            <helptext id="establishmentType_{{ response.id }}Help">
                 {{ response.subDisplay }}
             </helptext>
           </li>
         </ul>
       </fieldset>
-    </div>   
+    </div>
   </fieldset>
-  
-  
+
+
   <fieldset class="dol-form-sub-section">
     <legend>
-      <h3>Application Contact Person 
+      <h3>Application Contact Person
       <helplink></helplink>
       </h3>
     </legend>
-    <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>   
+    <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
     <hr />
 
     <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
@@ -128,8 +128,8 @@
         <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
         <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="dol-side-example email" aria-describedby="exampleContactEmail"></input>
         <span id="exampleContactEmail" class="dol-example-text">Example: contact.name@company.com</span>
-    </div>   
+    </div>
   </fieldset>
-  
+
 
 </div>
