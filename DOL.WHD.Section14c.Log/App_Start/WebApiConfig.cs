@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.Log
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support
-            //config.EnableCors();
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();

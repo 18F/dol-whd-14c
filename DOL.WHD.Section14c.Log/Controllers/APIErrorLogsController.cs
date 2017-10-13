@@ -105,7 +105,10 @@ namespace DOL.WHD.Section14c.Log.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Dispose object
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             errorLogRepository?.Dispose();

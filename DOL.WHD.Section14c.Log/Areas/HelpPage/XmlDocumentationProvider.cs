@@ -6,6 +6,8 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
 using DOL.WHD.Section14c.Log.Areas.HelpPage.ModelDescriptions;
+using System.Collections.Generic;
+using System.IO;
 
 namespace DOL.WHD.Section14c.Log.Areas.HelpPage
 {
@@ -14,7 +16,8 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
-        private XPathNavigator _documentNavigator;
+        //private XPathNavigator _documentNavigator;
+        private List<XPathNavigator> _documentNavigators = new List<XPathNavigator>();
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
@@ -25,14 +28,44 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
-        public XmlDocumentationProvider(string documentPath)
+        //public XmlDocumentationProvider(string documentPath)
+        //{
+        //    if (documentPath == null)
+        //    {
+        //        throw new ArgumentNullException("documentPath");
+        //    }
+        //    XPathDocument xpath = new XPathDocument(documentPath);
+        //    _documentNavigator = xpath.CreateNavigator();
+        //}
+
+        public XmlDocumentationProvider(string appDataPath)
         {
-            if (documentPath == null)
+            if (appDataPath == null)
             {
-                throw new ArgumentNullException("documentPath");
+                throw new ArgumentNullException("appDataPath");
             }
-            XPathDocument xpath = new XPathDocument(documentPath);
-            _documentNavigator = xpath.CreateNavigator();
+
+            var files = new[] { "DOL.WHD.Section14c.Api.xml", "DOL.WHD.Section14c.Log.xml" };
+            foreach (var file in files)
+            {
+                String fullfilepath = Path.Combine(appDataPath, file);
+                if (File.Exists(fullfilepath))
+                {
+                    XPathDocument xpath = new XPathDocument(fullfilepath);
+                    _documentNavigators.Add(xpath.CreateNavigator());
+                }
+            }
+        }
+
+        private XPathNavigator SelectSingleNode(string selectExpression)
+        {
+            foreach (var navigator in _documentNavigators)
+            {
+                var propertyNode = navigator.SelectSingleNode(selectExpression);
+                if (propertyNode != null)
+                    return propertyNode;
+            }
+            return null;
         }
 
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
@@ -78,7 +111,8 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
             string expression = member.MemberType == MemberTypes.Field ? FieldExpression : PropertyExpression;
             string selectExpression = String.Format(CultureInfo.InvariantCulture, expression, memberName);
-            XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
+            //XPathNavigator propertyNode = _documentNavigator.SelectSingleNode(selectExpression);
+            XPathNavigator propertyNode = SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");
         }
 
@@ -94,7 +128,7 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             if (reflectedActionDescriptor != null)
             {
                 string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
-                return _documentNavigator.SelectSingleNode(selectExpression);
+                return SelectSingleNode(selectExpression);  //_documentNavigator.SelectSingleNode(selectExpression);
             }
 
             return null;
@@ -131,7 +165,7 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         {
             string controllerTypeName = GetTypeName(type);
             string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
-            return _documentNavigator.SelectSingleNode(selectExpression);
+            return SelectSingleNode(selectExpression);   //_documentNavigator.SelectSingleNode(selectExpression);
         }
 
         private static string GetTypeName(Type type)

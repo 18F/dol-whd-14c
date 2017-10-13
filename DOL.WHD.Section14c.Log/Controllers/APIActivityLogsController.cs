@@ -53,7 +53,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         }
 
         /// <summary>
-        /// Get an error log by id
+        /// Get an activity log by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -73,6 +73,10 @@ namespace DOL.WHD.Section14c.Log.Controllers
             }
         }
 
+        /// <summary>
+        /// Dispose object
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             activityLogRepository?.Dispose();
