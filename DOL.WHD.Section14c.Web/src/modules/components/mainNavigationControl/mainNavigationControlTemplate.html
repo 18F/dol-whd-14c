@@ -3,7 +3,7 @@
   <ul>
     <li
       ng-repeat="section in vm.sections"
-      aria-role="link"
+      role="link"
       class="nav-button {{ vm.current === section.id ? 'active' : '' }}"
       data-sectionid="{{ section.id }}"
       ng-click="vm.onNavClick($event)"
