@@ -11,11 +11,13 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using DOL.WHD.Section14c.Log.Models;
 using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.ActionFilters;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
     [RoutePrefix("api/ErrorLogs")]
-    public class ErrorLogsController : ApiController
+    public class ErrorLogsController : BaseApiController
     {
         private IErrorLogRepository errorLogRepository;
 
@@ -32,41 +34,40 @@ namespace DOL.WHD.Section14c.Log.Controllers
        
         [HttpGet]
         [Route("GetAllLogs")]
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
         public IQueryable<APIErrorLogs> GetAllLogs()
         {
             var logs = errorLogRepository.GetAllLogs();
             
             if (logs == null)
             {
-                var message = string.Format("activity Log not found");
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+                var message = string.Format("Log not found");
+                NotFound(message);
             }
-            else
-            {
-                return logs;
-            }
+            return logs;
         }
 
         /// <summary>
         /// Get an error log by id
         /// </summary>
+        /// <param name="CorrelationId"></param>
         /// <returns></returns>
         // GET: api/ErrorLogs/5
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
         [Route("GetLogByID")]
-        public IHttpActionResult GetErrorLogByID(int id)
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
+        public IHttpActionResult GetErrorLogByID(string correlationId)
         {
-            var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.Id == id);
+            var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
             if (logs == null)
             {
-                return NotFound();
+                var message = string.Format("Log not found");
+                NotFound(message);
             }
-            else
-            {
-                return Ok(logs);
-            }
+            return Ok(logs);
         }
 
 
@@ -77,32 +78,25 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // POST: api/ErrorLogs
         [HttpPost]
         [Route("AddLog")]
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
         //[ResponseType(typeof(APIErrorLogs))]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                BadRequest("Model State is not valid");
             }
-            try
+           
+            var log = errorLogRepository.AddLog(errorLog);
+            if (log == null)
             {
-                var log = errorLogRepository.AddLog(errorLog);
-                if (log == null)
-                {
-                    var message = string.Format("Unable to add log");
-                    throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, message));
-                }
-                else
-                {
-                    return Ok(log);
-                }
+                var message = string.Format("Unable to add log");
+                ExpectationFailed(message);
             }
-            catch(Exception ex)
-            {
-                throw new HttpResponseException(
-                        Request.CreateErrorResponse(HttpStatusCode.ExpectationFailed, ex.Message));
-            }
+
+            return Ok(log);          
+            
         }
 
         /// <summary>

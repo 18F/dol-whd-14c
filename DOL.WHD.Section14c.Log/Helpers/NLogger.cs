@@ -53,12 +53,14 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
-                
+
                 Log(record);
             }
+
         }
         #endregion
-      
+
+
 
         #region Private member methods.
         /// <summary>
@@ -68,9 +70,9 @@ namespace DOL.WHD.Section14c.Log.Helpers
         private void Log(TraceRecord record)
         {
             var message = new StringBuilder();
-
             LogEventInfo eventInfo = new LogEventInfo();
-            eventInfo.LoggerName = "NLog";            
+            eventInfo.LoggerName = Constants.NLogLoggerName;
+            eventInfo.Properties[Constants.CorrelationId] = getCorrelationId(record);
 
             if (!string.IsNullOrWhiteSpace(record.Message))
                 message.Append("").Append(record.Message + Environment.NewLine);
@@ -131,11 +133,12 @@ namespace DOL.WHD.Section14c.Log.Helpers
             }
 
             var currentUserName = TryToFindUserName(record);
-            eventInfo.Properties["UserName"] = currentUserName;           
+            eventInfo.Properties[Constants.UserName] = currentUserName;           
 
             eventInfo.Message = Convert.ToString(message);
             eventInfo.Level = LogLevel.FromString(record.Level.ToString());
 
+            //
             if (record.Request != null && record.Request.RequestUri != null &&
                 record.Request.RequestUri.LocalPath != null &&
                 record.Request.RequestUri.LocalPath.ToLower().Contains("addlog"))
@@ -149,6 +152,32 @@ namespace DOL.WHD.Section14c.Log.Helpers
         }
 
         /// <summary>
+        /// Get correlation Id from request object
+        /// </summary>
+        /// <param name="record"></param>
+        /// <returns></returns>
+        private string getCorrelationId(TraceRecord record)
+        {
+            string correlationId = string.Empty;
+            try
+            {
+                if(record != null  && record.Request != null)
+                {
+                    object correlationIdObject;
+                    record.Request.Properties.TryGetValue(Constants.CorrelationId, out correlationIdObject);
+                    if (correlationIdObject != null)
+                        correlationId = correlationIdObject.ToString();
+                }
+            }
+            catch(Exception ex)
+            {
+                // DO nothing is correlation id is not found.
+            }
+
+            return correlationId;
+        }
+
+        /// <summary>
         /// Find Current Login User Name
         /// </summary>
         /// <param name="record"></param>
@@ -158,9 +187,9 @@ namespace DOL.WHD.Section14c.Log.Helpers
             string temp = string.Empty;
             try
             {
-                if (record.Request != null && record.Request.Properties.ContainsKey("MS_RequestContext"))
+                if (record.Request != null && record.Request.Properties.ContainsKey(Constants.MSRequestContext))
                 {
-                    var context = record.Request.Properties["MS_RequestContext"] as HttpRequestContext;
+                    var context = record.Request.Properties[Constants.MSRequestContext] as HttpRequestContext;
                     temp = GetUserName(context);
                 }
             }

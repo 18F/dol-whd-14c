@@ -14,6 +14,7 @@ using NLog;
 using System.Web.Http.Tracing;
 using DOL.WHD.Section14c.Log.Helpers;
 using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.ActionFilters;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
@@ -36,6 +37,8 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAllLogs")]
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
         public IQueryable<APIActivityLogs> GetAllLogs()
         {
             var activityLogs = activityLogRepository.GetAllLogs();
@@ -55,14 +58,16 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <summary>
         /// Get an activity log by id
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="CorrelationId"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
         [Route("GetLogByID")]
-        public IHttpActionResult GetActivityLogByID(int id)
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
+        public IHttpActionResult GetActivityLogByID(string correlationId)
         {
-            var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.Id == id); 
+            var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId); 
             if (logs == null)
             {
                 return NotFound();               
@@ -77,6 +82,8 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// Dispose object
         /// </summary>
         /// <param name="disposing"></param>
+        /// [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
         protected override void Dispose(bool disposing)
         {
             activityLogRepository?.Dispose();

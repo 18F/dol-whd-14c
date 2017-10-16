@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
@@ -12,7 +15,7 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
 
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
-
+            var correlationId = Guid.NewGuid().ToString();
             //  Get API key provider
             //var provider = filterContext.ControllerContext.Configuration
             //    .DependencyResolver.GetService(typeof(ITokenServices)) as ITokenServices;
@@ -39,5 +42,6 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
             base.OnActionExecuting(filterContext);
 
         }
+        
     }
 }

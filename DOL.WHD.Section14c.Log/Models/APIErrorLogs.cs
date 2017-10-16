@@ -12,6 +12,8 @@ namespace DOL.WHD.Section14c.Log.Models
         [Key]
         public int Id { get; set; }
 
+        public string CorrelationId { get; set; }
+
         public string LogTime { get; set; }
 
         public string StackTrace { get; set; }

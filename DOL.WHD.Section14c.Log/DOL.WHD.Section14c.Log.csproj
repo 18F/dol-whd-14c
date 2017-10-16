@@ -212,9 +212,11 @@
     <Compile Include="Controllers\APIActivityLogsController.cs" />
     <Compile Include="Controllers\APIErrorLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Migrations\201710121444243_Initial.cs" />
-    <Compile Include="Migrations\201710121444243_Initial.Designer.cs">
-      <DependentUpon>201710121444243_Initial.cs</DependentUpon>
+    <Compile Include="Helpers\Constants.cs" />
+    <Compile Include="LogHelper\BaseApiController.cs" />
+    <Compile Include="Migrations\201710150152169_Initial.cs" />
+    <Compile Include="Migrations\201710150152169_Initial.Designer.cs">
+      <DependentUpon>201710150152169_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LogDetails.cs" />
     <Compile Include="Helpers\LogLayoutRenderer.cs" />
@@ -299,8 +301,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710121444243_Initial.resx">
-      <DependentUpon>201710121444243_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710150152169_Initial.resx">
+      <DependentUpon>201710150152169_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

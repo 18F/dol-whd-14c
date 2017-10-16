@@ -1,5 +1,7 @@
 ﻿
+using DOL.WHD.Section14c.Log.LogHelper;
 using System.Web.Http;
+using System.Web.Http.ExceptionHandling;
 
 namespace DOL.WHD.Section14c.Log
 {

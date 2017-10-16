@@ -34,7 +34,12 @@ namespace DOL.WHD.Section14c.Log.Helpers
         [JsonProperty("ReasonPhrase")]
         [DataMember]
         public string ReasonPhrase { get; set; }
-
+        /// <summary>
+        /// Get/Set property for accessing Status Message
+        /// </summary>
+        [JsonProperty("CorrelationId")]
+        [DataMember]
+        public string CorrelationId { get; set; }
         #endregion
     }
     #endregion

@@ -16,8 +16,11 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
     {
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
+            var correlationId = Guid.NewGuid().ToString();
+
             GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
+            filterContext.Request.Properties[Constants.CorrelationId] = correlationId;
             trace.Info(filterContext.Request, 
                 "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName + 
                 Environment.NewLine + 

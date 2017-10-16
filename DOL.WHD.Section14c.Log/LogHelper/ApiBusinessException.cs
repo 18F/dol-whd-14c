@@ -20,8 +20,9 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         public string ErrorDescription { get; set; }
         [DataMember]
         public HttpStatusCode HttpStatus { get; set; }
-
-        string reasonPhrase = "ApiBusinessException";
+        [DataMember]
+        public string CorrelationId { get; set; }
+        string reasonPhrase = "API Business Exception";
 
         [DataMember]
         public string ReasonPhrase
@@ -39,11 +40,12 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        public ApiBusinessException(int errorCode, string errorDescription, HttpStatusCode httpStatus)
+        public ApiBusinessException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
         {
             ErrorCode = errorCode;
             ErrorDescription = errorDescription;
             HttpStatus = httpStatus;
+            CorrelationId = correlationId;
         }
         #endregion
 

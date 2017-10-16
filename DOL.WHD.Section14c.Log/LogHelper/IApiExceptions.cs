@@ -17,6 +17,10 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <summary>
         /// ErrorDescription
         /// </summary>
+        string CorrelationId { get; set; }
+        /// <summary>
+        /// ErrorDescription
+        /// </summary>
         string ErrorDescription { get; set; }
         /// <summary>
         /// HttpStatus

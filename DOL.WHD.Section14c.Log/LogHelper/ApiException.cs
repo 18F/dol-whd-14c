@@ -21,8 +21,10 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         public string ErrorDescription { get; set; }
         [DataMember]
         public HttpStatusCode HttpStatus { get; set; }
+        [DataMember]
+        public string CorrelationId { get; set; }
 
-        string reasonPhrase = "ApiException";
+        string reasonPhrase = "API Exception";
 
         [DataMember]
         public string ReasonPhrase
@@ -30,6 +32,21 @@ namespace DOL.WHD.Section14c.Log.LogHelper
             get { return this.reasonPhrase; }
 
             set { this.reasonPhrase = value; }
+        }
+
+
+        /// <summary>
+        /// Public constructor for Api Data Exception
+        /// </summary>
+        /// <param name="errorCode"></param>
+        /// <param name="errorDescription"></param>
+        /// <param name="httpStatus"></param>
+        public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
+        {
+            ErrorCode = errorCode;
+            ErrorDescription = errorDescription;
+            HttpStatus = httpStatus;
+            CorrelationId = correlationId;
         }
         #endregion
     }

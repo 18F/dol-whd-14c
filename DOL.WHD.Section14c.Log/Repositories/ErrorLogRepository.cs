@@ -21,19 +21,29 @@ namespace DOL.WHD.Section14c.Log.Repositories
             _dbContext = new ApplicationLogContext();
         }
 
+        /// <summary>
+        /// Get All Logs
+        /// </summary>
+        /// <returns></returns>
         public IQueryable<APIErrorLogs> GetAllLogs()
         {
             return _dbContext.ErrorLogs.AsQueryable();
         }
 
+        /// <summary>
+        /// Add New Log Message
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public LogDetails AddLog(LogDetails entity)
         {
             
             if (entity != null)
             {
                 LogEventInfo eventInfo = new LogEventInfo();
+                eventInfo.Properties[Constants.CorrelationId] = Guid.NewGuid().ToString();
 
-                eventInfo.Properties["EIN"] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
+                eventInfo.Properties[Constants.EIN] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
                 eventInfo.LoggerName = "NLog";
                 if (string.IsNullOrEmpty(entity.Message))
                 {
@@ -48,12 +58,15 @@ namespace DOL.WHD.Section14c.Log.Repositories
                 }
                 
                 eventInfo.Level = LogLevel.FromString(entity.Level);
-                eventInfo.Properties["UserId"] = entity.UserId;
-                eventInfo.Properties["UserName"] = entity.User;
+                eventInfo.Properties[Constants.UserId] = entity.UserId;
+                eventInfo.Properties[Constants.UserName] = entity.User;
                 _logger.Log(eventInfo);
             }
             return entity;
         }
+        /// <summary>
+        /// Dispose Object
+        /// </summary>
         public void Dispose()
         {
             if (!Disposed)

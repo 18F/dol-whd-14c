@@ -7,6 +7,7 @@ using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -15,7 +16,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
     /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/save")]
-    public class SaveController : ApiController
+    public class SaveController : BaseApiController
     {
         private readonly ISaveService _saveService;
         private readonly IIdentityService _identityService;
@@ -44,7 +45,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized();
+                return Unauthorized("Unauthorized");
             }
 
             var applicationSave = _saveService.GetSave(EIN);
@@ -52,8 +53,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return Ok(applicationSave.ApplicationState);
             }
-            
-            return NotFound();
+
+            return NotFound("Not found");
         }
 
         /// <summary>
@@ -70,7 +71,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized();
+                return Unauthorized("Unauthorized");
             }
 
             var state = Request.Content.ReadAsStringAsync().Result;
@@ -78,9 +79,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 JToken.Parse(state);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
             _saveService.AddOrUpdate(EIN, state);
@@ -101,7 +102,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized();
+                return Unauthorized("Unauthorized");
             }
 
             _saveService.Remove(EIN);

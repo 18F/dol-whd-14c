@@ -19,9 +19,9 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 switch (Name)
                 {
                     case "EIN":
-                        if(logEvent.Properties.ContainsKey("EIN") && 
-                            logEvent.Properties["EIN"] != null)
-                            builder.Append(logEvent.Properties["EIN"].ToString());
+                        if(logEvent.Properties.ContainsKey(Constants.EIN) && 
+                            logEvent.Properties[Constants.EIN] != null)
+                            builder.Append(logEvent.Properties[Constants.EIN].ToString());
                         break;
                     case "Exception":
                         if(logEvent.Exception != null)
@@ -36,16 +36,20 @@ namespace DOL.WHD.Section14c.Log.Helpers
                         }
                         break;
                     case "UserId":
-                        if (logEvent.Properties.ContainsKey("UserId") && 
-                            logEvent.Properties["UserId"] != null)
-                            builder.Append(logEvent.Properties["UserId"].ToString());
+                        if (logEvent.Properties.ContainsKey(Constants.UserId) && 
+                            logEvent.Properties[Constants.UserId] != null)
+                            builder.Append(logEvent.Properties[Constants.UserId].ToString());
                         break;
                     case "UserName":
-                        if (logEvent.Properties.ContainsKey("UserName") && 
-                            logEvent.Properties["UserName"] != null)
-                            builder.Append(logEvent.Properties["UserName"].ToString());
+                        if (logEvent.Properties.ContainsKey(Constants.UserName) && 
+                            logEvent.Properties[Constants.UserName] != null)
+                            builder.Append(logEvent.Properties[Constants.UserName].ToString());
                         break;
-
+                    case "CorrelationId":
+                        if (logEvent.Properties.ContainsKey(Constants.CorrelationId) &&
+                            logEvent.Properties[Constants.CorrelationId] != null)
+                            builder.Append(logEvent.Properties[Constants.CorrelationId].ToString());
+                        break;
                 }
             }
         }
