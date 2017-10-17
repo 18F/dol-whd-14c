@@ -14,7 +14,6 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.sections = navService.getSections().map(function(element){
-      console.log(element);
       if(element.display === "WIOA") {
         element.ariaLabel = "Workforce Innovation and Opportunity Act"
       } else {
@@ -35,20 +34,6 @@ module.exports = function(ngModule) {
     this.onKeyPress = e => {
       if (e.which === 13) this.onNavClick(e);
     };
-
-    this.getSections = function() {
-      var sections = vm.navService.getSections();
-      sections = sections.map(function(element){
-        if(element.display === "WOIA") {
-          element.ariaLabel = "Workforce Innovation and Opportunity Act"
-        } else {
-          element.ariaLabel = element.display;
-        }
-        return element;
-      });
-
-      return sections;
-    }
 
   });
 };
