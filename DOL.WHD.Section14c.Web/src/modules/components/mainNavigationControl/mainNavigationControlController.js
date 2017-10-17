@@ -13,6 +13,14 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
+    vm.sections = navService.getSections().map(function(element){
+      if(element.display === "WIOA") {
+        element.ariaLabel = "Workforce Innovation and Opportunity Act"
+      } else {
+        element.ariaLabel = element.display;
+      }
+      return element;
+    });
     vm.stateService = stateService;
     vm.navService = navService;
     vm.current = $route.current.params.section_id;
@@ -26,5 +34,6 @@ module.exports = function(ngModule) {
     this.onKeyPress = e => {
       if (e.which === 13) this.onNavClick(e);
     };
+
   });
 };

@@ -1,6 +1,6 @@
 <dol-header></dol-header>
 
-<div class="main-content">
+<main id="mainContent" role="main" class="main-content">
   <div ng-if="!stateService.user.email">
     <div class="dol-landing-public">
       <h1>Section 14(c) Certificate Application</h1>
@@ -35,6 +35,6 @@
   <div ng-if="stateService.hasClaim('UserManagement.GetAccounts')">
     <account-grid></account-grid>
   </div>
-</div>
+</main>
 
 <dol-footer></dol-footer>

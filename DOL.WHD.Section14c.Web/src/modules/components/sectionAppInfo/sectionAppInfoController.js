@@ -12,6 +12,7 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
+    $scope.showAllHelp = false;
 
     if (!$scope.formData.establishmentTypeId) {
       $scope.formData.establishmentTypeId = [];
@@ -33,5 +34,9 @@ module.exports = function(ngModule) {
         $scope.formData.establishmentTypeId.push(id);
       }
     };
+
+    this.toggleAllHelpText = function() {
+      $scope.showAllHelp = !$scope.showAllHelp;
+    }
   });
 };
