@@ -88,7 +88,6 @@
     "angular-data-grid": "^0.1.0",
     "angular-in-memory-web-api": "~0.3.0",
     "angular-moment": "^1.0.0",
-    "angular-recaptcha": "^3.0.4",
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.8",

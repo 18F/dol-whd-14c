@@ -115,7 +115,6 @@ module.exports = function(ngModule) {
       email,
       password,
       confirmPassword,
-      reCaptchaResponse,
       emailVerificationUrl
     ) {
       let url = _env.api_url + '/api/Account/Register';
@@ -130,7 +129,6 @@ module.exports = function(ngModule) {
           Email: email,
           Password: password,
           ConfirmPassword: confirmPassword,
-          ReCaptchaResponse: reCaptchaResponse,
           EmailVerificationUrl: emailVerificationUrl
         })
       }).then(
@@ -146,7 +144,7 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.emailVerification = function(userId, code, reCaptchaResponse) {
+    this.emailVerification = function(userId, code) {
       let url = _env.api_url + '/api/Account/VerifyEmail';
       let d = $q.defer();
 
@@ -156,8 +154,7 @@ module.exports = function(ngModule) {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: $.param({
           UserId: userId,
-          Nounce: code,
-          ReCaptchaResponse: reCaptchaResponse
+          Nounce: code
         })
       }).then(
         function successCallback(data) {

@@ -58,7 +58,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }            
+            }
 
             // Add User
             var now = DateTime.UtcNow;
