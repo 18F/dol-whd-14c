@@ -146,7 +146,6 @@
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <None Include="app.config" />
     <None Include="CodeCoverage.bat" />
-    <Compile Include="Business\ReCaptphaTests.cs" />
     <Compile Include="Business\SaveServiceTests.cs" />
     <Compile Include="DataAccess\Validators\Section14cPasswordValidatorTests.cs" />
     <Compile Include="DataAccess\Validators\Section14cUserValidatorTests.cs" />

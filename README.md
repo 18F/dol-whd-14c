@@ -97,7 +97,6 @@ All configurations for the Web project are set in the env.js. This file is exclu
 | Setting | Description | Default   
 | --- | --- | ---
 api_url* | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
-reCaptchaSiteKey* | reCaptcha Site Key | (Development Key with localhost enabled)
 requireHttps | Use secure cookie | true
 tokenCookieDurationMinutes | Token Cookie Expiration in Minutes | 20160 (14 days to match server AccessTokenExpireTimeSpanMinutes)
 
@@ -112,8 +111,6 @@ The following are setup as WebDeploy parameters and can be set with command line
 | Setting | Description | Default   
 | --- | --- | ---
 ConnectionString* | PostgreSQL database connection string | No Deployment Default
-ReCaptchaVerfiyUrl* | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
-ReCaptchaSecretKey* | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default
 SMTPServer* | SMTP Email Server Address | localhost
 SMTPPort* | SMTP Email Server Port | 25
 SMTPUserName* | SMTP Email Server User Name | empty

@@ -27,7 +27,7 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         [Required]
         public Uri EmailVerificationUrl { get; set; }
 
-        public string ReCaptchaResponse { get; set; }
+        
 
     }
 }

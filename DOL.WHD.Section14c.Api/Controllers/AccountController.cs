@@ -58,23 +58,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            // Validate Recaptcha
-            var reCaptchaVerfiyUrl = AppSettings.Get<string>("ReCaptchaVerfiyUrl");
-            var reCaptchaSecretKey = AppSettings.Get<string>("ReCaptchaSecretKey");
-            if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
-            {
-                var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
-                var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
-
-                var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, remoteIpAddress);
-                if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
-                {
-                    ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
-                    return BadRequest(ModelState);
-                }
-            }
+            }            
 
             // Add User
             var now = DateTime.UtcNow;

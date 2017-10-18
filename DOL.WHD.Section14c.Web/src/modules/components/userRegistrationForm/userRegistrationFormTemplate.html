@@ -110,12 +110,12 @@
       <label for="confirmPassword">Confirm Password</label>
       <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
-    <div ng-class="vm.reCaptchaError ? 'usa-input-error' : ''">
+    <!--<div ng-class="vm.reCaptchaError ? 'usa-input-error' : ''">
       <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.reCaptchaError">
         Error validating reCaptcha.
       </span>
       <div vc-recaptcha theme="'light'" key="model.key" on-create="createRegWidget(widgetId)" on-success="setRegResponse(response)" on-expire="resetRegCaptcha(regWidgetId)" class="regcapt" title="reCaptcha"></div>
-    </div>
+    </div>-->
     <div class="regbtn">
       <button type="submit" ng-show="!vm.submittingForm">Register</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>

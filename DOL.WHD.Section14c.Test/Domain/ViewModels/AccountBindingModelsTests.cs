@@ -35,7 +35,6 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
                 Password = "password",
                 EIN = "ein",
                 EmailVerificationUrl = uri,
-                ReCaptchaResponse = "recaptchresponse"
             };
 
             Assert.AreEqual("email", obj.Email);
@@ -43,7 +42,6 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
             Assert.AreEqual("password", obj.Password);
             Assert.AreEqual("ein", obj.EIN);
             Assert.AreEqual(uri, obj.EmailVerificationUrl);
-            Assert.AreEqual("recaptchresponse", obj.ReCaptchaResponse);
         }
 
         [TestMethod]
