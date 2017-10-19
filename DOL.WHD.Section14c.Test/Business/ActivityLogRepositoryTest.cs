@@ -6,6 +6,7 @@ using DOL.WHD.Section14c.Log.Controllers;
 using DOL.WHD.Section14c.Log.Models;
 using System.Linq;
 using System.Web.Http.Results;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -26,7 +27,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new ActivityLogsController(_activityLogRepository);
 
             // Act
-            var result = service.GetActivityLogByID(2) as OkNegotiatedContentResult<APIActivityLogs>;
+            var result = service.GetActivityLogByID("2edbc12f-4fd8-4fed-a848-b8bfff4d4e03") as OkNegotiatedContentResult<APIActivityLogs>;
 
             // Assert
             Assert.IsNotNull(result);
@@ -34,17 +35,14 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ApiDataException),
+            "Log not found.")]
         public void ActivityLog_ReturnsLogs_Invalid()
         {
             // Arrange
             var service = new ActivityLogsController(_activityLogRepository);
-
             // Act
-            var result = service.GetActivityLogByID(100);
-
-            // Assert
-            //Assert.IsNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            var result = service.GetActivityLogByID("100");
         }
 
         [TestMethod]

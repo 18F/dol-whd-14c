@@ -15,11 +15,12 @@ using System.Web.Http.Tracing;
 using DOL.WHD.Section14c.Log.Helpers;
 using DOL.WHD.Section14c.Log.Repositories;
 using DOL.WHD.Section14c.Log.ActionFilters;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
     [RoutePrefix("api/ActivityLogs")]
-    public class ActivityLogsController : ApiController
+    public class ActivityLogsController : BaseApiController
     {
         
 
@@ -67,15 +68,13 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [GlobalExceptionAttribute]
         public IHttpActionResult GetActivityLogByID(string correlationId)
         {
-            var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId); 
+            var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
             if (logs == null)
             {
-                return NotFound();               
+                var message = string.Format("Log not found");
+                NotFound(message);
             }
-            else
-            {
-                return Ok(logs);
-            }
+            return Ok(logs);
         }
 
         /// <summary>

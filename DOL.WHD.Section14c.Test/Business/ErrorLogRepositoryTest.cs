@@ -6,6 +6,7 @@ using DOL.WHD.Section14c.Log.Controllers;
 using DOL.WHD.Section14c.Log.Models;
 using System.Linq;
 using System.Web.Http.Results;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -22,13 +23,13 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        public void ActivityLog_ReturnsLogById()
+        public void ErrorLog_ReturnsLogById()
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
 
             // Act
-            var result = service.GetErrorLogByID(2) as OkNegotiatedContentResult<APIErrorLogs>;
+            var result = service.GetErrorLogByID("2edbc12f-4fd8-4fed-a848-b8bfff4d4e03") as OkNegotiatedContentResult<APIErrorLogs>;
 
             // Assert
             Assert.IsNotNull(result);
@@ -36,21 +37,19 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        public void ActivityLog_ReturnsLogs_Invalid()
+        [ExpectedException(typeof(ApiDataException),
+            "Log not found.")]
+        public void ErrorLog_ReturnsLogs_Invalid()
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
-
             // Act
-            var result = service.GetErrorLogByID(100);
-
-            // Assert
-            //Assert.IsNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            var result = service.GetErrorLogByID("edbc12f-4fd8-4fed-a848-b8bff");
+            
         }
 
         [TestMethod]
-        public void ActivityLog_ReturnsAllLogs()
+        public void ErrorLog_ReturnsAllLogs()
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
@@ -63,7 +62,7 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        public void ActivityLog_AddLogs()
+        public void ErrorLog_AddLogs()
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
@@ -76,7 +75,7 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        public void ActivityLog_Dispose()
+        public void ErrorLog_Dispose()
         {
             var service = new ErrorLogsController(_errorLogRepository);
             service.Dispose();
