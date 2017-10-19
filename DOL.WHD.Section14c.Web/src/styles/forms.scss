@@ -27,7 +27,7 @@
         margin-top: 2rem;
       }
       margin-top: 2rem;
-    }
+    }      
   }
 }
 
@@ -93,7 +93,7 @@
   }
 }
 
-// Sub-section fieldset
+// Sub-section fieldset 
 .dol-form-sub-section {
   &:first-of-type {
     > legend {
@@ -120,7 +120,7 @@
   }
 
   // TODO: It's possible that the underlabels for checkboxes/radios
-  // will be removed from the app in favor of help text. In that case,
+  // will be removed from the app in favor of help text. In that case, 
   // these CSS classes should be removed.
   .underlabel {
     margin-top: 0px;
@@ -130,7 +130,7 @@
       margin-top: -5px;
       margin-bottom: 20px;
     }
-  }
+  }  
   input[type="checkbox"], input[type="radio"] {
     width: auto;
   }
@@ -140,11 +140,11 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 20px;
-}
+}  
 
 label.dol-form-question-text {
   margin-top: 0;
-  max-width: 60rem;
+  max-width: 60rem;  
 }
 
 .dol-form-question-subtext {
@@ -167,8 +167,8 @@ button.dol-help-link {
   color: #000;
 
   &:hover {
-    opacity: 0.8;
-    background-color: transparent;
+    opacity: 0.8; 
+    background-color: transparent;   
   }
 }
 
@@ -200,7 +200,7 @@ button.dol-help-link {
 .dol-list-help {
   input[type="checkbox"] + label, input[type="radio"] + label {
       display: inline-block;
-  }
+  }  
 }
 
 // Example text
@@ -210,7 +210,7 @@ input.dol-side-example, div.dol-side-example {
   + .dol-example-text {
     display: inline-block;
     color: #666;
-    margin-left: 1.5rem;
+    margin-left: 1.5rem;    
   }
 }
 .usa-date-of-birth.dol-side-example {
@@ -281,7 +281,7 @@ input.email {
 
 // ----- end NEW CSS RULES
 
-// ----- begin LEGACY CSS RULES
+// ----- begin LEGACY CSS RULES 
 // There may be duplicates with the new styles above.
 // The legacy styles will be integrated or deleted during a11y remediation.
 // This comment will be removed when a11y remediation is complete.
