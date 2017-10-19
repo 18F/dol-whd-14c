@@ -14,6 +14,7 @@ namespace DOL.WHD.Section14c.Api
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //WebApiConfig.RegisterNotFound(GlobalConfiguration.Configuration);
 
             // use camel cased JSON in Web API
             GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

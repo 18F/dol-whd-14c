@@ -10,6 +10,7 @@ using DOL.WHD.Section14c.Business.Factories;
 using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -18,7 +19,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
     /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/application")]
-    public class ApplicationController : ApiController
+    public class ApplicationController : BaseApiController
     {
         private readonly IIdentityService _identityService;
         private readonly IApplicationService _applicationService;
@@ -51,12 +52,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <returns>Http status code</returns>
         [HttpPost]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public async Task<HttpResponseMessage> Submit([FromBody]ApplicationSubmission submission)
+        public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmission submission)
         {
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, results.Errors);
+                return BadRequest(results.Errors.ToString()); 
             }
 
             _applicationService.ProcessModel(submission);
@@ -65,7 +66,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
-                return Request.CreateResponse(HttpStatusCode.Unauthorized);
+                return Unauthorized("Unauthorized"); 
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
@@ -73,7 +74,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             // remove the associated application save
             _saveService.Remove(submission.EIN);
 
-            return Request.CreateResponse(HttpStatusCode.Created);
+            return Ok();
         }
 
         /// <summary>
@@ -82,14 +83,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="id">Id</param>
         [HttpGet]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
-        public HttpResponseMessage GetApplication(Guid id)
+        public IHttpActionResult GetApplication(Guid id)
         {
             var application = _applicationService.GetApplicationById(id);
             if (application != null)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, application);
+                return Ok(application);
             }
-            return Request.CreateResponse(HttpStatusCode.NotFound);
+            return NotFound("Application not found"); 
         }
 
         /// <summary>
@@ -98,11 +99,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpGet]
         [Route("summary")]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
-        public HttpResponseMessage GetApplicationsSummary()
+        public IHttpActionResult GetApplicationsSummary()
         {
             var allApplications = _applicationService.GetAllApplications();
             var applicationSummaries = allApplications.Select(x => _applicationSummaryFactory.Build(x));
-            return Request.CreateResponse(HttpStatusCode.OK, applicationSummaries);
+            return Ok(applicationSummaries); 
         }
 
         /// <summary>
@@ -114,23 +115,23 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpPost]
         [Route("status")]
         [AuthorizeClaims(ApplicationClaimTypes.ChangeApplicationStatus)]
-        public async Task<HttpResponseMessage> ChangeApplicationStatus(Guid id, int statusId)
+        public async Task<IHttpActionResult> ChangeApplicationStatus(Guid id, int statusId)
         {
             var application = _applicationService.GetApplicationById(id);
             if (application == null)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound);
+                return NotFound("Application aot found"); 
             }
             
             // check status id to make sure it is valid
             var status = _statusService.GetStatus(statusId);
             if (status == null)
             {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Status Id is not valid");
+                return BadRequest("Status Id is not valid");
             }
 
             await _applicationService.ChangeApplicationStatus(application, statusId);
-            return Request.CreateResponse(HttpStatusCode.OK, $"/api/application?id={id}");
+            return Ok($"/api/application?id={id}"); 
         }
 
         /// <summary>

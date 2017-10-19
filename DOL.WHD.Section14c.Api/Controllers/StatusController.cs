@@ -2,6 +2,10 @@
 using System.Web.Http;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System;
+using System.Net.Http;
+using System.Net;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -9,7 +13,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
     /// Controller for managing application statuses
     /// </summary>
     [RoutePrefix("/api/status")]
-    public class StatusController : ApiController
+    public class StatusController : BaseApiController
     {
         private readonly IStatusService _statusService;
 
@@ -29,7 +33,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpGet]
         public IEnumerable<Status> GetStatuses()
         {
-            return _statusService.GetAllStatuses();
+            var statuses = _statusService.GetAllStatuses();
+           
+            if (statuses == null)
+            {
+                var message = string.Format("Statuses not found");
+                NotFound(message);
+            }
+
+            return statuses;
+            
         }
     }
 }
