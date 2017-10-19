@@ -38,6 +38,12 @@
   h2 {
     margin: 0;
   }
+  .dol-help-link {
+    vertical-align: middle;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
 }
 
 .dol-form-section-help {
@@ -125,6 +131,9 @@
       margin-bottom: 20px;
     }
   }
+  input[type="checkbox"], input[type="radio"] {
+    width: auto;
+  }
 }
 
 .dol-form-question-text {
@@ -189,23 +198,28 @@ button.dol-help-link {
 
 // Checkbox and Radio lists with help buttons
 .dol-list-help {
-  input {
-    width: auto;
-  }
   input[type="checkbox"] + label, input[type="radio"] + label {
       display: inline-block;
   }
 }
 
 // Example text
-input.dol-side-example {
+input.dol-side-example, div.dol-side-example {
   display: inline-block;
 
-  & + span.dol-example-text {
+  + .dol-example-text {
     display: inline-block;
-    margin-top: 0px;
     color: #666;
     margin-left: 1.5rem;
+  }
+}
+.usa-date-of-birth.dol-side-example {
+  vertical-align: middle;
+
+  + .dol-example-text {
+    position: relative;
+    top: 10px;
+    margin-left: 0;
   }
 }
 
