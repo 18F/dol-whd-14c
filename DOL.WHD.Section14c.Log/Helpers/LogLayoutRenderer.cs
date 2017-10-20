@@ -50,6 +50,15 @@ namespace DOL.WHD.Section14c.Log.Helpers
                             logEvent.Properties[Constants.CorrelationId] != null)
                             builder.Append(logEvent.Properties[Constants.CorrelationId].ToString());
                         break;
+                    case "IsServiceSideLog":
+                        if (logEvent.Properties.ContainsKey(Constants.IsServiceSideLog) &&
+                           logEvent.Properties[Constants.IsServiceSideLog] != null)
+                        {
+                            var isServerSide = logEvent.Properties[Constants.IsServiceSideLog];
+                            builder.Append(isServerSide);
+                        }
+                        break;
+
                 }
             }
         }

@@ -34,8 +34,7 @@ namespace DOL.WHD.Section14c.Api.Areas.HelpPage
             {
                 throw new ArgumentNullException("documentPath");
             }
-            //XPathDocument xpath = new XPathDocument(documentPath);
-            //_documentNavigator = xpath.CreateNavigator();
+
             var files = new[] { "DOL.WHD.Section14c.Api.xml", "DOL.WHD.Section14c.Log.xml" };
             foreach (var file in files)
             {

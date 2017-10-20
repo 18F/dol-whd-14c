@@ -71,8 +71,10 @@ namespace DOL.WHD.Section14c.Log.Helpers
         {
             var message = new StringBuilder();
             LogEventInfo eventInfo = new LogEventInfo();
-            eventInfo.LoggerName = Constants.NLogLoggerName;
+            eventInfo.LoggerName = Constants.LoggerName;
             eventInfo.Properties[Constants.CorrelationId] = getCorrelationId(record);
+            // Set Log Property Is Service Side true.
+            eventInfo.Properties[Constants.IsServiceSideLog] = 1;
 
             if (!string.IsNullOrWhiteSpace(record.Message))
                 message.Append("").Append(record.Message + Environment.NewLine);
@@ -99,37 +101,16 @@ namespace DOL.WHD.Section14c.Log.Helpers
             {
                 eventInfo.Exception = record.Exception;
 
-                var exceptionType = record.Exception.GetType();
-                message.Append(Environment.NewLine);
-                if (exceptionType == typeof(ApiException))
+                var apiException = record.Exception as BaseApiException;
+                if (apiException != null)
                 {
-                    var exception = record.Exception as ApiException;
-                    if (exception != null)
-                    {
-                        message.Append("").Append("Error: " + exception.ErrorDescription + Environment.NewLine);
-                        message.Append("").Append("Error Code: " + exception.ErrorCode + Environment.NewLine);
-                    }
-                }
-                else if (exceptionType == typeof(ApiBusinessException))
-                {
-                    var exception = record.Exception as ApiBusinessException;
-                    if (exception != null)
-                    {
-                        message.Append("").Append("Error: " + exception.ErrorDescription + Environment.NewLine);
-                        message.Append("").Append("Error Code: " + exception.ErrorCode + Environment.NewLine);
-                    }
-                }
-                else if (exceptionType == typeof(ApiDataException))
-                {
-                    var exception = record.Exception as ApiDataException;
-                    if (exception != null)
-                    {
-                        message.Append("").Append("Error: " + exception.ErrorDescription + Environment.NewLine);
-                        message.Append("").Append("Error Code: " + exception.ErrorCode + Environment.NewLine);
-                    }
+                    message.Append("").Append("Error: " + apiException.ErrorDescription + Environment.NewLine);
+                    message.Append("").Append("Error Code: " + apiException.ErrorCode + Environment.NewLine);
                 }
                 else
+                {
                     message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
+                }                
             }
 
             var currentUserName = TryToFindUserName(record);

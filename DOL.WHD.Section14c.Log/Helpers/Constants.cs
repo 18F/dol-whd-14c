@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.Log
         /// <summary>
         /// NLog Logger Name
         /// </summary>
-        public const string NLogLoggerName = "NLog";
+        public const string LoggerName = "NLog";
 
         /// <summary>
         /// Correlation Id
@@ -39,6 +39,11 @@ namespace DOL.WHD.Section14c.Log
         /// MS Request Context
         /// </summary>
         public const string MSRequestContext = "MS_RequestContext";
+
+        /// <summary>
+        /// Is Service Side Log
+        /// </summary>
+        public const string IsServiceSideLog = "IsServiceSideLog";
 
     }
 }

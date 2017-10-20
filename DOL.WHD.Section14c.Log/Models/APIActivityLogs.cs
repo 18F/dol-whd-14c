@@ -19,5 +19,6 @@ namespace DOL.WHD.Section14c.Log.Models
 
         public string StackTrace { get; set; }
 
+        public bool IsServiceSideLog { get; set; }
     }
 }

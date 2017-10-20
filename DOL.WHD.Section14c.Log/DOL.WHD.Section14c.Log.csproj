@@ -173,7 +173,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionFilters\AuthorizationRequiredAttribute.cs" />
     <Compile Include="ActionFilters\GlobalExceptionAttribute.cs" />
     <Compile Include="ActionFilters\LoggingFilterAttribute.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -214,9 +213,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="LogHelper\BaseApiController.cs" />
-    <Compile Include="Migrations\201710150152169_Initial.cs" />
-    <Compile Include="Migrations\201710150152169_Initial.Designer.cs">
-      <DependentUpon>201710150152169_Initial.cs</DependentUpon>
+    <Compile Include="LogHelper\BaseApiException.cs" />
+    <Compile Include="Migrations\201710201616375_Initial.cs" />
+    <Compile Include="Migrations\201710201616375_Initial.Designer.cs">
+      <DependentUpon>201710201616375_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\LogDetails.cs" />
     <Compile Include="Helpers\LogLayoutRenderer.cs" />
@@ -301,8 +301,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201710150152169_Initial.resx">
-      <DependentUpon>201710150152169_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710201616375_Initial.resx">
+      <DependentUpon>201710201616375_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

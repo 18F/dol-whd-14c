@@ -12,29 +12,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
     /// </summary>
     [Serializable]
     [DataContract]
-    public class ApiDataException : Exception, IApiExceptions
-    {
-        #region Public Serializable properties.
-        [DataMember]
-        public int ErrorCode { get; set; }
-        [DataMember]
-        public string ErrorDescription { get; set; }
-        [DataMember]
-        public HttpStatusCode HttpStatus { get; set; }
-        [DataMember]
-        public string CorrelationId { get; set; }
-        string reasonPhrase = "API Data Exception";
-
-        [DataMember]
-        public string ReasonPhrase
-        {
-            get { return this.reasonPhrase; }
-
-            set { this.reasonPhrase = value; }
-        }
-
-        #endregion
-
+    public class ApiDataException : BaseApiException
+    {        
         #region Public Constructor.
         /// <summary>
         /// Public constructor for Api Data Exception
@@ -43,11 +22,9 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
         public ApiDataException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
+            :base(errorCode, errorDescription, httpStatus, correlationId)
         {
-            ErrorCode = errorCode;
-            ErrorDescription = errorDescription;
-            HttpStatus = httpStatus;
-            CorrelationId = correlationId;
+            reasonPhrase = "API Data Exception";
         }
         #endregion
     }

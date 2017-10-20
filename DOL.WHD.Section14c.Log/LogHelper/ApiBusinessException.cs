@@ -11,27 +11,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
   /// </summary>
     [Serializable]
     [DataContract]
-    public class ApiBusinessException : Exception, IApiExceptions
+    public class ApiBusinessException : BaseApiException
     {
-        #region Public Serializable properties.
-        [DataMember]
-        public int ErrorCode { get; set; }
-        [DataMember]
-        public string ErrorDescription { get; set; }
-        [DataMember]
-        public HttpStatusCode HttpStatus { get; set; }
-        [DataMember]
-        public string CorrelationId { get; set; }
-        string reasonPhrase = "API Business Exception";
-
-        [DataMember]
-        public string ReasonPhrase
-        {
-            get { return this.reasonPhrase; }
-
-            set { this.reasonPhrase = value; }
-        }
-        #endregion
 
         #region Public Constructor.
         /// <summary>
@@ -41,11 +22,9 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
         public ApiBusinessException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
+            : base(errorCode, errorDescription, httpStatus, correlationId)
         {
-            ErrorCode = errorCode;
-            ErrorDescription = errorDescription;
-            HttpStatus = httpStatus;
-            CorrelationId = correlationId;
+            reasonPhrase = "API Business Exception";
         }
         #endregion
 

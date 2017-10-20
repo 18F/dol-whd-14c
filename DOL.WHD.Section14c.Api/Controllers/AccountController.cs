@@ -267,7 +267,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
             if (!result.Succeeded)
             {
-                //ModelState.AddModelError("EmailVerification", new Exception("Unable to verify email"));
                 return BadRequest("EmailVerification", new Exception("Unable to verify email"));
             }
 

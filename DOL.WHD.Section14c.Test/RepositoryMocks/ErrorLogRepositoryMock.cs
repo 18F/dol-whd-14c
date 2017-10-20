@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NLog;
+using DOL.WHD.Section14c.Log;
 
 namespace DOL.WHD.Section14c.Test.RepositoryMocks
 {
@@ -60,6 +61,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 eventInfo.Level = LogLevel.FromString(entity.Level);
                 eventInfo.Properties["UserId"] = entity.UserId;
                 eventInfo.Properties["UserName"] = entity.User;
+
+                eventInfo.Properties[Constants.IsServiceSideLog] = true;
             }
             return entity;
         }

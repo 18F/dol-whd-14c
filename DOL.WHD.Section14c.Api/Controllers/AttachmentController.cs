@@ -85,7 +85,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
             if (!hasEINClaim && !hasViewAllFeature)
             {
-                return Unauthorized("User don't have rights to the EIN or has View All Application rights"); 
+                return Unauthorized("User doesn't have rights to download attachments from this EIN"); 
             }
 
             try
