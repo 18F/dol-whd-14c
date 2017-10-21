@@ -19,9 +19,11 @@
 
     <div class="dol-form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
-        <legend class="dol-form-question-text"><span id="applicationTypeLabel">What type of application is this?</span>
+        <legend class="hide"><span id="applicationTypeLabel">What type of application is this?</span></legend>    
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">What type of application is this?</span>
           <helplink aria-controls="applicationTypeIdHelp" aria-describedby="applicationTypeLabel"></helplink>
-        </legend>        
+        </div>          
         <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
         <ul class="usa-unstyled-list">
