@@ -42,8 +42,8 @@ describe('accountGridController', function() {
 
   it('edit account click navigates to /account/{userId}', function() {
     var controller = accountGridController();
+    spyOn(mockLocation, 'path');
     controller.editAccountClick(1);
-    scope.$apply();
-    expect(mockLocation.path()).toBe('/account/1');
+    expect(mockLocation.path).toHaveBeenCalledWith('/account/1');
   });
 });

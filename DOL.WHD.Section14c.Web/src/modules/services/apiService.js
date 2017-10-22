@@ -181,10 +181,11 @@ module.exports = function(ngModule) {
         }
       }).then(
         function successCallback(data) {
+          console.log(data);
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
+          console.log(error);
           d.reject(error);
         }
       );

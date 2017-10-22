@@ -55,7 +55,7 @@ describe('autoSaveService', function() {
       hasRun = true;
     };
     autoSave.save(callback);
-    deferred.reject();
+    // deferred.reject();
     $scope.$digest();
     expect(hasRun).toBe(true);
   });
