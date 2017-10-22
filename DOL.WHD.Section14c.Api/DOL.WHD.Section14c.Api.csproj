@@ -27,6 +27,7 @@
     </NuGetPackageImportStamp>
     <ApplicationInsightsResourceId>/subscriptions/a1208e0a-00d2-4901-bfec-9e23d5fd4ba8/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/DOL.WHD.Section14c</ApplicationInsightsResourceId>
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -247,6 +248,7 @@
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="Controllers\SupportedFileTypesController.cs" />
     <Compile Include="Filters\AuthorizeClaims.cs" />
     <Compile Include="Filters\AuthorizeHttps.cs" />
     <Compile Include="Global.asax.cs">

@@ -150,6 +150,19 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
 
+
+
+            // Seed application AttachmentSupportedFileTypes
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "doc", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "docx", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "xls", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "pdf", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "jpg", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "jpeg", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "png", IsActive = true });
+            context.ApplicationAttachmentSupportedFileTypes.AddOrUpdate(new AttachmentSupportedFileTypes { Name = "csv", IsActive = true });
+
+
             // Commit changes so that roles/features can be assigned
             context.SaveChanges();
 

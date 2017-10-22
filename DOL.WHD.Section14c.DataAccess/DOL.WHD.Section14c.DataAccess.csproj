@@ -120,6 +120,7 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="DB2HistoryContext.cs" />
     <Compile Include="Extensions\ContextSeedRole.cs" />
+    <Compile Include="IAttachmentSupportedFileTypesRepository.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />
@@ -129,6 +130,10 @@
     <Compile Include="MigrationsDB2\201710181418022_InitialDB2.cs" />
     <Compile Include="MigrationsDB2\201710181418022_InitialDB2.Designer.cs">
       <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationsDB2\201710210401077_AddAttachmentSupportedFileTypes.cs" />
+    <Compile Include="MigrationsDB2\201710210401077_AddAttachmentSupportedFileTypes.Designer.cs">
+      <DependentUpon>201710210401077_AddAttachmentSupportedFileTypes.cs</DependentUpon>
     </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -300,6 +305,7 @@
     </Compile>
     <Compile Include="Repositories\ApplicationRepository.cs" />
     <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\AttachmentSupportedFileTypesRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="IAttachmentRepository.cs" />
@@ -325,6 +331,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MigrationsDB2\201710181418022_InitialDB2.resx">
       <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MigrationsDB2\201710210401077_AddAttachmentSupportedFileTypes.resx">
+      <DependentUpon>201710210401077_AddAttachmentSupportedFileTypes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

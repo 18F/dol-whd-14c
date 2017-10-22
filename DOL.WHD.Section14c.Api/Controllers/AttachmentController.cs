@@ -11,6 +11,7 @@ using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -28,7 +29,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Upload Attachment
+        /// Upload Attachment        
         /// </summary>
         /// <param name="EIN">Employer Identification Number</param>
         /// <returns>Http status code</returns>
@@ -49,11 +50,18 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             var filesReadToProvider = await Request.Content.ReadAsMultipartAsync(new RestrictedMultipartMemoryStreamProvider());
+
             var files = new List<Domain.Models.Submission.Attachment>();
+            var allowedMaximumContentLength = AppSettings.Get<int>("AllowedMaximumContentLength");
             foreach (var stream in filesReadToProvider.Contents)
             {
-                if (stream.Headers.ContentLength == 0)
-                    return BadRequest("Invalid file.");
+                // The code that handle the max allowed length at the IIS level within web.config.
+                // as well as within the httpRuntime attribute found in the system.web section
+                if (stream.Headers.ContentLength < 1 || stream.Headers.ContentLength > allowedMaximumContentLength) 
+                {
+                    // File exceeds the file maximum size or empty
+                    return BadRequest("Invalid file size.");
+                }
 
                 using (var memoryStream = new MemoryStream())
                 {

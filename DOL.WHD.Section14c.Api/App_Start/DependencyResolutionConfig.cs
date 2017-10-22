@@ -31,6 +31,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IStatusService, StatusService>(Lifestyle.Scoped);
             container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
             container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);
+            container.Register<IAttachmentSupportedFileTypesRepository, AttachmentSupportedFileTypesRepository>(Lifestyle.Scoped);
+            container.Register<IAttachmentSupportedFileTypesService, AttachmentSupportedFileTypesService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);

@@ -40,6 +40,7 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<Status> ApplicationStatuses { get; set; }
 
+        public DbSet<AttachmentSupportedFileTypes> ApplicationAttachmentSupportedFileTypes { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
