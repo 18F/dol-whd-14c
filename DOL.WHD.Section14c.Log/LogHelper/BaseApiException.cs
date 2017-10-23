@@ -21,10 +21,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         [DataMember]
         public HttpStatusCode HttpStatus { get; set; }
 
-        [DataMember]
-        public string CorrelationId { get; set; }
-
-        protected string reasonPhrase = string.Empty;
+              protected string reasonPhrase = string.Empty;
 
         [DataMember]
         public virtual string ReasonPhrase
@@ -38,9 +35,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        /// <param name="correlationId"></param>
-        public BaseApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
-            : this(errorCode, errorDescription, httpStatus, correlationId, null)
+        public BaseApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus)
+            : this(errorCode, errorDescription, httpStatus, null)
         {
             
         }
@@ -51,15 +47,13 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        /// <param name="correlationId"></param>
         /// <param name="inner"></param>
-        public BaseApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId, Exception inner) 
+        public BaseApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, Exception inner) 
             : base(errorDescription, inner)
         {
             ErrorCode = errorCode;
             ErrorDescription = errorDescription;
-            HttpStatus = httpStatus;
-            CorrelationId = correlationId;            
+            HttpStatus = httpStatus;           
         }
     }
 }

@@ -22,8 +22,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
         /// <param name="correlationId"></param>
-        public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
-            :base(errorCode, errorDescription, httpStatus, correlationId)
+        public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus)
+            :base(errorCode, errorDescription, httpStatus)
         {            
         }
         /// <summary>
@@ -34,8 +34,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="httpStatus"></param>
         /// <param name="correlationId"></param>
         /// <param name="inner"></param>
-        public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId, Exception inner)
-            : base(errorCode, errorDescription, httpStatus, correlationId, inner)
+        public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, Exception inner)
+            : base(errorCode, errorDescription, httpStatus, inner)
         {            
         }
 

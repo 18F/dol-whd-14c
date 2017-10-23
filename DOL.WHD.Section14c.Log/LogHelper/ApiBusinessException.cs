@@ -21,8 +21,8 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        public ApiBusinessException(int errorCode, string errorDescription, HttpStatusCode httpStatus, string correlationId)
-            : base(errorCode, errorDescription, httpStatus, correlationId)
+        public ApiBusinessException(int errorCode, string errorDescription, HttpStatusCode httpStatus)
+            : base(errorCode, errorDescription, httpStatus)
         {
             reasonPhrase = "API Business Exception";
         }
