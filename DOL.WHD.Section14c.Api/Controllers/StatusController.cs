@@ -37,8 +37,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
            
             if (statuses == null)
             {
-                var message = string.Format("Statuses not found");
-                NotFound(message);
+                NotFound("Statuses not found");
             }
 
             return statuses;

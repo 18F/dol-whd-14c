@@ -59,7 +59,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Model state is not valid");
+                BadRequest("Model state is not valid");
             }
 
             // Validate Recaptcha
@@ -74,7 +74,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
                 {
                     ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
-                    return BadRequest("Model state is not valid", new Exception("Unable to validate reCaptcha Response"));
+                    BadRequest("Unable to validate reCaptcha Response");
                 }
             }
 
@@ -181,8 +181,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var result = await UserManager.ResetPasswordAsync(model.UserId, model.Nounce, model.NewPassword);
             if (!result.Succeeded)
             {
-                //ModelState.AddModelError("ResetPasswordVerification", new Exception("Unable to reset password."));
-                return BadRequest("ResetPasswordVerification", new Exception("Unable to reset password."));
+                BadRequest("Unable to reset password.");
             }
 
             // Check if user is Confirmed, if not confirm them through password reset email verification
@@ -208,11 +207,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Model state is not valid");
+                BadRequest("Model state is not valid");
             }
             if (!User.Identity.IsAuthenticated && string.IsNullOrEmpty(model.Email))
             {
-                return BadRequest("No username or bearer token provided");
+                BadRequest("No username or bearer token provided");
             }
 
             string userId;
@@ -227,7 +226,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 user = await UserManager.FindByEmailAsync(model.Email);
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
-                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 var validCredentials = await UserManager.FindAsync(user.UserName, model.OldPassword);
@@ -238,7 +237,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         await UserManager.AccessFailedAsync(user.Id);
                     }
-                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 userId = user.Id;
@@ -267,7 +266,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
             if (!result.Succeeded)
             {
-                return BadRequest("EmailVerification", new Exception("Unable to verify email"));
+                BadRequest("Unable to verify email");
             }
 
             return Ok();
@@ -322,7 +321,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
             if (user == null)
             {
-                return BadRequest("User not found.");
+                BadRequest("User not found.");
             }
             return Ok(new AccountDetailsViewModel
             {
@@ -366,7 +365,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Model state is not valid");
+                BadRequest("Model state is not valid");
             }
 
             // Add User
@@ -406,13 +405,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Model state is not valid");
+                BadRequest("Model state is not valid");
             }
 
             var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
             if (user == null)
             {
-                return BadRequest("User not found.");
+                BadRequest("User not found.");
             }
 
             // Modify User
@@ -484,7 +483,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (result == null)
             {
-                return InternalServerError("result is null");
+                InternalServerError("result is null");
             }
 
             if (!result.Succeeded)
@@ -500,7 +499,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest("");
+                    BadRequest("No ModelState");
                 }
 
                 return BadRequest(ModelState);

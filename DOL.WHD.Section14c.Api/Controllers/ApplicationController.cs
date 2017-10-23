@@ -57,7 +57,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
-                return BadRequest(results.Errors.ToString()); 
+                BadRequest(results.Errors.ToString()); 
             }
 
             _applicationService.ProcessModel(submission);
@@ -66,7 +66,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized"); 
+                Unauthorized("Unauthorized"); 
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
@@ -86,11 +86,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult GetApplication(Guid id)
         {
             var application = _applicationService.GetApplicationById(id);
-            if (application != null)
+            if (application == null)
             {
-                return Ok(application);
+                NotFound("Application not found");
             }
-            return NotFound("Application not found"); 
+           
+            return Ok(application);
         }
 
         /// <summary>
@@ -120,14 +121,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var application = _applicationService.GetApplicationById(id);
             if (application == null)
             {
-                return NotFound("Application aot found"); 
+                NotFound("Application aot found"); 
             }
             
             // check status id to make sure it is valid
             var status = _statusService.GetStatus(statusId);
             if (status == null)
             {
-                return BadRequest("Status Id is not valid");
+                BadRequest("Status Id is not valid");
             }
 
             await _applicationService.ChangeApplicationStatus(application, statusId);

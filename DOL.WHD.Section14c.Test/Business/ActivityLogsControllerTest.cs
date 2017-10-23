@@ -11,11 +11,11 @@ using DOL.WHD.Section14c.Log.LogHelper;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
-    public class ActivityLogRepositoryTest
+    public class ActivityLogsControllerTest
     {
         private readonly IActivityLogRepository _activityLogRepository;
 
-        public ActivityLogRepositoryTest()
+        public ActivityLogsControllerTest()
         {
             _activityLogRepository = new ActivityLogRepositoryMock();
         }

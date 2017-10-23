@@ -14,6 +14,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
     {
         private bool _disposed;
         private readonly List<APIErrorLogs> _data;
+        public bool AddShouldFail { get; set; } = false;
 
         public bool Disposed => _disposed;
 
@@ -38,32 +39,11 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public LogDetails AddLog(LogDetails entity)
         {
-            if (entity != null)
+            if (this.AddShouldFail)
             {
-                LogEventInfo eventInfo = new LogEventInfo();
-
-                eventInfo.Properties["EIN"] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
-                eventInfo.LoggerName = "NLog";
-                if (string.IsNullOrEmpty(entity.Message))
-                {
-                    throw new ArgumentException("Message cannot be null or empty string", "Log Message");
-                }
-
-                eventInfo.Message = entity.Message;
-
-                if (!string.IsNullOrEmpty(entity.Exception))
-                {
-                    eventInfo.Exception = new Exception(entity.Exception);
-                    eventInfo.SetStackTrace((new System.Diagnostics.StackTrace(new Exception(entity.Exception), false)), 1);
-                }
-
-
-                eventInfo.Level = LogLevel.FromString(entity.Level);
-                eventInfo.Properties["UserId"] = entity.UserId;
-                eventInfo.Properties["UserName"] = entity.User;
-
-                eventInfo.Properties[Constants.IsServiceSideLog] = true;
+                return null;
             }
+
             return entity;
         }
 

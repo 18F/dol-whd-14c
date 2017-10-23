@@ -17,7 +17,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 {
     [AuthorizeHttps]
     [RoutePrefix("api/attachment")]
-    public class AttachmentController : BaseApiController
+    public class AttachmentController :  BaseApiController
     {
         private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
@@ -46,7 +46,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized");
+                Unauthorized("Unauthorized");
             }
 
             var filesReadToProvider = await Request.Content.ReadAsMultipartAsync(new RestrictedMultipartMemoryStreamProvider());
@@ -54,7 +54,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             foreach (var stream in filesReadToProvider.Contents)
             {
                 if (stream.Headers.ContentLength == 0)
-                    return BadRequest("Invalid file.");
+                    BadRequest("Invalid file.");
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -85,36 +85,36 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
             if (!hasEINClaim && !hasViewAllFeature)
             {
-                return Unauthorized("User doesn't have rights to download attachments from this EIN"); 
+                Unauthorized("User doesn't have rights to download attachments from this EIN"); 
             }
 
+            var result = new HttpResponseMessage(HttpStatusCode.OK);
             try
             {
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
                 
                 var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
 
-                var result = new HttpResponseMessage(HttpStatusCode.OK)
-                {
-                    Content = new StreamContent(attachmentDownload.MemoryStream) // Disponsed by Framework
-                };
+
+                result.Content = new StreamContent(attachmentDownload.MemoryStream); // Disponsed by Framework
+              
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue(attachmentDownload.Attachment.MimeType);
                 result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
                     FileName = attachmentDownload.Attachment.OriginalFileName
-                };
-                return Ok(result); //result;
+                };                
                 
             }
             catch (Exception ex)
             {
                 if (ex is ObjectNotFoundException || ex is FileNotFoundException)
                 {
-                    return NotFound("Not found"); 
+                    NotFound("Not found"); 
                 }
 
                 throw;
             }
+            return Ok(result); //result;
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized");
+                Unauthorized("Unauthorized");
             }
 
             try
@@ -141,7 +141,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             catch (ObjectNotFoundException)
             {
-                return NotFound("Not found");
+                NotFound("Not found");
             }
 
             return Ok();

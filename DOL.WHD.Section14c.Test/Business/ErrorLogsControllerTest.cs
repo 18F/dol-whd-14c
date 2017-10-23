@@ -11,12 +11,12 @@ using DOL.WHD.Section14c.Log.LogHelper;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
-    public class ErrorLogRepositoryTest
+    public class ErrorLogsControllerTest
     {
         private readonly IErrorLogRepository _errorLogRepository;
         private readonly LogDetails _data; 
 
-        public ErrorLogRepositoryTest()
+        public ErrorLogsControllerTest()
         {
             _errorLogRepository = new ErrorLogRepositoryMock();
             _data = new LogDetails { EIN = "22-1234567", Exception = "My Test Exception 22", Level = "INFO", Message = "This a test message", User = "test@test.com", UserId = "123456" };
@@ -72,6 +72,19 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.AreEqual(_data.EIN, result.Content.EIN);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApiDataException),
+            "Log not found.")]
+        public void ErrorLog_Addlog_Invalid()
+        {
+            // Arrange
+            var service = new ErrorLogsController(_errorLogRepository);
+            ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = true;
+
+            // Act
+            var result = service.AddLog(_data) as OkNegotiatedContentResult<LogDetails>;
         }
 
         [TestMethod]

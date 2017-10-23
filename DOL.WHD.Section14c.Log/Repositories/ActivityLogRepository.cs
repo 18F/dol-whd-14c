@@ -39,41 +39,6 @@ namespace DOL.WHD.Section14c.Log.Repositories
         }
 
         /// <summary>
-        /// Add New Log
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public LogDetails AddLog(LogDetails entity)
-        {
-            if (entity != null)
-            {
-                LogEventInfo eventInfo = new LogEventInfo();
-
-                eventInfo.Properties["EIN"] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
-                eventInfo.LoggerName = "NLog";
-                if (string.IsNullOrEmpty(entity.Message))
-                {
-                    throw new ArgumentException("Message cannot be null or empty string", "Log Message");
-                }
-
-                eventInfo.Message = entity.Message;
-
-                if (!string.IsNullOrEmpty(entity.Exception))
-                {
-                    eventInfo.Exception = new Exception(entity.Exception);
-                    eventInfo.SetStackTrace((new System.Diagnostics.StackTrace(new Exception(entity.Exception), false)), 1);
-                }
-
-                
-                eventInfo.Level = LogLevel.FromString(entity.Level);
-                eventInfo.Properties["UserId"] = entity.UserId;
-                eventInfo.Properties["UserName"] = entity.User;
-                _logger.Log(eventInfo);
-            }
-            return entity;
-        }
-
-        /// <summary>
         /// Dispose Object
         /// </summary>
         public void Dispose()

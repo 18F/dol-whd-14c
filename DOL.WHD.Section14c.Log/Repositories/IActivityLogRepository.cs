@@ -5,11 +5,15 @@ using DOL.WHD.Section14c.Log.Models;
 
 namespace DOL.WHD.Section14c.Log.Repositories
 {
+    /// <summary>
+    /// Activity Log Interface
+    /// </summary>
     public interface IActivityLogRepository : IDisposable
     {
-        IQueryable<APIActivityLogs> GetAllLogs();
-        
-        LogDetails AddLog(LogDetails entity);
-
+        /// <summary>
+        /// Get all Activity Logs
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<APIActivityLogs> GetAllLogs();      
     }
 }

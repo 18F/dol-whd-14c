@@ -45,16 +45,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized");
+                Unauthorized("Unauthorized");
             }
 
             var applicationSave = _saveService.GetSave(EIN);
             if (applicationSave != null)
             {
-                return Ok(applicationSave.ApplicationState);
+                NotFound("Application Not found");
             }
 
-            return NotFound("Not found");
+            return Ok(applicationSave.ApplicationState);
+            
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized");
+                Unauthorized("Unauthorized");
             }
 
             var state = Request.Content.ReadAsStringAsync().Result;
@@ -81,7 +82,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(e.Message);
+                BadRequest(e.Message);
             }
 
             _saveService.AddOrUpdate(EIN, state);
@@ -102,7 +103,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
-                return Unauthorized("Unauthorized");
+                Unauthorized("Unauthorized");
             }
 
             _saveService.Remove(EIN);
