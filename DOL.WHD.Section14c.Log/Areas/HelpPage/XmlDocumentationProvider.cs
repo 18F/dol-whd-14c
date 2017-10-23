@@ -28,15 +28,6 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
         /// <param name="documentPath">The physical path to XML document.</param>
-        //public XmlDocumentationProvider(string documentPath)
-        //{
-        //    if (documentPath == null)
-        //    {
-        //        throw new ArgumentNullException("documentPath");
-        //    }
-        //    XPathDocument xpath = new XPathDocument(documentPath);
-        //    _documentNavigator = xpath.CreateNavigator();
-        //}
 
         public XmlDocumentationProvider(string appDataPath)
         {
@@ -128,7 +119,7 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             if (reflectedActionDescriptor != null)
             {
                 string selectExpression = String.Format(CultureInfo.InvariantCulture, MethodExpression, GetMemberName(reflectedActionDescriptor.MethodInfo));
-                return SelectSingleNode(selectExpression);  //_documentNavigator.SelectSingleNode(selectExpression);
+                return SelectSingleNode(selectExpression); 
             }
 
             return null;
@@ -165,7 +156,7 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         {
             string controllerTypeName = GetTypeName(type);
             string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
-            return SelectSingleNode(selectExpression);   //_documentNavigator.SelectSingleNode(selectExpression);
+            return SelectSingleNode(selectExpression);   
         }
 
         private static string GetTypeName(Type type)
