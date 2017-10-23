@@ -9,13 +9,16 @@ using System.Web.Http.Results;
 
 namespace DOL.WHD.Section14c.Log.LogHelper
 {
+    /// <summary>
+    /// BaseApiController is used to log exceptions to NLog
+    /// </summary>
     public class BaseApiController : ApiController
     {
         /// <summary>
         /// Throw Not Found Exception
         /// </summary>
         /// <param name="message"></param>
-        public void NotFound(string message)
+        protected void NotFound(string message)
         {
             throw new ApiDataException((int)HttpStatusCode.NotFound, message, HttpStatusCode.NotFound);
         }
@@ -24,7 +27,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// Throw Bad Request Exception
         /// </summary>
         /// <param name="message"></param>
-        public void BadRequest(string message)
+        protected void BadRequest(string message)
         {
             throw new ApiBusinessException((int)HttpStatusCode.BadRequest, message, HttpStatusCode.BadRequest);
         }
@@ -33,7 +36,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// Throw Conflict Exception
         /// </summary>
         /// <param name="message"></param>
-        public void Conflict(string message)
+        protected void Conflict(string message)
         {
             throw new ApiDataException((int)HttpStatusCode.Conflict, message, HttpStatusCode.Conflict);
         }
@@ -42,7 +45,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// Throw Internal Server Error Exception
         /// </summary>
         /// <param name="message"></param>
-        public void InternalServerError(string message)
+        protected void InternalServerError(string message)
         {
             throw new ApiException((int)HttpStatusCode.InternalServerError, message, HttpStatusCode.InternalServerError);
         }
@@ -51,7 +54,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// Throw Unauthorized Exception
         /// </summary>
         /// <param name="message"></param>
-        public void Unauthorized(string message)
+        protected void Unauthorized(string message)
         {
             throw new ApiDataException((int)HttpStatusCode.Unauthorized, message, HttpStatusCode.Unauthorized);
         }
@@ -60,7 +63,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// Throw ExpectationFailed Exception
         /// </summary>
         /// <param name="message"></param>
-        public void ExpectationFailed(string message)
+        protected void ExpectationFailed(string message)
         {
             throw new ApiDataException((int)HttpStatusCode.ExpectationFailed, message, HttpStatusCode.ExpectationFailed);
         }
