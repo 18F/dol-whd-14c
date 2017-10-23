@@ -70,7 +70,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -161,7 +160,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -214,7 +212,6 @@ module.exports = function(ngModule) {
         },
         function errorCallback(error) {
           applicationData.lastSaved = 0;
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -260,7 +257,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -284,7 +280,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -407,7 +402,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -457,7 +451,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
