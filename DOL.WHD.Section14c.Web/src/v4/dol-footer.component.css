@@ -28,9 +28,10 @@
 .dol-footer--content {
   background-color: #900;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.5;
   padding: 16px;
+  font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
 }
 
 .dol-footer--content .usa-grid-full {
@@ -49,6 +50,17 @@
 
 .dol-footer--content a {
   color: #fff;
+  text-decoration: none;
+}
+
+.dol-footer--content a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.dol-footer--content li {
+  line-height: 16px;
+  margin-bottom: 5px;
 }
 
 .mb1 {
