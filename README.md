@@ -1,10 +1,11 @@
 # Department of Labor - Wage and Hour - Section 14c
 
-[![Build status](https://ci.appveyor.com/api/projects/status/gmq5jhbib0ug3rat?svg=true)](https://ci.appveyor.com/project/DOL-WHD-Section14c/master)
-[![Code Climate](https://codeclimate.com/github/AppliedIS/dol-whd-14c/badges/gpa.svg)](https://codeclimate.com/github/AppliedIS/dol-whd-14c)
-[![Javascript Coverage Status](https://coveralls.io/repos/github/AppliedIS/dol-whd-14c/badge.svg?branch=master)](https://coveralls.io/github/AppliedIS/dol-whd-14c?branch=master)
-[![DotNet Coverage Status](http://dol-whd-section14c-coverage-dev.azurewebsites.net/badge_combined.svg)](http://dol-whd-section14c-coverage-dev.azurewebsites.net/)
-[![dependencies Status](https://david-dm.org/AppliedIS/dol-whd-14c/status.svg?path=DOL.WHD.Section14c.Web)](https://david-dm.org/AppliedIS/dol-whd-14c?path=DOL.WHD.Section14c.Web)
+[build status missing]
+[![Maintainability](https://api.codeclimate.com/v1/badges/14bad4b687fc87cb2d13/maintainability)](https://codeclimate.com/github/18F/dol-whd-14c/maintainability)
+[js coverage missing]
+[C# coverage missing]
+[![Dependency Status](https://gemnasium.com/badges/github.com/18F/dol-whd-14c.svg)](https://gemnasium.com/github.com/18F/dol-whd-14c)
+
 
 TODO: Project Summary
 
