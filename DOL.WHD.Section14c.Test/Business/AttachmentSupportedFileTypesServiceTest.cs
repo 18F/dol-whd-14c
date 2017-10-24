@@ -8,60 +8,20 @@ namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
     public class AttachmentSupportedFileTypesServiceTest
-    {        
-
-        private readonly IAttachmentSupportedFileTypesRepository _attachmentSupportedFileTypesRepositoryMock;
-
-        public AttachmentSupportedFileTypesServiceTest()
-        {
-            _attachmentSupportedFileTypesRepositoryMock = new AttachmentSupportedFileTypesRepositoryMock();
-        }
-
-        [TestMethod]
-        public void ReturnsAttachmentSupportedFileTypes()
-        {
-            // Arrange
-            var service = new AttachmentSupportedFileTypesService(_attachmentSupportedFileTypesRepositoryMock);
-
-            // Act
-            var statusObj = service.GetSupportedFileTypes(1);
-
-            // Assert
-            Assert.AreEqual("doc", statusObj.Name);
-        }
-
-        [TestMethod]
-        public void ReturnsAttachmentSupportedFileTypes_Invalid()
-        {
-            // Arrange
-            var service = new AttachmentSupportedFileTypesService(_attachmentSupportedFileTypesRepositoryMock);
-
-            // Act
-            var statusObj = service.GetSupportedFileTypes(100);
-
-            // Assert
-            Assert.IsNull(statusObj);
-        }
-
+    {      
+ 
         [TestMethod]
         public void ReturnsAllAttachmentSupportedFileTypes()
         {
             // Arrange
-            var service = new AttachmentSupportedFileTypesService(_attachmentSupportedFileTypesRepositoryMock);
+            var service = new AttachmentSupportedFileTypesService();
 
             // Act
             var allAttachmentSupportedFileTypes = service.GetAllSupportedFileTypes();
 
             // Assert
-            Assert.AreEqual(8, allAttachmentSupportedFileTypes.Count());
-        }
-
-        [TestMethod]
-        public void Dispose()
-        {
-            var service = new AttachmentSupportedFileTypesService(_attachmentSupportedFileTypesRepositoryMock);
-            service.Dispose();
-            Assert.IsTrue(((AttachmentSupportedFileTypesRepositoryMock)_attachmentSupportedFileTypesRepositoryMock).Disposed);
+            Assert.IsNotNull(allAttachmentSupportedFileTypes);
+            Assert.AreEqual(allAttachmentSupportedFileTypes.Cast<string>().First(), "doc");
         }
     }
 }

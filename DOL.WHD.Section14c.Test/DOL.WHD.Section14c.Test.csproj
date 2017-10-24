@@ -124,7 +124,6 @@
     <Compile Include="Domain\Models\Identity\RoleFeatureTests.cs" />
     <Compile Include="Domain\Models\Submission\ApplicationSubmissionEstablishmentTypeTests.cs" />
     <Compile Include="Domain\Models\Submission\ApplicationSubmissionTests.cs" />
-    <Compile Include="Domain\Models\Submission\AttachmentSupportedFileTypesTest.cs" />
     <Compile Include="Domain\Models\Submission\EmployeeTests.cs" />
     <Compile Include="Domain\Models\Submission\EmployerInfoProvidingFacilitiesDeductionTypeTests.cs" />
     <Compile Include="Domain\Models\Submission\EmployerInfoTests.cs" />
@@ -142,7 +141,6 @@
     <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
     <Compile Include="RepositoryMocks\AttachmentRepositoryMock.cs" />
-    <Compile Include="RepositoryMocks\AttachmentSupportedFileTypesRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\StatusRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />

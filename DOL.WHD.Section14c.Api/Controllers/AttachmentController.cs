@@ -54,18 +54,18 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var files = new List<Domain.Models.Submission.Attachment>();
             var allowedMaximumContentLength = AppSettings.Get<int>("AllowedMaximumContentLength");
             foreach (var stream in filesReadToProvider.Contents)
-            {
-                // The code that handle the max allowed length at the IIS level within web.config.
-                // as well as within the httpRuntime attribute found in the system.web section
-                if (stream.Headers.ContentLength < 1 || stream.Headers.ContentLength > allowedMaximumContentLength) 
+            {               
+               // The code that handle the max allowed length at the IIS level within web.config.
+               // as well as within the httpRuntime attribute found in the system.web section
+               var bytes = await stream.ReadAsByteArrayAsync();
+
+               if( bytes.Length <1 || bytes.Length  > allowedMaximumContentLength)
                 {
-                    // File exceeds the file maximum size or empty
                     return BadRequest("Invalid file size.");
                 }
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    await stream.CopyToAsync(memoryStream);
+                using (var memoryStream = new MemoryStream(bytes))
+                { 
                     var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                     var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
                     var fileUpload = _attachmentService.UploadAttachment(EIN, memoryStream, fileName, fileType);

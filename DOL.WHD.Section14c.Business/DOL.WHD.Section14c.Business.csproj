@@ -112,6 +112,10 @@
     <Compile Include="Validators\WorkSiteValidatorInitial.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
       <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>

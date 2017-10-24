@@ -4,31 +4,31 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
     public class AttachmentSupportedFileTypesService : IAttachmentSupportedFileTypesService
     {
-        private readonly IAttachmentSupportedFileTypesRepository _repository;
-        public AttachmentSupportedFileTypesService(IAttachmentSupportedFileTypesRepository repository)
+        public IEnumerable<string> GetAllSupportedFileTypes()
         {
-            _repository = repository;
-        }
+            String[] types = null;
+            try
+            {
+                var supportedFileTypesPattern = AppSettings.Get<string>("AllowedFileNamesRegex");
 
-        public IEnumerable<AttachmentSupportedFileTypes> GetAllSupportedFileTypes()
-        {
-            return _repository.Get().ToList();
-        }
-
-        public AttachmentSupportedFileTypes GetSupportedFileTypes(int id)
-        {
-            return _repository.Get().SingleOrDefault(x => x.Id == id);
-        }
-
-        public void Dispose()
-        {
-            _repository.Dispose();
-        }
+                if (!string.IsNullOrEmpty(supportedFileTypesPattern))
+                {
+                    var resultString = Regex.Match(supportedFileTypesPattern, @"(?<=\().+?(?=\))").Value;
+                    types = resultString.Split('|');
+                }
+            }
+            catch(Exception ex)
+            {
+                // To Do throw API Business exception for logging and error handling
+            }
+            return types;
+        }     
     }
 }

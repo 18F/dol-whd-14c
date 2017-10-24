@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Business
 {
-    public interface IAttachmentSupportedFileTypesService : IDisposable
+    public interface IAttachmentSupportedFileTypesService
     {
-        IEnumerable<AttachmentSupportedFileTypes> GetAllSupportedFileTypes();
-        AttachmentSupportedFileTypes GetSupportedFileTypes(int id);
+        IEnumerable<string> GetAllSupportedFileTypes();
     }
 }

@@ -31,9 +31,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<AttachmentSupportedFileTypes> GetSupportedFileTypes()
+        public IEnumerable<string> GetSupportedFileTypes()
         {
-            return _supportedFileTypesService.GetAllSupportedFileTypes();
+            var fileTypes = _supportedFileTypesService.GetAllSupportedFileTypes();
+
+            if (fileTypes == null)
+            {
+                NotFound();
+            }
+
+            return fileTypes;
         }
     }
 }
