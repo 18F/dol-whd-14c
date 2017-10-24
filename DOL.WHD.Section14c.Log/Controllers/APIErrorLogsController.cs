@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DOL.WHD.Section14c.Log.Models;
-using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Log.ActionFilters;
 using DOL.WHD.Section14c.Log.LogHelper;
 
@@ -42,8 +42,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
             
             if (logs == null)
             {
-                var message = string.Format("Log not found");
-                NotFound(message);
+                NotFound("Log not found");
             }
             return logs;
         }
@@ -64,8 +63,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
             var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
             if (logs == null)
             {
-                var message = string.Format("Log not found");
-                NotFound(message);
+                NotFound("Log not found");
             }
             return Ok(logs);
         }

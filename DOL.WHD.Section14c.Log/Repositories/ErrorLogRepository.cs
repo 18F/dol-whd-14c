@@ -1,14 +1,10 @@
-﻿using DOL.WHD.Section14c.Log.Models;
+﻿using DOL.WHD.Section14c.Log.DataAccess;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Http;
 
-namespace DOL.WHD.Section14c.Log.Repositories
+namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
 {
     public class ErrorLogRepository: IErrorLogRepository
     {

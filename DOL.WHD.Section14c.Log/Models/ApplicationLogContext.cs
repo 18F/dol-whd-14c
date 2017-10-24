@@ -2,10 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 
-namespace DOL.WHD.Section14c.Log
+namespace DOL.WHD.Section14c.Log.DataAccess
 {
     public class ApplicationLogContext : DbContext
     {
@@ -26,28 +25,14 @@ namespace DOL.WHD.Section14c.Log
             return new ApplicationLogContext();
         }
 
-        public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIActivityLogs> ActivityLogs { get; set; }
-        public System.Data.Entity.DbSet<DOL.WHD.Section14c.Log.Models.APIErrorLogs> ErrorLogs { get; set; }
+        public System.Data.Entity.DbSet<APIActivityLogs> ActivityLogs { get; set; }
+        public System.Data.Entity.DbSet<APIErrorLogs> ErrorLogs { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //modelBuilder
-            //  .Entity<APIActivityLogs>()
-            //  .MapToStoredProcedures(s =>
-            //     s.Insert(i => i.HasName("insert_activity_log")
-            //                   .Parameter(b => b.Message, "@message")
-            //                   .Parameter(b => b.Level, "@Level")
-            //                   .Parameter(b => b.LogTime, "CURRENT TIMESTAMP")
-            //                   .Parameter(b => b.User, "@logger")
-            //                   .Parameter(b => b.Method, "@properties")
-            //                   ));
-
-
         }
-
         
     }
 }

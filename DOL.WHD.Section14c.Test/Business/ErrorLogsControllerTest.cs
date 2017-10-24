@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using DOL.WHD.Section14c.Log.Controllers;
-using DOL.WHD.Section14c.Log.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 using System.Linq;
 using System.Web.Http.Results;
 using DOL.WHD.Section14c.Log.LogHelper;
@@ -62,6 +62,19 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ApiDataException),
+            "Log not found.")]
+        public void ErrorLog_ReturnsAllLogs_Invalid()
+        {
+            // Arrange
+            var service = new ErrorLogsController(_errorLogRepository);
+            ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = true;
+
+            // Act
+            var result = service.GetAllLogs();            
+        }
+
+        [TestMethod]
         public void ErrorLog_AddLogs()
         {
             // Arrange
@@ -81,11 +94,25 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
+           
             ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = true;
 
             // Act
             var result = service.AddLog(_data) as OkNegotiatedContentResult<LogDetails>;
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApiBusinessException),
+           "Model State is not valid.")]
+        public void ErrorLog_Addlog_InvalidModelState()
+        {
+            // Arrange
+            var service = new ErrorLogsController(_errorLogRepository);
+            ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = true;
+            service.ModelState.AddModelError("key", "error message");
+            // Act
+            var result = service.AddLog(_data) as OkNegotiatedContentResult<LogDetails>;
+        }        
 
         [TestMethod]
         public void ErrorLog_Dispose()

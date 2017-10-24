@@ -1,15 +1,13 @@
-﻿using DOL.WHD.Section14c.Log.Models;
-using NLog;
+﻿using NLog;
 using System;
-using System.Collections.Generic;
-using System.Web.Http.Tracing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using DOL.WHD.Section14c.Log.Helpers;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.DataAccess;
 
-namespace DOL.WHD.Section14c.Log.Repositories
+namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
 {
     /// <summary>
     /// Activity Log Repository

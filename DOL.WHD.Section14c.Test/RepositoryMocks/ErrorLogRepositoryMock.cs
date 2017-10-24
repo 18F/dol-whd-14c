@@ -1,12 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DOL.WHD.Section14c.Log.Repositories;
-using DOL.WHD.Section14c.Log.Models;
+﻿using DOL.WHD.Section14c.Log.DataAccess.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NLog;
-using DOL.WHD.Section14c.Log;
 
 namespace DOL.WHD.Section14c.Test.RepositoryMocks
 {
@@ -34,6 +29,11 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public IQueryable<APIErrorLogs> GetAllLogs()
         {
+            if (this.AddShouldFail)
+            {
+                return null;
+            }
+
             return _data.AsQueryable();
         }
 

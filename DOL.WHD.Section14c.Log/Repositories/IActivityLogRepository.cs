@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DOL.WHD.Section14c.Log.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 
-namespace DOL.WHD.Section14c.Log.Repositories
+namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
 {
     /// <summary>
     /// Activity Log Interface

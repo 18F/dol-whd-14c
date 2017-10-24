@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using DOL.WHD.Section14c.Log.Controllers;
-using DOL.WHD.Section14c.Log.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 using System.Linq;
 using System.Web.Http.Results;
 using DOL.WHD.Section14c.Log.LogHelper;
@@ -56,6 +56,19 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.AreEqual(6, result.Count());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ApiDataException),
+            "Log not found.")]
+        public void ActivityLog_ReturnsAllLogs_Invalid()
+        {
+            // Arrange
+            var service = new ActivityLogsController(_activityLogRepository);
+            ((ActivityLogRepositoryMock)_activityLogRepository).AddShouldFail = true;
+
+            // Act
+            var result = service.GetAllLogs();            
         }
 
         [TestMethod]

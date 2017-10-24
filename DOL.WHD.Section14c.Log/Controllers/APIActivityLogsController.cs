@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
+﻿
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DOL.WHD.Section14c.Log.Models;
-using NLog;
-using System.Web.Http.Tracing;
-using DOL.WHD.Section14c.Log.Helpers;
-using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Log.ActionFilters;
 using DOL.WHD.Section14c.Log.LogHelper;
 
@@ -46,20 +38,15 @@ namespace DOL.WHD.Section14c.Log.Controllers
             
             if (activityLogs == null)
             {
-                var message = string.Format("activity Log not found");
-                throw new HttpResponseException(
-                    Request.CreateErrorResponse(HttpStatusCode.NotFound, message));
+                NotFound("Log not found");
             }
-            else
-            {
-                return activityLogs;
-            }            
+            return activityLogs;
         }
 
         /// <summary>
         /// Get an activity log by id
         /// </summary>
-        /// <param name="CorrelationId"></param>
+        /// <param name="correlationId"></param>
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
@@ -71,8 +58,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
             var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
             if (logs == null)
             {
-                var message = string.Format("Log not found");
-                NotFound(message);
+                NotFound("Log not found");
             }
             return Ok(logs);
         }

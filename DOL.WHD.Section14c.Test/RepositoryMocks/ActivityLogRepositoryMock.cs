@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DOL.WHD.Section14c.Log.Repositories;
-using DOL.WHD.Section14c.Log.Models;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         private bool _disposed;
         private readonly List<APIActivityLogs> _data;
-
+        public bool AddShouldFail { get; set; } = false;
         public bool Disposed => _disposed;
 
 
@@ -33,11 +33,20 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public IQueryable<APIActivityLogs> GetAllLogs()
         {
+            if (this.AddShouldFail)
+            {
+                return null;
+            }
             return _data.AsQueryable();
         }
 
         public async Task<APIActivityLogs> GetActivityLogByIDAsync(int id)
         {
+            if (this.AddShouldFail)
+            {
+                return null;
+            }
+
             return _data.AsQueryable().SingleOrDefault(x => x.Id == id);
         }        
 

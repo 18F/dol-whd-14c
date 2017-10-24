@@ -1,11 +1,8 @@
-﻿using DOL.WHD.Section14c.Log.Models;
+﻿using DOL.WHD.Section14c.Log.DataAccess.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Threading.Tasks;
 
-namespace DOL.WHD.Section14c.Log.Repositories
+namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
 {
     public interface IErrorLogRepository : IDisposable
     {

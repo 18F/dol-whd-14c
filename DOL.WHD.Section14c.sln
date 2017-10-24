@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Api", "DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj", "{7F947D49-DE51-4B9E-95E0-AFA3D5577C59}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -66,5 +66,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A26135E4-E031-4596-85E3-FB21E809675F}
 	EndGlobalSection
 EndGlobal

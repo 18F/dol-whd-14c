@@ -1,4 +1,4 @@
-﻿using DOL.WHD.Section14c.Log.Repositories;
+﻿using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using System;
 using System.Collections.Generic;
 using SimpleInjector;

@@ -8,7 +8,7 @@ using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
-using DOL.WHD.Section14c.Log.Repositories;
+using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 
 namespace DOL.WHD.Section14c.Api
 {

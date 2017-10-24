@@ -3,9 +3,9 @@ namespace DOL.WHD.Section14c.Log.Migrations
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
+    using DOL.WHD.Section14c.Log.DataAccess;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<DOL.WHD.Section14c.Log.ApplicationLogContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationLogContext>
     {
         public Configuration()
         {
@@ -14,7 +14,7 @@ namespace DOL.WHD.Section14c.Log.Migrations
             SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
         }
 
-        protected override void Seed(DOL.WHD.Section14c.Log.ApplicationLogContext context)
+        protected override void Seed(ApplicationLogContext context)
         {
             //  This method will be called after migrating to the latest version.
 
