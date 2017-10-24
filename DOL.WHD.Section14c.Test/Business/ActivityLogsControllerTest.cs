@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using DOL.WHD.Section14c.Log.Controllers;
-using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.Models;
 using System.Linq;
 using System.Web.Http.Results;
 using DOL.WHD.Section14c.Log.LogHelper;

@@ -1,4 +1,4 @@
-﻿using DOL.WHD.Section14c.Log.DataAccess.Models;
+﻿using DOL.WHD.Section14c.Log.Models;
 using System;
 using System.Linq;
 

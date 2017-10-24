@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.Models;
 
 namespace DOL.WHD.Section14c.Log.DataAccess
 {

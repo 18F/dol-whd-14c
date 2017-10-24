@@ -1,57 +1,79 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DOL.WHD.Section14c.Log.ActionFilters;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Web;
 using System.Net;
 using System.Web.Http.Controllers;
 using Moq;
-using System.Web.Mvc; 
-using System.Web.Routing;
 using System.Net.Http;
 using System.Text;
 using DOL.WHD.Section14c.Log.LogHelper;
+using System.Web.Http;
+using System;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
 {
     [TestClass()]
     public class LoggingFilterAttributeTests
     {
+        private HttpActionContext httpActionContext;
+        private LoggingFilterAttribute filter;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            var httpRequestMessage = new Mock<HttpRequestMessage>();
+            filter = new LoggingFilterAttribute();
+
+            HttpConfiguration config = new HttpConfiguration();
+            string controllerName = "UsersController";
+            Type controllerType = typeof(BaseApiController);
+
+            var httpActionDescriptor = new Mock<HttpActionDescriptor>();
+            httpActionDescriptor.Name = "Test";
+
+            httpActionContext = new HttpActionContext
+            {
+                ControllerContext = new HttpControllerContext
+                {
+                    Request = httpRequestMessage.Object as HttpRequestMessage,
+                    ControllerDescriptor = new HttpControllerDescriptor(config, controllerName, controllerType)
+                },
+                Response = new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.Conflict,
+                    Content = new StringContent("test")
+                },
+                ActionDescriptor = httpActionDescriptor.Object as HttpActionDescriptor
+            };
+        }
+
 
         [TestMethod()]
         public void LoggingFilterAttribute_AllowMultipleTest()
         {
             LoggingFilterAttribute actionFilter = new LoggingFilterAttribute();
 
-            Assert.IsTrue(actionFilter.AllowMultiple);            
+            Assert.IsTrue(actionFilter.AllowMultiple);
+        }
+
+        [TestMethod()]
+        public void LoggingFilterAttribute_OnActionExecutingTest()
+        {
+            filter.OnActionExecuting(httpActionContext);
+
+            Assert.IsTrue(httpActionContext.Response.StatusCode == HttpStatusCode.Conflict);
+
         }
 
         [TestMethod()]
         [ExpectedException(typeof(ApiException),
            "Internal Server Error.")]
-        public void LoggingFilterAttribute_OnActionExecutingTest()
-        {    
-            var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "mywebapi/test");
-            httpRequestMessage.Content = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");
-
-            var httpActionContext = new HttpActionContext
-            {
-                ControllerContext = new HttpControllerContext
-                {
-                    Request = httpRequestMessage,
-                    ControllerDescriptor = new HttpControllerDescriptor()
-                },
-                Response = new HttpResponseMessage
-                {
-                    StatusCode = HttpStatusCode.Conflict,
-                    Content = new StringContent("tets")
-                }
-
-            };
-
-            var filter = new LoggingFilterAttribute();
-            filter.OnActionExecuting(httpActionContext);
+        public void LoggingFilterAttribute_OnActionExecutingTest_Invalid()
+        {
+            filter.OnActionExecuting(null);
 
             Assert.IsTrue(httpActionContext.Response.StatusCode == HttpStatusCode.Conflict);
-
-
         }
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿using DOL.WHD.Section14c.Log.DataAccess;
-using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.Models;
 using NLog;
 using System;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
-using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.Models;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.Log.ActionFilters;
 using DOL.WHD.Section14c.Log.LogHelper;

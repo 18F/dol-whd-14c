@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DOL.WHD.Section14c.Log.DataAccess.Models
+namespace DOL.WHD.Section14c.Log.Models
 {
     public class APIActivityLogs: LogDetails
     {

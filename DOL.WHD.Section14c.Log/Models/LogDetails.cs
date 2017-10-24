@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace DOL.WHD.Section14c.Log.DataAccess.Models
+namespace DOL.WHD.Section14c.Log.Models
 {
     public class LogDetails
     {

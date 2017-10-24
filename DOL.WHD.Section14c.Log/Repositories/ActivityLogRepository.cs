@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using DOL.WHD.Section14c.Log.DataAccess.Models;
+using DOL.WHD.Section14c.Log.Models;
 using DOL.WHD.Section14c.Log.DataAccess;
 
 namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
