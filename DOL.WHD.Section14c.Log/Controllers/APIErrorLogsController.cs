@@ -60,7 +60,8 @@ namespace DOL.WHD.Section14c.Log.Controllers
         public IHttpActionResult GetErrorLogByID(string correlationId)
         {
             var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
-            if (logs == null){
+            if (logs == null)
+            {
                 NotFound("Log not found");
             }
             return Ok(logs);
@@ -74,18 +75,19 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // POST: api/ErrorLogs
         [HttpPost]
         [Route("AddLog")]
-        //[LoggingFilterAttribute]
-        //[GlobalExceptionAttribute]
-        //[ResponseType(typeof(APIErrorLogs))]
+        [LoggingFilterAttribute]
+        [GlobalExceptionAttribute]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
-            if (!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 BadRequest("Model State is not valid");
             }
            
             var log = errorLogRepository.AddLog(errorLog);
 
-            if (log == null) {
+            if (log == null)
+            {
                 ExpectationFailed("Unable to add log");
             }
 
