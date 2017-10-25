@@ -4,7 +4,7 @@
 var IS_DEBUG = process.env.DEBUG || false;
 var BROWSERS = [IS_DEBUG ? 'Chrome' : 'PhantomJS'];
 
-var webpackConfig = require('./webpack.test.config');
+var webpackConfig = require('./webpack.config');
 
 module.exports = function(config) {
   config.set({

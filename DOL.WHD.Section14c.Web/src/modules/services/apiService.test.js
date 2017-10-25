@@ -17,7 +17,6 @@ describe('apiService', function() {
   var passwordResetUrl;
   var current;
   var code;
-  var reCaptchaResponse;
   var emailVerificationUrl;
   var applicationData = { saved: 'place' };
   var account = { email: 'jonhson', roles: 'admin', userId: 'jmmcnj' };

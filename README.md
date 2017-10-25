@@ -1,10 +1,11 @@
 # Department of Labor - Wage and Hour - Section 14c
 
-[![Build status](https://ci.appveyor.com/api/projects/status/gmq5jhbib0ug3rat?svg=true)](https://ci.appveyor.com/project/DOL-WHD-Section14c/master)
-[![Code Climate](https://codeclimate.com/github/AppliedIS/dol-whd-14c/badges/gpa.svg)](https://codeclimate.com/github/AppliedIS/dol-whd-14c)
-[![Javascript Coverage Status](https://coveralls.io/repos/github/AppliedIS/dol-whd-14c/badge.svg?branch=master)](https://coveralls.io/github/AppliedIS/dol-whd-14c?branch=master)
-[![DotNet Coverage Status](http://dol-whd-section14c-coverage-dev.azurewebsites.net/badge_combined.svg)](http://dol-whd-section14c-coverage-dev.azurewebsites.net/)
-[![dependencies Status](https://david-dm.org/AppliedIS/dol-whd-14c/status.svg?path=DOL.WHD.Section14c.Web)](https://david-dm.org/AppliedIS/dol-whd-14c?path=DOL.WHD.Section14c.Web)
+[build status missing]
+[![Maintainability](https://api.codeclimate.com/v1/badges/14bad4b687fc87cb2d13/maintainability)](https://codeclimate.com/github/18F/dol-whd-14c/maintainability)
+[js coverage missing]
+[C# coverage missing]
+[![Dependency Status](https://gemnasium.com/badges/github.com/18F/dol-whd-14c.svg)](https://gemnasium.com/github.com/18F/dol-whd-14c)
+
 
 TODO: Project Summary
 
@@ -97,7 +98,6 @@ All configurations for the Web project are set in the env.js. This file is exclu
 | Setting | Description | Default   
 | --- | --- | ---
 api_url* | Full URL of the REST API Service | http://localhost:3334 (Local develoment URL)
-reCaptchaSiteKey* | reCaptcha Site Key | (Development Key with localhost enabled)
 requireHttps | Use secure cookie | true
 tokenCookieDurationMinutes | Token Cookie Expiration in Minutes | 20160 (14 days to match server AccessTokenExpireTimeSpanMinutes)
 
@@ -112,8 +112,6 @@ The following are setup as WebDeploy parameters and can be set with command line
 | Setting | Description | Default   
 | --- | --- | ---
 ConnectionString* | PostgreSQL database connection string | No Deployment Default
-ReCaptchaVerfiyUrl* | URL Application uses to verifu reCaptcha server-side | https://www.google.com/recaptcha/api/siteverify
-ReCaptchaSecretKey* | reCaptcha Secret Key sent with the server-side verification.  If this key is not provided the server-side validation will be disabled. | No Deployment Default
 SMTPServer* | SMTP Email Server Address | localhost
 SMTPPort* | SMTP Email Server Port | 25
 SMTPUserName* | SMTP Email Server User Name | empty

@@ -121,9 +121,9 @@
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="IStatusRepository.cs" />
-    <Compile Include="MigrationsDB2\201709281739066_InitialDB2.cs" />
-    <Compile Include="MigrationsDB2\201709281739066_InitialDB2.Designer.cs">
-      <DependentUpon>201709281739066_InitialDB2.cs</DependentUpon>
+    <Compile Include="MigrationsDB2\201710181418022_InitialDB2.cs" />
+    <Compile Include="MigrationsDB2\201710181418022_InitialDB2.Designer.cs">
+      <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -318,8 +318,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MigrationsDB2\201709281739066_InitialDB2.resx">
-      <DependentUpon>201709281739066_InitialDB2.cs</DependentUpon>
+    <EmbeddedResource Include="MigrationsDB2\201710181418022_InitialDB2.resx">
+      <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

@@ -62,22 +62,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest("Model state is not valid");
             }
 
-            // Validate Recaptcha
-            var reCaptchaVerfiyUrl = AppSettings.Get<string>("ReCaptchaVerfiyUrl");
-            var reCaptchaSecretKey = AppSettings.Get<string>("ReCaptchaSecretKey");
-            if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
-            {
-                var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
-                var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
-
-                var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, remoteIpAddress);
-                if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
-                {
-                    ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
-                    BadRequest("Unable to validate reCaptcha Response");
-                }
-            }
-
             // Add User
             var now = DateTime.UtcNow;
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
@@ -244,7 +228,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             IdentityResult result = await UserManager.ChangePasswordAsync(userId, model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);

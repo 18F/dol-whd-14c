@@ -17,7 +17,6 @@ import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
-import vcRecaptcha from 'angular-recaptcha';
 import angularMoment from 'angular-moment';
 import ngMask from 'ng-mask';
 import ngCookies from 'angular-cookies';
@@ -38,7 +37,6 @@ let app = angular.module('14c', [
   ngResource,
   ngRoute,
   ngSanitize,
-  'vcRecaptcha',
   'angularMoment',
   'ngMask',
   'ngCookies',
