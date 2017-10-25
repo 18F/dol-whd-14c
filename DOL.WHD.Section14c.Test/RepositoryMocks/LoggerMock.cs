@@ -1,4 +1,5 @@
 ﻿using DOL.WHD.Section14c.Log.Helpers;
+using Moq;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
     public class LoggerMock : ITraceWriter
     {
         // Define a public property for the message. 
-        // Your unit tests can query this property
-        // to validate that the method was called. 
         public string LogToOperationsCalledWithMessage { get; set; }
-        
 
         /// <summary>
         /// Implementation of TraceWriter to trace the logs.

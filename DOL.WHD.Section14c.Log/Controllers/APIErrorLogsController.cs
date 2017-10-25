@@ -40,8 +40,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         {
             var logs = errorLogRepository.GetAllLogs();
             
-            if (logs == null)
-            {
+            if (logs == null){
                 NotFound("Log not found");
             }
             return logs;
@@ -61,8 +60,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         public IHttpActionResult GetErrorLogByID(string correlationId)
         {
             var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
-            if (logs == null)
-            {
+            if (logs == null){
                 NotFound("Log not found");
             }
             return Ok(logs);
@@ -81,19 +79,17 @@ namespace DOL.WHD.Section14c.Log.Controllers
         //[ResponseType(typeof(APIErrorLogs))]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid){
                 BadRequest("Model State is not valid");
             }
            
             var log = errorLogRepository.AddLog(errorLog);
-            if (log == null)
-            {
+
+            if (log == null) {
                 ExpectationFailed("Unable to add log");
             }
 
-            return Ok(log);          
-            
+            return Ok(log);     
         }
 
         /// <summary>

@@ -36,8 +36,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         {
             var activityLogs = activityLogRepository.GetAllLogs();
             
-            if (activityLogs == null)
-            {
+            if (activityLogs == null){
                 NotFound("Log not found");
             }
             return activityLogs;
@@ -56,8 +55,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         public IHttpActionResult GetActivityLogByID(string correlationId)
         {
             var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
-            if (logs == null)
-            {
+            if (logs == null){
                 NotFound("Log not found");
             }
             return Ok(logs);
