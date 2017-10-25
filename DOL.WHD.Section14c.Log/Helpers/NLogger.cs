@@ -49,7 +49,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             {
                 if (traceAction != null && traceAction.Target != null)
                 {
-                    category = category + Environment.NewLine + "Action Parameters : " + traceAction.Target.ToJSON();
+                    category = category + Environment.NewLine + "Action Parameters : ";// + traceAction.Target.ToJSON();
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
@@ -79,6 +79,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             if (!string.IsNullOrWhiteSpace(record.Message))
                 message.Append("").Append(record.Message + Environment.NewLine);
 
+            /// Get request Information and append to the message
             if (record.Request != null)
             {
                 if (record.Request.Method != null)
@@ -97,6 +98,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             if (!string.IsNullOrWhiteSpace(record.Operator))
                 message.Append(" ").Append(record.Operator).Append(" ").Append(record.Operation);
 
+            // Get exception information; append to the message details and Event exception object
             if (record.Exception != null && !string.IsNullOrWhiteSpace(record.Exception.GetBaseException().Message))
             {
                 eventInfo.Exception = record.Exception;
@@ -113,23 +115,15 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }                
             }
 
+            // Not every request will have user details. Unauthenticated users will not return anything
             var currentUserName = TryToFindUserName(record);
             eventInfo.Properties[Constants.UserName] = currentUserName;           
 
             eventInfo.Message = Convert.ToString(message);
             eventInfo.Level = LogLevel.FromString(record.Level.ToString());
 
-            //
-            if (record.Request != null && record.Request.RequestUri != null &&
-                record.Request.RequestUri.LocalPath != null &&
-                record.Request.RequestUri.LocalPath.ToLower().Contains("addlog"))
-            {
-                ClassLogger.Log(LogLevel.FromString(record.Level.ToString()), record.Exception, Convert.ToString(message) );
-            }
-            else
-            {
-                ClassLogger.Log(eventInfo);
-            }
+            // Log to the database
+            ClassLogger.Log(eventInfo);
         }
 
         /// <summary>
@@ -152,7 +146,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             }
             catch(Exception ex)
             {
-                // DO nothing is correlation id is not found.
+                // Do nothing if correlation id is not found.
             }
 
             return correlationId;
@@ -177,7 +171,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
 
             catch (Exception ex)
             {
-                // Do nothing is user not found.
+                // Do nothing if user not found.
             }
             return temp;
         }

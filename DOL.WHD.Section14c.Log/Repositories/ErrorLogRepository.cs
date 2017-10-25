@@ -56,6 +56,7 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
                 eventInfo.Level = LogLevel.FromString(entity.Level);
                 eventInfo.Properties[Constants.UserId] = entity.UserId;
                 eventInfo.Properties[Constants.UserName] = entity.User;
+                eventInfo.Properties[Constants.IsServiceSideLog] = 0;
                 _logger.Log(eventInfo);
             }
             return entity;

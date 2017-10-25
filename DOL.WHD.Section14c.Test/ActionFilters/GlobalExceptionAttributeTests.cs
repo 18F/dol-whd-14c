@@ -12,6 +12,7 @@ using System.Net;
 using Moq;
 using System.Web.Http;
 using DOL.WHD.Section14c.Log.LogHelper;
+using System.ComponentModel.DataAnnotations;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
 {
@@ -30,7 +31,7 @@ namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
 
             var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, "mywebapi/test");
             httpRequestMessage.Content = new StringContent("", Encoding.UTF8, "application/x-www-form-urlencoded");
-            httpRequestMessage.RequestUri = new Uri("http://localhost:8080/mywebapi/test");
+            httpRequestMessage.RequestUri = new Uri("http://localhost:8080/addlog/test");
             httpRequestMessage.Properties[System.Web.Http.Hosting.HttpPropertyKeys.HttpConfigurationKey] = configuration;
 
             
@@ -69,7 +70,18 @@ namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
             Assert.IsTrue(actionFilter.AllowMultiple);            
         }
 
+
         [TestMethod()]
+        [ExpectedException(typeof(HttpResponseException),
+       "Internal Server Error.")]
+        public void GlobalExceptionAttribute_OnExceptionTest_ValidationException()
+        {
+            httpActionExecutedContext.Exception = new ValidationException();
+            filter.OnException(httpActionExecutedContext);
+        }
+
+
+       [TestMethod()]
         [ExpectedException(typeof(HttpResponseException),
            "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_UnauthorizedAccessException()
@@ -114,6 +126,16 @@ namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
                 (int)HttpStatusCode.NotFound,
                 "Error",
                 HttpStatusCode.NotFound);
+            filter.OnException(httpActionExecutedContext);
+
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(HttpResponseException),
+           "Internal Server Error.")]
+        public void GlobalExceptionAttribute_OnExceptionTest_Exception()
+        {
+            httpActionExecutedContext.Exception = new Exception();
             filter.OnException(httpActionExecutedContext);
 
         }

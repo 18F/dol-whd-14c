@@ -76,8 +76,8 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // POST: api/ErrorLogs
         [HttpPost]
         [Route("AddLog")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
+        //[LoggingFilterAttribute]
+        //[GlobalExceptionAttribute]
         //[ResponseType(typeof(APIErrorLogs))]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
@@ -89,8 +89,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
             var log = errorLogRepository.AddLog(errorLog);
             if (log == null)
             {
-                var message = string.Format("Unable to add log");
-                ExpectationFailed(message);
+                ExpectationFailed("Unable to add log");
             }
 
             return Ok(log);          
