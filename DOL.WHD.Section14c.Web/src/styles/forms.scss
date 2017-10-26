@@ -29,6 +29,15 @@
       margin-top: 2rem;
     }      
   }
+
+  .em-block {
+    background-color: $color-gray-lightest;
+    padding: 2rem;
+
+    table thead th {
+      background-color: darken($form-em-grey, 10%);
+    }
+  }  
 }
 
 // Section title and global Help toggle
@@ -278,8 +287,6 @@ input.email {
 
 // Limit the width of text in the form per USWDS recommendation
 // Within the form, increase the default width b/c the default font size is larger
-.dol-form-page .usa-content,
-.dol-form-page .usa-content p:not(.usa-font-lead),
 .dol-form-page ul,
 .dol-form-page ol,
 .dol-form-question-block label,
@@ -289,6 +296,7 @@ input.email {
 .dol-form-page .usa-input-error-message {
   max-width: 60rem;
 }
+
 
 // ----- end NEW CSS RULES
 
