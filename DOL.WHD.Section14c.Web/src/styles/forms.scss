@@ -160,11 +160,10 @@ button.dol-help-link {
   margin: 0 0 0 4px;
   padding: 0;
   cursor: pointer;
-  background: #fff url('../images/dol-help-blue.png') center center;
-  background: #fff url('../images/dol-help-blue.svg') center center;
+  background: url('../images/dol-help-blue.png') center center;
+  background: url('../images/dol-help-blue.svg') center center;
   background-size: contain;
   text-indent: -9999px;
-  color: #000;
 
   &:hover {
     opacity: 0.8; 
