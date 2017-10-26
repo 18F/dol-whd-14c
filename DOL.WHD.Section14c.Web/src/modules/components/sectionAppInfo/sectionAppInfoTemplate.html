@@ -97,14 +97,15 @@
 
 
   <fieldset class="dol-form-sub-section">
-    <legend>
-      <h3><span id="applicationContactLabel">Application Contact Person</span>
-      <helplink aria-controls="applicationContactPersonHelp" aria-describedby="applicationContactLabel"></helplink>
-      </h3>
+    <legend class="hide">
+      <span id="applicationContactLabel">Application Contact Person</span>
     </legend>
+    <div class="dol-legend-h3-help">
+      <h3 aria-hidden="true">Application Contact Person</span></h3>
+      <helplink aria-controls="applicationContactPersonHelp" aria-describedby="applicationContactLabel"></helplink>        
+    </div>
     <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
     <hr />
-
     <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
       <label for="contactName">Full Name</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>

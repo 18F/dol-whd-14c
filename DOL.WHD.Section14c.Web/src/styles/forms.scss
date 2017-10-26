@@ -101,10 +101,8 @@
         margin-top: 0;
       }
     }
-  }
-  > legend {
-    + .dol-help-text {
-      margin-top: 10px;
+    .dol-legend-h3-help {
+      margin-top: 0;
     }
   }
 }
@@ -174,6 +172,15 @@ button.dol-help-link {
 .dol-legend-help {
   margin-bottom: 20px;
   max-width: 60rem;
+}
+.dol-legend-h3-help {
+  margin-top: 2.1em;
+  h3 {
+    display: inline;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
 }
 
 //Help text
