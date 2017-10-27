@@ -66,13 +66,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.Updated.15.0.26228\lib\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.5.22.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.5.22\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.4.2\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
@@ -82,6 +88,37 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -92,6 +129,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ActionFilters\GlobalExceptionAttributeTests.cs" />
+    <Compile Include="ActionFilters\LoggingFilterAttributeTests.cs" />
     <Compile Include="Business\ApplicationServiceTests.cs" />
     <Compile Include="Business\AttachmentServiceTests.cs" />
     <Compile Include="Business\AttachmentSupportedFileTypesServiceTest.cs" />
@@ -99,6 +138,8 @@
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\StatusServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
+    <Compile Include="Business\ActivityLogsControllerTest.cs" />
+    <Compile Include="Business\ErrorLogsControllerTest.cs" />
     <Compile Include="Business\Validators\AddressValidatorNoCountyTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorTests.cs" />
     <Compile Include="Business\Validators\AlternateWageDataValidatorTests.cs" />
@@ -140,12 +181,19 @@
     <Compile Include="Domain\ViewModels\RoleViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
+    <Compile Include="Helpers\JSONHelperTests.cs" />
+    <Compile Include="Business\BaseAPIControllerTest.cs" />
+    <Compile Include="Helpers\NLoggerTests.cs" />
     <Compile Include="RepositoryMocks\AttachmentRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\StatusRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
-    <None Include="app.config" />
+    <Compile Include="RepositoryMocks\ActivityLogRepositoryMock.cs" />
+    <Compile Include="RepositoryMocks\ErrorLogRepositoryMock.cs" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="CodeCoverage.bat" />
     <Compile Include="Business\SaveServiceTests.cs" />
     <Compile Include="DataAccess\Validators\Section14cPasswordValidatorTests.cs" />
@@ -173,6 +221,10 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
+      <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
+      <Name>DOL.WHD.Section14c.Log</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

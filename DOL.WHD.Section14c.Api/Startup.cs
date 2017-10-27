@@ -1,6 +1,7 @@
 ﻿using DOL.WHD.Section14c.Api;
 using Microsoft.Owin;
 using Owin;
+using System.Web.Http.ExceptionHandling;
 
 [assembly: OwinStartup(typeof(Startup))]
 
