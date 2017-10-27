@@ -20,34 +20,19 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
 
             AutomaticMigrationDataLossAllowed = true;
             SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
-            //SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
-            
         }
 
         protected override void Seed(DOL.WHD.Section14c.DataAccess.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-
             // ApplicationType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", ShortDisplay = "Initial", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", ShortDisplay = "Renewal", IsActive = true });
 
             // Establishment Type
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation Program (Work Center)", ShortDisplay = "CRP", SubDisplay = "A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", ShortDisplay = "Hospital", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", ShortDisplay = "SWEP", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.", IsActive = true });
-            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", ShortDisplay = "Business", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.WorkCenter, QuestionKey = "EstablishmentType", Display = "Community Rehabilitation (Work Center)", ShortDisplay = "CRP", SubDisplay = "A facility that primarily provides vocational rehabilitiation services and employment for people with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.PatientWorkers, QuestionKey = "EstablishmentType", Display = "Hospital/Residential Care Facility (Patient Workers)", ShortDisplay = "Hospital", SubDisplay = "A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.SWEP, QuestionKey = "EstablishmentType", Display = "School Work Experience Program (SWEP)", ShortDisplay = "SWEP", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community.", IsActive = true });
+            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EstablishmentType.BusinessEstablishment, QuestionKey = "EstablishmentType", Display = "Business Establishment", ShortDisplay = "Business", SubDisplay = "Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP", IsActive = true });
 
             // Employer Status
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.EmployerStatus.Public, QuestionKey = "EmployerStatus", Display = "Public (State or Local Government)", IsActive = true });
