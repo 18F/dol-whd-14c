@@ -16,7 +16,6 @@ namespace DOL.WHD.Section14c.Api.Areas.HelpPage
     /// </summary>
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
     {
-        //private XPathNavigator _documentNavigator;
         private List<XPathNavigator> _documentNavigators = new List<XPathNavigator>();
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";

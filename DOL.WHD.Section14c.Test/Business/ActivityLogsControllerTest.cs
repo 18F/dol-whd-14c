@@ -20,6 +20,12 @@ namespace DOL.WHD.Section14c.Test.Business
             _activityLogRepository = new ActivityLogRepositoryMock();
         }
 
+        [TestInitialize]
+        public void Initialize()
+        {
+            ((ActivityLogRepositoryMock)_activityLogRepository).AddShouldFail = false;
+        }
+
         [TestMethod]
         public void ActivityLog_ReturnsLogById()
         {
@@ -37,7 +43,7 @@ namespace DOL.WHD.Section14c.Test.Business
         [TestMethod]
         [ExpectedException(typeof(ApiDataException),
             "Log not found.")]
-        public void ActivityLog_ReturnsLogs_Invalid()
+        public void ActivityLog_ReturnsLogById_Invalid()
         {
             // Arrange
             var service = new ActivityLogsController(_activityLogRepository);

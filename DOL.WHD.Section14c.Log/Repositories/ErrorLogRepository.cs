@@ -36,15 +36,16 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
             
             if (entity != null)
             {
-                LogEventInfo eventInfo = new LogEventInfo();
-                eventInfo.Properties[Constants.CorrelationId] = Guid.NewGuid().ToString();
-
-                eventInfo.Properties[Constants.EIN] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
-                eventInfo.LoggerName = "NLog";
                 if (string.IsNullOrEmpty(entity.Message))
                 {
                     throw new ArgumentException("Message cannot be null or empty string", "Log Message");
                 }
+
+                LogEventInfo eventInfo = new LogEventInfo();
+                eventInfo.Properties[Constants.CorrelationId] = Guid.NewGuid().ToString();
+
+                eventInfo.Properties[Constants.EIN] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
+                eventInfo.LoggerName = "NLog";                
 
                 eventInfo.Message = entity.Message;
 

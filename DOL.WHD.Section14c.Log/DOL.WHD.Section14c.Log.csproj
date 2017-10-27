@@ -218,6 +218,7 @@
     <Compile Include="Migrations\201710201616375_Initial.Designer.cs">
       <DependentUpon>201710201616375_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\APILogs.cs" />
     <Compile Include="Models\LogDetails.cs" />
     <Compile Include="Helpers\LogLayoutRenderer.cs" />
     <Compile Include="LogHelper\ApiBusinessException.cs" />

@@ -59,7 +59,10 @@ namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
         [TestMethod()]
         public void LoggingFilterAttribute_OnActionExecutingTest()
         {
-
+            // Due to the void return type of ActionFilterAttribute's OnActionExecuting, 
+            // I can only verifying that OnActionExecuting is called without any exception.
+            // Please visit the link below for more details.
+            // https://github.com/18F/dol-whd-14c/pull/316#discussion_r147143929
             filter.OnActionExecuting(httpActionContext);
         }
 

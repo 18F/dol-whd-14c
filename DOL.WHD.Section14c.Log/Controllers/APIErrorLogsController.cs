@@ -49,7 +49,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <summary>
         /// Get an error log by id
         /// </summary>
-        /// <param name="CorrelationId"></param>
+        /// <param name="correlationId"></param>
         /// <returns></returns>
         // GET: api/ErrorLogs/5
         [HttpGet]

@@ -16,37 +16,32 @@ namespace DOL.WHD.Section14c.Test.Business
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApiBusinessException),
-           "Error.")]
+        [ExpectedException(typeof(ApiBusinessException))]
         public void BaseApiController_BadRequest_Test()
         {
             BadRequest("Bad Request");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ApiDataException),
-           "Error.")]
+        [ExpectedException(typeof(ApiDataException))]
         public void BaseApiController_Conflict_Test()
         {
             Conflict("Conflict");
         }
         [TestMethod]
-        [ExpectedException(typeof(ApiException),
-           "Error.")]
+        [ExpectedException(typeof(ApiException))]
         public void BaseApiController_InternalServerError_Test()
         {
             InternalServerError("Internal Server Error");
         }
         [TestMethod]
-        [ExpectedException(typeof(ApiDataException),
-           "Error.")]
+        [ExpectedException(typeof(ApiDataException))]
         public void BaseApiController_Unauthorized_Test()
         {
             Unauthorized("Unauthorized");
         }
         [TestMethod]
-        [ExpectedException(typeof(ApiDataException),
-           "Error.")]
+        [ExpectedException(typeof(ApiDataException))]
         public void BaseApiController_ExpectationFailed_Test()
         {
             ExpectationFailed("Expectation Failed");

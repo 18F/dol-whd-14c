@@ -9,6 +9,8 @@ using System.Web.Http.Results;
 using DOL.WHD.Section14c.Log.Controllers;
 using System.Web.Http;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
+using Moq;
+using System.Web.Script.Serialization;
 
 namespace DOL.WHD.Section14c.Log.Helpers.Tests
 {
@@ -29,10 +31,9 @@ namespace DOL.WHD.Section14c.Log.Helpers.Tests
         [TestMethod()]
         public void JSONHelper_ToJSONTest()
         {          
-            string result = JSONHelper.ToJSON(serviceSTatus);
-            string exceptedJSONValue = "{\"StatusCode\":123,\"StatusMessage\":\"Test message\",\"ReasonPhrase\":\"This is test\",\"CorrelationId\":\"123\"}";
-            Assert.AreEqual(result, exceptedJSONValue);
-            
+            var javaScriptSerializerMock =  new Mock<JavaScriptSerializer>();
+            var javaScriptSerializer =  javaScriptSerializerMock.Object;
+            Assert.IsNotNull(javaScriptSerializer.Serialize(serviceSTatus));            
         }   
     }
 }

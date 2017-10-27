@@ -72,72 +72,94 @@ namespace DOL.WHD.Section14c.Log.ActionFilters.Tests
 
 
         [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-       "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_ValidationException()
         {
-            httpActionExecutedContext.Exception = new ValidationException();
-            filter.OnException(httpActionExecutedContext);
+            try
+            {
+                httpActionExecutedContext.Exception = new ValidationException();
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch(HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.BadRequest);
+            }
         }
 
 
        [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-           "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_UnauthorizedAccessException()
         {
-            httpActionExecutedContext.Exception = new UnauthorizedAccessException();
-            filter.OnException(httpActionExecutedContext);
-            
+            try
+            {
+                httpActionExecutedContext.Exception = new UnauthorizedAccessException();
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.Unauthorized);
+            }
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-           "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_ApiException()
         {
-            httpActionExecutedContext.Exception = new ApiException(
-                (int)HttpStatusCode.InternalServerError, 
-                "Error", 
-                HttpStatusCode.InternalServerError );
-            filter.OnException(httpActionExecutedContext);
-
+            try
+            {
+                httpActionExecutedContext.Exception = new ApiException(
+                                    (int)HttpStatusCode.InternalServerError, 
+                                    "Error", 
+                                    HttpStatusCode.InternalServerError );
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.InternalServerError);
+            }
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-           "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_ApiBusinessException()
         {
-            httpActionExecutedContext.Exception = new ApiBusinessException(
-                (int)HttpStatusCode.BadRequest,
-                "Error",
-                HttpStatusCode.BadRequest);
-            filter.OnException(httpActionExecutedContext);
-
+            try { 
+                httpActionExecutedContext.Exception = new ApiBusinessException(
+                    (int)HttpStatusCode.BadRequest,
+                    "Error",
+                    HttpStatusCode.BadRequest);
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.BadRequest);
+            }
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-           "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_ApiDataException()
         {
-            httpActionExecutedContext.Exception = new ApiDataException(
-                (int)HttpStatusCode.NotFound,
-                "Error",
-                HttpStatusCode.NotFound);
-            filter.OnException(httpActionExecutedContext);
-
+            try { 
+                httpActionExecutedContext.Exception = new ApiDataException(
+                    (int)HttpStatusCode.NotFound,
+                    "Error",
+                    HttpStatusCode.NotFound);
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.NotFound);
+            }
         }
 
         [TestMethod()]
-        [ExpectedException(typeof(HttpResponseException),
-           "Internal Server Error.")]
         public void GlobalExceptionAttribute_OnExceptionTest_Exception()
         {
-            httpActionExecutedContext.Exception = new Exception();
-            filter.OnException(httpActionExecutedContext);
-
+            try { 
+                httpActionExecutedContext.Exception = new Exception();
+                filter.OnException(httpActionExecutedContext);
+            }
+            catch (HttpResponseException ex)
+            {
+                Assert.AreEqual(ex.Response.StatusCode, HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         [DataMember]
         public HttpStatusCode HttpStatus { get; set; }
 
-              protected string reasonPhrase = string.Empty;
+        protected string reasonPhrase = string.Empty;
 
         [DataMember]
         public virtual string ReasonPhrase

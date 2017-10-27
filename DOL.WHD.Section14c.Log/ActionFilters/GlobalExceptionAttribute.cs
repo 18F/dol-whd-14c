@@ -19,12 +19,12 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
     /// </summary>
     public class GlobalExceptionAttribute : ExceptionFilterAttribute
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
         public override void OnException(HttpActionExecutedContext context)
         {
             var correlationId = Guid.NewGuid().ToString();
 
-            GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
+            GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger(logger));
             var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
 
             if (context.Request != null)
@@ -47,20 +47,17 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
             else if (exceptionType == typeof(ApiException))
             {
                 var webapiException = context.Exception as ApiException;
-                if (webapiException != null)
-                    throw new HttpResponseException(context.Request.CreateResponse(webapiException.HttpStatus, new ServiceStatus() { StatusCode = webapiException.ErrorCode, StatusMessage = webapiException.ErrorDescription, ReasonPhrase = webapiException.ReasonPhrase, CorrelationId = correlationId }));
+                throw new HttpResponseException(context.Request.CreateResponse(webapiException.HttpStatus, new ServiceStatus() { StatusCode = webapiException.ErrorCode, StatusMessage = webapiException.ErrorDescription, ReasonPhrase = webapiException.ReasonPhrase, CorrelationId = correlationId }));
             }
             else if (exceptionType == typeof(ApiBusinessException))
             {
                 var businessException = context.Exception as ApiBusinessException;
-                if (businessException != null)
-                    throw new HttpResponseException(context.Request.CreateResponse(businessException.HttpStatus, new ServiceStatus() { StatusCode = businessException.ErrorCode, StatusMessage = businessException.ErrorDescription, ReasonPhrase = businessException.ReasonPhrase, CorrelationId = correlationId }));
+                throw new HttpResponseException(context.Request.CreateResponse(businessException.HttpStatus, new ServiceStatus() { StatusCode = businessException.ErrorCode, StatusMessage = businessException.ErrorDescription, ReasonPhrase = businessException.ReasonPhrase, CorrelationId = correlationId }));
             }
             else if (exceptionType == typeof(ApiDataException))
             {
                 var dataException = context.Exception as ApiDataException;
-                if (dataException != null)
-                    throw new HttpResponseException(context.Request.CreateResponse(dataException.HttpStatus, new ServiceStatus() { StatusCode = dataException.ErrorCode, StatusMessage = dataException.ErrorDescription, ReasonPhrase = dataException.ReasonPhrase, CorrelationId = correlationId }));
+                throw new HttpResponseException(context.Request.CreateResponse(dataException.HttpStatus, new ServiceStatus() { StatusCode = dataException.ErrorCode, StatusMessage = dataException.ErrorDescription, ReasonPhrase = dataException.ReasonPhrase, CorrelationId = correlationId }));
             }
             else
             {

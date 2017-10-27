@@ -8,17 +8,10 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Log.Models
 {
-    public class APIActivityLogs: LogDetails
+    /// <summary>
+    /// Activity Logs
+    /// </summary>
+    public class APIActivityLogs: APILogs
     {
-        [Key]
-        public int Id { get; set; }
-
-        public string CorrelationId { get; set; }
-
-        public string LogTime { get; set; }
-
-        public string StackTrace { get; set; }
-
-        public bool IsServiceSideLog { get; set; }
     }
 }

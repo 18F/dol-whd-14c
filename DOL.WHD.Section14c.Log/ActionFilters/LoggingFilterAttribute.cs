@@ -9,18 +9,20 @@ using System.Web.Http;
 using DOL.WHD.Section14c.Log.Helpers;
 using DOL.WHD.Section14c.Log.LogHelper;
 using System.Net;
+using NLog;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {
     public class LoggingFilterAttribute : ActionFilterAttribute
     {
+        private static ILogger logger = LogManager.GetCurrentClassLogger();
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
             try
             {
                 var correlationId = Guid.NewGuid().ToString();
 
-                GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger());
+                GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger(logger));
                 var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
                 filterContext.Request.Properties[Constants.CorrelationId] = correlationId;
                 trace.Info(filterContext.Request,

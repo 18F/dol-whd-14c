@@ -7,17 +7,10 @@ using System.Web;
 
 namespace DOL.WHD.Section14c.Log.Models
 {
-    public class APIErrorLogs: LogDetails
+    /// <summary>
+    /// Error Logs 
+    /// </summary>
+    public class APIErrorLogs: APILogs
     {
-        [Key]
-        public int Id { get; set; }
-
-        public string CorrelationId { get; set; }
-
-        public string LogTime { get; set; }
-
-        public string StackTrace { get; set; }
-
-        public bool IsServiceSideLog { get; set; }
     }
 }

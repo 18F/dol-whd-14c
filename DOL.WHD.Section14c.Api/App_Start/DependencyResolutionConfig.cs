@@ -55,7 +55,6 @@ namespace DOL.WHD.Section14c.Api
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 
-
             container.Register<IActivityLogRepository, ActivityLogRepository>(Lifestyle.Scoped);
             container.Register<IErrorLogRepository, ErrorLogRepository>(Lifestyle.Scoped);
 
@@ -63,7 +62,5 @@ namespace DOL.WHD.Section14c.Api
 
             GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         }
-
-
     }
 }

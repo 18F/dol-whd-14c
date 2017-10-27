@@ -14,12 +14,18 @@ namespace DOL.WHD.Section14c.Test.Business
     public class ErrorLogsControllerTest
     {
         private readonly IErrorLogRepository _errorLogRepository;
-        private readonly LogDetails _data; 
+        private readonly LogDetails _data;
 
         public ErrorLogsControllerTest()
         {
             _errorLogRepository = new ErrorLogRepositoryMock();
             _data = new LogDetails { EIN = "22-1234567", Exception = "My Test Exception 22", Level = "INFO", Message = "This a test message", User = "test@test.com", UserId = "123456" };
+        }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = false;
         }
 
         [TestMethod]
@@ -39,7 +45,7 @@ namespace DOL.WHD.Section14c.Test.Business
         [TestMethod]
         [ExpectedException(typeof(ApiDataException),
             "Log not found.")]
-        public void ErrorLog_ReturnsLogs_Invalid()
+        public void ErrorLog_ReturnsLogById_Invalid()
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
@@ -108,7 +114,6 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             // Arrange
             var service = new ErrorLogsController(_errorLogRepository);
-            ((ErrorLogRepositoryMock)_errorLogRepository).AddShouldFail = true;
             service.ModelState.AddModelError("key", "error message");
             // Act
             var result = service.AddLog(_data) as OkNegotiatedContentResult<LogDetails>;

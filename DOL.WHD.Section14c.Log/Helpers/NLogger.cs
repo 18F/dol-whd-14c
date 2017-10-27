@@ -19,9 +19,9 @@ namespace DOL.WHD.Section14c.Log.Helpers
     /// </summary>
     public sealed class NLogger : ITraceWriter
     {
-        #region Private member variables.
-        private static readonly Logger ClassLogger = LogManager.GetCurrentClassLogger();       
 
+        #region Private member variables.
+        private static ILogger ClassLogger { get; set; }
         private static readonly Lazy<Dictionary<TraceLevel, Action<string>>> LoggingMap = new Lazy<Dictionary<TraceLevel, Action<string>>>(() => new Dictionary<TraceLevel, Action<string>> { { TraceLevel.Info, ClassLogger.Info }, { TraceLevel.Debug, ClassLogger.Debug }, { TraceLevel.Error, ClassLogger.Error }, { TraceLevel.Fatal, ClassLogger.Fatal }, { TraceLevel.Warn, ClassLogger.Warn } });
         #endregion
 
@@ -36,6 +36,11 @@ namespace DOL.WHD.Section14c.Log.Helpers
         #endregion
 
         #region Public member methods.
+        public NLogger(ILogger logger)
+        {
+            ClassLogger = logger;
+        }
+
         /// <summary>
         /// Implementation of TraceWriter to trace the logs.
         /// </summary>
@@ -49,7 +54,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             {
                 if (traceAction != null && traceAction.Target != null)
                 {
-                    category = category + Environment.NewLine + "Action Parameters : ";// + traceAction.Target.ToJSON();
+                    category = category + Environment.NewLine + "Action Parameters : " + traceAction.Target.ToJSON();
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
@@ -59,9 +64,6 @@ namespace DOL.WHD.Section14c.Log.Helpers
 
         }
         #endregion
-
-
-
         #region Private member methods.
         /// <summary>
         /// Logs info/Error to Log file
@@ -77,26 +79,26 @@ namespace DOL.WHD.Section14c.Log.Helpers
             eventInfo.Properties[Constants.IsServiceSideLog] = 1;
 
             if (!string.IsNullOrWhiteSpace(record.Message))
-                message.Append("").Append(record.Message + Environment.NewLine);
+                message.Append(record.Message + Environment.NewLine);
 
             /// Get request Information and append to the message
             if (record.Request != null)
             {
                 if (record.Request.Method != null)
-                    message.Append("Method: " + record.Request.Method + Environment.NewLine);
+                    message.Append("Method: ").Append(record.Request.Method).Append(Environment.NewLine);
 
                 if (record.Request.RequestUri != null)
-                    message.Append("").Append("URL: " + record.Request.RequestUri + Environment.NewLine);
+                    message.Append("URL: ").Append(record.Request.RequestUri).Append(Environment.NewLine);
 
                 if (record.Request.Headers != null && record.Request.Headers.Contains("Token") && record.Request.Headers.GetValues("Token") != null && record.Request.Headers.GetValues("Token").FirstOrDefault() != null)
-                    message.Append("").Append("Token: " + record.Request.Headers.GetValues("Token").FirstOrDefault() + Environment.NewLine);
+                    message.Append("Token: ").Append(record.Request.Headers.GetValues("Token").FirstOrDefault()).Append(Environment.NewLine);
             }
 
             if (!string.IsNullOrWhiteSpace(record.Category))
-                message.Append("").Append(record.Category);
+                message.Append(record.Category);
 
             if (!string.IsNullOrWhiteSpace(record.Operator))
-                message.Append(" ").Append(record.Operator).Append(" ").Append(record.Operation);
+                message.Append(record.Operator).Append(" ").Append(record.Operation);
 
             // Get exception information; append to the message details and Event exception object
             if (record.Exception != null && !string.IsNullOrWhiteSpace(record.Exception.GetBaseException().Message))
@@ -106,12 +108,12 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 var apiException = record.Exception as BaseApiException;
                 if (apiException != null)
                 {
-                    message.Append("").Append("Error: " + apiException.ErrorDescription + Environment.NewLine);
-                    message.Append("").Append("Error Code: " + apiException.ErrorCode + Environment.NewLine);
+                    message.Append("Error: ").Append(apiException.ErrorDescription).Append(Environment.NewLine);
+                    message.Append("Error Code: ").Append(apiException.ErrorCode).Append(Environment.NewLine);
                 }
                 else
                 {
-                    message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
+                    message.Append("Error: ").Append(record.Exception.GetBaseException().Message).Append(Environment.NewLine);
                 }                
             }
 
@@ -134,21 +136,13 @@ namespace DOL.WHD.Section14c.Log.Helpers
         private string getCorrelationId(TraceRecord record)
         {
             string correlationId = string.Empty;
-            try
+            if (record != null  && record.Request != null)
             {
-                if(record != null  && record.Request != null)
-                {
-                    object correlationIdObject;
-                    record.Request.Properties.TryGetValue(Constants.CorrelationId, out correlationIdObject);
-                    if (correlationIdObject != null)
-                        correlationId = correlationIdObject.ToString();
-                }
+                object correlationIdObject;
+                record.Request.Properties.TryGetValue(Constants.CorrelationId, out correlationIdObject);
+                if (correlationIdObject != null)
+                    correlationId = correlationIdObject.ToString();
             }
-            catch(Exception ex)
-            {
-                // Do nothing if correlation id is not found.
-            }
-
             return correlationId;
         }
 
@@ -198,8 +192,6 @@ namespace DOL.WHD.Section14c.Log.Helpers
             }
             return userName;
         }
-
-
         #endregion
     }
 }
