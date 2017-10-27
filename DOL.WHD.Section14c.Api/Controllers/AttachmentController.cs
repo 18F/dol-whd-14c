@@ -62,7 +62,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                if( bytes.Length <1 || bytes.Length  > allowedMaximumContentLength)
                 {
-                    return BadRequest("Invalid file size.");
+                    BadRequest("Invalid file size.");
                 }
 
                 using (var memoryStream = new MemoryStream(bytes))
