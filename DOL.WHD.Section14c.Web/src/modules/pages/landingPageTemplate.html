@@ -1,6 +1,6 @@
 <dol-header></dol-header>
 
-<div class="main-content">
+<main id="mainContent" role="main" class="main-content">
   <div ng-if="!stateService.user.email">
     <div class="dol-landing-public">
       <h1>Section 14(c) Certificate Application</h1>
@@ -17,10 +17,10 @@
   <div ng-if="stateService.hasClaim('Application.Submit')">
     <main-top-nav-control></main-top-nav-control>
     <div ng-show="!stateService.applicationStarted()">
-      <button class="save-button" onclick="window.location='#/section/assurances';">Start A New Application</button>
+      <button class="save-button" ng-click="navToApplication()">Start A New Application</button>
     </div>
     <div ng-show="stateService.applicationStarted()">
-      <button class="save-button" onclick="window.location='#/section/assurances';">Continue Application</button>
+      <button class="save-button" ng-click="navToApplication()">Continue Application</button>
     </div>
   </div>
 
@@ -35,6 +35,6 @@
   <div ng-if="stateService.hasClaim('UserManagement.GetAccounts')">
     <account-grid></account-grid>
   </div>
-</div>
+</main>
 
 <dol-footer></dol-footer>

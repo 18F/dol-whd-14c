@@ -2,13 +2,15 @@
 <nav role="navigation" class="main-nav-bar" ng-class="vm.collapseMenu ? 'collapsed' : ''">
   <ul>
     <li
-      ng-repeat="section in vm.navService.getSections()"
+      ng-repeat="section in vm.sections"
+      role="link"
       class="nav-button {{ vm.current === section.id ? 'active' : '' }}"
       data-sectionid="{{ section.id }}"
       ng-click="vm.onNavClick($event)"
       ng-keypress="vm.onKeyPress($event)"
       ng-show="section.id !== 'review' || vm.stateService.inReview"
       tabindex="0"
+      aria-label="{{section.ariaLabel}}"
     >
       {{ section.display }}
     </li>

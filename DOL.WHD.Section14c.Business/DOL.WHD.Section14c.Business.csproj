@@ -65,12 +65,10 @@
     <Compile Include="ISaveService.cs" />
     <Compile Include="IStatusService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IReCaptchaService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="IAttachmentService.cs" />
     <Compile Include="Services\IdentityService.cs" />
-    <Compile Include="Services\ReCaptchaService.cs" />
     <Compile Include="Services\ResponseService.cs" />
     <Compile Include="Services\SaveService.cs" />
     <Compile Include="Services\StatusService.cs" />

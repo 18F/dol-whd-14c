@@ -9,7 +9,6 @@ module.exports = function(ngModule) {
     $location,
     stateService,
     apiService,
-    vcRecaptchaService,
     _env
   ) {
     'ngInject';

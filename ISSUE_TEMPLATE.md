@@ -129,3 +129,16 @@ Page titles Programmatically identify Page Titles.
 
 - [ ] if on a public site, links to download all required plug-ins are provided.
 - [ ] All plug-ins required to view content are compliant.
+
+#### QASP requirements
+
+These requirements are taken from the [Quality Assurance Surveillance Plan](https://github.com/18F/bpa-DOL-WHD-14-c/blob/master/solicitation_documents/QASP.md#40-performance-requirements-summary)
+
+- [ ] at least 90% code coverage
+- [ ] no linting errors
+- [ ] deploys successfully
+- meets security requirements
+  - [ ] static scan
+  - [ ] OWASP ZAP
+  - [ ] false positives documented
+  

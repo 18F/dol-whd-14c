@@ -19,12 +19,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
     [AuthorizeHttps]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
@@ -53,27 +54,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
+        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
-
-            // Validate Recaptcha
-            var reCaptchaVerfiyUrl = AppSettings.Get<string>("ReCaptchaVerfiyUrl");
-            var reCaptchaSecretKey = AppSettings.Get<string>("ReCaptchaSecretKey");
-            if (!string.IsNullOrEmpty(reCaptchaVerfiyUrl) && !string.IsNullOrEmpty(reCaptchaSecretKey))
-            {
-                var remoteIpAddress = Request.GetOwinContext().Request.RemoteIpAddress;
-                var reCaptchaService = new ReCaptchaService(new RestClient(reCaptchaVerfiyUrl));
-
-                var validationResults = reCaptchaService.ValidateResponse(reCaptchaSecretKey, model.ReCaptchaResponse, remoteIpAddress);
-                if (validationResults != ReCaptchaValidationResult.Disabled && validationResults != ReCaptchaValidationResult.Success)
-                {
-                    ModelState.AddModelError("ReCaptchaResponse", new Exception("Unable to validate reCaptcha Response"));
-                    return BadRequest(ModelState);
-                }
+                BadRequest("Model state is not valid");
             }
 
             // Add User
@@ -179,8 +165,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var result = await UserManager.ResetPasswordAsync(model.UserId, model.Nounce, model.NewPassword);
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("ResetPasswordVerification", new Exception("Unable to reset password."));
-                return BadRequest(ModelState);
+                BadRequest("Unable to reset password.");
             }
 
             // Check if user is Confirmed, if not confirm them through password reset email verification
@@ -206,11 +191,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                BadRequest("Model state is not valid");
             }
             if (!User.Identity.IsAuthenticated && string.IsNullOrEmpty(model.Email))
             {
-                return BadRequest("No username or bearer token provided");
+                BadRequest("No username or bearer token provided");
             }
 
             string userId;
@@ -225,7 +210,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 user = await UserManager.FindByEmailAsync(model.Email);
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
-                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 var validCredentials = await UserManager.FindAsync(user.UserName, model.OldPassword);
@@ -236,14 +221,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         await UserManager.AccessFailedAsync(user.Id);
                     }
-                    return BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
 
                 userId = user.Id;
             }
             IdentityResult result = await UserManager.ChangePasswordAsync(userId, model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -265,8 +250,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
             if (!result.Succeeded)
             {
-                ModelState.AddModelError("EmailVerification", new Exception("Unable to verify email"));
-                return BadRequest(ModelState);
+                BadRequest("Unable to verify email");
             }
 
             return Ok();
@@ -321,7 +305,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
             if (user == null)
             {
-                return BadRequest("User not found.");
+                BadRequest("User not found.");
             }
             return Ok(new AccountDetailsViewModel
             {
@@ -365,7 +349,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                BadRequest("Model state is not valid");
             }
 
             // Add User
@@ -405,13 +389,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                BadRequest("Model state is not valid");
             }
 
             var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
             if (user == null)
             {
-                return BadRequest("User not found.");
+                BadRequest("User not found.");
             }
 
             // Modify User
@@ -483,7 +467,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             if (result == null)
             {
-                return InternalServerError();
+                InternalServerError("result is null");
             }
 
             if (!result.Succeeded)
@@ -499,7 +483,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 if (ModelState.IsValid)
                 {
                     // No ModelState errors are available to send, so just return an empty BadRequest.
-                    return BadRequest();
+                    BadRequest("No ModelState");
                 }
 
                 return BadRequest(ModelState);

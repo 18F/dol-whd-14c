@@ -12,16 +12,23 @@ module.exports = function(ngModule) {
     };
   });
 
-  ngModule.directive('helplink', function() {
+  ngModule.directive('helplink', function($document) {
     'use strict';
 
     return {
-      template: '<button type="button" class="dol-help-link">?</button>',
+      template: '<button type="button" aria-expanded="{{expanded}}" class="dol-help-link">Learn More</button>',
       replace: true,
-      link: function(scope, element, attrs) {
+      link: function(scope, element, attr) {
         element.bind('click', function() {
-          element.next().toggleClass('show');
+          console.log(attr.ariaControls);
+          scope.expanded = !scope.expanded;
+          angular.element($document[0].getElementById(attr.ariaControls)).removeClass('ng-hide');
+          angular.element($document[0].getElementById(attr.ariaControls)).toggleClass('show');
         });
+        scope.$watch('showAllHelp', function() {
+          scope.expanded = scope.showAllHelp;
+        });
+
       }
     };
   });
@@ -32,7 +39,7 @@ module.exports = function(ngModule) {
     return {
       transclude: true,
       template: `
-        <div id="{{ id }}" class="dol-help-text">
+        <div ng-show="showAllHelp" class="dol-help-text">
           <ng-transclude></ng-transclude>
         </div>
       `,
@@ -41,6 +48,7 @@ module.exports = function(ngModule) {
         scope.$watch('showAllHelp', function() {
           element.toggleClass('show', scope.showAllHelp === true);
         });
+
       }
     };
   });

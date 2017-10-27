@@ -10,7 +10,6 @@ module.exports = function(ngModule) {
     $location,
     stateService,
     apiService,
-    vcRecaptchaService,
     _env
   ) {
     'ngInject';
@@ -36,7 +35,6 @@ module.exports = function(ngModule) {
       vm.einRequired = false;
       vm.emailAddressError = false;
       vm.emailAddressRequired = false;
-      vm.reCaptchaError = false;
       vm.showPasswordHelp = false;
       vm.passwordRequired = false;
       vm.invalidEin = false;
@@ -123,12 +121,10 @@ module.exports = function(ngModule) {
           $scope.formVals.email,
           $scope.formVals.pass,
           $scope.formVals.confirmPass,
-          $scope.regResponse,
           vm.emailVerificationUrl
         )
         .then(
           function(result) {
-            $scope.resetRegCaptcha();
             vm.registerdEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
@@ -142,14 +138,7 @@ module.exports = function(ngModule) {
                 $scope.registerErrors.indexOf('EIN is already registered') > -1
               ) {
                 vm.einError = true;
-              }
-              if (
-                $scope.registerErrors.indexOf(
-                  'Unable to validate reCaptcha Response'
-                ) > -1
-              ) {
-                vm.reCaptchaError = true;
-              }
+              }              
               if (
                 some($scope.registerErrors, function(error) {
                   return error.indexOf('is already taken') > -1;
@@ -209,7 +198,6 @@ module.exports = function(ngModule) {
                     error.data.error_description
                   : '')
             );
-            $scope.resetRegCaptcha();
             vm.submittingForm = false;
             $location.path('/');
           }
@@ -219,9 +207,6 @@ module.exports = function(ngModule) {
 
     $scope.regResponse = null;
     $scope.regWidgetId = null;
-    $scope.model = {
-      key: _env.reCaptchaSiteKey
-    };
     $scope.setRegResponse = function(response) {
       console.info('Response available');
       $scope.regResponse = response;
@@ -230,12 +215,6 @@ module.exports = function(ngModule) {
       console.info('Created widget ID: %s', widgetId);
       $scope.regWidgetId = widgetId;
     };
-    $scope.resetRegCaptcha = function() {
-      console.info('Captcha expired/reset. Resetting response object');
-      vcRecaptchaService.reload($scope.regWidgetId);
-      $scope.regResponse = null;
-    };
-
     $scope.hideShowPassword = function() {
       if ($scope.inputType === 'password') $scope.inputType = 'text';
       else $scope.inputType = 'password';

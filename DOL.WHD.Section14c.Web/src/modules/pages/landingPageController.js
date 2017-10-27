@@ -14,5 +14,10 @@ module.exports = function(ngModule) {
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
+
+    $scope.navToApplication = function() {
+      $location.path('/section/assurances');
+    };
+
   });
 };

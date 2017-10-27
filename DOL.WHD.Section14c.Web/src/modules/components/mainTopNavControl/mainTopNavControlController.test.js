@@ -31,17 +31,19 @@ describe('mainTopNavControlController', function() {
 
   it('user click', function() {
     var controller = mainTopNavControlController();
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
     spyOn(mockLocation, 'path');
-    controller.userClick();
-
-    expect(mockLocation.path).toHaveBeenCalled();
+    controller.userClick(e);
+    expect(e.preventDefault).toHaveBeenCalled();
+    expect(mockLocation.path).toHaveBeenCalledWith('/changePassword');
   });
 
   it('save click', function() {
     var controller = mainTopNavControlController();
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
     spyOn(mockLocation, 'path');
     spyOn(mockStateService, 'logOut');
-    controller.saveClick();
+    controller.saveClick(e);
 
     expect(mockStateService.logOut).toHaveBeenCalled();
     expect(mockLocation.path).toHaveBeenCalledWith('/');
@@ -49,8 +51,9 @@ describe('mainTopNavControlController', function() {
 
   it('dashboard click', function() {
     var controller = mainTopNavControlController();
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
     spyOn(mockLocation, 'path');
-    controller.dashboardClick();
+    controller.dashboardClick(e);
 
     expect(mockLocation.path).toHaveBeenCalledWith('/');
   });

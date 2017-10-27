@@ -20,25 +20,10 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
 
             AutomaticMigrationDataLossAllowed = true;
             SetSqlGenerator("Devart.Data.DB2", new Devart.Data.DB2.Entity.Migrations.DB2EntityMigrationSqlGenerator());
-            //SetHistoryContextFactory("IBM.Data.DB2", (connection, defaultSchema) => new DB2HistoryContext(connection, defaultSchema));
-            
         }
 
         protected override void Seed(DOL.WHD.Section14c.DataAccess.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-
             // ApplicationType
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Initial, QuestionKey = "ApplicationType", Display = "Initial Application", ShortDisplay = "Initial", IsActive = true });
             context.Responses.AddOrUpdate(new Response { Id = ResponseIds.ApplicationType.Renewal, QuestionKey = "ApplicationType", Display = "Renewal Application", ShortDisplay = "Renewal", IsActive = true });
