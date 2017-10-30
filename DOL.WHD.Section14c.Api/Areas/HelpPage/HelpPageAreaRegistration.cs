@@ -18,7 +18,9 @@ namespace DOL.WHD.Section14c.Api.Areas.HelpPage
             context.MapRoute(
                 "HelpPage_Default",
                 "Help/{action}/{apiId}",
-                new { controller = "Help", action = "Index", apiId = UrlParameter.Optional });
+                new { controller = "Help", action = "Index", apiId = UrlParameter.Optional },
+                namespaces: new[] { "DOL.WHD.Section14c.Api.Areas.HelpPage.Controllers" }
+            );
 
             HelpPageConfig.Register(GlobalConfiguration.Configuration);
         }
