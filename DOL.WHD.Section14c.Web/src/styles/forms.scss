@@ -29,6 +29,15 @@
       margin-top: 2rem;
     }      
   }
+
+  .em-block {
+    background-color: $color-gray-lightest;
+    padding: 2rem;
+
+    table thead th {
+      background-color: darken($form-em-grey, 10%);
+    }
+  }  
 }
 
 // Section title and global Help toggle
@@ -101,10 +110,8 @@
         margin-top: 0;
       }
     }
-  }
-  > legend {
-    + .dol-help-text {
-      margin-top: 10px;
+    .dol-legend-h3-help {
+      margin-top: 0;
     }
   }
 }
@@ -160,11 +167,10 @@ button.dol-help-link {
   margin: 0 0 0 4px;
   padding: 0;
   cursor: pointer;
-  background: #fff url('../images/dol-help-blue.png') center center;
-  background: #fff url('../images/dol-help-blue.svg') center center;
+  background: url('../images/dol-help-blue.png') center center;
+  background: url('../images/dol-help-blue.svg') center center;
   background-size: contain;
   text-indent: -9999px;
-  color: #000;
 
   &:hover {
     opacity: 0.8; 
@@ -175,6 +181,15 @@ button.dol-help-link {
 .dol-legend-help {
   margin-bottom: 20px;
   max-width: 60rem;
+}
+.dol-legend-h3-help {
+  margin-top: 2.1em;
+  h3 {
+    display: inline;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
 }
 
 //Help text
@@ -272,8 +287,6 @@ input.email {
 
 // Limit the width of text in the form per USWDS recommendation
 // Within the form, increase the default width b/c the default font size is larger
-.dol-form-page .usa-content,
-.dol-form-page .usa-content p:not(.usa-font-lead),
 .dol-form-page ul,
 .dol-form-page ol,
 .dol-form-question-block label,
@@ -283,6 +296,7 @@ input.email {
 .dol-form-page .usa-input-error-message {
   max-width: 60rem;
 }
+
 
 // ----- end NEW CSS RULES
 
