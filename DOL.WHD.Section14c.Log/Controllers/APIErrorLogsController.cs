@@ -20,8 +20,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
     public class ErrorLogsController : BaseApiController
     {
         private IErrorLogRepository errorLogRepository;
-
-
         public ErrorLogsController(IErrorLogRepository repository)
         {
             errorLogRepository = repository;
@@ -34,8 +32,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
        
         [HttpGet]
         [Route("GetAllLogs")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
         public IQueryable<APIErrorLogs> GetAllLogs()
         {
             var logs = errorLogRepository.GetAllLogs();
@@ -55,8 +51,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
         [Route("GetLogByID")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
         public IHttpActionResult GetErrorLogByID(string correlationId)
         {
             var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
@@ -67,7 +61,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
             return Ok(logs);
         }
 
-
         /// <summary>
         /// Add a new error log
         /// </summary>
@@ -75,8 +68,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // POST: api/ErrorLogs
         [HttpPost]
         [Route("AddLog")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
             if (!ModelState.IsValid)
@@ -90,7 +81,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
             {
                 ExpectationFailed("Unable to add log");
             }
-
             return Ok(log);     
         }
 

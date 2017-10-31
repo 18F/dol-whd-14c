@@ -54,14 +54,30 @@ namespace DOL.WHD.Section14c.Log.Helpers
             {
                 if (traceAction != null && traceAction.Target != null)
                 {
-                    category = category + Environment.NewLine + "Action Parameters : " + traceAction.Target.ToJSON();
+                    var traceActionTargetJsonString = string.Empty;
+                    try
+                    {
+                        traceActionTargetJsonString = traceAction.Target.ToJSON(); // Catch JavaScriptSerializer error
+                    }
+                    catch (Exception e)
+                    {
+                        level = TraceLevel.Error;
+                        traceActionTargetJsonString = string.Format("Message: {0} , StackTrace: {1}, InnerException: {2}", e.Message, e.StackTrace, e.InnerException == null ? string.Empty : e.InnerException.Message);
+                    }
+                    category = category + Environment.NewLine + "Action Parameters : " + traceActionTargetJsonString;
+
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
-
-                Log(record);
+                try
+                {
+                    Log(record);
+                }
+                catch (Exception ex)
+                {
+                    //TODO Log to a file when database logging failed.
+                }
             }
-
         }
         #endregion
         #region Private member methods.
