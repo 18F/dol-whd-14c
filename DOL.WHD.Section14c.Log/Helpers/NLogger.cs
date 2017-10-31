@@ -69,14 +69,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
                 var record = new TraceRecord(request, category, level);
                 if (traceAction != null) traceAction(record);
-                try
-                {
-                    Log(record);
-                }
-                catch (Exception ex)
-                {
-                    //TODO Log to a file when database logging failed.
-                }
+
+                Log(record);
             }
         }
         #endregion
