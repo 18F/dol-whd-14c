@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Api", "DOL.WHD.Section14c.Api\DOL.WHD.Section14c.Api.csproj", "{7F947D49-DE51-4B9E-95E0-AFA3D5577C59}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.Log", "DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj", "{4F4E393E-5CC3-468F-8ABE-A44756A8851C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DOL.WHD.Section14c.PdfApi", "DOL.WHD.Section14c.PdfAPi\DOL.WHD.Section14c.PdfApi.csproj", "{9A4ABFB1-B45E-4FEA-847D-0B39F4FF9334}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4F4E393E-5CC3-468F-8ABE-A44756A8851C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A4ABFB1-B45E-4FEA-847D-0B39F4FF9334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A4ABFB1-B45E-4FEA-847D-0B39F4FF9334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A4ABFB1-B45E-4FEA-847D-0B39F4FF9334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A4ABFB1-B45E-4FEA-847D-0B39F4FF9334}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
