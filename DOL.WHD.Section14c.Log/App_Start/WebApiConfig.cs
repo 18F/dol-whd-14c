@@ -22,6 +22,8 @@ namespace DOL.WHD.Section14c.Log
             );
 
             NLog.LayoutRenderers.LayoutRenderer.Register("api-log", typeof(DOL.WHD.Section14c.Log.Helpers.LogLayoutRenderer));
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
         }
     }
 }

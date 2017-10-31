@@ -14,8 +14,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
     [RoutePrefix("api/ActivityLogs")]
     public class ActivityLogsController : BaseApiController
     {
-        
-
         private IActivityLogRepository activityLogRepository;
 
         public ActivityLogsController(IActivityLogRepository repository)
@@ -23,15 +21,12 @@ namespace DOL.WHD.Section14c.Log.Controllers
             activityLogRepository = repository;
         }
 
-
         /// <summary>
         /// Gets a list of Activity Logs
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Route("GetAllLogs")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
         public IQueryable<APIActivityLogs> GetAllLogs()
         {
             var activityLogs = activityLogRepository.GetAllLogs();
@@ -51,8 +46,6 @@ namespace DOL.WHD.Section14c.Log.Controllers
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
         [Route("GetLogByID")]
-        [LoggingFilterAttribute]
-        [GlobalExceptionAttribute]
         public IHttpActionResult GetActivityLogByID(string correlationId)
         {
             var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
