@@ -64,14 +64,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     BadRequest("Invalid file size.");
                 }
-
-                using (var memoryStream = new MemoryStream(bytes))
-                { 
-                    var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
-                    var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
-                    var fileUpload = _attachmentService.UploadAttachment(EIN, memoryStream, fileName, fileType);
-                    files.Add(fileUpload);
-                }
+               
+                var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
+                var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
+                var fileUpload = _attachmentService.UploadAttachment(EIN, bytes, fileName, fileType);
+                files.Add(fileUpload);
 
             }
             return Ok(files);

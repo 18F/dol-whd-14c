@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var fileName = "test.txt";
 
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            var upload = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
+            var upload = service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
             using (var outMemoryStream = new MemoryStream())
             {
@@ -67,7 +67,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
 
             // Act
-            var upload = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
+            var upload = service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
             using (var outMemoryStream = new MemoryStream())
             {
@@ -105,7 +105,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var fileName = "test.txt";
 
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            var upload = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
+            var upload = service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
             var existingObj = _attachmentRepositoryMock.Get().FirstOrDefault(x => x.EIN == einToTest);
             existingObj.RepositoryFilePath = "invalidPath";
@@ -132,7 +132,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var fileName = "test.txt";
 
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            var upload = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
+            var upload = service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
             service.DeleteAttachement(einToTest, new Guid( upload.Id));
 
@@ -151,7 +151,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var fileName = "test.txt";
 
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
+            service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
             service.DeleteAttachement(einToTest, Guid.Empty);
         }
