@@ -38,6 +38,31 @@
       background-color: darken($form-em-grey, 10%);
     }
   }  
+  
+  // Remove bottom margins for address layout
+  .usa-input-grid-medium,
+  .usa-input-grid-small {
+    input,
+    select {
+      margin-bottom: 0;
+    }
+  }  
+
+  // Styling for upload button/input combos
+  .upload-label {
+    margin-right: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    height: 4.4rem;
+    vertical-align: middle;
+    line-height: normal;
+  }
+
+  .upload-input {
+    display: inline-block;
+    margin-left: 0px;
+    vertical-align: middle;
+  }  
 }
 
 // Section title and global Help toggle
@@ -177,7 +202,13 @@ button.dol-help-link {
     background-color: transparent;   
   }
 }
-
+.dol-form-question-help {
+  margin-bottom: 20px;
+  max-width: 60rem;
+  label {
+    display: inline;
+  }
+}
 .dol-legend-help {
   margin-bottom: 20px;
   max-width: 60rem;
