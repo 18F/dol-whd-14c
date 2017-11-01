@@ -27,6 +27,9 @@ import { DolFooterComponent } from '../v4/dol-footer.component';
 import { DolHeaderComponent } from '../v4/dol-header.component';
 import { HelloWorldComponent } from '../v4/hello-world.component';
 import { UiLibraryComponent } from '../v4/ui-library.component';
+import { LoggingService } from '../v4/services/logging.service';
+
+import { customError } from '../models/customError';
 
 // Styles
 import '../styles/main.scss';
@@ -47,14 +50,9 @@ let app = angular.module('14c', [
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
   .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
-  .directive(
-    'helloWorld',
-    downgradeComponent({ component: HelloWorldComponent })
-  )
-  .directive(
-    'uiLibrary',
-    downgradeComponent({ component: UiLibraryComponent })
-  );
+  .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
+  .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
+  .factory('loggingService', downgradeInjectable(LoggingService));
 
 // Environment config loaded from env.js
 let env = {};
@@ -85,7 +83,13 @@ let checkRouteAccess = function(route, userAccess) {
   return (route.access & userAccess) === route.access;
 };
 
-app.config(function($routeProvider, $compileProvider) {
+app.config(function($routeProvider, $compileProvider, $provide) {
+  $provide.decorator("$exceptionHandler", ['loggingService', function() {
+      return function(exception, cause) {
+          loggingService.addLog(new customError(exception));
+          throw exception;
+      };
+  }]);
   $routeProvider
     .when('/', {
       controller: 'landingPageController',
@@ -176,6 +180,8 @@ app.config(function($routeProvider, $compileProvider) {
 app.run(function(
   $rootScope,
   $location,
+  $log,
+  loggingService,
   stateService,
   autoSaveService,
   authService,
@@ -188,7 +194,15 @@ app.run(function(
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
     authenticatedPromise.then(undefined, function errorCallback(error) {
-      console.log(error);
+      $log.warn('Could not find application.', error);
+      loggingService.addLog(new customError(
+        error.body.data.statusMessage,
+        error.ein,
+        '',
+        '',
+        "Error",
+        error.body.data.reasonPhrase
+      ))
     });
   } else {
     const d = $q.defer();
