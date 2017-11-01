@@ -22,7 +22,7 @@ import ngMask from 'ng-mask';
 import ngCookies from 'angular-cookies';
 
 // angular 4 components (& downgrade dependencies)
-import { downgradeComponent } from '@angular/upgrade/static';
+import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
 import { DolFooterComponent } from '../v4/dol-footer.component';
 import { DolHeaderComponent } from '../v4/dol-header.component';
 import { HelloWorldComponent } from '../v4/hello-world.component';
@@ -84,12 +84,6 @@ let checkRouteAccess = function(route, userAccess) {
 };
 
 app.config(function($routeProvider, $compileProvider, $provide) {
-  $provide.decorator("$exceptionHandler", ['loggingService', function() {
-      return function(exception, cause) {
-          loggingService.addLog(new customError(exception));
-          throw exception;
-      };
-  }]);
   $routeProvider
     .when('/', {
       controller: 'landingPageController',
