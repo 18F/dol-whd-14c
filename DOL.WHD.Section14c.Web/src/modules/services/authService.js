@@ -68,7 +68,10 @@ module.exports = function(ngModule) {
                 d.resolve();
               },
               function(error) {
-                d.reject(error);
+                d.reject({
++                  body: error,
++                  ein: stateService.ein
++                });
               }
             );
           } else {
