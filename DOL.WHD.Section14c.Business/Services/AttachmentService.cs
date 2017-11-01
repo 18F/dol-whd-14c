@@ -5,6 +5,8 @@ using System.Linq;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using DOL.WHD.Section14c.Domain.ViewModels;
+using System.Collections.Generic;
+using DOL.WHD.Section14c.PdfApi.Business;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
@@ -56,6 +58,38 @@ namespace DOL.WHD.Section14c.Business.Services
                 MemoryStream = stream,
                 Attachment = attachment
             };
+        }
+
+        public List<ApplicationData> DownloadApplicationAttachments(string EIN, string htmlString)
+        {
+            var attachments = _attachmentRepository.Get()
+                .Where(x => x.EIN == EIN && x.Deleted == false);
+
+            if (attachments == null)
+                throw new ObjectNotFoundException();
+
+            var applicationData = new List<ApplicationData>();
+
+            // Get application content html
+            if (!string.IsNullOrEmpty(htmlString))
+            {
+                applicationData.Add(new ApplicationData()
+                {
+                    HtmlString = htmlString
+                });
+            }
+            foreach (var attachment in attachments)
+            {
+                var memoryStream = new MemoryStream();
+                var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
+
+                applicationData.Add(new ApplicationData()
+                {
+                    Buffer = stream.ToArray(),
+                    Type = attachment.MimeType
+                });
+            }
+            return applicationData;
         }
 
         public void DeleteAttachement(string EIN, Guid fileId)

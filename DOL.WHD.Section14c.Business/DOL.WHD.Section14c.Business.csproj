@@ -118,6 +118,10 @@
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.PdfAPi\DOL.WHD.Section14c.PdfApi.csproj">
+      <Project>{9a4abfb1-b45e-4fea-847d-0b39f4ff9334}</Project>
+      <Name>DOL.WHD.Section14c.PdfApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

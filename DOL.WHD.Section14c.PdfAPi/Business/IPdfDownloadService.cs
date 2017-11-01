@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.PdfApi.Business
 {
-    public interface IDocumentConcatenate
+    public interface IPdfDownloadService
     {
-        PdfDocument Concatenate(List<ApplicationData> data);
+        HttpResponseMessage Download(PdfDocument pdfDocumen, HttpRequestMessage request);
     }
 }

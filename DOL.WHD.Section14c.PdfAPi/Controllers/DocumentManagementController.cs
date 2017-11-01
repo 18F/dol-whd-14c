@@ -9,38 +9,32 @@ using System.Web.Http;
 
 namespace DOL.WHD.Section14c.PdfApi.Controllers
 {
-    [RoutePrefix("api/DocumentManagement")]
+    [RoutePrefix("api/documentmanagement")]
     public class DocumentManagementController : BaseApiController
     {
         private IDocumentConcatenate _documentConcatenateService;
+        private IPdfDownloadService _pdfDownloadService;
 
-        public DocumentManagementController(IDocumentConcatenate documentConcatenateService)
+        public DocumentManagementController(IDocumentConcatenate documentConcatenateService, IPdfDownloadService pdfDownloadService)
         {
             _documentConcatenateService = documentConcatenateService;
+            _pdfDownloadService = pdfDownloadService;
         }
 
-        [HttpGet]
-        [Route("Concatenate")]
-        public IHttpActionResult Concatenate(List<byte[]> documentContentByteArrays)
+        /// <summary>
+        /// Concatenate PDF from byte arrays
+        /// </summary>
+        /// <param name="documentContentByteArrays"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("concatenate")]
+        [AllowAnonymous]
+        public IHttpActionResult Concatenate(List<ApplicationData> applicationDataCollection)
         {
-            var result = _documentConcatenateService.Concatenate(documentContentByteArrays);
-            if (result == null)
-            {
-                InternalServerError("An error occurred, please try again.");
-            }
-            return Ok(result);
-        }
-
-        [HttpGet]
-        [Route("Concatenate")]
-        public IHttpActionResult Concatenate(List<string> filePaths)
-        {
-            var result = _documentConcatenateService.Concatenate(filePaths);
-            if (result == null)
-            {
-                InternalServerError("An error occurred, please try again.");
-            }
-            return Ok(result);
+            var pdfDocument = _documentConcatenateService.Concatenate(applicationDataCollection);            
+            var response = _pdfDownloadService.Download(pdfDocument, Request);
+         
+            return Ok(response);
         }
     }
 }

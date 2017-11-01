@@ -53,6 +53,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);
             container.Register<ISignatureValidator, SignatureValidator>(Lifestyle.Singleton);
             container.Register<IDocumentConcatenate, DocumentConcatenate>(Lifestyle.Singleton);
+            container.Register<IPdfDownloadService, PdfDownloadService>(Lifestyle.Singleton);
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
