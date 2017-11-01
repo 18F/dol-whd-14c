@@ -135,6 +135,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
 
+
             // Commit changes so that roles/features can be assigned
             context.SaveChanges();
 

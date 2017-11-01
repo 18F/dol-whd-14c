@@ -11,6 +11,7 @@ using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Api.Providers;
 using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
@@ -29,7 +30,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Upload Attachment
+        /// Upload Attachment        
         /// </summary>
         /// <param name="EIN">Employer Identification Number</param>
         /// <returns>Http status code</returns>
@@ -50,20 +51,24 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             var filesReadToProvider = await Request.Content.ReadAsMultipartAsync(new RestrictedMultipartMemoryStreamProvider());
-            var files = new List<Domain.Models.Submission.Attachment>();
-            foreach (var stream in filesReadToProvider.Contents)
-            {
-                if (stream.Headers.ContentLength == 0)
-                    BadRequest("Invalid file.");
 
-                using (var memoryStream = new MemoryStream())
+            var files = new List<Domain.Models.Submission.Attachment>();
+            var allowedMaximumContentLength = AppSettings.Get<int>("AllowedMaximumContentLength");
+            foreach (var stream in filesReadToProvider.Contents)
+            {               
+               // The code that handle the max allowed length at the IIS level within web.config.
+               // as well as within the httpRuntime attribute found in the system.web section
+               var bytes = await stream.ReadAsByteArrayAsync();
+
+               if( bytes.Length <1 || bytes.Length  > allowedMaximumContentLength)
                 {
-                    await stream.CopyToAsync(memoryStream);
-                    var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
-                    var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
-                    var fileUpload = _attachmentService.UploadAttachment(EIN, memoryStream, fileName, fileType);
-                    files.Add(fileUpload);
+                    BadRequest("Invalid file size.");
                 }
+               
+                var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
+                var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
+                var fileUpload = _attachmentService.UploadAttachment(EIN, bytes, fileName, fileType);
+                files.Add(fileUpload);
 
             }
             return Ok(files);
