@@ -13,6 +13,7 @@ export class LoggingService {
   constructor(private http: Http, private windowRef: WindowRef) {}
 
   addLog(error: any): Promise<void> {
+    console.log(error);
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({headers: headers})

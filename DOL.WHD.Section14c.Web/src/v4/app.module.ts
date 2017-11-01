@@ -3,6 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
+import { HttpModule }    from '@angular/http';
 
 // Injectables
 import { GlobalErrorHandler } from './error-handler';
@@ -19,7 +20,7 @@ import { LoggingService } from './services/logging.service';
 import { WindowRef } from './services/window.service';
 
 @NgModule({
-  imports: [BrowserModule, UpgradeModule, Ng2PageScrollModule],
+  imports: [BrowserModule, UpgradeModule, Ng2PageScrollModule, HttpModule],
   declarations: [
     DolFooterComponent,
     DolHeaderComponent,
