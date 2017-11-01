@@ -209,6 +209,21 @@ button.dol-help-link {
     display: inline;
   }
 }
+.dol-plain-label-help {
+  margin-top: 3rem;
+  max-width: 60rem;
+  label {
+    display: inline;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
+}
+fieldset > div:first-of-type {
+  > .dol-plain-label-help {
+    margin-top: 0;
+  }
+}
 .dol-legend-help {
   margin-bottom: 20px;
   max-width: 60rem;
