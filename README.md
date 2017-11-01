@@ -30,7 +30,12 @@ TODO: Project Summary
 
 ## Project Management
 
-Install [Zenhub](https://www.zenhub.com/) extension and view [project board](https://github.com/18F/dol-whd-14c#boards).
+Install [Zenhub](https://www.zenhub.com/) extension and view [project board](https://github.com/18F/dol-whd-14c#boards). 
+
+We currently work in two-week sprints with sprint planning, sprint review, retrospectives, grooming, and daily scrum/standups.
+
+Find us in Slack at [#acq-dol-14c2-partners](https://gsa-tts.slack.com/messages/#acq-dol-14c2-partners)
+
 
 ### Technology Stack
 
@@ -48,7 +53,7 @@ Install [Zenhub](https://www.zenhub.com/) extension and view [project board](htt
 
 ### User Interface
 
-See [DOL.WHD.Section14c.Web Readme](DOL.WHD.Section14c.Web/Readme.md)
+See [DOL.WHD.Section14c.Web Readme](DOL.WHD.Section14c.Web/README.md)
 
 | Project | Description     
 | --- | ---
