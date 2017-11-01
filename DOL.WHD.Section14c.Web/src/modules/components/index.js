@@ -7,6 +7,7 @@ module.exports = function(ngModule) {
   require('./attachmentField')(ngModule);
   require('./changePasswordForm')(ngModule);
   require('./dateField')(ngModule);
+  require('./dolHeader')(ngModule);
   require('./formFooterControls')(ngModule);
   require('./formSection')(ngModule);
   require('./mainHeaderControl')(ngModule);
