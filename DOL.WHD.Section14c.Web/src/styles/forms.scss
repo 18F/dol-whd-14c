@@ -150,10 +150,6 @@
   &.margintop {
     margin-top: 40px;
   }
-
-  // TODO: It's possible that the underlabels for checkboxes/radios
-  // will be removed from the app in favor of help text. In that case, 
-  // these CSS classes should be removed.
   .underlabel {
     margin-top: 0px;
 
@@ -166,6 +162,9 @@
   input[type="checkbox"], input[type="radio"] {
     width: auto;
   }
+}
+fieldset.dol-form-question-block {
+  margin-top: 4rem;  
 }
 
 .dol-form-question-text {
@@ -343,6 +342,110 @@ input.email {
   max-width: 60rem;
 }
 
+h4#helpfulLinksHeader {
+  margin-top: 0;
+}
+
+// Custom form tabs (as seen in Wage Data section)
+.form-tabbed-section {
+  @include clearfix;
+
+  margin-top: 40px;
+
+  .form-tab {
+    @include span(6 of 12);
+
+    border-top: 0.6rem solid transparent;
+    padding: 1.4rem 2rem 2rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 0px;
+
+    &:not(:first-of-type) {
+      border-left: 1px solid #aeb0b5;
+    }
+
+    &.active {
+      border-top: 0.6rem solid $color-primary;
+    }
+
+    &:not(.active) {
+      border-bottom: 1px solid #aeb0b5;
+      background-color: $color-gray-lightest;
+
+      &:hover {
+        background-color: darken($color-gray-lightest, 5%);
+      }
+    }
+
+    .circle {
+      display: inline-block;
+      font-size: 1.2rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: $color-gray-darker;
+      color: $color-white;
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 0.15rem;
+      margin-right: 0.7rem;
+    }
+  }
+
+  a.form-tab {
+    color: #000000;
+    text-decoration: none;
+
+    &:visited, &:hover {
+      color: #000000; 
+      text-decoration: none;     
+    }
+  }
+}
+
+
+@media (max-width: 37.5em) {
+  .form-tabbed-section {
+    .form-tab {
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+.form-sidebar {
+  width: 80%;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 7rem;
+
+  .links-block {
+    background-color: $color-gray-lightest;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
+
+    &.ng-hide {
+      transform: translateX(300%);
+    }
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: all linear 0.4s;
+    }
+  }
+}
+
+.dol-form-question-group {
+  &:not(:first-of-type),
+  &.force-margin {
+    margin-top: 40px;
+  }
+}
 
 // ----- end NEW CSS RULES
 
@@ -750,91 +853,10 @@ span.example {
   }
 }
 
-// Custom form tabs (as seen in Wage Data section)
-.form-tabbed-section {
-  @include clearfix;
 
-  margin-top: 40px;
-
-  .form-tab {
-    @include span(6 of 12);
-
-    border-top: 0.6rem solid transparent;
-    padding: 1.4rem 2rem 2rem 2rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-right: 0px;
-
-    &:not(:first-of-type) {
-      border-left: 1px solid #aeb0b5;
-    }
-
-    &.active {
-      border-top: 0.6rem solid $color-primary;
-    }
-
-    &:not(.active) {
-      border-bottom: 1px solid #aeb0b5;
-      background-color: $color-gray-lightest;
-
-      &:hover {
-        background-color: darken($color-gray-lightest, 5%);
-      }
-    }
-
-    .circle {
-      display: inline-block;
-      font-size: 1.2rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background-color: $color-gray-darker;
-      color: $color-white;
-      text-align: center;
-      vertical-align: middle;
-      padding-top: 0.15rem;
-      margin-right: 0.7rem;
-    }
-  }
-}
-
-.form-sidebar {
-  width: 80%;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 7rem;
-
-  .links-block {
-    background-color: $color-gray-lightest;
-    padding: 1.5rem 2rem;
-    text-align: left;
-    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
-
-    &.ng-hide {
-      transform: translateX(300%);
-    }
-
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: all linear 0.4s;
-    }
-  }
-}
 
 .submission-success {
   text-align: center;
-}
-
-@media (max-width: 37.5em) {
-  .form-tabbed-section {
-    .form-tab {
-      span {
-        display: none;
-      }
-    }
-  }
 }
 
 // List of instructions for Employee section

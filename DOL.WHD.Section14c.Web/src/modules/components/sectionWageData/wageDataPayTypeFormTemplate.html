@@ -1,49 +1,45 @@
-<div class="form-question-group force-margin" ng-show="paytype">
-  <div class="form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
-    <div class="form-question-text">
-      {{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}
-      <helplink></helplink>
-      <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+<div class="dol-form-question-group force-margin" ng-show="paytype">
+  <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-help">
+      <label for="numWorkers" class="dol-form-question-text" id="numWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
+      <helplink aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
     </div>
+    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
-    <div class="form-question-answer">
-      <input id="numWorkers" name="numWorkers" aria-describedby="numWorkersHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
-    </div>
+    <input id="numWorkers" name="numWorkers" aria-describedby="numWorkersHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
 
-  <div class="form-question-block" ng-class="validate(modelPrefix() + '.jobName') ? 'usa-input-error' : ''">
-    <div class="form-question-text">
-      What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?
-      <helplink></helplink>
+  <fieldset class="dol-form-question-block">
+    <legend class="hide"><span id="jobNameLabel">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span></legend>
+    <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobName') ? 'usa-input-error' : ''">
+      <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span>
+          <helplink aria-controls="jobNameHelp" aria-describedby="jobNameLabel"></helplink> 
+      </div>
       <helptext id="jobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages (e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).</helptext>
-    </div>
-    <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
-    <div class="form-question-answer">
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
       <label for="jobName">Name of Job or Contract</label>
       <input id="jobName" name="jobName" aria-describedby="jobNameHelp" type="text" ng-model="formData[modelPrefix()].jobName">
     </div>
-  </div>
 
-  <div class="form-question-block" ng-class="validate(modelPrefix() + '.jobDescription') ? 'usa-input-error' : ''">
-    <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobDescription')">{{ validate(modelPrefix() + '.jobDescription') }}</span>
-    <div class="form-question-answer">
+    <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobDescription') ? 'usa-input-error' : ''">
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobDescription')">{{ validate(modelPrefix() + '.jobDescription') }}</span>
       <label for="jobDescription">Description of Work Performed</label>
       <textarea id="jobDescription" name="jobDescription" ng-model="formData[modelPrefix()].jobDescription"></textarea>
     </div>
-  </div>
+  </fieldset>
 
-  <div class="form-question-block" ng-class="validate(modelPrefix() + '.prevailingWageMethod') ? 'usa-input-error' : ''">
-    <div class="form-question-text">
-      Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?
-      <helplink></helplink>
+  <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.prevailingWageMethod') ? 'usa-input-error' : ''">
+    <fieldset class="usa-fieldset-inputs">
+      <legend class="hide"><span id="wageMethodLabel">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span></legend>
+      <div class="dol-legend-help">
+        <span class="dol-form-question-text" aria-hidden="true">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
+        <helplink aria-controls="wageMethodHelp" aria-describedby="wageMethodLabel"></helplink>
+      </div>     
       <helptext id="wageMethodHelp">
         For information on Prevailing Wages, see <a href='https://www.dol.gov/whd/regs/compliance/whdfs39b.pdf' target='_blank'>Fact Sheet #39B: Prevailing Wages and Commensurate Wages under Section 14(c) of the FLSA</a>.
       </helptext>
-    </div>
-    <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
-    <fieldset class="usa-fieldset-inputs form-question-answer">
-      <legend class="usa-sr-only">Prevailing Wage Method</legend>
-
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.PrevailingWageMethod">
           <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" aria-describedby="wageMethodHelp" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
@@ -311,32 +307,30 @@
     </div>
   </div>
 
-  <div class="form-question-group" ng-show="paytype === 'hourly'">
-    <div class="form-question-block" ng-class="validate(modelPrefix() + '.workMeasurementFrequency') ? 'usa-input-error' : ''">
-      <div class="form-question-text">
-        How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?
-        <helplink></helplink>
-        <helptext id="workMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>
+  <div class="dol-form-question-group" ng-show="paytype === 'hourly'">
+    <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.workMeasurementFrequency') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-help">
+        <label for="workMeasurementFrequency" class="dol-form-question-text" id="workMeasurementFrequencyLabel">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
+        <helplink aria-controls="workMeasurementFrequencyHelp" aria-describedby="workMeasurementFrequencyLabel"></helplink>   
       </div>
+      <helptext id="workMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
-      <div class="form-question-answer">
-        <label for="workMeasurementFrequency" class="hide">Work measurement frequency</label>
-        <input id="workMeasurementFrequency" name="workMeasurementFrequency" aria-describedby="workMeasurementFrequencyHelp" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
-      </div>
+      <input id="workMeasurementFrequency" name="workMeasurementFrequency" aria-describedby="workMeasurementFrequencyHelp" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
     </div>
 
-    <div class="form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
-      <div class="form-question-text">
-        Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.
-        <helplink></helplink>
-        <helptext id="workMeasurementAttachmentHelp">Select one time study for a worker who was paid an hourly subminimum wage under the same job/contract reflected in Item 9(b). The time study provided must be the most recent time study conducted for that worker. The hourly rate time study providedshould include the productivity rating and evaluation forms used to determine the employee’s commensurate wage rate. The documentation should include all materials related to the work measurement, such as:
-          <ul>
-            <li>detailed task analysis (including quality and quantity measures),</li>
-            <li>wage and productivity of an experienced worker who is not disabled for the work performing the same job(i.e., "standard setter"), and</li>
-            <li>determination of the worker’s individual productivity.</li>
-          </ul>
-        </helptext>
+    <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-help">
+        <label class="dol-form-question-text" id="workMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
+        <helplink aria-controls="workMeasurementAttachmentHelp" aria-describedby="workMeasurementAttachmentLabel"></helplink>   
       </div>
+      <helptext id="workMeasurementAttachmentHelp">
+        Select one time study for a worker who was paid an hourly subminimum wage under the same job/contract reflected in Item 9(b). The time study provided must be the most recent time study conducted for that worker. The hourly rate time study providedshould include the productivity rating and evaluation forms used to determine the employee’s commensurate wage rate. The documentation should include all materials related to the work measurement, such as:      
+        <ul>
+          <li>detailed task analysis (including quality and quantity measures),</li>
+          <li>wage and productivity of an experienced worker who is not disabled for the work performing the same job(i.e., "standard setter"), and</li>
+          <li>determination of the worker’s individual productivity.</li>
+        </ul>
+      </helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
       <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
