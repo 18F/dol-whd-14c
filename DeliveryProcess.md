@@ -20,26 +20,6 @@ Stories progress through these columns (typically from left to right):
 - **Done** (work warrants demonstration to stakeholders at the next sprint review)
 - **Closed** (work has been demoed, released, announced, so the story is no longer worth looking at)
 
-## Picking up stories
-
-The Scrum Master is responsibile for the overall state of the board, and the team is responsible for making sure their work is represented. When a contributing member starts a story, they move the card to the appropriate column and self-assigns so the team knows the state of the work and who is responsible for it. 
-
-## Grooming
-
-The PO is responsible for working with the team to make sure stories are appropriately groomed, including a value proposition and acceptance criteria. Team members can add implementation details as is useful for them, though these are not required. Team members are encouraged to ask for clarification for stories at any time and should not pick up stories that are not acceptably groomed.
-
-## Bugs, spikes, chores, and tasks
-
-As these items do not represent direct value for users, we relax our grooming criteria. Formal acceptance criteria is not required, though bugs should include steps to reproduce using [behavior-driven development](https://en.wikipedia.org/wiki/Behavior-driven_development) criteria, including a scenario with these elements: 
- - Given [set of conditions]
- - When [input]
- - Then [expected state]
- - And [additional expected state information, as needed]
- - But [description of unexpected behavior/condition]
-
-## WIP limits
-We do not currently use WIP ("Work in Progress") limits but may choose to incorporate them in the future to our In Progress, Review/QA, and Awaiting Acceptance columns to focus the team's efforts, avoid spreading ourselves too thin, and delay delivering work.
-
 ## Definition of Done
 
 Our Definition of Done captures the team's agreed-upon standards for how we get work done at a consistent level of quality. Having a DoD ensures that non-functional requirements (NFRs) don't have to be re-litigated for every piece of work taken on; cards can be focused on just the relevant details, and new team members aren't surprised by assumed expectations of their colleagues.
@@ -90,8 +70,29 @@ Before advancing a card from one column to the next on the board, it should meet
 #### Done
 - Typically, the work is deployed according to our deployment protocol and is visible to users and able to be annoucned at any time.
 
+## Picking up stories
+
+The Scrum Master is responsibile for the overall state of the board, and the team is responsible for making sure their work is represented. When a contributing member starts a story, they move the card to the appropriate column and self-assigns so the team knows the state of the work and who is responsible for it. 
+
+## Grooming
+
+The PO is responsible for working with the team to make sure stories are appropriately groomed, including a value proposition and acceptance criteria. Team members can add implementation details as is useful for them, though these are not required. Team members are encouraged to ask for clarification for stories at any time and should not pick up stories that are not acceptably groomed.
+
+## Bugs, spikes, chores, and tasks
+
+As these items do not represent direct value for users, we relax our grooming criteria. Formal acceptance criteria is not required, though bugs should include steps to reproduce using [behavior-driven development](https://en.wikipedia.org/wiki/Behavior-driven_development) criteria, including a scenario with these elements: 
+ - Given [set of conditions]
+ - When [input]
+ - Then [expected state]
+ - And [additional expected state information, as needed]
+ - But [description of unexpected behavior/condition]
+
+## WIP limits
+We do not currently use WIP ("Work in Progress") limits but may choose to incorporate them in the future to our In Progress, Review/QA, and Awaiting Acceptance columns to focus the team's efforts, avoid spreading ourselves too thin, and delay delivering work.
+
 ## Sprint reviews
 
 At our sprint reviews, we demo work that has reached the Done column and is of interest to our users, teammates, or other people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
 
 Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reivews should typically focus on work that delivers value to users.
+
