@@ -35,10 +35,10 @@ import { WindowRef } from './services/window.service';
     UiLibraryComponent
   ],
   providers: [
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler
-    },
+      {
+        provide: ErrorHandler,
+        useClass: GlobalErrorHandler
+      },
     LoggingService,
     WindowRef
 

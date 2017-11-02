@@ -18,7 +18,7 @@ export class LoggingService {
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({headers: headers})
     const url = this.windowRef.nativeWindow.__env.api_url + "/api/ErrorLogs/AddLog";
-    this.http.post(url, JSON.stringify(error), options).subscribe()
+    //this.http.post(url, JSON.stringify(error), options).subscribe()
     return
   }
 

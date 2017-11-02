@@ -7,7 +7,9 @@ import { customError } from './../models/customError';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector, private loggingService: LoggingService) { }
   handleError(error: any) {
-        this.loggingService.addLog(new customError("uncaught Error"));
+    // console.log('v4')
+    console.log(error);
+        this.loggingService.addLog("here");
         throw error;
     }
 }
