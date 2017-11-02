@@ -70,19 +70,11 @@ app
                     // error to the console (and let the application
                     // keep running normally for the user).
                     $log.error.apply( $log, arguments );
-                    // Now, we need to try and log the error the server.
-                    // --
-                    // NOTE: In production, I have some debouncing
-                    // logic here to prevent the same client from
-                    // logging the same error over and over again! All
-                    // that would do is add noise to the log.
+                    // prevents the same client from
+                    // logging the same error over and over again
                     try {
                         var errorMessage = exception.toString();
-                        //var stackTrace = stacktraceService.print({ e: exception });
                         // Log the JavaScript error to the server.
-                        // --
-                        // NOTE: In this demo, the POST URL doesn't
-                        // exists and will simply return a 404.
                         loggingService.addLog(errorMessage)
                     } catch ( loggingError ) {
                         // For Developers - log the log-failure.
@@ -241,6 +233,7 @@ app.run(function(
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
       $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
+      x.test = "test";
     });
   } else {
     const d = $q.defer();
