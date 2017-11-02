@@ -15,6 +15,7 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
+    $scope.showAllHelp = false;
 
     // the Wage Data section should not be completed for Initial applications,
     // so redirect if necessary.
@@ -70,5 +71,9 @@ module.exports = function(ngModule) {
         vm.setNextTabQuery();
       }
     });
+
+    this.toggleAllHelpText = function() {
+      $scope.showAllHelp = !$scope.showAllHelp;
+    }    
   });
 };
