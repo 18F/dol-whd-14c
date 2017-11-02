@@ -6,7 +6,6 @@ describe('dolHeader', function() {
     element = angular.element('<dol-header/>');
     inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      //$compile(element)(rootScope);
     });
   });
 

@@ -3,19 +3,9 @@
 module.exports = function(ngModule) {
   ngModule.controller('dolHeaderController', function(
     $scope,
-    $location,
-    $route,
-    $anchorScroll,
-    navService,
-    autoSaveService,
-    validationService
+    $route
   ) {
     'ngInject';
     'use strict';
-
-    $scope.skipToMainContent = function (id) {
-      $anchorScroll(id);
-      //document.getElementById(id).focus();
-    }
   });
 };

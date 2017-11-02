@@ -5,24 +5,16 @@ describe('dolHeaderController', function() {
     inject(function(
       $rootScope,
       $controller,
-      _$q_,
-      navService,
-      apiService,
-      autoSaveService
+      $timeout,
+      $window
     ) {
       scope = $rootScope.$new();
 
-      it('skip to main content link focuses on right div', function() {
-        var element = document.getElementById(id);
-        spyOn(elememnt, 'foucs');
-        var controller = dolHeaderController();
-        controller.skipToMainContent('#mainContent');
-        scope.$apply();
-
-        expect(controller.skipToMainContent).toHaveBeenCalled();
-        expect(element.focus).toHaveBeenCalled();
-
-      });
+      dolHeaderController = function() {
+        return $controller('dolHeaderController', {
+          $scope: scope
+        });
+      };
     })
   );
 
