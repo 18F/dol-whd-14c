@@ -161,3 +161,5 @@ Make a clear pull request from your fork and branch to the respective sprint bra
 At least one other person MUST give your changes a code review, and once they are satisfied they will merge your changes into proper branch. Alternatively, they may have some requested changes. You should make more commits to your branch to fix these, then follow this process again from rebasing onwards.
 
 Once you get back here, make a comment requesting further review and someone will look at your code again. If they like it, it will get merged, else, just repeat again.
+
+#### Delivery process
