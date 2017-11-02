@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { WindowRef } from './window.service';
 import { customError } from '../../models/customError';
-
+import * as $ from 'jquery';
 
 @Injectable()
 export class LoggingService {
@@ -19,6 +19,12 @@ export class LoggingService {
     let options = new RequestOptions({headers: headers})
     const url = this.windowRef.nativeWindow.__env.api_url + "/api/ErrorLogs/AddLog";
     //this.http.post(url, JSON.stringify(error), options).subscribe()
+    $.ajax({
+          type: "POST",
+          url: url,
+          contentType: "application/json",
+          data: new customError(error.toString())
+      });
     return
   }
 
