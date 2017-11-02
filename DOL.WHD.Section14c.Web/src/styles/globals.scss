@@ -81,6 +81,18 @@ button + .green-button {
   margin-left: 4rem;
 }
 
+.red-button {
+  background-color: $color-red;
+
+  &:hover {
+    background-color: $color-red-dark;
+  }
+
+  &:active {
+    background-color: $color-red-darker;
+  }
+}
+
 .loading-blue {
   display: inline-block;
   width: 20px;
