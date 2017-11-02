@@ -44,13 +44,6 @@ We do not currently use WIP ("Work in Progress") limits but may choose to incorp
 
 Our Definition of Done captures the team's agreed-upon standards for how we get work done at a consistent level of quality. Having a DoD ensures that non-functional requirements (NFRs) don't have to be re-litigated for every piece of work taken on; cards can be focused on just the relevant details, and new team members aren't surprised by assumed expectations of their colleagues.
 
-
-## Sprint reviews
-
-At our sprint reviews, we demo work that has reached the Done column and is of interest to our users, teammates, or other people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
-
-Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reivews should typically focus on work that delivers value to users.
-
 ### Column exit criteria
 For cloud.gov, our DoD is broken up into a set of statements that should be true for each card before it moves to the next column on the board. 
 
@@ -96,3 +89,9 @@ Before advancing a card from one column to the next on the board, it should meet
 
 #### Done
 - Typically, the work is deployed according to our deployment protocol and is visible to users and able to be annoucned at any time.
+
+## Sprint reviews
+
+At our sprint reviews, we demo work that has reached the Done column and is of interest to our users, teammates, or other people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
+
+Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reivews should typically focus on work that delivers value to users.
