@@ -46,13 +46,54 @@ let app = angular.module('14c', [
   'dataGrid',
   'pagination'
 ]);
-
+app.provider(
+            "$exceptionHandler",
+            {
+                $get: function( errorLogService ) {
+                    return( errorLogService );
+                }
+            }
+        );
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
   .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
-  .factory('loggingService', downgradeInjectable(LoggingService));
+  .factory('loggingService', downgradeInjectable(LoggingService))
+  .factory(
+            "errorLogService",
+            function( $log, loggingService ) {
+                // I log the given error to the remote server.
+                function log( exception, cause ) {
+                    // Pass off the error to the default error handler
+                    // on the AngualrJS logger. This will output the
+                    // error to the console (and let the application
+                    // keep running normally for the user).
+                    $log.error.apply( $log, arguments );
+                    // Now, we need to try and log the error the server.
+                    // --
+                    // NOTE: In production, I have some debouncing
+                    // logic here to prevent the same client from
+                    // logging the same error over and over again! All
+                    // that would do is add noise to the log.
+                    try {
+                        var errorMessage = exception.toString();
+                        //var stackTrace = stacktraceService.print({ e: exception });
+                        // Log the JavaScript error to the server.
+                        // --
+                        // NOTE: In this demo, the POST URL doesn't
+                        // exists and will simply return a 404.
+                        loggingService.addLog(errorMessage)
+                    } catch ( loggingError ) {
+                        // For Developers - log the log-failure.
+                        $log.warn( "Error logging failed" );
+                        $log.log( loggingError );
+                    }
+                }
+                // Return the logging function.
+                return( log );
+            }
+        );
 
 // Environment config loaded from env.js
 let env = {};
@@ -84,6 +125,15 @@ let checkRouteAccess = function(route, userAccess) {
 };
 
 app.config(function($routeProvider, $compileProvider, $provide) {
+  // $provide.decorator("$exceptionHandler", ['loggingService', function() {
+  //      return function(exception, cause) {
+  //          loggingService.addLog({
+  //            excpetion: exception,
+  //            cause: cause
+  //          });
+  //          throw exception;
+  //      };
+  //  }]);
   $routeProvider
     .when('/', {
       controller: 'landingPageController',
@@ -187,16 +237,10 @@ app.run(function(
   if (accessToken) {
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
-    authenticatedPromise.then(undefined, function errorCallback(error) {
-      $log.warn('Could not find application.', error);
-      loggingService.addLog(new customError(
-        error.body.data.statusMessage,
-        error.ein,
-        '',
-        '',
-        "Error",
-        error.body.data.reasonPhrase
-      ))
+    authenticatedPromise.then(function(response) {
+      $log.info('Succssfully authenticated user and got saved application.')
+    }).catch(function(error){
+      $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
     });
   } else {
     const d = $q.defer();
@@ -212,7 +256,6 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
-
         let userAccess = stateService.isAdmin
           ? ROUTE_ADMIN
           : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
@@ -223,6 +266,8 @@ app.run(function(
           // redirect admin users to the admin dashboard
           $location.path('/admin');
         }
+      }).catch(function(error){
+        $log.warn('Error in authenticating user or getting saved application.')
       });
     });
   }
