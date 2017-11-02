@@ -12,7 +12,7 @@ Stories are tracked in the repository and/or board of the team that has taken re
 Stories progress through these columns (typically from left to right):
 - **Icebox** (not planned to get attention any time soon)
 - **Backlog** (sequenced alongside other stories, prioritized for attention)
-- Ready to Start (selected and commited to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work)
+- **Ready to Start** (selected and commited to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work)
 - **In Progress** (a team member is actively working on the story)
 - **Blocked/waiting** (there is a dependency on someone responding or something happening outside the team)
 - **Review/QA** (a PR is open and waiting on code review, or the story is waiting on QA/design/other internal review)
@@ -65,7 +65,7 @@ Before advancing a card from one column to the next on the board, it should meet
 
 #### Awaiting Acceptance
 - A team-local proxy for the people the story affects (typically the Product Owner, or members the PO designates, including development team members) has reviewed and approved the work as meeting acceptance criteria
-- If the work is suitable to demo at our biweekly sprint review, prepare to demonstrate it. deally, including a link to the live work or a screenshot (especially for visual work).
+- If the work is suitable to demo at our biweekly sprint review, prepare to demonstrate it. Ideally, including a link to the live work or a screenshot (especially for visual work).
 
 #### Done
 - Typically, the work is deployed according to our deployment protocol and is visible to users and able to be annoucned at any time.
