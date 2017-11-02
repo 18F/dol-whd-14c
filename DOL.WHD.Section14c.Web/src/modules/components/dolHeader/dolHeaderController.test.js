@@ -11,7 +11,14 @@ describe('dolHeaderController', function() {
       autoSaveService
     ) {
       scope = $rootScope.$new();
-      
+
+      it('skip to main content', function() {
+        var controller = dolHeaderController();
+        controller.skipToMainContent();
+        scope.$apply();
+
+        expect(controller.skipToMainContent).toHaveBeenCalled();
+      });
     })
   );
 
