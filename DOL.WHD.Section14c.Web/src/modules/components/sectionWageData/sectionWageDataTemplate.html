@@ -3,7 +3,7 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a role="button" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a></li>
       <li><a href="" ng-click="vm.showLinks = !vm.showLinks">Helpful Links</a></li>
     </ul>
   </div>
@@ -29,11 +29,11 @@
     </fieldset>
   </div>
 
-  <div id="wagedata_tab_box" class="form-tabbed-section" ng-show="formData.payTypeId === 23">
-    <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.onTabClick(1)">
+  <div id="wagedata_tab_box" class="form-tabbed-section" role="tablist" ng-show="formData.payTypeId === 23">
+    <div role="tab" tabindex="0" class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-click="vm.onTabClick(1)" ng-keyup="vm.onTabClick(1)">
       <div class="circle">1</div> Hourly
     </div>
-    <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.onTabClick(2)">
+    <div role="tab" tabindex="0" class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 2 ? 'true' : 'false' }}" ng-click="vm.onTabClick(2)" ng-keyup="vm.onTabClick(2)">
       <div class="circle">2</div> Piece Rate
     </div>
   </div>
