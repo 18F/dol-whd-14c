@@ -14,9 +14,8 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.skipToMainContent = function (id) {
-      //$location.hash(id);
       $anchorScroll(id);
-      document.getElementById(id).focus();
+      //document.getElementById(id).focus();
     }
   });
 };

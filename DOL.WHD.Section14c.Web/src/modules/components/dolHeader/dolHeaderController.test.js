@@ -12,12 +12,16 @@ describe('dolHeaderController', function() {
     ) {
       scope = $rootScope.$new();
 
-      it('skip to main content', function() {
+      it('skip to main content link focuses on right div', function() {
+        var element = document.getElementById(id);
+        spyOn(elememnt, 'foucs');
         var controller = dolHeaderController();
-        controller.skipToMainContent();
+        controller.skipToMainContent('#mainContent');
         scope.$apply();
 
         expect(controller.skipToMainContent).toHaveBeenCalled();
+        expect(element.focus).toHaveBeenCalled();
+
       });
     })
   );
