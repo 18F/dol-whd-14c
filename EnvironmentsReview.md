@@ -1,4 +1,14 @@
+The integration environment is designed to be more of an "in progress" environment. This environment is tied (via CI) to the sprint branch which is updated as features are completed throughout the sprint (and approved/merged by @mgwalker). The QA environment is more of a "stable" environment. This environment is tied (via CI) to the master branch which gets is updated at the end of each sprint when we merge the sprint branch into the master branch. The thinking behind this was that @sgray and @Leslee would have the QA environment that they could use for user acceptance testing (sorry, there's probably a more accurate term for this) that wouldn't be constantly changing as we integrate new features and we'd have the Integration environment to be able to show off new features as they are ready.
+
+The idea was that the QA environment could be used for usability testing, because it is more stable. However so far we have been doing user testing with UXPin prototypes instead, since we can make design changes quickly in prototypes. @sgray could probably elaborate more -- I'm not sure what our plans for QA environment.
+
+Reconfigured Jenkins
+Functional tests
+
+
 [] CONTRIBUTING.md/Collaboration Workflow
+
+Can someone help me understand why we have both Integration and QA environments? What is the difference between them?
 
 This document outlines environments and review practices for the DOL WHD 14(c) development team and anyone wanting to contribute to the project.
 
@@ -6,10 +16,10 @@ This document outlines environments and review practices for the DOL WHD 14(c) d
 ## Environments 
 
 ### Production
-#### This environment exists to []
+#### This environment does not currently exist. In the future, this will exist within DOL.
 
 ### Integration
-#### This environment exists to []
+#### This environment is built from the head of the sprint branch. So, everything that is accepted within a given sprint is deployed here.
 [Integrating what is needed from dev perspective, first time that all local dev is merged]
 
 WHD, Cert Team will look at “integration” environment for reviewing issues in the current sprint.
@@ -22,6 +32,8 @@ Defects:
 
 ### QA
 #### This environment exists to []
+Built from master branch
+[Why do we have this?]
 WHD, Cert Team will look at “QA” environment for reviewing issues from previous sprints (more stable).
 At the end of Sprint X, assuming sprint deliverable is accepted (after demo, code review, QA, etc.) Sprint X code is merged to “master” branch which will trigger a build on the “QA” environment.
 
@@ -31,13 +43,18 @@ Defects:
 
 ## Branches
 
-### Sprint branch
+### Master 
+
+[tk]
+
+### Sprint 
 
 A new Sprint branch is made available by 18F at the beginning of each sprint. This will be a forward merge from master.
 
 
+### Feature 
 
-### Feature branches
+Devs can create more branches as needed
 
 Developers by default perform their testing on their local machine during most of the sprint. When needed, developers will create feature branches from this Sprint branch to perform their work. For example, if two developers need to collaborate on their stories, they will work on the same feature branch created for this purpose.
 
@@ -51,8 +68,8 @@ Recommendations:
 
 ## Functional testing
 
+In a few, how could a person test that this works....
+If not automated functional testing in this engagement...
+[could be a separate buy] 
+
 At the beginning of a Sprint, from a QA perspective, QA/manual tester/Developer assigned to the story will record happy test paths, boundary conditions, and unhappy test paths. During the Sprint manual/Dev testing is likely to result in additional test cases. These need to be also recorded as well and associated with the story. Nothing onerous. By the end of period of performance these test cases can be collected to form a test suite, can be used to create a set of validation tests that need to be performed as a part of each Sprint deliverable.
-
-
-
-
