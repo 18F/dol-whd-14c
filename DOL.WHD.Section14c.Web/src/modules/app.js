@@ -19,6 +19,7 @@ import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import angularMoment from 'angular-moment';
 import ngMask from 'ng-mask';
+import toastr from 'angular-toastr';
 import ngCookies from 'angular-cookies';
 
 // angular 4 components (& downgrade dependencies)
@@ -40,6 +41,7 @@ let app = angular.module('14c', [
   ngResource,
   ngRoute,
   ngSanitize,
+  toastr,
   'angularMoment',
   'ngMask',
   'ngCookies',
@@ -59,7 +61,7 @@ app
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
   .factory('loggingService', downgradeInjectable(LoggingService))
   .factory("errorLogService", function( $log, loggingService ) {
-      // I log the given error to the remote server.
+      // log the given error to the remote server.
       function log( exception, cause ) {
           // Pass off the error to the default error handler
           // on the AngualrJS logger. This will output the
@@ -113,15 +115,6 @@ let checkRouteAccess = function(route, userAccess) {
 };
 
 app.config(function($routeProvider, $compileProvider, $provide) {
-  // $provide.decorator("$exceptionHandler", ['loggingService', function() {
-  //      return function(exception, cause) {
-  //          loggingService.addLog({
-  //            excpetion: exception,
-  //            cause: cause
-  //          });
-  //          throw exception;
-  //      };
-  //  }]);
   $routeProvider
     .when('/', {
       controller: 'landingPageController',
@@ -229,6 +222,7 @@ app.run(function(
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
       $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
+      throw "errr"
     });
   } else {
     const d = $q.defer();

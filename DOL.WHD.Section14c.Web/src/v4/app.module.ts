@@ -4,6 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
 import { HttpModule }    from '@angular/http';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // Injectables
 import { GlobalErrorHandler } from './error-handler';
@@ -20,7 +23,15 @@ import { LoggingService } from './services/logging.service';
 import { WindowRef } from './services/window.service';
 
 @NgModule({
-  imports: [BrowserModule, UpgradeModule, Ng2PageScrollModule, HttpModule],
+  imports: [
+    BrowserModule,
+    UpgradeModule,
+    Ng2PageScrollModule,
+    HttpModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations toastr module
+    ToastrModule.forRoot(),
+  ],
   declarations: [
     DolFooterComponent,
     DolHeaderComponent,
