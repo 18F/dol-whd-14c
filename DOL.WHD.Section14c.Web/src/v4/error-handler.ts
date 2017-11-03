@@ -6,10 +6,8 @@ import { customError } from './../models/customError';
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector, private loggingService: LoggingService) { }
-  handleError(error: any) {
-    // console.log('v4')
-    console.log(error);
-        this.loggingService.addLog("here");
+  handleError(error: customError) {
+        this.loggingService.addLog(error);
         throw error;
     }
 }

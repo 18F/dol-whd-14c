@@ -12,8 +12,7 @@ export class LoggingService {
 
   constructor(private http: Http, private windowRef: WindowRef) {}
 
-  addLog(error: any): Promise<void> {
-    console.log(error);
+  addLog(error: customError): Promise<void> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let options = new RequestOptions({headers: headers})
@@ -23,7 +22,7 @@ export class LoggingService {
           type: "POST",
           url: url,
           contentType: "application/json",
-          data: new customError(error.toString())
+          data: error
       });
     return
   }

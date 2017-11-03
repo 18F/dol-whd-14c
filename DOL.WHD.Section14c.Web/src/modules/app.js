@@ -46,46 +46,42 @@ let app = angular.module('14c', [
   'dataGrid',
   'pagination'
 ]);
-app.provider(
-            "$exceptionHandler",
-            {
-                $get: function( errorLogService ) {
-                    return( errorLogService );
-                }
-            }
-        );
+
+// augment angular exception handler
+app.provider('$exceptionHandler', { $get: function( errorLogService ) {
+  return( errorLogService );
+}});
+
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
   .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
   .factory('loggingService', downgradeInjectable(LoggingService))
-  .factory(
-            "errorLogService",
-            function( $log, loggingService ) {
-                // I log the given error to the remote server.
-                function log( exception, cause ) {
-                    // Pass off the error to the default error handler
-                    // on the AngualrJS logger. This will output the
-                    // error to the console (and let the application
-                    // keep running normally for the user).
-                    $log.error.apply( $log, arguments );
-                    // prevents the same client from
-                    // logging the same error over and over again
-                    try {
-                        var errorMessage = exception.toString();
-                        // Log the JavaScript error to the server.
-                        loggingService.addLog(errorMessage)
-                    } catch ( loggingError ) {
-                        // For Developers - log the log-failure.
-                        $log.warn( "Error logging failed" );
-                        $log.log( loggingError );
-                    }
-                }
-                // Return the logging function.
-                return( log );
-            }
-        );
+  .factory("errorLogService", function( $log, loggingService ) {
+      // I log the given error to the remote server.
+      function log( exception, cause ) {
+          // Pass off the error to the default error handler
+          // on the AngualrJS logger. This will output the
+          // error to the console (and let the application
+          // keep running normally for the user).
+          $log.error.apply( $log, arguments );
+          // prevents the same client from
+          // logging the same error over and over again
+          try {
+              var errorMessage = new customError(exception.toString(), "Error")
+              // Log the JavaScript error to the server.
+
+              loggingService.addLog(errorMessage)
+          } catch ( loggingError ) {
+              // For Developers - log the log-failure.
+              $log.warn( "Error logging failed" );
+              $log.log( loggingError );
+          }
+      }
+      // Return the logging function.
+      return( log );
+  });
 
 // Environment config loaded from env.js
 let env = {};
@@ -233,7 +229,6 @@ app.run(function(
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
       $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
-      x.test = "test";
     });
   } else {
     const d = $q.defer();
