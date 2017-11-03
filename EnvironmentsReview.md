@@ -1,3 +1,9 @@
+WIP, lots I'm cleaning up/writing here - AS:
+
+A bug is the result of a coding error
+A defect is a deviation from the requirements
+That is: A defect does not necessarily mean there is a bug in the code, it could be a function that was not implemented but defined in the requirements of the software.
+
 The integration environment is designed to be more of an "in progress" environment. This environment is tied (via CI) to the sprint branch which is updated as features are completed throughout the sprint (and approved/merged by @mgwalker). The QA environment is more of a "stable" environment. This environment is tied (via CI) to the master branch which gets is updated at the end of each sprint when we merge the sprint branch into the master branch. The thinking behind this was that @sgray and @Leslee would have the QA environment that they could use for user acceptance testing (sorry, there's probably a more accurate term for this) that wouldn't be constantly changing as we integrate new features and we'd have the Integration environment to be able to show off new features as they are ready.
 
 The idea was that the QA environment could be used for usability testing, because it is more stable. However so far we have been doing user testing with UXPin prototypes instead, since we can make design changes quickly in prototypes. @sgray could probably elaborate more -- I'm not sure what our plans for QA environment.
