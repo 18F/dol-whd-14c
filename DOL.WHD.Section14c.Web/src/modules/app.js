@@ -222,7 +222,6 @@ app.run(function(
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
       $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
-      throw "errr"
     });
   } else {
     const d = $q.defer();
