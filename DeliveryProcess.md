@@ -112,14 +112,17 @@ If significant new work is brought into the sprint, other work should be removed
 ## WIP limits
 We do not currently use WIP ("Work in Progress") limits but may choose to incorporate them in the future to our In Progress, Review/QA, and Awaiting Acceptance columns to focus the team's efforts, avoid spreading ourselves too thin, and delay delivering work.
 
-## Sprint planning and running the sprint
+## Sprint planning
 
 During sprint planning, the PO brings the development team a backlog of stories; typically, these stories are discussed, groomed, and estimated in advance, but these activities can occur during sprint planning, as needed. With the Scrum Master's guidance, the team asks the PO any questions they have about the stories and then, given capacity, commit to a number of stories they feel is reasonably possible to complete during the sprint given what they know about the stories and their capacity. The Scrum Master takes a level of confidence measure from the contributing team members at the end – if the overall confidence is 60% or higher, the sprint is considered committed, and the team begins work.
+
+
+##Running the sprint
 
 During the sprint, if business context changes, only the PO (or a delegate) can change the priority or bring new work into the sprint. Again, if significant new work is brought into the sprint, other work should be removed to keep a reasonable level of work for the team.
 
 
-## Sprint reviews
+## Sprint review/system demo
 
 At sprint reviews, the team demonstrates work that has been completed (reaching the Done column) and is of interest to users, other teammates, or people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
 
