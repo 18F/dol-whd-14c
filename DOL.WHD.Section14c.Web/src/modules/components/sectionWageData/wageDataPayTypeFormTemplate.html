@@ -30,7 +30,7 @@
   </fieldset>
 
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.prevailingWageMethod') ? 'usa-input-error' : ''">
-    <fieldset class="usa-fieldset-inputs">
+    <fieldset class="usa-fieldset-inputs form-question-answer">
       <legend class="hide"><span id="wageMethodLabel">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span></legend>
       <div class="dol-legend-help">
         <span class="dol-form-question-text" aria-hidden="true">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
@@ -343,56 +343,54 @@
     </div>
   </div>
 
-  <div class="form-question-group" ng-show="paytype === 'piecerate'">
-    <div class="form-question-block">
-      <div class="form-question-text">Provide the following information for the job or contract identified above:
-        <helplink></helplink>
-        <helptext id="pieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey provided in Item 11(b). Provide the description of the job tasks, the hourly prevailing wage for the job, the standard productivity (units per hour), and the piece rate paid to workers (rate per unit).</helptext>
-      </div>
-      <div class="form-question-answer">
-        <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
-          <label for="pieceRateWorkDescription">Descripton of Work</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
-          <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" aria-describedby="pieceRateWorkDescriptionHelp" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
-        </div>
-
-        <div ng-class="validate(modelPrefix() + '.prevailingWageDeterminedForJob') ? 'usa-input-error' : ''">
-          <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageDeterminedForJob')">{{ validate(modelPrefix() + '.prevailingWageDeterminedForJob') }}</span>
-          <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].prevailingWageDeterminedForJob">
-          <label>rate per hour</label>
-        </div>
-
-        <div ng-class="validate(modelPrefix() + '.standardProductivity') ? 'usa-input-error' : ''">
-          <label for="standardProductivity">Standard Productivity</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.standardProductivity')">{{ validate(modelPrefix() + '.standardProductivity') }}</span>
-          <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].standardProductivity">
-          <label>units per hour</label>
-        </div>
-
-        <div ng-class="validate(modelPrefix() + '.pieceRatePaidToWorkers') ? 'usa-input-error' : ''">
-          <label for="pieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRatePaidToWorkers')">{{ validate(modelPrefix() + '.pieceRatePaidToWorkers') }}</span>
-          <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].pieceRatePaidToWorkers">
-          <label>rate per unit</label>
-        </div>
-      </div>
+  <div class="dol-form-question-group" ng-show="paytype === 'piecerate'">
+    <div class="dol-form-question-block">
+      <fieldset>
+          <legend class="hide"><span id="pieceRateWorkDescriptionLabel">Provide the following information for the job or contract identified above:</span></legend>
+          <div class="dol-legend-help">
+            <span class="dol-form-question-text" aria-hidden="true">Provide the following information for the job or contract identified above:</span>
+            <helplink aria-controls="pieceRateWorkDescriptionHelp" aria-describedby="pieceRateWorkDescriptionLabel"></helplink>
+          </div>          
+          <helptext id="pieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey provided in Item 11(b). Provide the description of the job tasks, the hourly prevailing wage for the job, the standard productivity (units per hour), and the piece rate paid to workers (rate per unit).</helptext>
+          <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
+            <label for="pieceRateWorkDescription">Descripton of Work</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
+            <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" aria-describedby="pieceRateWorkDescriptionHelp" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
+          </div>
+          <div ng-class="validate(modelPrefix() + '.prevailingWageDeterminedForJob') ? 'usa-input-error' : ''">
+            <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageDeterminedForJob')">{{ validate(modelPrefix() + '.prevailingWageDeterminedForJob') }}</span>
+            <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].prevailingWageDeterminedForJob" aria-describedby="prevailingWageDesc">
+            <span id="prevailingWageDesc">rate per hour</span>
+          </div>
+          <div ng-class="validate(modelPrefix() + '.standardProductivity') ? 'usa-input-error' : ''">
+            <label for="standardProductivity">Standard Productivity</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.standardProductivity')">{{ validate(modelPrefix() + '.standardProductivity') }}</span>
+            <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].standardProductivity" aria-describedby="standardProductivityDesc">
+            <span id="standardProductivityDesc">units per hour</span>
+          </div>
+          <div ng-class="validate(modelPrefix() + '.pieceRatePaidToWorkers') ? 'usa-input-error' : ''">
+            <label for="pieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRatePaidToWorkers')">{{ validate(modelPrefix() + '.pieceRatePaidToWorkers') }}</span>
+            <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].pieceRatePaidToWorkers" id="pieceRatePaidToWorkersDesc">
+            <span id="pieceRatePaidToWorkersDesc">rate per unit</span>
+          </div>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Attach all documentation of the methods used to determine the standard productivity and the piece rate.
-        <helplink></helplink>
-        <helptext id="standardProductivityAttachmentHelp">Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
-          <ul>
-            <li>detailed task analysis (including quality and quantity measures), and</li>
-            <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
-          </ul>
-        </helptext>
+    <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-help">
+        <label class="dol-form-question-text" id="standardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
+        <helplink aria-controls="standardProductivityAttachmentHelp" aria-describedby="standardProductivityAttachmentLabel"></helplink>   
       </div>
+      <helptext id="standardProductivityAttachmentHelp">Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
+        <ul>
+          <li>detailed task analysis (including quality and quantity measures), and</li>
+          <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
+        </ul>
+      </helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
-      <div class="form-question-answer">
-        <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
-      </div>
+      <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
 </div>

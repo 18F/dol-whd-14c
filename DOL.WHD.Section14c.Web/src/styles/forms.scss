@@ -160,7 +160,10 @@
     }
   }  
   input[type="checkbox"], input[type="radio"] {
-    width: auto;
+    margin: 0;
+    left: -4px;
+    height: 24px;
+    width: 24px;
   }
 }
 fieldset.dol-form-question-block {
