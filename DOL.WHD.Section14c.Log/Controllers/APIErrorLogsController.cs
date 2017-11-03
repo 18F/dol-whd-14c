@@ -103,6 +103,15 @@ namespace DOL.WHD.Section14c.Log.Controllers
             errorLogRepository?.Dispose();
 
             base.Dispose(disposing);
+        }
+
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }        
     }
 }
