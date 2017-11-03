@@ -80,7 +80,7 @@ Exit criteria:
  - The work is deployed according to our deployment protocol and is visible to users and able to be announced at any time
 
 ### Closed
-#### Work has been demoed, released, announced, so the story is no longer worth looking at
+#### Work has been demonstrated, released, announced, so the story is no longer worth looking at
 
 ## Grooming
 
