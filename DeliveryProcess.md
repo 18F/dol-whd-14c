@@ -30,11 +30,11 @@ Exit criteria:
 
 
 #### Ready to Start
-### Selected and commited to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work
+### Selected and committed to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work
 
 Exit criteria:
 - Has a value statement oriented towards end users with clear, testable/demoable Acceptance Criteria that can be checked off so we know precisely when the work is done. (Try wording them as [Gherkin](https://en.wikipedia.org/wiki/Behavior-driven_development#Behavioural_specifications), and use [GFM checklists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments) for them)
-- Discussed by the team with implmentation discussed/sketched as they see appropriate
+- Discussed by the team with implementation discussed/sketched as they see appropriate
 - Benefit is easily deliverable within in a few days of concentrated work (if not, split it into smaller stories!)
 - No information or assistance is needed from outside the team to start work and likely finish it
 - There is capacity available to work on the story (e.g., this column is a buffer of shovel-ready work)
@@ -77,7 +77,7 @@ Exit criteria:
 ### Work warrants demonstration to stakeholders at the next sprint review
 
 Exit criteria:
-- Typically, the work is deployed according to our deployment protocol and is visible to users and able to be annoucned at any time.
+- Typically, the work is deployed according to our deployment protocol and is visible to users and able to be announced at any time.
 
 #### Closed
 ### Work has been demoed, released, announced, so the story is no longer worth looking at
@@ -100,7 +100,7 @@ We currently estimate using story points. If a story takes more than three days 
 
 ## Picking up stories
 
-The Scrum Master is responsibile for the overall state of the board, and the team is responsible for making sure their work is represented. When a contributing member starts a story, they move the card to the appropriate column and self-assigns so the team knows the state of the work and who is responsible for it. 
+The Scrum Master is responsible for the overall state of the board, and the team is responsible for making sure their work is represented. When a contributing member starts a story, they move the card to the appropriate column and self-assigns so the team knows the state of the work and who is responsible for it. 
 
 
 ## White noise threshold
@@ -116,11 +116,11 @@ We do not currently use WIP ("Work in Progress") limits but may choose to incorp
 
 During sprint planning, the PO brings the development team a backlog of stories; typically, these stories are discussed, groomed, and estimated in advance, but these activities can occur during sprint planning, as needed. With the Scrum Master's guidance, the team asks the PO any questions they have about the stories and then, given capacity, commit to a number of stories they feel is reasonably possible to complete during the sprint given what they know about the stories and their capacity. The Scrum Master takes a level of confidence measure from the contributing team members at the end – if the overall confidence is 60% or higher, the sprint is considered committed, and the team begins work.
 
-During the sprint, if business context changes, only the PO (or a delagate) can change the priority or bring new work into the sprint. Again, if signifcant new work is brought into the sprint, other work should be removed to keep a reasonable level of work for the team.
+During the sprint, if business context changes, only the PO (or a delegate) can change the priority or bring new work into the sprint. Again, if significant new work is brought into the sprint, other work should be removed to keep a reasonable level of work for the team.
 
 
 ## Sprint reviews
 
 At sprint reviews, the team demonstrates work that has been completed (reaching the Done column) and is of interest to users, other teammates, or people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
 
-Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reivews should typically focus on work that delivers value to users.
+Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reviews should typically focus on work that delivers value to users.
