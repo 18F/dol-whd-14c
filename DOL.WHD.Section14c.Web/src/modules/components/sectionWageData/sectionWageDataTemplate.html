@@ -28,11 +28,11 @@
   </div>
 
   <div id="wagedata_tab_box" class="form-tabbed-section" ng-show="formData.payTypeId === 23">
-    <a href="#hourlyTabPanel" class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-click="vm.onTabClick(1)" ng-keyup="vm.onTabClick(1)">
-      <div class="circle">1</div> Hourly
+    <a href class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-click="vm.onTabClick(1)" ng-keyup="vm.onTabClick(1)">
+      Hourly
     </a>
-    <a href="#pieceRateTabPanel" class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 2 ? 'true' : 'false' }}" ng-click="vm.onTabClick(2)" ng-keyup="vm.onTabClick(2)">
-      <div class="circle">2</div> Piece Rate
+    <a href class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 2 ? 'true' : 'false' }}" ng-click="vm.onTabClick(2)" ng-keyup="vm.onTabClick(2)">
+      Piece Rate
     </a>
   </div>
   <wage-data-pay-type-form id="hourlyTabPanel" show-all-help="vm.showAllHelp" paytype="hourly" ng-show="formData.payTypeId === 21 || (formData.payTypeId === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
