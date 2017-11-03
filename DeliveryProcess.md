@@ -1,24 +1,24 @@
-# Delivery Process
+## Delivery Process
 
 This document outlines delivery practices for the DOL WHD 14(c) development team and anyone wanting to contribute to the project.
 
 
-## Story lifecycle
+### Story lifecycle
 
 Stories represent tactical increments of work, valuable on their own and deliverable by a team within a single iteration. Often, these represent an isolated change in functionality aimed at achieving a goal for a particular kind of stakeholder, whether customer, user, or operator/administrator. 
 
 Stories are tracked in the repository and/or board of the team that has taken responsibility for them. Stories that are visually higher in a task list indicate a higher relative priority than the stories lower in the list. 
 
-## Definition of Done
+### Definition of Done
 
 Our Definition of Done ("DoD") captures the team's agreed-upon standards for how we get work done at a consistent level of quality. Having a DoD ensures that non-functional requirements (NFRs) don't have to be re-litigated for every piece of work taken on; cards can be focused on just the relevant details, and new team members aren't surprised by assumed expectations of their colleagues.
 
-### Column definitions and exit criteria
+#### Column definitions and exit criteria
 Our DoD is broken up into a set of statements that should be true for each card before it moves to the next column on the board. Generally, stories progress through these columns from left to right. To advance a card from one column to the next, it must meet the "exit criteria" for the current column, which are listed below. 
 
 
-### Icebox 
-#### Not prioritized to get attention any time soon
+#### Icebox 
+##### Not prioritized to get attention any time soon
 
 ### Backlog
 #### Sequenced with other stories, prioritized for attention
