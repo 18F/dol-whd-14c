@@ -17,11 +17,11 @@ Our Definition of Done ("DoD") captures the team's agreed-upon standards for how
 Our DoD is broken up into a set of statements that should be true for each card before it moves to the next column on the board. Generally, stories progress through these columns from left to right. To advance a card from one column to the next, it must meet the "exit criteria" for the current column, which are listed below. 
 
 
-#### Icebox 
-### Not prioritized to get attention any time soon
+### Icebox 
+#### Not prioritized to get attention any time soon
 
-#### Backlog
-### Sequenced with other stories, prioritized for attention
+### Backlog
+#### Sequenced with other stories, prioritized for attention
 
 Exit criteria:
  - Indicate the intended benefit and who the story is for in one of these forms:
@@ -29,8 +29,8 @@ Exit criteria:
  - Hypothesis: What's the lean hypothesis being tested, and how it will be validated?
 
 
-#### Ready to Start
-### Selected and committed to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work
+### Ready to Start
+#### Selected and committed to by the team for the current sprint, are in a "shovel-worthy" state, and await only team capacity to do the work
 
 Exit criteria:
 - Has a value statement oriented towards end users with clear, testable/demoable Acceptance Criteria that can be checked off so we know precisely when the work is done. (Try wording them as [Gherkin](https://en.wikipedia.org/wiki/Behavior-driven_development#Behavioural_specifications), and use [GFM checklists](https://github.com/blog/1375-task-lists-in-gfm-issues-pulls-comments) for them)
@@ -39,8 +39,8 @@ Exit criteria:
 - No information or assistance is needed from outside the team to start work and likely finish it
 - There is capacity available to work on the story (e.g., this column is a buffer of shovel-ready work)
 
-#### In Progress
-### A team member is actively working on the story
+### In Progress
+#### A team member is actively working on the story
 
 Exit criteria: 
 - Acceptance criteria are demonstrably met
@@ -48,14 +48,14 @@ Exit criteria:
 - Follows documented coding conventions
 - Test coverage exists and overall coverage hasn't been reduced
 
-#### Blocked/waiting 
-### There is a dependency on someone responding or something happening outside the team
+### Blocked/waiting 
+#### There is a dependency on someone responding or something happening outside the team
 
 Exit criteria:
  - Any external blocking issues (e.g. feedback, resources) have been resolved
 
-#### Review/QA 
-### A PR is open and waiting on code review, or the story is waiting on QA/design/other internal review
+### Review/QA 
+#### A PR is open and waiting on code review, or the story is waiting on QA/design/other internal review
 
 Exit criteria:
 - Pair-programmed or peer-reviewed (e.g., use pull-requests)
@@ -63,8 +63,8 @@ Exit criteria:
 - Demoable to other team members in their own time without special configuration (e.g. staging environment, published branch)
 - Any deployment is repeatable (or at least documented to increase [bus factor](https://en.wikipedia.org/wiki/Bus_factor) beyond one) and if possible automated via CI/CD
 
-#### Awaiting Acceptance
-### Story is considered complete and awaiting acceptance by PO or a delegate
+### Awaiting Acceptance
+#### Story is considered complete and awaiting acceptance by PO or a delegate
 
 Note: acceptance can, and should, happen at any time, not just at the end of a sprint. If needed, the team can meet at the end of the sprint to review any lingering issues in this column. 
 
@@ -72,15 +72,15 @@ Exit criteria:
 - A team-local proxy for the people the story affects (typically the Product Owner, or members the PO designates, including development team members) has reviewed and approved the work as meeting acceptance criteria
 - If the work is suitable to demo at our biweekly sprint review, prepare to demonstrate it. Ideally, including a link to the live work or a screenshot (especially for visual work).
 
-#### Done
+### Done
 
-### Work warrants demonstration to stakeholders at the next sprint review
+#### Work warrants demonstration to stakeholders at the next sprint review
 
 Exit criteria:
 - Typically, the work is deployed according to our deployment protocol and is visible to users and able to be announced at any time.
 
-#### Closed
-### Work has been demoed, released, announced, so the story is no longer worth looking at
+### Closed
+#### Work has been demoed, released, announced, so the story is no longer worth looking at
 
 ## Grooming
 
