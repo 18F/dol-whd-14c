@@ -4,9 +4,11 @@ module.exports = function(ngModule) {
   require('./accountManagementControls')(ngModule);
   require('./adminReview')(ngModule);
   require('./answerField')(ngModule);
+  require('./anchorLink')(ngModule);
   require('./attachmentField')(ngModule);
   require('./changePasswordForm')(ngModule);
   require('./dateField')(ngModule);
+  require('./dolHeader')(ngModule);
   require('./formFooterControls')(ngModule);
   require('./formSection')(ngModule);
   require('./mainHeaderControl')(ngModule);

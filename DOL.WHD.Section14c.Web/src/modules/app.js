@@ -46,7 +46,7 @@ let app = angular.module('14c', [
 
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
-  .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
+  //.directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive(
     'helloWorld',
     downgradeComponent({ component: HelloWorldComponent })
