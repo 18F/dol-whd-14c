@@ -9,9 +9,7 @@ module.exports = function(ngModule) {
       replace: false,
       link: function(scope, element, attr) {
         element.bind('click', function() {
-          console.log(attr.scrollto)
           $anchorScroll(attr.scrollto);
-          console.log($document[0])
           $document[0].getElementById(attr.scrollto).focus();
         });
       },
