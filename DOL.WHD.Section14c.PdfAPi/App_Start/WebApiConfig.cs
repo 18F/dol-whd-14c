@@ -9,7 +9,8 @@ namespace DOL.WHD.Section14c.PdfApi
     {
         public static void Register(HttpConfiguration config)
         {
-            // Web API configuration and services
+            // Enable Cors Support
+            config.EnableCors();
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -19,6 +20,9 @@ namespace DOL.WHD.Section14c.PdfApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
         }
     }
 }

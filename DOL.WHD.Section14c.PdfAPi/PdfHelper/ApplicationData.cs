@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace DOL.WHD.Section14c.PdfApi.Business
+namespace DOL.WHD.Section14c.PdfApi.PdfHelper
 {
     [Serializable]
     [DataContract]

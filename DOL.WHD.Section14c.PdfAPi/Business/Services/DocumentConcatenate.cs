@@ -1,4 +1,5 @@
-﻿using PdfSharp.Pdf;
+﻿using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,25 +16,27 @@ namespace DOL.WHD.Section14c.PdfApi.Business
         /// <summary>
         /// Create concatenate Pdf file By File Byte Array
         /// </summary>
-        /// <param name="documentContentByteArrays"></param>
+        /// <param name="ApplicationDataCollection"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public PdfDocument Concatenate(List<ApplicationData> documentContentByteArrays)
+        public byte[] Concatenate(List<ApplicationData> ApplicationDataCollection)
         {
             // Open the output document
             PdfDocument outputDocument = new PdfDocument();
-            foreach (var applicationData in documentContentByteArrays)
+            foreach (var applicationData in ApplicationDataCollection)
             {
-                if (applicationData.FilePaths != null)
+                if (applicationData != null)
                 {
-                    outputDocument = PdfHelper.PdfHelper.ConcatenatePDFDocumentByPath(outputDocument, applicationData.FilePaths);
-                }
-                else
-                {
-                    outputDocument = PdfHelper.PdfHelper.ConcatenatePDFDocumentByByteArray(outputDocument, applicationData);
+                    outputDocument = PdfHelper.PdfHelper.ConcatenatePDFs(outputDocument, applicationData);
                 }
             }
-            return outputDocument;
+            // Conver to Byte array
+            MemoryStream memoryStream = new MemoryStream();
+            outputDocument.Save(memoryStream);
+            //get buffer
+            var buffer = memoryStream.ToArray();
+
+            return buffer;
         }        
     }
 }

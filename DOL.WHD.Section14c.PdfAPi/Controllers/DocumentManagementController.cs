@@ -1,10 +1,13 @@
 ﻿using DOL.WHD.Section14c.Log.LogHelper;
 using DOL.WHD.Section14c.PdfApi.Business;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace DOL.WHD.Section14c.PdfApi.Controllers
@@ -13,12 +16,10 @@ namespace DOL.WHD.Section14c.PdfApi.Controllers
     public class DocumentManagementController : BaseApiController
     {
         private IDocumentConcatenate _documentConcatenateService;
-        private IPdfDownloadService _pdfDownloadService;
 
-        public DocumentManagementController(IDocumentConcatenate documentConcatenateService, IPdfDownloadService pdfDownloadService)
+        public DocumentManagementController(IDocumentConcatenate documentConcatenateService)
         {
             _documentConcatenateService = documentConcatenateService;
-            _pdfDownloadService = pdfDownloadService;
         }
 
         /// <summary>
@@ -28,13 +29,25 @@ namespace DOL.WHD.Section14c.PdfApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("concatenate")]
-        [AllowAnonymous]
         public IHttpActionResult Concatenate(List<ApplicationData> applicationDataCollection)
         {
-            var pdfDocument = _documentConcatenateService.Concatenate(applicationDataCollection);            
-            var response = _pdfDownloadService.Download(pdfDocument, Request);
-         
-            return Ok(response);
+            if (applicationDataCollection == null)
+            {
+                throw new ArgumentNullException(nameof(applicationDataCollection));
+            }
+
+            var buffer = _documentConcatenateService.Concatenate(applicationDataCollection);
+
+            return Ok(buffer);
+        }
+
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
     }
 }

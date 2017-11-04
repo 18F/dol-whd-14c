@@ -1,14 +1,18 @@
 ﻿using DOL.WHD.Section14c.PdfApi.Business;
+using HtmlAgilityPack;
+using PdfSharp;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace DOL.WHD.Section14c.PdfApi.PdfHelper
 {
@@ -20,18 +24,87 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <param name="outputDocument"></param>
         /// <param name="applicationData"></param>
         /// <returns></returns>
-        public static PdfDocument ConcatenatePDFDocumentByByteArray(PdfDocument outputDocument, ApplicationData applicationData)
+        public static PdfDocument ConcatenatePDFs(PdfDocument outputDocument, ApplicationData applicationData)
         {
-            // Create PDF file
-            if (applicationData.Type.ToLower().Contains("pdf"))
-                outputDocument = ConcatenatePDFDocumenByArray(outputDocument, applicationData.Buffer);
+            if (!string.IsNullOrEmpty(applicationData.Type))
+            {
+                // Create PDF file
+                if (applicationData.Type.ToLower().Contains("pdf"))
+                {
+                    outputDocument = ConcatenatePDFDocumenByArray(outputDocument, applicationData.Buffer);
+                }
 
-            // Create PDF image
-            if (applicationData.Type.ToLower().Contains("image"))
-                outputDocument = ConcatenatePDFWithImage(outputDocument, applicationData.Buffer);
+                // Create PDF image
+                if (applicationData.Type.ToLower().Contains("image"))
+                {
+                    var doc = ConcatenatePDFWithImage(outputDocument, applicationData.Buffer);
+                    AddPagesToPdf(ref outputDocument, doc);
+                }
+
+                if (applicationData.Type.ToLower().Contains("html"))
+                {
+                    var doc = GetPdfDocFromHtml(outputDocument, applicationData.HtmlString);
+                    AddPagesToPdf(ref outputDocument, doc);
+                }
+            }
+
+            if (applicationData?.FilePaths != null)
+            {
+                outputDocument = ConcatenatePDFDocumentByPath(outputDocument, applicationData.FilePaths);
+            }
 
             return outputDocument;
         }
+
+        /// <summary>
+        /// Create PDF from HTML string
+        /// </summary>
+        /// <param name="outputDocument"></param>
+        /// <param name="htmlString"></param>
+        /// <returns></returns>
+        private static PdfDocument GetPdfDocFromHtml(PdfDocument outputDocument, string htmlString)
+        {
+            if (!string.IsNullOrEmpty(htmlString))
+            {
+                htmlString = ScrubHtmlString(htmlString);
+
+                PdfGenerateConfig config = new PdfGenerateConfig();
+                config.PageOrientation = PdfSharp.PageOrientation.Portrait;
+                config.PageSize = PdfSharp.PageSize.Letter;
+                config.SetMargins(30);
+
+                outputDocument = PdfGenerator.GeneratePdf(htmlString, PageSize.A4);
+            }
+
+            return outputDocument;
+        }
+
+        /// <summary>
+        /// Clean Html string and fix any html errors
+        /// </summary>
+        /// <param name="htmlString"></param>
+        /// <returns></returns>
+        private static string ScrubHtmlString(string htmlString)
+        {
+            string tempString = htmlString;
+            if (!string.IsNullOrEmpty(htmlString))
+            {
+                HtmlDocument doc = new HtmlDocument();
+                doc.LoadHtml(htmlString);
+                doc.OptionFixNestedTags = true;
+
+                List<HtmlNode> tdNodes = doc.DocumentNode.Descendants().Where(x => x.Name == "a" && x.Attributes.Contains("href") && x.Attributes["href"].Value.StartsWith("#")).ToList();
+               
+                foreach (HtmlNode node in tdNodes)
+                {
+                    node.Remove();
+                }
+
+                tempString = doc.DocumentNode.InnerHtml;
+            }
+            return tempString;
+        }
+
         /// <summary>
         /// Concatenate PDF Document By Array
         /// </summary>
@@ -45,7 +118,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                     throw new ArgumentException("No resource");
 
                 // Open the document to import pages from it.
-                PdfDocument inputDocument = PdfReader.Open(stream, PdfDocumentOpenMode.Import);
+                var inputDocument = PdfReader.Open(stream, PdfDocumentOpenMode.Import);
 
                 // Iterate pages
                 int count = inputDocument.PageCount;
@@ -53,7 +126,8 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 {
                     // Get the page from the external document...
                     PdfPage page = inputDocument.Pages[idx];
-                    // ...and add it to the output document.
+                   
+                    // ...and add them twice to the output document.
                     outputDocument.AddPage(page);
                 }
             }
@@ -97,19 +171,20 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
             {
                 var extension = Path.GetExtension(file);
 
-                Regex r = new Regex(Constants.PdfConcatenateSupportedFileTypes);
+                var regex = new Regex(Constants.PdfConcatenateSupportedFileTypes);
 
-                bool containsAny = r.IsMatch(extension.ToLower());
+                bool containsAny = regex.IsMatch(extension.ToLower());
 
                 if (containsAny)
                 {
                     switch (extension.ToLower())
                     {
-                        case "pdf":
+                        case ".pdf":
                             outputDocument = ConcatenatePDFByPath(outputDocument, file);
                             break;
                         default:
-                            outputDocument = ConcatenatePDFByImageLocation(outputDocument, file);
+                            var pdfImageDoc = ConcatenatePDFByImageLocation(file);
+                            AddPagesToPdf(ref outputDocument, pdfImageDoc);
                             break;
                     }
                 }
@@ -125,22 +200,40 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFByPath(PdfDocument outputDocument, string file)
         {
+            PdfDocument doc = new PdfDocument();
             if (!string.IsNullOrEmpty(file))
             {
                 // Open the document to import pages from it.
-                PdfDocument inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import);
-
+                var inputDocument = PdfReader.Open(file, PdfDocumentOpenMode.Import);
                 // Iterate pages
                 int count = inputDocument.PageCount;
                 for (int idx = 0; idx < count; idx++)
                 {
                     // Get the page from the external document...
                     PdfPage page = inputDocument.Pages[idx];
-                    // ...and add it to the output document.
+
+                    // ...and add them twice to the output document.
                     outputDocument.AddPage(page);
                 }
             }
             return outputDocument;
+        }
+
+        /// <summary>
+        /// Add Pdf page to combined pdf file
+        /// </summary>
+        /// <param name="mainDoc"></param>
+        /// <param name="sourceDoc"></param>
+        private static void AddPagesToPdf(ref PdfDocument mainDoc, PdfDocument sourceDoc)
+        {
+            MemoryStream tempMemoryStream = new MemoryStream();
+            sourceDoc.Save(tempMemoryStream, false);
+
+            PdfDocument openedDoc = PdfReader.Open(tempMemoryStream, PdfDocumentOpenMode.Import);
+            foreach (PdfPage page in openedDoc.Pages)
+            {
+                mainDoc.AddPage(page);
+            }
         }
 
         /// <summary>
@@ -149,17 +242,18 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <param name="outputDocument"></param>
         /// <param name="imageLocation"></param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFByImageLocation(PdfDocument outputDocument, string imageLocation)
+        private static PdfDocument ConcatenatePDFByImageLocation(string imageLocation)
         {
+            PdfDocument doc = new PdfDocument();
             if (!string.IsNullOrEmpty(imageLocation))
             {
                 // Create an empty page
                 // Get an XGraphics object for drawing
-                XGraphics gfx = XGraphics.FromPdfPage(outputDocument.AddPage());
+                XGraphics gfx = XGraphics.FromPdfPage(doc.AddPage());
 
                 DrawImage(gfx, imageLocation, 50, 50, 250, 250);
             }
-            return outputDocument;
+            return doc;
         }
 
         /// <summary>

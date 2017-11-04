@@ -1,4 +1,5 @@
-﻿using PdfSharp.Pdf;
+﻿using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace DOL.WHD.Section14c.PdfApi.Business
 {
     public interface IDocumentConcatenate
     {
-        PdfDocument Concatenate(List<ApplicationData> data);
+        byte[] Concatenate(List<ApplicationData> data);
     }
 }
