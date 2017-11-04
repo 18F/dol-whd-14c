@@ -1,4 +1,9 @@
-WIP, lots I'm cleaning up/writing here - AS:
+_WIP, lots I'm cleaning up/writing here - AS:_
+
+Dev QA Sprint Workflow Tenets
+CONTRIBUTING.md
+DeliveryProcess.md
+older doc
 
 please go ahead. There is some environment info sprinkled in there as well. My document did not verbalize the ZenHub custom swim lanes/labels which I assume your document will.
 I believe "Integration" environment is also being used to feature test during the sprint as Kyle mentioned. Integration Env = Current Sprint; QA Env = Previous Sprint + potential fixes applied in Current Sprint
