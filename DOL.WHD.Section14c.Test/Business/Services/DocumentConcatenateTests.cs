@@ -70,13 +70,6 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             var memStream = new MemoryStream();
             bMap.Save(memStream, ImageFormat.Jpeg);
             testImageByteArray = memStream.ToArray();
-
-            //var image = Resources.testImage;
-            //using (var stream = new MemoryStream())
-            //{
-            //    image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-            //    testImageByteArray = stream.ToArray();
-            //}
         }
 
         [TestMethod]
