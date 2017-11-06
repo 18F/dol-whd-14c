@@ -136,6 +136,14 @@ p.dol-feedback-message {
     }
   }
 }
+.em-block .dol-feedback-upload-progress {
+  p.dol-feedback-message {  
+
+    &:before {
+      background: url(../images/dol-loading-small-blue-on-gray.gif) no-repeat;
+    }
+  }  
+}
 .dol-feedback-upload-success {
   border-left: solid $color-green 4px;
   padding: 0 0 0 10px;
