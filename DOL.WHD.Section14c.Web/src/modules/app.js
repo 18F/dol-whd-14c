@@ -19,14 +19,18 @@ import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import angularMoment from 'angular-moment';
 import ngMask from 'ng-mask';
+import toastr from 'angular-toastr';
 import ngCookies from 'angular-cookies';
 
 // angular 4 components (& downgrade dependencies)
-import { downgradeComponent } from '@angular/upgrade/static';
+import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
 import { DolFooterComponent } from '../v4/dol-footer.component';
 import { DolHeaderComponent } from '../v4/dol-header.component';
 import { HelloWorldComponent } from '../v4/hello-world.component';
 import { UiLibraryComponent } from '../v4/ui-library.component';
+import { LoggingService } from '../v4/services/logging.service';
+
+import { customError } from '../models/customError';
 
 // Styles
 import '../styles/main.scss';
@@ -37,6 +41,7 @@ let app = angular.module('14c', [
   ngResource,
   ngRoute,
   ngSanitize,
+  toastr,
   'angularMoment',
   'ngMask',
   'ngCookies',
@@ -44,17 +49,17 @@ let app = angular.module('14c', [
   'pagination'
 ]);
 
+// augment angular exception handler
+app.provider('$exceptionHandler', { $get: function( errorLogService ) {
+  return( errorLogService );
+}});
+
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
-  //.directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
-  .directive(
-    'helloWorld',
-    downgradeComponent({ component: HelloWorldComponent })
-  )
-  .directive(
-    'uiLibrary',
-    downgradeComponent({ component: UiLibraryComponent })
-  );
+  .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
+  .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
+  .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
+  .factory('loggingService', downgradeInjectable(LoggingService));
 
 // Environment config loaded from env.js
 let env = {};
@@ -85,7 +90,7 @@ let checkRouteAccess = function(route, userAccess) {
   return (route.access & userAccess) === route.access;
 };
 
-app.config(function($routeProvider, $compileProvider) {
+app.config(function($routeProvider, $compileProvider, $provide) {
   $routeProvider
     .when('/', {
       controller: 'landingPageController',
@@ -176,6 +181,8 @@ app.config(function($routeProvider, $compileProvider) {
 app.run(function(
   $rootScope,
   $location,
+  $log,
+  loggingService,
   stateService,
   autoSaveService,
   authService,
@@ -187,8 +194,10 @@ app.run(function(
   if (accessToken) {
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
-    authenticatedPromise.then(undefined, function errorCallback(error) {
-      console.log(error);
+    authenticatedPromise.then(function(response) {
+      $log.info('Succssfully authenticated user and got saved application.')
+    }).catch(function(error){
+      $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.', error)
     });
   } else {
     const d = $q.defer();
@@ -204,7 +213,6 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
-
         let userAccess = stateService.isAdmin
           ? ROUTE_ADMIN
           : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
@@ -215,6 +223,8 @@ app.run(function(
           // redirect admin users to the admin dashboard
           $location.path('/admin');
         }
+      }).catch(function(error){
+        $log.warn('Error in authenticating user or getting saved application.', error)
       });
     });
   }

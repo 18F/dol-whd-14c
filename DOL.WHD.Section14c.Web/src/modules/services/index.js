@@ -11,4 +11,5 @@ module.exports = function(ngModule) {
   require('./validationService')(ngModule);
   require('./submissionService')(ngModule);
   require('./statusesService')(ngModule);
+  require('./errorLogService')(ngModule);
 };
