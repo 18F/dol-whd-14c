@@ -59,31 +59,7 @@ app
   .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
-  .factory('loggingService', downgradeInjectable(LoggingService))
-  .factory("errorLogService", function( $log, loggingService ) {
-      // log the given error to the remote server.
-      function log( exception, cause ) {
-          // Pass off the error to the default error handler
-          // on the AngualrJS logger. This will output the
-          // error to the console (and let the application
-          // keep running normally for the user).
-          $log.error.apply( $log, arguments );
-          // prevents the same client from
-          // logging the same error over and over again
-          try {
-              var errorMessage = new customError(exception.toString(), "Error")
-              // Log the JavaScript error to the server.
-
-              loggingService.addLog(errorMessage)
-          } catch ( loggingError ) {
-              // For Developers - log the log-failure.
-              $log.warn( "Error logging failed" );
-              $log.log( loggingError );
-          }
-      }
-      // Return the logging function.
-      return( log );
-  });
+  .factory('loggingService', downgradeInjectable(LoggingService));
 
 // Environment config loaded from env.js
 let env = {};
@@ -221,7 +197,7 @@ app.run(function(
     authenticatedPromise.then(function(response) {
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
-      $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.')
+      $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.', error)
     });
   } else {
     const d = $q.defer();
@@ -248,7 +224,7 @@ app.run(function(
           $location.path('/admin');
         }
       }).catch(function(error){
-        $log.warn('Error in authenticating user or getting saved application.')
+        $log.warn('Error in authenticating user or getting saved application.', error)
       });
     });
   }
