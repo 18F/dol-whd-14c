@@ -262,6 +262,7 @@
     <Content Include="Areas\HelpPage\Views\LogHelp\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\LogHelp\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\LogHelp\Api.cshtml" />
+    <EmbeddedResource Include="Resources\dol.whd.section14c.log.dll.licenses" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -282,6 +283,7 @@
     <EmbeddedResource Include="Migrations\201710201616375_Initial.resx">
       <DependentUpon>201710201616375_Initial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -297,7 +299,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>41538</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
