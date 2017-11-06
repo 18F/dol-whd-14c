@@ -56,7 +56,7 @@ app.provider('$exceptionHandler', { $get: function( errorLogService ) {
 
 app
   .directive('dolFooter', downgradeComponent({ component: DolFooterComponent }))
-  .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
+  //.directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
   .factory('loggingService', downgradeInjectable(LoggingService));
