@@ -59,15 +59,7 @@ app
   .directive('dolHeader', downgradeComponent({ component: DolHeaderComponent }))
   .directive('helloWorld', downgradeComponent({ component: HelloWorldComponent }))
   .directive('uiLibrary', downgradeComponent({ component: UiLibraryComponent }))
-  .factory('loggingService', downgradeInjectable(LoggingService))
-  .directive(
-    'helloWorld',
-    downgradeComponent({ component: HelloWorldComponent })
-  )
-  .directive(
-    'uiLibrary',
-    downgradeComponent({ component: UiLibraryComponent })
-  );
+  .factory('loggingService', downgradeInjectable(LoggingService));
 
 // Environment config loaded from env.js
 let env = {};
