@@ -48,21 +48,6 @@
     }
   }  
 
-  // Styling for upload button/input combos
-  .upload-label {
-    margin-right: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-right-radius: 0px;
-    height: 4.4rem;
-    vertical-align: middle;
-    line-height: normal;
-  }
-
-  .upload-input {
-    display: inline-block;
-    margin-left: 0px;
-    vertical-align: middle;
-  }  
 }
 
 // Section title and global Help toggle
@@ -662,21 +647,6 @@ span.example {
       max-width: 10rem;
     }
 
-    // Styling for upload button/input combos
-    .upload-label {
-      margin-right: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      height: 4.4rem;
-      vertical-align: middle;
-      line-height: normal;
-    }
-
-    .upload-input {
-      display: inline-block;
-      margin-left: 0px;
-      vertical-align: middle;
-    }
 
     h2.form-section-header {
       font-size: 20px;
