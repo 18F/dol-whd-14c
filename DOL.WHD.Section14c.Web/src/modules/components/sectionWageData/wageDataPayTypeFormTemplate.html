@@ -2,9 +2,10 @@
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
       <label for="numWorkers" class="dol-form-question-text" id="numWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
-      <helplink aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
+      <!-- The first tabbable element has the ID for tab panel focus. -->
+      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
     </div>
-    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'hourly' ? 'an hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
     <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
@@ -394,3 +395,4 @@
     </div>
   </div>
 </div>
+<h3 id="textAnchor">This is a test anchor.</h3>

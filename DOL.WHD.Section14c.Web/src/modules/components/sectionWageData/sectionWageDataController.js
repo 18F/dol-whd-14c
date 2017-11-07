@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionWageDataController', function(
     $scope,
     $location,
+    $document,
     stateService,
     navService,
     responsesService,
@@ -55,6 +56,14 @@ module.exports = function(ngModule) {
         );
       } else {
         navService.clearNextQuery();
+      }
+    };
+
+    vm.tabPanelFocus = function(id) {
+      if (id === 1) {
+          $document[0].getElementById('hourlyTabPanel').focus();
+      } else {
+          $document[0].getElementById('pieceRateTabPanel').focus();
       }
     };
 
