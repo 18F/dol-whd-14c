@@ -2,11 +2,12 @@
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
       <label for="numWorkers" class="dol-form-question-text" id="numWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
-      <helplink aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
+      <!-- The first tabbable element has the ID for tab panel focus. -->
+      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
     </div>
-    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'an hourly' ? 'hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'hourly' ? 'an hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
-    <input id="numWorkers" name="numWorkers" aria-describedby="numWorkersHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
+    <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
 
   <fieldset class="dol-form-question-block">
@@ -19,7 +20,7 @@
       <helptext id="jobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages (e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
       <label for="jobName">Name of Job or Contract</label>
-      <input id="jobName" name="jobName" aria-describedby="jobNameHelp" type="text" ng-model="formData[modelPrefix()].jobName">
+      <input id="jobName" name="jobName" type="text" ng-model="formData[modelPrefix()].jobName">
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobDescription') ? 'usa-input-error' : ''">
@@ -42,7 +43,7 @@
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.PrevailingWageMethod">
-          <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" aria-describedby="wageMethodHelp" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
+          <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
           <label for="wagemethod_{{ response.id }}">{{ response.display }}</label>
         </li>
       </ul>
@@ -73,7 +74,7 @@
           <div ng-class="vm.validateActiveSourceEmployerProperty('employerName') ? 'usa-input-error' : ''">
             <label for="sourceEmployerName">Source Employer Name</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('employerName')">{{ vm.validateActiveSourceEmployerProperty('employerName') }}</span>
-            <input id="sourceEmployerName" name="sourceEmployerName" aria-describedby="sourceEmployerNameHelp" type="text" ng-model="vm.activeSourceEmployer.employerName">
+            <input id="sourceEmployerName" name="sourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
           </div>
 
           <div class="usa-form-large">
@@ -270,7 +271,7 @@
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') ? 'usa-input-error' : ''">
           <label for="alternateWorkDescription">Description of Work (include job classification code, if known)</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription')">{{ validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') }}</span>
-          <textarea id="alternateWorkDescription" name="alternateWorkDescription" aria-describedby="alternateWorkDescriptionHelp" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
+          <textarea id="alternateWorkDescription" name="alternateWorkDescription" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') ? 'usa-input-error' : ''">
@@ -322,7 +323,7 @@
       </div>
       <helptext id="workMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
-      <input id="workMeasurementFrequency" name="workMeasurementFrequency" aria-describedby="workMeasurementFrequencyHelp" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
+      <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
@@ -355,7 +356,7 @@
           <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
             <label for="pieceRateWorkDescription">Descripton of Work</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
-            <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" aria-describedby="pieceRateWorkDescriptionHelp" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
+            <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
           </div>
           <div ng-class="validate(modelPrefix() + '.prevailingWageDeterminedForJob') ? 'usa-input-error' : ''">
             <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
@@ -394,3 +395,4 @@
     </div>
   </div>
 </div>
+<h3 id="textAnchor">This is a test anchor.</h3>
