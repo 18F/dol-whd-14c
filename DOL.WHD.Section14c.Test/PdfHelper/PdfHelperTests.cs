@@ -45,12 +45,34 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
+        public void PdfHelper_CanConcatenatePDFFromFile()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { testPdfPath }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
         public void PdfHelper_CanConcatenateImageFromBytes()
         {
             PDFContentData contentData = new PDFContentData
             {
                 Buffer = testImageByteArray,
                 Type = "image",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_CanConcatenateImageFromFile()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { testImagePath }
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
