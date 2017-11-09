@@ -20,7 +20,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business
         /// <param name="ApplicationDataCollection"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public byte[] Concatenate(List<ApplicationData>applicationDataCollection)
+        public byte[] Concatenate(List<PDFContentData>applicationDataCollection)
         {
             try
             {

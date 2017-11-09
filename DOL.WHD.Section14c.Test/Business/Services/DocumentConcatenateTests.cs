@@ -37,8 +37,9 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         public void Initialize()
         {
             testHtmlString = @"<html><body><h1>My Content</h1><p>My Content.</p><a href='#'></a></body></html>";
-            testPdfPath = AppDomain.CurrentDomain.BaseDirectory + @"\TestFiles\TestFile1.pdf";
-            testImagePath = AppDomain.CurrentDomain.BaseDirectory + (@"\TestFiles\TestImage.jpg");
+            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            testPdfPath = Path.Combine(testFilePath, "TestFile1.pdf");
+            testImagePath = Path.Combine(testFilePath, "TestImage.jpg");
 
             // The codeCoverage Tool can not access the test files. I am programmatically creating a Test PDF document
             PdfDocument document = new PdfDocument();
@@ -71,36 +72,12 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             bMap.Save(memStream, ImageFormat.Jpeg);
             testImageByteArray = memStream.ToArray();
         }
-
-        [TestMethod]
-        public void ApplicationData_PublicProperties()
-        {
-            var testFileContents = "test";
-            var filePath = new List<string>()
-            {
-                @"c:\temp\file1.pdf",
-                @"c:\temp|file2.jpg"
-            };
-            var data = Encoding.ASCII.GetBytes(testFileContents);
-            var obj = new ApplicationData
-            {
-                Buffer = data,
-                FilePaths = filePath,
-                HtmlString= testHtmlString,
-                Type= "pdf"
-            };
-
-            Assert.AreEqual(4, obj.Buffer.Length);
-            Assert.AreEqual(@"c:\temp\file1.pdf", obj.FilePaths.FirstOrDefault());
-            Assert.AreEqual(testHtmlString, obj.HtmlString);
-            Assert.AreEqual("pdf", obj.Type);
-        }
-
+        
         [TestMethod()]
         public void ConcatenatePDf_CreateFromPdfByteTest()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = testPdfByteArray, Type="pdf"});
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = testPdfByteArray, Type="pdf"});
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -108,16 +85,16 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromPdfByteTest_Invalid()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = null, Type = "pdf" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = null, Type = "pdf" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
         }
 
         [TestMethod()]
         public void ConcatenatePDf_CreateFromImageTest()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = testImageByteArray, Type = "image" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = testImageByteArray, Type = "image" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -126,8 +103,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromImageTest_Invalid()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = null, Type = "image" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = null, Type = "image" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
         }
 
@@ -135,8 +112,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         public void ConcatenatePDf_CreateFromHtmlTest()
         {
             var data = Encoding.ASCII.GetBytes(testHtmlString);
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { HtmlString = testHtmlString, Type = "html" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { HtmlString = testHtmlString, Type = "html" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -149,10 +126,30 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
                 testImagePath,
                 testPdfPath
             };
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { FilePaths = path, Type = "files" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { FilePaths = path, Type = "files" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
+        }
+
+        [TestMethod()]     
+        public void ConcatenatePDf_CreateFromFilePathestt_Invalid()
+        {
+            var path = new List<string>()
+            {
+                string.Empty,
+                string.Empty
+            };
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { FilePaths = path, Type = "files" });
+            try
+            {
+                _documentConcatenate.Concatenate(applicationData);
+            }
+            catch(Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains("No data provided"));
+            }
         }
     }
 }

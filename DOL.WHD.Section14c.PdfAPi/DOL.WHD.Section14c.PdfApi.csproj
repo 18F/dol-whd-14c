@@ -195,13 +195,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Business\IDocumentConcatenate.cs" />
-    <Compile Include="PdfHelper\ApplicationData.cs" />
+    <Compile Include="PdfHelper\PDFContentData.cs" />
     <Compile Include="Business\Services\DocumentConcatenate.cs" />
     <Compile Include="Controllers\DocumentManagementController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="PdfHelper\Constants.cs" />
     <Compile Include="PdfHelper\PdfHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
