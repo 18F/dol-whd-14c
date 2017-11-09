@@ -5,8 +5,15 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// API web config
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers API web config
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support
