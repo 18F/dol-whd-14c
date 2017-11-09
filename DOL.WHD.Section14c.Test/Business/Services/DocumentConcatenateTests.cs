@@ -81,6 +81,16 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ApiException))]
+        public void ConcatenatePDf_ThrowsAnExceptionIfNoApplicationDataIsProvided()
+        {
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(null);
+            var bytes = _documentConcatenate.Concatenate(applicationData);
+        }
+
         [TestMethod()]
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromPdfByteTest_Invalid()
