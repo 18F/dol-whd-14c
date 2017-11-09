@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
@@ -110,6 +110,17 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
             {
                 Buffer = null,
                 Type = "image",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyilePath()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { "" }
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
         }
