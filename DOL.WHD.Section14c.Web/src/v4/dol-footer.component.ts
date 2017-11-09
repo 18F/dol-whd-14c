@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
           <img
             class="brand--img"
             src="images/dol-logo-white.png"
-            alt="Seal of the United States Department of Labor"
+            alt="United States Department of Labor"
             width="70"
             height="70"
           />

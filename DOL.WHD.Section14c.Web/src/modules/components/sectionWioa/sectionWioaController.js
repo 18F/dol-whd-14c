@@ -12,6 +12,8 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
+    $scope.showAllHelp = false;     
+
     // multiple choice responses
     let questionKeys = ['WIOAWorkerVerified'];
     responsesService.getQuestionResponses(questionKeys).then(responses => {
@@ -60,5 +62,9 @@ module.exports = function(ngModule) {
     vm.deleteWorker = function(index) {
       $scope.formData.WIOA.WIOAWorkers.splice(index, 1);
     };
+
+    this.toggleAllHelpText = function() {
+      $scope.showAllHelp = !$scope.showAllHelp;
+    }    
   });
 };

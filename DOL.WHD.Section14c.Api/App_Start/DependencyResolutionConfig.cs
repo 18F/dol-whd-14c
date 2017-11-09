@@ -9,6 +9,7 @@ using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
+using DOL.WHD.Section14c.PdfApi.Business;
 
 namespace DOL.WHD.Section14c.Api
 {
@@ -31,7 +32,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IStatusRepository, StatusRepository>(Lifestyle.Scoped);
             container.Register<IStatusService, StatusService>(Lifestyle.Scoped);
             container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
-            container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);
+            container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);            
+            container.Register<IAttachmentSupportedFileTypesService, AttachmentSupportedFileTypesService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
@@ -51,7 +53,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);
             container.Register<ISignatureValidator, SignatureValidator>(Lifestyle.Singleton);
-
+            container.Register<IDocumentConcatenate, DocumentConcatenate>(Lifestyle.Singleton);
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 

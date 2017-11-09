@@ -29,6 +29,25 @@
       margin-top: 2rem;
     }      
   }
+
+  .em-block {
+    background-color: $color-gray-lightest;
+    padding: 2rem;
+
+    table thead th {
+      background-color: darken($form-em-grey, 10%);
+    }
+  }  
+  
+  // Remove bottom margins for address layout
+  .usa-input-grid-medium,
+  .usa-input-grid-small {
+    input,
+    select {
+      margin-bottom: 0;
+    }
+  }  
+
 }
 
 // Section title and global Help toggle
@@ -101,10 +120,8 @@
         margin-top: 0;
       }
     }
-  }
-  > legend {
-    + .dol-help-text {
-      margin-top: 10px;
+    .dol-legend-h3-help {
+      margin-top: 0;
     }
   }
 }
@@ -118,10 +135,6 @@
   &.margintop {
     margin-top: 40px;
   }
-
-  // TODO: It's possible that the underlabels for checkboxes/radios
-  // will be removed from the app in favor of help text. In that case, 
-  // these CSS classes should be removed.
   .underlabel {
     margin-top: 0px;
 
@@ -132,8 +145,14 @@
     }
   }  
   input[type="checkbox"], input[type="radio"] {
-    width: auto;
+    margin: 0;
+    left: -4px;
+    height: 24px;
+    width: 24px;
   }
+}
+fieldset.dol-form-question-block {
+  margin-top: 4rem;  
 }
 
 .dol-form-question-text {
@@ -160,21 +179,50 @@ button.dol-help-link {
   margin: 0 0 0 4px;
   padding: 0;
   cursor: pointer;
-  background: #fff url('../images/dol-help-blue.png') center center;
-  background: #fff url('../images/dol-help-blue.svg') center center;
+  background: url('../images/dol-help-blue.png') center center;
+  background: url('../images/dol-help-blue.svg') center center;
   background-size: contain;
   text-indent: -9999px;
-  color: #000;
 
   &:hover {
     opacity: 0.8; 
     background-color: transparent;   
   }
 }
-
+.dol-form-question-help {
+  margin-bottom: 20px;
+  max-width: 60rem;
+  label {
+    display: inline;
+  }
+}
+.dol-plain-label-help {
+  margin-top: 3rem;
+  max-width: 60rem;
+  label {
+    display: inline;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
+}
+fieldset > div:first-of-type {
+  > .dol-plain-label-help {
+    margin-top: 0;
+  }
+}
 .dol-legend-help {
   margin-bottom: 20px;
   max-width: 60rem;
+}
+.dol-legend-h3-help {
+  margin-top: 2.1em;
+  h3 {
+    display: inline;
+  }
+  + .dol-help-text {
+    margin-top: 10px;
+  }
 }
 
 //Help text
@@ -272,8 +320,6 @@ input.email {
 
 // Limit the width of text in the form per USWDS recommendation
 // Within the form, increase the default width b/c the default font size is larger
-.dol-form-page .usa-content,
-.dol-form-page .usa-content p:not(.usa-font-lead),
 .dol-form-page ul,
 .dol-form-page ol,
 .dol-form-question-block label,
@@ -282,6 +328,111 @@ input.email {
 .dol-help-text,
 .dol-form-page .usa-input-error-message {
   max-width: 60rem;
+}
+
+h4#helpfulLinksHeader {
+  margin-top: 0;
+}
+
+// Custom form tabs (as seen in Wage Data section)
+.form-tabbed-section {
+  @include clearfix;
+
+  margin-top: 40px;
+
+  .form-tab {
+    @include span(6 of 12);
+
+    border-top: 0.6rem solid transparent;
+    padding: 1.4rem 2rem 2rem 2rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 0px;
+
+    &:not(:first-of-type) {
+      border-left: 1px solid #aeb0b5;
+    }
+
+    &.active {
+      border-top: 0.6rem solid $color-primary;
+    }
+
+    &:not(.active) {
+      border-bottom: 1px solid #aeb0b5;
+      background-color: $color-gray-lightest;
+
+      &:hover {
+        background-color: darken($color-gray-lightest, 5%);
+      }
+    }
+
+    .circle {
+      display: inline-block;
+      font-size: 1.2rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: $color-gray-darker;
+      color: $color-white;
+      text-align: center;
+      vertical-align: middle;
+      padding-top: 0.15rem;
+      margin-right: 0.7rem;
+    }
+  }
+
+  a.form-tab {
+    color: #000000;
+    text-decoration: none;
+
+    &:visited, &:hover {
+      color: #000000; 
+      text-decoration: none;     
+    }
+  }
+}
+
+
+@media (max-width: 37.5em) {
+  .form-tabbed-section {
+    .form-tab {
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+.form-sidebar {
+  width: 80%;
+  text-align: right;
+  position: absolute;
+  right: 0;
+  top: 7rem;
+
+  .links-block {
+    background-color: $color-gray-lightest;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
+
+    &.ng-hide {
+      transform: translateX(300%);
+    }
+
+    &.ng-hide-add,
+    &.ng-hide-remove {
+      transition: all linear 0.4s;
+    }
+  }
+}
+
+.dol-form-question-group {
+  &:not(:first-of-type),
+  &.force-margin {
+    margin-top: 40px;
+  }
 }
 
 // ----- end NEW CSS RULES
@@ -496,21 +647,6 @@ span.example {
       max-width: 10rem;
     }
 
-    // Styling for upload button/input combos
-    .upload-label {
-      margin-right: 0px;
-      border-top-right-radius: 0px;
-      border-bottom-right-radius: 0px;
-      height: 4.4rem;
-      vertical-align: middle;
-      line-height: normal;
-    }
-
-    .upload-input {
-      display: inline-block;
-      margin-left: 0px;
-      vertical-align: middle;
-    }
 
     h2.form-section-header {
       font-size: 20px;
@@ -690,91 +826,10 @@ span.example {
   }
 }
 
-// Custom form tabs (as seen in Wage Data section)
-.form-tabbed-section {
-  @include clearfix;
 
-  margin-top: 40px;
-
-  .form-tab {
-    @include span(6 of 12);
-
-    border-top: 0.6rem solid transparent;
-    padding: 1.4rem 2rem 2rem 2rem;
-    font-size: 1.6rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-right: 0px;
-
-    &:not(:first-of-type) {
-      border-left: 1px solid #aeb0b5;
-    }
-
-    &.active {
-      border-top: 0.6rem solid $color-primary;
-    }
-
-    &:not(.active) {
-      border-bottom: 1px solid #aeb0b5;
-      background-color: $color-gray-lightest;
-
-      &:hover {
-        background-color: darken($color-gray-lightest, 5%);
-      }
-    }
-
-    .circle {
-      display: inline-block;
-      font-size: 1.2rem;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      background-color: $color-gray-darker;
-      color: $color-white;
-      text-align: center;
-      vertical-align: middle;
-      padding-top: 0.15rem;
-      margin-right: 0.7rem;
-    }
-  }
-}
-
-.form-sidebar {
-  width: 80%;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 7rem;
-
-  .links-block {
-    background-color: $color-gray-lightest;
-    padding: 1.5rem 2rem;
-    text-align: left;
-    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
-
-    &.ng-hide {
-      transform: translateX(300%);
-    }
-
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: all linear 0.4s;
-    }
-  }
-}
 
 .submission-success {
   text-align: center;
-}
-
-@media (max-width: 37.5em) {
-  .form-tabbed-section {
-    .form-tab {
-      span {
-        display: none;
-      }
-    }
-  }
 }
 
 // List of instructions for Employee section

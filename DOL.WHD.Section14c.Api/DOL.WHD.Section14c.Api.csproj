@@ -255,6 +255,7 @@
     <Compile Include="Controllers\ResponseController.cs" />
     <Compile Include="Controllers\SaveController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="Controllers\SupportedFileTypesController.cs" />
     <Compile Include="Filters\AuthorizeClaims.cs" />
     <Compile Include="Filters\AuthorizeHttps.cs" />
     <Compile Include="Global.asax.cs">
@@ -348,6 +349,10 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
       <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
       <Name>DOL.WHD.Section14c.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.PdfAPi\DOL.WHD.Section14c.PdfApi.csproj">
+      <Project>{9a4abfb1-b45e-4fea-847d-0b39f4ff9334}</Project>
+      <Name>DOL.WHD.Section14c.PdfApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

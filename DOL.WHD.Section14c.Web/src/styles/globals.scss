@@ -81,6 +81,18 @@ button + .green-button {
   margin-left: 4rem;
 }
 
+.red-button {
+  background-color: $color-red;
+
+  &:hover {
+    background-color: $color-red-dark;
+  }
+
+  &:active {
+    background-color: $color-red-darker;
+  }
+}
+
 .loading-blue {
   display: inline-block;
   width: 20px;
@@ -99,18 +111,6 @@ button + .green-button {
   clip: rect(1px, 1px, 1px, 1px);
 }
 
-.hide {
-    position: absolute!important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px,1px,1px,1px);
-}
-
-.hide {
-    position: absolute!important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px,1px,1px,1px);
+.no-margin {
+  margin: 0 !important;
 }

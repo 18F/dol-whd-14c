@@ -90,7 +90,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             //TODO: Support Urls with existing querystring
             var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
 
-            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account: " + callbackUrl);
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
 
             return Ok();
         }

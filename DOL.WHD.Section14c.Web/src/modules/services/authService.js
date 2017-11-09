@@ -39,7 +39,6 @@ module.exports = function(ngModule) {
           );
         },
         function errorCallback(error) {
-          //console.log(error);
           d.reject(error);
         }
       );
@@ -68,7 +67,11 @@ module.exports = function(ngModule) {
                 d.resolve();
               },
               function(error) {
-                d.reject(error);
+                d.reject({
+                   content: error,
+                   ein: stateService.ein,
+                   message: "failed to get saved application"
+                 });
               }
             );
           } else {

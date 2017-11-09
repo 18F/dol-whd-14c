@@ -18,7 +18,14 @@ namespace DOL.WHD.Section14c.Log.Helpers
         public static string ToJSON(this object obj)
         {
             var serializer = new JavaScriptSerializer();
-            return serializer.Serialize(obj);
+            try
+            {
+                return serializer.Serialize(obj);
+            }
+            catch(Exception e)
+            {
+                return string.Empty;
+            }
         }
         #endregion
     }

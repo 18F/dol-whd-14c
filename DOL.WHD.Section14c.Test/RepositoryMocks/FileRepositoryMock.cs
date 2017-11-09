@@ -13,9 +13,9 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             _fileRepo = new Dictionary<string, MemoryStream>();
         }
 
-        public void Upload(MemoryStream memoryStream, string fileName)
+        public void Upload(byte[] bytes, string fileName)
         {
-            _fileRepo.Add(fileName, memoryStream);
+            _fileRepo.Add( fileName, new MemoryStream(bytes));
         }
 
         public MemoryStream Download(MemoryStream memoryStream, string fileName)

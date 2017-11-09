@@ -39,8 +39,7 @@ namespace DOL.WHD.Section14c.DataAccess
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
         public DbSet<Status> ApplicationStatuses { get; set; }
-
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

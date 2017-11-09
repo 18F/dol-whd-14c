@@ -20,7 +20,6 @@ module.exports = function(ngModule) {
       replace: true,
       link: function(scope, element, attr) {
         element.bind('click', function() {
-          console.log(attr.ariaControls);
           scope.expanded = !scope.expanded;
           angular.element($document[0].getElementById(attr.ariaControls)).removeClass('ng-hide');
           angular.element($document[0].getElementById(attr.ariaControls)).toggleClass('show');
