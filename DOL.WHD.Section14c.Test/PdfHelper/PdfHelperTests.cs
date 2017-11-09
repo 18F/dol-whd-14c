@@ -11,6 +11,7 @@ using PdfSharp.Pdf;
 namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
 {
     [TestClass()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class PdfHelperTests
     {
         private string testHtmlString;
