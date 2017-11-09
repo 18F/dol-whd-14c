@@ -115,6 +115,17 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void PdfHelper_ThrowsExceptionOnNonexistantFilePath()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { @"C:\this-is-a-fake-file-and-i-really-hope-nobody-really-has-one-of-these.pdf" }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
         public void PdfHelper_GracefullyHandlesUnsupportedFileType()
         {
             PDFContentData contentData = new PDFContentData
