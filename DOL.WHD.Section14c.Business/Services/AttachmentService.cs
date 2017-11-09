@@ -12,6 +12,7 @@ namespace DOL.WHD.Section14c.Business.Services
     {
         private readonly IFileRepository _fileRepository;
         private readonly IAttachmentRepository _attachmentRepository;
+        private bool Disposed = false;
 
         public AttachmentService(IFileRepository fileRepository, IAttachmentRepository attachmentRepository)
         {
@@ -74,7 +75,16 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public void Dispose()
         {
-            _attachmentRepository.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _attachmentRepository.Dispose();
+            }
         }
     }
 }

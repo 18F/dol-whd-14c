@@ -17,7 +17,6 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
         public bool AddShouldFail { get; set; } = false;
         public bool Disposed => _disposed;
 
-
         public ActivityLogRepositoryMock()
         {
             _data = new List<APIActivityLogs>
@@ -52,7 +51,13 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public void Dispose()
         {
-            _disposed = true;
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        public void Dispose(bool disposing)
+        {
+            _disposed = _disposed || disposing;
         }
     }
 }

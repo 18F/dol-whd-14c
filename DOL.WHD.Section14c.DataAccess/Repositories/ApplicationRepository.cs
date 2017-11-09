@@ -8,6 +8,8 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
     public class ApplicationRepository : IApplicationRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private bool Disposed;
+
         public ApplicationRepository()
         {
             _dbContext = new ApplicationDbContext();
@@ -37,7 +39,16 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public void Dispose()
         {
-            _dbContext.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        public void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _dbContext.Dispose();
+            }
         }
     }
 }
