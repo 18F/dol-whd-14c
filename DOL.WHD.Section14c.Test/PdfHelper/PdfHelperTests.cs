@@ -89,5 +89,41 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyPDFBytes()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                Buffer = null,
+                Type = "pdf",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyImageBytes()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                Buffer = null,
+                Type = "image",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_GracefullyHandlesEmptyHTMLString()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                HtmlString = testHtmlString,
+                Type = "",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
     }
 }
