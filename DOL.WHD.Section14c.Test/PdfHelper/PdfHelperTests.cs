@@ -115,6 +115,17 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
+        public void PdfHelper_GracefullyHandlesUnsupportedFileType()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { "fake-file.xls" }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
         public void PdfHelper_GracefullyHandlesEmptyHTMLString()
         {
             PDFContentData contentData = new PDFContentData
