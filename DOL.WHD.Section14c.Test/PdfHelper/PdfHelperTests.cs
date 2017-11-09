@@ -120,7 +120,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
             PDFContentData contentData = new PDFContentData
             {
                 HtmlString = testHtmlString,
-                Type = "",
+                Type = "html",
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
