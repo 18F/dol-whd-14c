@@ -223,13 +223,15 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <param name="sourceDoc"></param>
         private static void AddPagesToPdf(ref PdfDocument mainDoc, PdfDocument sourceDoc)
         {
-            MemoryStream tempMemoryStream = new MemoryStream();
-            sourceDoc.Save(tempMemoryStream, false);
-
-            PdfDocument openedDoc = PdfReader.Open(tempMemoryStream, PdfDocumentOpenMode.Import);
-            foreach (PdfPage page in openedDoc.Pages)
+            using (var stream = new MemoryStream())
             {
-                mainDoc.AddPage(page);
+                sourceDoc.Save(stream, false);
+
+                PdfDocument openedDoc = PdfReader.Open(stream, PdfDocumentOpenMode.Import);
+                foreach (PdfPage page in openedDoc.Pages)
+                {
+                    mainDoc.AddPage(page);
+                }
             }
         }
 

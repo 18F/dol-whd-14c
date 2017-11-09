@@ -34,11 +34,12 @@ namespace DOL.WHD.Section14c.PdfApi.Business
                     }
                 }
                 // Conver to Byte array
-                MemoryStream memoryStream = new MemoryStream();
-                outputDocument.Save(memoryStream);
-                //get buffer
-                var buffer = memoryStream.ToArray();
-                return buffer;
+                using (var stream = new MemoryStream())
+                {
+                    outputDocument.Save(stream);
+                    //get buffer
+                    return stream.ToArray();
+                }
             }
             catch(Exception ex)
             {
