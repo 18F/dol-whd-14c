@@ -56,7 +56,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         protected virtual void Dispose(bool disposing)
         {
-            _disposed = !_disposed || disposing;
+            _disposed = _disposed || disposing;
         }
     }
 }
