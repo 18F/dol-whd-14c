@@ -65,7 +65,7 @@
     "susy": "^2.2.12",
     "ts-loader": "^2.3.4",
     "tslint": "^3.15.1",
-    "typescript": "~2.1.0",
+    "typescript": "~2.3.0",
     "url-loader": "^0.5.7",
     "uswds": "^0.12.1",
     "webpack": "^1.13.2",
