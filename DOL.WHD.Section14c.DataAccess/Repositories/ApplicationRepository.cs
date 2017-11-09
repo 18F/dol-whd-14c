@@ -43,7 +43,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             System.GC.SuppressFinalize(this);
         }
 
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!Disposed && disposing)
             {
