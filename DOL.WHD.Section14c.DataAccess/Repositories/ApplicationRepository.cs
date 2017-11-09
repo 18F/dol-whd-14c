@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
     public class ApplicationRepository : IApplicationRepository
     {
         private readonly ApplicationDbContext _dbContext;
-        private bool Disposed;
+        private bool Disposed = false;
 
         public ApplicationRepository()
         {
