@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.PdfApi.PdfHelper;
+﻿using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using PdfSharp.Pdf;
 using System;
 using System.Collections.Generic;
@@ -19,24 +20,32 @@ namespace DOL.WHD.Section14c.PdfApi.Business
         /// <param name="ApplicationDataCollection"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public byte[] Concatenate(List<ApplicationData> ApplicationDataCollection)
+        public byte[] Concatenate(List<ApplicationData>applicationDataCollection)
         {
-            // Open the output document
-            PdfDocument outputDocument = new PdfDocument();
-            foreach (var applicationData in ApplicationDataCollection)
+            try
             {
-                if (applicationData != null)
+                // Open the output document
+                PdfDocument outputDocument = new PdfDocument();
+                foreach (var applicationData in applicationDataCollection)
                 {
-                    outputDocument = PdfHelper.PdfHelper.ConcatenatePDFs(outputDocument, applicationData);
+                    if (applicationData != null)
+                    {
+                        outputDocument = PdfHelper.PdfHelper.ConcatenatePDFs(outputDocument, applicationData);
+                    }
                 }
-            }
-            // Conver to Byte array
-            MemoryStream memoryStream = new MemoryStream();
-            outputDocument.Save(memoryStream);
-            //get buffer
-            var buffer = memoryStream.ToArray();
 
-            return buffer;
+                PdfHelper.PdfHelper.SetPageNumber(outputDocument);
+                // Conver to Byte array
+                MemoryStream memoryStream = new MemoryStream();
+                outputDocument.Save(memoryStream);
+                //get buffer
+                var buffer = memoryStream.ToArray();
+                return buffer;
+            }
+            catch(Exception ex)
+            {
+                throw new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, HttpStatusCode.InternalServerError);
+            }   
         }        
     }
 }

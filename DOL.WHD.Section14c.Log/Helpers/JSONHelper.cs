@@ -17,7 +17,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
         /// <returns></returns>
         public static string ToJSON(this object obj)
         {
-            var serializer = new JavaScriptSerializer();
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }; ;
             return serializer.Serialize(obj);
         }
         #endregion

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DOL.WHD.Section14c.DataAccess.Properties {
+namespace DOL.WHD.Section14c.Log.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DOL.WHD.Section14c.DataAccess.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DOL.WHD.Section14c.DataAccess.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DOL.WHD.Section14c.Log.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace DOL.WHD.Section14c.DataAccess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] dol_whd_section14c_dataaccess_dll {
+        internal static byte[] dol_whd_section14c_log_dll {
             get {
-                object obj = ResourceManager.GetObject("dol_whd_section14c_dataaccess_dll", resourceCulture);
+                object obj = ResourceManager.GetObject("dol_whd_section14c_log_dll", resourceCulture);
                 return ((byte[])(obj));
             }
         }

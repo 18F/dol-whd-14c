@@ -19,6 +19,7 @@ namespace DOL.WHD.Section14c.Log.Models
 
         public string User { get; set; }        
 
+        [Required]
         public string Level { get; set; }
 
         public string Exception { get; set; }

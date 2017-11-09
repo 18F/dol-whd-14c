@@ -26,7 +26,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             _disposed = true;
         }
 
-        public IQueryable<Attachment> Get()
+        public IEnumerable<Attachment> Get()
         {
             return _data.Values.AsQueryable();
         }

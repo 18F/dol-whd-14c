@@ -16,7 +16,7 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
-    [RoutePrefix("api/ErrorLogs")]
+    [RoutePrefix("api/errorlogs")]
     public class ErrorLogsController : BaseApiController
     {
         private IErrorLogRepository errorLogRepository;
@@ -33,7 +33,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
        
         [HttpGet]
-        [Route("GetAllLogs")]
+        [Route("getalllogs")]
         [LoggingFilterAttribute]
         [GlobalExceptionAttribute]
         public IQueryable<APIErrorLogs> GetAllLogs()
@@ -54,7 +54,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // GET: api/ErrorLogs/5
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
-        [Route("GetLogByID")]
+        [Route("getlogbyid")]
         [LoggingFilterAttribute]
         [GlobalExceptionAttribute]
         public IHttpActionResult GetErrorLogByID(string correlationId)
@@ -74,7 +74,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
         // POST: api/ErrorLogs
         [HttpPost]
-        [Route("AddLog")]
+        [Route("addlog")]
         [LoggingFilterAttribute]
         [GlobalExceptionAttribute]
         public IHttpActionResult AddLog(LogDetails errorLog)

@@ -6,7 +6,8 @@ using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using DOL.WHD.Section14c.Domain.ViewModels;
 using System.Collections.Generic;
-using DOL.WHD.Section14c.PdfApi.Business;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using DOL.WHD.Section14c.Business.Helper;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
@@ -60,36 +61,50 @@ namespace DOL.WHD.Section14c.Business.Services
             };
         }
 
-        public List<ApplicationData> DownloadApplicationAttachments(string EIN, string htmlString)
+        public List<ApplicationData> DownloadApplicationAttachments(List<Attachment> attachments, string applicationFormData)
         {
-            var attachments = _attachmentRepository.Get()
-                .Where(x => x.EIN == EIN && x.Deleted == false);
-
-            if (attachments == null)
-                throw new ObjectNotFoundException();
-
             var applicationData = new List<ApplicationData>();
 
-            // Get application content html
-            if (!string.IsNullOrEmpty(htmlString))
+            if (!string.IsNullOrEmpty(applicationFormData))
             {
-                applicationData.Add(new ApplicationData()
-                {
-                    HtmlString = htmlString
-                });
+                applicationData.Add(new ApplicationData() { HtmlString = applicationFormData, Type = "html" });
             }
             foreach (var attachment in attachments)
             {
                 var memoryStream = new MemoryStream();
                 var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
 
-                applicationData.Add(new ApplicationData()
-                {
-                    Buffer = stream.ToArray(),
-                    Type = attachment.MimeType
-                });
+                applicationData.Add(new ApplicationData() { Buffer = stream.ToArray(), Type = attachment.MimeType });
             }
             return applicationData;
+        }
+
+        /// <summary>
+        /// Get all attachments from an application after the application has been submitted.
+        /// </summary>
+        /// <param name="application"></param>
+        /// <returns></returns>
+        public List<Attachment> GetApplicationAttachments(ApplicationSubmission application)
+        {
+            List<Attachment> attachments = new List<Attachment>();
+            if (application != null)
+            {
+                if(application?.Employer?.SCAAttachment != null)
+                    attachments.Add(application.Employer.SCAAttachment);
+
+                if (application?.PieceRateWageInfo?.SCAWageDeterminationAttachment != null)
+                    attachments.Add(application.PieceRateWageInfo.SCAWageDeterminationAttachment);
+
+                if(application?.PieceRateWageInfo?.Attachment != null)
+                    attachments.Add(application.PieceRateWageInfo.Attachment);
+
+                if (application?.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.Attachment != null)
+                    attachments.Add(application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+
+                if (application?.HourlyWageInfo?.Attachment != null)
+                    attachments.Add(application.HourlyWageInfo.Attachment);  
+            }
+            return attachments;
         }
 
         public void DeleteAttachement(string EIN, Guid fileId)
@@ -104,6 +119,13 @@ namespace DOL.WHD.Section14c.Business.Services
             attachment.Deleted = true;
 
             _attachmentRepository.SaveChanges();
+        }
+
+        public string ApplicationFormView(ApplicationSubmission application, string templateString)
+        {
+            string tempString = string.Empty;
+            tempString = ApplicationFormViewHelper.PopulateApplicationData(application, templateString);
+            return tempString;
         }
 
         public void Dispose()

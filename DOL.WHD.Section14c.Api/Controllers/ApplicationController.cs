@@ -15,8 +15,9 @@ using System.Data;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Collections.Generic;
-using DOL.WHD.Section14c.PdfApi.Business;
-using System.Web;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using DOL.WHD.Section14c.Business.Helper;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -146,41 +147,46 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Get Application Document
         /// </summary>
-        /// <param name="EIN"></param>
-        /// <param name="applicationHtml"></param>
+        /// <param name="applicationId"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AllowAnonymous]
         //[AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
-        public async Task<IHttpActionResult> GetApplicationDocument(string EIN, string applicationHtml)
+        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId)
         {
-            //var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            //var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
-            // if (!hasEINClaim && !hasViewAllFeature)
-            //{
-            //    Unauthorized("User doesn't have rights to download attachments from this EIN");
-            //}
-            var result = new HttpResponseMessage(HttpStatusCode.OK);
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
             try
             {
-                var applicationData = _attachmentService.DownloadApplicationAttachments(EIN, applicationHtml);
-                
-                using (var client = new HttpClient())
+                //// Get Application Template
+                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
+
+                // Calling Concatenate Web API
+                var baseUri = new Uri(Request.RequestUri.GetLeftPart(UriPartial.Authority));
+                var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
+                // Get Http Client
+                var httpClientInstance = MyHttpClient;
+                httpClientInstance.DefaultRequestHeaders.Clear();
+                httpClientInstance.DefaultRequestHeaders.ConnectionClose = false;
+                httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                if (httpClientInstance.BaseAddress != baseUri)
+                    httpClientInstance.BaseAddress = baseUri;
+                ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
+
+                // Call Document Management Web API
+                var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<ApplicationData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
+
+                //// Get return value from API call
+                var returnValue = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
+
+                if (returnValue == null)
                 {
-                    client.BaseAddress = new Uri(Request.RequestUri.GetLeftPart(UriPartial.Authority));
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    var response = await client.PostAsJsonAsync<List<ApplicationData>>("/api/DocumentManagement/Concatenate", applicationData);
-
-                    // Get return value from API call
-                    var returnValue = await response.Content.ReadAsAsync<HttpResponseMessage>();
-
-                    if (returnValue.StatusCode != HttpStatusCode.OK)
-                    {
-                        InternalServerError("Concatenate Pdf failed");
-                    }
+                    InternalServerError("Concatenate Pdf failed");
                 }
+                // Download PDF File
+                responseMessage = Download(returnValue, responseMessage, "Concatenate.pdf");
             }
             catch (Exception ex)
             {
@@ -191,8 +197,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 InternalServerError(ex.Message);
             }
-
-            return Ok(result);
+            // Replaceed Ok(Response) to fix the API response error
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>

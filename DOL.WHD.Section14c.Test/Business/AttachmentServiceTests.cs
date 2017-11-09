@@ -9,6 +9,9 @@ using DOL.WHD.Section14c.DataAccess.Repositories;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using System.Collections.Generic;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -17,13 +20,11 @@ namespace DOL.WHD.Section14c.Test.Business
     {
         private readonly IFileRepository _fileRepositoryMock;
         private readonly IAttachmentRepository _attachmentRepositoryMock;
-
         public AttachmentServiceTests()
         {
             _fileRepositoryMock = new FileRepository(@"TestUploads\");
             _attachmentRepositoryMock = new AttachmentRepositoryMock();
         }
-
         [TestMethod]
         public void AttachmentsSave()
         {
@@ -154,7 +155,7 @@ namespace DOL.WHD.Section14c.Test.Business
             service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
 
             service.DeleteAttachement(einToTest, Guid.Empty);
-        }
+        }        
 
         [TestMethod]
         public void Dispose()
