@@ -8,8 +8,22 @@ using System.Net;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
+    /// <summary>
+    /// A multipart memory stream provider that performs file type validateion
+    /// based on the app config.
+    /// </summary>
     public class RestrictedMultipartMemoryStreamProvider : MultipartMemoryStreamProvider
     {
+        /// <summary>
+        /// Get a stream from the HTTP request if the file type is supported
+        /// </summary>
+        /// <param name="parent">
+        /// The HTTP content from the request
+        /// </param>
+        /// <param name="headers">
+        /// The HTTP headers from the request
+        /// </param>
+        /// <returns></returns>
         public override Stream GetStream(HttpContent parent, HttpContentHeaders headers)
         {
             var pattern = AppSettings.Get<string>("AllowedFileNamesRegex");
