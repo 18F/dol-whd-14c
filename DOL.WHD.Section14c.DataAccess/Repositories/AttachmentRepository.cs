@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             System.GC.SuppressFinalize(this);
         }
 
-        public void Dispose()
+        public void Dispose(bool disposing)
         {
             if (!Disposed && disposing)
             {
