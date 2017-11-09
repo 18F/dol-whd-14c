@@ -34,7 +34,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
-        public void TestPdfByteArrayToPDF()
+        public void PdfHelper_CanConcatenatePDFFromBytes()
         {
             PDFContentData contentData = new PDFContentData {
                 Buffer = testPdfByteArray,
@@ -45,7 +45,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
-        public void TestImageByteArrayToPdf()
+        public void PdfHelper_CanConcatenateImageFromBytes()
         {
             PDFContentData contentData = new PDFContentData
             {
@@ -57,7 +57,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
-        public void TestHtmlToPdf()
+        public void PdfHelper_CanConcatenateHTMLFromString()
         {
             PDFContentData contentData = new PDFContentData
             {
