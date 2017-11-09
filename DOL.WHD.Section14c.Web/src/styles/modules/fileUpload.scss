@@ -55,4 +55,47 @@
 
 }
 
+// List of files that have been uploaded, with Delete button for each file
+
+.dol-uploaded-files {
+    max-width: 60rem;
+    margin-bottom: 20px;
+
+    border-left: solid $color-green 4px;
+    padding: 0 0 0 10px;
+    color: $color-green; 
+    
+    li {
+      list-style: none;
+      position: relative;
+      margin: 0;
+      padding: 14px 100px 14px 28px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+  
+      + li {
+        border-top: solid $color-green 1px;
+      }
+  
+      &:before {
+        content: "";
+        position: absolute;
+        top: 16px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: url('../images/dol-checkmark-green.png') center center;
+        background: url('../images/dol-checkmark-green.svg') center center;
+        background-size: contain;
+      }    
+  
+      .red-button {
+        position: absolute;
+        top: -1px;
+        right: 0;
+      }
+    }    
+}
+
 
