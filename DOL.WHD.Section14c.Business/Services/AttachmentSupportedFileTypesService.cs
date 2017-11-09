@@ -24,11 +24,11 @@ namespace DOL.WHD.Section14c.Business.Services
                     types = resultString.Split('|');
                 }
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 // To Do throw API Business exception for logging and error handling
             }
             return types;
-        }     
+        }
     }
 }

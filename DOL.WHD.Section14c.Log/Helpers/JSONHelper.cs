@@ -25,7 +25,7 @@ namespace DOL.WHD.Section14c.Log.Helpers
             {
                 return serializer.Serialize(obj);
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return string.Empty;
             }
