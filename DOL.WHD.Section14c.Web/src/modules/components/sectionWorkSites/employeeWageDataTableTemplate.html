@@ -1,0 +1,22 @@
+<table id="example" class="display compact wage-data" cellspacing="0" width="100%">
+   <thead>
+   <tr>
+     <th>Name</th>
+     <th>Type of work performed</th>
+     <th>Primary disability</th>
+     <th>How many jobs did this worker perform at this work site?</th>
+     <th>Average # of hours worked per week on all jobs at this work site</th>
+     <th>Average earnings per hour for all jobs at this work site</th>
+     <th>Prevailing wage rate for job described above</th>
+     <th>Productivity measure/rating for job described above</th>
+     <th>Commensurate wage rate/average earnings per hour for job described above</th>
+     <th>Total hours worked for job described above</th>
+     <th>Does worker perform work for this employer at any other work site?</th>
+   </tr>
+   </thead>
+    <tbody>
+   <tr *ngFor="let row of data; let i = index">
+     <td>{{row.name}}</td>
+   </tr>
+   </tbody>
+ </table>
