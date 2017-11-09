@@ -410,6 +410,7 @@
 
 
         <div class="clearer">
+          <results-table data="vm.activeWorksite.employees"></results-table>
           <button class="compact-spaced pull-right" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
           <div class="clearer"></div>
           <hr>
@@ -429,7 +430,7 @@
             <img src="/images/add-employee-example-small.png" alt="">
           </div>
         </div>
-        <employee-wage-data-table></employee-wage-data-table>
+
         <table class="usa-table-borderless expandable-table" ng-show="vm.activeWorksite.employees.length">
           <thead>
             <tr>
