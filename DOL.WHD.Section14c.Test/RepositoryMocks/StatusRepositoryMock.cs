@@ -6,6 +6,9 @@ using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.RepositoryMocks
 {
+    /// <summary>
+    /// Status repository mock
+    /// </summary>
     public class StatusRepositoryMock : IStatusRepository
     {
         private bool _disposed;
@@ -13,6 +16,9 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public bool Disposed => _disposed;
 
+        /// <summary>
+        /// Sets up the mock with fake data
+        /// </summary>
         public StatusRepositoryMock()
         {
             _data = new List<Status>
@@ -27,11 +33,18 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             };
         }
 
+        /// <summary>
+        /// Get data
+        /// </summary>
+        /// <returns>Data</returns>
         public IQueryable<Status> Get()
         {
             return _data.AsQueryable();
         }
 
+        /// <summary>
+        /// Dispose
+        /// </summary>
         public void Dispose()
         {
             _disposed = true;
