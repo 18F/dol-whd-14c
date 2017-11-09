@@ -55,7 +55,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             System.GC.SuppressFinalize(this);
         }
 
-        public void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             _disposed = _disposed || disposing;
         }

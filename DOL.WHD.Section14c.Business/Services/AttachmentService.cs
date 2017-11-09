@@ -79,7 +79,7 @@ namespace DOL.WHD.Section14c.Business.Services
             System.GC.SuppressFinalize(this);
         }
 
-        public void Dispose(bool disposing)
+        protected void Dispose(bool disposing)
         {
             if (!Disposed && disposing)
             {

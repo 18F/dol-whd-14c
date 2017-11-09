@@ -39,7 +39,7 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
         /// <returns></returns>
         public LogDetails AddLog(LogDetails entity)
         {
-            
+
             if (entity != null)
             {
                 if (string.IsNullOrEmpty(entity.Message))
@@ -51,7 +51,7 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
                 eventInfo.Properties[Constants.CorrelationId] = Guid.NewGuid().ToString();
 
                 eventInfo.Properties[Constants.EIN] = string.IsNullOrEmpty(entity.EIN) ? string.Empty : entity.EIN;
-                eventInfo.LoggerName = "NLog";                
+                eventInfo.LoggerName = "NLog";
 
                 eventInfo.Message = entity.Message;
 
@@ -59,7 +59,7 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
                 {
                     eventInfo.Exception = new Exception(entity.Exception);
                 }
-                
+
                 eventInfo.Level = LogLevel.FromString(entity.Level);
                 eventInfo.Properties[Constants.UserId] = entity.UserId;
                 eventInfo.Properties[Constants.UserName] = entity.User;
@@ -77,6 +77,9 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose object
+        /// </summary>
         protected virtual void Dispose(bool disposing) {
             if(!Disposed && disposing) {
                 if(_dbContext != null)
