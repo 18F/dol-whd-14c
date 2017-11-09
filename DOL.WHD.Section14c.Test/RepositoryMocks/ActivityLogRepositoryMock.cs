@@ -40,7 +40,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             return _data.AsQueryable();
         }
 
-        public async Task<APIActivityLogs> GetActivityLogByIDAsync(int id)
+        public APIActivityLogs GetActivityLogByIDAsync(int id)
         {
             if (this.AddShouldFail)
             {
@@ -48,7 +48,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             }
 
             return _data.AsQueryable().SingleOrDefault(x => x.Id == id);
-        }        
+        }
 
         public void Dispose()
         {
