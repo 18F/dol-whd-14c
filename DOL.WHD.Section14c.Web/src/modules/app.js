@@ -182,7 +182,6 @@ app.run(function(
   $rootScope,
   $location,
   $log,
-  loggingService,
   stateService,
   autoSaveService,
   authService,
