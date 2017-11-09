@@ -6,6 +6,9 @@ using System.Web.Script.Serialization;
 
 namespace DOL.WHD.Section14c.Log.Helpers
 {
+    /// <summary>
+    /// Extension methods to serialize objects to JSON strings
+    /// </summary>
     public static class JSONHelper
     {
         #region Public extension methods.

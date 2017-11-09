@@ -11,11 +11,20 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
+    /// <summary>
+    /// Log API controller
+    /// </summary>
     [RoutePrefix("api/ActivityLogs")]
     public class ActivityLogsController : BaseApiController
     {
         private IActivityLogRepository activityLogRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repository">
+        /// The repository where logs should be stored
+        /// </param>
         public ActivityLogsController(IActivityLogRepository repository)
         {
             activityLogRepository = repository;

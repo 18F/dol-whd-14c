@@ -6,6 +6,9 @@ using DOL.WHD.Section14c.Log.Models;
 
 namespace DOL.WHD.Section14c.Log.DataAccess
 {
+    /// <summary>
+    /// Database context for logging
+    /// </summary>
     public class ApplicationLogContext : DbContext
     {
         // You can add custom code to this file. Changes will not be overwritten.
@@ -15,20 +18,37 @@ namespace DOL.WHD.Section14c.Log.DataAccess
         // For more information refer to the documentation:
         // http://msdn.microsoft.com/en-us/data/jj591621.aspx
     
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ApplicationLogContext() : base("name=ApplicationLogContext")
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationLogContext, Configuration>());
         }
 
+        /// <summary>
+        /// Create a new application log context
+        /// </summary>
+        /// <returns>A new application log context</returns>
         public static ApplicationLogContext Create()
         {
             return new ApplicationLogContext();
         }
 
-        public System.Data.Entity.DbSet<APIActivityLogs> ActivityLogs { get; set; }
-        public System.Data.Entity.DbSet<APIErrorLogs> ErrorLogs { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<APIActivityLogs> ActivityLogs { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public DbSet<APIErrorLogs> ErrorLogs { get; set; }
 
+        /// <summary>
+        /// Model-creating event handler
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
