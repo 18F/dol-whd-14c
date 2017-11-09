@@ -48,7 +48,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 }
             }
 
-            if (applicationData?.FilePaths != null)
+            if (applicationData.FilePaths != null)
             {
                 outputDocument = ConcatenatePDFDocumentByPath(outputDocument, applicationData.FilePaths);
             }
