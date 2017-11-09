@@ -24,7 +24,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         public void Initialize()
         {
             testHtmlString = @"<html><body><h1>My Content</h1><p>My Content.</p><a href='#'></a></body></html>";
-            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            string testFilePath = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"..\..\..\TestFiles"));
             testPdfPath = Path.Combine(testFilePath, "TestFile1.pdf");
             testImagePath = Path.Combine(testFilePath, "TestImage.jpg");
 
@@ -39,7 +39,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
             PDFContentData contentData = new PDFContentData {
                 Buffer = testPdfByteArray,
                 Type = "pdf",
-            };            
+            };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
         }
