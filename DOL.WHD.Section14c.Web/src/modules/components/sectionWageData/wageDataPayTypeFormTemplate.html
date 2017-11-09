@@ -1,50 +1,50 @@
 <div class="dol-form-question-group force-margin" ng-show="paytype">
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
-      <label for="numWorkers" class="dol-form-question-text" id="numWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
+      <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkers" class="dol-form-question-text" id="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
       <!-- The first tabbable element has the ID for tab panel focus. -->
-      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="numWorkersHelp" aria-describedby="numWorkersLabel"></helplink>     
+      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkersHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkersLabel"></helplink>     
     </div>
-    <helptext id="numWorkersHelp">Count the total number of workers paid {{ paytype === 'hourly' ? 'an hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
+    <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkersHelp">Count the total number of workers paid {{ paytype === 'hourly' ? 'an hourly' : 'a piece rate'}} subminimum wage rate at any time during the most recently completed fiscalquarter that ended on the date listed in Item 7(a).</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
-    <input id="numWorkers" name="numWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
+    <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkers" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}NumWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
 
   <fieldset class="dol-form-question-block">
-    <legend class="hide"><span id="jobNameLabel">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span></legend>
+    <legend class="hide"><span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobNameLabel">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span></legend>
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobName') ? 'usa-input-error' : ''">
       <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span>
-          <helplink aria-controls="jobNameHelp" aria-describedby="jobNameLabel"></helplink> 
+          <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobNameHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobNameLabel"></helplink> 
       </div>
-      <helptext id="jobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages (e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).</helptext>
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages (e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
-      <label for="jobName">Name of Job or Contract</label>
-      <input id="jobName" name="jobName" type="text" ng-model="formData[modelPrefix()].jobName">
+      <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobName">Name of Job or Contract</label>
+      <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobName" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobName" type="text" ng-model="formData[modelPrefix()].jobName">
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobDescription') ? 'usa-input-error' : ''">
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobDescription')">{{ validate(modelPrefix() + '.jobDescription') }}</span>
-      <label for="jobDescription">Description of Work Performed</label>
-      <textarea id="jobDescription" name="jobDescription" ng-model="formData[modelPrefix()].jobDescription"></textarea>
+      <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobDescription">Description of Work Performed</label>
+      <textarea id="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobDescription" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}JobDescription" ng-model="formData[modelPrefix()].jobDescription"></textarea>
     </div>
   </fieldset>
 
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.prevailingWageMethod') ? 'usa-input-error' : ''">
     <fieldset class="usa-fieldset-inputs form-question-answer">
-      <legend class="hide"><span id="wageMethodLabel">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span></legend>
+      <legend class="hide"><span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WageMethodLabel">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span></legend>
       <div class="dol-legend-help">
         <span class="dol-form-question-text" aria-hidden="true">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
-        <helplink aria-controls="wageMethodHelp" aria-describedby="wageMethodLabel"></helplink>
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}WageMethodHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}WageMethodLabel"></helplink>
       </div>     
-      <helptext id="wageMethodHelp">
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WageMethodHelp">
         For information on Prevailing Wages, see <a href='https://www.dol.gov/whd/regs/compliance/whdfs39b.pdf' target='_blank'>Fact Sheet #39B: Prevailing Wages and Commensurate Wages under Section 14(c) of the FLSA</a>.
       </helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.PrevailingWageMethod">
-          <input id="wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
-          <label for="wagemethod_{{ response.id }}">{{ response.display }}</label>
+          <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}Wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
+          <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}Wagemethod_{{ response.id }}">{{ response.display }}</label>
         </li>
       </ul>
     </fieldset>
@@ -55,16 +55,16 @@
       <div class="dol-form-question-text">Provide information for the most recent Prevailing Wage survey conducted for the job or contract identified above:</div>
 
       <div ng-class="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') ? 'usa-input-error' : ''">
-        <label for="prevailingWageDetermined">Prevailing Wage Determined based on this survey</label>
+        <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDetermined">Prevailing Wage Determined based on this survey</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined')">{{ validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') }}</span>
-        <input id="prevailingWageDetermined" name="prevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].mostRecentPrevailingWageSurvey.prevailingWageDetermined">
+        <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDetermined" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].mostRecentPrevailingWageSurvey.prevailingWageDetermined">
       </div>
-      <p><span id="sourceEmployerNameLabel">You must provide <strong>3</strong> Source Employers for the survey</span> 
-        <helplink aria-controls="sourceEmployerNameHelp" aria-describedby="sourceEmployerNameLabel"></helplink>
+      <p><span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerNameLabel">You must provide <strong>3</strong> Source Employers for the survey</span> 
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerNameHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerNameLabel"></helplink>
       </p>       
-      <helptext id="sourceEmployerNameHelp">
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerNameHelp">
         <p>The source employers surveyed should be located in the geographic area from which the labor force of the applicant is drawn. The sources for the jobs surveyed should use similar methods and equipment as the job for which this rate will apply.</p>
-        <p>The wage rate collected from each source should be the hourly rate paid to experienced (not entry level) workers who do not have disabilities that affect productive capacity.</p>
+        <p>The wage rate collected from each source should be the {{ paytype === 'hourly' ? 'hourly' : 'piece'}} rate paid to experienced (not entry level) workers who do not have disabilities that affect productive capacity.</p>
         <p>An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</p>
       </helptext>
       <div ng-show="vm.addingEmployer">
@@ -72,31 +72,31 @@
         <fieldset>
           <legend class="dol-form-question-text no-margin">Add a Source Employer</legend>
           <div ng-class="vm.validateActiveSourceEmployerProperty('employerName') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerName">Source Employer Name</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerName">Source Employer Name</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('employerName')">{{ vm.validateActiveSourceEmployerProperty('employerName') }}</span>
-            <input id="sourceEmployerName" name="sourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerName" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
           </div>
 
           <div class="usa-form-large">
             <fieldset>
               <legend class="hide">Active source employer location</legend>
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.streetAddress') ? 'usa-input-error' : ''">
-                <label for="mailing-address-1">Street address</label>
+                <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}Mailing-address-1">Street address</label>
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.streetAddress')">{{ vm.validateActiveSourceEmployerProperty('address.streetAddress') }}</span>
-                <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="vm.activeSourceEmployer.address.streetAddress">
+                <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}Mailing-address-1" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}Mailing-address-1" type="text" ng-model="vm.activeSourceEmployer.address.streetAddress">
               </div>
 
               <div class="clearer" ng-class="vm.validateActiveSourceEmployerProperty('address.city') || vm.validateActiveSourceEmployerProperty('address.state') ? 'usa-input-error' : ''">
                 <div class="usa-input-grid usa-input-grid-medium">
-                  <label for="city">City</label>
+                  <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}City">City</label>
                   <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.city')">{{ vm.validateActiveSourceEmployerProperty('address.city') }}</span>
-                  <input id="city" name="city" type="text" ng-model="vm.activeSourceEmployer.address.city">
+                  <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}City" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}City" type="text" ng-model="vm.activeSourceEmployer.address.city">
                 </div>
 
                 <div class="usa-input-grid usa-input-grid-small">
-                  <label for="state">State</label>
+                  <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}State">State</label>
                   <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.state')">{{ vm.validateActiveSourceEmployerProperty('address.state') }}</span>
-                  <select id="state" name="state" ng-model="vm.activeSourceEmployer.address.state">
+                  <select id="{{ paytype === 'hourly' ? 'h' : 'pr'}}State" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}State" ng-model="vm.activeSourceEmployer.address.state">
                     <option value></option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -160,29 +160,29 @@
               </div>
 
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.zipCode') ? 'usa-input-error' : ''">
-                <label for="zip">ZIP</label>
+                <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}Zip">ZIP</label>
                 <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.zipCode')">{{ vm.validateActiveSourceEmployerProperty('address.zipCode') }}</span>
-                <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
+                <input class="usa-input-medium" id="{{ paytype === 'hourly' ? 'h' : 'pr'}}Zip" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}Zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
               </div>
             </fieldset>
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('phone') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerPhone">Telephone Number</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerPhone">Telephone Number</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('phone')">{{ vm.validateActiveSourceEmployerProperty('phone') }}</span>
-            <input id="sourceEmployerPhone" name="sourceEmployerPhone" type="text" mask="999-999-9999" class="phoneno" ng-model="vm.activeSourceEmployer.phone">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerPhone" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerPhone" type="text" mask="999-999-9999" class="phoneno" ng-model="vm.activeSourceEmployer.phone">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactName') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerContactName">Full Name of Individual Contacted</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactName">Full Name of Individual Contacted</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactName')">{{ vm.validateActiveSourceEmployerProperty('contactName') }}</span>
-            <input id="sourceEmployerContactName" name="sourceEmployerContactName" type="text" ng-model="vm.activeSourceEmployer.contactName">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactName" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactName" type="text" ng-model="vm.activeSourceEmployer.contactName">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactTitle') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerContactTitle">Title of Individual Contacted</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactTitle">Title of Individual Contacted</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactTitle')">{{ vm.validateActiveSourceEmployerProperty('contactTitle') }}</span>
-            <input id="sourceEmployerContactTitle" name="sourceEmployerContactTitle" type="text" ng-model="vm.activeSourceEmployer.contactTitle">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactTitle" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerContactTitle" type="text" ng-model="vm.activeSourceEmployer.contactTitle">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactDate') ? 'usa-input-error' : ''">
@@ -195,21 +195,21 @@
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('jobDescription') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerJobDescription">Brief Description of Job/Task</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerJobDescription">Brief Description of Job/Task</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('jobDescription')">{{ vm.validateActiveSourceEmployerProperty('jobDescription') }}</span>
-            <input id="sourceEmployerJobDescription" name="sourceEmployerJobDescription" type="text" ng-model="vm.activeSourceEmployer.jobDescription">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerJobDescription" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerJobDescription" type="text" ng-model="vm.activeSourceEmployer.jobDescription">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerWage">Experienced Worker Wage Provided</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerWage">Experienced Worker Wage Provided</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
-            <input id="sourceEmployerWage" name="sourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerWage" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') ? 'usa-input-error' : ''">
-            <label for="sourceEmployerBasis">Basis for Conclusion Wage Rate is Not Based on Entry Level</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerBasis">Basis for Conclusion Wage Rate is Not Based on Entry Level</label>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry')">{{ vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') }}</span>
-            <input id="sourceEmployerBasis" name="sourceEmployerBasis" type="text" ng-model="vm.activeSourceEmployer.conclusionWageRateNotBasedOnEntry">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerBasis" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}SourceEmployerBasis" type="text" ng-model="vm.activeSourceEmployer.conclusionWageRateNotBasedOnEntry">
           </div>
         </fieldset>
 
@@ -257,33 +257,33 @@
   <div class="dol-form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 25">
     <div class="dol-form-question-block">
       <fieldset>
-        <legend class="hide"><span id="alternateWorkDescriptionLabel">Provide the alternate wage data source used and the prevailing wage provided by that source:</span></legend>
+        <legend class="hide"><span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescriptionLabel">Provide the alternate wage data source used and the prevailing wage provided by that source:</span></legend>
         <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">Provide the alternate wage data source used and the prevailing wage provided by that source:</span>
-          <helplink aria-controls="alternateWorkDescriptionHelp" aria-describedby="alternateWorkDescriptionLabel"></helplink>
+          <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescriptionHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescriptionLabel"></helplink>
         </div>          
-        <helptext id="alternateWorkDescriptionHelp">
+        <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescriptionHelp">
           <p>If conducting surveys is not practical and the employer instead uses U.S. Bureau of Labor Statistics (BLS) or alternative wage rates, identify the alternative source used (e.g., BLS Occupational Employment Survey; BLS Current Population Survey), the prevailing wage, the job classification (if applicable) provided by the source, and the date that the data was obtained.</p>
           <p>BLS wage data can be found at <a href="www.bls.gov/bls/blswage.htm">www.bls.gov/bls/blswage.htm</a>.</p>
           <p>Data from employment services may only be used to determine prevailing wages if the data provides wage rates of experienced workers not disabled for the work being performed; entry level wage data may not be used.</p>
         </helptext>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') ? 'usa-input-error' : ''">
-          <label for="alternateWorkDescription">Description of Work (include job classification code, if known)</label>
+          <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescription">Description of Work (include job classification code, if known)</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription')">{{ validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') }}</span>
-          <textarea id="alternateWorkDescription" name="alternateWorkDescription" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
+          <textarea id="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescription" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateWorkDescription" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') ? 'usa-input-error' : ''">
-          <label for="alternateDataSourceUsed">Alternate data source used </label>
+          <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateDataSourceUsed">Alternate data source used </label>
           <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed')">{{ validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') }}</span>
-          <input id="alternateDataSourceUsed" name="alternateDataSourceUsed" type="text" ng-model="formData[modelPrefix()].alternateWageData.alternateDataSourceUsed">
+          <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateDataSourceUsed" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}AlternateDataSourceUsed" type="text" ng-model="formData[modelPrefix()].alternateWageData.alternateDataSourceUsed">
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource') ? 'usa-input-error' : ''">
-          <label for="prevailingWageProvidedBySource">Prevailing wage provided by source</label>
+          <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageProvidedBySource">Prevailing wage provided by source</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource')">{{ validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource') }}</span>
-          <input id="prevailingWageProvidedBySource" name="prevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.prevailingWageProvidedBySource">
+          <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageProvidedBySource" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.prevailingWageProvidedBySource">
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.dataRetrieved') ? 'usa-input-error' : ''">
@@ -302,10 +302,10 @@
   <div class="dol-form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 26">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="scaWageDeterminationAttachmentLabel">Attach the applicable SCA Wage Determination</label>
-        <helplink aria-controls="scaWageDeterminationAttachmentHelp" aria-describedby="scaWageDeterminationAttachmentLabel"></helplink>   
+        <label class="dol-form-question-text" id="{{ paytype === 'hourly' ? 'h' : 'pr'}}ScaWageDeterminationAttachmentLabel">Attach the applicable SCA Wage Determination</label>
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}ScaWageDeterminationAttachmentHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}ScaWageDeterminationAttachmentLabel"></helplink>   
       </div>
-      <helptext id="scaWageDeterminationAttachmentHelp">
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}ScaWageDeterminationAttachmentHelp">
         <p>If conducting surveys is not practical and the employer instead uses U.S. Bureau of Labor Statistics (BLS) or alternative wage rates, identify the alternative source used (e.g., BLS Occupational Employment Survey; BLS Current Population Survey), the prevailing wage, the job classification (if applicable) provided by the source, and the date that the data was obtained.</p>
         <p>BLS wage data can be found at <a href="www.bls.gov/bls/blswage.htm">www.bls.gov/bls/blswage.htm</a>.</p>
         <p>Data from employment services may only be used to determine prevailing wages if the data provides wage rates of experienced workers not disabled for the work being performed; entry level wage data may not be used.</p>
@@ -318,20 +318,20 @@
   <div class="dol-form-question-group" ng-show="paytype === 'hourly'">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.workMeasurementFrequency') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label for="workMeasurementFrequency" class="dol-form-question-text" id="workMeasurementFrequencyLabel">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
-        <helplink aria-controls="workMeasurementFrequencyHelp" aria-describedby="workMeasurementFrequencyLabel"></helplink>   
+        <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequency" class="dol-form-question-text" id="workMeasurementFrequencyLabel">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequencyHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequencyLabel"></helplink>   
       </div>
-      <helptext id="workMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>      
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
-      <input id="workMeasurementFrequency" name="workMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
+      <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequency" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="workMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
-        <helplink aria-controls="workMeasurementAttachmentHelp" aria-describedby="workMeasurementAttachmentLabel"></helplink>   
+        <label class="dol-form-question-text" id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementAttachmentHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementAttachmentLabel"></helplink>   
       </div>
-      <helptext id="workMeasurementAttachmentHelp">
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}WorkMeasurementAttachmentHelp">
         Select one time study for a worker who was paid an hourly subminimum wage under the same job/contract reflected in Item 9(b). The time study provided must be the most recent time study conducted for that worker. The hourly rate time study providedshould include the productivity rating and evaluation forms used to determine the employee’s commensurate wage rate. The documentation should include all materials related to the work measurement, such as:      
         <ul>
           <li>detailed task analysis (including quality and quantity measures),</li>
@@ -347,44 +347,44 @@
   <div class="dol-form-question-group" ng-show="paytype === 'piecerate'">
     <div class="dol-form-question-block">
       <fieldset>
-          <legend class="hide"><span id="pieceRateWorkDescriptionLabel">Provide the following information for the job or contract identified above:</span></legend>
+          <legend class="hide"><span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescriptionLabel">Provide the following information for the job or contract identified above:</span></legend>
           <div class="dol-legend-help">
             <span class="dol-form-question-text" aria-hidden="true">Provide the following information for the job or contract identified above:</span>
-            <helplink aria-controls="pieceRateWorkDescriptionHelp" aria-describedby="pieceRateWorkDescriptionLabel"></helplink>
+            <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescriptionHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescriptionLabel"></helplink>
           </div>          
-          <helptext id="pieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey provided in Item 11(b). Provide the description of the job tasks, the hourly prevailing wage for the job, the standard productivity (units per hour), and the piece rate paid to workers (rate per unit).</helptext>
+          <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey provided in Item 11(b). Provide the description of the job tasks, the hourly prevailing wage for the job, the standard productivity (units per hour), and the piece rate paid to workers (rate per unit).</helptext>
           <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
-            <label for="pieceRateWorkDescription">Descripton of Work</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescription">Descripton of Work</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
-            <input id="pieceRateWorkDescription" name="pieceRateWorkDescription" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescription" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRateWorkDescription" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
           </div>
           <div ng-class="validate(modelPrefix() + '.prevailingWageDeterminedForJob') ? 'usa-input-error' : ''">
-            <label for="prevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageDeterminedForJob')">{{ validate(modelPrefix() + '.prevailingWageDeterminedForJob') }}</span>
-            <input id="prevailingWageDeterminedForJob" name="prevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].prevailingWageDeterminedForJob" aria-describedby="prevailingWageDesc">
-            <span id="prevailingWageDesc">rate per hour</span>
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDeterminedForJob" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].prevailingWageDeterminedForJob" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDesc">
+            <span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PrevailingWageDesc">rate per hour</span>
           </div>
           <div ng-class="validate(modelPrefix() + '.standardProductivity') ? 'usa-input-error' : ''">
-            <label for="standardProductivity">Standard Productivity</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivity">Standard Productivity</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.standardProductivity')">{{ validate(modelPrefix() + '.standardProductivity') }}</span>
-            <input id="standardProductivity" name="standardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].standardProductivity" aria-describedby="standardProductivityDesc">
-            <span id="standardProductivityDesc">units per hour</span>
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivity" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].standardProductivity" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityDesc">
+            <span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityDesc">units per hour</span>
           </div>
           <div ng-class="validate(modelPrefix() + '.pieceRatePaidToWorkers') ? 'usa-input-error' : ''">
-            <label for="pieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
+            <label for="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRatePaidToWorkers')">{{ validate(modelPrefix() + '.pieceRatePaidToWorkers') }}</span>
-            <input id="pieceRatePaidToWorkers" name="pieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].pieceRatePaidToWorkers" id="pieceRatePaidToWorkersDesc">
-            <span id="pieceRatePaidToWorkersDesc">rate per unit</span>
+            <input id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRatePaidToWorkers" name="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].pieceRatePaidToWorkers" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRatePaidToWorkersDesc">
+            <span id="{{ paytype === 'hourly' ? 'h' : 'pr'}}PieceRatePaidToWorkersDesc">rate per unit</span>
           </div>
       </fieldset>
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="standardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
-        <helplink aria-controls="standardProductivityAttachmentHelp" aria-describedby="standardProductivityAttachmentLabel"></helplink>   
+        <label class="dol-form-question-text" id="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
+        <helplink aria-controls="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityAttachmentHelp" aria-describedby="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityAttachmentLabel"></helplink>   
       </div>
-      <helptext id="standardProductivityAttachmentHelp">Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
+      <helptext id="{{ paytype === 'hourly' ? 'h' : 'pr'}}StandardProductivityAttachmentHelp">Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
         <ul>
           <li>detailed task analysis (including quality and quantity measures), and</li>
           <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
