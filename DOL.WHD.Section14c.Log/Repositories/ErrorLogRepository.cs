@@ -73,9 +73,13 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
         /// </summary>
         public void Dispose()
         {
-            if (!Disposed)
-            {
-                if (_dbContext != null)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing) {
+            if(!Disposed && disposing) {
+                if(_dbContext != null)
                 {
                     _dbContext.Dispose();
                     Disposed = true;
