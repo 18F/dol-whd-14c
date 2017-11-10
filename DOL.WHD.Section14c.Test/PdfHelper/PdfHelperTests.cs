@@ -116,7 +116,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
 
         [TestMethod()]
         [ExpectedException(typeof(ArgumentException))]
-        public void PdfHelper_ThrowsExceptionOnEmptyilePath()
+        public void PdfHelper_ThrowsExceptionOnEmptyFilePath()
         {
             PDFContentData contentData = new PDFContentData
             {
