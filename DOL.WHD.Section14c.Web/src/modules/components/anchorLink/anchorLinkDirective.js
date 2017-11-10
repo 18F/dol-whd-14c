@@ -13,8 +13,11 @@ module.exports = function(ngModule) {
           $document[0].getElementById(attr.scrollto).focus();
         });
         element.bind('keydown keypress', function() {
-          $anchorScroll(attr.scrollto);
-          $document[0].getElementById(attr.scrollto).focus();
+          if (event.which === 13) {
+            $anchorScroll(attr.scrollto);
+            $document[0].getElementById(attr.scrollto).focus();
+            event.preventDefault();
+          }  
         });
       },
       transclude: true
