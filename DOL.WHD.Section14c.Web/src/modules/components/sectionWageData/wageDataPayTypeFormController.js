@@ -32,6 +32,14 @@ module.exports = function(ngModule) {
       return prefix;
     };
 
+    $scope.valuePrefix = function() {
+      var vprefix = 'h';
+      if ($scope.paytype === 'piecerate') {
+        vprefix = 'pr';
+      }
+      return vprefix;
+    };    
+
     if (!$scope.formData[$scope.modelPrefix()]) {
       $scope.formData[$scope.modelPrefix()] = {
         numWorkers: 0,
@@ -119,5 +127,8 @@ module.exports = function(ngModule) {
           prop
       );
     };
+
+
+
   });
 };
