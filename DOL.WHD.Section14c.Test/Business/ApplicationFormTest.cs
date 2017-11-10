@@ -44,31 +44,33 @@ namespace DOL.WHD.Section14c.Test.Business
             var einToTest = "40-9876543";
             var testFileContents = "test";
             var data = Encoding.ASCII.GetBytes(testFileContents);
-            var memoryStream = new MemoryStream(data);
-            var fileName = "test.txt";
-
-            // Arrange
-            var einToTest1 = "40-9876544";
-            var fileName1 = "test1.txt";
-
-            var htmlContent = "<html><body><p>Test Test</p></body></html>";
-            var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            var attachment = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
-            var attachment1 = service.UploadAttachment(einToTest1, memoryStream, fileName1, "text/plain");
-
-            List<Attachment> attachments = new List<Attachment>()
+            using (var memoryStream = new MemoryStream(data))
             {
-                attachment,
-                attachment1
-            };
+                var fileName = "test.txt";
 
-            using (var outMemoryStream = new MemoryStream())
-            {
-                List<PDFContentData> applicationDataCollection = service.PrepareApplicationContentsForPdfConcatenation(attachments, htmlContent);
+                // Arrange
+                var einToTest1 = "40-9876544";
+                var fileName1 = "test1.txt";
 
-                string outText = Encoding.ASCII.GetString(applicationDataCollection[1].Buffer);
+                var htmlContent = "<html><body><p>Test Test</p></body></html>";
+                var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
+                var attachment = service.UploadAttachment(einToTest, memoryStream.ToArray(), fileName, "text/plain");
+                var attachment1 = service.UploadAttachment(einToTest1, memoryStream.ToArray(), fileName1, "text/plain");
 
-                Assert.AreEqual(outText, testFileContents);
+                List<Attachment> attachments = new List<Attachment>()
+                {
+                    attachment,
+                    attachment1
+                };
+
+                using (var outMemoryStream = new MemoryStream())
+                {
+                    List<PDFContentData> applicationDataCollection = service.PrepareApplicationContentsForPdfConcatenation(attachments, htmlContent);
+
+                    string outText = Encoding.ASCII.GetString(applicationDataCollection[1].Buffer);
+
+                    Assert.AreEqual(outText, testFileContents);
+                }
             }
         }
 

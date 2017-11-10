@@ -29,124 +29,126 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             var einToTest = "41-9876543";
             var testFileContents = "test";
             var data = Encoding.ASCII.GetBytes(testFileContents);
-            var memoryStream = new MemoryStream(data);
-            var fileName = "test.txt";
-
-            // Arrange
-            var einToTest1 = "41-9876544";
-            var fileName1 = "test1.txt";
-
-            var einToTest2 = "41-9876545";
-            var fileName2 = "test2.txt";
-
-            var einToTest3 = "41-9876546";
-            var fileName3 = "test3.txt";
-
-            var einToTest4 = "41-9876547";
-            var fileName4 = "test4.txt";
-
-            var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            var sCAAttachment = service.UploadAttachment(einToTest, memoryStream, fileName, "text/plain");
-            var sCAWageDeterminationAttachment = service.UploadAttachment(einToTest1, memoryStream, fileName1, "text/plain");
-            var pieceRateWageInfoAttachment = service.UploadAttachment(einToTest2, memoryStream, fileName2, "text/plain");
-            var mostRecentPrevailingWageSurveyAttachment = service.UploadAttachment(einToTest3, memoryStream, fileName3, "text/plain");
-            var hourlyWageInfoAttachment = service.UploadAttachment(einToTest4, memoryStream, fileName4, "text/plain");
-
-            var address = new Section14c.Domain.Models.Address
+            using (var memoryStream = new MemoryStream(data))
             {
-                City = "Test City",
-                County = "Some County",
-                State = "VA",
-                StreetAddress = "123 Main St",
-                ZipCode = "12345"
-            };
-            var employerInfoProvidingFacilitiesDeductionType = new EmployerInfoProvidingFacilitiesDeductionType
-            {
-                ProvidingFacilitiesDeductionType = new Response
+                var fileName = "test.txt";
+
+                // Arrange
+                var einToTest1 = "41-9876544";
+                var fileName1 = "test1.txt";
+
+                var einToTest2 = "41-9876545";
+                var fileName2 = "test2.txt";
+
+                var einToTest3 = "41-9876546";
+                var fileName3 = "test3.txt";
+
+                var einToTest4 = "41-9876547";
+                var fileName4 = "test4.txt";
+
+                var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
+                var sCAAttachment = service.UploadAttachment(einToTest, memoryStream.ToArray(), fileName, "text/plain");
+                var sCAWageDeterminationAttachment = service.UploadAttachment(einToTest1, memoryStream.ToArray(), fileName1, "text/plain");
+                var pieceRateWageInfoAttachment = service.UploadAttachment(einToTest2, memoryStream.ToArray(), fileName2, "text/plain");
+                var mostRecentPrevailingWageSurveyAttachment = service.UploadAttachment(einToTest3, memoryStream.ToArray(), fileName3, "text/plain");
+                var hourlyWageInfoAttachment = service.UploadAttachment(einToTest4, memoryStream.ToArray(), fileName4, "text/plain");
+
+                var address = new Section14c.Domain.Models.Address
                 {
-                    Display = "Test"
-                }
-            };
-            ICollection<EmployerInfoProvidingFacilitiesDeductionType> eProvidingFacilitiesDeductionType =
-                new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
-            EmployerInfo employer = new EmployerInfo
-            {
-                SCAAttachment = sCAAttachment,
-                PhysicalAddress = address,
-                TemporaryAuthority = true,
-                HasTradeName = false,
-                ProvidingFacilitiesDeductionType = eProvidingFacilitiesDeductionType
-            };
-            SourceEmployer sEmployee = new SourceEmployer { EmployerName = "Some Name" };
-            ICollection<SourceEmployer> sourceEmployer = new List<SourceEmployer> { sEmployee };
-            PrevailingWageSurveyInfo prevailingWageSurveyInfo = new PrevailingWageSurveyInfo
-            {
-                Attachment = mostRecentPrevailingWageSurveyAttachment,
-                SourceEmployers = sourceEmployer
-            };
-            PieceRateWageInfo pieceRateWageInfo = new PieceRateWageInfo
-            {
-                Attachment = pieceRateWageInfoAttachment,
-                SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
-                MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
-            };
-            HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
-            {
-                Attachment = hourlyWageInfoAttachment,
-                MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
-                SCAWageDeterminationAttachment = sCAWageDeterminationAttachment
-            };
-            Response res = new Response
-            {
-                Display = "Response Test 1",
-                IsActive = true
-            };
-            WIOAWorker worker1 = new WIOAWorker
-            {
-                FullName = "Test 1",
-                WIOAWorkerVerified = res,
-            };
-            ICollection<WIOAWorker> wIOAWorkerCol = null;
-            wIOAWorkerCol = new List<WIOAWorker>() { worker1 };
-            ICollection<Employee> employees = null;
-            var emp = new Employee()
-            {
-                AvgHourlyEarnings = 1,
-                AvgWeeklyHours = 1,
-                CommensurateWageRate = "1",
-                PrevailingWage = 1,
-                Name = "test",
-                NumJobs = 1,
-                PrimaryDisability = new Response() { Display = "Sample Data" },
-                ProductivityMeasure = 1.2,
-                TotalHours = 1.0,
-                WorkType = "Some Type"
-            };
-            employees = new List<Employee>() { emp };
-            ICollection<WorkSite> workSites = null;
-            var ws = new WorkSite() { Employees = employees };
-            workSites = new List<WorkSite>() { ws };
+                    City = "Test City",
+                    County = "Some County",
+                    State = "VA",
+                    StreetAddress = "123 Main St",
+                    ZipCode = "12345"
+                };
+                var employerInfoProvidingFacilitiesDeductionType = new EmployerInfoProvidingFacilitiesDeductionType
+                {
+                    ProvidingFacilitiesDeductionType = new Response
+                    {
+                        Display = "Test"
+                    }
+                };
+                ICollection<EmployerInfoProvidingFacilitiesDeductionType> eProvidingFacilitiesDeductionType =
+                    new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
+                EmployerInfo employer = new EmployerInfo
+                {
+                    SCAAttachment = sCAAttachment,
+                    PhysicalAddress = address,
+                    TemporaryAuthority = true,
+                    HasTradeName = false,
+                    ProvidingFacilitiesDeductionType = eProvidingFacilitiesDeductionType
+                };
+                SourceEmployer sEmployee = new SourceEmployer { EmployerName = "Some Name" };
+                ICollection<SourceEmployer> sourceEmployer = new List<SourceEmployer> { sEmployee };
+                PrevailingWageSurveyInfo prevailingWageSurveyInfo = new PrevailingWageSurveyInfo
+                {
+                    Attachment = mostRecentPrevailingWageSurveyAttachment,
+                    SourceEmployers = sourceEmployer
+                };
+                PieceRateWageInfo pieceRateWageInfo = new PieceRateWageInfo
+                {
+                    Attachment = pieceRateWageInfoAttachment,
+                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
+                    MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
+                };
+                HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
+                {
+                    Attachment = hourlyWageInfoAttachment,
+                    MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
+                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment
+                };
+                Response res = new Response
+                {
+                    Display = "Response Test 1",
+                    IsActive = true
+                };
+                WIOAWorker worker1 = new WIOAWorker
+                {
+                    FullName = "Test 1",
+                    WIOAWorkerVerified = res,
+                };
+                ICollection<WIOAWorker> wIOAWorkerCol = null;
+                wIOAWorkerCol = new List<WIOAWorker>() { worker1 };
+                ICollection<Employee> employees = null;
+                var emp = new Employee()
+                {
+                    AvgHourlyEarnings = 1,
+                    AvgWeeklyHours = 1,
+                    CommensurateWageRate = "1",
+                    PrevailingWage = 1,
+                    Name = "test",
+                    NumJobs = 1,
+                    PrimaryDisability = new Response() { Display = "Sample Data" },
+                    ProductivityMeasure = 1.2,
+                    TotalHours = 1.0,
+                    WorkType = "Some Type"
+                };
+                employees = new List<Employee>() { emp };
+                ICollection<WorkSite> workSites = null;
+                var ws = new WorkSite() { Employees = employees };
+                workSites = new List<WorkSite>() { ws };
 
-            WIOA wIOA = new WIOA
-            {
-                WIOAWorkers = wIOAWorkerCol,
-            };
-            applicationSubmission = new ApplicationSubmission
-            {
-                Employer = employer,
-                PieceRateWageInfo = pieceRateWageInfo,
-                HourlyWageInfo = hourlyWageInfo,
-                WIOA = wIOA,
-                PayType = new Response() { Display = "Both" },
-                WorkSites = workSites,
-                EIN = "11-1111111",
-                Id = "CE7F5AA5-6832-43FE-BAE1-80D14CD8F666",
-                TotalNumWorkSites = 1,
-                ContactName = "Tester",
-                ContactPhone = "123=345-1234",
-            };
-            applicationSubmissionCollection = new List<ApplicationSubmission>();
-            applicationSubmissionCollection.Add(applicationSubmission);
+                WIOA wIOA = new WIOA
+                {
+                    WIOAWorkers = wIOAWorkerCol,
+                };
+                applicationSubmission = new ApplicationSubmission
+                {
+                    Employer = employer,
+                    PieceRateWageInfo = pieceRateWageInfo,
+                    HourlyWageInfo = hourlyWageInfo,
+                    WIOA = wIOA,
+                    PayType = new Response() { Display = "Both" },
+                    WorkSites = workSites,
+                    EIN = "11-1111111",
+                    Id = "CE7F5AA5-6832-43FE-BAE1-80D14CD8F666",
+                    TotalNumWorkSites = 1,
+                    ContactName = "Tester",
+                    ContactPhone = "123=345-1234",
+                };
+                applicationSubmissionCollection = new List<ApplicationSubmission>();
+                applicationSubmissionCollection.Add(applicationSubmission);
+            }
         }
 
         public Task<int> SubmitApplicationAsync(ApplicationSubmission submission)

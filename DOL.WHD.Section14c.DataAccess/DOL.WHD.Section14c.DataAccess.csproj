@@ -444,7 +444,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
