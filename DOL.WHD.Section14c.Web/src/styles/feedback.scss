@@ -98,3 +98,78 @@
     }
   }
 }
+
+// Feedback Messages (Progress/Success/Error)
+// ----------------------------------------
+
+.dol-feedback-progress,
+.dol-feedback-success,
+.dol-feedback-error {
+  max-width: 60rem;
+  margin-bottom: 20px;
+}
+p.dol-feedback-message {
+    position: relative;
+    padding-left: 28px;
+    margin: 0;  
+}
+.dol-feedback-progress {
+  border-left: solid #0175bf 4px;
+  color: #0175bf;
+
+  p.dol-feedback-message {  
+
+    &:before {
+      background: url(../images/dol-loading-small-blue-on-white.gif) no-repeat;
+    }
+  }
+}
+.dol-feedback-success {
+  border-left: solid $color-green 4px;
+  color: $color-green; 
+  
+  p.dol-feedback-message {     
+
+    &:before {
+      background: url('../images/dol-checkmark-green.png') center center;
+      background: url('../images/dol-checkmark-green.svg') center center;
+    }
+  } 
+}
+.dol-feedback-error {
+  border-left: solid $color-red 4px;
+  color: $color-red;
+
+  p.dol-feedback-message {  
+
+    &:before {
+      background: url('../images/dol-error-red.png') center center;
+      background: url('../images/dol-error-red.svg') center center;
+    }
+  }  
+}
+.dol-feedback-progress,
+.dol-feedback-success, 
+.dol-feedback-error {
+  padding: 10px 10px 8px 10px;
+
+  p.dol-feedback-message {      
+    &:before {
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      background-size: contain;
+    }
+  } 
+}
+.em-block .dol-feedback-progress {
+  p.dol-feedback-message {  
+
+    &:before {
+      background: url(../images/dol-loading-small-blue-on-gray.gif) no-repeat;
+    }
+  }  
+}

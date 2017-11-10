@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionWageDataController', function(
     $scope,
     $location,
+    $document,
     stateService,
     navService,
     responsesService,
@@ -15,6 +16,7 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
+    $scope.showAllHelp = false;
 
     // the Wage Data section should not be completed for Initial applications,
     // so redirect if necessary.
@@ -57,6 +59,14 @@ module.exports = function(ngModule) {
       }
     };
 
+    vm.tabPanelFocus = function(id) {
+      if (id === 1) {
+          $document[0].getElementById('hourlyTabPanel').focus();
+      } else {
+          $document[0].getElementById('pieceRateTabPanel').focus();
+      }
+    };
+
     $scope.$on('$routeUpdate', function() {
       query = $location.search();
       vm.activeTab = query.t ? query.t : 1;
@@ -70,5 +80,9 @@ module.exports = function(ngModule) {
         vm.setNextTabQuery();
       }
     });
+
+    this.toggleAllHelpText = function() {
+      $scope.showAllHelp = !$scope.showAllHelp;
+    }    
   });
 };

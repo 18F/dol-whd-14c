@@ -22,11 +22,11 @@ namespace DOL.WHD.Section14c.Business.Services
             _attachmentRepository = attachmentRepository;
         }
 
-        public Attachment UploadAttachment(string EIN, MemoryStream memoryStream, string fileName, string fileType)
+        public Attachment UploadAttachment(string EIN, byte[] bytes, string fileName, string fileType)
         {
             var fileUpload = new Attachment()
             {
-                FileSize = memoryStream.Length,
+                FileSize = bytes.Length,
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
             fileUpload.RepositoryFilePath = $@"{EIN}\{fileUpload.Id}";
 
-            _fileRepository.Upload(memoryStream, fileUpload.RepositoryFilePath);
+            _fileRepository.Upload(bytes, fileUpload.RepositoryFilePath);
 
             _attachmentRepository.Add(fileUpload);
             _attachmentRepository.SaveChanges();

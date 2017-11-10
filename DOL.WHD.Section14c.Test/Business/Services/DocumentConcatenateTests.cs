@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System.IO;
+using System.Reflection;
+using System.Resources;
+using DOL.WHD.Section14c.Test.Properties;
 using PdfSharp.Pdf;
 using PdfSharp.Drawing;
 using System.Drawing;
@@ -34,8 +37,9 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         public void Initialize()
         {
             testHtmlString = @"<html><body><h1>My Content</h1><p>My Content.</p><a href='#'></a></body></html>";
-            testPdfPath = AppDomain.CurrentDomain.BaseDirectory + @"\TestFiles\TestFile1.pdf";
-            testImagePath = AppDomain.CurrentDomain.BaseDirectory + (@"\TestFiles\TestImage.jpg");
+            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            testPdfPath = Path.Combine(testFilePath, "TestFile1.pdf");
+            testImagePath = Path.Combine(testFilePath, "TestImage.jpg");
 
             // The codeCoverage Tool can not access the test files. I am programmatically creating a Test PDF document
             PdfDocument document = new PdfDocument();
@@ -150,6 +154,26 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             applicationData.Add(new PDFContentData() { FilePaths = path, Type = "files" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
+        }
+
+        [TestMethod()]     
+        public void ConcatenatePDf_CreateFromFilePathestt_Invalid()
+        {
+            var path = new List<string>()
+            {
+                string.Empty,
+                string.Empty
+            };
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { FilePaths = path, Type = "files" });
+            try
+            {
+                _documentConcatenate.Concatenate(applicationData);
+            }
+            catch(Exception ex)
+            {
+                Assert.IsTrue(ex.Message.Contains("No data provided"));
+            }
         }
     }
 }

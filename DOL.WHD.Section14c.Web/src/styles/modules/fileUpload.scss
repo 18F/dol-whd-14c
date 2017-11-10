@@ -1,0 +1,101 @@
+// Styling for File Upload:
+// The button and focus outline are for visual UI only.
+// The functional file input field is positioned over the visual elements 
+// with opacity set to 0.
+// This allows for native keyboard accessibilty.
+
+.dol-file-upload-ui {
+    position: relative;
+    max-width: 46rem;
+    width: 100%;
+    height: 50px;
+    
+    
+    .usa-button-primary {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        height: 44px;
+        border-radius: 0;
+        padding: 13px 2rem 0 2rem;        
+        z-index: 2;
+    }
+    .dol-file-upload-input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0; 
+        z-index: 3; 
+        opacity: 0;      
+
+        &:focus + .dol-file-upload-focus {
+            box-shadow: 0 0 3px #3e94cf, 0 0 7px #3e94cf;
+        }
+    }
+    .dol-file-upload-focus {
+        position: absolute;
+        top: 0;
+        left: 0;        
+        border: 1px solid #afafaf;
+        border-radius: 0;
+        box-sizing: border-box;
+        color: #212121;
+        display: block;
+        font-size: 1.7rem;
+        height: 4.4rem;
+        line-height: 1.3;
+        margin: 0 0 .2em 0;
+        max-width: 46rem;
+        outline: none;
+        padding: 1rem .7em;
+        width: 100%;
+        z-index: 1;        
+    }
+
+}
+
+// List of files that have been uploaded, with Delete button for each file
+
+.dol-uploaded-files {
+    max-width: 60rem;
+    margin-bottom: 20px;
+
+    border-left: solid $color-green 4px;
+    padding: 0 0 0 10px;
+    color: $color-green; 
+    
+    li {
+      list-style: none;
+      position: relative;
+      margin: 0;
+      padding: 14px 100px 14px 28px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis; 
+  
+      + li {
+        border-top: solid $color-green 1px;
+      }
+  
+      &:before {
+        content: "";
+        position: absolute;
+        top: 16px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: url('../images/dol-checkmark-green.png') center center;
+        background: url('../images/dol-checkmark-green.svg') center center;
+        background-size: contain;
+      }    
+  
+      .red-button {
+        position: absolute;
+        top: -1px;
+        right: 0;
+      }
+    }    
+}
+
+

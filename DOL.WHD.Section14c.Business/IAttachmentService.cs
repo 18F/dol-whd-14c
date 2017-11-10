@@ -10,7 +10,7 @@ namespace DOL.WHD.Section14c.Business
 {
     public interface IAttachmentService : IDisposable
     {
-        Attachment UploadAttachment(string EIN, MemoryStream memoryStream, string fileName, string fileType);
+        Attachment UploadAttachment(string EIN, byte[] bytes, string fileName, string fileType);
         AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId);
         List<Attachment> GetApplicationAttachments(ApplicationSubmission application);
         List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, string applicationFormData);
