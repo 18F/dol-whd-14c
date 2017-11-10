@@ -40,7 +40,6 @@ module.exports = function(ngModule) {
     });
 
     var vm = this;
-    vm.showAllHelp = false;
 
     this.onHasTradeNameChange = function() {
       $scope.formData.employer.tradeName = '';
