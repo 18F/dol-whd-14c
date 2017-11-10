@@ -79,7 +79,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
                 @"c:\temp|file2.jpg"
             };
             var data = Encoding.ASCII.GetBytes(testFileContents);
-            var obj = new ApplicationData
+            var obj = new PDFContentData
             {
                 Buffer = data,
                 FilePaths = filePath,
@@ -96,8 +96,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         [TestMethod()]
         public void ConcatenatePDf_CreateFromPdfByteTest()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = testPdfByteArray, Type="pdf"});
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = testPdfByteArray, Type="pdf"});
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -105,16 +105,16 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromPdfByteTest_Invalid()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = null, Type = "pdf" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = null, Type = "pdf" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
         }
 
         [TestMethod()]
         public void ConcatenatePDf_CreateFromImageTest()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = testImageByteArray, Type = "image" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = testImageByteArray, Type = "image" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -123,8 +123,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromImageTest_Invalid()
         {
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { Buffer = null, Type = "image" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { Buffer = null, Type = "image" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
         }
 
@@ -132,8 +132,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         public void ConcatenatePDf_CreateFromHtmlTest()
         {
             var data = Encoding.ASCII.GetBytes(testHtmlString);
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { HtmlString = testHtmlString, Type = "html" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { HtmlString = testHtmlString, Type = "html" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
@@ -146,8 +146,8 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
                 testImagePath,
                 testPdfPath
             };
-            List<ApplicationData> applicationData = new List<ApplicationData>();
-            applicationData.Add(new ApplicationData() { FilePaths = path, Type = "files" });
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(new PDFContentData() { FilePaths = path, Type = "files" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }

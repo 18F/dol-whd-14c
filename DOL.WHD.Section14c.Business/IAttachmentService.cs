@@ -13,8 +13,8 @@ namespace DOL.WHD.Section14c.Business
         Attachment UploadAttachment(string EIN, MemoryStream memoryStream, string fileName, string fileType);
         AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId);
         List<Attachment> GetApplicationAttachments(ApplicationSubmission application);
-        List<ApplicationData> DownloadApplicationAttachments(List<Attachment> attachments, string applicationFormData);
+        List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, string applicationFormData);
         void DeleteAttachement(string EIN, Guid fileId);
-        string ApplicationFormView(ApplicationSubmission application, string templateString);
+        string GetApplicationFormViewContent(ApplicationSubmission application, string templateString);
     }
 }

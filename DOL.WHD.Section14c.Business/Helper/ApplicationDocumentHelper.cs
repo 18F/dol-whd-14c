@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.Business.Helper
             _attachmentService = attachmentService;
         }
 
-        public List<ApplicationData> ApplicationData(Guid applicationId, string applicationViewTemplatePath)
+        public List<PDFContentData> ApplicationData(Guid applicationId, string applicationViewTemplatePath)
         {
             // Get Application Template
             var applicationViewTemplateString = File.ReadAllText(applicationViewTemplatePath);
@@ -31,16 +31,15 @@ namespace DOL.WHD.Section14c.Business.Helper
             if (application == null)
                 throw new Exception("Application not found");
 
-            var applicationHtml = _attachmentService.ApplicationFormView(application, applicationViewTemplateString);
+            var applicationHtml = _attachmentService.GetApplicationFormViewContent(application, applicationViewTemplateString);
 
             // Get all attachments from current application
             var getApplicationAttachments = _attachmentService.GetApplicationAttachments(application);
 
             // Prepare attachemnt for PDF generation
-            var applicationAttachmentsData = _attachmentService.DownloadApplicationAttachments(
+            var applicationAttachmentsData = _attachmentService.PrepareApplicationContentsForPdfConcatenation(
                                             getApplicationAttachments,
                                             applicationHtml);
-
 
             return applicationAttachmentsData;
         }

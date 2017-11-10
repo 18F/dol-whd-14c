@@ -19,7 +19,7 @@ namespace DOL.WHD.Section14c.Business.Helper
         /// <param name="application"></param>
         /// <param name="htmlString"></param>
         /// <returns></returns>
-        public static string PopulateApplicationData(ApplicationSubmission application, string htmlString)
+        public static string PopulateHtmlTemplateWithApplicationData(ApplicationSubmission application, string htmlString)
         {
             string tempString = htmlString;
             if (!string.IsNullOrEmpty(htmlString))

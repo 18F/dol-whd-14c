@@ -160,6 +160,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 //// Get Application Template
                 var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+
                 ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
                 var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
 
@@ -176,7 +177,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
 
                 // Call Document Management Web API
-                var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<ApplicationData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
+                var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<PDFContentData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
 
                 //// Get return value from API call
                 var returnValue = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();

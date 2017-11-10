@@ -29,7 +29,7 @@ namespace DOL.WHD.Section14c.PdfApi.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("concatenate")]
-        public IHttpActionResult Concatenate(List<ApplicationData> applicationDataCollection)
+        public IHttpActionResult Concatenate(List<PDFContentData> applicationDataCollection)
         {
             if (applicationDataCollection == null)
             {

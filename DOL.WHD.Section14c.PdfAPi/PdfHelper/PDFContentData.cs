@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
 {
     [Serializable]
     [DataContract]
-    public class ApplicationData
+    public class PDFContentData
     {
         [DataMember]
         public string HtmlString { get; set; }

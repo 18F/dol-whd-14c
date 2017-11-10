@@ -20,7 +20,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business
         /// <param name="ApplicationDataCollection"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        public byte[] Concatenate(List<ApplicationData>applicationDataCollection)
+        public byte[] Concatenate(List<PDFContentData>applicationDataCollection)
         {
             try
             {
@@ -33,14 +33,14 @@ namespace DOL.WHD.Section14c.PdfApi.Business
                         outputDocument = PdfHelper.PdfHelper.ConcatenatePDFs(outputDocument, applicationData);
                     }
                 }
-
                 PdfHelper.PdfHelper.SetPageNumber(outputDocument);
                 // Conver to Byte array
-                MemoryStream memoryStream = new MemoryStream();
-                outputDocument.Save(memoryStream);
-                //get buffer
-                var buffer = memoryStream.ToArray();
-                return buffer;
+                using (var stream = new MemoryStream())
+                {
+                    outputDocument.Save(stream);
+                    //get buffer
+                    return stream.ToArray();
+                }
             }
             catch(Exception ex)
             {

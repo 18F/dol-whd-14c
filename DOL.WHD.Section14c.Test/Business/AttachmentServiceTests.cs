@@ -9,9 +9,6 @@ using DOL.WHD.Section14c.DataAccess.Repositories;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DOL.WHD.Section14c.PdfApi.PdfHelper;
-using System.Collections.Generic;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.Business
 {

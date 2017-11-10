@@ -61,20 +61,21 @@ namespace DOL.WHD.Section14c.Business.Services
             };
         }
 
-        public List<ApplicationData> DownloadApplicationAttachments(List<Attachment> attachments, string applicationFormData)
+        public List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, string applicationFormData)
         {
-            var applicationData = new List<ApplicationData>();
+            var applicationData = new List<PDFContentData>();
 
             if (!string.IsNullOrEmpty(applicationFormData))
             {
-                applicationData.Add(new ApplicationData() { HtmlString = applicationFormData, Type = "html" });
+                applicationData.Add(new PDFContentData() { HtmlString = applicationFormData, Type = "html" });
             }
             foreach (var attachment in attachments)
             {
-                var memoryStream = new MemoryStream();
-                var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
-
-                applicationData.Add(new ApplicationData() { Buffer = stream.ToArray(), Type = attachment.MimeType });
+                using (var memoryStream = new MemoryStream())
+                {
+                    var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
+                    applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.MimeType });
+                }
             }
             return applicationData;
         }
@@ -121,10 +122,10 @@ namespace DOL.WHD.Section14c.Business.Services
             _attachmentRepository.SaveChanges();
         }
 
-        public string ApplicationFormView(ApplicationSubmission application, string templateString)
+        public string GetApplicationFormViewContent(ApplicationSubmission application, string templateString)
         {
             string tempString = string.Empty;
-            tempString = ApplicationFormViewHelper.PopulateApplicationData(application, templateString);
+            tempString = ApplicationFormViewHelper.PopulateHtmlTemplateWithApplicationData(application, templateString);
             return tempString;
         }
 

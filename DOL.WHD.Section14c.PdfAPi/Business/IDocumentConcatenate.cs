@@ -11,6 +11,6 @@ namespace DOL.WHD.Section14c.PdfApi.Business
 {
     public interface IDocumentConcatenate
     {
-        byte[] Concatenate(List<ApplicationData> data);
+        byte[] Concatenate(List<PDFContentData> data);
     }
 }
