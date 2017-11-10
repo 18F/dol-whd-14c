@@ -1,10 +1,10 @@
 <div ng-show="attachmentId == undefined">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
-    <input class="dol-file-upload-input" id="{{::$id}}_FileUpload" class="upload-file-input" type="file" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
     <div class="dol-file-upload-focus"></div>
   </div>  
-  <p class="underlabel" id="{{::$id}}_Description">File types accepted: PDF, Word, Excel, JPG, PNG</p>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</p>
 </div>
 <div ng-if="attachmentId != undefined">
   <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
