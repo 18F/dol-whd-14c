@@ -127,8 +127,5 @@ module.exports = function(ngModule) {
           prop
       );
     };
-
-
-
   });
 };
