@@ -1,6 +1,6 @@
 'use strict';
-import * as $ from 'jquery';
-// import 'datatables.net'
+//import * as $ from 'jquery';
+import 'datatables.net'
 
 module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
@@ -13,13 +13,43 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
+    $scope.data = [];
+    $scope.initDatatable = function () {
+      let exampleId = $('#example');
+      $scope.tableWidget = exampleId.DataTable({
+        data: $scope.data,
+        columns: $scope.columns
+      });
+    }
 
-    let exampleId = $('#example');
-    this.tableWidget = exampleId.DataTable({
-      data: $scope.data
-    });
 
+    $scope.refreshTable = function (data) {
+      const results = data;
+      if(data) {
+        console.log(data);
+        $scope.data = results.map(function(element){
+          let arr = [];
+          for(var property in element) {
+            if(element.hasOwnProperty(property)) {
+              if(property!=="$$hashKey"){
+                arr.push(element[property]);
+              }
+            }
+          }
+          return arr;
+        });
+        if (this.tableWidget) {
+          $scope.tableWidget.destroy()
+          $scope.tableWidget=null
+        }
+       setTimeout(() => $scope.initDatatable(),0)
+       // this.needupdate = false;
+       // this.needupdateChange.emit(this.needupdate);
+      }
 
+    }
+
+        $scope.initDatatable();
     // export class WageDataComponent implements OnInit {
     //   public tableWidget: any;
     //   public _data = [];
