@@ -33,17 +33,29 @@ module.exports = function(ngModule) {
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
     vm.columns = [
-      { title: 'Name' },
-     { title: 'Type of work performed' },
-     { title: 'Primary disability' },
-     { title: 'How many jobs did this worker perform at this work site?' },
-     { title: 'Average # of hours worked per week on all jobs at this work site' },
-     { title: 'Average earnings per hour for all jobs at this work site' },
-     { title: 'Prevailing wage rate for job described above' },
-     { title: 'Productivity measure/rating for job described above' },
-     { title: 'Commensurate wage rate/average earnings per hour for job described above' },
-     { title: 'Total hours worked for job described above' },
-     { title: 'Does worker perform work for this employer at any other work site?' }
+    {
+        "className": 'edit-table-entry',
+        "orderable": false,
+        "data":null,
+        "defaultContent": ''
+    },
+    {
+        "className": 'delete-table-entry',
+        "orderable": false,
+        "data":null,
+        "defaultContent": ''
+    },
+    { title: 'Name' },
+    { title: 'Type of work performed' },
+    { title: 'Primary disability' },
+    { title: 'How many jobs did this worker perform at this work site?' },
+    { title: 'Average # of hours worked per week on all jobs at this work site' },
+    { title: 'Average earnings per hour for all jobs at this work site' },
+    { title: 'Prevailing wage rate for job described above' },
+    { title: 'Productivity measure/rating for job described above' },
+    { title: 'Commensurate wage rate/average earnings per hour for job described above' },
+    { title: 'Total hours worked for job described above' },
+    { title: 'Does worker perform work for this employer at any other work site?' }
     ]
 
     // multiple choice responses
