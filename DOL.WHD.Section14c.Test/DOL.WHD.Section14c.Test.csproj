@@ -155,6 +155,7 @@
     <Compile Include="Business\Extensions\GetPropertyValueExtensionsTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\Services\DocumentConcatenateTests.cs" />
+    <Compile Include="Business\Services\EmailServiceTests.cs" />
     <Compile Include="Business\StatusServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\ActivityLogsControllerTest.cs" />
@@ -252,6 +253,10 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
+      <Project>{ea4488e2-66fc-4d46-81e6-1d43a79a3b2d}</Project>
+      <Name>DOL.WHD.Section14c.EmailApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
       <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
