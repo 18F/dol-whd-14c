@@ -12,8 +12,7 @@ module.exports = function(ngModule) {
       },
       link: function(scope) {
         scope.$watch('results', function(newValue, oldValue) {
-          console.log('change detected')
-          scope.refreshTable(newValue);
+          scope.refreshTable(newValue, scope.columns);
         }, true);
       },
       controllerAs: 'vm'

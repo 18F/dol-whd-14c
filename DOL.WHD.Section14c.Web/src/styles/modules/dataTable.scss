@@ -2,18 +2,34 @@ td.edit-table-entry:before {
   &:not(.nomargin) {
     margin-left: 40px;
   }
-  background-color: $color-green;
+
   content: "Edit";
   &:hover {
-    background-color: $color-green-dark;
+
   }
 
   &:active {
-    background-color: $color-green-darker;
+
   }
   cursor: pointer;
 }
 
-th {
-  font-size: 10px;
+td.delete-table-entry:before {
+  &:not(.nomargin) {
+    margin-left: 40px;
+  }
+
+  content: "Delete";
+  &:hover {
+
+  }
+
+  &:active {
+
+  }
+  cursor: pointer;
+}
+
+.wage {
+  font-size: 12px;
 }

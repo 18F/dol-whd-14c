@@ -26,6 +26,17 @@ module.exports = function(ngModule) {
 
     let query = $location.search();
 
+    $('.cd-btn').on('click', function(event){
+  		event.preventDefault();
+  		$('.cd-panel').addClass('is-visible');
+  	});
+  	//clode the lateral panel
+  	$('.cd-panel').on('click', function(event){
+  		if( $(event.target).is('.cd-panel') || $(event.target).is('.cd-panel-close') ) {
+  			$('.cd-panel').removeClass('is-visible');
+  			event.preventDefault();
+  		}
+  	});
     var vm = this;
     vm.activeTab = query.t ? query.t : 1;
     vm.activeWorksite = {};
@@ -35,6 +46,7 @@ module.exports = function(ngModule) {
     vm.columns = [
     {
         "className": 'edit-table-entry',
+        "title": "Edit",
         "orderable": false,
         "data":null,
         "defaultContent": ''
@@ -42,20 +54,21 @@ module.exports = function(ngModule) {
     {
         "className": 'delete-table-entry',
         "orderable": false,
+        "title": "Delete",
         "data":null,
         "defaultContent": ''
     },
-    { title: 'Name' },
-    { title: 'Type of work performed' },
-    { title: 'Primary disability' },
-    { title: 'How many jobs did this worker perform at this work site?' },
-    { title: 'Average # of hours worked per week on all jobs at this work site' },
-    { title: 'Average earnings per hour for all jobs at this work site' },
-    { title: 'Prevailing wage rate for job described above' },
-    { title: 'Productivity measure/rating for job described above' },
-    { title: 'Commensurate wage rate/average earnings per hour for job described above' },
-    { title: 'Total hours worked for job described above' },
-    { title: 'Does worker perform work for this employer at any other work site?' }
+    { title: 'Name', model: 'name' },
+    { title: 'Type of work performed', model: 'workType'  },
+    { title: 'Primary disability', model: 'primaryDisabilityId'  },
+    { title: 'How many jobs did this worker perform at this work site?', model: 'numJobs'  },
+    { title: 'Average # of hours worked per week on all jobs at this work site', model: 'avgWeeklyHours'  },
+    { title: 'Average earnings per hour for all jobs at this work site', model: 'avgHourlyEarnings'  },
+    { title: 'Prevailing wage rate for job described above', model: 'prevailingWage'  },
+    { title: 'Productivity measure/rating for job described above', model: 'hasProductivityMeasure'  },
+    { title: 'Commensurate wage rate/average earnings per hour for job described above', model: "commensurateWageRate" },
+    { title: 'Total hours worked for job described above', model: 'totalHours'  },
+    { title: 'Does worker perform work for this employer at any other work site?', model: 'workAtOtherSite'  }
     ]
 
     // multiple choice responses
@@ -91,20 +104,24 @@ module.exports = function(ngModule) {
       vm.addEmployee();
     };
 
-    this.doneAddingEmployees = function() {
+    this.doneAddingEmployees = function($event) {
       vm.addEmployee();
+      $('.cd-panel').removeClass('is-visible');
+      $event.preventDefault();
       vm.addingEmployee = false;
     };
 
-    this.editEmployee = function(index) {
+    this.editEmployee = function(index, $event) {
+      $event.preventDefault();
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
-        vm.addingEmployee = true;
+    		$('.cd-panel').addClass('is-visible');
       }
     };
 
-    this.deleteEmployee = function(index) {
+    this.deleteEmployee = function(index, $event) {
+      $event.preventDefault();
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorksite.employees.splice(index, 1);
       }
