@@ -179,7 +179,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 // Call Document Management Web API
                 var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<PDFContentData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
 
-                //// Get return value from API call
+                // Get return value from API call
                 var returnValue = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
 
                 if (returnValue == null)
