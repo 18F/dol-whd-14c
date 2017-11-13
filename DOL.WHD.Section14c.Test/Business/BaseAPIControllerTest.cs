@@ -7,6 +7,7 @@ using System.IO;
 using System.Web;
 using Moq;
 using System.Net;
+using System.Runtime.Caching;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -58,6 +59,7 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             var httpClientInstance = MyHttpClient;
             Assert.IsNotNull(httpClientInstance);
+            Assert.AreEqual(httpClientInstance, MemoryCache.Default["HttpClient"], "HttpClient should be cached");
         }
 
         [TestMethod()]
@@ -73,6 +75,10 @@ namespace DOL.WHD.Section14c.Test.Business
             HttpResponseMessage response = request.Object.CreateResponse(HttpStatusCode.OK);
             var resp = Download(data, response, fileName);
             Assert.AreEqual(resp.StatusCode, HttpStatusCode.OK);
+            Assert.AreEqual("application/pdf", resp.Content.Headers.ContentType.MediaType);
+            Assert.AreEqual(data.Length, resp.Content.Headers.ContentLength);
+            Assert.AreEqual("inline", resp.Content.Headers.ContentDisposition.DispositionType);
+            Assert.AreEqual($"{fileName}.pdf", resp.Content.Headers.ContentDisposition.FileName);
         }
 
         [TestMethod()]
