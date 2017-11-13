@@ -302,7 +302,7 @@
   <div class="dol-form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 26">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="{{ valuePrefix() }}ScaWageDeterminationAttachmentLabel">Attach the applicable SCA Wage Determination</label>
+        <label for="{{ valuePrefix() }}ScaWageDeterminationAttachment" class="dol-form-question-text" id="{{ valuePrefix() }}ScaWageDeterminationAttachmentLabel">Attach the applicable SCA Wage Determination</label>
         <helplink aria-controls="{{ valuePrefix() }}ScaWageDeterminationAttachmentHelp" aria-describedby="{{ valuePrefix() }}ScaWageDeterminationAttachmentLabel"></helplink>   
       </div>
       <helptext id="{{ valuePrefix() }}ScaWageDeterminationAttachmentHelp">
@@ -311,14 +311,14 @@
         <p>Data from employment services may only be used to determine prevailing wages if the data provides wage rates of experienced workers not disabled for the work being performed; entry level wage data may not be used.</p>
       </helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
-      <attachment-field attachment-id="formData[modelPrefix()].scaWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].scaWageDeterminationAttachmentName" />
+      <attachment-field input-id="{{ valuePrefix() }}ScaWageDeterminationAttachment" attachment-id="formData[modelPrefix()].scaWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].scaWageDeterminationAttachmentName" />
     </div>
   </div>
 
   <div class="dol-form-question-group" ng-show="paytype === 'hourly'">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.workMeasurementFrequency') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label for="{{ valuePrefix() }}WorkMeasurementFrequency" class="dol-form-question-text" id="workMeasurementFrequencyLabel">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
+        <label for="{{ valuePrefix() }}WorkMeasurementFrequency" class="dol-form-question-text" id="{{ valuePrefix() }}workMeasurementFrequencyLabel">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
         <helplink aria-controls="{{ valuePrefix() }}WorkMeasurementFrequencyHelp" aria-describedby="{{ valuePrefix() }}WorkMeasurementFrequencyLabel"></helplink>   
       </div>
       <helptext id="{{ valuePrefix() }}WorkMeasurementFrequencyHelp">Indicate how frequently the employer conducts work measurements or time studies of each worker with a disability who is paid anhourly subminimum wage.</helptext>      
@@ -328,7 +328,7 @@
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="{{ valuePrefix() }}WorkMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
+        <label for="{{ valuePrefix() }}WorkMeasurementAttachment" class="dol-form-question-text" id="{{ valuePrefix() }}WorkMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
         <helplink aria-controls="{{ valuePrefix() }}WorkMeasurementAttachmentHelp" aria-describedby="{{ valuePrefix() }}WorkMeasurementAttachmentLabel"></helplink>   
       </div>
       <helptext id="{{ valuePrefix() }}WorkMeasurementAttachmentHelp">
@@ -340,7 +340,7 @@
         </ul>
       </helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
-      <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
+      <attachment-field input-id="{{ valuePrefix() }}WorkMeasurementAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
 
@@ -381,7 +381,7 @@
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label class="dol-form-question-text" id="{{ valuePrefix() }}StandardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
+        <label for="{{ valuePrefix() }}StandardProductivityAttachment" class="dol-form-question-text" id="{{ valuePrefix() }}StandardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
         <helplink aria-controls="{{ valuePrefix() }}StandardProductivityAttachmentHelp" aria-describedby="{{ valuePrefix() }}StandardProductivityAttachmentLabel"></helplink>   
       </div>
       <helptext id="{{ valuePrefix() }}StandardProductivityAttachmentHelp">Attach all documentation of the methods used to determine the standard productivity and the piece rate, such as:
@@ -391,7 +391,7 @@
         </ul>
       </helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
-      <attachment-field attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
+      <attachment-field input-id="{{ valuePrefix() }}StandardProductivityAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
 </div>
