@@ -73,30 +73,6 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             testImageByteArray = memStream.ToArray();
         }
 
-        [TestMethod]
-        public void ApplicationData_PublicProperties()
-        {
-            var testFileContents = "test";
-            var filePath = new List<string>()
-            {
-                @"c:\temp\file1.pdf",
-                @"c:\temp|file2.jpg"
-            };
-            var data = Encoding.ASCII.GetBytes(testFileContents);
-            var obj = new PDFContentData
-            {
-                Buffer = data,
-                FilePaths = filePath,
-                HtmlString= testHtmlString,
-                Type= "pdf"
-            };
-
-            Assert.AreEqual(4, obj.Buffer.Length);
-            Assert.AreEqual(@"c:\temp\file1.pdf", obj.FilePaths.FirstOrDefault());
-            Assert.AreEqual(testHtmlString, obj.HtmlString);
-            Assert.AreEqual("pdf", obj.Type);
-        }
-
         [TestMethod()]
         public void ConcatenatePDf_CreateFromPdfByteTest()
         {
