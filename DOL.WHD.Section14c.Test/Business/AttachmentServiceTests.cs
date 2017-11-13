@@ -203,8 +203,12 @@ namespace DOL.WHD.Section14c.Test.Business
                 };
 
                 List<PDFContentData> applicationDataCollection = service.PrepareApplicationContentsForPdfConcatenation(attachments, htmlContent);
+
+                Assert.AreEqual(3, applicationDataCollection.Count);
                 string outText = Encoding.ASCII.GetString(applicationDataCollection[1].Buffer);
                 Assert.AreEqual(outText, testFileContents);
+                Assert.AreEqual("html", applicationDataCollection[0].Type);
+                Assert.AreEqual(htmlContent, applicationDataCollection[0].HtmlString);
             }
         }
 
