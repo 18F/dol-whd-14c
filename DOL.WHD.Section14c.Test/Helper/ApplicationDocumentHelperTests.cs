@@ -7,43 +7,64 @@ using Moq;
 using System;
 using System.IO;
 using DOL.WHD.Section14c.Business.Services;
+using System.Collections.Generic;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
 
 namespace DOL.WHD.Section14c.Business.Helper.Tests
 {
     [TestClass()]
     public class ApplicationDocumentHelperTests
     {
-        private readonly IAttachmentService _attachmentService;
-        private readonly IApplicationService _applicationService;
-        private readonly IFileRepository _fileRepositoryMock;
-        private readonly IAttachmentRepository _attachmentRepositoryMock;
+        private Mock<IApplicationService> _mockApplicationService;
+        private Mock<IAttachmentService> _mockAttachmentService;
 
         public ApplicationDocumentHelperTests()
         {
-            _fileRepositoryMock = new FileRepository(@"TestUploads\");
-            _attachmentRepositoryMock = new AttachmentRepositoryMock();
-            _applicationService = new ApplicationServiceMock();
-            _attachmentService = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
+            _mockApplicationService = new Mock<IApplicationService>();
+            _mockAttachmentService = new Mock<IAttachmentService>();
         }
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            _mockApplicationService.Reset();
+            _mockAttachmentService.Reset();
+        }
+
         [TestMethod()]
         public void ApplicationDataTest()
         {
+            // Setup
+            ApplicationSubmission testApplication = new ApplicationSubmission();
+            List<Attachment> attachments = new List<Attachment>();
+            List<PDFContentData> pdfContentList = new List<PDFContentData>();
+
+            _mockApplicationService.Setup(mock => mock.GetApplicationById(It.IsAny<Guid>())).Returns(testApplication);
+
+            _mockAttachmentService.Setup(mock => mock.GetApplicationFormViewContent(testApplication, It.IsAny<string>())).Returns("This is some HTML that is filled in");
+            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(It.IsAny<ApplicationSubmission>())).Returns(attachments);
+            _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(It.IsAny<List<Attachment>>(), It.IsAny<string>())).Returns(pdfContentList);
+
+            // Execute
             string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
-            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object);
             var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F666") , applicationViewTemplatePath);
-            Assert.AreEqual(6, applicationAttachmentsData.Count);
+
+            // Assert
+            _mockAttachmentService.Verify(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, "This is some HTML that is filled in"), Times.Once());
         }
 
         [TestMethod()]
         [ExpectedException(typeof(Exception))]
         public void ApplicationDataTest_Invalid()
         {
+            _mockApplicationService.Setup(mock => mock.GetApplicationById(It.IsAny<Guid>())).Returns((ApplicationSubmission)null);
+
             string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
-            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object);
             var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"), applicationViewTemplatePath);
-            Assert.AreEqual(6, applicationAttachmentsData.Count);
         }
     }
 }
