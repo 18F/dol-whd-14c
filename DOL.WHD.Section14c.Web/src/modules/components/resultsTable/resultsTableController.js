@@ -6,7 +6,7 @@ import 'datatables.net-buttons/js/buttons.html5.js';
 import 'datatables.net-responsive';
 import 'datatables.net-dt/css/jquery.datatables.css';
 import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
-import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
+// import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
 module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
@@ -25,7 +25,7 @@ module.exports = function(ngModule) {
       $scope.tableWidget = exampleId.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
-        responsive: true,
+        //responsive: true,
         buttons: [
           'copy', 'excel', 'pdf', 'csv'
          ],
