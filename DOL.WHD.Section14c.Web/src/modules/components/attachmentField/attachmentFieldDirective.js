@@ -10,7 +10,8 @@ module.exports = function(ngModule) {
       controller: 'attachmentFieldController',
       scope: {
         attachmentId: '=',
-        attachmentName: '='
+        attachmentName: '=',
+        inputId: '@'
       },
       controllerAs: 'vm'
     };

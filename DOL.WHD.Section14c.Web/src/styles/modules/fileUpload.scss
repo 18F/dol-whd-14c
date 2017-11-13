@@ -8,8 +8,7 @@
     position: relative;
     max-width: 46rem;
     width: 100%;
-    height: 50px;
-    
+    height: 50px;  
     
     .usa-button-primary {
         position: absolute;
@@ -50,9 +49,18 @@
         outline: none;
         padding: 1rem .7em;
         width: 100%;
-        z-index: 1;        
+        z-index: 1;   
+        background-color: #fff;     
     }
 
+}
+
+label {
+    + .usa-input-error-message + attachment-field {
+        .dol-file-upload-ui {
+            margin-top: 6px;
+        }
+    }
 }
 
 // List of files that have been uploaded, with Delete button for each file
