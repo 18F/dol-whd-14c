@@ -89,9 +89,6 @@ namespace DOL.WHD.Section14c.Business.Extensions
         ///     The property value as a string if it exists, or
         ///     the default string value.
         /// </returns>
-        /// <exception cref="System.InvalidCastException">
-        ///     Thrown if the property value cannot be cast to a string.
-        /// </exception>
         public static string GetStringPropValue(this Object obj, String name)
         {
             Object retval = GetPropValue(obj, name);
