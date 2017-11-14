@@ -97,10 +97,11 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "lodash": "^4.16.1",
-    "moment": "^2.15.2",
+    "moment": "^2.19.2",
     "ng-mask": "^3.1.1",
     "ng2-page-scroll": "^4.0.0-beta.11",
     "ngx-toastr": "^6.5.0",
+    "rxjs": "^5.5.2",
     "zone.js": "^0.8.18",
     "zxcvbn": "^4.4.1"
   }
