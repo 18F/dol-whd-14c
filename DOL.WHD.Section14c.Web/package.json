@@ -88,7 +88,7 @@
     "angular-cookies": "^1.5.8",
     "angular-data-grid": "^0.1.0",
     "angular-in-memory-web-api": "~0.3.0",
-    "angular-moment": "^1.0.0",
+    "angular-moment": "^1.1.0",
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "angular-sanitize": "^1.5.8",
