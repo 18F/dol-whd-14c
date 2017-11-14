@@ -16,7 +16,7 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "EmailApiHelpPage_Default",
+                "EmailHelpPage_Default",
                 "EmailHelp/{action}/{apiId}",
                 new { controller = "EmailHelp", action = "Index", apiId = UrlParameter.Optional },
                 namespaces: new[] { "DOL.WHD.Section14c.EmailApi.Areas.HelpPage.Controllers" }
