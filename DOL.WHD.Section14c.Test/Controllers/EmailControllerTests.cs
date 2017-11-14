@@ -39,7 +39,6 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers.Tests
 
             _emailContent = new EmailContent();
             _emailContent.To = "test@test.com;test2@test.com";
-            _emailContent.CC = "test3@test.com;test4@test.com";
             _emailContent.Subject = "My Test Subject";
             _emailContent.Body = "My Test Body";
 

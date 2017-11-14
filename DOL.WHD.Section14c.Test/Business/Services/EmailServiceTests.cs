@@ -33,6 +33,27 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
         }
 
         [TestMethod()]
+        public void SendEmail_Test()
+        {
+            var emailContent = new EmailContent();
+            emailContent.To = "test@test.com";
+            emailContent.CC = "test1@test.com;test2@test.com";
+            emailContent.Subject = "My Test Subject";
+            emailContent.Body = "My Test Body";
+
+            var testFileContents = "test";
+            var data = Encoding.ASCII.GetBytes(testFileContents);
+            Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>() {
+                {"test.txt", data }
+            };
+
+            emailContent.attachments = attachments;
+
+            var result = _emailService.SendEmail(emailContent);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
         [ExpectedException(typeof(ApiException))]
         public void SendEmail_NoRecipients_Test()
         {
@@ -43,8 +64,10 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
 
             var testFileContents = "test";
             var data = Encoding.ASCII.GetBytes(testFileContents);
-            Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>();
-            attachments.Add("test.txt", data);
+            Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>() {
+                {"test.txt", data }
+            };
+
             emailContent.attachments = attachments;            
 
             var result = _emailService.SendEmail(emailContent);
