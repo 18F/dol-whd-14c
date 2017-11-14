@@ -176,6 +176,7 @@
     <Compile Include="Business\Validators\WorkSiteValidatorInitialTests.cs" />
     <Compile Include="Common\AppSettingsTests.cs" />
     <Compile Include="Controllers\DocumentManagementControllerTests.cs" />
+    <Compile Include="Controllers\EmailControllerTests.cs" />
     <Compile Include="Domain\BaseEntityTests.cs" />
     <Compile Include="Domain\Models\FeatureTests.cs" />
     <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
