@@ -1,7 +1,6 @@
 // Modules
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
 import { WindowRef } from './window.service';
 import { customError } from '../../models/customError';
 import * as $ from 'jquery';
