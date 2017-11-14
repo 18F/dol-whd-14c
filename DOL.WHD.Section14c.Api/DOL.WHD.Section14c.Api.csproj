@@ -279,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="App_Data\EmailTemplate.html" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
@@ -314,7 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APILogs\" />
-    <Folder Include="App_Data\" />
     <Folder Include="IdentityServices\" />
   </ItemGroup>
   <ItemGroup>
