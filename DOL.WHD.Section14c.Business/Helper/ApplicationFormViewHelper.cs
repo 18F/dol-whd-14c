@@ -159,7 +159,7 @@ namespace DOL.WHD.Section14c.Business.Helper
             string value = string.Empty;
             try
             {
-                value = GetPropertyValueExtensions.GetStringPropValue<string>(application, property);
+                value = GetPropertyValueExtensions.GetStringPropValue(application, property);
                 // Get default value if it exist
                 if (string.IsNullOrEmpty(value))
                 {
@@ -245,7 +245,7 @@ namespace DOL.WHD.Section14c.Business.Helper
                     foreach (var item in nodes)
                     {
                         var answerAttribute = item.GetAttributeValue("answer", "");
-                        var returnValue =GetPropertyValueExtensions.GetStringPropValue<string>(employee, answerAttribute);
+                        var returnValue =GetPropertyValueExtensions.GetStringPropValue(employee, answerAttribute);
                         item.InnerHtml = string.Format("{0}<div>{1}</div>", item.InnerHtml, returnValue);
                     }
                 }
@@ -280,7 +280,7 @@ namespace DOL.WHD.Section14c.Business.Helper
                     foreach (var item in nodes)
                     {
                         var answerAttribute = item.GetAttributeValue("answer", "");
-                        var returnValue = GetPropertyValueExtensions.GetStringPropValue<string>(employee, answerAttribute);
+                        var returnValue = GetPropertyValueExtensions.GetStringPropValue(employee, answerAttribute);
                         item.InnerHtml = string.Format("{0}<div>{1}</div>", item.InnerHtml, returnValue);
                     }
                 }
@@ -441,7 +441,7 @@ namespace DOL.WHD.Section14c.Business.Helper
             foreach (HtmlNode node in WorkSitesAndEmployeesFields)
             {
                 var answerAttribute = node.GetAttributeValue("answer", "");
-                var stringValue = GetPropertyValueExtensions.GetStringPropValue<string>(workerSite, answerAttribute);
+                var stringValue = GetPropertyValueExtensions.GetStringPropValue(workerSite, answerAttribute);
                 node.InnerHtml = string.Format("<p>{0}<div class='subtextanswer'>{1}</div></p>", node.InnerHtml, YesNoField(stringValue));
             }
             return WorkSitesAndEmployeesTableNode.InnerHtml;
@@ -460,7 +460,7 @@ namespace DOL.WHD.Section14c.Business.Helper
             foreach (HtmlNode node in employeesFields)
             {
                 var answerAttribute = node.GetAttributeValue("answer", "");
-                var stringValue = GetPropertyValueExtensions.GetStringPropValue<string>(employee, answerAttribute);
+                var stringValue = GetPropertyValueExtensions.GetStringPropValue(employee, answerAttribute);
                 node.InnerHtml = string.Format("{0}", YesNoField(stringValue));
             }
             return employeesTableNode.InnerHtml;
