@@ -2,14 +2,13 @@
 using DOL.WHD.Section14c.EmailApi.Helper;
 using DOL.WHD.Section14c.Log.LogHelper;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Mail;
-using System.Text;
 using System.Web.Http;
 
 namespace DOL.WHD.Section14c.EmailApi.Controllers
 {
+    /// <summary>
+    /// Email API Controllers
+    /// </summary>
     [RoutePrefix("api/email")]
     public class EmailController : BaseApiController
     {

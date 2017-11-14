@@ -13,13 +13,14 @@ namespace DOL.WHD.Section14c.EmailApi.App_Start
         {
             // Create the container as usual.
             var container = new Container();
-            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-            container.Register<IEmailService>(() => new EmailService(null), Lifestyle.Scoped);
-            container.Register<IActivityLogRepository, ActivityLogRepository>(Lifestyle.Scoped);
-            container.Register<IErrorLogRepository, ErrorLogRepository>(Lifestyle.Scoped);
+            container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();                    
 
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+
+            container.Register<IEmailService>(() => new EmailService(null), Lifestyle.Scoped);
+            container.Register<IActivityLogRepository, ActivityLogRepository>(Lifestyle.Scoped);
+            container.Register<IErrorLogRepository, ErrorLogRepository>(Lifestyle.Scoped);
 
             container.Verify();
 

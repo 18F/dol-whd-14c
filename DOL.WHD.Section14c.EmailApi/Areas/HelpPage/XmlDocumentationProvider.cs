@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 throw new ArgumentNullException("appDataPath");
             }
 
-            var files = new[] { "DOL.WHD.Section14c.Log.xml", "DOL.WHD.Section14c.EmailApi.xml" };
+            var files = new[] { "DOL.WHD.Section14c.Api.xml", "DOL.WHD.Section14c.Log.xml", "DOL.WHD.Section14c.EmailApi.xml" };
             foreach (var file in files)
             {
                 String fullfilepath = Path.Combine(appDataPath, file);

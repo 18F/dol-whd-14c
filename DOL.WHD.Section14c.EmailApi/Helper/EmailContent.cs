@@ -6,6 +6,9 @@ using System.Web;
 
 namespace DOL.WHD.Section14c.EmailApi.Helper
 {
+    /// <summary>
+    /// Email Contents
+    /// </summary>
     public class EmailContent
     {
         public string To { get; set; }
