@@ -370,23 +370,19 @@
             <h3>Source Employers</h3>
 
             {{#each MostRecentPrevailingWageSurvey.SourceEmployers}}
-            <div>
-                <div>{{}}</div>
-            </div>
+                <div>
+                    <div>{{ this.Employer.EmployerName }}</div>
+                    <div>{{#format_address}}{{ this.Employer.Address }}{{/format_address}}</div>
+                    <div>{{ this.Employer.Phone }}</div>
+                    <div>{{ this.Employer.ContactName }}</div>
+                    <div>{{ this.Employer.ContactTitle }}</div>
+                    <div>{{ this.Employer.ContactDate }}</div>
+                    <div>{{ this.Employer.JobDescription }}</div>
+                    <div>{{ this.Employer.ExperiencedWorkerWageProvided }}</div>
+                    <div>{{ this.Employer.ConclusionWageRateNotBasedOnEntry }}</div>
+                    <hr>
+                </div>
             {{/each}}
-
-            <div wage-data-repeat="true" ng-repeat="MostRecentPrevailingWageSurvey.SourceEmployers">
-                <div>{{ this.Employer.EmployerName }}</div>
-                <div>{{#format_address}}{{ this.Employer.Address }}{{/format_address}}</div>
-                <div>{{ this.Employer.Phone }}</div>
-                <div>{{ this.Employer.ContactName }}</div>
-                <div>{{ this.Employer.ContactTitle }}</div>
-                <div>{{ this.Employer.ContactDate }}</div>
-                <div>{{ this.Employer.JobDescription }}</div>
-                <div>{{ this.Employer.ExperiencedWorkerWageProvided }}</div>
-                <div>{{ this.Employer.ConclusionWageRateNotBasedOnEntry }}</div>
-                <hr>
-            </div>
 
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
