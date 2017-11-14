@@ -17,9 +17,9 @@ using DOL.WHD.Section14c.Business;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
-    public class AttachmentServiceTests2
+    public class ApplicationFormTest
     {
-        public AttachmentServiceTests2()
+        public ApplicationFormTest()
         {
         }
 
