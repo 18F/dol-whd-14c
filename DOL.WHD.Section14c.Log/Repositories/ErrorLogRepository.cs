@@ -6,12 +6,18 @@ using System.Linq;
 
 namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
 {
+    /// <summary>
+    /// Error log repository that writes to an ApplicationLogContext
+    /// </summary>
     public class ErrorLogRepository: IErrorLogRepository
     {
         private readonly ApplicationLogContext _dbContext;
         private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         private Boolean Disposed;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public ErrorLogRepository()
         {
             _dbContext = new ApplicationLogContext();

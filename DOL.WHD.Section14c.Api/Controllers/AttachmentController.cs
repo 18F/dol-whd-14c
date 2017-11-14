@@ -16,6 +16,10 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
+    /// <summary>
+    /// Attachment API controller, for handling file uploads and downloads.
+    /// These are attachments to 14(c) applications.
+    /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/attachment")]
     public class AttachmentController :  BaseApiController
@@ -23,6 +27,15 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="attachmentService">
+        /// The attachment service this controller should use
+        /// </param>
+        /// <param name="identityService">
+        /// The identity service this controller should use
+        /// </param>
         public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService)
         {
             _attachmentService = attachmentService;

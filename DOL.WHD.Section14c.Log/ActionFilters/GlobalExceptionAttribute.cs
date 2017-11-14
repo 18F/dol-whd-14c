@@ -20,6 +20,11 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
     public class GlobalExceptionAttribute : ExceptionFilterAttribute
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
+
+        /// <summary>
+        /// OnException handler
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnException(HttpActionExecutedContext context)
         {
             var correlationId = Guid.NewGuid().ToString();

@@ -7,8 +7,15 @@ using System.Web.Http.ExceptionHandling;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);

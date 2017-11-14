@@ -5,8 +5,15 @@ using System.Web.Http.ExceptionHandling;
 
 namespace DOL.WHD.Section14c.Log
 {
+    /// <summary>
+    /// Log API config
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers the log API handlers
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support

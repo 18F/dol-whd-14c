@@ -13,8 +13,14 @@ using DOL.WHD.Section14c.PdfApi.Business;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// Maps resolution from interfaces to concrete classes
+    /// </summary>
     public static class DependencyResolutionConfig
     {
+        /// <summary>
+        /// Map interfaces into concrete implementations
+        /// </summary>
         public static void Register()
         {
             // Create the container as usual.

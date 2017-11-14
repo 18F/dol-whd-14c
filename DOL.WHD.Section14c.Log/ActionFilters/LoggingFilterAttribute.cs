@@ -13,9 +13,16 @@ using NLog;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {
+    /// <summary>
+    /// Filter to mark a class for error logging
+    /// </summary>
     public class LoggingFilterAttribute : ActionFilterAttribute
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
+        /// <summary>
+        /// Action execution handler
+        /// </summary>
+        /// <param name="filterContext"></param>
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
             try

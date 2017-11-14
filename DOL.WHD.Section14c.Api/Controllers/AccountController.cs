@@ -23,6 +23,9 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
+    /// <summary>
+    /// Account API controller
+    /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/Account")]
     public class AccountController : BaseApiController
@@ -30,6 +33,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
 
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
         public ApplicationUserManager UserManager
         {
             get
@@ -38,6 +44,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the role manager for the controller
+        /// </summary>
         public ApplicationRoleManager RoleManager
         {
             get
@@ -450,6 +459,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
 
+        /// <summary>
+        /// Dispose
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && _userManager != null)
