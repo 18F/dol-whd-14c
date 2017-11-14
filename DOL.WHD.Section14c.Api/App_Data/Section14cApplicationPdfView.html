@@ -537,33 +537,42 @@
                     {{/each}}
                     </tbody>
                 </table>
+                {{#each WorkSites}}
                 <div worksites-content>
                     <div worksites-sub="true" answer="WorkSites">
                         <p><span class="title">Work Site </span></p>
                         <hr>
-                        <worksites-sub-field answer="WorkSiteType.Display">
+                        <div class="worksites-sub-field">
                             <span class="subtext">What type of establishment is this?</span>
-                        </worksites-sub-field>
+                            <div class="subtextanswer">{{ WorkSiteType.Display }}</div>
+                        </div>
 
-                        <worksites-sub-field answer="Name">
+                        <div class="worksites-sub-field">
                             <span class="subtext">Name of Establishment / Work Site</span>
-                        </worksites-sub-field>
+                            <div class="subtextanswer">{{ Name }}</div>
+                        </div>
 
-                        <worksites-sub-field answer="Address" address-field="true">
+                        <div class="worksites-sub-field">
                             <span class="subtext">Address of Establishment / Work Site</span>
-                        </worksites-sub-field>
+                            <div class="subtextanswer">{{ addressFormat Address }}</div>
+                        </div>
 
                         <worksites-sub-sub-field answer="SCA">
                             <span class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</span>
+                            <div class="subtextanswer">{{ boolOrString SCA }}</div>
                         </worksites-sub-sub-field>
 
-                        <worksites-sub-field answer="FederalContractWorkPerformed">
+                        <div class="worksites-sub-field">
                             <span class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-                        </worksites-sub-field>
+                            <div class="subtextanswer">{{ boolOrString FederalContractWorkPerformed }}</div>
+                        </div>
 
-                        <worksites-sub-field answer="NumEmployees">
+                        <div class="worksites-sub-field">
                             <span class="subtext">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
-                        </worksites-sub-field>
+                            <div class="subtextanswer">{{ NumEmployees }}</div>
+                        </div>
+
+
                     </div>
                     <div employee-sub="true" answer="WorkSites.Employee">
                         <p><span class="title">Employee</span></p>
@@ -577,10 +586,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{#each Employee}}
                                 <tr>
-                                    <td employees-sub-field="" answer="Name"><span class="subtext"></span></td>
-                                    <td employees-sub-field="" answer="PrimaryDisability.Display"><span class="subtext"></span></td>
-                                    <td employees-sub-field="" answer="WorkType"><span class="subtext"></span></td>
+                                    <td><span class="subtext">{{ Name }}</span></td>
+                                    <td><span class="subtext">{{ PrimaryDisability.Display }}</span></td>
+                                    <td><span class="subtext">{{ WorkType }}</span></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="text-align:center">
@@ -599,14 +609,14 @@
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <td employees-sub-field="" answer="NumJobs" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="AvgWeeklyHours" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="AvgHourlyEarnings" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="PrevailingWage" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="ProductivityMeasure" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="CommensurateWageRate" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="TotalHours" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="WorkAtOtherSite" style="font-size:11px"><span class="subtext"></span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ NumJobs }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ AvgWeeklyHours }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ AvgHourlyEarnings }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ PrevailingWage }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ ProductivityMeasure }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ CommensurateWageRate }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ TotalHours }}</span></td>
+                                                    <td style="font-size:11px"><span class="subtext">{{ WorkAtOtherSite }}</span></td>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -616,6 +626,7 @@
                         </table>
                     </div>
                 </div>
+                {{/each}}
             </div>
         </div>
     </div>
