@@ -53,6 +53,7 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
 
             // Assert
             _mockAttachmentService.Verify(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, "This is some HTML that is filled in"), Times.Once());
+            Assert.AreEqual(pdfContentList, applicationAttachmentsData, "returns the expected data");
         }
 
         [TestMethod()]
