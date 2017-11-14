@@ -42,8 +42,8 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             _mockApplicationService.Setup(mock => mock.GetApplicationById(It.IsAny<Guid>())).Returns(testApplication);
 
             _mockAttachmentService.Setup(mock => mock.GetApplicationFormViewContent(testApplication, It.IsAny<string>())).Returns("This is some HTML that is filled in");
-            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(It.IsAny<ApplicationSubmission>())).Returns(attachments);
-            _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(It.IsAny<List<Attachment>>(), It.IsAny<string>())).Returns(pdfContentList);
+            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(testApplication)).Returns(attachments);
+            _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, It.IsAny<string>())).Returns(pdfContentList);
 
             // Execute
             string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
