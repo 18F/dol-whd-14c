@@ -16,6 +16,6 @@ namespace DOL.WHD.Section14c.EmailApi.Helper
 
         public string Body { get; set; }
 
-        public List<Attachment> attachments { get; set; }
+        public Dictionary<string, byte[]> attachments { get; set; }
     }
 }

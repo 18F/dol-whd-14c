@@ -17,40 +17,24 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
     [TestClass()]
     public class EmailServiceTests
     {
-        private readonly IFileRepository _fileRepositoryMock;
         private IEmailService _emailService;
         public EmailServiceTests()
         {
-            _fileRepositoryMock = new FileRepository(@"MailTest\");
-            SmtpClient client = new SmtpClient();
+            string testEmailPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestEmails"));
+            if(!System.IO.Directory.Exists(testEmailPath))
+                System.IO.Directory.CreateDirectory(testEmailPath);
+
+            SmtpClient client = new SmtpClient()
+            {
+                PickupDirectoryLocation = testEmailPath
+            };
+
             _emailService = new EmailService(client);
         }
 
         [TestMethod()]
-        public void SendEmailTest()
-        {
-            var emailContent = new EmailContent();
-            emailContent.To = "test@test.com;test2@test.com";
-            emailContent.Subject = "My Test Subject";
-            emailContent.Body = "My Test Body";
-
-            var testFileContents = "test";
-            var data = Encoding.ASCII.GetBytes(testFileContents);
-
-            using (var memoryStream = new MemoryStream(data))
-            {
-                var attachments = new List<Attachment>();
-                attachments.Add(new Attachment(memoryStream, "test.txt"));
-                emailContent.attachments = attachments;
-            }
-
-            var result = _emailService.SendEmail(emailContent);
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod()]
         [ExpectedException(typeof(ApiException))]
-        public void SendEmailTest_NoRecipients_Invalid()
+        public void SendEmail_NoRecipients_Test()
         {
             var emailContent = new EmailContent();
             emailContent.To = "";
@@ -59,13 +43,9 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
 
             var testFileContents = "test";
             var data = Encoding.ASCII.GetBytes(testFileContents);
-
-            using (var memoryStream = new MemoryStream(data))
-            {
-                var attachments = new List<Attachment>();
-                attachments.Add(new Attachment(memoryStream, "test.txt"));
-                emailContent.attachments = attachments;
-            }
+            Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>();
+            attachments.Add("test.txt", data);
+            emailContent.attachments = attachments;            
 
             var result = _emailService.SendEmail(emailContent);
         }

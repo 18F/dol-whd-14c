@@ -10,6 +10,7 @@ using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
 using DOL.WHD.Section14c.PdfApi.Business;
+using DOL.WHD.Section14c.EmailApi.Business;
 
 namespace DOL.WHD.Section14c.Api
 {
@@ -40,6 +41,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
             container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);            
             container.Register<IAttachmentSupportedFileTypesService, AttachmentSupportedFileTypesService>(Lifestyle.Scoped);
+            container.Register<IEmailService>(() => new EmailService(null), Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);

@@ -14,19 +14,23 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers
     public class EmailController : BaseApiController
     {
         private IEmailService _emailService;
-
+        /// <summary>
+        /// Email Controller
+        /// </summary>
+        /// <param name="emailService"></param>
         public EmailController(IEmailService emailService)
         {
             _emailService = emailService;
         }
+
         /// <summary>
         /// Send Email
         /// </summary>
-        /// <param name="email"></param>
+        /// <param name="emailContent"></param>
         /// <returns></returns>
         [HttpPost]
         [Route("sendemail")]
-        public IHttpActionResult Concatenate(EmailContent emailContent)
+        public IHttpActionResult SendEmail(EmailContent emailContent)
         {
             if (emailContent == null)
             {

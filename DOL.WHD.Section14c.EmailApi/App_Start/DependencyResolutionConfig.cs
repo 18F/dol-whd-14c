@@ -14,8 +14,7 @@ namespace DOL.WHD.Section14c.EmailApi.App_Start
             // Create the container as usual.
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
-
-            container.Register<IEmailService, EmailService>(Lifestyle.Singleton);
+            container.Register<IEmailService>(() => new EmailService(null), Lifestyle.Scoped);
             container.Register<IActivityLogRepository, ActivityLogRepository>(Lifestyle.Scoped);
             container.Register<IErrorLogRepository, ErrorLogRepository>(Lifestyle.Scoped);
 
