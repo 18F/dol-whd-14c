@@ -47,7 +47,13 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
         /// </summary>
         public void Dispose()
         {
-            _disposed = true;
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _disposed = _disposed || disposing;
         }
     }
 }

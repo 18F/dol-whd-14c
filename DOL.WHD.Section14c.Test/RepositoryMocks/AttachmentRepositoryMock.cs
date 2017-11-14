@@ -21,11 +21,6 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             });
         }
 
-        public void Dispose()
-        {
-            _disposed = true;
-        }
-
         public IQueryable<Attachment> Get()
         {
             return _data.Values.AsQueryable();
@@ -39,6 +34,17 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
         public int SaveChanges()
         {
             return 1;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _disposed = Disposed || disposing;
         }
     }
 }

@@ -128,12 +128,12 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 else
                 {
                     message.Append("Error: ").Append(record.Exception.GetBaseException().Message).Append(Environment.NewLine);
-                }                
+                }
             }
 
             // Not every request will have user details. Unauthenticated users will not return anything
             var currentUserName = TryToFindUserName(record);
-            eventInfo.Properties[Constants.UserName] = currentUserName;           
+            eventInfo.Properties[Constants.UserName] = currentUserName;
 
             eventInfo.Message = Convert.ToString(message);
             eventInfo.Level = LogLevel.FromString(record.Level.ToString());
@@ -177,13 +177,13 @@ namespace DOL.WHD.Section14c.Log.Helpers
                 }
             }
 
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Do nothing if user not found.
             }
             return temp;
         }
-   
+
         /// <summary>
         /// Get User Name
         /// </summary>
