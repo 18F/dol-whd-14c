@@ -201,7 +201,6 @@
     <Compile Include="Domain\ViewModels\RoleViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
-    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\JSONHelperTests.cs" />
     <Compile Include="Business\BaseAPIControllerTest.cs" />
     <Compile Include="Helpers\NLoggerTests.cs" />
