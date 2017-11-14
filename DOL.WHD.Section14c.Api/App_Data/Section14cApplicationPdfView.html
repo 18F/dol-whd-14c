@@ -74,22 +74,22 @@
 
         <p>
             <span class="subtext">I agree to use an electronic signature. By entering my Full Name and Title below, I certify that I am authorized to accept these representations and assurances on behalf of the organization named on this application.</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Signature.Agreement }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Signature.Agreement }}</div>
         </p>
 
         <p>
             <span class="subtext">Full Name</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Signature.FullName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Signature.FullName }}</div>
         </p>
 
         <p>
             <span class="subtext">Title</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Signature.Title }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Signature.Title }}</div>
         </p>
 
         <p>
             <span class="subtext">Date</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Signature.Date }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Signature.Date }}</div>
         </p>
     </div>
     <div class="admin-page">
@@ -100,27 +100,27 @@
         <hr>
         <p>
             <span class="subtext">What type of application is this?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ ApplicationType.Display }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString ApplicationType.Display }}</div>
         </p>
 
         <p>
             <span class="subtext">Has this employer ever previously applied for a 14(c) certificate?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ HasPreviousApplication }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString HasPreviousApplication }}</div>
         </p>
 
         <p>
             <span class="subtext">Has this employer ever previously held a 14(c) certificate?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ HasPreviousCertificate }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString HasPreviousCertificate }}</div>
         </p>
 
         <p>
             <span class="subtext">What is the most recently held certificate number for the main establishment?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ PreviousCertificateNumber }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString PreviousCertificateNumber }}</div>
         </p>
 
         <p>
             <span class="subtext">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ '' }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString '' }}</div>
         </p>
 
         <ul class="usa-unstyled-list">
@@ -134,22 +134,22 @@
 
         <p>
             <span class="subtext">Full Name</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ ContactName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString ContactName }}</div>
         </p>
 
         <p>
             <span class="subtext">Telephone Number</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ ContactPhone }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString ContactPhone }}</div>
         </p>
 
         <p>
             <span class="subtext">Fax Number</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ ContactFax }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString ContactFax }}</div>
         </p>
 
         <p>
             <span class="subtext">Email Address</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ ContactEmail }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString ContactEmail }}</div>
         </p>
     </div>
     <div class="admin-page">
@@ -162,71 +162,71 @@
 
         <p>
             <span class="subtext">Legal Name of Employer</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.LegalName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.LegalName }}</div>
         </p>
 
         <p>
             <span class="subtext">Does the Employer have a Trade Name?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.HasTradeName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.HasTradeName }}</div>
         </p>
 
         <p>
             <span class="subtext">Trade Name</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.TradeName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.TradeName }}</div>
         </p>
 
         <p>
             <span class="subtext">Has the Employer’s legal name changed since its last application?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.LegalNameHasChanged }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.LegalNameHasChanged }}</div>
         </p>
 
         <p>
             <span class="subtext">Prior Legal Name of Employer</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.PriorLegalName }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.PriorLegalName }}</div>
         </p>
 
         <p>
             <span class="subtext">Physical Address of Employer’s Main Establishment</span>
-            <div class="subtextanswer">{{#format_address}}{{ Employer.PhysicalAddress }}{{/format_address}}</div>
+            <div class="subtextanswer">{{ formatAddress Employer.PhysicalAddress }}</div>
         </p>
 
         <p>
             <span class="subtext">Does the Employer have a Parent Organization?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.HasParentOrg }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.HasParentOrg }}</div>
         </p>
 
         <div>
             <p>
                 <span class="subtext">Parent Organization Legal Name</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ Employer.ParentLegalName }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString Employer.ParentLegalName }}</div>
             </p>
 
             <p>
                 <span class="subtext">Parent Organization Trade Name</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ Employer.ParentTradename }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString Employer.ParentTradename }}</div>
             </p>
 
             <p>
                 <span class="subtext">Parent Organization Address</span>
-                <div class="subtextanswer">{{#format_address}}{{ Employer.ParentAddress }}{{/format_address}}</div>
+                <div class="subtextanswer">{{ formatAddress Employer.ParentAddress }}</div>
             </p>
 
             <p>
                 <span class="subtext">Send mail to Parent Organiation address?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ Employer.SendMailToParent }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString Employer.SendMailToParent }}</div>
             </p>
         </div>
 
         <p>
             <span class="subtext">Employer Status</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.EmployerStatus.Display }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.EmployerStatus.Display }}</div>
         </p>
         <p>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.EmployerStatusOther }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.EmployerStatusOther }}</div>
         </p>
         <p>
             <span class="subtext">Is this employer a local or State educational agency?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.IsEducationalAgency }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.IsEducationalAgency }}</div>
         </p>
 
         <h3>Number of Workers With Disabilities</h3>
@@ -234,37 +234,37 @@
 
         <p>
             <span class="subtext">When did the Employer’s most recently completed fiscal quarter end?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.FiscalQuarterEndDate }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.FiscalQuarterEndDate }}</div>
         </p>
 
         <p>
             <span class="subtext">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.NumSubminimalWageWorkers.Total }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Total }}</div>
         </p>
 
         <p>
             <span class="subtext">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ '' }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString '' }}</div>
         </p>
 
         <p>
             <span class="subtext">Community Rehabilitation Program (Work Center)</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.NumSubminimalWageWorkers.WorkCenter }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.WorkCenter }}</div>
         </p>
 
         <p>
             <span class="subtext">Hospital/Residential Care Facility (Patient Workers)</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.NumSubminimalWageWorkers.PatientWorkers }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.PatientWorkers }}</div>
         </p>
 
         <p>
             <span class="subtext">School Work Experience Program (SWEP)</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.NumSubminimalWageWorkers.Swep }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Swep }}</div>
         </p>
 
         <p>
             <span class="subtext">Business Establishment</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.NumSubminimalWageWorkers.BusinessEstablishment }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.BusinessEstablishment }}</div>
         </p>
 
         <h3>Government Contracts</h3>
@@ -272,27 +272,27 @@
 
         <p>
             <span class="subtext">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.PCA }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.PCA }}</div>
         </p>
 
         <p>
             <span class="subtext">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.SCA.Display }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.SCA.Display }}</div>
         </p>
 
         <p>
             <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.SCACount }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.SCACount }}</div>
         </p>
 
         <p>
             <span class="subtext">SCA Wage Determination Attachment</span>
-            <div class="subtextanswer">{{#format_attachment}}{{ Employer.SCAAttachment }}{{/format_attachment}}</div>
+            <div class="subtextanswer">{{ formatAttachment Employer.SCAAttachment }}</div>
         </p>
 
         <p>
             <span class="subtext">Since January 1, 2015, has this Employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.EO13658.Display }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.EO13658.Display }}</div>
         </p>
 
         <h3>Additional Questions</h3>
@@ -300,23 +300,23 @@
 
         <p>
             <span class="subtext">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.RepresentativePayee }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.RepresentativePayee }}</div>
         </p>
 
         <p>
             <span class="subtext">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.TotalDisabledWorkers }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.TotalDisabledWorkers }}</div>
         </p>
 
         <p>
             <span class="subtext">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.TakeCreditForCosts }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.TakeCreditForCosts }}</div>
         </p>
 
         <div>
             <p>
                 <span class="subtext">Which type of deduction(s) did the employer take?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ '' }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString '' }}</div>
             </p>
 
             <ul class="usa-unstyled-list">
@@ -328,7 +328,7 @@
 
         <p>
             <span class="subtext">Is this a request for Temporary Authority?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ Employer.TemporaryAuthority }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString Employer.TemporaryAuthority }}</div>
         </p>
     </div>
     <div class="admin-page">
@@ -337,42 +337,42 @@
         </div>
         <p>
             <span class="subtext">Pay Type</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ PayType.Display }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString PayType.Display }}</div>
         </p>
         <div wage-data-hourly="true">
             <h3>Hourly</h3>
             <hr>
             <p>
                 <span class="subtext">How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.NumWorkers }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.NumWorkers }}</div>
             </p>
 
             <p>
                 <span class="subtext">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.JobName }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.JobName }}</div>
             </p>
 
             <p>
                 <span class="subtext">Description of Work Performed</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.JobDescription }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.JobDescription }}</div>
             </p>
 
             <p>
                 <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.PrevailingWageMethod.Display }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.PrevailingWageMethod.Display }}</div>
             </p>
 
             <p>
                 <span class="subtext">Prevailing Wage Determined based on this survey</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
             </p>
 
             <h3>Source Employers</h3>
 
-            {{#each MostRecentPrevailingWageSurvey.SourceEmployers}}
+            {{#each HourlyWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
                 <div>
                     <div>{{ this.Employer.EmployerName }}</div>
-                    <div>{{#format_address}}{{ this.Employer.Address }}{{/format_address}}</div>
+                    <div>{{ formatAddress this.Employer.Address }}</div>
                     <div>{{ this.Employer.Phone }}</div>
                     <div>{{ this.Employer.ContactName }}</div>
                     <div>{{ this.Employer.ContactTitle }}</div>
@@ -386,32 +386,32 @@
 
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
             </p>
 
             <p>
                 <span class="subtext">Alternate data source used</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.AlternateWageData.AlternateDataSourceUsed }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateDataSourceUsed }}</div>
             </p>
 
             <p>
                 <span class="subtext">Prevailing wage provided by source</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}</div>
             </p>
 
             <p>
                 <span class="subtext">Date data retrieved</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ HourlyWageInfo.AlternateWageData.DataRetrieved }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
 
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">{{#format_attachment}}{{ HourlyWageInfoScaWageDeterminationAttachment }}{{/format_attachment}}</div>
+                <div class="subtextanswer">{{ formatAttachment HourlyWageInfoScaWageDeterminationAttachment }}</div>
             </p>
 
             <p>
                 <span class="subtext">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</span>
-                <div class="subtextanswer">{{#format_attachment}}{{ HourlyWageInfo.Attachment }}{{/format_attachment}}</div>
+                <div class="subtextanswer">{{ formatAttachment HourlyWageInfo.Attachment }}</div>
             </p>
         </div>
         <div wage-data-piecerate="true">
@@ -419,31 +419,31 @@
             <hr>
             <p>
                 <span class="subtext">How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.NumWorkers }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.NumWorkers }}</div>
             </p>
             <p>
                 <span class="subtext">What was the job or contract on which the employer employed the largest number of workers who received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ JPieceRateWageInfo.obName }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString JPieceRateWageInfo.obName }}</div>
             </p>
             <p>
                 <span class="subtext">Description of Work Performed</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.JobDescription }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.JobDescription }}</div>
             </p>
 
             <p>
                 <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.PrevailingWageMethod.Display }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageMethod.Display }}</div>
             </p>
             <p>
                 <span class="subtext">Prevailing Wage Determined based on this survey</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
             </p>
 
             <h3>Source Employers</h3>
 
             <div wage-data-repeat="true" ng-repeat="MostRecentPrevailingWageSurvey.SourceEmployers">
                 <div>{{ this.Employer.EmployerName }}</div>
-                <div>{{#format_address}}{{ this.Employer.Address }}{{/format_address}}</div>
+                <div>{{ formatAddress this.Employer.Address }}</div>
                 <div>{{ this.Employer.Phone }}</div>
                 <div>{{ this.Employer.ContactName }}</div>
                 <div>{{ this.Employer.ContactTitle }}</div>
@@ -455,51 +455,51 @@
             </div>
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
             </p>
 
             <p>
                 <span class="subtext">Alternate data source used</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.AlternateWageData.AlternateDataSourceUsed }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateDataSourceUsed }}</div>
             </p>
 
             <p>
                 <span class="subtext">Prevailing wage provided by source</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}</div>
             </p>
 
             <p>
                 <span class="subtext">Date data retrieved</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.AlternateWageData.DataRetrieved }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
 
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">{{#format_attachment}}{{ PieceRateWageInfo.ScaWageDeterminationAttachment }}{{/format_attachment}}</div>
+                <div class="subtextanswer">{{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
             </p>
             <p>
                 <span class="subtext">Descripton of Work</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.PieceRateWorkDescription }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRateWorkDescription }}</div>
             </p>
 
             <p>
                 <span class="subtext">Prevailing Wage Determined for This Job</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.PrevailingWageDeterminedForJob }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageDeterminedForJob }}</div>
             </p>
 
             <p>
                 <span class="subtext">Standard Productivity</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.StandardProductivity }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.StandardProductivity }}</div>
             </p>
 
             <p>
                 <span class="subtext">Piece Rate Paid to Workers</span>
-                <div class="subtextanswer">{{#boolOrString}}{{ PieceRateWageInfo.PieceRatePaidToWorkers }}{{/boolOrString}}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRatePaidToWorkers }}</div>
             </p>
 
             <p>
                 <span class="subtext">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</span>
-                <div class="subtextanswer">{{#format_attachment}}{{ PieceRateWageInfo.Attachment }}{{/format_attachment}}</div>
+                <div class="subtextanswer">{{ formatAttachment PieceRateWageInfo.Attachment }}</div>
             </p>
         </div>
     </div>
@@ -508,7 +508,7 @@
         <hr>
         <p>
             <span class="subtext">What is the total number of establishments and work sites to be covered by this certificate?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ TotalNumWorkSites }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString TotalNumWorkSites }}</div>
         </p>
 
         <div class="table-responsive">
@@ -618,12 +618,12 @@
 
         <p>
             <span class="subtext">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ WIOA.HasVerifiedDocumentation }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString WIOA.HasVerifiedDocumentation }}</div>
         </p>
 
         <p>
             <span class="subtext">Were any workers paid a subminimum wage age 24 or younger?</span>
-            <div class="subtextanswer">{{#boolOrString}}{{ WIOA.HasWIOAWorkers }}{{/boolOrString}}</div>
+            <div class="subtextanswer">{{ boolOrString WIOA.HasWIOAWorkers }}</div>
         </p>
 
         <div>
