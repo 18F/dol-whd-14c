@@ -113,14 +113,15 @@
             <div class="subtextanswer">{{ boolOrString HasPreviousCertificate }}</div>
         </p>
 
+        {{#if HasPreviousCertificate }}
         <p>
             <span class="subtext">What is the most recently held certificate number for the main establishment?</span>
             <div class="subtextanswer">{{ boolOrString PreviousCertificateNumber }}</div>
         </p>
+        {{/if}}
 
         <p>
             <span class="subtext">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</span>
-            <div class="subtextanswer">{{ boolOrString '' }}</div>
         </p>
 
         <ul class="usa-unstyled-list">
@@ -170,20 +171,24 @@
             <div class="subtextanswer">{{ boolOrString Employer.HasTradeName }}</div>
         </p>
 
+        {{#if Employer.HasTradeName }}
         <p>
             <span class="subtext">Trade Name</span>
             <div class="subtextanswer">{{ boolOrString Employer.TradeName }}</div>
         </p>
+        {{/if}}
 
         <p>
             <span class="subtext">Has the Employer’s legal name changed since its last application?</span>
             <div class="subtextanswer">{{ boolOrString Employer.LegalNameHasChanged }}</div>
         </p>
 
+        {{#if Employer.LegalNameHasChanged }}
         <p>
             <span class="subtext">Prior Legal Name of Employer</span>
             <div class="subtextanswer">{{ boolOrString Employer.PriorLegalName }}</div>
         </p>
+        {{/if}}
 
         <p>
             <span class="subtext">Physical Address of Employer’s Main Establishment</span>
@@ -242,6 +247,7 @@
             <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Total }}</div>
         </p>
 
+        <!-- NOTE THAT THIS IS EMPTY -->
         <p>
             <span class="subtext">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</span>
             <div class="subtextanswer">{{ boolOrString '' }}</div>
@@ -316,7 +322,6 @@
         <div>
             <p>
                 <span class="subtext">Which type of deduction(s) did the employer take?</span>
-                <div class="subtextanswer">{{ boolOrString '' }}</div>
             </p>
 
             <ul class="usa-unstyled-list">
@@ -371,15 +376,15 @@
 
             {{#each HourlyWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
                 <div>
-                    <div>{{ this.Employer.EmployerName }}</div>
-                    <div>{{ formatAddress this.Employer.Address }}</div>
-                    <div>{{ this.Employer.Phone }}</div>
-                    <div>{{ this.Employer.ContactName }}</div>
-                    <div>{{ this.Employer.ContactTitle }}</div>
-                    <div>{{ this.Employer.ContactDate }}</div>
-                    <div>{{ this.Employer.JobDescription }}</div>
-                    <div>{{ this.Employer.ExperiencedWorkerWageProvided }}</div>
-                    <div>{{ this.Employer.ConclusionWageRateNotBasedOnEntry }}</div>
+                    <div>{{ EmployerName }}</div>
+                    <div>{{ formatAddress Address }}</div>
+                    <div>{{ Phone }}</div>
+                    <div>{{ ContactName }}</div>
+                    <div>{{ ContactTitle }}</div>
+                    <div>{{ ContactDate }}</div>
+                    <div>{{ JobDescription }}</div>
+                    <div>{{ ExperiencedWorkerWageProvided }}</div>
+                    <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
                     <hr>
                 </div>
             {{/each}}
@@ -441,18 +446,21 @@
 
             <h3>Source Employers</h3>
 
-            <div wage-data-repeat="true" ng-repeat="MostRecentPrevailingWageSurvey.SourceEmployers">
-                <div>{{ this.Employer.EmployerName }}</div>
-                <div>{{ formatAddress this.Employer.Address }}</div>
-                <div>{{ this.Employer.Phone }}</div>
-                <div>{{ this.Employer.ContactName }}</div>
-                <div>{{ this.Employer.ContactTitle }}</div>
-                <div>{{ this.Employer.ContactDate }}</div>
-                <div>{{ this.Employer.JobDescription }}</div>
-                <div>{{ this.Employer.ExperiencedWorkerWageProvided }}</div>
-                <div>{{ this.Employer.ConclusionWageRateNotBasedOnEntry }}</div>
-                <hr>
-            </div>
+            {{#each PieceRateWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
+                <div>
+                    <div>{{ EmployerName }}</div>
+                    <div>{{ formatAddress Address }}</div>
+                    <div>{{ Phone }}</div>
+                    <div>{{ ContactName }}</div>
+                    <div>{{ ContactTitle }}</div>
+                    <div>{{ ContactDate }}</div>
+                    <div>{{ JobDescription }}</div>
+                    <div>{{ ExperiencedWorkerWageProvided }}</div>
+                    <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
+                    <hr>
+                </div>
+            {{/each}}
+
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
