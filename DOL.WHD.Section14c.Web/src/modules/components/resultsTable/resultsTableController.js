@@ -1,5 +1,4 @@
 'use strict';
-//import * as $ from 'jquery';
 import 'datatables.net'
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.js';
