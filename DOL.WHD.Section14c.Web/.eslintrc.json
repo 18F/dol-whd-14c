@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "globals": {
+    "angular": false
+  },
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "overrides": [{
+    "files": [ "**/*.test.js" ],
+    "globals": {
+      "beforeEach": false,
+      "describe": false,
+      "expect": false,
+      "inject": false,
+      "it": false,
+      "spyOn": false
+    }
+  }]
+}
