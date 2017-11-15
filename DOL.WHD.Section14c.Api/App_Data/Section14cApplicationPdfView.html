@@ -586,9 +586,9 @@
                             <tbody>
                                 {{#each Employees }}
                                 <tr>
-                                    <td><span class="subtext">{{ Name }}</span></td>
-                                    <td><span class="subtext">{{ PrimaryDisability.Display }}</span></td>
-                                    <td><span class="subtext">{{ WorkType }}</span></td>
+                                    <td>{{ Name }}</td>
+                                    <td>{{ PrimaryDisability.Display }}</td>
+                                    <td>{{ WorkType }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" style="text-align:center">
@@ -607,14 +607,14 @@
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ NumJobs }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ AvgWeeklyHours }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ AvgHourlyEarnings }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ PrevailingWage }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ ProductivityMeasure }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ CommensurateWageRate }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ TotalHours }}</span></td>
-                                                    <td style="font-size:11px"><span class="subtext">{{ WorkAtOtherSite }}</span></td>
+                                                    <td style="font-size:11px">{{ NumJobs }}</td>
+                                                    <td style="font-size:11px">{{ AvgWeeklyHours }}</td>
+                                                    <td style="font-size:11px">{{ AvgHourlyEarnings }}</td>
+                                                    <td style="font-size:11px">{{ PrevailingWage }}</td>
+                                                    <td style="font-size:11px">{{ ProductivityMeasure }}</td>
+                                                    <td style="font-size:11px">{{ CommensurateWageRate }}</td>
+                                                    <td style="font-size:11px">{{ TotalHours }}</td>
+                                                    <td style="font-size:11px">{{ WorkAtOtherSite }}</td>
                                                 </tr>
                                             </thead>
                                         </table>
@@ -658,8 +658,8 @@
                 <tbody>
                 {{#each WIOA.WIOAWorkers}}
                     <tr style="text-align:center">
-                        <td scope="row">{{ WIOAWorkers.FullName }}</td>
-                        <td>{{ WIOAWorkers.WIOAWorkerVerified.Display }}</td>
+                        <td scope="row">{{ FullName }}</td>
+                        <td>{{ WIOAWorkerVerified.Display }}</td>
                     </tr>
                 {{/each}}
                 </tbody>
