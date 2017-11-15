@@ -15,6 +15,7 @@ module.exports = function(ngModule) {
   require('./mainNavigationControl')(ngModule);
   require('./mainTopNavControl')(ngModule);
   require('./resetPasswordForm')(ngModule);
+  require('./resultsTable')(ngModule);
   require('./sectionAdminAppInfo')(ngModule);
   require('./sectionAdminAssurances')(ngModule);
   require('./sectionAdminEmployer')(ngModule);
