@@ -8,6 +8,7 @@ describe('resultsTable', function() {
       $controller = _$controller_;
       $rootScope = _$rootScope_;
       scope = $rootScope.$new();
+
       //
       scope.columns = [
         {
@@ -42,8 +43,6 @@ describe('resultsTable', function() {
       ]
 
       scope.results = [];
-
-
       template = $compile(element)(scope);
       scope.$digest();
       controller = element.controller;
@@ -51,6 +50,7 @@ describe('resultsTable', function() {
 
 
   });
+  
   it('invoke directive', function() {
     expect(element).toBeDefined();
   });

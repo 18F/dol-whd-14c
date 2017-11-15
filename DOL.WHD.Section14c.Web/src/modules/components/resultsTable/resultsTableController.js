@@ -12,10 +12,13 @@ module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
     $scope
   ) {
+
     'ngInject';
     'use strict';
+
     var vm = this;
     $scope.data = [];
+
     this.initDatatable = function () {
       let exampleId = $('#example');
       $scope.tableWidget = exampleId.DataTable({
@@ -48,15 +51,14 @@ module.exports = function(ngModule) {
           { responsivePriority: 3, width: "10%", targets: $scope.columns.length -2 }
         ]
       });
-
       $.fn.dataTable.ext.errMode = 'none';
-  
     }
 
     this.refreshTable = function (data, columns) {
       columns = columns.map(function(element) {
         return element.model
       });
+
       if(data) {
         $scope.data = data.map(function(element){
           let arr = new Array(columns.length)
@@ -75,6 +77,7 @@ module.exports = function(ngModule) {
           }
           return arr;
         });
+
         if ($scope.tableWidget) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null

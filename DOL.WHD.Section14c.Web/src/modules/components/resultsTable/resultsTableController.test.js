@@ -52,7 +52,7 @@ var resultsTableController, scope
         }
       ]
 
-      scope.worker = {
+      scope.results =  [{
         avgHourlyEarnings:0.1,
         avgWeeklyHours:0.1,
         commensurateWageRate:0.1,
@@ -66,7 +66,7 @@ var resultsTableController, scope
         totalHours:0.1,
         workAtOtherSite:false,
         workType:"xcv"
-      };
+      }];
 
       resultsTableController = function() {
         return $controller('resultsTableController', {
@@ -76,12 +76,17 @@ var resultsTableController, scope
     })
   );
 
-  it('sectionWorkSitesController has initDatatable function', function() {
+  it('sectionWorkSitesController has refreshTable function', function() {
     var controller = resultsTableController();
     spyOn(controller, "refreshTable");
-    controller.refreshTable([scope.worker], scope.columns);
-    console.log(controller);
-
+    controller.refreshTable(scope.results, scope.columns);
     expect(controller.refreshTable).toHaveBeenCalled();
+  });
+
+  it('sectionWorkSitesController has initDatatable function', function() {
+    var controller = resultsTableController();
+    spyOn(controller, "initDatatable");
+    controller.initDatatable(scope.results, scope.columns);
+    expect(controller.initDatatable).toHaveBeenCalled();
   });
 });
