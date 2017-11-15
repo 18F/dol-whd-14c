@@ -3,13 +3,13 @@ describe('autoSaveService', function() {
 
   var autoSave;
   var api;
-  var timer;
-  var duration = 60 * 1000; // 60 seconds
   var $timeout;
+  var $cookies;
   var $q;
   var deferred;
   var $scope;
-  var current;
+  var stateService;
+
   beforeEach(
     inject(function(
       $injector,

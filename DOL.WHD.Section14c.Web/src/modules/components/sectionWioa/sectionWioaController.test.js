@@ -1,4 +1,6 @@
 describe('sectionWioaController', function() {
+  var scope, sectionWioaController;
+  
   beforeEach(module('14c'));
 
   beforeEach(

@@ -1,4 +1,6 @@
 describe('sectionAssurancesController', function() {
+  var scope, sectionAssurancesController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -19,8 +21,7 @@ describe('sectionAssurancesController', function() {
   );
 
   it('invoke controller, intialize formData from state service', function() {
-    var controller = sectionAssurancesController();
-
+    sectionAssurancesController();
     expect(scope.formData).toBe('value');
   });
 });

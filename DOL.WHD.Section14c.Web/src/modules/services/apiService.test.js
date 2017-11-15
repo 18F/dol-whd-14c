@@ -2,25 +2,10 @@
 describe('apiService', function() {
   beforeEach(module('14c'));
 
-  var api;
-  var id;
-  var file;
-  var ein;
+  var api, $httpBackend, env;
   var userId;
-  var email;
-  var password;
-  var oldPassword;
-  var newPassword;
-  var confirmPassword;
   var access_token;
-  var $http;
-  var passwordResetUrl;
-  var current;
-  var code;
-  var emailVerificationUrl;
-  var applicationData = { saved: 'place' };
-  var account = { email: 'jonhson', roles: 'admin', userId: 'jmmcnj' };
-  var response = { modelstate: { error: 'something went wrong' } };
+
   beforeEach(
     inject(function($injector, _$httpBackend_, apiService, _env) {
       api = apiService;
@@ -276,7 +261,6 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
     api.getApplication(access_token, ein).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
@@ -294,7 +278,6 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
     api.getApplication(access_token, ein).then(function(data) {
       result = data.data;
       isResolved = true;
@@ -313,7 +296,6 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
     api.uploadAttachment(access_token, ein).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
@@ -331,7 +313,6 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
     api.uploadAttachment(access_token, ein).then(function(data) {
       result = data.data;
       isResolved = true;
@@ -351,7 +332,6 @@ describe('apiService', function() {
     var result;
     var ein = '12-1234567';
     var id = '1';
-    var applicationData = {};
     api
       .deleteAttachment(access_token, ein, id)
       .then(undefined, function(error) {
@@ -372,7 +352,6 @@ describe('apiService', function() {
     var result;
     var ein = '12-1234567';
     var id = '1';
-    var applicationData = {};
     api.deleteAttachment(access_token, ein, id).then(function(data) {
       result = data.data;
       isResolved = true;

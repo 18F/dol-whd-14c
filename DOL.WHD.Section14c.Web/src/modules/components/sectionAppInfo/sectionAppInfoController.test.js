@@ -1,4 +1,6 @@
 describe('sectionAppInfoController', function() {
+  var scope, mockResponsesService, sectionAppInfoController;
+
   beforeEach(module('14c'));
 
   beforeEach(

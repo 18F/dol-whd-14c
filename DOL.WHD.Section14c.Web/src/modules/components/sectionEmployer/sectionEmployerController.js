@@ -14,7 +14,7 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-    $scope.showAllHelp = false;    
+    $scope.showAllHelp = false;
 
     if (!$scope.formData.employer) {
       $scope.formData.employer = {};
@@ -38,8 +38,6 @@ module.exports = function(ngModule) {
     responsesService.getQuestionResponses(questionKeys).then(responses => {
       $scope.responses = responses;
     });
-
-    var vm = this;
 
     this.onHasTradeNameChange = function() {
       $scope.formData.employer.tradeName = '';
@@ -69,9 +67,9 @@ module.exports = function(ngModule) {
         _constants.responses.applicationType.initial
       );
     };
-    
+
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
-    }    
+    }
   });
 };

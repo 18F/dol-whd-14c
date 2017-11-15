@@ -7,7 +7,7 @@ module.exports = function(ngModule) {
     $log,
     _env
   ) {
-    function log( exception, cause ) {
+    function log( exception ) {
         // Pass off the error to the default error handler
         // on the AngualrJS logger. This will output the
         // error to the console (and let the application

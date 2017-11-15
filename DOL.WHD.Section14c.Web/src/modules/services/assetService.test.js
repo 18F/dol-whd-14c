@@ -1,7 +1,7 @@
 describe('stateService', function() {
   beforeEach(module('14c'));
 
-  var stateService;
+  var assetService;
 
   beforeEach(
     inject(function($injector) {
@@ -11,6 +11,6 @@ describe('stateService', function() {
 
   it('should return image url', function() {
     var imageName = 'whd_logo.jpg';
-    var imagePath = assetService.loadImage(imageName);
+    assetService.loadImage(imageName);
   });
 });

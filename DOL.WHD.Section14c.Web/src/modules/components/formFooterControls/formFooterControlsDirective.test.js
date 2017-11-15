@@ -4,7 +4,7 @@ describe('formFooterControls', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<form-footer-controls/>');
-    inject(function($rootScope, $compile) {
+    inject(function($rootScope) {
       rootScope = $rootScope;
       //$compile(element)(rootScope);
     });

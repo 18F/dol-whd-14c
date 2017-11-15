@@ -1,4 +1,8 @@
 describe('resetPasswordFormController', function() {
+  var scope, $q, mockApiService, mockStateService;
+  var nockLocation, resetPasswordFormController;
+  var resetPassword, verifyResetPassword;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -7,8 +11,7 @@ describe('resetPasswordFormController', function() {
       $controller,
       _$q_,
       $location,
-      apiService,
-      stateService
+      apiService
     ) {
       scope = $rootScope.$new();
       $q = _$q_;
@@ -56,7 +59,7 @@ describe('resetPasswordFormController', function() {
   });
 
   it('toggle hideShowPassword should show password if it is hidden', function() {
-    var controller = resetPasswordFormController();
+    resetPasswordFormController();
     scope.inputType = 'password';
     scope.hideShowPassword();
     scope.$apply();
@@ -65,7 +68,7 @@ describe('resetPasswordFormController', function() {
   });
 
   it('toggle hideShowPassword should hide password if it is shown', function() {
-    var controller = resetPasswordFormController();
+    resetPasswordFormController();
     scope.inputType = 'text';
     scope.hideShowPassword();
     scope.$apply();

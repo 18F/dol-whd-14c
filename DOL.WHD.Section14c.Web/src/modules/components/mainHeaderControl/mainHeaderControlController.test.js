@@ -1,4 +1,8 @@
 describe('mainHeaderControlController', function() {
+  var scope, mockNavService, mockLocation;
+  var mockStateService, mockAutoSaveService;
+  var mainHeaderControlController;
+  
   beforeEach(module('14c'));
 
   beforeEach(

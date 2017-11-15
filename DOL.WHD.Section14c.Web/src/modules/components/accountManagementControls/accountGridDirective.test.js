@@ -1,7 +1,8 @@
 describe('accountGrid', function() {
   beforeEach(module('14c'));
 
-  var element, rootScope;
+  var element, $q, rootScope, responses, mockApiService;
+
   beforeEach(function() {
     element = angular.element('<account-grid/>');
     inject(function($rootScope, $compile, _$q_, apiService) {

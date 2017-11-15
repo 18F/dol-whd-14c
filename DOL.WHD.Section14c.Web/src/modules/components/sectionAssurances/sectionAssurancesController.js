@@ -11,7 +11,5 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-
-    var vm = this;
   });
 };

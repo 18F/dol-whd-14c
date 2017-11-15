@@ -1,6 +1,9 @@
 describe('userRegistrationPageController', function() {
   beforeEach(module('14c'));
 
+  var scope;
+  var userRegistrationPageController;
+
   beforeEach(
     inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
@@ -14,6 +17,6 @@ describe('userRegistrationPageController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = userRegistrationPageController();
+    userRegistrationPageController();
   });
 });

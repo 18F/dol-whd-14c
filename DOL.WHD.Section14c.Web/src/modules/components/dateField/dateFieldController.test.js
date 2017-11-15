@@ -1,4 +1,6 @@
 describe('dateFieldController', function() {
+  var scope, momentMock, dateFieldController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -62,7 +64,6 @@ describe('dateFieldController', function() {
   });
 
   it('invoke controller', function() {
-    var testDate = new Date();
     momentMock = function() {
       return {
         isSame: function() {

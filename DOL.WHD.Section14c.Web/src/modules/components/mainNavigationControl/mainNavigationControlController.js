@@ -6,8 +6,7 @@ module.exports = function(ngModule) {
     $location,
     $route,
     navService,
-    stateService,
-    apiService
+    stateService
   ) {
     'ngInject';
     'use strict';

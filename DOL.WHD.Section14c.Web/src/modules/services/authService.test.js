@@ -1,6 +1,9 @@
 describe('authService', function() {
   beforeEach(module('14c'));
 
+  var authService, $httpBackend, stateService;
+  var env, $q, $rootScope;
+
   beforeEach(
     inject(function(
       _$httpBackend_,

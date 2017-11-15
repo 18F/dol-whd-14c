@@ -1,4 +1,7 @@
 describe('sectionReviewController', function() {
+  var scope, mockLocation, mockApiService, q;
+  var sectionReviewController;
+  
   beforeEach(module('14c'));
 
   beforeEach(

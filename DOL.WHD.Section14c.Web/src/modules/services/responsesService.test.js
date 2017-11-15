@@ -1,29 +1,25 @@
 describe('responsesService', function() {
-  var deferred;
-  var $q;
-  var $rootScope;
+
+  var $q, deferred, mockResponsesService;
+  var $httpBackend, env;
 
   beforeEach(module('14c'));
-
-  var responses;
 
   beforeEach(
     inject(function(
       $injector,
-      _$rootScope_,
       _$q_,
       _$httpBackend_,
       responsesService,
       _env
     ) {
       $q = _$q_;
-      $rootScope = _$rootScope_;
       deferred = _$q_.defer();
       mockResponsesService = responsesService;
       $httpBackend = _$httpBackend_;
       env = _env;
 
-      changePassword = $q.defer();
+      var changePassword = $q.defer();
       spyOn(mockApiService, 'changePassword').and.returnValue(
         changePassword.promise
       );
@@ -32,7 +28,6 @@ describe('responsesService', function() {
 
   it('getQuestionResponses should reject promise', function() {
     var questionKeys = ['TestResponseService'];
-    var something;
     deferred.resolve('Returned OK!');
     deferred = mockResponsesService.getQuestionResponses(questionKeys);
 
@@ -57,9 +52,7 @@ describe('responsesService', function() {
 
   it('getQuestionResponses should resolve promise', function() {
     var isResolved;
-    var result;
-    mockResponsesService.getQuestionResponses().then(function(data) {
-      result = data;
+    mockResponsesService.getQuestionResponses().then(function() {
       isResolved = true;
     });
 
@@ -76,8 +69,7 @@ describe('responsesService', function() {
     $httpBackend.flush();
 
     // load cached values
-    mockResponsesService.getQuestionResponses().then(function(data) {
-      result = data;
+    mockResponsesService.getQuestionResponses().then(function() {
       isResolved = true;
     });
     expect(isResolved).toEqual(true);
@@ -85,9 +77,7 @@ describe('responsesService', function() {
 
   it('getQuestionResponses should resolve promise, question array', function() {
     var isResolved;
-    var result;
-    mockResponsesService.getQuestionResponses([]).then(function(data) {
-      result = data;
+    mockResponsesService.getQuestionResponses([]).then(function() {
       isResolved = true;
     });
 

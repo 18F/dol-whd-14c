@@ -1,4 +1,6 @@
 describe('accountCreateButtonController', function() {
+  var scope, mockLocation, accountCreateButtonController;
+  
   beforeEach(module('14c'));
 
   beforeEach(

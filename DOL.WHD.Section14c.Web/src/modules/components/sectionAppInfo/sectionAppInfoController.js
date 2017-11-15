@@ -24,8 +24,6 @@ module.exports = function(ngModule) {
       $scope.responses = responses;
     });
 
-    let vm = this;
-
     this.toggleEstablishmentType = function(id) {
       let index = $scope.formData.establishmentTypeId.indexOf(id);
       if (index > -1) {
