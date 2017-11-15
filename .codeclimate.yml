@@ -1,9 +1,12 @@
 engines:
   eslint:
     enabled: true
+    channel: "eslint-4"
   csslint:
-    enabled: true
-    
+    enabled: false
+  duplication:
+    enabled: false
+
 ratings:
   paths:
     - "DOL.WHD.Section14c.Web/src/**"
