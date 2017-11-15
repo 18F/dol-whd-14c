@@ -27,7 +27,7 @@
         margin-top: 2rem;
       }
       margin-top: 2rem;
-    }      
+    }
   }
 
   .em-block {
@@ -37,8 +37,8 @@
     table thead th {
       background-color: darken($form-em-grey, 10%);
     }
-  }  
-  
+  }
+
   // Remove bottom margins for address layout
   .usa-input-grid-medium,
   .usa-input-grid-small {
@@ -46,7 +46,7 @@
     select {
       margin-bottom: 0;
     }
-  }  
+  }
 
 }
 
@@ -112,7 +112,7 @@
   }
 }
 
-// Sub-section fieldset 
+// Sub-section fieldset
 .dol-form-sub-section {
   &:first-of-type {
     > legend {
@@ -143,7 +143,7 @@
       margin-top: -5px;
       margin-bottom: 20px;
     }
-  }  
+  }
   input[type="checkbox"], input[type="radio"] {
     margin: 0;
     left: -4px;
@@ -152,18 +152,18 @@
   }
 }
 fieldset.dol-form-question-block {
-  margin-top: 4rem;  
+  margin-top: 4rem;
 }
 
 .dol-form-question-text {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 20px;
-}  
+}
 
 label.dol-form-question-text {
   margin-top: 0;
-  max-width: 60rem;  
+  max-width: 60rem;
 }
 
 .dol-form-question-subtext {
@@ -185,8 +185,8 @@ button.dol-help-link {
   text-indent: -9999px;
 
   &:hover {
-    opacity: 0.8; 
-    background-color: transparent;   
+    opacity: 0.8;
+    background-color: transparent;
   }
 }
 .dol-form-question-help {
@@ -253,7 +253,7 @@ fieldset > div:first-of-type {
 .dol-list-help {
   input[type="checkbox"] + label, input[type="radio"] + label {
       display: inline-block;
-  }  
+  }
 }
 
 // Example text
@@ -263,7 +263,7 @@ input.dol-side-example, div.dol-side-example {
   + .dol-example-text {
     display: inline-block;
     color: #666;
-    margin-left: 1.5rem;    
+    margin-left: 1.5rem;
   }
 }
 .usa-date-of-birth.dol-side-example {
@@ -387,8 +387,8 @@ h4#helpfulLinksHeader {
     text-decoration: none;
 
     &:visited, &:hover {
-      color: #000000; 
-      text-decoration: none;     
+      color: #000000;
+      text-decoration: none;
     }
   }
 }
@@ -437,7 +437,7 @@ h4#helpfulLinksHeader {
 
 // ----- end NEW CSS RULES
 
-// ----- begin LEGACY CSS RULES 
+// ----- begin LEGACY CSS RULES
 // There may be duplicates with the new styles above.
 // The legacy styles will be integrated or deleted during a11y remediation.
 // This comment will be removed when a11y remediation is complete.
@@ -692,14 +692,42 @@ span.example {
       max-width: none;
     }
 
+    .need-help {
+      float: right;
+      width: 40%;
+      padding: 10px;
+      border: 1px solid black;
+      background-color: #ffffff;
+    }
+
+    .worksite-employee-help {
+      height: 100px;
+      padding: 2.5rem;
+      background-color: #ebebeb;
+      p {
+        float:left;
+        width: 50%;
+        margin-right: 40px;
+      }
+    }
+
     .worksite-title {
+      height: 60px;
+      padding: 2.5rem;
+      background-color: #333;
       h3 {
         margin-bottom: 0;
       }
 
       h4 {
         margin-top: 4px;
-        font-weight: 400;
+        width: 256px;
+        height: 20px;
+        font-family: Arial;
+        font-size: 20px;
+        color: #ffffff;
+        text-decoration: none solid rgb(255, 255, 255);
+        line-height: 20px;
       }
     }
 

@@ -6,16 +6,11 @@ import 'datatables.net-buttons/js/buttons.html5.js';
 import 'datatables.net-responsive';
 import 'datatables.net-dt/css/jquery.datatables.css';
 import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
-// import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
+import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
 module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
-    $scope,
-    stateService,
-    apiService,
-    responsesService,
-    validationService,
-    _constants
+    $scope
   ) {
     'ngInject';
     'use strict';
@@ -25,16 +20,37 @@ module.exports = function(ngModule) {
       $scope.tableWidget = exampleId.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
-        //responsive: true,
+        responsive: {
+            details: {
+                type: "column",
+                target: 0,
+                display: $.fn.dataTable.Responsive.display.childRow
+            }
+        },
         buttons: [
-          'copy', 'excel', 'pdf', 'csv'
+          'copy','csv'
          ],
         columns: $scope.columns,
         select: true,
-        order: [[ 2, "desc" ]]
+        autoWidth: false,
+        order: [[ 1, "desc" ]],
+        columnDefs: [
+            {
+              className: 'control',
+              orderable: false,
+              targets:   0
+          },
+          { responsivePriority: 1, targets: 0 },
+          { responsivePriority: 2, targets: 1 },
+          { responsivePriority: 3, targets: 2 },
+          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -1 },
+          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -2 }
+        ]
       });
-    }
 
+      // $('#container').css( 'display', 'block' );
+      // $scope.tableWidget.columns.adjust().draw();
+    }
 
     $scope.refreshTable = function (data, columns) {
       columns = columns.map(function(element) {
@@ -43,20 +59,22 @@ module.exports = function(ngModule) {
       if(data) {
         $scope.data = data.map(function(element){
           let arr = new Array(columns.length)
-          arr.unshift("Delete")
-          arr.unshift("Edit");
+
           for(var property in element) {
             if(element.hasOwnProperty(property)) {
               var index = columns.indexOf(property)
               if(index >=0 ) {
-                arr[index] = element[property]
-                arr.push(element[property]);
+                arr[index] = element[property];
+              }
+              else if (property === "primaryDisabilityText") {
+                index = columns.indexOf("primaryDisabilityId");
+                arr[index] = element[property];
               }
             }
           }
           return arr;
         });
-        if (this.tableWidget) {
+        if ($scope.tableWidget) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null
         }

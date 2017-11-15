@@ -2,8 +2,8 @@
   <h2>Work Sites & Employees</h2>
   <div class="cd-panel from-right">
     <header class="cd-panel-header">
-      <!-- <h1>Add Employee</h1> -->
-      <a href="#0" class="cd-panel-close">Close</a>
+      <h2>Add Employee</h2>
+      <a href="#0" ng-click="vm.clearActiveWorker()"class="cd-panel-close">Close</a>
     </header>
 
     <div class="cd-panel-container">
@@ -53,8 +53,7 @@
             </div>
           </div> -->
 
-          <div class="form-question-block">
-            <div class="form-question-text">Wage Data</div>
+          <div class="form-question-block"><br />
             <div class="form-question-text">How many jobs did this worker perform at this work site?</div>
             <div class="form-question-answer">
               <label for="workerNumJobs" class="hide">How many jobs did this worker perform at this work site?</label>
@@ -151,7 +150,7 @@
 
 
           <div class="clearer">
-            <button class="compact-spaced pull-right" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
+            <button class="compact-spaced pull-right" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
             <div class="clearer"></div>
             <hr>
             <button class="green-button pull-right" ng-click="vm.doneAddingEmployees($event)">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
@@ -335,182 +334,100 @@
 
   <!-- Tab 2 (Add Employees) -->
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
-    <div class="usa-content worksite-title">
+    <div class="worksite-title">
       <h3 ng-if="!!vm.activeWorksite.name">{{ vm.activeWorksite.name }}</h3>
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }}</strong></h4>
     </div>
-
-    <div class="form-spaced-div">
-      <p>We’ll need collect specific information for each employee.</p>
-      <p><a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
-
-      <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
-        <ul>
-          <li>
-            <span>Name of worker</span>
-            <span>Provide the full name of the worker.</span>
-          </li>
-          <li>
-            <span>Primary disability</span>
-            <span>Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.</span>
-          </li>
-          <li>
-            <span>Type of work</span>
-            <span>
-              <p>Descibe the work peformed by this worker in the job for which the worker worked the most number of hours at a subminimum wage.</p>
-              <p>Examples may include: sewing, janitorial, box assembly, laundry, etc.</p>
-            </span>
-          </li>
-          <li>
-            <span>Number of Jobs</span>
-            <span>If the worker performed more than one job at this work site during the most recently compelted fiscal quarter provide the total number of jobs.</span>
-          </li>
-          <li>
-            <span>Average Hours per Week</span>
-            <span>
-              <p>Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter.</p>
-              <p>Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks).</p>
-              <p>For example: 260 hours worked in the quarter ÷ 13 weeks per quarter = 20 hours per week average.</p>
-            </span>
-          </li>
-          <li>
-            <span>Average Earnings per Hour</span>
-            <span>
-              <p>Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter.</p>
-              <p>Note:The total number of hours worked should only include the compensable work time (for example: generally would not include time spent in rehabilitation, therapy, etc.)</p>
-              <p>For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.</p>
-            </span>
-          </li>
-          <li>
-            <span>Prevailing Wage</span>
-            <span>Provide the prevailing wage rate for the job identified.</span>
-          </li>
-          <li>
-            <span>Productivity Measure</span>
-            <span>
-              <p>Provide the employee’s most recent productivity rating the job identified.</p>
-              <p>For work paid hourly, the productivity rating is the employee’s productivity in proportion to the standard-setter’s that was determined by the employee’s time study.</p>
-              <p>For piece rate work, no calculation is required, choose “n/a - piece rate”.</p>
-            </span>
-          </li>
-          <li>
-            <span>Commensurate Wage Rate</span>
-            <span>
-              <p>For work paid hourly, provide the employee’s commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job.</p>
-              <p>For piece rate work, provide the employee’s average earnings per hour for the job identified.</p>
-            </span>
-          </li>
-          <li>
-            <span>Total Hours</span>
-            <span>Provide the employee’s total hours worked on the job identified over the most recently completed fiscal quarter.</span>
-          </li>
-          <li>
-            <span>Work at Other Site?</span>
-            <span>Answer “yes” if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span>
-          </li>
-        </ul>
+    <div class="worksite-employee-help">
+      <p>We’ll need collect specific information for each employee. <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
+      <div class="need-help">
+        <img src="/images/chat-icon"/> Need Help? Email us: <a href="">help-14c@dol.gov</a>
       </div>
-
-      <!--<span>We'll need to collect specific information for each employee:</span>
-            <ul class="compact-list">
-                <li>Name</li>
-                <li>Number of Jobs Performed at Work Site / Establishment</li>
-                <li>Average number of hours worked per week on all jobs at this work site</li>
-                <li>Average earnings per hour for all jobs at this work site</li>
-                <li>Type of work performed</li>
-                <li>Primary disability</li>
-                <li>Prevailing wage rate for job described</li>
-                <li>Productivity measure/rating for job described</li>
-                <li>Commensurate wage rate/average earnings per hour for job described</li>
-                <li>Total hours worked for job descirbed</li>
-                <li>Indicate if the worker performs work for this employer at any other work site</li>
-            </ul>-->
     </div>
+
+    <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
+      <ul>
+        <li>
+          <span>Name of worker</span>
+          <span>Provide the full name of the worker.</span>
+        </li>
+        <li>
+          <span>Primary disability</span>
+          <span>Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.</span>
+        </li>
+        <li>
+          <span>Type of work</span>
+          <span>
+            <p>Descibe the work peformed by this worker in the job for which the worker worked the most number of hours at a subminimum wage.</p>
+            <p>Examples may include: sewing, janitorial, box assembly, laundry, etc.</p>
+          </span>
+        </li>
+        <li>
+          <span>Number of Jobs</span>
+          <span>If the worker performed more than one job at this work site during the most recently compelted fiscal quarter provide the total number of jobs.</span>
+        </li>
+        <li>
+          <span>Average Hours per Week</span>
+          <span>
+            <p>Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter.</p>
+            <p>Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks).</p>
+            <p>For example: 260 hours worked in the quarter ÷ 13 weeks per quarter = 20 hours per week average.</p>
+          </span>
+        </li>
+        <li>
+          <span>Average Earnings per Hour</span>
+          <span>
+            <p>Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter.</p>
+            <p>Note:The total number of hours worked should only include the compensable work time (for example: generally would not include time spent in rehabilitation, therapy, etc.)</p>
+            <p>For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.</p>
+          </span>
+        </li>
+        <li>
+          <span>Prevailing Wage</span>
+          <span>Provide the prevailing wage rate for the job identified.</span>
+        </li>
+        <li>
+          <span>Productivity Measure</span>
+          <span>
+            <p>Provide the employee’s most recent productivity rating the job identified.</p>
+            <p>For work paid hourly, the productivity rating is the employee’s productivity in proportion to the standard-setter’s that was determined by the employee’s time study.</p>
+            <p>For piece rate work, no calculation is required, choose “n/a - piece rate”.</p>
+          </span>
+        </li>
+        <li>
+          <span>Commensurate Wage Rate</span>
+          <span>
+            <p>For work paid hourly, provide the employee’s commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job.</p>
+            <p>For piece rate work, provide the employee’s average earnings per hour for the job identified.</p>
+          </span>
+        </li>
+        <li>
+          <span>Total Hours</span>
+          <span>Provide the employee’s total hours worked on the job identified over the most recently completed fiscal quarter.</span>
+        </li>
+        <li>
+          <span>Work at Other Site?</span>
+          <span>Answer “yes” if the employee also performed work at another work site included with this application. You must add the worker for each work site they worked at.</span>
+        </li>
+      </ul>
+    </div>
+
+
 
     <div class="form-question-group">
-
       <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
-        <div ng-hide="vm.addingEmployee">
-
-            <button class="cd-btn">Add Employee</button>
-             <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
-          <!-- <button ng-click="vm.addingEmployee = true">Add Employee</button></div> -->
-        <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
-          <div class="dol-view-large">
-            <img src="/images/add-employee-example-large.png" alt="">
+        <div>
+          <button  ng-click="vm.addingEmployee = true" class="cd-btn">Add Employee</button>
+          <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
+          <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
           </div>
-          <div class="dol-view-small">
-            <img src="/images/add-employee-example-small.png" alt="">
+          <div ng-show="vm.activeWorksite.employees.length > 0" class="container">
+            <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
           </div>
         </div>
-        <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
-        <!-- <table class="usa-table-borderless expandable-table" ng-show="vm.activeWorksite.employees.length">
-          <thead>
-            <tr>
-              <td></td>
-              <th scope="col">Name</th>
-              <th scope="col">Disability</th>
-              <th scope="col">Work Performed</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="employee in vm.activeWorksite.employees">
-              <td>
-                <a id="employee_row_toggle_{{$index}}" href="" ng-click="vm.siteRowClicked($event)">
-                  <div class="arrow-expander"></div>
-                </a>
-              </td>
-              <th scope="row">
-                <div ng-class="vm.validateActiveWorksiteWorker($index) ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteWorker($index)">Please review this worker</span>
-                  {{ employee.name }}
-                </div>
-              </th>
-              <td>{{ vm.getDisabilityDisplay(employee) }}</td>
-              <td>{{ employee.workType }}</td>
-              <td class="button-column">
-                <button class="green-button" ng-click="vm.editEmployee($index)">Edit</button>
-                <button class="usa-button-secondary" ng-click="vm.deleteEmployee($index)">Delete</button>
-              </td>
-            </tr>
-            <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
-              <td></td>
-              <td colspan="4">
-                <div class="subtable">
-                  <div>Number of Jobs
-                    <div>{{ employee.numJobs}}</div>
-                  </div>
-                  <div>Average Hours per Week
-                    <div>{{ employee.avgWeeklyHours}}</div>
-                  </div>
-                  <div>Average Earnings per Hours
-                    <div>${{ employee.avgHourlyEarnings}}</div>
-                  </div>
-                  <div>Prevailing Wage Rate
-                    <div>${{ employee.prevailingWage}}</div>
-                  </div>
-                  <div>Productivity Measure
-                    <div>{{ employee.productivityMeasure}}</div>
-                  </div>
-                  <div>Commensurate Wage Rate
-                    <div>${{ employee.commensurateWageRate}}</div>
-                  </div>
-                  <div>Total Hours Worked
-                    <div>{{ employee.totalHours}}</div>
-                  </div>
-                  <div>Work at Other Site?
-                    <div>{{ employee.workAtOtherSite ? "Yes" : "No" }}</div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table> -->
       </div>
     </div>
-  </div>
 
   <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
     <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>

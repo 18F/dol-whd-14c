@@ -355,7 +355,7 @@ Primary style
   }
 }
 
-$color-1: #dbe2e9; // blue light
+$color-1: #ebebeb; // blue light
 $color-2: #89ba2c; // green
 $color-3: #424f5c; // blue dark
 $color-4: #ffffff; // white
@@ -519,7 +519,7 @@ Main components
 	width: $panel-width-S; // variables inside partials > _variables.scss
 	height: 50px;
 	line-height: 50px;
-	background: rgba($color-4, .96);
+	background: rgba($color-1, .96);
 	z-index: 2;
 	box-shadow: 0 1px 1px rgba(#000, .08);
 	@include transition(top .3s 0s);
@@ -527,6 +527,12 @@ Main components
 	h1 {
 		font-weight: bold;
 		color: $color-2;
+		padding-left: 5%;
+	}
+
+  h2 {
+		font-weight: bold;
+		color: $color-3;
 		padding-left: 5%;
 	}
 

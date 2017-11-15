@@ -28,6 +28,7 @@ module.exports = function(ngModule) {
 
     $('.cd-btn').on('click', function(event){
   		event.preventDefault();
+      vm.clearActiveWorker();
   		$('.cd-panel').addClass('is-visible');
   	});
   	//clode the lateral panel
@@ -44,31 +45,35 @@ module.exports = function(ngModule) {
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
     vm.columns = [
-    {
-        "className": 'edit-table-entry',
-        "title": "Edit",
-        "orderable": false,
-        "data":null,
-        "defaultContent": ''
-    },
-    {
-        "className": 'delete-table-entry',
-        "orderable": false,
-        "title": "Delete",
-        "data":null,
-        "defaultContent": ''
-    },
-    { title: 'Name', model: 'name' },
-    { title: 'Type of work performed', model: 'workType'  },
-    { title: 'Primary disability', model: 'primaryDisabilityId'  },
-    { title: 'How many jobs did this worker perform at this work site?', model: 'numJobs'  },
-    { title: 'Average # of hours worked per week on all jobs at this work site', model: 'avgWeeklyHours'  },
-    { title: 'Average earnings per hour for all jobs at this work site', model: 'avgHourlyEarnings'  },
-    { title: 'Prevailing wage rate for job described above', model: 'prevailingWage'  },
-    { title: 'Productivity measure/rating for job described above', model: 'hasProductivityMeasure'  },
-    { title: 'Commensurate wage rate/average earnings per hour for job described above', model: "commensurateWageRate" },
-    { title: 'Total hours worked for job described above', model: 'totalHours'  },
-    { title: 'Does worker perform work for this employer at any other work site?', model: 'workAtOtherSite'  }
+      {
+          "className": '',
+          "orderable": false,
+          "data":null,
+          "defaultContent": ""
+      },
+      { title: 'Name', model: 'name' },
+      { title: 'Type of work performed', model: 'workType'  },
+      { title: 'Primary disability', model: 'primaryDisabilityId'  },
+      { title: 'How many jobs did this worker perform at this work site?', model: 'numJobs'  },
+      { title: 'Average # of hours worked per week on all jobs at this work site', model: 'avgWeeklyHours'  },
+      { title: 'Average earnings per hour for all jobs at this work site', model: 'avgHourlyEarnings'  },
+      { title: 'Prevailing wage rate for job described above', model: 'prevailingWage'  },
+      { title: 'Productivity measure/rating for job described above', model: 'hasProductivityMeasure'  },
+      { title: 'Commensurate wage rate/average earnings per hour for job described above', model: "commensurateWageRate" },
+      { title: 'Total hours worked for job described above', model: 'totalHours'  },
+      { title: 'Does worker perform work for this employer at any other work site?', model: 'workAtOtherSite'  },
+      {
+          "className": 'edit-table-entry',
+          "orderable": false,
+          "data":null,
+          "defaultContent": "<button class='green-button'>Edit</button>"
+      },
+      {
+          "className": 'delete-table-entry',
+          "orderable": false,
+          "data":null,
+          "defaultContent": "<button class='usa-button-secondary'>Delete</button>"
+      }
     ]
 
     // multiple choice responses
@@ -83,7 +88,10 @@ module.exports = function(ngModule) {
     };
 
     this.addEmployee = function() {
-      if (!vm.activeWorksite || isEmpty(vm.activeWorker)) {
+      vm.newWorker = vm.activeWorker
+      console.log(vm.activeWorker);
+      vm.newWorker.primaryDisabilityText = vm.getDisabilityDisplay(vm.newWorker);
+      if (!vm.activeWorksite || isEmpty(vm.newWorker)) {
         return;
       }
 
@@ -92,9 +100,9 @@ module.exports = function(ngModule) {
       }
 
       if (vm.activeWorkerIndex > -1) {
-        vm.activeWorksite.employees[vm.activeWorkerIndex] = vm.activeWorker;
+        vm.activeWorksite.employees[vm.activeWorkerIndex] = vm.newWorker;
       } else {
-        vm.activeWorksite.employees.push(vm.activeWorker);
+        vm.activeWorksite.employees.push(vm.newWorker);
       }
 
       vm.clearActiveWorker();
@@ -117,6 +125,7 @@ module.exports = function(ngModule) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
     		$('.cd-panel').addClass('is-visible');
+        vm.addingEmployee = true;
       }
     };
 
