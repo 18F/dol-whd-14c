@@ -11,6 +11,13 @@ using DOL.WHD.Section14c.Business.Validators;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using DOL.WHD.Section14c.Log.LogHelper;
+using System.Data;
+using System.IO;
+using System.Net.Http.Headers;
+using System.Collections.Generic;
+using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using DOL.WHD.Section14c.Business.Helper;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -27,6 +34,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IApplicationSummaryFactory _applicationSummaryFactory;
         private readonly IStatusService _statusService;
         private readonly ISaveService _saveService;
+        private readonly IAttachmentService _attachmentService;
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -36,7 +44,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationSummaryFactory"></param>
         /// <param name="statusService"></param>
         /// <param name="saveService"></param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService)
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -44,6 +52,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationSummaryFactory = applicationSummaryFactory;
             _statusService = statusService;
             _saveService = saveService;
+            _attachmentService = attachmentService;
         }
 
         /// <summary>
@@ -57,7 +66,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
-                BadRequest(results.Errors.ToString()); 
+                BadRequest(results.Errors.ToString());
             }
 
             _applicationService.ProcessModel(submission);
@@ -66,7 +75,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {
-                Unauthorized("Unauthorized"); 
+                Unauthorized("Unauthorized");
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
@@ -90,7 +99,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 NotFound("Application not found");
             }
-           
+
             return Ok(application);
         }
 
@@ -104,7 +113,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         {
             var allApplications = _applicationService.GetAllApplications();
             var applicationSummaries = allApplications.Select(x => _applicationSummaryFactory.Build(x));
-            return Ok(applicationSummaries); 
+            return Ok(applicationSummaries);
         }
 
         /// <summary>
@@ -121,9 +130,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var application = _applicationService.GetApplicationById(id);
             if (application == null)
             {
-                NotFound("Application aot found"); 
+                NotFound("Application aot found");
             }
-            
+
             // check status id to make sure it is valid
             var status = _statusService.GetStatus(statusId);
             if (status == null)
@@ -132,7 +141,65 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             await _applicationService.ChangeApplicationStatus(application, statusId);
-            return Ok($"/api/application?id={id}"); 
+            return Ok($"/api/application?id={id}");
+        }
+
+        /// <summary>
+        /// Get Application Document
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("applicationdocument")]
+        [AllowAnonymous]
+        //[AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
+        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId)
+        {
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            try
+            {
+                //// Get Application Template
+                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
+
+                // Calling Concatenate Web API
+                var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
+                var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
+                // Get Http Client
+                var httpClientInstance = MyHttpClient;
+                httpClientInstance.DefaultRequestHeaders.Clear();
+                httpClientInstance.DefaultRequestHeaders.ConnectionClose = false;
+                httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/pdf"));
+                if (httpClientInstance.BaseAddress != baseUri)
+                    httpClientInstance.BaseAddress = baseUri;
+                ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
+
+                // Call Document Management Web API
+                var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<PDFContentData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
+
+                // Get return value from API call
+                var returnValue = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
+
+                if (returnValue == null)
+                {
+                    InternalServerError("Concatenate Pdf failed");
+                }
+                // Download PDF File
+                responseMessage = Download(returnValue, responseMessage, "Concatenate.pdf");
+            }
+            catch (Exception ex)
+            {
+                if (ex is ObjectNotFoundException || ex is FileNotFoundException)
+                {
+                    NotFound("Not found");
+                }
+
+                InternalServerError(ex.Message);
+            }
+            // Replaceed Ok(Response) to fix the API response error
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>

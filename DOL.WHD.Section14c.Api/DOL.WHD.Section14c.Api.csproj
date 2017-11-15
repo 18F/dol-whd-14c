@@ -278,6 +278,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Section14cApplicationPdfView.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
@@ -314,7 +315,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APILogs\" />
-    <Folder Include="App_Data\" />
     <Folder Include="IdentityServices\" />
   </ItemGroup>
   <ItemGroup>

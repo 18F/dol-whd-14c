@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
@@ -15,7 +16,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             _dbContext = new ApplicationDbContext();
         }
 
-        public IQueryable<ApplicationSubmission> Get()
+        public IEnumerable<ApplicationSubmission> Get()
         {
             return _dbContext.ApplicationSubmissions.AsQueryable();
         }

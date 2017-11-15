@@ -34,7 +34,7 @@ namespace DOL.WHD.Section14c.Api.Areas.HelpPage
                 throw new ArgumentNullException("documentPath");
             }
 
-            var files = new[] { "DOL.WHD.Section14c.Api.xml", "DOL.WHD.Section14c.Log.xml" };
+            var files = new[] { "DOL.WHD.Section14c.Api.xml", "DOL.WHD.Section14c.Log.xml", "DOL.WHD.Section14c.PdfApi.xml" };
             foreach (var file in files)
             {
                 String fullfilepath = Path.Combine(documentPath, file);

@@ -54,8 +54,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net45\HtmlRenderer.dll</HintPath>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
@@ -106,6 +106,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -146,10 +147,12 @@
   <ItemGroup>
     <Compile Include="ActionFilters\GlobalExceptionAttributeTests.cs" />
     <Compile Include="ActionFilters\LoggingFilterAttributeTests.cs" />
+    <Compile Include="Business\ApplicationFormTest.cs" />
     <Compile Include="Business\ApplicationServiceTests.cs" />
     <Compile Include="Business\AttachmentServiceTests.cs" />
     <Compile Include="Business\AttachmentSupportedFileTypesServiceTest.cs" />
     <Compile Include="Business\Factories\ApplicationSummaryFactoryTests.cs" />
+    <Compile Include="Business\Extensions\GetPropertyValueExtensionsTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\Services\DocumentConcatenateTests.cs" />
     <Compile Include="Business\StatusServiceTests.cs" />
@@ -201,6 +204,8 @@
     <Compile Include="Helpers\JSONHelperTests.cs" />
     <Compile Include="Business\BaseAPIControllerTest.cs" />
     <Compile Include="Helpers\NLoggerTests.cs" />
+    <Compile Include="Helper\ApplicationDocumentHelperTests.cs" />
+    <Compile Include="RepositoryMocks\ApplicationServiceMock.cs" />
     <Compile Include="PdfHelper\PdfHelperTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -269,6 +274,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
+    <Content Include="TestFiles\testImage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="TestFiles\testImage.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
