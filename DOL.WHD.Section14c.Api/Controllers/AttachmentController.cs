@@ -64,12 +64,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     BadRequest("Invalid file size.");
                 }
-
                 var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                 var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
                 var fileUpload = _attachmentService.UploadAttachment(EIN, bytes, fileName, fileType);
                 files.Add(fileUpload);
-
             }
             return Ok(files);
         }
@@ -99,7 +97,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
 
                 var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
-
 
                 result.Content = new StreamContent(attachmentDownload.MemoryStream); // Disponsed by Framework
 

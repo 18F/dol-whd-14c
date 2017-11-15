@@ -165,13 +165,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
 
                 // Calling Concatenate Web API
-                var baseUri = new Uri(Request.RequestUri.GetLeftPart(UriPartial.Authority));
+                var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
                 var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
                 // Get Http Client
                 var httpClientInstance = MyHttpClient;
                 httpClientInstance.DefaultRequestHeaders.Clear();
                 httpClientInstance.DefaultRequestHeaders.ConnectionClose = false;
-                httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/pdf"));
                 if (httpClientInstance.BaseAddress != baseUri)
                     httpClientInstance.BaseAddress = baseUri;
                 ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
