@@ -40,8 +40,8 @@ namespace DOL.WHD.Section14c.Log.Helpers.Tests
                         StatusCode = HttpStatusCode.Conflict,
                         Content = new StringContent("test")
                     }
-                };          
-                
+                };
+
                 var loggerMock = new Mock<ILogger>();
 
                 // Create Mock for NLog
@@ -53,12 +53,12 @@ namespace DOL.WHD.Section14c.Log.Helpers.Tests
                 trace.Info(httpActionContext.Request,
                     "Category",
                     "JSON",
-                    "ActionArguments");                
+                    "ActionArguments");
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 Assert.Fail();
-            }            
+            }
         }
     }
 }

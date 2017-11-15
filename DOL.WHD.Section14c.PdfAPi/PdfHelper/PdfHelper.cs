@@ -41,14 +41,14 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
-                if (applicationData.Type.ToLower().Contains("html"))
+                if (applicationData.Type.ToLower().Contains("html") && !String.IsNullOrEmpty(applicationData.HtmlString))
                 {
                     var doc = GetPdfDocFromHtml(outputDocument, applicationData.HtmlString);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
             }
 
-            if (applicationData?.FilePaths != null)
+            if (applicationData.FilePaths != null)
             {
                 outputDocument = ConcatenatePDFDocumentByPath(outputDocument, applicationData.FilePaths);
             }

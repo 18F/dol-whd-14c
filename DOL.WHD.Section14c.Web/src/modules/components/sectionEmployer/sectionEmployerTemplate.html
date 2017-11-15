@@ -387,9 +387,9 @@
           </div>
         </div>
         <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
-          <label>Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
+          <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
-          <attachment-field attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
+          <attachment-field input-id="fileUploadSCA" attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
         </div>
       </div>
     </div>

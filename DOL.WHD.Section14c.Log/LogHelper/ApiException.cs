@@ -21,7 +21,6 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        /// <param name="correlationId"></param>
         public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus)
             :base(errorCode, errorDescription, httpStatus)
         {            
@@ -32,7 +31,6 @@ namespace DOL.WHD.Section14c.Log.LogHelper
         /// <param name="errorCode"></param>
         /// <param name="errorDescription"></param>
         /// <param name="httpStatus"></param>
-        /// <param name="correlationId"></param>
         /// <param name="inner"></param>
         public ApiException(int errorCode, string errorDescription, HttpStatusCode httpStatus, Exception inner)
             : base(errorCode, errorDescription, httpStatus, inner)

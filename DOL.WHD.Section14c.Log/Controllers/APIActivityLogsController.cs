@@ -16,6 +16,12 @@ namespace DOL.WHD.Section14c.Log.Controllers
     {
         private IActivityLogRepository activityLogRepository;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repository">
+        /// The repository where logs should be stored
+        /// </param>
         public ActivityLogsController(IActivityLogRepository repository)
         {
             activityLogRepository = repository;

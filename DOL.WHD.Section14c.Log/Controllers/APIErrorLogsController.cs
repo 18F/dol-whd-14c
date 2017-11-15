@@ -20,6 +20,13 @@ namespace DOL.WHD.Section14c.Log.Controllers
     public class ErrorLogsController : BaseApiController
     {
         private IErrorLogRepository errorLogRepository;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repository">
+        /// The repository where logs should be stored
+        /// </param>
         public ErrorLogsController(IErrorLogRepository repository)
         {
             errorLogRepository = repository;

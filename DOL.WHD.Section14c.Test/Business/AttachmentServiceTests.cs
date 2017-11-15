@@ -18,6 +18,7 @@ using System.Reflection;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class AttachmentServiceTests
     {
         private readonly IFileRepository _fileRepositoryMock;

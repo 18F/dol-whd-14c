@@ -129,3 +129,60 @@ During the sprint, if business context changes, *only* the PO (or a delegate) ca
 At sprint reviews, the team demonstrates work that has been completed (reaching the Done column) and is of interest to users, other teammates, or people apart from the team members that built it. To focus our efforts on finishing work, we *do not* demo work that is almost/nearly done; we may mention briefly work that is in progress, but we don't demo the work and "take the credit" until the work meets our DoD.
 
 Additionally, finished work that may not always be necessary to demo. For example, fixing internal tech debt may not be of interest outside the team that fixed it, so reviews should typically focus on work that delivers value to users.
+
+## How we test
+
+Our team ships bug-free and defect-free code, discovers problems early, and addresses these promptly. Rather than going through "User Acceptance Testing" cycles that can be quite large and cumbersome, we take the responsibilty of regularly shipping quality software with the resources contained within the team. This can take some time and practice initially but, over the long term, helps us move faster. 
+
+Definitions: 
+ - A bug is the result of a coding error
+ - A defect is a deviation from the requirements (that is: a defect does not necessarily mean there is a bug in the code, it could be a function that was not implemented but defined in the requirements of the software.)
+
+_Citation: https://softwareengineering.stackexchange.com/questions/37029/difference-between-a-defect-and-a-bug-in-testing_
+
+#### When we find bugs or defects
+
+Though the Product Owner has main responsibility for quality control, the team's job is also keeping a vigilent eye out for quality and calling out any issues. 
+
+If a bug or defect is found in work that is in progress, comment on the related issue (and, if appropriate, also move it back to the appropriate column on the board) so the team member who was working on it can fix it. 
+
+If a bug or defect is found outside of work in progress (by the development team or other parties), a new issue should be filed so it can be triaged.
+
+Establishing testing practices are key to enabling these needs. You will be working with your team to ensure that a testing strategy is in place covering the following:
+
+### Unit tests
+
+[tk]
+
+
+### Functional testing
+Our product need to be continually tested from end to end. That is, unit test coverage cannot replace functional testing. Since we currently do not have (and project teams seldom) a separate QA team, we take the lead on establishing and running these testing practices and test suites. 
+
+Though there are many ways to perform end-to-end functional testing, the product manager ensures that these are done.
+
+#### Automated functional tests
+
+Automated testing protects against a lot. Though we do not currently have automated functional tests, we can start down the path in implementing these by:
+ - When a team member picks up the story, document happy test paths, boundary conditions, and unhappy test paths
+ - During develeopment, document any additional test cases
+ - Collect these and form test suites which can be used for ongoing automated testing
+
+#### Manual functional tests
+
+In the least, the product manager must spend time testing the product to make sure our stories result in functional components. Generally, when accepting stories, the PM should review them in a stable environment, make sure the components work, actively try to break the system (trying common user errors), and monitor for regressions, 
+
+In the future, we may leverage a manual QA team (e.g. through the bug bounty program) to dedicate staff, but for now, manually testing is the team's job, led by the PO.
+
+### Nonfunctional testing
+
+#### Accessibility testing
+[tk]
+
+#### Performance testing
+Validating non-functional aspects such as performance compliance should also be accounted for by the product owner or project manager in project plans.
+
+
+### Usability testing
+In the vein of feedback cycles and iterative development, usability testing provides key insight as to a product’s effectiveness.
+
+At this stage, code is complete and deployed, so users are not necessarily trying to break it, but they do review it, give feedback to the development team, and highlight any bugs they happen to find. Generally, this code can be reviewed on staging (until a production environment is deployed).

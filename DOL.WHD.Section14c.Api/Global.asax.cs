@@ -9,8 +9,14 @@ using System.Net;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected void Application_Start()
         {
             DependencyResolutionConfig.Register();

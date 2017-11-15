@@ -3,7 +3,7 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a href="" role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
       <li><a href="" role="button" ng-click="vm.showLinks = !vm.showLinks" tabindex="0">Helpful Links</a></li>
     </ul>
   </div>
@@ -35,8 +35,8 @@
       Piece Rate
     </a>
   </div>
-  <wage-data-pay-type-form paytype="hourly" ng-show="formData.payTypeId === 21 || (formData.payTypeId === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
-  <wage-data-pay-type-form paytype="piecerate" ng-show="formData.payTypeId === 22 || (formData.payTypeId === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
+  <wage-data-pay-type-form paytype="hourly" show-all-help="showAllHelp" ng-show="formData.payTypeId === 21 || (formData.payTypeId === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
+  <wage-data-pay-type-form paytype="piecerate" show-all-help="showAllHelp" ng-show="formData.payTypeId === 22 || (formData.payTypeId === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
 <div class="form-sidebar">
   <div class="links-block" ng-show="vm.showLinks === true">

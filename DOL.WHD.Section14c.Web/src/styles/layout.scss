@@ -12,6 +12,12 @@ $susy: (columns: 12, container: 1200px, global-box-sizing: border-box);
   @include clearfix();
 }
 
+#mainContent {
+  &:focus {
+    outline: none;
+  }
+}
+
 // Skip to main content
 a.dol-skip-to-main {
   display: block;
