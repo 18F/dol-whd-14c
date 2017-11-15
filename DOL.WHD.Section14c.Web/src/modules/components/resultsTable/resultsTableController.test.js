@@ -1,14 +1,25 @@
-describe('resultsTable', function() {
-  var vm, compileElement, template, $controller, $rootScope, $compiler, controller, scope, compiler
-  var element = angular.element('<results-table results="results" columns="columns"></results-table>');
+describe('resultsTableController', function() {
+var resultsTableController, scope
   beforeEach(module('14c'));
-  beforeEach(function() {
-    inject(function(_$rootScope_, _$compile_, _$controller_) {
-      $compile = _$compile_;
-      $controller = _$controller_;
-      $rootScope = _$rootScope_;
+
+  beforeEach(
+    inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      //
+      scope.responses = {
+        PrimaryDisability: [
+          {
+            id: 31,
+            display: 'Intellectual/Developmental Disability (IDD)',
+            otherValueKey: null
+          },
+          {
+            id: 38,
+            display: 'Other, please specify:',
+            otherValueKey: 'primaryDisabilityOther'
+          }
+        ]
+      };
+
       scope.columns = [
         {
             "className": '',
@@ -41,27 +52,36 @@ describe('resultsTable', function() {
         }
       ]
 
-      scope.results = [];
+      scope.worker = {
+        avgHourlyEarnings:0.1,
+        avgWeeklyHours:0.1,
+        commensurateWageRate:0.1,
+        hasProductivityMeasure:true,
+        name:"zxcv",
+        numJobs:4,
+        prevailingWage:0.1,
+        primaryDisabilityId:34,
+        primaryDisabilityText:"Hearing Impairment (HI)",
+        productivityMeasure:0.1,
+        totalHours:0.1,
+        workAtOtherSite:false,
+        workType:"xcv"
+      };
 
+      resultsTableController = function() {
+        return $controller('resultsTableController', {
+          $scope: scope
+        });
+      };
+    })
+  );
 
-      template = $compile(element)(scope);
-      scope.$digest();
-      controller = element.controller;
-    });
+  it('sectionWorkSitesController has initDatatable function', function() {
+    var controller = resultsTableController();
+    spyOn(controller, "refreshTable");
+    controller.refreshTable([scope.worker], scope.columns);
+    console.log(controller);
 
-
+    expect(controller.refreshTable).toHaveBeenCalled();
   });
-  it('invoke directive', function() {
-    expect(element).toBeDefined();
-  });
-
-  it('columns should exist on scope directive', function() {
-    expect(scope.columns).toBeDefined();
-  });
-
-  it('results should exist on scope directive', inject(function() {
-    expect(scope.results).toBeDefined();
-  }));
-
-
 });

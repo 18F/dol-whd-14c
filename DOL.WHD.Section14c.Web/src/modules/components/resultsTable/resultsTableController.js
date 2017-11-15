@@ -14,8 +14,9 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
+    var vm = this;
     $scope.data = [];
-    $scope.initDatatable = function () {
+    this.initDatatable = function () {
       let exampleId = $('#example');
       $scope.tableWidget = exampleId.DataTable({
         data: $scope.data,
@@ -48,11 +49,11 @@ module.exports = function(ngModule) {
         ]
       });
 
-      // $('#container').css( 'display', 'block' );
-      // $scope.tableWidget.columns.adjust().draw();
+      $.fn.dataTable.ext.errMode = 'none';
+  
     }
 
-    $scope.refreshTable = function (data, columns) {
+    this.refreshTable = function (data, columns) {
       columns = columns.map(function(element) {
         return element.model
       });
@@ -78,11 +79,11 @@ module.exports = function(ngModule) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null
         }
-       setTimeout(() => $scope.initDatatable(),0)
+       setTimeout(() => this.initDatatable(),0)
       }
     }
 
-    $scope.initDatatable();
+    this.initDatatable();
 
     $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
         var tr = $(this).closest('tr');

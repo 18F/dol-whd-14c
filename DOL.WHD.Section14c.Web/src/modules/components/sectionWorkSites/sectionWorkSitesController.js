@@ -8,6 +8,7 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionWorkSitesController', function(
     $scope,
     $location,
+    $timeout,
     navService,
     responsesService,
     stateService,
@@ -44,6 +45,10 @@ module.exports = function(ngModule) {
     vm.activeWorksiteIndex = -1;
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
+    vm.saveEmployee = {
+      status: false,
+      name: ''
+    };
     vm.columns = [
       {
           "className": '',
@@ -87,9 +92,13 @@ module.exports = function(ngModule) {
       vm.activeWorkerIndex = -1;
     };
 
+    this.clearSaveStatus = function () {
+      vm.saveEmployee.status = false;
+      vm.saveEmployee.name = '';
+    };
+
     this.addEmployee = function() {
       vm.newWorker = vm.activeWorker
-      console.log(vm.activeWorker);
       vm.newWorker.primaryDisabilityText = vm.getDisabilityDisplay(vm.newWorker);
       if (!vm.activeWorksite || isEmpty(vm.newWorker)) {
         return;
@@ -104,7 +113,10 @@ module.exports = function(ngModule) {
       } else {
         vm.activeWorksite.employees.push(vm.newWorker);
       }
+      vm.saveEmployee.status = true;
+      vm.saveEmployee.name = vm.activeWorker.name;
 
+      $timeout(vm.clearSaveStatus, 3000);
       vm.clearActiveWorker();
     };
 
@@ -120,6 +132,7 @@ module.exports = function(ngModule) {
     };
 
     this.editEmployee = function(index, $event) {
+      vm.clearSaveStatus();
       $event.preventDefault();
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;

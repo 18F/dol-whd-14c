@@ -2,7 +2,12 @@
   <h2>Work Sites & Employees</h2>
   <div class="cd-panel from-right">
     <header class="cd-panel-header">
-      <h2>Add Employee</h2>
+      <h2 ng-hide="vm.saveEmployee.status">Add Employee</h2>
+      <div ng-show="vm.saveEmployee.status" class="dol-feedback-success">
+        <p class="dol-feedback-message">
+          <strong>Saved Employee: {{vm.saveEmployee.name}}</strong>
+        </p>
+      </div>
       <a href="#0" ng-click="vm.clearActiveWorker()"class="cd-panel-close">Close</a>
     </header>
 
@@ -336,12 +341,12 @@
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
     <div class="worksite-title">
       <h3 ng-if="!!vm.activeWorksite.name">{{ vm.activeWorksite.name }}</h3>
-      <h4>Number of Employees: <strong>{{ vm.activeWorksite.numEmployees ? vm.activeWorksite.numEmployees : 0 }}</strong></h4>
+      <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
     <div class="worksite-employee-help">
       <p>We’ll need collect specific information for each employee. <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
       <div class="need-help">
-        <img src="/images/chat-icon"/> Need Help? Email us: <a href="">help-14c@dol.gov</a>
+        <img src="/images/chat-icon.svg"/> Need Help? Email us: <a href="">help-14c@dol.gov</a>
       </div>
     </div>
 
