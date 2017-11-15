@@ -125,8 +125,14 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 };
                 employees = new List<Employee>() { emp };
                 ICollection<WorkSite> workSites = null;
-                var ws = new WorkSite() { Employees = employees };
-                workSites = new List<WorkSite>() { ws };
+                var ws = new WorkSite()
+                {
+                    Employees = employees,
+                    WorkSiteType = new Response() { Display = "Work Site Type" },
+                    Name = "This Is A Tribute",
+                    SCA = false
+                };
+                workSites = new List<WorkSite>() { ws, ws, ws };
 
                 WIOA wIOA = new WIOA
                 {

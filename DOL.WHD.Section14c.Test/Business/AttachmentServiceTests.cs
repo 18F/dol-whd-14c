@@ -13,6 +13,7 @@ using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using System.Collections.Generic;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
+using System.Reflection;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -224,7 +225,9 @@ namespace DOL.WHD.Section14c.Test.Business
         public void ApplicationFormViewTest()
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            string applicationFormHtmlContent = service.GetApplicationFormViewContent(application, DOL.WHD.Section14c.Test.Helpers.Constants.htmlContent);
+            string templateFilePath = Path.GetFullPath(Path.Combine(Assembly.GetExecutingAssembly().Location, @"..\..\..\..\DOL.WHD.Section14c.API\App_Data\Section14cApplicationPdfView.html"));
+            string template = File.ReadAllText(templateFilePath);
+            string applicationFormHtmlContent = service.GetApplicationFormViewContent(application, template);
             Assert.IsNotNull(applicationFormHtmlContent);
         }
     }
