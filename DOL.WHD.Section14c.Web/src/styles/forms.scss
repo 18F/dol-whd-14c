@@ -404,29 +404,6 @@ h4#helpfulLinksHeader {
   }
 }
 
-.form-sidebar {
-  width: 80%;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 7rem;
-
-  .links-block {
-    background-color: $color-gray-lightest;
-    padding: 1.5rem 2rem;
-    text-align: left;
-    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
-
-    &.ng-hide {
-      transform: translateX(300%);
-    }
-
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: all linear 0.4s;
-    }
-  }
-}
 
 .dol-form-question-group {
   &:not(:first-of-type),
@@ -921,9 +898,6 @@ span.example {
     }
   }
 
-  .form-sidebar {
-    width: 33%;
-  }
 
   .dol-help-employee-info {
     ul {
