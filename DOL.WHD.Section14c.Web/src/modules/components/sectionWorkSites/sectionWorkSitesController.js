@@ -8,6 +8,7 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionWorkSitesController', function(
     $scope,
     $location,
+    $document,    
     $timeout,
     navService,
     responsesService,
@@ -308,9 +309,19 @@ module.exports = function(ngModule) {
       }
     });
 
+    // Show all help text
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
     }  
+
+    // Tab panel focus
+    vm.tabPanelFocus = function(id) {
+      if (id === 1) {
+          $document[0].getElementById('worksitesTabPanel').focus();
+      } else {
+          $document[0].getElementById('employeesTabPanel').focus();
+      }
+    };
 
   });
 };

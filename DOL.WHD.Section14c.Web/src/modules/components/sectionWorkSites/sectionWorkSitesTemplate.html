@@ -196,12 +196,12 @@
   </div>
 
   <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
-    <div class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)">
+    <a href class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-keyup="$event.keyCode === 13 ? vm.tabPanelFocus(1) : vm.setActiveTab(1)">
       <div class="circle">1</div> <span>Add</span> Work Site
-    </div>
-    <div class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)">
+    </a>
+    <a href class="form-tab {{ vm.activeTab === 2 ? 'active' : '' }}" ng-click="vm.setActiveTab(2)" aria-selected="{{ vm.activeTab === 2 ? 'true' : 'false' }}" ng-keyup="$event.keyCode === 13 ? vm.tabPanelFocus(2) : vm.setActiveTab(2)">
       <div class="circle">2</div> <span>Add</span> Employees
-    </div>
+    </a>
   </div>
 
   <!-- Tab 1 (Add Work Site) -->
@@ -210,7 +210,8 @@
 
     <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <div class="form-question-text">What type of establishment is this?
-        <helplink aria-controls="establishmentTypeHelp"></helplink>
+        <!-- The first tabbable element has the ID for tab panel focus. -->
+        <helplink aria-controls="establishmentTypeHelp" id="worksitesTabPanel"></helplink>
         <helptext id="establishmentTypeHelp">
           <p>Indicate whether the work site is the main establishment, a branch establishment, an off-site work location, or a School Work Experience Program work site.</p>
           <p><strong>Main Establishment:</strong> The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)</p>
@@ -339,7 +340,8 @@
 
   <!-- Tab 2 (Add Employees) -->
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
-    <div class="worksite-title">
+    <!-- ID for tab panel focus. -->
+    <div class="worksite-title" id="employeesTabPanel" tabindex="-1">
       <h3 ng-if="!!vm.activeWorksite.name">{{ vm.activeWorksite.name }}</h3>
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
