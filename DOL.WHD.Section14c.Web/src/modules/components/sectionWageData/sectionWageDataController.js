@@ -85,16 +85,40 @@ module.exports = function(ngModule) {
     }    
 
     // Sliding Panel (Helpful Links)
-    $('.cd-btn').on('click', function(event){
-      event.preventDefault();
+    $('.dol-btn-helpful-links').on('click', function(event){     
       $('.cd-panel').addClass('is-visible');
+      $('#helpfulLinksHeader').focus();
+      event.preventDefault();
     });
 
-    //close the panel
-    $('.cd-panel').on('click', function(event){
-      if( $(event.target).is('.cd-panel') || $(event.target).is('.cd-panel-close') ) {
-        $('.cd-panel').removeClass('is-visible');
+    // close the panel
+    function closeSlidingPanel(event) {
+      $('.cd-panel').removeClass('is-visible');
+      $('.dol-btn-helpful-links').focus();
+    }
+    $(document).keydown(function(event) {
+        // escape key
+        if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
+          closeSlidingPanel();
+          event.preventDefault();
+        }
+    });
+    $('.cd-panel-close').on('click', function(event){
+        closeSlidingPanel()
         event.preventDefault();
+    });
+
+    // trap keyboard access inside the panel
+    $(".dol-helpful-links-panel .dol-last-focus").keydown(function(event){
+      if (event.which === 9 && !event.shiftKey) {
+        $(".dol-helpful-links-panel .dol-first-focus").focus();
+        event.preventDefault(); 
+      }
+    });    
+    $(".dol-helpful-links-panel .dol-first-focus").keydown(function(event){
+      if (event.shiftKey && event.which === 9) {
+        $(".dol-helpful-links-panel .dol-last-focus").focus();
+        event.preventDefault(); 
       }
     });
 
