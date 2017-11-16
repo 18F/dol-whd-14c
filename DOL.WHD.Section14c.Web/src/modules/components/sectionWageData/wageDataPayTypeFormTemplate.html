@@ -5,7 +5,11 @@
       <!-- The first tabbable element has the ID for tab panel focus. -->
       <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="{{ valuePrefix() }}NumWorkersHelp" aria-describedby="{{ valuePrefix() }}NumWorkersLabel"></helplink>     
     </div>
-    <helptext id="{{ valuePrefix() }}NumWorkersHelp">Provide the total number of workers paid {{ paytype === 'hourly' ? 'an hourly subminimum wage rate' : 'on a piece rate basis that resulted in a subminimum wage'}} at any time during the most recently completed fiscal quarter.</helptext>
+    <helptext id="{{ valuePrefix() }}NumWorkersHelp">Provide the total number of workers paid 
+      {{ paytype === 'hourly' ? 'an ' : 'on a '}} 
+      <em>{{ paytype === 'hourly' ? 'hourly' : 'piece rate'}}</em> 
+      {{ paytype === 'hourly' ? ' subminimum wage rate' : ' basis that resulted in a subminimum wage'}} 
+      at any time during the most recently completed fiscal quarter.</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
     <input id="{{ valuePrefix() }}NumWorkers" name="{{ valuePrefix() }}NumWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
@@ -211,7 +215,7 @@
               <label for="{{ valuePrefix() }}SourceEmployerWage" id="{{ valuePrefix() }}SourceEmployerWageLabel">Experienced Worker Wage Provided</label>
               <helplink aria-controls="{{ valuePrefix() }}SourceEmployerWageHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerWageLabel"></helplink>   
             </div>
-            <helptext id="{{ valuePrefix() }}SourceEmployerWageHelp">The wage rate collected from each source should be the hourly rate paid to experienced (not entry level) workers who do not have disabilities that affect productive capacity. An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</helptext>              
+            <helptext id="{{ valuePrefix() }}SourceEmployerWageHelp">The wage rate collected from each source should be the hourly rate paid to <em>experienced</em> (not entry level) workers who do not have disabilities that affect productive capacity. An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</helptext>              
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerWage" name="{{ valuePrefix() }}SourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
           </div>

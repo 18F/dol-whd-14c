@@ -83,5 +83,44 @@ module.exports = function(ngModule) {
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
     }    
+
+    // Sliding Panel (Helpful Links)
+    $('.dol-btn-helpful-links').on('click', function(event){     
+      $('.cd-panel').addClass('is-visible');
+      $('#helpfulLinksHeader').focus();
+      event.preventDefault();
+    });
+
+    // close the panel
+    function closeSlidingPanel(event) {
+      $('.cd-panel').removeClass('is-visible');
+      $('.dol-btn-helpful-links').focus();
+    }
+    $(document).keydown(function(event) {
+        // escape key
+        if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
+          closeSlidingPanel();
+          event.preventDefault();
+        }
+    });
+    $('.cd-panel-close').on('click', function(event){
+        closeSlidingPanel()
+        event.preventDefault();
+    });
+
+    // trap keyboard access inside the panel
+    $(".cd-panel .dol-last-focus").keydown(function(event){
+      if (event.which === 9 && !event.shiftKey) {
+        $(".cd-panel .dol-first-focus").focus();
+        event.preventDefault(); 
+      }
+    });    
+    $(".cd-panel .dol-first-focus").keydown(function(event){
+      if (event.shiftKey && event.which === 9) {
+        $(".cd-panel .dol-last-focus").focus();
+        event.preventDefault(); 
+      }
+    });
+
   });
 };
