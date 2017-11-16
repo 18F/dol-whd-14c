@@ -90,7 +90,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             // remove the associated application save
             _saveService.Remove(submission.EIN);
 
-            IHttpActionResult response = await GetApplicationDocument(new Guid(submission.Id), false);
+            var response = await GetApplicationDocument(new Guid(submission.Id));
 
             // Get return value from API call
             var contentResult = response as OkNegotiatedContentResult<byte[]>;
@@ -194,7 +194,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
-        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId, bool download)
+        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId)
         {
             var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
             try
@@ -227,13 +227,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     InternalServerError("Concatenate Pdf failed");
                 }
-                
-                // Download PDF File
-                responseMessage = Download(returnValue, responseMessage, "Concatenate");
 
                 // This will return the pdf file byte array
-                if(!download)
-                    return Ok(returnValue);
+                return Ok(returnValue);
             }
             catch (Exception ex)
             {
@@ -246,6 +242,44 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             // Replaceed Ok(Response) to fix the API response error
             // Return exceptions and custom messages
+            return ResponseMessage(responseMessage);
+        }
+
+        /// <summary>
+        /// Download Application Documents as a single pdf file
+        /// </summary>
+        /// <param name="applicationId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("download")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
+        public async Task<IHttpActionResult> DownloadApplicationDocument(Guid applicationId)
+        {
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            try
+            {
+                var response = await GetApplicationDocument(applicationId);
+
+                // Get return value from API call
+                var contentResult = response as OkNegotiatedContentResult<byte[]>;
+                var returnValue = contentResult.Content;
+
+                if (returnValue == null)
+                {
+                    InternalServerError("Get concatenate Pdf failed");
+                }
+                // Download PDF File
+                responseMessage = Download(returnValue, responseMessage, "Concatenate");
+            }
+            catch (Exception ex)
+            {
+                if (ex is ObjectNotFoundException || ex is FileNotFoundException)
+                {
+                    NotFound("Not found");
+                }
+
+                InternalServerError(ex.Message);
+            }
             return ResponseMessage(responseMessage);
         }
 
