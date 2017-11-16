@@ -65,5 +65,12 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers.Tests
         {
             var result = _emailController.SendEmail(null);
         }
+
+        [TestMethod]
+        public void SendEmail_CORS()
+        {
+            var response = _emailController.Options();
+            Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
+        }
     }
 }

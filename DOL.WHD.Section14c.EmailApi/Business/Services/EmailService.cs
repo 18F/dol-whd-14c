@@ -36,7 +36,6 @@ namespace DOL.WHD.Section14c.EmailApi.Business
 
                 using (MailMessage mailMessage = new MailMessage())
                 {
-
                     // Allow multiple Recipients with MailMessage
                     foreach (var address in emailContent.To.Split(new[] { ";" }, StringSplitOptions.RemoveEmptyEntries))
                     {
@@ -51,20 +50,23 @@ namespace DOL.WHD.Section14c.EmailApi.Business
                             mailMessage.CC.Add(address);
                         }
                     }
-
+                    mailMessage.IsBodyHtml = true;
                     mailMessage.Subject = emailContent.Subject;
                     mailMessage.Body = emailContent.Body;
                     
                     // Get Attachments
-                    foreach (var KeyValuePair in emailContent.attachments)
+                    if (emailContent.attachments != null)
                     {
-                        var fileName = KeyValuePair.Key;
-                        var buffer = KeyValuePair.Value;
-                        // Add Attachment
-                        if ( buffer.Length > 0)
+                        foreach (var KeyValuePair in emailContent.attachments)
                         {
-                            var memoryStream = new MemoryStream(buffer);
-                            mailMessage.Attachments.Add(new Attachment(memoryStream, fileName));
+                            var fileName = KeyValuePair.Key;
+                            var buffer = KeyValuePair.Value;
+                            // Add Attachment
+                            if (buffer.Length > 0)
+                            {
+                                var memoryStream = new MemoryStream(buffer);
+                                mailMessage.Attachments.Add(new Attachment(memoryStream, fileName));
+                            }
                         }
                     }
                     _smtpClient.Send(mailMessage);

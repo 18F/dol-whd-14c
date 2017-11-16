@@ -2,6 +2,8 @@
 using DOL.WHD.Section14c.EmailApi.Helper;
 using DOL.WHD.Section14c.Log.LogHelper;
 using System;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace DOL.WHD.Section14c.EmailApi.Controllers
@@ -39,6 +41,15 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers
             var result = _emailService.SendEmail(emailContent);
 
             return Ok(result);
+        }
+
+        /// <summary>
+        /// OPTIONS endpoint for CORS
+        /// </summary>
+        [AllowAnonymous]
+        public HttpResponseMessage Options()
+        {
+            return new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
         }
     }
 }

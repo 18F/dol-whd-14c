@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
+using DOL.WHD.Section14c.EmailApi.Helper;
+using System.Web.Http.Results;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -35,6 +37,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IStatusService _statusService;
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
+        private readonly IEmailService _emailService;
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -44,7 +47,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationSummaryFactory"></param>
         /// <param name="statusService"></param>
         /// <param name="saveService"></param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService)
+        /// <param name="attachmentService"></param>
+        /// <param name="emailService"></param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailService emailService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -53,6 +58,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _statusService = statusService;
             _saveService = saveService;
             _attachmentService = attachmentService;
+            _emailService = emailService;
         }
 
         /// <summary>
@@ -60,6 +66,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns>Http status code</returns>
         [HttpPost]
+        [Route("submit")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmission submission)
         {
@@ -82,6 +89,40 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // remove the associated application save
             _saveService.Remove(submission.EIN);
+
+            IHttpActionResult response = await GetApplicationDocument(new Guid(submission.Id), false);
+
+            // Get return value from API call
+            var contentResult = response as OkNegotiatedContentResult<byte[]>;
+            var returnValue = contentResult.Content;
+
+            if (returnValue == null)
+            {
+                InternalServerError("Get concatenate Pdf failed");
+            }
+
+            // Calling Concatenate Web API
+            var baseUri = new Uri(AppSettings.Get<string>("EmailApiBaseUrl"));
+            var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
+            // Get Http Client
+            var httpClientInstance = MyHttpClient;
+            httpClientInstance.DefaultRequestHeaders.Clear();
+            httpClientInstance.DefaultRequestHeaders.ConnectionClose = false;
+            httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/pdf"));
+            if (httpClientInstance.BaseAddress != baseUri)
+                httpClientInstance.BaseAddress = baseUri;
+            ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
+
+            // Get Email Contents
+            var emailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmailTemplate.html");
+            var emailTemplateString = File.ReadAllText(emailTemplatePath);
+            var emailContents = _emailService.PrepareApplicationEmailContents(submission, emailTemplateString, EmailReceiver.Both);
+            // Call Document Management Web API
+            foreach (var content in emailContents)
+            {
+                content.Value.attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
+                await httpClientInstance.PostAsJsonAsync<EmailContent>("/api/email/sendemail", content.Value);
+            }
 
             return Ok();
         }
@@ -130,7 +171,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var application = _applicationService.GetApplicationById(id);
             if (application == null)
             {
-                NotFound("Application aot found");
+                NotFound("Application not found");
             }
 
             // check status id to make sure it is valid
@@ -148,17 +189,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Get Application Document
         /// </summary>
         /// <param name="applicationId"></param>
+        /// <param name="download"></param>
         /// <returns></returns>
         [HttpGet]
         [Route("applicationdocument")]
-        [AllowAnonymous]
-        //[AuthorizeClaims(ApplicationClaimTypes.ViewAllApplications)]
-        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId)
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
+        public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId, bool download)
         {
             var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
             try
             {
-                //// Get Application Template
+                // Get Application Template
                 var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
 
                 ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
@@ -186,8 +227,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     InternalServerError("Concatenate Pdf failed");
                 }
+                
                 // Download PDF File
-                responseMessage = Download(returnValue, responseMessage, "Concatenate.pdf");
+                responseMessage = Download(returnValue, responseMessage, "Concatenate");
+
+                // This will return the pdf file byte array
+                if(!download)
+                    return Ok(returnValue);
             }
             catch (Exception ex)
             {
@@ -199,6 +245,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 InternalServerError(ex.Message);
             }
             // Replaceed Ok(Response) to fix the API response error
+            // Return exceptions and custom messages
             return ResponseMessage(responseMessage);
         }
 

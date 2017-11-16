@@ -466,7 +466,7 @@ module.exports = function(ngModule) {
     };
 
     this.submitApplication = function(access_token, ein, vm) {
-      const url = _env.api_url + '/api/application';
+      const url = _env.api_url + '/api/application/submit';
       const d = $q.defer();
       const submissionVm = submissionService.getSubmissionVM(ein, vm);
 

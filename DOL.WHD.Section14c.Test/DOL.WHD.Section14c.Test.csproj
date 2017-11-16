@@ -221,6 +221,7 @@
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ActivityLogRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ErrorLogRepositoryMock.cs" />
+    <Compile Include="Services\EmailServiceTests.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
