@@ -13,20 +13,19 @@
   </div>
 </div>
 
-<div class="form-page-full">
-  <div class="form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
-    <div class="form-question-text">What is the total number of establishments and work sites to be covered by this certificate?
-      <helplink aria-controls="numWorkSitesHelp"></helplink>
-      <helptext id="numWorkSitesHelp">Provide the total number of work sites for which the employer is seeking approval to employ workers at subminimum wages. Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites.</helptext>
+<div class="dol-form-page">
+  <div class="dol-form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-help">
+      <label for="numWorkSites" class="dol-form-question-text" id="numWorkSitesLabel">What is the total number of establishments and work sites to be covered by this certificate?</label>
+      <helplink aria-controls="numWorkSitesHelp" aria-describedby="numWorkSitesLabel"></helplink>   
     </div>
+    <helptext id="numWorkSitesHelp">Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
-    <div class="form-question-answer">
-      <input id="numWorkSites" name="numWorkSites" aria-describedby="numWorkSitesHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
-    </div>
+    <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
   </div>
 
-  <div class="form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
-    <div class="form-question-text">We’ll need to collect information about each worksite and its employees.</div>
+  <div class="dol-form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-text">We’ll need to collect information about each worksite and its employees.</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
     <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site & Employee(s)</button>
   </div>
@@ -42,56 +41,42 @@
 
   <!-- Tab 1 (Add Work Site) -->
   <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 1">
-    <div>First, we’ll collect information about the Work Site / Establishment.</div>
+    <!-- ID for tab panel focus -->
+    <p id="worksitesTabPanel" tabindex="-1">First, we’ll collect information about the Work Site / Establishment.</p>
 
-    <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
-      <div class="form-question-text">What type of establishment is this?
-        <!-- The first tabbable element has the ID for tab panel focus. -->
-        <helplink aria-controls="establishmentTypeHelp" id="worksitesTabPanel"></helplink>
-        <helptext id="establishmentTypeHelp">
-          <p>Indicate whether the work site is the main establishment, a branch establishment, an off-site work location, or a School Work Experience Program work site.</p>
-          <p><strong>Main Establishment:</strong> The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)</p>
-          <p><strong>Branch Establishment:</strong> A branch establishment is a physically separate work site that is part of the same organization as the main establishment.</p>
-          <p><strong>Off-site Work Location:</strong> An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities, or a group of workers with disabilities, are placed in work settings along with job coaches (staff of the rehabilitation or work center).</p>
-          <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</p>
-        </helptext>
-      </div>
-      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
-      <div class="form-question-answer">
-        <fieldset class="usa-fieldset-inputs usa-sans">
-          <legend class="hide">Work site type</legend>
-          <ul class="usa-unstyled-list">
+    <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs usa-sans">
+        <legend class="dol-form-question-text">What type of establishment is this?</legend>
+        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
+          <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType">
-              <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType" aria-describedby="establishmentTypeHelp" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
-              <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
-              <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
+              <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType_{{ response.id }}" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
+              <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
+              <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
+              <helptext id="establishmentType_{{ response.id }}Help">
+                  {{ response.subDisplay }}
+              </helptext>              
             </li>
           </ul>
-        </fieldset>
-      </div>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('name') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Name of Establishment / Work Site</div>
+    <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('name') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-text">Name of Establishment / Work Site</div>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('name')">{{ vm.validateActiveWorksiteProperty('name') }}</span>
-      <div class="form-question-answer">
-        <label for="worksiteName" class="hide">Name of Establishment / Work Site</label>
-        <input id="worksiteName" name="worksiteName" type="text" ng-model="vm.activeWorksite.name">
-      </div>
+      <label for="worksiteName" class="hide">Name of Establishment / Work Site</label>
+      <input id="worksiteName" name="worksiteName" type="text" ng-model="vm.activeWorksite.name">
     </div>
 
-    <div class="form-question-block">
-      <div class="form-question-text">Address of Establishment / Work Site</div>
-      <div class="fomr-question-answer">
+    <div class="dol-form-question-block">
+      <fieldset>
+        <legend class="dol-form-question-text no-margin">Address of Establishment / Work Site</legend>             
         <div class="usa-form-large">
-          <fieldset>
-            <legend class="hide">Address of Establishment / Work Site</legend>
             <div ng-class="vm.validateActiveWorksiteProperty('address.streetAddress') ? 'usa-input-error' : ''">
               <label for="worksiteAddress1">Street address</label>
               <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
               <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
             </div>
-
             <div class="clearer" ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
               <div class="usa-input-grid usa-input-grid-medium">
                 <label for="workAddressCity">City</label>
@@ -105,72 +90,62 @@
                 <state-field name="workAddressState" selected-state="vm.activeWorksite.address.state"></state-field>
               </div>
             </div>
-
             <div ng-class="vm.validateActiveWorksiteProperty('address.zipCode') ? 'usa-input-error' : ''">
               <label for="workAddressZip">Zip Code</label>
               <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.zipCode')">{{ vm.validateActiveWorksiteProperty('address.zipCode') }}</span>
               <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeWorksite.address.zipCode">
             </div>
-          </fieldset>
         </div>
-      </div>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?
-        <helplink></helplink>
-        <helptext id="worksiteScaHelp">Mark "yes" if the employer has a Service Contract Act (SCA)-covered contract to provide services to the Federal Government and work under that contract is performed at this work site.</helptext>
-      </div>
-      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
-      <div class="form-question-answer">
-        <fieldset class="usa-fieldset-inputs usa-sans">
-          <legend class="hide">(SCA)-covered?</legend>
-          <ul class="usa-unstyled-list">
-            <li>
-              <input id="worksiteScaYes" type="radio" name="worksiteSca" aria-describedby="worksiteScaHelp" ng-value="true" ng-model="vm.activeWorksite.sca">
-              <label for="worksiteScaYes">Yes</label>
-            </li>
-            <li>
-              <input id="worksiteScaNo" type="radio" name="worksiteSca" aria-describedby="worksiteScaHelp" ng-value="false" ng-model="vm.activeWorksite.sca">
-              <label for="worksiteScaNo">No</label>
-            </li>
-          </ul>
-        </fieldset>
-      </div>
+    <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs usa-sans">
+        <legend class="dol-form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</legend>
+        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.activeWorksite.sca">
+            <label for="worksiteScaYes">Yes</label>
+          </li>
+          <li>
+            <input id="worksiteScaNo" type="radio" name="worksiteSca" ng-value="false" ng-model="vm.activeWorksite.sca">
+            <label for="worksiteScaNo">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
-      <div class="form-question-text">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?
-        <helplink></helplink>
-        <helptext id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to <a href='https://www.federalregister.gov/documents/2014/02/20/2014-03805/establishing-a-minimum-wage-for-contractors' target='_blank'>Executive Order 13658</a> (Establishing a Minimum Wage for Contractors).</helptext>
-      </div>
-      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
-      <div class="form-question-answer">
-        <fieldset class="usa-fieldset-inputs usa-sans">
-          <legend class="hide">Federal contract work performed?</legend>
-          <ul class="usa-unstyled-list">
-            <li>
-              <input id="worksiteFederalYes" type="radio" name="worksiteFederal" aria-describedby="worksiteFederalHelp" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
-              <label for="worksiteFederalYes">Yes</label>
-            </li>
-            <li>
-              <input id="worksiteFederalNo" type="radio" name="worksiteFederal" aria-describedby="worksiteFederalHelp" ng-value="false" ng-model="vm.activeWorksite.federalContractWorkPerformed">
-              <label for="worksiteFederalNo">No</label>
-            </li>
-          </ul>
-        </fieldset>
-      </div>
+    <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs usa-sans">
+        <legend class="hide"><span id="worksiteFederalLabel">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span></legend>
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
+          <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
+        </div>          
+        <helptext id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>      
+        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
+            <label for="worksiteFederalYes">Yes</label>
+          </li>
+          <li>
+            <input id="worksiteFederalNo" type="radio" name="worksiteFederal" ng-value="false" ng-model="vm.activeWorksite.federalContractWorkPerformed">
+            <label for="worksiteFederalNo">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''" ng-show="vm.notInitialApp()">
-      <div class="form-question-text">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:
-        <helplink></helplink>
-        <helptext id="worksiteNumEmployeesHelp">Count all employees who were paid subminimum wages and performed work at this work site during the most recently completed fiscal quarter that ended on the date provided in Item 7(a) of the WH-226. Include workers who were employed for less than the full fiscal quarter, i.e. three-month period.</helptext>
+    <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('numEmployees') ? 'usa-input-error' : ''" ng-show="vm.notInitialApp()">
+      <div class="dol-form-question-help">
+        <label for="worksiteNumEmployees" class="dol-form-question-text" id="worksiteNumEmployeesLabel">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</label>
+        <helplink aria-controls="worksiteNumEmployeesHelp" aria-describedby="worksiteNumEmployeesLabel"></helplink>   
       </div>
+      <helptext id="worksiteNumEmployeesHelp">Include workers who were employed for less than the full fiscal quarter, <em>i.e.</em> three-month period.</helptext>      
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
-      <div class="form-question-answer">
-        <input id="worksiteNumEmployees" name="worksiteNumEmployees" aria-describedby="worksiteNumEmployeesHelp" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
-      </div>
+      <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
     </div>
   </div>
 
