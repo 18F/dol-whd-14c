@@ -38,7 +38,6 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.activeTab = query.t ? query.t : 1;
-    vm.showLinks = false;
 
     vm.onTabClick = function(id) {
       vm.activeTab = id;

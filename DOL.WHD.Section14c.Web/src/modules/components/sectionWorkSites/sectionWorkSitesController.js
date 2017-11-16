@@ -20,6 +20,7 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
+    $scope.showAllHelp = false;
 
     if (!$scope.formData.workSites) {
       $scope.formData.workSites = [];
@@ -39,6 +40,9 @@ module.exports = function(ngModule) {
         event.preventDefault();
       }
     });
+
+
+
     var vm = this;
     vm.activeTab = query.t ? query.t : 1;
     vm.activeWorksite = {};
@@ -303,5 +307,10 @@ module.exports = function(ngModule) {
         navService.clearQuery();
       }
     });
+
+    this.toggleAllHelpText = function() {
+      $scope.showAllHelp = !$scope.showAllHelp;
+    }  
+
   });
 };
