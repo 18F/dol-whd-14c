@@ -89,16 +89,6 @@ Primary style
   -moz-transition: background 0.3s 0s;
   transition: background 0.3s 0s;
 }
-.cd-panel.is-visible .cd-panel-close::before {
-  -webkit-animation: cd-close-1 0.6s 0.3s;
-  -moz-animation: cd-close-1 0.6s 0.3s;
-  animation: cd-close-1 0.6s 0.3s;
-}
-.cd-panel.is-visible .cd-panel-close::after {
-  -webkit-animation: cd-close-2 0.6s 0.3s;
-  -moz-animation: cd-close-2 0.6s 0.3s;
-  animation: cd-close-2 0.6s 0.3s;
-}
 
 @-webkit-keyframes cd-close-1 {
   0%, 50% {
@@ -169,16 +159,14 @@ Primary style
   width: 90%;
   height: 50px;
   line-height: 50px;
-  background: rgba(255, 255, 255, 0.96);
+  background: #f3f3f3;
   z-index: 2;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
   -webkit-transition: top 0.3s 0s;
   -moz-transition: top 0.3s 0s;
   transition: top 0.3s 0s;
 }
-.cd-panel-header h1 {
-  font-weight: bold;
-  color: #89ba2c;
+.cd-panel-header h3 {
+  margin: 8px 0 0 0;
   padding-left: 5%;
 }
 .from-right .cd-panel-header, .from-left .cd-panel-header {
@@ -219,65 +207,28 @@ Primary style
   text-indent: 100%;
   white-space: nowrap;
 }
-.cd-panel-close::before, .cd-panel-close::after {
-  /* close icon created in CSS */
-  position: absolute;
-  top: 22px;
-  left: 20px;
-  height: 3px;
-  width: 20px;
-  background-color: #424f5c;
-  /* this fixes a bug where pseudo elements are slighty off position */
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
 .cd-panel-close::before {
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -14px;
+  margin-left: -16px;
+  height: 28px;
+  width: 32px;
+  border-radius: 3px;
+  background: #990000 url(../images/dol-close-gray.png) center center no-repeat;
+  background: #990000 url(../images/dol-close-gray.svg) center center no-repeat;
+  background-size: 50%;
 }
-.cd-panel-close::after {
-  -webkit-transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  -o-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-.no-touch .cd-panel-close:hover {
-  background-color: #424f5c;
-}
-.no-touch .cd-panel-close:hover::before, .no-touch .cd-panel-close:hover::after {
-  background-color: #ffffff;
-  -webkit-transition-property: -webkit-transform;
-  -moz-transition-property: -moz-transform;
-  transition-property: transform;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-.no-touch .cd-panel-close:hover::before {
-  -webkit-transform: rotate(220deg);
-  -moz-transform: rotate(220deg);
-  -ms-transform: rotate(220deg);
-  -o-transform: rotate(220deg);
-  transform: rotate(220deg);
-}
-.no-touch .cd-panel-close:hover::after {
-  -webkit-transform: rotate(135deg);
-  -moz-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
-  -o-transform: rotate(135deg);
-  transform: rotate(135deg);
-}
+
 
 .cd-panel-container {
   position: fixed;
   width: 90%;
   height: 100%;
   top: 0;
-  background: #dbe2e9;
+  background: #f3f3f3;
   z-index: 1;
   -webkit-transition-property: -webkit-transform;
   -moz-transition-property: -moz-transform;
@@ -453,230 +404,4 @@ Main components
 	}
 }
 
-.cd-panel {
-	position: fixed;
-	top: 0;
-	left: 0;
-  z-index: 100;
-	height: 100%;
-	width: 100%;
-	visibility: hidden;
-	@include transition(visibility 0s .6s);
 
-	&::after {
-		/* overlay layer */
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: rgba(#000, 0);
-		cursor: pointer;
-		@include transition(background .3s .3s);
-	}
-
-	&.is-visible {
-		visibility: visible;
-		@include transition(visibility 0s 0s);
-
-		&::after {
-			background: rgba(#000, .6);
-			@include transition(background .3s 0s);
-		}
-
-		.cd-panel-close::before {
-			@include animation(cd-close-1 .6s .3s);
-		}
-
-		.cd-panel-close::after {
-			@include animation(cd-close-2 .6s .3s);
-		}
-	}
-}
-
-@include keyframes(cd-close-1) {
-	0%, 50% {
-		@include transform(rotate(0));
-	}
-
-	100% {
-		@include transform(rotate(45deg));
-	}
-}
-
-@include keyframes(cd-close-2) {
-	0%, 50% {
-		@include transform(rotate(0));
-	}
-
-	100% {
-		@include transform(rotate(-45deg));
-	}
-}
-
-.cd-panel-header {
-	position: fixed;
-	width: $panel-width-S; // variables inside partials > _variables.scss
-	height: 50px;
-	line-height: 50px;
-	background: rgba($color-1, .96);
-	z-index: 2;
-	box-shadow: 0 1px 1px rgba(#000, .08);
-	@include transition(top .3s 0s);
-
-	h1 {
-		font-weight: bold;
-		color: $color-2;
-		padding-left: 5%;
-	}
-
-  h2 {
-		font-weight: bold;
-		color: $color-3;
-		padding-left: 5%;
-	}
-
-	.from-right &, .from-left & {
-		top: -50px;
-	}
-
-	.from-right & {
-		right: 0;
-	}
-
-	.from-left & {
-		left: 0;
-	}
-
-	.is-visible & {
-		top: 0;
-		@include transition(top .3s .3s);
-	}
-
-	@include MQ(M) {
-		width: $panel-width-M;
-	}
-
-	@include MQ(L) {
-		width: $panel-width-L;
-	}
-}
-
-.cd-panel-close {
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 100%;
-	width: 60px;
-
-	/* image replacement */
-	display: inline-block;
-	overflow: hidden;
-	text-indent: 100%;
-	white-space: nowrap;
-
-	&::before, &::after {
-		/* close icon created in CSS */
-		position: absolute;
-		top: 22px;
-		left: 20px;
-		height: 3px;
-		width: 20px;
-		background-color: $color-3;
-		/* this fixes a bug where pseudo elements are slighty off position */
-		-webkit-backface-visibility: hidden;
-		backface-visibility: hidden;
-	}
-
-	&::before {
-		@include transform(rotate(45deg));
-	}
-
-	&::after {
-		@include transform(rotate(-45deg));
-	}
-
-	.no-touch &:hover {
-		background-color: $color-3;
-
-		&::before, &::after {
-			background-color: $color-4;
-			@include transition-property(transform);
-			@include transition-duration(.3s);
-		}
-
-		&::before {
-			@include transform(rotate(220deg));
-		}
-
-		&::after {
-			@include transform(rotate(135deg));
-		}
-	}
-}
-
-.cd-panel-container {
-	position: fixed;
-	width: $panel-width-S;
-	height: 100%;
-	top: 0;
-	background: $color-1;
-	z-index: 1;
-	@include transition-property(transform);
-	@include transition-duration(.3s);
-	@include transition-delay(.3s);
-
-	.from-right & {
-		right: 0;
-		@include transform(translate3d(100%, 0, 0));
-	}
-
-	.from-left & {
-		left: 0;
-		@include transform(translate3d(-100%, 0, 0));
-	}
-
-	.is-visible & {
-		@include transform(translate3d(0, 0, 0));
-		@include transition-delay(0s);
-	}
-
-	@include MQ(M) {
-		width: $panel-width-M;
-	}
-
-	@include MQ(L) {
-		width: $panel-width-L;
-	}
-}
-
-.cd-panel-content {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	padding: 70px 5%;
-	overflow: auto;
-
-	/* smooth scrolling on touch devices */
-	-webkit-overflow-scrolling: touch;
-
-	p {
-		@include font-size(14px);
-		color: $color-3;
-		line-height: 1.4;
-		margin: 2em 0;
-
-		&:first-of-type {
-			margin-top: 0;
-		}
-	}
-
-	@include MQ(M) {
-		p {
-			@include font-size(16px);
-			line-height: 1.6;
-		}
-	}
-}
