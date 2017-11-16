@@ -38,13 +38,13 @@
   <wage-data-pay-type-form paytype="hourly" show-all-help="showAllHelp" ng-show="formData.payTypeId === 21 || (formData.payTypeId === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
   <wage-data-pay-type-form paytype="piecerate" show-all-help="showAllHelp" ng-show="formData.payTypeId === 22 || (formData.payTypeId === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
-<div class="cd-panel from-right" id="helpfulLinksPanel">
-  <header class="cd-panel-header">
-    <h3 tabindex="-1">Helpful Links</h3>
-    <a href="#0" class="dol-first-focus cd-panel-close">Close Helpful Links</a>
-  </header>  
+<div class="cd-panel from-right" id="helpfulLinksPanel"> 
   <div class="cd-panel-container">
     <div class="cd-panel-content">
+    <header class="cd-panel-header">     
+      <a href="#0" class="dol-first-focus cd-panel-close">Close Helpful Links</a>
+      <h3 tabindex="-1">Helpful Links</h3>
+    </header>       
         Prevailing Wage Calculators:<br>
         <a href="https://www.dol.gov/whd/sec14c/calculators/StraightAverage.htm" target="_blank">Straight or Simple Average</a><br>
         <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedAverage.htm" target="_blank">Weighted Average</a><br>

@@ -29,20 +29,6 @@ module.exports = function(ngModule) {
 
     let query = $location.search();
 
-    $('.cd-btn').on('click', function(event){
-      event.preventDefault();
-      vm.clearActiveWorker();
-      $('.cd-panel').addClass('is-visible');
-    });
-    //clode the lateral panel
-    $('.cd-panel').on('click', function(event){
-      if( $(event.target).is('.cd-panel') || $(event.target).is('.cd-panel-close') ) {
-        $('.cd-panel').removeClass('is-visible');
-        event.preventDefault();
-      }
-    });
-
-
 
     var vm = this;
     vm.activeTab = query.t ? query.t : 1;
@@ -123,10 +109,13 @@ module.exports = function(ngModule) {
 
       $timeout(vm.clearSaveStatus, 3000);
       vm.clearActiveWorker();
+
+      
     };
 
     this.addAnotherEmployee = function() {
       vm.addEmployee();
+      $document[0].getElementById('addEmployeesHeader').focus();
     };
 
     this.doneAddingEmployees = function($event) {
@@ -322,6 +311,49 @@ module.exports = function(ngModule) {
           $document[0].getElementById('employeesTabPanel').focus();
       }
     };
+    
+    // Sliding Panel
+    var panelTrigger     
+
+    $('.cd-panel-trigger').on('click', function(event){ 
+      panelTrigger = $(this);
+      var target = $(this).attr('aria-controls');    
+      $('#' + target).addClass('is-visible');
+      $('#' + target + ' .cd-panel-header h3').focus();
+      vm.clearActiveWorker();      
+      event.preventDefault();
+    });
+
+    // close the panel
+    function closeSlidingPanel(event) {
+      $('.cd-panel').removeClass('is-visible');
+      panelTrigger.focus();
+    }
+    $(document).keydown(function(event) {
+        // escape key
+        if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
+          closeSlidingPanel();
+          event.preventDefault();
+        }
+    });
+    $('.cd-panel-close').on('click', function(event){
+        closeSlidingPanel()
+        event.preventDefault();
+    });
+
+    // trap keyboard access inside the panel
+    $(".cd-panel .dol-last-focus").keydown(function(event){
+      if (event.which === 9 && !event.shiftKey) {
+        $(".cd-panel .dol-first-focus").focus();
+        event.preventDefault(); 
+      }
+    });    
+    $(".cd-panel .dol-first-focus").keydown(function(event){
+      if (event.shiftKey && event.which === 9) {
+        $(".cd-panel .dol-last-focus").focus();
+        event.preventDefault(); 
+      }
+    });   
 
   });
 };
