@@ -105,20 +105,43 @@ namespace DOL.WHD.Section14c.Business.Services
             List<Attachment> attachments = new List<Attachment>();
             if (application != null)
             {
-                if(application.Employer?.SCAAttachment != null)
-                    attachments.Add(application.Employer.SCAAttachment);
+                if (application.Employer?.SCAAttachmentId != null)
+                {
+                    // The attachment is null right after application is submitted. 
+                    // In order to be able to send application submit email to employer with concatenate pdf document 
+                    // The attachment need to get from attachment database table directly
+                    var attachment = _attachmentRepository.Get()
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.Employer?.SCAAttachmentId.ToString());
+                    attachments.Add(attachment);
+                }
 
-                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachment != null)
+                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
+                {
+                    var attachment = _attachmentRepository.Get()
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId.ToString());
                     attachments.Add(application.PieceRateWageInfo.SCAWageDeterminationAttachment);
+                }
 
-                if(application.PieceRateWageInfo?.Attachment != null)
+                if (application.PieceRateWageInfo?.AttachmentId != null)
+                {
+                    var attachment = _attachmentRepository.Get()
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.AttachmentId.ToString());
                     attachments.Add(application.PieceRateWageInfo.Attachment);
+                }
 
-                if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.Attachment != null)
+                if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
+                {
+                    var attachment = _attachmentRepository.Get()
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId.ToString());
                     attachments.Add(application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+                }
 
-                if (application.HourlyWageInfo?.Attachment != null)
-                    attachments.Add(application.HourlyWageInfo.Attachment);  
+                if (application.HourlyWageInfo?.AttachmentId != null)
+                {
+                    var attachment = _attachmentRepository.Get()
+                       .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.AttachmentId.ToString());
+                    attachments.Add(application.HourlyWageInfo.Attachment);
+                }
             }
             return attachments;
         }
