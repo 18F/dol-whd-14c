@@ -82,6 +82,7 @@ Primary style
   -webkit-transition: visibility 0s 0s;
   -moz-transition: visibility 0s 0s;
   transition: visibility 0s 0s;
+  
 }
 .cd-panel.is-visible::after {
   background: rgba(0, 0, 0, 0.6);
@@ -166,8 +167,8 @@ Primary style
   transition: top 0.3s 0s;
 }
 .cd-panel-header h3 {
-  margin: 8px 0 0 0;
-  padding-left: 5%;
+  display: inline-block;
+  margin: 8px 80px 0 5%;
 }
 .from-right .cd-panel-header, .from-left .cd-panel-header {
   top: -50px;

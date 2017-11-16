@@ -83,18 +83,23 @@ module.exports = function(ngModule) {
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
     }    
+    
+    // Sliding Panel
 
-    // Sliding Panel (Helpful Links)
-    $('.dol-btn-helpful-links').on('click', function(event){     
-      $('.cd-panel').addClass('is-visible');
-      $('#helpfulLinksHeader').focus();
+    var panelTrigger    
+
+    $('.cd-panel-trigger').on('click', function(event){ 
+      panelTrigger = $(this);
+      var target = $(this).attr('aria-controls');    
+      $('#' + target).addClass('is-visible');
+      $('#' + target + ' .cd-panel-header h3').focus();
       event.preventDefault();
     });
 
     // close the panel
     function closeSlidingPanel(event) {
       $('.cd-panel').removeClass('is-visible');
-      $('.dol-btn-helpful-links').focus();
+      panelTrigger.focus();
     }
     $(document).keydown(function(event) {
         // escape key
