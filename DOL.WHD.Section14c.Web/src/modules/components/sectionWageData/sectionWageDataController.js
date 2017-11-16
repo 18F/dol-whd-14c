@@ -109,15 +109,15 @@ module.exports = function(ngModule) {
     });
 
     // trap keyboard access inside the panel
-    $(".dol-helpful-links-panel .dol-last-focus").keydown(function(event){
+    $(".cd-panel .dol-last-focus").keydown(function(event){
       if (event.which === 9 && !event.shiftKey) {
-        $(".dol-helpful-links-panel .dol-first-focus").focus();
+        $(".cd-panel .dol-first-focus").focus();
         event.preventDefault(); 
       }
     });    
-    $(".dol-helpful-links-panel .dol-first-focus").keydown(function(event){
+    $(".cd-panel .dol-first-focus").keydown(function(event){
       if (event.shiftKey && event.which === 9) {
-        $(".dol-helpful-links-panel .dol-last-focus").focus();
+        $(".cd-panel .dol-last-focus").focus();
         event.preventDefault(); 
       }
     });
