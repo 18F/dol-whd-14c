@@ -3,9 +3,6 @@
 module.exports = function(ngModule) {
   ngModule.controller('changePasswordFormController', function(
     $scope,
-    $location,
-    $routeParams,
-    crumble,
     stateService,
     apiService
   ) {
@@ -13,9 +10,6 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
-    crumble.update();
-    vm.crumbs = crumble.trail;
-    $scope.stateService = stateService;
 
     vm.resetErrors = function() {
       vm.changePasswordError = false;

@@ -4,7 +4,6 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionAssurancesController', function(
     $scope,
     stateService,
-    $location,
     validationService
   ) {
     'ngInject';

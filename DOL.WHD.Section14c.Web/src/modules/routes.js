@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (app) {
-  
+
   const ROUTE_PUBLIC = 1;
   const ROUTE_LOGGEDIN = 3;
   const ROUTE_USER = 7;
@@ -15,7 +15,7 @@ module.exports = function (app) {
     return (route.access & userAccess) === route.access;
   };
 
-  app.config(function($routeProvider, $compileProvider, $provide) {
+  app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
         controller: 'landingPageController',
@@ -29,13 +29,15 @@ module.exports = function (app) {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
         access: ROUTE_PUBLIC,
-        label: 'Change Password'
+        label: 'Change Password',
+        parent: '/'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
         access: ROUTE_PUBLIC,
-        label: ''
+        label: 'Forgot Password',
+        parent: '/'
       })
       .when('/login', {
         controller: 'userLoginPageController',
