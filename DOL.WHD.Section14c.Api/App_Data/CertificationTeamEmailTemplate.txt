@@ -1,0 +1,21 @@
+﻿<strong>Date Application Submitted:</strong> {{ formatDateTime Signature.Date}} <br/><br/>
+
+<strong>ER Name:</strong> {{ Employer.LegalName }} <br/><br/>
+
+<strong>ER EIN:</strong> {{ EIN }} <br/><br/>
+
+<strong>ER Address:</strong> {{ formatAddress Employer.PhysicalAddress }} <br/><br/>
+
+To Whom It May Concern:<br/><br />
+
+This email acknowledges receipt of the application for Section 14(c) Subminimum Wage Certificate, which was submitted via the Department of Labor Section 14(c) Online Certification Application and received in our office on {{ formatDateTime Signature.Date }}. A PDF copy of your submitted application is attached.<br /><br />
+
+The Wage and Hour Division makes every effort to review applications and make certificate decisions in a timely manner. If you have an urgent issue, you may contact our office at (312) 596-7195.<br /><br />
+
+This notice does not constitute a statement of compliance by the Department of Labor nor does it convey a good faith defense to the employer should violations of the Fair Labor Standards Act, the Walsh-Healey Public Contracts Act, the McNamara-O'Hara Service Contract Act, or the Contract Work Hours and Safety Standards Act occur.<br /><br />
+
+Sincerely,<br /><br />
+
+Nicole Howard<br />    
+Supervisory Wage and Hour Investigator<br/>      
+FLSA Certification Team  

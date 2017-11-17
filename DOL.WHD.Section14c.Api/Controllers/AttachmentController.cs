@@ -129,7 +129,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 throw;
             }
-            return Ok(result); //result;
+            return ResponseMessage(result); //result;
         }
 
         /// <summary>

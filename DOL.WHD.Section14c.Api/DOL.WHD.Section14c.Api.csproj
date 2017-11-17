@@ -278,6 +278,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CertificationTeamEmailTemplate.txt" />
+    <Content Include="App_Data\EmployerEmailTemplate.txt" />
     <Content Include="App_Data\Section14cApplicationPdfView.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
@@ -345,6 +347,10 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
+      <Project>{ea4488e2-66fc-4d46-81e6-1d43a79a3b2d}</Project>
+      <Name>DOL.WHD.Section14c.EmailApi</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
       <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
