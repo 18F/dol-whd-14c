@@ -76,20 +76,6 @@ require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
 
-// route access states
-const ROUTE_PUBLIC = 1;
-const ROUTE_LOGGEDIN = 3;
-const ROUTE_USER = 7;
-const ROUTE_ADMIN = 11;
-
-let checkRouteAccess = function(route, userAccess) {
-  if (!route || !route.access) {
-    return true;
-  }
-
-  return (route.access & userAccess) === route.access;
-};
-
 require('./routes')(app)
 
 /* eslint-disable complexity */
@@ -107,7 +93,7 @@ app.run(function(
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
-    return route && angular.isDefined(route.parent) ? route.parent : getParent(path);
+    return (route && angular.isDefined(route.parent)) ? route.parent : getParent(path);
   };
 
   // check cookie to see if we're logged in
