@@ -4,6 +4,8 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionAssurancesController', function(
     $scope,
     stateService,
+    $location,
+    crumble,
     validationService
   ) {
     'ngInject';
@@ -13,5 +15,7 @@ module.exports = function(ngModule) {
     $scope.validate = validationService.getValidationErrors;
 
     var vm = this;
+
+    
   });
 };
