@@ -4,40 +4,50 @@
         td {
             page-break-inside: avoid;
         }
+
         span.subtext {
             font-weight: bold
         }
+
         span.title {
             font-weight: bold;
-            margin-top:40px;
+            margin-top: 40px;
         }
+
         span.subtextanswer {
             font-weight: normal;
             margin-bottom: 10px;
         }
-        .row_greyed{
+
+        .row_greyed {
             background-color: #9F9F9F;
         }
+
         table .subtable {
             display: table;
             width: 100%;
             font-size: 14px;
         }
-        table .subtable > div {
-            display: table-cell;
-            padding: 10px 5px;
-            font-weight: 700;
-        }
-        table .subtable > div:not(:last-of-type) {
-            border-right: 1px solid #212121;
-        }
-        table .subtable > div > div {
-            margin-top: 4px;
-            font-weight: 400;
-        }
-        th .subtext{
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
             font-size: 11px;
         }
+
         .employeeSubTable {
             width: 100%;
             border-bottom: 1px;
@@ -46,10 +56,16 @@
             border-bottom-style: solid;
             margin-top: 20px;
         }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 
 </head>
 <body>
+    <div class="accessibility-text">ACCESSIBILITY: This PDF is generated based on form data input by the employer as well as any uploaded attachments as part of the online 14c application. Hence this generated PDF might or not be accessibility compliant based on considerations such as whether the employer uploaded attachments are accessible compliant or not.</div>
     <div class="admin-page">
         <div class="dol-form-section-title">
             <h2>Representations and Written Assurances</h2>
@@ -375,18 +391,18 @@
             <h3>Source Employers</h3>
 
             {{#each HourlyWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
-                <div>
-                    <div>{{ EmployerName }}</div>
-                    <div>{{ formatAddress Address }}</div>
-                    <div>{{ Phone }}</div>
-                    <div>{{ ContactName }}</div>
-                    <div>{{ ContactTitle }}</div>
-                    <div>{{ ContactDate }}</div>
-                    <div>{{ JobDescription }}</div>
-                    <div>{{ ExperiencedWorkerWageProvided }}</div>
-                    <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
-                    <hr>
-                </div>
+            <div>
+                <div>{{ EmployerName }}</div>
+                <div>{{ formatAddress Address }}</div>
+                <div>{{ Phone }}</div>
+                <div>{{ ContactName }}</div>
+                <div>{{ ContactTitle }}</div>
+                <div>{{ ContactDate }}</div>
+                <div>{{ JobDescription }}</div>
+                <div>{{ ExperiencedWorkerWageProvided }}</div>
+                <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
+                <hr>
+            </div>
             {{/each}}
 
             <p>
@@ -447,18 +463,18 @@
             <h3>Source Employers</h3>
 
             {{#each PieceRateWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
-                <div>
-                    <div>{{ EmployerName }}</div>
-                    <div>{{ formatAddress Address }}</div>
-                    <div>{{ Phone }}</div>
-                    <div>{{ ContactName }}</div>
-                    <div>{{ ContactTitle }}</div>
-                    <div>{{ ContactDate }}</div>
-                    <div>{{ JobDescription }}</div>
-                    <div>{{ ExperiencedWorkerWageProvided }}</div>
-                    <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
-                    <hr>
-                </div>
+            <div>
+                <div>{{ EmployerName }}</div>
+                <div>{{ formatAddress Address }}</div>
+                <div>{{ Phone }}</div>
+                <div>{{ ContactName }}</div>
+                <div>{{ ContactTitle }}</div>
+                <div>{{ ContactDate }}</div>
+                <div>{{ JobDescription }}</div>
+                <div>{{ ExperiencedWorkerWageProvided }}</div>
+                <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
+                <hr>
+            </div>
             {{/each}}
 
             <p>
@@ -656,12 +672,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                {{#each WIOA.WIOAWorkers}}
+                    {{#each WIOA.WIOAWorkers}}
                     <tr style="text-align:center">
                         <td scope="row">{{ FullName }}</td>
                         <td>{{ WIOAWorkerVerified.Display }}</td>
                     </tr>
-                {{/each}}
+                    {{/each}}
                 </tbody>
             </table>
         </div>
