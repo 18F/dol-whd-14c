@@ -291,166 +291,129 @@
   </div>
 
   <div class="cd-panel from-right" id="addEmployeesSlidePanel">
-      <div class="cd-panel-container">     
-        <div class="cd-panel-content">
-          <header class="cd-panel-header">
-              <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-first-focus">Close</a>               
-            <div ng-show="vm.saveEmployee.status" class="dol-feedback-success">
-              <p class="dol-feedback-message">
-                <strong>Saved Employee:</strong> {{vm.saveEmployee.name}}
-              </p>
-            </div>        
-            <h3 tabindex="-1" id="addEmployeesHeader">Add Employee</h3> 
-          </header>                 
+    <div class="cd-panel-container">     
+      <div class="cd-panel-content">
+        <header class="cd-panel-header">
+          <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-first-focus">Close</a>               
+          <div ng-show="vm.saveEmployee.status" class="dol-feedback-success">
+            <p class="dol-feedback-message">
+              <strong>Saved Employee:</strong> {{vm.saveEmployee.name}}
+            </p>
+          </div>        
+          <h3 tabindex="-1" id="addEmployeesHeader">Add Employee</h3> 
+        </header>                 
 
-            <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
-              <div class="form-question-text">Name of worker</div>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
-              <div class="form-question-answer">
-                <label for="workerName" class="hide">Full Name of Worker</label>
-                <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
-              </div>
-            </div>
-  
-            <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('workType') ? 'usa-input-error' : ''">
-              <div class="form-question-text">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</div>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
-              <div class="form-question-answer">
-                <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
-              </div>
-            </div>
-  
-            <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('primaryDisabilityId') ? 'usa-input-error' : ''">
-              <div class="form-question-text">Primary disability that affects productivity for job described above. Pick only one.</div>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
-              <div class="form-question-answer">
-                <fieldset class="usa-fieldset-inputs usa-sans">
-                  <legend class="hide">Primary disability</legend>
-                  <ul class="usa-unstyled-list">
-                    <li ng-repeat="response in responses.PrimaryDisability">
-                      <input id="primaryDisability_{{ response.id }}" type="radio" name="primaryDisability" ng-value="{{ response.id }}" ng-model="vm.activeWorker.primaryDisabilityId">
-                      <label for="primaryDisability_{{ response.id }}">{{ response.display }}</label>
-                      <input id="primaryDisabilityOther" name="primaryDisabilityOther" type="text" ng-model="vm.activeWorker[response.otherValueKey]" ng-if="response.otherValueKey">
-                      <label for="primaryDisabilityOther" class="hide">Primary disability (other)</label>
-                    </li>
-                  </ul>
-                </fieldset>
-              </div>
-            </div>
-  
-            <!-- <div class="form-question-block" ng-class="vm.validateActiveWorkerProperty('workType') ? 'usa-input-error' : ''">
-              <div class="form-question-text">Type of Work</div>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
-              <div class="form-question-answer">
-                <label for="workType" class="hide">Type of Work</label>
-                <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
-              </div>
-            </div> -->
-  
-            <div class="form-question-block"><br />
-              <div class="form-question-text">How many jobs did this worker perform at this work site?</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">How many jobs did this worker perform at this work site?</label>
-                <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
-                  <input id="workerNumJobs" name="workerNumJobs" type="number" class="numeric2" min="0" step="1" ng-model="vm.activeWorker.numJobs">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Average # of hours worked per week on all jobs at this work site</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Average # of hours worked per week on all jobs at this work site</label>
-                <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
-                  <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgWeeklyHours">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Average earnings per hour for all jobs at this work site</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Average earnings per hour for all jobs at this work site</label>
-                <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
-                  <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgHourlyEarnings">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Prevailing wage rate for job described above</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Prevailing wage rate for job described above</label>
-                <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
-                  <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.prevailingWage">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Productivity measure/rating for job described above</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Productivity measure/rating for job described above</label>
-                <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
-  
-                  <ul class="usa-unstyled-list">
-                    <li>
-                      <input id="workerProductivityNA" type="radio" name="workerProductivityToggle" ng-value="undefined" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged()">
-                      <label for="workerProductivityNA">n/a - piece rate</label>
-                    </li>
-                    <li>
-                      <input id="workerProductivityStudy" type="radio" name="workerProductivityToggle" ng-value="true" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged(true)">
-                      <label for="workerProductivityStudy">hourly,</label>
-                    </li>
-                  </ul>
-  
-                  <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure" ng-disabled="!vm.activeWorker.hasProductivityMeasure">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Commensurate wage rate/average earnings per hour for job described above</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Commensurate wage rate/average earnings per hour for job described above</label>
-                <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
-                  <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.commensurateWageRate">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Total hours worked for job described above</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Total hours worked for job described above</label>
-                <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
-                  <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.totalHours">
-                </div>
-              </div>
-  
-              <div class="form-question-text">Does worker perform work for this employer at any other work site?</div>
-              <div class="form-question-answer">
-                <label for="workerNumJobs" class="hide">Does worker perform work for this employer at any other work site?</label>
-                <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workAtOtherSite')">{{ vm.validateActiveWorkerProperty('workAtOtherSite') }}</span>
-                  <ul class="usa-unstyled-list">
-                    <li>
-                      <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" ng-value="true" ng-model="vm.activeWorker.workAtOtherSite">
-                      <label for="workerOtherSiteYes">Yes</label>
-                    </li>
-                    <li>
-                      <input id="workerOtherSiteNo" type="radio" name="workerOtherSite" ng-value="false" ng-model="vm.activeWorker.workAtOtherSite">
-                      <label for="workerOtherSiteNo">No</label>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-  
-  
-            <div class="clearer">
-              <button class="compact-spaced pull-right" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
-              <div class="clearer"></div>
-              <hr>
-              <button class="green-button pull-right dol-last-focus" ng-click="vm.doneAddingEmployees($event)">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
-            </div>
+        <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
+          <label for="workerName">Full Name of Worker</label>
+          <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
+          <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
+        </div>
 
-        </div> <!-- cd-panel-content -->
-      </div> <!-- cd-panel-container -->
-    </div> <!-- cd-panel -->
+        <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('workType') ? 'usa-input-error' : ''">
+          <label for="workType">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</label>
+          <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
+          <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
+        </div>
+
+        <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('primaryDisabilityId') ? 'usa-input-error' : ''">
+          <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">          
+            <legend>Primary disability that affects productivity for job described above. Pick only one.</legend>
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
+            <ul class="usa-unstyled-list">
+              <li ng-repeat="response in responses.PrimaryDisability">
+                <input id="primaryDisability_{{ response.id }}" type="radio" name="primaryDisability" ng-value="{{ response.id }}" ng-model="vm.activeWorker.primaryDisabilityId">
+                <label for="primaryDisability_{{ response.id }}">{{ response.display }}</label>
+                <label for="primaryDisabilityOther" class="hide">Primary disability (other)</label>
+                <input id="primaryDisabilityOther" name="primaryDisabilityOther" type="text" ng-model="vm.activeWorker[response.otherValueKey]" ng-if="response.otherValueKey">              
+              </li>
+            </ul>
+          </fieldset>
+        </div>
+
+        <fieldset class="dol-form-question-block">
+          <legend class="dol-form-question-text no-margin">Wage Data</legend>
+
+          <label for="workerNumJobs">How many jobs did this worker perform at this work site?</label>
+          <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
+            <input id="workerNumJobs" name="workerNumJobs" type="number" class="wage-rate" min="0" step="1" ng-model="vm.activeWorker.numJobs">
+          </div>
+
+          <label for="workerAvgHours">Average # of hours worked per week on all jobs at this work site</label>
+          <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
+            <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgWeeklyHours">
+          </div>
+
+          <label for="workerAvgEarnings">Average earnings per hour for all jobs at this work site</label>
+          <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
+            <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgHourlyEarnings">
+          </div>
+
+          <label for="workerWage">Prevailing wage rate for job described above</label>
+          <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
+            <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.prevailingWage">
+          </div>
+
+          <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
+            <legend>Productivity measure/rating for job described above</legend>
+            <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
+              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
+              <ul class="usa-unstyled-list">
+                <li>
+                  <input id="workerProductivityNA" type="radio" name="workerProductivityToggle" ng-value="undefined" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged()">
+                  <label for="workerProductivityNA">n/a - piece rate</label>
+                </li>
+                <li>
+                  <input id="workerProductivityStudy" type="radio" name="workerProductivityToggle" ng-value="true" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged(true)">
+                  <label for="workerProductivityStudy">hourly,</label>
+                </li>
+              </ul>
+              <label for="workerProductivity" class="hide">Hourly measure/rating</label>
+              <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure" ng-disabled="!vm.activeWorker.hasProductivityMeasure">
+            </div>
+          </fieldset>
+
+          <label for="workerWageRate">Commensurate wage rate/average earnings per hour for job described above</label>
+          <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
+            <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.commensurateWageRate">
+          </div>
+
+          <label for="workerHours">Total hours worked for job described above</label>
+          <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
+            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
+            <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.totalHours">
+          </div>
+
+          <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
+            <legend>Does worker perform work for this employer at any other work site?</legend>
+            <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
+              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workAtOtherSite')">{{ vm.validateActiveWorkerProperty('workAtOtherSite') }}</span>
+              <ul class="usa-unstyled-list">
+                <li>
+                  <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" ng-value="true" ng-model="vm.activeWorker.workAtOtherSite">
+                  <label for="workerOtherSiteYes">Yes</label>
+                </li>
+                <li>
+                  <input id="workerOtherSiteNo" type="radio" name="workerOtherSite" ng-value="false" ng-model="vm.activeWorker.workAtOtherSite">
+                  <label for="workerOtherSiteNo">No</label>
+                </li>
+              </ul>
+            </div>
+          </fieldset>
+
+        </fieldset>
+
+        <div class="clearer dol-add-employee-footer">
+          <button class="no-margin" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
+          <hr>
+          <button class="green-button dol-last-focus no-margin" ng-click="vm.doneAddingEmployees($event)">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
+        </div>
+
+      </div> <!-- cd-panel-content -->
+    </div> <!-- cd-panel-container -->
+  </div> <!-- cd-panel -->
 </div>

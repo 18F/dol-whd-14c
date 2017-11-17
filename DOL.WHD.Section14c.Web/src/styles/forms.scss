@@ -48,6 +48,47 @@
     }
   }
 
+  // Work Site / Employees
+
+  .need-help {
+    float: right;
+    width: 40%;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: #ffffff;
+  }
+
+  .worksite-employee-help {
+    height: 100px;
+    padding: 2.5rem;
+    background-color: #ebebeb;
+    p {
+      float:left;
+      width: 50%;
+      margin-right: 40px;
+    }
+  }
+
+  .worksite-title {
+    height: 60px;
+    padding: 2.5rem;
+    background-color: #333;
+    h3 {
+      margin-bottom: 0;
+    }
+
+    h4 {
+      margin-top: 4px;
+      width: 256px;
+      height: 20px;
+      font-family: Arial;
+      font-size: 20px;
+      color: #ffffff;
+      text-decoration: none solid rgb(255, 255, 255);
+      line-height: 20px;
+    }
+  }
+
 }
 
 // Section title and global Help toggle
@@ -256,6 +297,17 @@ fieldset > div:first-of-type {
   }
 }
 
+// Legend that looks like a plain label (instead of form question)
+fieldset.dol-legend-plain {
+  margin-top: 3rem;  
+
+  legend {
+    font-size: 1.7rem;
+    font-weight: normal;   
+    margin-bottom: 10px;
+  }
+}
+
 // Example text
 input.dol-side-example, div.dol-side-example {
   display: inline-block;
@@ -391,6 +443,12 @@ h4#helpfulLinksHeader {
       text-decoration: none;
     }
   }
+}
+
+// Add Employee Footer
+
+.dol-add-employee-footer {
+  margin-top: 30px;
 }
 
 
@@ -669,44 +727,7 @@ span.example {
       max-width: none;
     }
 
-    .need-help {
-      float: right;
-      width: 40%;
-      padding: 10px;
-      border: 1px solid black;
-      background-color: #ffffff;
-    }
-
-    .worksite-employee-help {
-      height: 100px;
-      padding: 2.5rem;
-      background-color: #ebebeb;
-      p {
-        float:left;
-        width: 50%;
-        margin-right: 40px;
-      }
-    }
-
-    .worksite-title {
-      height: 60px;
-      padding: 2.5rem;
-      background-color: #333;
-      h3 {
-        margin-bottom: 0;
-      }
-
-      h4 {
-        margin-top: 4px;
-        width: 256px;
-        height: 20px;
-        font-family: Arial;
-        font-size: 20px;
-        color: #ffffff;
-        text-decoration: none solid rgb(255, 255, 255);
-        line-height: 20px;
-      }
-    }
+   
 
     .wage-data-table li > input[type='radio'] {
       width: auto;
