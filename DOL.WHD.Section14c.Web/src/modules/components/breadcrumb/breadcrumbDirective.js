@@ -11,9 +11,11 @@ module.exports = function(ngModule) {
       },
       controller: ['$scope', '$location', 'crumble', function($scope, $location, crumble) {
         var section = $location.$$path.split('/section/')[1];
-        var route = section.charAt(0).toUpperCase() + section.slice(1);
-        crumble.context = {name: route};
-        crumble.update()
+        if(section) {
+          var route = section.charAt(0).toUpperCase() + section.slice(1);
+          crumble.context = {name: route};
+          crumble.update()
+        }
         $scope.crumbs = crumble.trail;
       }],
       link: function(scope) {
