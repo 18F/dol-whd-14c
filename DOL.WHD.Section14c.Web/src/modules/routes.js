@@ -20,112 +20,84 @@ module.exports = function (app) {
       .when('/', {
         controller: 'landingPageController',
         reloadOnSearch: false,
-        template: require('./pages/landingPageTemplate.html'),
+        templateUrl: './pages/landingPageTemplate.html',
         access: ROUTE_PUBLIC,
         isLanding: true,
         label: 'Home'
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
-        template: require('./pages/changePasswordPageTemplate.html'),
+        templateUrl: './pages/changePasswordPageTemplate.html',
         access: ROUTE_PUBLIC,
         label: 'Change Password',
         parent: '/'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
-        template: require('./pages/forgotPasswordPageTemplate.html'),
+        templateUrl: './pages/forgotPasswordPageTemplate.html',
         access: ROUTE_PUBLIC,
         label: 'Forgot Password',
         parent: '/'
       })
       .when('/login', {
         controller: 'userLoginPageController',
-        template: require('./pages/userLoginPageTemplate.html'),
+        templateUrl: './pages/userLoginPageTemplate.html',
         access: ROUTE_PUBLIC
       })
       .when('/register', {
         controller: 'userRegistrationPageController',
-        template: require('./pages/userRegistrationPageTemplate.html'),
+        templateUrl: './pages/userRegistrationPageTemplate.html',
         access: ROUTE_PUBLIC
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
-        template: require('./pages/accountPageTemplate.html'),
+        templateUrl: './pages/accountPageTemplate.html',
         access: ROUTE_LOGGEDIN
       })
       .when('/section/assurances', {
-        template: function(params) {
-          return (
-            '<form-section><section-assurances></section-assurances></form-section>'
-          );
-        },
+        template: '<form-section><section-assurances></section-assurances></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Assurances',
         parent:'/'
       })
       .when('/section/app-info', {
-        template: function(params) {
-          return (
-            '<form-section><section-app-info></section-app-info></form-section>'
-          );
-        },
+        template: '<form-section><section-app-info></section-app-info></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Application Info',
         parent:'/section/assurances'
       })
       .when('/section/employer', {
-        template: function(params) {
-          return (
-            '<form-section><section-employer></section-employer></form-section>'
-          );
-        },
+        template: '<form-section><section-employer></section-employer></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Employer',
         parent:'/section/app-info'
       })
       .when('/section/wage-data', {
-        template: function(params) {
-          return (
-            '<form-section><section-wage-data></section-wage-data></form-section>'
-          );
-        },
+        template: '<form-section><section-wage-data></section-wage-data></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Wage Data',
         parent:'/section/employer'
       })
       .when('/section/work-sites', {
-        template: function(params) {
-          return (
-            '<form-section><section-work-sites></section-work-sites></form-section>'
-          );
-        },
+        template: '<form-section><section-work-sites></section-work-sites></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Work Sites & Employees',
         parent:'/section/wage-data'
       })
       .when('/section/wioa', {
-        template: function(params) {
-          return (
-            '<form-section><section-wioa></section-wioa></form-section>'
-          );
-        },
+        template: '<form-section><section-wioa></section-wioa></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: WIOA',
         parent:'/section/work-sites'
       })
       .when('/section/review', {
-        template: function(params) {
-          return (
-            '<form-section><section-review></section-review></form-section>'
-          );
-        },
+        template: '<form-section><section-review></section-review></form-section>',
         reloadOnSearch: false,
         access: ROUTE_USER,
         label: 'Section: Review',
@@ -133,12 +105,12 @@ module.exports = function (app) {
       })
       .when('/admin', {
         controller: 'adminDashboardController',
-        template: require('./pages/adminDashboardTemplate.html'),
+        templateUrl: './pages/adminDashboardTemplate.html',
         access: ROUTE_ADMIN
       })
       .when('/admin/users', {
         controller: 'userManagementPageController',
-        template: require('./pages/userManagementPageTemplate.html'),
+        templateUrl: './pages/userManagementPageTemplate.html',
         access: ROUTE_ADMIN
       })
       .when('/admin/:app_id', {
