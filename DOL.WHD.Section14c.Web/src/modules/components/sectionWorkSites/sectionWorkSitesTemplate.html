@@ -152,18 +152,18 @@
   <!-- Tab 2 (Add Employees) -->
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
     <!-- ID for tab panel focus. -->
-    <div class="worksite-title" id="employeesTabPanel" tabindex="-1">
+    <div class="dol-worksite-title" id="employeesTabPanel" tabindex="-1">
       <h3 ng-if="!!vm.activeWorksite.name">{{ vm.activeWorksite.name }}</h3>
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
-    <div class="worksite-employee-help">
-      <p>We’ll need collect specific information for each employee. <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp">See detailed instructions on employee information</a></p>
-      <div class="need-help">
-        <img src="/images/chat-icon.svg"/> Need Help? Email us: <a href="">help-14c@dol.gov</a>
+    <div class="dol-worksite-employee-help">
+      <p>We’ll need collect specific information for each employee. 
+        <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">See detailed instructions on employee information</a></p>
+      <div class="dol-help-callout">
+        Need Help? Email us: <a href="mailto:help-14c@dol.gov">help-14c@dol.gov</a>
       </div>
     </div>
-
-    <div class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
+    <div id="helpEmployeeInfo" class="dol-help-employee-info" ng-show="vm.showEmployeeInfoHelp">
       <ul>
         <li>
           <span>Name of worker</span>
@@ -230,20 +230,18 @@
       </ul>
     </div>
 
-
-
-    <div class="form-question-group">
+    <div class="dol-form-question-group">
       <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
-        <div>
-          <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
-          <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
-          <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
-          </div>
-          <div ng-show="vm.activeWorksite.employees.length > 0" class="container">
-            <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
-          </div>
+
+        <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
+        <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
+        <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
         </div>
+        <div ng-show="vm.activeWorksite.employees.length > 0" class="container">
+          <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
+        </div>
+
       </div>
     </div>
 

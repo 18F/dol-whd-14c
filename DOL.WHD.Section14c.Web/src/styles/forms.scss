@@ -48,46 +48,9 @@
     }
   }
 
-  // Work Site / Employees
-
-  .need-help {
-    float: right;
-    width: 40%;
-    padding: 10px;
-    border: 1px solid black;
-    background-color: #ffffff;
-  }
-
-  .worksite-employee-help {
-    height: 100px;
-    padding: 2.5rem;
-    background-color: #ebebeb;
-    p {
-      float:left;
-      width: 50%;
-      margin-right: 40px;
-    }
-  }
-
-  .worksite-title {
-    height: 60px;
-    padding: 2.5rem;
-    background-color: #333;
-    h3 {
-      margin-bottom: 0;
-    }
-
-    h4 {
-      margin-top: 4px;
-      width: 256px;
-      height: 20px;
-      font-family: Arial;
-      font-size: 20px;
-      color: #ffffff;
-      text-decoration: none solid rgb(255, 255, 255);
-      line-height: 20px;
-    }
-  }
+  .form-spaced-div {
+    margin-top: 40px;
+  }  
 
 }
 
@@ -445,11 +408,6 @@ h4#helpfulLinksHeader {
   }
 }
 
-// Add Employee Footer
-
-.dol-add-employee-footer {
-  margin-top: 30px;
-}
 
 
 @media (max-width: 37.5em) {
@@ -462,13 +420,64 @@ h4#helpfulLinksHeader {
   }
 }
 
-
 .dol-form-question-group {
   &:not(:first-of-type),
   &.force-margin {
     margin-top: 40px;
   }
 }
+
+// Work Sites and Employees
+.dol-worksite-title {
+  padding: 1.5rem 2.5rem;
+  background-color: #333;
+  color: #ffffff;
+
+  h4 {
+    font-size: 2.4rem;
+    font-weight: normal;
+    margin: 0;
+  }  
+
+  h3 {
+    margin: 0 0 10px 0;
+
+    + h4 {
+      font-size: 2.0rem;
+    }
+  }
+
+}
+
+.dol-worksite-employee-help {
+  @extend .clearer;
+  padding: 2.5rem;
+  background-color: #ebebeb;
+  p {
+    margin: 0 0 10px 0;
+  }
+}
+
+@media (min-width: 940px) {
+  .dol-worksite-employee-help {
+    p {
+      float: left;
+      width: 48%;
+      margin: 0;
+    }
+    .dol-help-callout {
+      float: right;
+      width: 48%;    
+    }
+  }
+}
+
+
+
+.dol-add-employee-footer {
+  margin-top: 30px;
+}
+
 
 // ----- end NEW CSS RULES
 

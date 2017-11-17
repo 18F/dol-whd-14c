@@ -114,3 +114,25 @@ button + .green-button {
 .no-margin {
   margin: 0 !important;
 }
+
+// Help Callout
+
+.dol-help-callout {
+  position: relative;
+  padding: 10px 10px 10px 70px;
+  border: 1px solid #afafaf;
+  background-color: #ffffff;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    width: 60px;
+    background: $color-primary url('../images/chat-icon.png') 12px 4px no-repeat;
+    background: #224687 url(../images/chat-icon.svg) 12px 4px no-repeat;
+    background-size: 34px 34px;
+  }
+
+}
