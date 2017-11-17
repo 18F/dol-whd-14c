@@ -18,8 +18,16 @@ namespace DOL.WHD.Section14c.Business.Services
         /// <summary>
         /// Prepare Email Contents from html template
         /// </summary>
-        /// <param name="emailContents"></param>
-        /// <returns></returns>
+        /// <param name="application">
+        /// Application Data
+        /// </param>
+        /// <param name="htmlString">
+        /// Email template string
+        /// </param>
+        /// <param name="receiver">
+        /// Email receiver
+        /// </param>
+        /// <returns>Key and value pair of the receiver and content</returns>
         public Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string htmlString, EmailReceiver receiver)
         {
             htmlString = ProcessApplicationData(application, htmlString);
@@ -38,8 +46,13 @@ namespace DOL.WHD.Section14c.Business.Services
         /// <summary>
         /// Get Email contents from html template string
         /// </summary>
-        /// <param name="htmlString"></param>
-        /// <returns></returns>
+        /// <param name="htmlString">
+        /// Email template
+        /// </param>
+        /// <param name="tagName">
+        /// Html tag
+        /// </param>
+        /// <returns>Email content object</returns>
         private static EmailContent ParseEmailContent(string htmlString, string tagName)
         {
             EmailContent content = new EmailContent();
@@ -65,12 +78,15 @@ namespace DOL.WHD.Section14c.Business.Services
         }
 
         /// <summary>
-        /// Replace key with value
+        /// Process email template 
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="application">
+        /// Application Data
+        /// </param>
+        /// <param name="htmlString">
+        /// Email Template
+        /// </param>
+        /// <returns>Template string the application data</returns>
         private static string ProcessApplicationData(ApplicationSubmission application, string htmlString)
         {
             Handlebars.RegisterHelper("certificationTeamEmailAddress", (writer, context, parameters) =>
@@ -85,10 +101,6 @@ namespace DOL.WHD.Section14c.Business.Services
                     DateTime dateTime = (DateTime)parameters[0];
                     writer.WriteSafeString(dateTime.ToString("d"));
                 }
-            });
-            Handlebars.RegisterHelper("newline", (writer, context, parameters) =>
-            {
-                writer.WriteSafeString(Environment.NewLine);
             });
 
             var template = Handlebars.Compile(htmlString);

@@ -9,8 +9,24 @@ using DOL.WHD.Section14c.Business.Helper;
 
 namespace DOL.WHD.Section14c.Business
 {
+    /// <summary>
+    /// Email Service Interface
+    /// </summary>
     public interface IEmailService
     {
+        /// <summary>
+        /// Prepare Email Contents
+        /// </summary>
+        /// <param name="application">
+        /// Application Data
+        /// </param>
+        /// <param name="emailContents">
+        /// Html Email Template
+        /// </param>
+        /// <param name="receiver">
+        /// Email receivers
+        /// </param>
+        /// <returns></returns>
         Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string emailContents, EmailReceiver receiver);
     }
 }

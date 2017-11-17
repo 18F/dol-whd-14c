@@ -5,6 +5,9 @@ using System.Reflection;
 
 namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 {
+    /// <summary>
+    /// 
+    /// </summary>
     internal static class ModelNameHelper
     {
         // Modify this to provide custom model name mapping.

@@ -9,6 +9,9 @@ using System.IO;
 
 namespace DOL.WHD.Section14c.EmailApi.Business
 {
+     /// <summary>
+     /// Email Service
+     /// </summary>
     public class EmailService: IEmailService
     {
         private SmtpClient _smtpClient;
@@ -24,8 +27,11 @@ namespace DOL.WHD.Section14c.EmailApi.Business
         /// <summary>
         /// Send Email
         /// </summary>
-        /// <param name="emailContent"></param>
-        /// <returns></returns>
+        /// <param name="emailContent">
+        /// Email Content object. it includes the following: 
+        /// Email To,Email CC,Email subject,Email body,Email attachment
+        /// </param>
+        /// <returns>boolean success or fail</returns>
         public bool SendEmail(EmailContent emailContent)
         {
             bool success = true;
@@ -55,9 +61,9 @@ namespace DOL.WHD.Section14c.EmailApi.Business
                     mailMessage.Body = emailContent.Body;
                     
                     // Get Attachments
-                    if (emailContent.attachments != null)
+                    if (emailContent.Attachments != null)
                     {
-                        foreach (var KeyValuePair in emailContent.attachments)
+                        foreach (var KeyValuePair in emailContent.Attachments)
                         {
                             var fileName = KeyValuePair.Key;
                             var buffer = KeyValuePair.Value;

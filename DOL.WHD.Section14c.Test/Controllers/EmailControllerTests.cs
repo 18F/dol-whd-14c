@@ -12,6 +12,7 @@ using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
 using System.Net;
 using System.Web.Http;
+using Moq;
 
 namespace DOL.WHD.Section14c.EmailApi.Controllers.Tests
 {
@@ -19,36 +20,38 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers.Tests
     public class EmailControllerTests
     {
 
-        private IEmailService _emailService;
+        //private IEmailService _emailService;
         private EmailController _emailController;
         private EmailContent _emailContent;
 
         [TestInitialize]
         public void Initialize()
         {
-            string testEmailPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestEmails"));
-            if (!System.IO.Directory.Exists(testEmailPath))
-                System.IO.Directory.CreateDirectory(testEmailPath);
+            //string testEmailPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestEmails"));
+            //if (!System.IO.Directory.Exists(testEmailPath))
+            //    System.IO.Directory.CreateDirectory(testEmailPath);
 
-            SmtpClient client = new SmtpClient()
-            {
-                PickupDirectoryLocation = testEmailPath
-            };
+            //SmtpClient client = new SmtpClient()
+            //{
+            //    PickupDirectoryLocation = testEmailPath
+            //};
 
-            _emailService = new EmailService(client);
+            //_emailService = new EmailService(client);
 
             _emailContent = new EmailContent();
             _emailContent.To = "test@test.com;test2@test.com";
             _emailContent.Subject = "My Test Subject";
             _emailContent.Body = "My Test Body";
 
-            var testFileContents = "test";
-            var data = Encoding.ASCII.GetBytes(testFileContents);
-            Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>();
-            attachments.Add("test.txt", data);
-            _emailContent.attachments = attachments;
+            //var testFileContents = "test";
+            //var data = Encoding.ASCII.GetBytes(testFileContents);
+            //Dictionary<string, byte[]> attachments = new Dictionary<string, byte[]>();
+            //attachments.Add("test.txt", data);
+            //_emailContent.Attachments = attachments;
 
-            _emailController = new EmailController(_emailService);
+
+            var _emailServiceMock = new Mock<IEmailService>();
+            _emailController = new EmailController(_emailServiceMock.Object);
         }
 
         [TestMethod()]
@@ -56,7 +59,7 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers.Tests
         {
             IHttpActionResult result = _emailController.SendEmail(_emailContent);
             var contentResult = result as OkNegotiatedContentResult<Boolean>;
-            Assert.IsTrue(contentResult.Content);
+            Assert.IsFalse(contentResult.Content);
         }
 
         [TestMethod()]

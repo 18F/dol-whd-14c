@@ -6,9 +6,14 @@ using System.Web.Http;
 
 namespace DOL.WHD.Section14c.EmailApi.App_Start
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     public class DependencyResolutionConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Register()
         {
             // Create the container as usual.

@@ -72,6 +72,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
                 EmployerInfo employer = new EmployerInfo
                 {
+                    SCAAttachmentId ="1234567890",
                     SCAAttachment = sCAAttachment,
                     PhysicalAddress = address,
                     TemporaryAuthority = true,
@@ -82,17 +83,21 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 ICollection<SourceEmployer> sourceEmployer = new List<SourceEmployer> { sEmployee };
                 PrevailingWageSurveyInfo prevailingWageSurveyInfo = new PrevailingWageSurveyInfo
                 {
+                    AttachmentId = "1234567890",
                     Attachment = mostRecentPrevailingWageSurveyAttachment,
                     SourceEmployers = sourceEmployer
                 };
                 PieceRateWageInfo pieceRateWageInfo = new PieceRateWageInfo
                 {
+                    AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
+                    SCAWageDeterminationAttachmentId = "1234567890",
                     SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };
                 HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
                 {
+                    AttachmentId = "1234567890",
                     Attachment = hourlyWageInfoAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
                     SCAWageDeterminationAttachment = sCAWageDeterminationAttachment

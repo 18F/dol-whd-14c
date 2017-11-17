@@ -16,6 +16,9 @@ using DOL.WHD.Section14c.EmailApi.Areas.HelpPage.Models;
 
 namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class HelpPageConfigurationExtensions
     {
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";
@@ -233,7 +236,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return (HelpPageApiModel)model;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiDescription"></param>
+        /// <param name="config"></param>
+        /// <returns></returns>
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
             HelpPageApiModel apiModel = new HelpPageApiModel()
@@ -250,7 +258,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return apiModel;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="modelGenerator"></param>
         private static void GenerateUriParameters(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -326,7 +338,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameterType"></param>
+        /// <returns></returns>
         private static bool IsBindableWithTypeConverter(Type parameterType)
         {
             if (parameterType == null)
@@ -336,7 +352,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return TypeDescriptor.GetConverter(parameterType).CanConvertFrom(typeof(string));
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="apiParameter"></param>
+        /// <param name="typeDescription"></param>
+        /// <returns></returns>
         private static ParameterDescription AddParameterDescription(HelpPageApiModel apiModel,
             ApiParameterDescription apiParameter, ModelDescription typeDescription)
         {
@@ -350,7 +372,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             apiModel.UriParameters.Add(parameterDescription);
             return parameterDescription;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="modelGenerator"></param>
+        /// <param name="sampleGenerator"></param>
         private static void GenerateRequestModelDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator, HelpPageSampleGenerator sampleGenerator)
         {
             ApiDescription apiDescription = apiModel.ApiDescription;
@@ -374,7 +401,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="modelGenerator"></param>
         private static void GenerateResourceDescription(HelpPageApiModel apiModel, ModelDescriptionGenerator modelGenerator)
         {
             ResponseDescription response = apiModel.ApiDescription.ResponseDescription;
@@ -384,7 +415,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 apiModel.ResourceDescription = modelGenerator.GetOrCreateModelDescription(responseType);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="sampleGenerator"></param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as ErrorMessages.")]
         private static void GenerateSamples(HelpPageApiModel apiModel, HelpPageSampleGenerator sampleGenerator)
         {
@@ -409,7 +444,14 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                     HelpPageSampleGenerator.UnwrapException(e).Message));
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiDescription"></param>
+        /// <param name="config"></param>
+        /// <param name="parameterDescription"></param>
+        /// <param name="resourceType"></param>
+        /// <returns></returns>
         private static bool TryGetResourceParameter(ApiDescription apiDescription, HttpConfiguration config, out ApiParameterDescription parameterDescription, out Type resourceType)
         {
             parameterDescription = apiDescription.ParameterDescriptions.FirstOrDefault(
@@ -438,7 +480,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return true;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
         private static ModelDescriptionGenerator InitializeModelDescriptionGenerator(HttpConfiguration config)
         {
             ModelDescriptionGenerator modelGenerator = new ModelDescriptionGenerator(config);
@@ -454,7 +500,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             }
             return modelGenerator;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="apiModel"></param>
+        /// <param name="sample"></param>
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)
         {
             InvalidSample invalidSample = sample as InvalidSample;

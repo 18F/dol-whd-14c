@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
         public EmailServiceTests()
         {
             string testEmailPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestEmails"));
-            if(!System.IO.Directory.Exists(testEmailPath))
+            if (!System.IO.Directory.Exists(testEmailPath))
                 System.IO.Directory.CreateDirectory(testEmailPath);
 
             SmtpClient client = new SmtpClient()
@@ -47,7 +47,7 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
                 {"test.txt", data }
             };
 
-            emailContent.attachments = attachments;
+            emailContent.Attachments = attachments;
 
             var result = _emailService.SendEmail(emailContent);
             Assert.IsTrue(result);
@@ -68,9 +68,16 @@ namespace DOL.WHD.Section14c.EmailApi.Business.Tests
                 {"test.txt", data }
             };
 
-            emailContent.attachments = attachments;            
+            emailContent.Attachments = attachments;
 
             var result = _emailService.SendEmail(emailContent);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public void SendEmail_NullException_Test()
+        {
+            var result = _emailService.SendEmail(null);
         }
     }
 }

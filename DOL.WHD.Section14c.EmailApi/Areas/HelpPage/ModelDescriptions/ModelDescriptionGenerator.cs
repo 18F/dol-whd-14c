@@ -96,9 +96,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
             _documentationProvider = new Lazy<IModelDocumentationProvider>(() => config.Services.GetDocumentationProvider() as IModelDocumentationProvider);
             GeneratedModels = new Dictionary<string, ModelDescription>(StringComparer.OrdinalIgnoreCase);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<string, ModelDescription> GeneratedModels { get; private set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private IModelDocumentationProvider DocumentationProvider
         {
             get
@@ -106,7 +110,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
                 return _documentationProvider.Value;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
         public ModelDescription GetOrCreateModelDescription(Type modelType)
         {
             if (modelType == null)
@@ -221,7 +229,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 
             return member.Name;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <param name="hasDataContractAttribute"></param>
+        /// <returns></returns>
         private static bool ShouldDisplayMember(MemberInfo member, bool hasDataContractAttribute)
         {
             JsonIgnoreAttribute jsonIgnore = member.GetCustomAttribute<JsonIgnoreAttribute>();
@@ -248,7 +261,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
                 (apiExplorerSetting == null || !apiExplorerSetting.IgnoreApi) &&
                 (!hasDataContractAttribute || hasMemberAttribute);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private string CreateDefaultDocumentation(Type type)
         {
             string documentation;
@@ -263,7 +280,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 
             return documentation;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="propertyModel"></param>
         private void GenerateAnnotations(MemberInfo property, ParameterDescription propertyModel)
         {
             List<ParameterAnnotation> annotations = new List<ParameterAnnotation>();
@@ -305,7 +326,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
                 propertyModel.Annotations.Add(annotation);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="elementType"></param>
+        /// <returns></returns>
         private CollectionModelDescription GenerateCollectionModelDescription(Type modelType, Type elementType)
         {
             ModelDescription collectionModelDescription = GetOrCreateModelDescription(elementType);
@@ -321,7 +347,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
         private ModelDescription GenerateComplexTypeModelDescription(Type modelType)
         {
             ComplexTypeModelDescription complexModelDescription = new ComplexTypeModelDescription
@@ -376,7 +406,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 
             return complexModelDescription;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="keyType"></param>
+        /// <param name="valueType"></param>
+        /// <returns></returns>
         private DictionaryModelDescription GenerateDictionaryModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
@@ -390,7 +426,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
                 ValueModelDescription = valueModelDescription
             };
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
         private EnumTypeModelDescription GenerateEnumTypeModelDescription(Type modelType)
         {
             EnumTypeModelDescription enumDescription = new EnumTypeModelDescription
@@ -420,7 +460,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
 
             return enumDescription;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <param name="keyType"></param>
+        /// <param name="valueType"></param>
+        /// <returns></returns>
         private KeyValuePairModelDescription GenerateKeyValuePairModelDescription(Type modelType, Type keyType, Type valueType)
         {
             ModelDescription keyModelDescription = GetOrCreateModelDescription(keyType);
@@ -434,7 +480,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
                 ValueModelDescription = valueModelDescription
             };
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelType"></param>
+        /// <returns></returns>
         private ModelDescription GenerateSimpleTypeModelDescription(Type modelType)
         {
             SimpleTypeModelDescription simpleModelDescription = new SimpleTypeModelDescription

@@ -5,8 +5,15 @@ using System.Web.Http;
 
 namespace DOL.WHD.Section14c.EmailApi
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support

@@ -371,7 +371,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             ObjectGenerator objectGenerator = new ObjectGenerator();
             return objectGenerator.GenerateObject(type);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Handling the failure by returning the original string.")]
         private static string TryFormatJson(string str)
         {
@@ -386,7 +390,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 return str;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Handling the failure by returning the original string.")]
         private static string TryFormatXml(string str)
         {
@@ -401,7 +409,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 return str;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sampleDirection"></param>
+        /// <param name="formatter"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static bool IsFormatSupported(SampleDirection sampleDirection, MediaTypeFormatter formatter, Type type)
         {
             switch (sampleDirection)
@@ -413,7 +427,14 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             }
             return false;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="controllerName"></param>
+        /// <param name="actionName"></param>
+        /// <param name="parameterNames"></param>
+        /// <param name="sampleDirection"></param>
+        /// <returns></returns>
         private IEnumerable<KeyValuePair<HelpPageSampleKey, object>> GetAllActionSamples(string controllerName, string actionName, IEnumerable<string> parameterNames, SampleDirection sampleDirection)
         {
             HashSet<string> parameterNamesSet = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
@@ -429,7 +450,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sample"></param>
+        /// <returns></returns>
         private static object WrapSampleIfString(object sample)
         {
             string stringSample = sample as string;

@@ -34,7 +34,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
         {
             return GenerateObject(type, new Dictionary<Type, object>());
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Here we just want to return null if anything goes wrong.")]
         private object GenerateObject(Type type, Dictionary<Type, object> createdObjectReferences)
         {
@@ -100,7 +105,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="collectionSize"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateGenericType(Type type, int collectionSize, Dictionary<Type, object> createdObjectReferences)
         {
             Type genericTypeDefinition = type.GetGenericTypeDefinition();
@@ -164,7 +175,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateTuple(Type type, Dictionary<Type, object> createdObjectReferences)
         {
             Type[] genericArgs = type.GetGenericArguments();
@@ -183,7 +199,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             object result = Activator.CreateInstance(type, parameterValues);
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="genericTypeDefinition"></param>
+        /// <returns></returns>
         private static bool IsTuple(Type genericTypeDefinition)
         {
             return genericTypeDefinition == typeof(Tuple<>) ||
@@ -195,7 +215,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 genericTypeDefinition == typeof(Tuple<,,,,,,>) ||
                 genericTypeDefinition == typeof(Tuple<,,,,,,,>);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="keyValuePairType"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateKeyValuePair(Type keyValuePairType, Dictionary<Type, object> createdObjectReferences)
         {
             Type[] genericArgs = keyValuePairType.GetGenericArguments();
@@ -212,7 +237,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             object result = Activator.CreateInstance(keyValuePairType, keyObject, valueObject);
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="arrayType"></param>
+        /// <param name="size"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateArray(Type arrayType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = arrayType.GetElementType();
@@ -233,7 +264,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dictionaryType"></param>
+        /// <param name="size"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateDictionary(Type dictionaryType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type typeK = typeof(object);
@@ -268,7 +305,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="enumType"></param>
+        /// <returns></returns>
         private static object GenerateEnum(Type enumType)
         {
             Array possibleValues = Enum.GetValues(enumType);
@@ -278,7 +319,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             }
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="queryableType"></param>
+        /// <param name="size"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateQueryable(Type queryableType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             bool isGeneric = queryableType.IsGenericType;
@@ -305,7 +352,13 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return Queryable.AsQueryable((IEnumerable)list);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="collectionType"></param>
+        /// <param name="size"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateCollection(Type collectionType, int size, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = collectionType.IsGenericType ?
@@ -329,14 +382,24 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nullableType"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateNullable(Type nullableType, Dictionary<Type, object> createdObjectReferences)
         {
             Type type = nullableType.GetGenericArguments()[0];
             ObjectGenerator objectGenerator = new ObjectGenerator();
             return objectGenerator.GenerateObject(type, createdObjectReferences);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="createdObjectReferences"></param>
+        /// <returns></returns>
         private static object GenerateComplexObject(Type type, Dictionary<Type, object> createdObjectReferences)
         {
             object result = null;
@@ -367,7 +430,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             SetPublicFields(type, result, createdObjectReferences);
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="obj"></param>
+        /// <param name="createdObjectReferences"></param>
         private static void SetPublicProperties(Type type, object obj, Dictionary<Type, object> createdObjectReferences)
         {
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -381,7 +449,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="obj"></param>
+        /// <param name="createdObjectReferences"></param>
         private static void SetPublicFields(Type type, object obj, Dictionary<Type, object> createdObjectReferences)
         {
             FieldInfo[] fields = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -392,7 +465,9 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 field.SetValue(obj, fieldValue);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         private class SimpleTypeObjectGenerator
         {
             private long _index = 0;
@@ -441,12 +516,20 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                     },
                 };
             }
-
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="type"></param>
+            /// <returns></returns>
             public static bool CanGenerateObject(Type type)
             {
                 return DefaultGenerators.ContainsKey(type);
             }
-
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="type"></param>
+            /// <returns></returns>
             public object GenerateObject(Type type)
             {
                 return DefaultGenerators[type](++_index);

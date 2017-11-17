@@ -16,9 +16,11 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers
     {
         private IEmailService _emailService;
         /// <summary>
-        /// Email Controller
+        /// Default constructor for injecting dependent services
         /// </summary>
-        /// <param name="emailService"></param>
+        /// <param name="emailService">
+        /// The email service this controller should use
+        /// </param>
         public EmailController(IEmailService emailService)
         {
             _emailService = emailService;
@@ -27,8 +29,11 @@ namespace DOL.WHD.Section14c.EmailApi.Controllers
         /// <summary>
         /// Send Email
         /// </summary>
-        /// <param name="emailContent"></param>
-        /// <returns></returns>
+        /// <param name="emailContent">
+        /// Email Content object. it includes the following: 
+        /// Email To,Email CC,Email subject,Email body,Email attachment
+        /// </param>
+        /// <returns>boolean</returns>
         [HttpPost]
         [Route("sendemail")]
         public IHttpActionResult SendEmail(EmailContent emailContent)

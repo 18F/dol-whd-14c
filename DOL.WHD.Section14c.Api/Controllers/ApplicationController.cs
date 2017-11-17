@@ -41,14 +41,30 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
-        /// <param name="identityService"></param>
-        /// <param name="applicationService"></param>
-        /// <param name="applicationSubmissionValidator"></param>
-        /// <param name="applicationSummaryFactory"></param>
-        /// <param name="statusService"></param>
-        /// <param name="saveService"></param>
-        /// <param name="attachmentService"></param>
-        /// <param name="emailService"></param>
+        /// <param name="identityService">
+        /// The identity service this controller should use
+        /// </param>
+        /// <param name="applicationService">
+        /// The application service this controller should use
+        /// </param>
+        /// <param name="applicationSubmissionValidator">
+        /// The application submission validator this controller should use
+        /// </param>
+        /// <param name="applicationSummaryFactory">
+        /// The application summary factory this controller should use
+        /// </param>
+        /// <param name="statusService">
+        /// The status service this controller should use
+        /// </param>
+        /// <param name="saveService">
+        /// The save service this controller should use
+        /// </param>
+        /// <param name="attachmentService">
+        /// The attachment service this controller should use
+        /// </param>
+        /// <param name="emailService">
+        /// The email service this controller should use
+        /// </param>
         public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailService emailService)
         {
             _identityService = identityService;
@@ -101,14 +117,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 InternalServerError("Get concatenate Pdf failed");
             }
 
-            // Calling Concatenate Web API
+            // Calling Email Web API
             var baseUri = new Uri(AppSettings.Get<string>("EmailApiBaseUrl"));
             var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
             // Get Http Client
             var httpClientInstance = MyHttpClient;
             httpClientInstance.DefaultRequestHeaders.Clear();
             httpClientInstance.DefaultRequestHeaders.ConnectionClose = false;
-            httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/pdf"));
+            httpClientInstance.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (httpClientInstance.BaseAddress != baseUri)
                 httpClientInstance.BaseAddress = baseUri;
             ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
@@ -120,7 +136,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             // Call Document Management Web API
             foreach (var content in emailContents)
             {
-                content.Value.attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
+                content.Value.Attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
                 await httpClientInstance.PostAsJsonAsync<EmailContent>("/api/email/sendemail", content.Value);
             }
 
@@ -188,15 +204,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Get Application Document
         /// </summary>
-        /// <param name="applicationId"></param>
-        /// <param name="download"></param>
+        /// <param name="applicationId">
+        /// Application GUID
+        /// </param>
         /// <returns></returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public async Task<IHttpActionResult> GetApplicationDocument(Guid applicationId)
         {
-            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            byte[] buffer = null;
             try
             {
                 // Get Application Template
@@ -221,15 +238,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<PDFContentData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
 
                 // Get return value from API call
-                var returnValue = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
+                buffer = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
 
-                if (returnValue == null)
+                if (buffer == null)
                 {
                     InternalServerError("Concatenate Pdf failed");
                 }
-
-                // This will return the pdf file byte array
-                return Ok(returnValue);
             }
             catch (Exception ex)
             {
@@ -240,15 +254,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 InternalServerError(ex.Message);
             }
-            // Replaceed Ok(Response) to fix the API response error
-            // Return exceptions and custom messages
-            return ResponseMessage(responseMessage);
+            // This will return the pdf file byte array
+            return Ok(buffer);
         }
 
         /// <summary>
         /// Download Application Documents as a single pdf file
         /// </summary>
-        /// <param name="applicationId"></param>
+        /// <param name="applicationId">
+        /// Application GUID
+        /// </param>
         /// <returns></returns>
         [HttpGet]
         [Route("download")]

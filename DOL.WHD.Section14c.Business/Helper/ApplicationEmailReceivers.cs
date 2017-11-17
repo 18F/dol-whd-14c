@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Business.Helper
 {
+    /// <summary>
+    /// flag for email receivers
+    /// </summary>
     public enum EmailReceiver
     {
         /// <summary>

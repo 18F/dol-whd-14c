@@ -10,8 +10,14 @@ using System.Web.Routing;
 
 namespace DOL.WHD.Section14c.EmailApi
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected void Application_Start()
         {
             DependencyResolutionConfig.Register();

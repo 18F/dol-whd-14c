@@ -26,8 +26,7 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
-        /// <param name="documentPath">The physical path to XML document.</param>
-
+        /// <param name="appDataPath">The physical path to XML document.</param>
         public XmlDocumentationProvider(string appDataPath)
         {
             if (appDataPath == null)
@@ -46,7 +45,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
                 }
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="selectExpression"></param>
+        /// <returns></returns>
         private XPathNavigator SelectSingleNode(string selectExpression)
         {
             foreach (var navigator in _documentNavigators)
@@ -57,19 +60,31 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             }
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="controllerDescriptor"></param>
+        /// <returns></returns>
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
         {
             XPathNavigator typeNode = GetTypeNode(controllerDescriptor.ControllerType);
             return GetTagValue(typeNode, "summary");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionDescriptor"></param>
+        /// <returns></returns>
         public virtual string GetDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "summary");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameterDescriptor"></param>
+        /// <returns></returns>
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
             ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
@@ -89,13 +104,21 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionDescriptor"></param>
+        /// <returns></returns>
         public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "returns");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public string GetDocumentation(MemberInfo member)
         {
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
@@ -105,13 +128,21 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
             XPathNavigator propertyNode = SelectSingleNode(selectExpression);
             return GetTagValue(propertyNode, "summary");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public string GetDocumentation(Type type)
         {
             XPathNavigator typeNode = GetTypeNode(type);
             return GetTagValue(typeNode, "summary");
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionDescriptor"></param>
+        /// <returns></returns>
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
@@ -123,7 +154,11 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <returns></returns>
         private static string GetMemberName(MethodInfo method)
         {
             string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
@@ -136,7 +171,12 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return name;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentNode"></param>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
         private static string GetTagValue(XPathNavigator parentNode, string tagName)
         {
             if (parentNode != null)
@@ -150,14 +190,22 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 
             return null;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private XPathNavigator GetTypeNode(Type type)
         {
             string controllerTypeName = GetTypeName(type);
             string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
             return SelectSingleNode(selectExpression);
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static string GetTypeName(Type type)
         {
             string name = type.FullName;

@@ -5,6 +5,9 @@ using System.Web.Http.Description;
 
 namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class ApiDescriptionExtensions
     {
         /// <summary>
