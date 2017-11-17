@@ -156,6 +156,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     TotalNumWorkSites = 1,
                     ContactName = "Tester",
                     ContactPhone = "123=345-1234",
+                    ContactEmail ="test@test.com"
                 };
                 applicationSubmissionCollection = new List<ApplicationSubmission>();
                 applicationSubmissionCollection.Add(applicationSubmission);

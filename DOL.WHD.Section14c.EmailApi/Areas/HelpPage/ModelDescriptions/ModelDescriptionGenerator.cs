@@ -85,7 +85,10 @@ namespace DOL.WHD.Section14c.EmailApi.Areas.HelpPage.ModelDescriptions
         };
 
         private Lazy<IModelDocumentationProvider> _documentationProvider;
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
         public ModelDescriptionGenerator(HttpConfiguration config)
         {
             if (config == null)

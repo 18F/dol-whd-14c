@@ -20,13 +20,16 @@ namespace DOL.WHD.Section14c.Business
         /// <param name="application">
         /// Application Data
         /// </param>
-        /// <param name="emailContents">
-        /// Html Email Template
+        /// <param name="certificationTeamEmailBodyTemplate">
+        /// Certification Team Email Body Template
+        /// </param>
+        /// <param name="employerEmailBodyTemplate">
+        /// Certification Team Email Body Template
         /// </param>
         /// <param name="receiver">
         /// Email receivers
         /// </param>
         /// <returns></returns>
-        Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string emailContents, EmailReceiver receiver);
+        Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string certificationTeamEmailBodyTemplate, string employerEmailBodyTemplate, EmailReceiver receiver);
     }
 }

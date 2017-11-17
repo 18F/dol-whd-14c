@@ -130,9 +130,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             ServicePointManager.FindServicePoint(baseUri).ConnectionLeaseTimeout = httpClientConnectionLeaseTimeout;
 
             // Get Email Contents
-            var emailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmailTemplate.html");
-            var emailTemplateString = File.ReadAllText(emailTemplatePath);
-            var emailContents = _emailService.PrepareApplicationEmailContents(submission, emailTemplateString, EmailReceiver.Both);
+            var certificationTeamEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/CertificationTeamEmailTemplate.txt");
+            var certificationTeamEmailTemplateString = File.ReadAllText(certificationTeamEmailTemplatePath);
+            var employerEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmployerEmailTemplate.txt");
+            var employerEmailTemplateString = File.ReadAllText(employerEmailTemplatePath);
+            var emailContents = _emailService.PrepareApplicationEmailContents(submission, certificationTeamEmailTemplateString, employerEmailTemplateString, EmailReceiver.Both);
             // Call Document Management Web API
             foreach (var content in emailContents)
             {

@@ -28,53 +28,33 @@ namespace DOL.WHD.Section14c.Business.Services
         /// Email receiver
         /// </param>
         /// <returns>Key and value pair of the receiver and content</returns>
-        public Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string htmlString, EmailReceiver receiver)
+        public Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string certificationTeamEmailBodyTemplate, string employerEmailBodyTemplate, EmailReceiver receivers)
         {
-            htmlString = ProcessApplicationData(application, htmlString);
-            var certificationEmailContents = ParseEmailContent(htmlString, Constants.CertificationTeamSection);
-            var employerEmailContents = ParseEmailContent(htmlString,Constants.EmployerSection);
-            var data = new Dictionary<string, EmailContent>();
-            // Prepare email contants based on the EmailReceiver value 
-            if (receiver == EmailReceiver.CertificationTeam || receiver == EmailReceiver.Both)
-                data.Add(Constants.CertificationEmailKey, certificationEmailContents);
-            if (receiver == EmailReceiver.Employer || receiver == EmailReceiver.Both)
-                data.Add(Constants.EmployerEmailKey, employerEmailContents);
-           
-            return data;         
-        }
+            string certificationTeamEmailBody = FillTemplate(application, certificationTeamEmailBodyTemplate);
+            string employerEmailBody = FillTemplate(application, employerEmailBodyTemplate);
+            string emailSubject = AppSettings.Get<string>("ApplicationSubmittedEmailSubject");
+            var emails = new Dictionary<string, EmailContent>();
 
-        /// <summary>
-        /// Get Email contents from html template string
-        /// </summary>
-        /// <param name="htmlString">
-        /// Email template
-        /// </param>
-        /// <param name="tagName">
-        /// Html tag
-        /// </param>
-        /// <returns>Email content object</returns>
-        private static EmailContent ParseEmailContent(string htmlString, string tagName)
-        {
-            EmailContent content = new EmailContent();
-            if (!string.IsNullOrEmpty(htmlString))
+            if (receivers == EmailReceiver.CertificationTeam || receivers == EmailReceiver.Both)
             {
-                HtmlDocument doc = new HtmlDocument();
-                doc.LoadHtml(htmlString);
-                doc.OptionFixNestedTags = true;
-
-                HtmlNode nodes = doc.DocumentNode.Descendants().FirstOrDefault(x => x.Name.ToLower() == tagName.ToLower());
-
-                foreach (HtmlNode node in nodes.Descendants())
+                emails.Add(Constants.CertificationEmailKey, new EmailContent()
                 {
-                    if(node.Name == "email-to")
-                        content.To = node.InnerHtml;
-                    if (node.Name == "email-subject")
-                        content.Subject = node.InnerHtml;
-                    if (node.Name == "email-body")
-                        content.Body = node.InnerHtml;
-                }
+                    Body = certificationTeamEmailBody,
+                    To = AppSettings.Get<string>("CertificationTeamEmailAddress"),
+                    Subject = string.Format("{0} {1}", application?.Employer?.PhysicalAddress?.State, emailSubject)
+                });
             }
-            return content;
+            if (receivers == EmailReceiver.Employer || receivers == EmailReceiver.Both)
+            {
+                emails.Add(Constants.EmployerEmailKey, new EmailContent()
+                {
+                    Body = employerEmailBody,
+                    To = application.ContactEmail,
+                    Subject = emailSubject
+                });
+            }
+
+            return emails;
         }
 
         /// <summary>
@@ -83,17 +63,12 @@ namespace DOL.WHD.Section14c.Business.Services
         /// <param name="application">
         /// Application Data
         /// </param>
-        /// <param name="htmlString">
+        /// <param name="templateText">
         /// Email Template
         /// </param>
         /// <returns>Template string the application data</returns>
-        private static string ProcessApplicationData(ApplicationSubmission application, string htmlString)
+        private static string FillTemplate(ApplicationSubmission application, string templateText)
         {
-            Handlebars.RegisterHelper("certificationTeamEmailAddress", (writer, context, parameters) =>
-            {
-                writer.WriteSafeString(AppSettings.Get<string>("CertificationTeamEmailAddress"));
-            });
-
             Handlebars.RegisterHelper("formatDateTime", (writer, context, parameters) =>
             {
                 if (parameters[0].GetType() == typeof(DateTime))
@@ -103,7 +78,7 @@ namespace DOL.WHD.Section14c.Business.Services
                 }
             });
 
-            var template = Handlebars.Compile(htmlString);
+            var template = Handlebars.Compile(templateText);
             return template(application);
         }
     }

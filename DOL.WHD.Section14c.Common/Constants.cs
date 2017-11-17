@@ -16,16 +16,6 @@ namespace DOL.WHD.Section14c.Common
         /// <summary>
         ///Certification Email key
         /// </summary>
-        public const string EmployerEmailKey = "EmployerEmail";
-
-        /// <summary>
-        /// Email template Certification Team Section
-        /// </summary>
-        public const string CertificationTeamSection = "certification-team-email-template";
-
-        /// <summary>
-        /// Email Template Employer Section
-        /// </summary>
-        public const string EmployerSection = "employer-email-template";
+        public const string EmployerEmailKey = "EmployerEmail";        
     }
 }
