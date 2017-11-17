@@ -5,7 +5,6 @@ module.exports = function(ngModule) {
     $scope,
     stateService,
     $location,
-    crumble,
     validationService
   ) {
     'ngInject';
@@ -16,6 +15,6 @@ module.exports = function(ngModule) {
 
     var vm = this;
 
-    
+
   });
 };

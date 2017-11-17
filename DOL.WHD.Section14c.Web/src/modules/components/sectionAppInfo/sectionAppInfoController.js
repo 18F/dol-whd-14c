@@ -3,8 +3,6 @@
 module.exports = function(ngModule) {
   ngModule.controller('sectionAppInfoController', function(
     $scope,
-    crumble,
-    $location,
     stateService,
     responsesService,
     validationService
