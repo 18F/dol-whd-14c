@@ -8,7 +8,6 @@ describe('sectionAssurancesController', function() {
   inject(function($route) {
 
     expect($route.routes['/'].controller).toBe('landingPageController');
-    expect($route.routes['/'].templateUrl).toEqual('./pages/landingPageTemplate.html');
     expect($route.routes['/changePassword'].templateUrl).toEqual('./pages/changePasswordPageTemplate.html');
     expect($route.routes['/changePassword'].controller).toEqual('changePasswordPageController');
     expect($route.routes['/forgotPassword'].templateUrl).toEqual('./pages/forgotPasswordPageTemplate.html');
