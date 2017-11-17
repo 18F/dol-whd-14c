@@ -16,10 +16,11 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
+    var tableId = $scope.tableId;
     $scope.data = [];
 
     this.initDatatable = function () {
-      let exampleId = $('#example');
+      let exampleId = $('#' + tableId);
       $scope.tableWidget = exampleId.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
@@ -87,13 +88,13 @@ module.exports = function(ngModule) {
 
     this.initDatatable();
 
-    $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
+    $('#' + tableId + ' tbody').on('click', 'td.edit-table-entry', function ($event) {
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.$parent.vm.editEmployee(row[0][0], $event);
     } );
 
-    $('#example tbody').on('click', 'td.delete-table-entry', function ($event) {
+    $('#' + tableId + ' tbody').on('click', 'td.delete-table-entry', function ($event) {
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.$parent.vm.deleteEmployee(row[0][0], $event);
