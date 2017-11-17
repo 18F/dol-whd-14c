@@ -37,7 +37,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IStatusService _statusService;
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
-        private readonly IEmailService _emailService;
+        private readonly IEmailContentService _emailService;
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -65,7 +65,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="emailService">
         /// The email service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailService emailService)
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService)
         {
             _identityService = identityService;
             _applicationService = applicationService;

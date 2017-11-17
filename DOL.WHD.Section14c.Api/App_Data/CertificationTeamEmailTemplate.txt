@@ -1,4 +1,12 @@
-﻿To Whom It May Concern:<br /><br />
+﻿<strong>Date Application Submitted:</strong> {{ formatDateTime Signature.Date}} <br/><br/>
+
+<strong>ER Name:</strong> {{ Employer.LegalName }} <br/><br/>
+
+<strong>ER EIN:</strong> {{ EIN }} <br/><br/>
+
+<strong>ER Address:</strong> {{ formatAddress Employer.PhysicalAddress }} <br/><br/>
+
+To Whom It May Concern:<br/><br />
 
 This email acknowledges receipt of the application for Section 14(c) Subminimum Wage Certificate, which was submitted via the Department of Labor Section 14(c) Online Certification Application and received in our office on {{ formatDateTime Signature.Date }}. A PDF copy of your submitted application is attached.<br /><br />
 
@@ -8,6 +16,6 @@ This notice does not constitute a statement of compliance by the Department of L
 
 Sincerely,<br /><br />
 
-Nicole Howard<br /> 
-Supervisory Wage and Hour Investigator<br /> 
-FLSA Certification Team 
+Nicole Howard<br />    
+Supervisory Wage and Hour Investigator<br/>      
+FLSA Certification Team  

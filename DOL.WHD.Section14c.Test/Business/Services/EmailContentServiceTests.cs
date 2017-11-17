@@ -12,9 +12,9 @@ using Moq;
 namespace DOL.WHD.Section14c.Business.Services.Tests
 {
     [TestClass()]
-    public class EmailServiceTests
+    public class EmailContentServiceTests
     {
-        private IEmailService _emailService;
+        private IEmailContentService _emailService;
         private IApplicationService _applicationServiceMock;
         private ApplicationSubmission application;
         private string certificationTeamEmailBodyTemplate;
@@ -25,7 +25,7 @@ namespace DOL.WHD.Section14c.Business.Services.Tests
         {
             _applicationServiceMock = new ApplicationServiceMock();
             application = _applicationServiceMock.GetApplicationById(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F666"));
-            _emailService = new EmailService();
+            _emailService = new EmailContentService();
             certificationTeamEmailBodyTemplate = @"email body";
             employerEmailBodyTemplate = @"Employer email body";
         }
@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Business.Services.Tests
         {
             var content = _emailService.PrepareApplicationEmailContents(application, certificationTeamEmailBodyTemplate, employerEmailBodyTemplate, Helper.EmailReceiver.Both);
             Assert.AreEqual("test@test.com", content["CertificationEmail"].To);
-            Assert.AreEqual("VA Email Subject", content["CertificationEmail"].Subject);
+            Assert.AreEqual("VA :: Email Subject", content["CertificationEmail"].Subject);
             Assert.AreEqual("email body", content["CertificationEmail"].Body);
             Assert.AreEqual("test@test.com", content["EmployerEmail"].To);
             Assert.AreEqual("Email Subject", content["EmployerEmail"].Subject);

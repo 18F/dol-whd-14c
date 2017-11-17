@@ -12,7 +12,7 @@ namespace DOL.WHD.Section14c.Business
     /// <summary>
     /// Email Service Interface
     /// </summary>
-    public interface IEmailService
+    public interface IEmailContentService
     {
         /// <summary>
         /// Prepare Email Contents

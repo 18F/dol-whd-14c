@@ -10,10 +10,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Business.Helper;
+using DOL.WHD.Section14c.Domain.Models;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
-    public class EmailService: IEmailService
+    public class EmailContentService: IEmailContentService
     {
         /// <summary>
         /// Prepare Email Contents from html template
@@ -29,9 +30,9 @@ namespace DOL.WHD.Section14c.Business.Services
         /// </param>
         /// <returns>Key and value pair of the receiver and content</returns>
         public Dictionary<string, EmailContent> PrepareApplicationEmailContents(ApplicationSubmission application, string certificationTeamEmailBodyTemplate, string employerEmailBodyTemplate, EmailReceiver receivers)
-        {
-            string certificationTeamEmailBody = FillTemplate(application, certificationTeamEmailBodyTemplate);
+        {            
             string employerEmailBody = FillTemplate(application, employerEmailBodyTemplate);
+            string certificationTeamEmailBody = FillTemplate(application, certificationTeamEmailBodyTemplate);
             string emailSubject = AppSettings.Get<string>("ApplicationSubmittedEmailSubject");
             var emails = new Dictionary<string, EmailContent>();
 
@@ -41,7 +42,7 @@ namespace DOL.WHD.Section14c.Business.Services
                 {
                     Body = certificationTeamEmailBody,
                     To = AppSettings.Get<string>("CertificationTeamEmailAddress"),
-                    Subject = string.Format("{0} {1}", application?.Employer?.PhysicalAddress?.State, emailSubject)
+                    Subject = string.Format("{0} :: {1}", application?.Employer?.PhysicalAddress?.State, emailSubject)
                 });
             }
             if (receivers == EmailReceiver.Employer || receivers == EmailReceiver.Both)
@@ -75,6 +76,15 @@ namespace DOL.WHD.Section14c.Business.Services
                 {
                     DateTime dateTime = (DateTime)parameters[0];
                     writer.WriteSafeString(dateTime.ToString("d"));
+                }
+            });
+
+            Handlebars.RegisterHelper("formatAddress", (writer, context, parameters) =>
+            {
+                if (parameters[0].GetType() == typeof(Address))
+                {
+                    Address value = (Address)parameters[0];
+                    writer.WriteSafeString($"{value.StreetAddress}, {value.City}, {value.State} {value.ZipCode}. {value.County}");
                 }
             });
 

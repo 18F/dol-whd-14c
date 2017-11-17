@@ -42,7 +42,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);            
             container.Register<IAttachmentSupportedFileTypesService, AttachmentSupportedFileTypesService>(Lifestyle.Scoped);
             container.Register<EmailApi.Business.IEmailService>(() => new EmailApi.Business.EmailService(null), Lifestyle.Scoped);
-            container.Register<Business.IEmailService, Business.Services.EmailService>(Lifestyle.Scoped);
+            container.Register<Business.IEmailContentService, Business.Services.EmailContentService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
