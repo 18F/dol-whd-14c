@@ -31,13 +31,13 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 // Create PDF file
                 if (applicationData.Type.ToLower().Contains("pdf"))
                 {
-                    outputDocument = ConcatenatePDFDocumentByBytes(outputDocument, applicationData.Buffer);
+                    outputDocument = ConcatenatePDFDocumentByBytes(outputDocument, applicationData.Buffer, applicationData.FileName);
                 }
 
                 // Create PDF image
                 if (applicationData.Type.ToLower().Contains("image"))
                 {
-                    var doc = ConcatenatePDFWithImage(applicationData.Buffer);
+                    var doc = ConcatenatePDFWithImage(applicationData.Buffer, applicationData.FileName);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
@@ -105,7 +105,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// </summary>
         /// <param name="documentContentByteArray"></param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFDocumentByBytes(PdfDocument outputDocument, byte[] buffer)
+        private static PdfDocument ConcatenatePDFDocumentByBytes(PdfDocument outputDocument, byte[] buffer, string fileName)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
@@ -121,7 +121,8 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 {
                     // Get the page from the external document...
                     PdfPage page = inputDocument.Pages[idx];
-                   
+                    // Set Page Header
+                    SetPageheader(page, fileName);
                     // ...and add them to the output document.
                     outputDocument.AddPage(page);
                 }
@@ -135,7 +136,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <param name="outputDocument"></param>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFWithImage(byte[] buffer)
+        private static PdfDocument ConcatenatePDFWithImage(byte[] buffer, string fileName)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
@@ -143,14 +144,16 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
             using (var stream = new MemoryStream(buffer))
             {
                 // Create an empty page
+                var page = doc.AddPage();
+                page.Size = PageSize.A4;
+                // Set Page Header
+                SetPageheader(page, fileName);
                 // Get an XGraphics object for drawing
-                XGraphics gfx = XGraphics.FromPdfPage(doc.AddPage());
-
-                //Image image = Image.FromStream(stream);
-               // XImage img = XImage.FromGdiPlusImage(image);
+                XGraphics gfx = XGraphics.FromPdfPage(page);
 
                 XImage img = XImage.FromStream(stream);
-                gfx.DrawImage(img, 0, 0);
+                
+                gfx.DrawImage(img, 0, 25);
             }
             return doc;
         }        
@@ -302,6 +305,30 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                         brush,
                         layoutRectangle,
                         pageNumberFormat);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get Page Header
+        /// </summary>
+        /// <param name="page">Pdf Page object</param>
+        /// <param name="message">Header message</param>
+        private static void SetPageheader(PdfPage page, string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                XFont font = new XFont("Verdana", 8, XFontStyle.Regular);
+                XBrush brush = XBrushes.Black;
+                XStringFormat format = new XStringFormat
+                {
+                    Alignment = XStringAlignment.Center,
+                    LineAlignment = XLineAlignment.Center
+                };
+
+                using (XGraphics gfx = XGraphics.FromPdfPage(page))
+                {
+                    gfx.DrawString(message, font, brush, new XRect(0, 0, page.Width - 15/*Width*/, font.Height/*Height*/), format);
                 }
             }
         }
