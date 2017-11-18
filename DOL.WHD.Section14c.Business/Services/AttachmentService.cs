@@ -89,7 +89,7 @@ namespace DOL.WHD.Section14c.Business.Services
                 using (var memoryStream = new MemoryStream())
                 {
                     var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
-                    applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.MimeType });
+                    applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.MimeType, FileName=attachment.OriginalFileName });
                 }
             }
             return applicationData;
