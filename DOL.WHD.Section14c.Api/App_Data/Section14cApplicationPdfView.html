@@ -4,7 +4,14 @@
         td {
             page-break-inside: avoid;
         }
+        span {
+            page-break-inside: avoid;
+        }
 
+        div.subtextanswer{
+            page-break-inside:avoid;
+        } 
+        
         span.subtext {
             font-weight: bold
         }
@@ -29,20 +36,20 @@
             font-size: 14px;
         }
 
-            table .subtable > div {
-                display: table-cell;
-                padding: 10px 5px;
-                font-weight: 700;
-            }
+        table .subtable > div {
+            display: table-cell;
+            padding: 10px 5px;
+            font-weight: 700;
+        }
 
-                table .subtable > div:not(:last-of-type) {
-                    border-right: 1px solid #212121;
-                }
+        table .subtable > div:not(:last-of-type) {
+            border-right: 1px solid #212121;
+        }
 
-                table .subtable > div > div {
-                    margin-top: 4px;
-                    font-weight: 400;
-                }
+        table .subtable > div > div {
+            margin-top: 4px;
+            font-weight: 400;
+        }
 
         th .subtext {
             font-size: 11px;
@@ -62,11 +69,14 @@
             margin-bottom: 20px;
         }
     </style>
-
 </head>
 <body>
-    <div class="accessibility-text">ACCESSIBILITY: This PDF is generated based on form data input by the employer as well as any uploaded attachments as part of the online 14c application. Hence this generated PDF might or not be accessibility compliant based on considerations such as whether the employer uploaded attachments are accessible compliant or not.</div>
     <div class="admin-page">
+        <div class="accessibility-text">ACCESSIBILITY: This PDF is generated based on form data input by the employer as well as any uploaded attachments as part of the online 14c application. Hence this generated PDF might or not be accessibility compliant based on considerations such as whether the employer uploaded attachments are accessible compliant or not.</div>
+        <div class="dol-form-title"><h1>Section 14(c) Certificate Application</h1></div>
+        <div>ER Name: {{ Employer.LegalName }}</div>
+        <div>ER EIN: {{ EIN }}</div>
+        <div>Submission Date: {{ formatDateTime Signature.Date }}</div>
         <div class="dol-form-section-title">
             <h2>Representations and Written Assurances</h2>
         </div>
@@ -108,7 +118,7 @@
             <div class="subtextanswer">{{ boolOrString Signature.Date }}</div>
         </p>
     </div>
-    <div class="admin-page">
+    <div class="admin-page" style="page-break-before: always; page-break-after: always;">
         <div class="dol-form-section-title">
             <h2>Application Info</h2>
         </div>

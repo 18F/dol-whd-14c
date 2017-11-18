@@ -37,7 +37,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 // Create PDF image
                 if (applicationData.Type.ToLower().Contains("image"))
                 {
-                    var doc = ConcatenatePDFWithImage(outputDocument, applicationData.Buffer);
+                    var doc = ConcatenatePDFWithImage(applicationData.Buffer);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
@@ -135,23 +135,24 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <param name="outputDocument"></param>
         /// <param name="buffer"></param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFWithImage(PdfDocument outputDocument, byte[] buffer)
+        private static PdfDocument ConcatenatePDFWithImage(byte[] buffer)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
-
+            PdfDocument doc = new PdfDocument();
             using (var stream = new MemoryStream(buffer))
             {
                 // Create an empty page
                 // Get an XGraphics object for drawing
-                XGraphics gfx = XGraphics.FromPdfPage(outputDocument.AddPage());
+                XGraphics gfx = XGraphics.FromPdfPage(doc.AddPage());
 
-                Image image = Image.FromStream(stream);
+                //Image image = Image.FromStream(stream);
+               // XImage img = XImage.FromGdiPlusImage(image);
 
-                XImage img = XImage.FromGdiPlusImage(image);
+                XImage img = XImage.FromStream(stream);
                 gfx.DrawImage(img, 0, 0);
             }
-            return outputDocument;
+            return doc;
         }        
 
         /// <summary>
