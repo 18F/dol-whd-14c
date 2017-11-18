@@ -60,6 +60,15 @@ namespace DOL.WHD.Section14c.Business.Helper
                 }
             });
 
+            Handlebars.RegisterHelper("formatDateTime", (writer, context, parameters) =>
+            {
+                if (parameters[0].GetType() == typeof(DateTime))
+                {
+                    DateTime dateTime = (DateTime)parameters[0];
+                    writer.WriteSafeString(dateTime.ToString("d"));
+                }
+            });
+
             var template = Handlebars.Compile(handlebarsTemplate);
             return template(application);
         }
