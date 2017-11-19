@@ -41,10 +41,16 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
-                if (applicationData.Type.ToLower().Contains("html") && !String.IsNullOrEmpty(applicationData.HtmlString))
+                if (applicationData.Type.ToLower().Contains("html") && applicationData.HtmlString != null)
                 {
-                    var doc = GetPdfDocFromHtml(outputDocument, applicationData.HtmlString);
-                    AddPagesToPdf(ref outputDocument, doc);
+                    foreach (var htmlString in applicationData.HtmlString)
+                    {
+                        if (!string.IsNullOrEmpty(htmlString))
+                        {
+                            var doc = GetPdfDocFromHtml(outputDocument, htmlString);
+                            AddPagesToPdf(ref outputDocument, doc);
+                        }
+                    }
                 }
             }
 
@@ -120,11 +126,11 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 for (int idx = 0; idx < count; idx++)
                 {
                     // Get the page from the external document...
-                    PdfPage page = inputDocument.Pages[idx];
-                    // Set Page Header
-                    SetPageheader(page, fileName);
+                    PdfPage page = inputDocument.Pages[idx];                    
                     // ...and add them to the output document.
-                    outputDocument.AddPage(page);
+                    var outputPage = outputDocument.AddPage(page);
+                    // Set Page Header
+                    SetPageheader(outputPage, fileName);
                 }
             }
             return outputDocument;
@@ -325,7 +331,6 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                     Alignment = XStringAlignment.Center,
                     LineAlignment = XLineAlignment.Center
                 };
-
                 using (XGraphics gfx = XGraphics.FromPdfPage(page))
                 {
                     gfx.DrawString(message, font, brush, new XRect(0, 0, page.Width - 15/*Width*/, font.Height/*Height*/), format);

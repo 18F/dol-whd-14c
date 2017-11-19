@@ -40,6 +40,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
             PDFContentData contentData = new PDFContentData {
                 Buffer = testPdfByteArray,
                 Type = "pdf",
+                FileName="test.pdf"
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
@@ -84,7 +85,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         {
             PDFContentData contentData = new PDFContentData
             {
-                HtmlString = testHtmlString,
+                HtmlString = new List<string>() { testHtmlString },
                 Type = "html",
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
@@ -153,7 +154,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         {
             PDFContentData contentData = new PDFContentData
             {
-                HtmlString = "",
+                HtmlString = new List<string>() { "" },
                 Type = "html",
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);

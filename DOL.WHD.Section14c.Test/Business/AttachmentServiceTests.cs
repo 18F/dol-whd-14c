@@ -193,7 +193,7 @@ namespace DOL.WHD.Section14c.Test.Business
                 var einToTest1 = "40-9876544";
                 var fileName1 = "test1.txt";
 
-                var htmlContent = "<html><body><p>Test Test</p></body></html>";
+                var htmlContent =new List<string>() { "<html><body><p>Test Test</p></body></html>" };
                 var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
                 var attachment = service.UploadAttachment(einToTest, memoryStream.ToArray(), fileName, "text/plain");
                 var attachment1 = service.UploadAttachment(einToTest1, memoryStream.ToArray(), fileName1, "text/plain");
