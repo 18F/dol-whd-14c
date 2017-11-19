@@ -6,6 +6,9 @@ using System.Net;
 
 namespace DOL.WHD.Section14c.Business.Helper
 {
+    /// <summary>
+    /// Application Document Helper
+    /// </summary>
     public class ApplicationDocumentHelper
     {
         private readonly IApplicationService _applicationService;
@@ -21,17 +24,31 @@ namespace DOL.WHD.Section14c.Business.Helper
             _attachmentService = attachmentService;
         }
 
-        public List<PDFContentData> ApplicationData(Guid applicationId, string applicationViewTemplatePath)
+        /// <summary>
+        /// Get Application Data
+        /// </summary>
+        /// <param name="applicationId">
+        /// Application GUID
+        /// </param>
+        /// <param name="applicationTemplatesPath">
+        /// Complete file path for each html template
+        /// </param>
+        /// <returns></returns>
+        public List<PDFContentData> ApplicationData(Guid applicationId, List<string> applicationTemplatesPath)
         {
-            // Get Application Template
-            var applicationViewTemplateString = File.ReadAllText(applicationViewTemplatePath);
-
             var application = _applicationService.GetApplicationById(applicationId);
 
             if (application == null)
                 throw new Exception("Application not found");
 
-            var applicationHtml = _attachmentService.GetApplicationFormViewContent(application, applicationViewTemplateString);
+            var htmlTemplates = new List<string>();
+            foreach (string path in applicationTemplatesPath)
+            {
+                // Get Application Template
+                var templatString = File.ReadAllText(path);
+                var htmlString = _attachmentService.GetApplicationFormViewContent(application, templatString);
+                htmlTemplates.Add(htmlString);
+            }
 
             // Get all attachments from current application
             var getApplicationAttachments = _attachmentService.GetApplicationAttachments(application);
@@ -39,7 +56,7 @@ namespace DOL.WHD.Section14c.Business.Helper
             // Prepare attachemnt for PDF generation
             var applicationAttachmentsData = _attachmentService.PrepareApplicationContentsForPdfConcatenation(
                                             getApplicationAttachments,
-                                            applicationHtml);
+                                            htmlTemplates);
 
             return applicationAttachmentsData;
         }

@@ -76,11 +76,11 @@ namespace DOL.WHD.Section14c.Business.Services
         ///     A list of PDF content data objects that can be sent to
         ///     the PDF API to generate a new PDF document
         /// </returns>
-        public List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, string applicationFormData)
+        public List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, List<string> applicationFormData)
         {
             var applicationData = new List<PDFContentData>();
 
-            if (!string.IsNullOrEmpty(applicationFormData))
+            if (applicationFormData != null)
             {
                 applicationData.Add(new PDFContentData() { HtmlString = applicationFormData, Type = "html" });
             }

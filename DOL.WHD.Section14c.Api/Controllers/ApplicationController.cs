@@ -219,10 +219,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 // Get Application Template
-                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+                var applicationTemplatesPath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/HtmlTemplates");
+                var templatefiles = Directory.GetFiles(applicationTemplatesPath, "*.html").OrderBy(f => new FileInfo(f).Name).ToList();
 
                 ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
-                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
 
                 // Calling Concatenate Web API
                 var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));

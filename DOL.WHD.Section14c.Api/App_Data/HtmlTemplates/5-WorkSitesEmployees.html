@@ -1,0 +1,194 @@
+﻿<html class="ng-scope" lang="en">
+<head>
+    <style type="text/css">
+        td {
+            page-break-inside: avoid;
+        }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
+        span.subtext {
+            font-weight: bold
+        }
+
+        span.title {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        span.subtextanswer {
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .row_greyed {
+            background-color: #9F9F9F;
+        }
+
+        table .subtable {
+            display: table;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
+            font-size: 11px;
+        }
+
+        .employeeSubTable {
+            width: 100%;
+            border-bottom: 1px;
+            border-top: 1px;
+            border-bottom-style: solid;
+            border-bottom-style: solid;
+            margin-top: 20px;
+        }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-page">
+        <h1>Work Sites & Employees</h1>
+        <hr>
+        <p>
+            <span class="subtext">What is the total number of establishments and work sites to be covered by this certificate?</span>
+            <div class="subtextanswer">{{ boolOrString TotalNumWorkSites }}</div>
+        </p>
+
+        <div class="table-responsive">
+            <div worksites-section="true" answer="WorkSites">
+                {{#each WorkSites}}
+                <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
+                    <thead>
+                        <tr class="row_greyed">
+                            <th scope="col">Work Site Name</th>
+                            <th scope="col">Number of Workers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="text-align:center">
+                            <td scope="row">{{ Name }}</td>
+                            <td>{{ Employees.Count }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div worksites-content>
+                    <div worksites-sub="true" answer="WorkSites">
+                        <p><span class="title">Work Site </span></p>
+                        <hr>
+                        <div class="worksites-sub-field">
+                            <span class="subtext">What type of establishment is this?</span>
+                            <div class="subtextanswer">{{ WorkSiteType.Display }}</div>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <span class="subtext">Name of Establishment / Work Site</span>
+                            <div class="subtextanswer">{{ Name }}</div>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <span class="subtext">Address of Establishment / Work Site</span>
+                            <div class="subtextanswer">{{ formatAddress Address }}</div>
+                        </div>
+
+                        <worksites-sub-sub-field answer="SCA">
+                            <span class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</span>
+                            <div class="subtextanswer">{{ boolOrString SCA }}</div>
+                        </worksites-sub-sub-field>
+
+                        <div class="worksites-sub-field">
+                            <span class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
+                            <div class="subtextanswer">{{ boolOrString FederalContractWorkPerformed }}</div>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <span class="subtext">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
+                            <div class="subtextanswer">{{ NumEmployees }}</div>
+                        </div>
+
+
+                    </div>
+                    <div employee-sub="true" answer="WorkSites.Employee">
+                        <p><span class="title">Employee</span></p>
+                        <hr>
+                        <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Disability</th>
+                                    <th scope="col">Work Performed</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each Employees }}
+                                <tr>
+                                    <td>{{ Name }}</td>
+                                    <td>{{ PrimaryDisability.Display }}</td>
+                                    <td>{{ WorkType }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="text-align:center">
+                                        <table cellpadding="0" cellspacing="0" border="0" class="employeeSubTable">
+                                            <thead>
+                                                <tr>
+                                                    <td></td>
+                                                    <th style="font-size:11px">Number of Jobs</th>
+                                                    <th style="font-size:11px">Average Hours per Week</th>
+                                                    <th style="font-size:11px">Average Earnings per Hours</th>
+                                                    <th style="font-size:11px">Prevailing Wage Rate</th>
+                                                    <th style="font-size:11px">Productivity Measure</th>
+                                                    <th style="font-size:11px">Commensurate Wage Rate</th>
+                                                    <th style="font-size:11px">Total Hours Worked</th>
+                                                    <th style="font-size:11px">Work at Other Site?</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="font-size:11px">{{ NumJobs }}</td>
+                                                    <td style="font-size:11px">{{ AvgWeeklyHours }}</td>
+                                                    <td style="font-size:11px">{{ AvgHourlyEarnings }}</td>
+                                                    <td style="font-size:11px">{{ PrevailingWage }}</td>
+                                                    <td style="font-size:11px">{{ ProductivityMeasure }}</td>
+                                                    <td style="font-size:11px">{{ CommensurateWageRate }}</td>
+                                                    <td style="font-size:11px">{{ TotalHours }}</td>
+                                                    <td style="font-size:11px">{{ WorkAtOtherSite }}</td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

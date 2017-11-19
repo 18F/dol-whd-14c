@@ -123,7 +123,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         {
             var data = Encoding.ASCII.GetBytes(testHtmlString);
             List<PDFContentData> applicationData = new List<PDFContentData>();
-            applicationData.Add(new PDFContentData() { HtmlString = testHtmlString, Type = "html" });
+            applicationData.Add(new PDFContentData() { HtmlString =new List<string>() { testHtmlString }, Type = "html" });
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
