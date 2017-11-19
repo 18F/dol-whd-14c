@@ -270,8 +270,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("download")]
-        //[AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
-        [AllowAnonymous]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public async Task<IHttpActionResult> DownloadApplicationDocument(Guid applicationId)
         {
             var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
