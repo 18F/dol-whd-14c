@@ -17,7 +17,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// Html STring
         /// </summary>
         [DataMember]
-        public string HtmlString { get; set; }
+        public List<string> HtmlString { get; set; }
         /// <summary>
         /// Byte Array
         /// </summary>

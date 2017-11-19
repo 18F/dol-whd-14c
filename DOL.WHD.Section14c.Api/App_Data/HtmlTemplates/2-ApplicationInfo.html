@@ -1,0 +1,137 @@
+﻿<html class="ng-scope" lang="en">
+<head>
+    <style type="text/css">
+        td {
+            page-break-inside: avoid;
+        }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
+        span.subtext {
+            font-weight: bold
+        }
+
+        span.title {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        span.subtextanswer {
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .row_greyed {
+            background-color: #9F9F9F;
+        }
+
+        table .subtable {
+            display: table;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
+            font-size: 11px;
+        }
+
+        .employeeSubTable {
+            width: 100%;
+            border-bottom: 1px;
+            border-top: 1px;
+            border-bottom-style: solid;
+            border-bottom-style: solid;
+            margin-top: 20px;
+        }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-page" style="page-break-before: always; page-break-after: always;">
+        <div class="dol-form-section-title">
+            <h2>Application Info</h2>
+        </div>
+        <h3>Application Type</h3>
+        <hr>
+        <p>
+            <span class="subtext">What type of application is this?</span>
+            <div class="subtextanswer">{{ boolOrString ApplicationType.Display }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Has this employer ever previously applied for a 14(c) certificate?</span>
+            <div class="subtextanswer">{{ boolOrString HasPreviousApplication }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Has this employer ever previously held a 14(c) certificate?</span>
+            <div class="subtextanswer">{{ boolOrString HasPreviousCertificate }}</div>
+        </p>
+
+        {{#if HasPreviousCertificate }}
+        <p>
+            <span class="subtext">What is the most recently held certificate number for the main establishment?</span>
+            <div class="subtextanswer">{{ boolOrString PreviousCertificateNumber }}</div>
+        </p>
+        {{/if}}
+
+        <p>
+            <span class="subtext">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</span>
+        </p>
+
+        <ul class="usa-unstyled-list">
+            {{#each EstablishmentType}}
+            <li>{{ this.EstablishmentType.Display }}</li>
+            {{/each}}
+        </ul>
+
+        <h3>Application Contact Person</h3>
+        <hr>
+
+        <p>
+            <span class="subtext">Full Name</span>
+            <div class="subtextanswer">{{ boolOrString ContactName }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Telephone Number</span>
+            <div class="subtextanswer">{{ boolOrString ContactPhone }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Fax Number</span>
+            <div class="subtextanswer">{{ boolOrString ContactFax }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Email Address</span>
+            <div class="subtextanswer">{{ boolOrString ContactEmail }}</div>
+        </p>
+    </div>
+</body>
+</html>

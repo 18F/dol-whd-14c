@@ -281,6 +281,7 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
+    <Content Include="TestFiles\Section14cApplicationPdfView.html" />
     <Content Include="TestFiles\testImage.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

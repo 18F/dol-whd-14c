@@ -1,0 +1,259 @@
+﻿<html class="ng-scope" lang="en">
+<head>
+    <style type="text/css">
+        td {
+            page-break-inside: avoid;
+        }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
+        span.subtext {
+            font-weight: bold
+        }
+
+        span.title {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        span.subtextanswer {
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .row_greyed {
+            background-color: #9F9F9F;
+        }
+
+        table .subtable {
+            display: table;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
+            font-size: 11px;
+        }
+
+        .employeeSubTable {
+            width: 100%;
+            border-bottom: 1px;
+            border-top: 1px;
+            border-bottom-style: solid;
+            border-bottom-style: solid;
+            margin-top: 20px;
+        }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-page">
+        <div class="dol-form-section-title">
+            <h2>Employer</h2>
+        </div>
+
+        <h3>Employer Information</h3>
+        <hr>
+
+        <p>
+            <span class="subtext">Legal Name of Employer</span>
+            <div class="subtextanswer">{{ boolOrString Employer.LegalName }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Does the Employer have a Trade Name?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.HasTradeName }}</div>
+        </p>
+
+        {{#if Employer.HasTradeName }}
+        <p>
+            <span class="subtext">Trade Name</span>
+            <div class="subtextanswer">{{ boolOrString Employer.TradeName }}</div>
+        </p>
+        {{/if}}
+
+        <p>
+            <span class="subtext">Has the Employer’s legal name changed since its last application?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.LegalNameHasChanged }}</div>
+        </p>
+
+        {{#if Employer.LegalNameHasChanged }}
+        <p>
+            <span class="subtext">Prior Legal Name of Employer</span>
+            <div class="subtextanswer">{{ boolOrString Employer.PriorLegalName }}</div>
+        </p>
+        {{/if}}
+
+        <p>
+            <span class="subtext">Physical Address of Employer’s Main Establishment</span>
+            <div class="subtextanswer">{{ formatAddress Employer.PhysicalAddress }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Does the Employer have a Parent Organization?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.HasParentOrg }}</div>
+        </p>
+
+        <div>
+            <p>
+                <span class="subtext">Parent Organization Legal Name</span>
+                <div class="subtextanswer">{{ boolOrString Employer.ParentLegalName }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Parent Organization Trade Name</span>
+                <div class="subtextanswer">{{ boolOrString Employer.ParentTradename }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Parent Organization Address</span>
+                <div class="subtextanswer">{{ formatAddress Employer.ParentAddress }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Send mail to Parent Organiation address?</span>
+                <div class="subtextanswer">{{ boolOrString Employer.SendMailToParent }}</div>
+            </p>
+        </div>
+
+        <p>
+            <span class="subtext">Employer Status</span>
+            <div class="subtextanswer">{{ boolOrString Employer.EmployerStatus.Display }}</div>
+        </p>
+        <p>
+            <div class="subtextanswer">{{ boolOrString Employer.EmployerStatusOther }}</div>
+        </p>
+        <p>
+            <span class="subtext">Is this employer a local or State educational agency?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.IsEducationalAgency }}</div>
+        </p>
+
+        <h3>Number of Workers With Disabilities</h3>
+        <hr>
+
+        <p>
+            <span class="subtext">When did the Employer’s most recently completed fiscal quarter end?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.FiscalQuarterEndDate }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Total }}</div>
+        </p>
+
+        <!-- NOTE THAT THIS IS EMPTY -->
+        <p>
+            <span class="subtext">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</span>
+            <div class="subtextanswer">{{ boolOrString '' }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Community Rehabilitation Program (Work Center)</span>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.WorkCenter }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Hospital/Residential Care Facility (Patient Workers)</span>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.PatientWorkers }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">School Work Experience Program (SWEP)</span>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Swep }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Business Establishment</span>
+            <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.BusinessEstablishment }}</div>
+        </p>
+
+        <h3>Government Contracts</h3>
+        <hr>
+
+        <p>
+            <span class="subtext">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.PCA }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.SCA.Display }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.SCACount }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">SCA Wage Determination Attachment</span>
+            <div class="subtextanswer">{{ formatAttachment Employer.SCAAttachment }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Since January 1, 2015, has this Employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.EO13658.Display }}</div>
+        </p>
+
+        <h3>Additional Questions</h3>
+        <hr>
+
+        <p>
+            <span class="subtext">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.RepresentativePayee }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.TotalDisabledWorkers }}</div>
+        </p>
+
+        <p>
+            <span class="subtext">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.TakeCreditForCosts }}</div>
+        </p>
+
+        <div>
+            <p>
+                <span class="subtext">Which type of deduction(s) did the employer take?</span>
+            </p>
+
+            <ul class="usa-unstyled-list">
+                {{#each Employer.ProvidingFacilitiesDeductionType}}
+                <li>{{ this.EstablishmentType.Display }}</li>
+                {{/each}}
+            </ul>
+        </div>
+
+        <p>
+            <span class="subtext">Is this a request for Temporary Authority?</span>
+            <div class="subtextanswer">{{ boolOrString Employer.TemporaryAuthority }}</div>
+        </p>
+    </div>
+</body>
+</html>

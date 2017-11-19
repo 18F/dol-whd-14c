@@ -43,16 +43,16 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
 
             _mockAttachmentService.Setup(mock => mock.GetApplicationFormViewContent(testApplication, It.IsAny<string>())).Returns("This is some HTML that is filled in");
             _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(testApplication)).Returns(attachments);
-            _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, It.IsAny<string>())).Returns(pdfContentList);
+            _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, It.IsAny<List<string>>())).Returns(pdfContentList);
 
             // Execute
             string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
             ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object);
-            var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F666") , applicationViewTemplatePath);
+            var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F666") ,new List<string>() { applicationViewTemplatePath });
 
             // Assert
-            _mockAttachmentService.Verify(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, "This is some HTML that is filled in"), Times.Once());
+            _mockAttachmentService.Verify(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, new List<string>() { "This is some HTML that is filled in" }), Times.Once());
             Assert.AreEqual(pdfContentList, applicationAttachmentsData, "returns the expected data");
         }
 
@@ -65,7 +65,7 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
             ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object);
-            var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"), applicationViewTemplatePath);
+            var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"), new List<string>() { applicationViewTemplatePath });
         }
     }
 }
