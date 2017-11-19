@@ -478,6 +478,92 @@ h4#helpfulLinksHeader {
   margin-top: 30px;
 }
 
+// List of instructions for Employee section
+.dol-help-employee-info {
+  background: $color-gray-lightest;
+  padding: 2.5rem;
+
+  dl {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+
+    > div {
+      list-style-type: none;
+      border-bottom: 1px solid #aeb0b5;
+      padding: 1.5rem 0;
+
+      dt {
+        font-weight: 700;
+      }
+
+      dt, dd {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      p {
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+        &:first-of-type {
+          margin-top: 0;
+        }        
+      }      
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+
+      &:last-of-type {
+        border: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 37.5em) { 
+
+  .dol-help-employee-info {
+    dl {
+      display: table;
+
+      > div {
+        display: table-row;
+        border: 0;
+        padding: 0;
+
+        dt, dd {
+          display: table-cell;
+          padding: 2rem;
+          border-bottom: 1px solid #aeb0b5;
+        }
+
+        dt {
+          min-width: 20rem;
+          display: table-cell;          
+        }
+
+        &:first-of-type {
+          dt, dd {
+            padding-top: 0;
+          }
+        }
+
+        &:last-of-type {
+          dt, dd {
+            padding-bottom: 0;
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+
 
 // ----- end NEW CSS RULES
 
@@ -867,45 +953,7 @@ span.example {
   text-align: center;
 }
 
-// List of instructions for Employee section
-.dol-help-employee-info {
-  background: $color-gray-lightest;
-  padding: 2.5rem;
 
-  ul {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-
-    li {
-      list-style-type: none;
-      border-bottom: 1px solid #aeb0b5;
-      padding: 1.5rem 0;
-
-      span {
-        &:first-of-type {
-          font-weight: 700;
-          display: block;
-        }
-
-        p {
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-        }
-      }
-
-      &:first-of-type {
-        padding-top: 0;
-      }
-
-      &:last-of-type {
-        border: 0;
-        padding-bottom: 0;
-      }
-    }
-  }
-}
 
 //Example of Employee data
 .dol-help-employee-example {
@@ -924,43 +972,6 @@ span.example {
         width: 3rem;
         height: 3rem;
         padding-top: 0.3rem;
-      }
-    }
-  }
-
-
-  .dol-help-employee-info {
-    ul {
-      display: table;
-
-      li {
-        display: table-row;
-        border: 0;
-        padding: 0;
-
-        span {
-          display: table-cell;
-          padding: 2rem;
-          border-bottom: 1px solid #aeb0b5;
-
-          &:first-of-type {
-            min-width: 20rem;
-            display: table-cell;
-          }
-        }
-
-        &:first-of-type {
-          span {
-            padding-top: 0;
-          }
-        }
-
-        &:last-of-type {
-          span {
-            padding-bottom: 0;
-            border: 0;
-          }
-        }
       }
     }
   }
