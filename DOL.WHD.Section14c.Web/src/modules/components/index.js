@@ -6,6 +6,7 @@ module.exports = function(ngModule) {
   require('./answerField')(ngModule);
   require('./anchorLink')(ngModule);
   require('./attachmentField')(ngModule);
+  require('./breadcrumb')(ngModule);
   require('./changePasswordForm')(ngModule);
   require('./dateField')(ngModule);
   require('./dolHeader')(ngModule);
@@ -15,6 +16,7 @@ module.exports = function(ngModule) {
   require('./mainNavigationControl')(ngModule);
   require('./mainTopNavControl')(ngModule);
   require('./resetPasswordForm')(ngModule);
+  require('./resultsTable')(ngModule);
   require('./sectionAdminAppInfo')(ngModule);
   require('./sectionAdminAssurances')(ngModule);
   require('./sectionAdminEmployer')(ngModule);

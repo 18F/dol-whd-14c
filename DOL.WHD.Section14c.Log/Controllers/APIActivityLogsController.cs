@@ -11,10 +11,7 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
-    /// <summary>
-    /// Log API controller
-    /// </summary>
-    [RoutePrefix("api/ActivityLogs")]
+    [RoutePrefix("api/activitylogs")]
     public class ActivityLogsController : BaseApiController
     {
         private IActivityLogRepository activityLogRepository;
@@ -35,7 +32,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetAllLogs")]
+        [Route("gtallLogs")]
         public IQueryable<APIActivityLogs> GetAllLogs()
         {
             var activityLogs = activityLogRepository.GetAllLogs();
@@ -54,7 +51,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
         [HttpGet]
         [ResponseType(typeof(APIActivityLogs))]
-        [Route("GetLogByID")]
+        [Route("getLogbyid")]
         public IHttpActionResult GetActivityLogByID(string correlationId)
         {
             var logs = activityLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);

@@ -13,5 +13,7 @@ module.exports = function(ngModule) {
     $scope.validate = validationService.getValidationErrors;
 
     var vm = this;
+
+
   });
 };

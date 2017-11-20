@@ -1,10 +1,11 @@
+<breadcrumb></breadcrumb>
 <div class="dol-form-section-title">
   <h2>Wage Data</h2>
 
   <div class="dol-form-section-help">
     <ul>
       <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
-      <li><a href="" role="button" ng-click="vm.showLinks = !vm.showLinks" tabindex="0">Helpful Links</a></li>
+      <li><a href="#0" role="button" class="cd-panel-trigger" aria-controls="helpfulLinksPanel" tabindex="0">Helpful Links</a></li>
     </ul>
   </div>
 </div>
@@ -26,7 +27,7 @@
         </ul>
     </fieldset>
   </div>
- 
+
   <div id="wagedata_tab_box" class="form-tabbed-section" ng-show="formData.payTypeId === 23">
     <a href class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-click="vm.onTabClick(1)" ng-keyup="$event.keyCode === 13 ? vm.tabPanelFocus(1) : vm.onTabClick(1)">
       Hourly
@@ -38,27 +39,32 @@
   <wage-data-pay-type-form paytype="hourly" show-all-help="showAllHelp" ng-show="formData.payTypeId === 21 || (formData.payTypeId === 23 && vm.activeTab !== 2)"></wage-data-pay-type-form>
   <wage-data-pay-type-form paytype="piecerate" show-all-help="showAllHelp" ng-show="formData.payTypeId === 22 || (formData.payTypeId === 23 && vm.activeTab === 2)"></wage-data-pay-type-form>
 </div>
-<div class="form-sidebar">
-  <div class="links-block" ng-show="vm.showLinks === true">
-    <h4 id="helpfulLinksHeader">Helpful Links</h4>
-    Prevailing Wage Calculators:<br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/StraightAverage.htm" target="_blank">Straight or Simple Average</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedAverage.htm" target="_blank">Weighted Average</a><br>
-    <br> Commensurate Hourly Wage Calculators:<br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/Rework.htm" target="_blank">Rework</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedTask_Standard.htm" target="_blank">Weighted Tasks, Standard Weight Factor</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedTask_WwD.htm" target="_blank">Weighted Tasks, Ww/D Weight Factor</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/90-10-Task_Var_Time.htm" target="_blank">90/10 Form, Single Task, Variable Time</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/90-10-Task_Var_Units.htm" target="_blank">90/10 Form, Fixed Time, Variable Units</a><br>
-    <br> Piece Rate - Number of Units in Standard Calculators:<br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/FixedUnit_VariableTime9.htm" target="_blank">Fixed Number of Units, PF&D 9 min</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/FixedUnit_VariableTime10.htm" target="_blank">Fixed Number of Units, PF&D 10 min</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/FixedTime_VariableUnit9.htm" target="_blank">Fixed Time, PF&D 9 min</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/FixedTime_VariableUnit10.htm" target="_blank">Fixed Time, PF&D 10 min</a><br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/PieceRate.htm" target="_blank">Piece Rate Calculator</a><br>
-    <br> New Minimum Wage Calculator<br>
-    <a href="https://www.dol.gov/whd/sec14c/calculators/NewMinimumWage.htm" target="_blank">New Prevailing Wage Calculator (Based on Minimum Wage Rate Change)</a><br>
-    <br> User Guide<br>
-    <a href="https://www.dol.gov/whd/specialemployment/calculatorGuide.pdf" target="_blank">Section 14(c) Online Calculators User Guide (PDF)</a><br>
+<div class="cd-panel from-right" id="helpfulLinksPanel"> 
+  <div class="cd-panel-container">
+    <div class="cd-panel-content">
+    <header class="cd-panel-header">     
+      <a href="#0" class="dol-first-focus cd-panel-close">Close Helpful Links</a>
+      <h3 tabindex="-1">Helpful Links</h3>
+    </header>       
+        Prevailing Wage Calculators:<br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/StraightAverage.htm" target="_blank">Straight or Simple Average</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedAverage.htm" target="_blank">Weighted Average</a><br>
+        <br> Commensurate Hourly Wage Calculators:<br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/Rework.htm" target="_blank">Rework</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedTask_Standard.htm" target="_blank">Weighted Tasks, Standard Weight Factor</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/WeightedTask_WwD.htm" target="_blank">Weighted Tasks, Ww/D Weight Factor</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/90-10-Task_Var_Time.htm" target="_blank">90/10 Form, Single Task, Variable Time</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/90-10-Task_Var_Units.htm" target="_blank">90/10 Form, Fixed Time, Variable Units</a><br>
+        <br> Piece Rate - Number of Units in Standard Calculators:<br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/FixedUnit_VariableTime9.htm" target="_blank">Fixed Number of Units, PF&D 9 min</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/FixedUnit_VariableTime10.htm" target="_blank">Fixed Number of Units, PF&D 10 min</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/FixedTime_VariableUnit9.htm" target="_blank">Fixed Time, PF&D 9 min</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/FixedTime_VariableUnit10.htm" target="_blank">Fixed Time, PF&D 10 min</a><br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/PieceRate.htm" target="_blank">Piece Rate Calculator</a><br>
+        <br> New Minimum Wage Calculator<br>
+        <a href="https://www.dol.gov/whd/sec14c/calculators/NewMinimumWage.htm" target="_blank">New Prevailing Wage Calculator (Based on Minimum Wage Rate Change)</a><br>
+        <br> User Guide<br>
+        <a class="dol-last-focus" href="https://www.dol.gov/whd/specialemployment/calculatorGuide.pdf" target="_blank">Section 14(c) Online Calculators User Guide (PDF)</a><br>
+    </div>
   </div>
 </div>

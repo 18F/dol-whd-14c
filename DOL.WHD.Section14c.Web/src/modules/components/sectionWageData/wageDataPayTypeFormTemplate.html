@@ -1,11 +1,16 @@
+<breadcrumb></breadcrumb>
 <div class="dol-form-question-group force-margin" ng-show="paytype">
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
       <label for="{{ valuePrefix() }}NumWorkers" class="dol-form-question-text" id="{{ valuePrefix() }}NumWorkersLabel">{{ paytype === 'hourly' ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}</label>
       <!-- The first tabbable element has the ID for tab panel focus. -->
-      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="{{ valuePrefix() }}NumWorkersHelp" aria-describedby="{{ valuePrefix() }}NumWorkersLabel"></helplink>     
+      <helplink id="{{ paytype === 'hourly' ? 'hourlyTabPanel' : 'pieceRateTabPanel'}}" aria-controls="{{ valuePrefix() }}NumWorkersHelp" aria-describedby="{{ valuePrefix() }}NumWorkersLabel"></helplink>
     </div>
-    <helptext id="{{ valuePrefix() }}NumWorkersHelp">Provide the total number of workers paid {{ paytype === 'hourly' ? 'an hourly subminimum wage rate' : 'on a piece rate basis that resulted in a subminimum wage'}} at any time during the most recently completed fiscal quarter.</helptext>
+    <helptext id="{{ valuePrefix() }}NumWorkersHelp">Provide the total number of workers paid
+      {{ paytype === 'hourly' ? 'an ' : 'on a '}}
+      <em>{{ paytype === 'hourly' ? 'hourly' : 'piece rate'}}</em>
+      {{ paytype === 'hourly' ? ' subminimum wage rate' : ' basis that resulted in a subminimum wage'}}
+      at any time during the most recently completed fiscal quarter.</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
     <input id="{{ valuePrefix() }}NumWorkers" name="{{ valuePrefix() }}NumWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
@@ -15,7 +20,7 @@
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobName') ? 'usa-input-error' : ''">
       <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">What was the job or contract on which the employer employed the largest number of workers {{ paytype === 'hourly' ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates'}} during the most recently completed fiscal quarter?</span>
-          <helplink aria-controls="{{ valuePrefix() }}JobNameHelp" aria-describedby="{{ valuePrefix() }}JobNameLabel"></helplink> 
+          <helplink aria-controls="{{ valuePrefix() }}JobNameHelp" aria-describedby="{{ valuePrefix() }}JobNameLabel"></helplink>
       </div>
       <helptext id="{{ valuePrefix() }}JobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages {{ paytype === 'hourly' ? '(e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).' : '(e.g., Gadget disassembly, or Contract No. 000-111 with Widgets Inc.—Hand Assembly of Boxes (28” x 12”)).'}}</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
@@ -36,7 +41,7 @@
       <div class="dol-legend-help">
         <span class="dol-form-question-text" aria-hidden="true">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
         <helplink aria-controls="{{ valuePrefix() }}WageMethodHelp" aria-describedby="{{ valuePrefix() }}WageMethodLabel"></helplink>
-      </div>     
+      </div>
       <helptext id="{{ valuePrefix() }}WageMethodHelp">
         For information on Prevailing Wages, see <a href='https://www.dol.gov/whd/regs/compliance/whdfs39b.pdf' target='_blank'>Fact Sheet #39B: Prevailing Wages and Commensurate Wages under Section 14(c) of the FLSA</a>.
       </helptext>
@@ -57,15 +62,15 @@
       <div ng-class="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') ? 'usa-input-error' : ''">
         <div class="dol-plain-label-help">
           <label for="{{ valuePrefix() }}PrevailingWageDetermined" id="{{ valuePrefix() }}PrevailingWageDeterminedLabel">Prevailing Wage Determined based on this survey</label>
-          <helplink aria-controls="{{ valuePrefix() }}PrevailingWageDeterminedHelp" aria-describedby="{{ valuePrefix() }}PrevailingWageDeterminedLabel"></helplink>   
+          <helplink aria-controls="{{ valuePrefix() }}PrevailingWageDeterminedHelp" aria-describedby="{{ valuePrefix() }}PrevailingWageDeterminedLabel"></helplink>
         </div>
-        <helptext id="{{ valuePrefix() }}PrevailingWageDeterminedHelp">The prevailing wage rate determined from the surveys may be calculated by using a weighted or straight average, but the same method should be used to calculate all of the employer’s prevailing wage rates.</helptext>            
+        <helptext id="{{ valuePrefix() }}PrevailingWageDeterminedHelp">The prevailing wage rate determined from the surveys may be calculated by using a weighted or straight average, but the same method should be used to calculate all of the employer’s prevailing wage rates.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined')">{{ validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') }}</span>
         <input id="{{ valuePrefix() }}PrevailingWageDetermined" name="{{ valuePrefix() }}PrevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].mostRecentPrevailingWageSurvey.prevailingWageDetermined">
       </div>
-      <p><span id="{{ valuePrefix() }}ProvideSourceEmployerLabel">You must provide <strong>3</strong> Source Employers for the survey</span> 
+      <p><span id="{{ valuePrefix() }}ProvideSourceEmployerLabel">You must provide <strong>3</strong> Source Employers for the survey</span>
         <helplink aria-controls="{{ valuePrefix() }}ProvideSourceEmployerHelp" aria-describedby="{{ valuePrefix() }}ProvideSourceEmployerLabel"></helplink>
-      </p>       
+      </p>
       <helptext id="{{ valuePrefix() }}ProvideSourceEmployerHelp">
         If the employer used more than three sources, provide the information obtained from all sources. The source employers surveyed should be located in the geographic area from which the labor force of the applicant is drawn. The sources for the jobs surveyed should use similar methods and equipment as the job for which this rate will apply.
       </helptext>
@@ -188,10 +193,9 @@
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactDate') ? 'usa-input-error' : ''">
-            <label>Date of Contact</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
-            <fieldset>
-              <legend class="hide">Contact date</legend>
+            <fieldset class="dol-legend-plain">           
+              <legend>Date of Contact</legend>
+              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
               <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
             </fieldset>
           </div>
@@ -199,7 +203,7 @@
           <div ng-class="vm.validateActiveSourceEmployerProperty('jobDescription') ? 'usa-input-error' : ''">
             <div class="dol-plain-label-help">
               <label for="{{ valuePrefix() }}SourceEmployerJobDescription" id="{{ valuePrefix() }}SourceEmployerJobDescriptionLabel">Brief Description of Job/Task</label>
-              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerJobDescriptionHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerJobDescriptionLabel"></helplink>   
+              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerJobDescriptionHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerJobDescriptionLabel"></helplink>
             </div>
             <helptext id="{{ valuePrefix() }}SourceEmployerJobDescriptionHelp">For example, “Hand assembly of cardboard shipping boxes.”</helptext>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('jobDescription')">{{ vm.validateActiveSourceEmployerProperty('jobDescription') }}</span>
@@ -209,9 +213,9 @@
           <div ng-class="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') ? 'usa-input-error' : ''">
             <div class="dol-plain-label-help">
               <label for="{{ valuePrefix() }}SourceEmployerWage" id="{{ valuePrefix() }}SourceEmployerWageLabel">Experienced Worker Wage Provided</label>
-              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerWageHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerWageLabel"></helplink>   
+              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerWageHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerWageLabel"></helplink>
             </div>
-            <helptext id="{{ valuePrefix() }}SourceEmployerWageHelp">The wage rate collected from each source should be the hourly rate paid to experienced (not entry level) workers who do not have disabilities that affect productive capacity. An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</helptext>              
+            <helptext id="{{ valuePrefix() }}SourceEmployerWageHelp">The wage rate collected from each source should be the hourly rate paid to <em>experienced</em> (not entry level) workers who do not have disabilities that affect productive capacity. An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</helptext>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerWage" name="{{ valuePrefix() }}SourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
           </div>
@@ -219,9 +223,9 @@
           <div ng-class="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') ? 'usa-input-error' : ''">
             <div class="dol-plain-label-help">
               <label for="{{ valuePrefix() }}SourceEmployerBasis" id="{{ valuePrefix() }}SourceEmployerBasisLabel">Basis for Conclusion Wage Rate is Not Based on Entry Level</label>
-              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerBasisHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerBasisLabel"></helplink>   
+              <helplink aria-controls="{{ valuePrefix() }}SourceEmployerBasisHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerBasisLabel"></helplink>
             </div>
-            <helptext id="{{ valuePrefix() }}SourceEmployerBasisHelp">For example, “Entry rate = $10,” “Entry rate = $9.50; raise given after probationary period,” or “Contact confirmed rate was for experienced workers.”</helptext>               
+            <helptext id="{{ valuePrefix() }}SourceEmployerBasisHelp">For example, “Entry rate = $10,” “Entry rate = $9.50; raise given after probationary period,” or “Contact confirmed rate was for experienced workers.”</helptext>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry')">{{ vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerBasis" name="{{ valuePrefix() }}SourceEmployerBasis" type="text" ng-model="vm.activeSourceEmployer.conclusionWageRateNotBasedOnEntry">
           </div>
@@ -274,7 +278,7 @@
         <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">Provide the alternate wage data source used and the prevailing wage provided by that source:</span>
           <helplink aria-controls="{{ valuePrefix() }}AlternateWorkDescriptionHelp" aria-describedby="{{ valuePrefix() }}AlternateWorkDescriptionLabel"></helplink>
-        </div>          
+        </div>
         <helptext id="{{ valuePrefix() }}AlternateWorkDescriptionHelp">
             If conducting surveys is not practical, the employer may instead use U.S. Bureau of Labor Statistics (BLS) or alternative wage rates.  BLS wage data can be found at <a target="_blank" href="http://www.bls.gov/bls/blswage.htm">www.bls.gov/bls/blswage.htm</a>. Data from employment services may only be used to determine prevailing wages if the data provides wage rates of experienced workers not disabled for the work being performed; entry level wage data may not be used.
         </helptext>
@@ -328,10 +332,10 @@
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
         <label for="{{ valuePrefix() }}WorkMeasurementAttachment" class="dol-form-question-text" id="{{ valuePrefix() }}WorkMeasurementAttachmentLabel">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</label>
-        <helplink aria-controls="{{ valuePrefix() }}WorkMeasurementAttachmentHelp" aria-describedby="{{ valuePrefix() }}WorkMeasurementAttachmentLabel"></helplink>   
+        <helplink aria-controls="{{ valuePrefix() }}WorkMeasurementAttachmentHelp" aria-describedby="{{ valuePrefix() }}WorkMeasurementAttachmentLabel"></helplink>
       </div>
       <helptext id="{{ valuePrefix() }}WorkMeasurementAttachmentHelp">
-        The time study provided must be the most recent time study conducted for that worker. The hourly rate time study provided should include the productivity rating and evaluation forms used to determine the employee’s commensurate wage rate. The documentation should include all materials related to the work measurement, such as:    
+        The time study provided must be the most recent time study conducted for that worker. The hourly rate time study provided should include the productivity rating and evaluation forms used to determine the employee’s commensurate wage rate. The documentation should include all materials related to the work measurement, such as:
         <ul>
           <li>detailed task analysis (including quality and quantity measures),</li>
           <li>wage and productivity of an experienced worker who is not disabled for the work performing the same job(i.e., "standard setter"), and</li>
@@ -350,7 +354,7 @@
           <div class="dol-legend-help">
             <span class="dol-form-question-text" aria-hidden="true">Provide the following information for the job or contract identified above:</span>
             <helplink aria-controls="{{ valuePrefix() }}PieceRateWorkDescriptionHelp" aria-describedby="{{ valuePrefix() }}PieceRateWorkDescriptionLabel"></helplink>
-          </div>          
+          </div>
           <helptext id="{{ valuePrefix() }}PieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey above.</helptext>
           <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}PieceRateWorkDescription">Descripton of Work</label>
@@ -381,14 +385,14 @@
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.attachmentId') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
         <label for="{{ valuePrefix() }}StandardProductivityAttachment" class="dol-form-question-text" id="{{ valuePrefix() }}StandardProductivityAttachmentLabel">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</label>
-        <helplink aria-controls="{{ valuePrefix() }}StandardProductivityAttachmentHelp" aria-describedby="{{ valuePrefix() }}StandardProductivityAttachmentLabel"></helplink>   
+        <helplink aria-controls="{{ valuePrefix() }}StandardProductivityAttachmentHelp" aria-describedby="{{ valuePrefix() }}StandardProductivityAttachmentLabel"></helplink>
       </div>
       <helptext id="{{ valuePrefix() }}StandardProductivityAttachmentHelp">For example:
         <ul>
           <li>detailed task analysis (including quality and quantity measures), and</li>
           <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
         </ul>
-      </helptext>      
+      </helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
       <attachment-field input-id="{{ valuePrefix() }}StandardProductivityAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>

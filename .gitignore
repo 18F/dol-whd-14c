@@ -252,3 +252,4 @@ DOL.WHD.Section14c.Test/CoverageReport/**/*.*
 DOL.WHD.Section14c.Web/coverage/**/*.*
 DOL.WHD.Section14c.Test/nuget.exe
 DOL.WHD.Section14c.Test/TestUploads*
+/DOL.WHD.Section14c.Test/TestEmails

@@ -21,7 +21,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             });
         }
 
-        public IQueryable<Attachment> Get()
+        public IEnumerable<Attachment> Get()
         {
             return _data.Values.AsQueryable();
         }

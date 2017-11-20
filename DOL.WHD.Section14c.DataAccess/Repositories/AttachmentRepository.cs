@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
@@ -14,7 +15,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             _dbContext = new ApplicationDbContext();
         }
 
-        public IQueryable<Attachment> Get()
+        public IEnumerable<Attachment> Get()
         {
             return _dbContext.FileUploads.AsQueryable();
         }

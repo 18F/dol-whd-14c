@@ -27,7 +27,7 @@
         margin-top: 2rem;
       }
       margin-top: 2rem;
-    }      
+    }
   }
 
   .em-block {
@@ -37,8 +37,8 @@
     table thead th {
       background-color: darken($form-em-grey, 10%);
     }
-  }  
-  
+  }
+
   // Remove bottom margins for address layout
   .usa-input-grid-medium,
   .usa-input-grid-small {
@@ -46,6 +46,10 @@
     select {
       margin-bottom: 0;
     }
+  }
+
+  .form-spaced-div {
+    margin-top: 40px;
   }  
 
 }
@@ -112,7 +116,7 @@
   }
 }
 
-// Sub-section fieldset 
+// Sub-section fieldset
 .dol-form-sub-section {
   &:first-of-type {
     > legend {
@@ -143,7 +147,7 @@
       margin-top: -5px;
       margin-bottom: 20px;
     }
-  }  
+  }
   input[type="checkbox"], input[type="radio"] {
     margin: 0;
     left: -4px;
@@ -152,18 +156,18 @@
   }
 }
 fieldset.dol-form-question-block {
-  margin-top: 4rem;  
+  margin-top: 4rem;
 }
 
 .dol-form-question-text {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 20px;
-}  
+}
 
 label.dol-form-question-text {
   margin-top: 0;
-  max-width: 60rem;  
+  max-width: 60rem;
 }
 
 .dol-form-question-subtext {
@@ -185,8 +189,8 @@ button.dol-help-link {
   text-indent: -9999px;
 
   &:hover {
-    opacity: 0.8; 
-    background-color: transparent;   
+    opacity: 0.8;
+    background-color: transparent;
   }
 }
 .dol-form-question-help {
@@ -253,7 +257,18 @@ fieldset > div:first-of-type {
 .dol-list-help {
   input[type="checkbox"] + label, input[type="radio"] + label {
       display: inline-block;
-  }  
+  }
+}
+
+// Legend that looks like a plain label (instead of form question)
+fieldset.dol-legend-plain {
+  margin-top: 3rem;  
+
+  legend {
+    font-size: 1.7rem;
+    font-weight: normal;   
+    margin-bottom: 10px;
+  }
 }
 
 // Example text
@@ -263,7 +278,7 @@ input.dol-side-example, div.dol-side-example {
   + .dol-example-text {
     display: inline-block;
     color: #666;
-    margin-left: 1.5rem;    
+    margin-left: 1.5rem;
   }
 }
 .usa-date-of-birth.dol-side-example {
@@ -387,11 +402,12 @@ h4#helpfulLinksHeader {
     text-decoration: none;
 
     &:visited, &:hover {
-      color: #000000; 
-      text-decoration: none;     
+      color: #000000;
+      text-decoration: none;
     }
   }
 }
+
 
 
 @media (max-width: 37.5em) {
@@ -404,30 +420,6 @@ h4#helpfulLinksHeader {
   }
 }
 
-.form-sidebar {
-  width: 80%;
-  text-align: right;
-  position: absolute;
-  right: 0;
-  top: 7rem;
-
-  .links-block {
-    background-color: $color-gray-lightest;
-    padding: 1.5rem 2rem;
-    text-align: left;
-    box-shadow: -2px 2px 3px 0px rgba(0, 0, 0, 0.3);
-
-    &.ng-hide {
-      transform: translateX(300%);
-    }
-
-    &.ng-hide-add,
-    &.ng-hide-remove {
-      transition: all linear 0.4s;
-    }
-  }
-}
-
 .dol-form-question-group {
   &:not(:first-of-type),
   &.force-margin {
@@ -435,9 +427,148 @@ h4#helpfulLinksHeader {
   }
 }
 
+// Work Sites and Employees
+.dol-worksite-title {
+  padding: 1.5rem 2.5rem;
+  background-color: #333;
+  color: #ffffff;
+
+  h4 {
+    font-size: 2.4rem;
+    font-weight: normal;
+    margin: 0;
+  }  
+
+  h3 {
+    margin: 0 0 10px 0;
+
+    + h4 {
+      font-size: 2.0rem;
+    }
+  }
+
+}
+
+.dol-worksite-employee-help {
+  @extend .clearer;
+  padding: 2.5rem;
+  background-color: #ebebeb;
+  p {
+    margin: 0 0 10px 0;
+  }
+}
+
+@media (min-width: 940px) {
+  .dol-worksite-employee-help {
+    p {
+      float: left;
+      width: 48%;
+      margin: 0;
+    }
+    .dol-help-callout {
+      float: right;
+      width: 48%;    
+    }
+  }
+}
+
+.dol-add-employee-footer {
+  margin-top: 30px;
+}
+
+// List of instructions for Employee section
+.dol-help-employee-info {
+  background: $color-gray-lightest;
+  padding: 2.5rem;
+
+  dl {
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+
+    > div {
+      list-style-type: none;
+      border-bottom: 1px solid #aeb0b5;
+      padding: 1.5rem 0;
+
+      dt {
+        font-weight: 700;
+      }
+
+      dt, dd {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      p {
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+        &:first-of-type {
+          margin-top: 0;
+        }        
+      }      
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+
+      &:last-of-type {
+        border: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 37.5em) { 
+
+  .dol-help-employee-info {
+    dl {
+      display: table;
+
+      > div {
+        display: table-row;
+        border: 0;
+        padding: 0;
+
+        dt, dd {
+          display: table-cell;
+          padding: 2rem;
+          border-bottom: 1px solid #aeb0b5;
+        }
+
+        dt {
+          min-width: 20rem;
+          display: table-cell;          
+        }
+
+        &:first-of-type {
+          dt, dd {
+            padding-top: 0;
+          }
+        }
+
+        &:last-of-type {
+          dt, dd {
+            padding-bottom: 0;
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.dol-employees-data-container {
+  margin-top: 20px;
+}
+
+
+
 // ----- end NEW CSS RULES
 
-// ----- begin LEGACY CSS RULES 
+// ----- begin LEGACY CSS RULES
 // There may be duplicates with the new styles above.
 // The legacy styles will be integrated or deleted during a11y remediation.
 // This comment will be removed when a11y remediation is complete.
@@ -692,16 +823,7 @@ span.example {
       max-width: none;
     }
 
-    .worksite-title {
-      h3 {
-        margin-bottom: 0;
-      }
-
-      h4 {
-        margin-top: 4px;
-        font-weight: 400;
-      }
-    }
+   
 
     .wage-data-table li > input[type='radio'] {
       width: auto;
@@ -832,45 +954,7 @@ span.example {
   text-align: center;
 }
 
-// List of instructions for Employee section
-.dol-help-employee-info {
-  background: $color-gray-lightest;
-  padding: 2.5rem;
 
-  ul {
-    max-width: 100%;
-    padding: 0;
-    margin: 0;
-
-    li {
-      list-style-type: none;
-      border-bottom: 1px solid #aeb0b5;
-      padding: 1.5rem 0;
-
-      span {
-        &:first-of-type {
-          font-weight: 700;
-          display: block;
-        }
-
-        p {
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-        }
-      }
-
-      &:first-of-type {
-        padding-top: 0;
-      }
-
-      &:last-of-type {
-        border: 0;
-        padding-bottom: 0;
-      }
-    }
-  }
-}
 
 //Example of Employee data
 .dol-help-employee-example {
@@ -889,46 +973,6 @@ span.example {
         width: 3rem;
         height: 3rem;
         padding-top: 0.3rem;
-      }
-    }
-  }
-
-  .form-sidebar {
-    width: 33%;
-  }
-
-  .dol-help-employee-info {
-    ul {
-      display: table;
-
-      li {
-        display: table-row;
-        border: 0;
-        padding: 0;
-
-        span {
-          display: table-cell;
-          padding: 2rem;
-          border-bottom: 1px solid #aeb0b5;
-
-          &:first-of-type {
-            min-width: 20rem;
-            display: table-cell;
-          }
-        }
-
-        &:first-of-type {
-          span {
-            padding-top: 0;
-          }
-        }
-
-        &:last-of-type {
-          span {
-            padding-bottom: 0;
-            border: 0;
-          }
-        }
       }
     }
   }
