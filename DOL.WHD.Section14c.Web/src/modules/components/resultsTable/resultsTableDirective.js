@@ -7,8 +7,7 @@ module.exports = function(ngModule) {
       controller: 'resultsTableController',
       scope: {
         results: "=results",
-        columns: "=columns",
-        tableId: "@"
+        columns: "=columns"
       },
       link: function(scope, controller) {
         scope.$watch('results', function(newValue, oldValue) {
