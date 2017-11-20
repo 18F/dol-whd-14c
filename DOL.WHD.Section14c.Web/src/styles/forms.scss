@@ -564,6 +564,25 @@ h4#helpfulLinksHeader {
   margin-top: 20px;
 }
 
+dl.dol-employee-example-data {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  dt {
+    margin: 0 0 8px 0;    
+    font-weight: normal;
+  }
+  dd {
+    margin: 0 0 28px 0;
+    font-weight: bold;
+  }
+}
+#exampleFirstFocus {
+  &:focus {
+    outline: none;
+  }
+}
 
 
 // ----- end NEW CSS RULES

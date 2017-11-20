@@ -9,7 +9,6 @@ module.exports = function(ngModule) {
     $scope,
     $location,
     $document,    
-    $timeout,
     navService,
     responsesService,
     stateService,
@@ -36,6 +35,7 @@ module.exports = function(ngModule) {
     vm.activeWorksiteIndex = -1;
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
+    vm.exampleView = "1";
     vm.saveEmployee = {
       status: false,
       name: ''
@@ -107,7 +107,6 @@ module.exports = function(ngModule) {
       vm.saveEmployee.status = true;
       vm.saveEmployee.name = vm.activeWorker.name;
 
-      $timeout(vm.clearSaveStatus, 3000);
       vm.clearActiveWorker();
 
       
@@ -297,6 +296,12 @@ module.exports = function(ngModule) {
         navService.clearQuery();
       }
     });
+
+    // Employee Data Example Views
+    this.showExampleView = function(view) {
+      vm.exampleView = view;
+      $document[0].getElementById('exampleFirstFocus').focus();
+    }    
 
     // Show all help text
     this.toggleAllHelpText = function() {
