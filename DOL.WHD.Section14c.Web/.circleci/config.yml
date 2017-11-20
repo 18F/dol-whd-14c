@@ -1,6 +1,6 @@
 verison: 2
 jobs:
-  build
+  build:
     docker:
       - image: circleci/node:6
     steps:
