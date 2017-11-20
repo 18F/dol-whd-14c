@@ -1,9 +1,0 @@
-verison: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:6
-    steps:
-      - checkout
-      - run: cd DOL.WHD.Section14c.Web && npm install
-      - run: cd DOL.WHD.Section14c.Web && npm test

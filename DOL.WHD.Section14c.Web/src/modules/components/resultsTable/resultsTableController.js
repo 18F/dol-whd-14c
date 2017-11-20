@@ -3,7 +3,7 @@ import 'datatables.net'
 import 'datatables.net-buttons';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import 'datatables.net-responsive';
-import 'datatables.net-dt/css/jquery.datatables.css';
+import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
 import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
