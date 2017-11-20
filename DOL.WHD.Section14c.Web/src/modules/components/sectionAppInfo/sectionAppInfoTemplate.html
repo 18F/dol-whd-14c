@@ -83,7 +83,7 @@
         <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
         <ul class="usa-unstyled-list dol-list-help">
           <li ng-repeat="response in responses.EstablishmentType">
-            <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" aria-describedby="" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
+            <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
             <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
             <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
             <helptext id="establishmentType_{{ response.id }}Help">

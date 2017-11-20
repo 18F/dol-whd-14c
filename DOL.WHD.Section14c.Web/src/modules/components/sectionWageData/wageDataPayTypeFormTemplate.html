@@ -192,10 +192,9 @@
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactDate') ? 'usa-input-error' : ''">
-            <label>Date of Contact</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
-            <fieldset>
-              <legend class="hide">Contact date</legend>
+            <fieldset class="dol-legend-plain">           
+              <legend>Date of Contact</legend>
+              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
               <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
             </fieldset>
           </div>
