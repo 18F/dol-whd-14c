@@ -232,7 +232,7 @@
         <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
         <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
         </div>
-        <div ng-show="vm.activeWorksite.employees.length > 0" class="container">
+        <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
           <results-table table-id="employeesDataTable" results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
         </div>
 

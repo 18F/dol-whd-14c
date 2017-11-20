@@ -1,0 +1,134 @@
+table.dataTable.dol-datatable {
+    margin-bottom: 10px;
+}
+table.dataTable {
+    border-width: 0 !important;
+}
+table.dataTable.no-footer {
+    border-bottom-width: 0 !important;
+}
+
+// Datatable utility buttons
+div.dt-buttons {
+    padding-top: 8px;
+}
+
+// Datatable search field
+.dataTables_wrapper {
+    .dataTables_filter {
+        white-space: nowrap;
+        text-align: left;
+        margin-bottom: 6px;
+        
+        label, input { 
+            display: inline-block;
+            width: auto;
+        }
+        label {
+            margin: 0;
+            max-width: none;
+        }    
+    }
+}
+
+// Datatable toggle buttons
+
+table.dataTable.dtr-column > tbody > tr > td.control:before, 
+table.dataTable.dtr-column > tbody > tr > th.control:before {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 24px !important;
+    width: 24px !important;
+    margin: 0 auto !important;
+    display: block;
+    border-width: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    font-size: 0px !important;
+    color: transparent !important;
+    line-height: 1 !important;
+    content: 'Toggle Open' !important;
+    background: transparent url('../images/dol-toggle-open.png') center center no-repeat !important;
+    background: transparent url('../images/dol-toggle-open.svg') center center no-repeat !important;
+}
+
+table.dataTable.dtr-column > tbody > tr.parent td.control:before, 
+table.dataTable.dtr-column > tbody > tr.parent th.control:before {
+    content: 'Toggle Close' !important;
+    background: transparent url('../images/dol-toggle-close.png') center center no-repeat !important;
+    background: transparent url('../images/dol-toggle-close.svg') center center no-repeat !important;
+}
+
+// Datatable details
+table.dataTable tbody td.child {
+    padding: 8px 0 !important;
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details {
+    display: block !important;
+    max-width: none;
+}
+
+table.dataTable > tbody > tr.child ul.dtr-details > li {
+    margin-bottom: 0 !important;
+    width: 100% !important;
+    padding: 0.5em !important;
+}
+
+// Datatable sorting
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    background-position: 95% center !important;
+}
+table.dataTable thead .sorting {
+    background-image: url('../images/dol-sort-both.png') !important;
+    background-image: url('../images/dol-sort-both.svg') !important;
+}
+table.dataTable thead .sorting_asc {
+    background-image: url('../images/dol-sort-asc.png') !important;
+    background-image: url('../images/dol-sort-asc.svg') !important;
+}
+table.dataTable thead .sorting_asc_disabled {
+    background-image: url('../images/dol-sort-asc-disabled.png') !important;
+    background-image: url('../images/dol-sort-asc-disabled.svg') !important;
+}
+table.dataTable thead .sorting_desc {
+    background-image: url('../images/dol-sort-desc.png') !important;
+    background-image: url('../images/dol-sort-desc.svg') !important;
+}
+table.dataTable thead .sorting_desc_disabled {
+    background-image: url('../images/dol-sort-desc-disabled.png') !important;
+    background-image: url('../images/dol-sort-desc-disabled.svg') !important;
+}
+
+// Datatable pagination
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button {
+    margin-left: 0 !important;
+    border: solid #ccc !important;
+    border-width: 1px 1px 1px 0 !important;
+    border-radius: 0 !important;    
+}
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.previous {
+    border-width: 1px !important;    
+}
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button:hover {
+    background: none !important;
+    background-color: #f3f3f3 !important;  
+    color: #666666 !important; 
+}
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.current,
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.current:hover {
+    background: none !important;
+    background-color: $color-primary !important;
+    color: #fff !important;  
+    border-color: $color-primary !important; 
+}
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.disabled,
+.dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.disabled:hover {
+    background: none !important;
+    background-color: transparent !important;
+    color: #999 !important;  
+}
+
+
