@@ -90,8 +90,8 @@ module.exports = function(ngModule) {
     $('.cd-panel-trigger').on('click', function(event){ 
       panelTrigger = $(this);
       var target = $(this).attr('aria-controls');    
-      $('#' + target).addClass('is-visible');
-      $('#' + target + ' .cd-panel-header h3').focus();
+      $(`#${target}`).addClass('is-visible');
+      $(`#${target} .cd-panel-header h3`).focus();
       event.preventDefault();
     });
 

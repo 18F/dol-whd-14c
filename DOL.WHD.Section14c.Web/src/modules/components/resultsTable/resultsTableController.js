@@ -19,7 +19,7 @@ module.exports = function(ngModule) {
     $scope.data = [];
 
     this.initDatatable = function () {
-     let exampleId = $('#example');
+      let exampleId = $('#example');
       $scope.tableWidget = exampleId.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
@@ -86,7 +86,6 @@ module.exports = function(ngModule) {
     }
 
     this.initDatatable();
-
 
     $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
         var tr = $(this).closest('tr');
