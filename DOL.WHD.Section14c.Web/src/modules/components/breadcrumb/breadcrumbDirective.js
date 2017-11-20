@@ -17,10 +17,7 @@ module.exports = function(ngModule) {
           crumble.update()
         }
         $scope.crumbs = crumble.trail;
-      }],
-      link: function(scope) {
-
-      }
+      }]
     };
   });
 };
