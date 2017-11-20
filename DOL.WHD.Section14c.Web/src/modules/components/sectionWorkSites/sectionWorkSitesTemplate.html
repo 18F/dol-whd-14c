@@ -158,8 +158,11 @@
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
     <div class="dol-worksite-employee-help">
-      <p>We’ll need collect specific information for each employee. 
-        <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">See detailed instructions on employee information</a></p>
+      <p>Information is needed about each specific worker who was employed at this work site at any time during the most recently completed fiscal quarter and received subminimum wages. 
+        <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">
+            Click here for detailed instructions on the required work information.
+        </a>
+      </p>
       <div class="dol-help-callout">
         Need Help? Email us: <a href="mailto:help-14c@dol.gov">help-14c@dol.gov</a>
       </div>
@@ -230,9 +233,7 @@
         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
 
         <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
-        <a href="" ng-click="vm.showEmployeeExampleHelp = !vm.showEmployeeExampleHelp">Show Me an Example</a>
-        <div class="dol-help-employee-example" ng-show="vm.showEmployeeExampleHelp">
-        </div>
+        <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
         <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
           <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
         </div>
@@ -287,13 +288,13 @@
     <div class="cd-panel-container">     
       <div class="cd-panel-content">
         <header class="cd-panel-header">
-          <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-first-focus">Close</a>               
+          <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-close-button dol-first-focus">Close</a>               
           <div ng-show="vm.saveEmployee.status" class="dol-feedback-success">
             <p class="dol-feedback-message">
               <strong>Saved Employee:</strong> {{vm.saveEmployee.name}}
             </p>
           </div>        
-          <h3 tabindex="-1" id="addEmployeesHeader">Add Employee</h3> 
+          <h3 tabindex="-1" id="addEmployeesHeader">Add New Employee</h3> 
         </header>                 
 
         <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
@@ -477,5 +478,107 @@
 
       </div> <!-- cd-panel-content -->
     </div> <!-- cd-panel-container -->
-  </div> <!-- addEmployeesSlidePanel -->
+  </div> <!-- end addEmployeesSlidePanel -->
+  <div class="cd-panel from-right" id="addEmployeeExampleSlidePanel">
+      <div class="cd-panel-container">     
+          <div class="cd-panel-content" ng-init="dataExample">
+            <header class="cd-panel-header">
+              <a href="#0" class="cd-panel-close dol-close-button dol-first-focus">Close Example</a>               
+              <h3 tabindex="-1" id="addEmployeeExampleHeader">Add New Employee</h3> 
+            </header> 
+            <div class="dol-simple-link-tabs">
+                <a href ng-class="vm.exampleView === '1' ? 'active' : ''" ng-click="vm.showExampleView('1')" aria-selected="{{ vm.exampleView === '1' ? 'true' : 'false' }}">
+                  Example One
+                </a>
+                <a href ng-class="vm.exampleView === '2' ? 'active' : ''" ng-click="vm.showExampleView('2')" aria-selected="{{ vm.exampleView === '2' ? 'true' : 'false' }}">
+                  Example Two
+                </a>
+            </div>
+            <dl class="dol-employee-example-data">
+              <dt id="exampleFirstFocus" tabindex="-1">
+                  Name of worker
+              </dt>
+              <dd>
+                <span ng-show="vm.exampleView === '1'">John Jones</span>
+                <span ng-show="vm.exampleView === '2'">Sue Gomez</span>                  
+              </dd>
+              <dt>
+                  Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)
+              </dt>
+              <dd>
+                <span ng-show="vm.exampleView === '1'">Bolt hand assembly</span>
+                <span ng-show="vm.exampleView === '2'">SCA laundry contract</span>                  
+              </dd>    
+              <dt>
+                  Primary disability that affects productivity for job described above. Pick only one.
+              </dt>
+              <dd>
+                <span ng-show="vm.exampleView === '1'">Neuromuscular Disability (NM)</span>
+                <span ng-show="vm.exampleView === '2'">Intellectual/Developmental Disability (IDD)</span>                  
+              </dd>                            
+            </dl>
+            <p class="dol-form-question-text">Wage Data</p>
+            <dl class="dol-employee-example-data">
+                <dt>
+                    How many jobs did this worker perform at this job site?
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">3</span>
+                  <span ng-show="vm.exampleView === '2'">1</span>                  
+                </dd>     
+                <dt>
+                    Average # of hours worked per week on all jobs at this work site
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">10.15</span>
+                  <span ng-show="vm.exampleView === '2'">22</span>                  
+                </dd> 
+                <dt>
+                    Average earnings per hour for all jobs at this work site
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">$3.00</span>
+                  <span ng-show="vm.exampleView === '2'">$10.65</span>                  
+                </dd> 
+                <dt>
+                    Prevailing wage rate for job described above
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">$10.15</span>
+                  <span ng-show="vm.exampleView === '2'">$16.42</span>                  
+                </dd> 
+                <dt>
+                    Productivity measure/rating for job described above
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">n/a - Piece Rate</span>
+                  <span ng-show="vm.exampleView === '2'">64.80%</span>                  
+                </dd> 
+                <dt>
+                    Commensurate wage rate/average earings per hour for job described above
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">$3.38</span>
+                  <span ng-show="vm.exampleView === '2'">$10.65</span>                  
+                </dd> 
+                <dt>
+                    Total hours worked for job described above
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">65</span>
+                  <span ng-show="vm.exampleView === '2'">22</span>                  
+                </dd> 
+                <dt>
+                    Does worker perform work for this employer at any other work site?
+                </dt>
+                <dd>
+                  <span ng-show="vm.exampleView === '1'">No</span>
+                  <span ng-show="vm.exampleView === '2'">Yes</span>                  
+                </dd>                                       
+              </dl> 
+              
+              <button class="cd-panel-close dol-last-focus">Close Example</button>
+          </div>
+      </div>
+  </div> <!-- end addEmployeeExampleSlidePanel -->
 </div>

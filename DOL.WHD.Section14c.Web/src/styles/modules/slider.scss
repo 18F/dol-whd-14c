@@ -122,40 +122,17 @@ Primary style
 }
 .cd-panel-header {
   position: relative;
+  
+  .dol-close-button {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+  }  
 }
 .cd-panel-header h3 {
   display: inline-block;
   margin: 0 80px 20px 0;
 }
-
-
-.cd-panel-close {
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  height: 60px;
-  width: 60px;
-  /* image replacement */
-  display: inline-block;
-  overflow: hidden;
-  text-indent: 100%;
-  white-space: nowrap;
-}
-.cd-panel-close::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -14px;
-  margin-left: -16px;
-  height: 28px;
-  width: 32px;
-  border-radius: 3px;
-  background: #990000 url(../images/dol-close-gray.png) center center no-repeat;
-  background: #990000 url(../images/dol-close-gray.svg) center center no-repeat;
-  background-size: 50%;
-}
-
 
 .cd-panel-container {
   position: fixed;
