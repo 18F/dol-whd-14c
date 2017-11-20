@@ -3,7 +3,6 @@
 module.exports = function(ngModule) {
   ngModule.controller('changePasswordFormController', function(
     $scope,
-    $location,
     stateService,
     apiService
   ) {
@@ -11,7 +10,6 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
-    $scope.stateService = stateService;
 
     vm.resetErrors = function() {
       vm.changePasswordError = false;

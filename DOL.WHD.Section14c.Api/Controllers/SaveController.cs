@@ -42,6 +42,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult GetSave(string EIN)
         {
             // make sure user has rights to the EIN
+
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
@@ -49,7 +50,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             var applicationSave = _saveService.GetSave(EIN);
-            if (applicationSave != null)
+            if (applicationSave == null)
             {
                 NotFound("Application Not found");
             }

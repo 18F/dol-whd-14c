@@ -22,6 +22,22 @@ describe('sectionWorkSitesController', function() {
         ]
       };
 
+      scope.worker = {
+        avgHourlyEarnings:0.1,
+        avgWeeklyHours:0.1,
+        commensurateWageRate:0.1,
+        hasProductivityMeasure:true,
+        name:"zxcv",
+        numJobs:4,
+        prevailingWage:0.1,
+        primaryDisabilityId:34,
+        primaryDisabilityText:"Hearing Impairment (HI)",
+        productivityMeasure:0.1,
+        totalHours:0.1,
+        workAtOtherSite:false,
+        workType:"xcv"
+      };
+
       sectionWorkSitesController = function() {
         return $controller('sectionWorkSitesController', {
           $scope: scope,
@@ -41,28 +57,30 @@ describe('sectionWorkSitesController', function() {
 
   it('sectionWorkSitesController has addEmployee', function() {
     var controller = sectionWorkSitesController();
-    controller.activeWorker = 'value';
+    controller.activeWorker = scope.worker
     spyOn(controller, 'clearActiveWorker');
     controller.addEmployee();
 
     expect(controller.activeWorksite.employees.length).toBe(1);
-    expect(controller.activeWorksite.employees[0]).toBe('value');
+    expect(controller.activeWorksite.employees[0]).toBe(scope.worker);
     expect(controller.clearActiveWorker).toHaveBeenCalled();
   });
 
   it('sectionWorkSitesController has doneAddingEmployees', function() {
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
     var controller = sectionWorkSitesController();
-    controller.doneAddingEmployees();
+    controller.doneAddingEmployees(e);
 
     expect(controller.addingEmployee).toBe(false);
   });
 
   it('sectionWorkSitesController has editEmployee', function() {
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
     var controller = sectionWorkSitesController();
-    controller.activeWorksite = { employees: [{ id: 1 }] };
-    controller.editEmployee(0);
+    controller.activeWorksite = { employees: [scope.worker] };
+    controller.editEmployee(0, e);
 
-    expect(controller.activeWorker.id).toBe(1);
+    expect(controller.activeWorker.workType).toBe(scope.worker.workType);
     expect(controller.addingEmployee).toBe(true);
   });
 
@@ -92,7 +110,6 @@ describe('sectionWorkSitesController', function() {
     scope.formData.workSites = [{ id: 1 }];
     spyOn(controller, 'setActiveTab');
     controller.editWorkSite(0);
-
     expect(controller.addingWorkSite).toBe(true);
     expect(controller.setActiveTab).toHaveBeenCalledWith(1);
   });
@@ -157,6 +174,7 @@ describe('sectionWorkSitesController', function() {
   // test add/edit/remove workers and worksites
   it('should add/edit/delete a worker and a worksite', function() {
     var controller = sectionWorkSitesController();
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
 
     controller.activeWorksite = {};
     controller.activeWorker = {
@@ -167,10 +185,10 @@ describe('sectionWorkSitesController', function() {
     controller.getDisabilityDisplay(controller.activeWorker);
 
     controller.addAnotherEmployee();
-    controller.doneAddingEmployees();
-    expect(controller.activeWorksite.employees.length).toBe(1);
+    controller.doneAddingEmployees(e);
+    expect(controller.activeWorksite.employees.length).toBe(2);
 
-    controller.editEmployee(0);
+    controller.editEmployee(0, e);
     controller.activeWorker.primaryDisability = 38;
     controller.activeWorker.primaryDisabilityId = 38;
     controller.activeWorker.primaryDisabilityOther = 'other';
@@ -178,10 +196,10 @@ describe('sectionWorkSitesController', function() {
     controller.getDisabilityDisplay(controller.activeWorker);
 
     controller.addEmployee();
-    expect(controller.activeWorksite.employees.length).toBe(1);
+    expect(controller.activeWorksite.employees.length).toBe(2);
 
-    controller.deleteEmployee(0);
-    expect(controller.activeWorksite.employees.length).toBe(0);
+    controller.deleteEmployee(0, e);
+    expect(controller.activeWorksite.employees.length).toBe(1);
 
     controller.saveWorkSite();
     expect(scope.formData.workSites.length).toBe(1);

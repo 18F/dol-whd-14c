@@ -37,6 +37,7 @@ namespace DOL.WHD.Section14c.Log.Models
         /// <summary>
         /// Log level
         /// </summary>
+        [Required]
         public string Level { get; set; }
 
         /// <summary>

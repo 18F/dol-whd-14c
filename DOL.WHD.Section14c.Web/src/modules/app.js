@@ -18,6 +18,7 @@ import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
 import toastr from 'angular-toastr';
+import ngCookies from 'angular-cookies';
 
 // angular 4 components (& downgrade dependencies)
 import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
@@ -36,6 +37,7 @@ let app = angular.module('14c', [
   ngRoute,
   ngSanitize,
   toastr,
+  require('angular-crumble'),
   'angularMoment',
   'ngMask',
   'ngCookies',
@@ -70,117 +72,26 @@ require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
 
-// route access states
-const ROUTE_PUBLIC = 1;
-const ROUTE_LOGGEDIN = 3;
-const ROUTE_USER = 7;
-const ROUTE_ADMIN = 11;
-
-let checkRouteAccess = function(route, userAccess) {
-  if (!route || !route.access) {
-    return true;
-  }
-
-  return (route.access & userAccess) === route.access;
-};
-
-app.config(function($routeProvider) {
-  $routeProvider
-    .when('/', {
-      controller: 'landingPageController',
-      reloadOnSearch: false,
-      template: require('./pages/landingPageTemplate.html'),
-      access: ROUTE_PUBLIC,
-      isLanding: true
-    })
-    .when('/changePassword', {
-      controller: 'changePasswordPageController',
-      template: require('./pages/changePasswordPageTemplate.html'),
-      access: ROUTE_PUBLIC
-    })
-    .when('/forgotPassword', {
-      controller: 'forgotPasswordPageController',
-      template: require('./pages/forgotPasswordPageTemplate.html'),
-      access: ROUTE_PUBLIC
-    })
-    .when('/login', {
-      controller: 'userLoginPageController',
-      template: require('./pages/userLoginPageTemplate.html'),
-      access: ROUTE_PUBLIC
-    })
-    .when('/register', {
-      controller: 'userRegistrationPageController',
-      template: require('./pages/userRegistrationPageTemplate.html'),
-      access: ROUTE_PUBLIC
-    })
-    .when('/account/:userId', {
-      controller: 'accountPageController',
-      template: require('./pages/accountPageTemplate.html'),
-      access: ROUTE_LOGGEDIN
-    })
-    .when('/section/:section_id', {
-      template: function(params) {
-        return (
-          '<form-section><section-' +
-          params.section_id +
-          '></section-' +
-          params.section_id +
-          '></form-section>'
-        );
-      },
-      reloadOnSearch: false,
-      access: ROUTE_USER
-    })
-    .when('/admin', {
-      controller: 'adminDashboardController',
-      template: require('./pages/adminDashboardTemplate.html'),
-      access: ROUTE_ADMIN
-    })
-    .when('/admin/users', {
-      controller: 'userManagementPageController',
-      template: require('./pages/userManagementPageTemplate.html'),
-      access: ROUTE_ADMIN
-    })
-    .when('/admin/:app_id', {
-      redirectTo: function(params) {
-        return '/admin/' + params.app_id + '/section/summary';
-      },
-      access: ROUTE_ADMIN
-    })
-    .when('/admin/:app_id/section/:section_id', {
-      template: function(params) {
-        return (
-          '<admin-review appid=' +
-          params.app_id +
-          '><section-admin-' +
-          params.section_id +
-          ' item-id=' +
-          (params.item_id || '') +
-          '></section-admin-' +
-          params.section_id +
-          '></admin-review>'
-        );
-      },
-      reloadOnSearch: false,
-      access: ROUTE_ADMIN
-    })
-    .when('/v4/hello', { template: '<hello-world></hello-world>' })
-    .when('/v4/ui-library', { template: '<ui-library></ui-library>' })
-    .otherwise({
-      redirectTo: '/'
-    });
-});
-
+let routeConfig = require('./routes.config');
+require('./routes')(app);
 /* eslint-disable complexity */
 app.run(function(
   $rootScope,
   $location,
   $log,
+  crumble,
   stateService,
   autoSaveService,
   authService,
   $q
 ) {
+
+  var getParent = crumble.getParent;
+  crumble.getParent = function (path) {
+    var route = crumble.getRoute(path);
+    return (route && angular.isDefined(route.parent)) ? route.parent : getParent(path);
+  };
+
   // check cookie to see if we're logged in
   const accessToken = stateService.access_token;
   let authenticatedPromise;
@@ -207,12 +118,12 @@ app.run(function(
           return;
         }
         let userAccess = stateService.isAdmin
-          ? ROUTE_ADMIN
-          : stateService.loggedIn ? ROUTE_USER : ROUTE_PUBLIC;
-        if (!checkRouteAccess(next.$$route, userAccess)) {
+          ? routeConfig.access.ROUTE_ADMIN
+          : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
+        if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {
           // user does not have adequate permissions to access the route so redirect
-          $location.path('/' + (userAccess === ROUTE_ADMIN ? 'admin' : ''));
-        } else if (next.$$route.isLanding && userAccess === ROUTE_ADMIN) {
+          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : ''));
+        } else if (next.$$route.isLanding && userAccess === routeConfig.access.ROUTE_ADMIN) {
           // redirect admin users to the admin dashboard
           $location.path('/admin');
         }
