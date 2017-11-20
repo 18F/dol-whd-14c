@@ -41,6 +41,9 @@ namespace DOL.WHD.Section14c.Business.Helper
             if (application == null)
                 throw new Exception("Application not found");
 
+            // Get all attachments from current application
+            var getApplicationAttachments = _attachmentService.GetApplicationAttachments(ref application);
+
             var htmlTemplates = new List<string>();
             foreach (string path in applicationTemplatesPath)
             {
@@ -49,9 +52,6 @@ namespace DOL.WHD.Section14c.Business.Helper
                 var htmlString = _attachmentService.GetApplicationFormViewContent(application, templatString);
                 htmlTemplates.Add(htmlString);
             }
-
-            // Get all attachments from current application
-            var getApplicationAttachments = _attachmentService.GetApplicationAttachments(application);
 
             // Prepare attachemnt for PDF generation
             var applicationAttachmentsData = _attachmentService.PrepareApplicationContentsForPdfConcatenation(

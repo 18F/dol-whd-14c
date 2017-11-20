@@ -100,9 +100,10 @@ namespace DOL.WHD.Section14c.Business.Services
         /// </summary>
         /// <param name="application"></param>
         /// <returns></returns>
-        public List<Attachment> GetApplicationAttachments(ApplicationSubmission application)
+        public List<Attachment> GetApplicationAttachments(ref ApplicationSubmission application)
         {
             List<Attachment> attachments = new List<Attachment>();
+            var applicationSubmission = application;
             if (application != null)
             {
                 if (application.Employer?.SCAAttachmentId != null)
@@ -111,36 +112,41 @@ namespace DOL.WHD.Section14c.Business.Services
                     // In order to be able to send application submit email to employer with concatenate pdf document 
                     // The attachment need to get from attachment database table directly
                     var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.Employer?.SCAAttachmentId.ToString());
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == applicationSubmission.Employer?.SCAAttachmentId.ToString());
                     attachments.Add(attachment);
+                    application.Employer.SCAAttachment = attachment;
                 }
 
                 if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
                     var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId.ToString());
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == applicationSubmission.PieceRateWageInfo?.SCAWageDeterminationAttachmentId.ToString());
                     attachments.Add(application.PieceRateWageInfo.SCAWageDeterminationAttachment);
+                    application.PieceRateWageInfo.Attachment = attachment;
                 }
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
                 {
                     var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.AttachmentId.ToString());
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == applicationSubmission.PieceRateWageInfo?.AttachmentId.ToString());
                     attachments.Add(application.PieceRateWageInfo.Attachment);
+                    application.PieceRateWageInfo.Attachment = attachment;
                 }
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
                 {
                     var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId.ToString());
+                        .SingleOrDefault(x => x.Deleted == false && x.Id == applicationSubmission.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId.ToString());
                     attachments.Add(application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+                    application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment = attachment;
                 }
 
                 if (application.HourlyWageInfo?.AttachmentId != null)
                 {
                     var attachment = _attachmentRepository.Get()
-                       .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.AttachmentId.ToString());
+                       .SingleOrDefault(x => x.Deleted == false && x.Id == applicationSubmission.HourlyWageInfo?.AttachmentId.ToString());
                     attachments.Add(application.HourlyWageInfo.Attachment);
+                    application.HourlyWageInfo.Attachment = attachment;
                 }
             }
             return attachments;

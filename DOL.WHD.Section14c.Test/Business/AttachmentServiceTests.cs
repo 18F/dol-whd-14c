@@ -218,7 +218,7 @@ namespace DOL.WHD.Section14c.Test.Business
         public void GetAllApplicationAttachmentsTest()
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            List<Attachment> attachmentArray = service.GetApplicationAttachments(application);
+            List<Attachment> attachmentArray = service.GetApplicationAttachments(ref application);
             Assert.AreEqual(5, attachmentArray.Count);
         }
 
@@ -226,8 +226,9 @@ namespace DOL.WHD.Section14c.Test.Business
         public void ApplicationFormViewTest()
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            string templateFilePath = Path.GetFullPath(Path.Combine(Assembly.GetExecutingAssembly().Location, @"..\..\..\..\DOL.WHD.Section14c.API\App_Data\Section14cApplicationPdfView.html"));
-            string template = File.ReadAllText(templateFilePath);
+            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
+            string template = File.ReadAllText(applicationViewTemplatePath);
             string applicationFormHtmlContent = service.GetApplicationFormViewContent(application, template);
             Assert.IsNotNull(applicationFormHtmlContent);
         }
