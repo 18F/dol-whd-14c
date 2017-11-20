@@ -86,6 +86,7 @@
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
     "angular-cookies": "^1.5.8",
+    "angular-crumble": "^0.2.3",
     "angular-data-grid": "^0.1.0",
     "angular-in-memory-web-api": "~0.3.0",
     "angular-moment": "^1.0.0",
