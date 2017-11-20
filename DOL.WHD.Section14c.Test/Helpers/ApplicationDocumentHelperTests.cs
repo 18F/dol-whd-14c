@@ -42,7 +42,7 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             _mockApplicationService.Setup(mock => mock.GetApplicationById(It.IsAny<Guid>())).Returns(testApplication);
 
             _mockAttachmentService.Setup(mock => mock.GetApplicationFormViewContent(testApplication, It.IsAny<string>())).Returns("This is some HTML that is filled in");
-            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(testApplication)).Returns(attachments);
+            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(ref testApplication)).Returns(attachments);
             _mockAttachmentService.Setup(mock => mock.PrepareApplicationContentsForPdfConcatenation(attachments, It.IsAny<List<string>>())).Returns(pdfContentList);
 
             // Execute
