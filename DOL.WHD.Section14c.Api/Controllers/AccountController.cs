@@ -72,7 +72,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // Add User
             var now = DateTime.UtcNow;
+<<<<<<< HEAD
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName=model.FirstName, LastName=model.LastName, CreatedAt =now, LastModifiedAt=now };
+=======
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, CreatedAt =now, LastModifiedAt=now };
+>>>>>>> Updated Database.
 
             // TODO: Move to Another API
             //user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
@@ -140,6 +144,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(userEmployers);
         }
 
+<<<<<<< HEAD
         /// <summary>
         /// 
         /// </summary>
@@ -147,6 +152,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <returns></returns>
         [Route("User/SetEmployer")]
         public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
+=======
+        [Route("User/Employer")]
+        public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
+>>>>>>> Updated Database.
         {
             if (!ModelState.IsValid)
             {
@@ -156,6 +165,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
            
             user.Organizations.Add(organizationMembership);
+<<<<<<< HEAD
 
             IdentityResult result = await UserManager.UpdateAsync(user);
             if (!result.Succeeded)
@@ -164,6 +174,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             return Ok();
+=======
+            return Ok(user);
+>>>>>>> Updated Database.
         }
 
         /// <summary>
