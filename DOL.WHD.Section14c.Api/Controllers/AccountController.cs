@@ -65,7 +65,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             try
@@ -132,6 +131,33 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
             };
+        }
+
+        /// <summary>
+        /// Get Employers by user
+        /// </summary>
+        /// <returns></returns>
+        [Route("User/Employer")]
+        public IHttpActionResult GetUserEmployer()
+        {
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            var user =  UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            var userEmployers = user.Organizations;
+            return Ok(userEmployers);
+        }
+
+        [Route("User/Employer")]
+        public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+           
+            user.Organizations.Add(organizationMembership);
+            return Ok(user);
         }
 
         /// <summary>
