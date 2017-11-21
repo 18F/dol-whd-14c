@@ -6,9 +6,7 @@ module.exports = function(ngModule) {
     $rootScope,
     $location,
     assetService,
-    stateService,
-    apiService,
-    autoSaveService
+    stateService
   ) {
     'ngInject';
     'use strict';

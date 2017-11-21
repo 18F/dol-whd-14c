@@ -1,4 +1,6 @@
 describe('sectionWageDataController', function() {
+  var scope, sectionWageDataController;
+
   beforeEach(module('14c'));
 
   beforeEach(

@@ -1,4 +1,6 @@
 describe('appReviewPageController', function() {
+  var scope, appReviewPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -14,6 +16,6 @@ describe('appReviewPageController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = appReviewPageController();
+    appReviewPageController();
   });
 });

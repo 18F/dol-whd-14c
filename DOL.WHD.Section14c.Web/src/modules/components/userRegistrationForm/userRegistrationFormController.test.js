@@ -1,4 +1,8 @@
 describe('userRegistrationFormController', function() {
+  var $q, scope, mockapiService, mockLocation;
+  var userRegistrationFormController, userRegister;
+  var emailVerification;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -35,28 +39,28 @@ describe('userRegistrationFormController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
   });
 
   it('userRegistrationFormController has hideShowPassword', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.hideShowPassword();
   });
   it('userRegistrationFormController has setRegResponse', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.setRegResponse();
   });
   it('userRegistrationFormController has createRegWidget', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.createRegWidget();
   });
   it('userRegistrationFormController has hideShowPassword', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.hideShowPassword();
   });
 
   it('userRegistrationFormController has hideShowPassword', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.onSubmitClick();
     scope.$apply();
   });
@@ -80,8 +84,7 @@ describe('userRegistrationFormController', function() {
   });
 
   it('submitting registration has an error, should return message', function() {
-    var controller = userRegistrationFormController();
-    var hasBeenCalled = false;
+    userRegistrationFormController();
     scope.onSubmitClick();
     userRegister.reject({ data: { modelState: { error: ['message'] } } });
     scope.$apply();
@@ -99,7 +102,7 @@ describe('userRegistrationFormController', function() {
 
     expect(controller.einError).toBe(true);
   });
- 
+
 
   it('submitting registration has an error, Username already taken message is displayed', function() {
     var controller = userRegistrationFormController();
@@ -187,7 +190,7 @@ describe('userRegistrationFormController', function() {
   });
 
   it('submitting registration has an error, log error details', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.onSubmitClick();
     userRegister.reject({ data: { error: 'test' } });
     scope.$apply();
@@ -221,7 +224,7 @@ describe('userRegistrationFormController', function() {
   });
 
   it('toggle hideShowPassword should show password if it is hidden', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.inputType = 'password';
     scope.hideShowPassword();
     scope.$apply();
@@ -230,7 +233,7 @@ describe('userRegistrationFormController', function() {
   });
 
   it('toggle hideShowPassword should hide password if it is shown', function() {
-    var controller = userRegistrationFormController();
+    userRegistrationFormController();
     scope.inputType = 'text';
     scope.hideShowPassword();
     scope.$apply();

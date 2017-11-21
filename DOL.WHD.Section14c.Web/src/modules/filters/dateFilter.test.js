@@ -1,4 +1,6 @@
 describe('dateFilter', function() {
+  var dateFilter;
+
   beforeEach(module('14c'));
 
   beforeEach(

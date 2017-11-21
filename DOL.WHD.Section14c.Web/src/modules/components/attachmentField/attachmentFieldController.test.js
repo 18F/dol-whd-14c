@@ -1,4 +1,7 @@
 describe('attachmentFieldController', function() {
+  var scope, $q, mockApiService, attachmentFieldController;
+  var uploadAttachment, deleteAttachment;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -28,7 +31,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected no files, file value should stay the same', function() {
     var controller = attachmentFieldController();
-    fileInput = { files: [], value: 1 };
+    var fileInput = { files: [], value: 1 };
     controller.onAttachmentSelected(fileInput);
 
     expect(fileInput.value).toBe(1);
@@ -36,7 +39,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected files failed upload', function() {
     var controller = attachmentFieldController();
-    fileInput = { files: [{}] };
+    var fileInput = { files: [{}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.reject({});
     scope.$apply();
@@ -47,7 +50,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected files uploaded successful', function() {
     var controller = attachmentFieldController();
-    fileInput = { files: [{}] };
+    var fileInput = { files: [{}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name' }] });
     scope.$apply();

@@ -1,4 +1,6 @@
 describe('sectionWorkSitesController', function() {
+  var scope, mockValidationService, sectionWorkSitesController;
+
   beforeEach(module('14c'));
 
   beforeEach(

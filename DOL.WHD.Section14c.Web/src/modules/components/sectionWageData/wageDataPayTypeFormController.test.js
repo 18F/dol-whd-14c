@@ -1,4 +1,6 @@
 describe('wageDataPayTypeFormController', function() {
+  var scope, wageDataPayTypeFormController;
+  
   beforeEach(module('14c'));
 
   beforeEach(

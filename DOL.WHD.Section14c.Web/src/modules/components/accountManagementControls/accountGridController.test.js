@@ -1,4 +1,7 @@
 describe('accountGridController', function() {
+  var scope, $q, mockApiService, mockLocation;
+  var accountGridController, getAccounts;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -21,11 +24,11 @@ describe('accountGridController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = accountGridController();
+    accountGridController();
   });
 
   it('accounts load', function() {
-    var controller = accountGridController();
+    accountGridController();
     getAccounts.resolve({ data: [{ userId: 1 }] });
     scope.$apply();
 

@@ -1,4 +1,6 @@
 describe('userRegistrationForm', function() {
+  var scope;
+
   beforeEach(module('14c'));
 
   var element, rootScope;

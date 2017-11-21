@@ -1,4 +1,6 @@
 describe('userLoginPageController', function() {
+  var scope, userLoginPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -14,6 +16,6 @@ describe('userLoginPageController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = userLoginPageController();
+    userLoginPageController();
   });
 });

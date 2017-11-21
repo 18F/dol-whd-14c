@@ -20,12 +20,6 @@ module.exports = function(ngModule) {
         $scope.accounts = data;
       },
       function(error) {
-        console.log(
-          error.statusText +
-            (error.data && error.data.error
-              ? ': ' + error.data.error + ' - ' + error.data.error_description
-              : '')
-        );
         vm.loadingError = true;
       }
     );

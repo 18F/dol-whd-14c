@@ -1,7 +1,8 @@
 describe('sectionEmployer', function() {
   beforeEach(module('14c'));
 
-  var element, rootScope;
+  var element, $q, rootScope, responses, mockResponsesService;
+
   beforeEach(function() {
     element = angular.element('<section-employer/>');
     inject(function($rootScope, $compile, _$q_, responsesService) {

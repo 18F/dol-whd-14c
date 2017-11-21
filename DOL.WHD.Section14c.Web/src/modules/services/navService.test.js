@@ -1,26 +1,15 @@
 describe('navService', function() {
-  var $location;
   var $route;
   var state;
   var autoSave;
   var query;
 
-  const sectionArray = [
-    'assurances',
-    'app-info',
-    'employer',
-    'wage-data',
-    'work-sites',
-    'wioa',
-    'review'
-  ];
   beforeEach(module('14c'));
 
   var nav;
 
   beforeEach(
-    inject(function($injector, _$location_, _$route_) {
-      $location = _$location_;
+    inject(function($injector, _$route_) {
       $route = _$route_;
       state = { backStack: [] };
       nav = $injector.get('navService');

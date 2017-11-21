@@ -1,7 +1,9 @@
 describe('stateService', function() {
   beforeEach(module('14c'));
 
-  var stateService;
+  var stateService, apiService, $q, getApplication;
+  var getSubmittedApplication, getSubmittedApplications;
+  var $rootScope;
 
   beforeEach(
     inject(function(_$rootScope_, _$q_, _stateService_, _apiService_) {
@@ -55,7 +57,7 @@ describe('stateService', function() {
   });
 
   it('should return if the user has a claim', function() {
-    hasClaim = stateService.hasClaim();
+    var hasClaim = stateService.hasClaim();
     expect(hasClaim).toEqual(false);
   });
 
@@ -64,7 +66,7 @@ describe('stateService', function() {
     stateService.user = {
       applicationClaims: ['DOL.WHD.Section14c.' + claimName]
     };
-    hasClaim = stateService.hasClaim(claimName);
+    var hasClaim = stateService.hasClaim(claimName);
     expect(hasClaim).toEqual(true);
   });
 

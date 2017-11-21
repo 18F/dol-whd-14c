@@ -43,7 +43,7 @@ module.exports = function(ngModule) {
         </div>
       `,
       replace: true,
-      link: function(scope, element, attrs) {
+      link: function(scope, element) {
         scope.$watch('showAllHelp', function() {
           element.toggleClass('show', scope.showAllHelp === true);
         });

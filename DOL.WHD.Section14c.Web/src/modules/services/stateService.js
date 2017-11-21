@@ -2,8 +2,6 @@
 
 import merge from 'lodash/merge';
 import some from 'lodash/some';
-import has from 'lodash/has';
-import property from 'lodash/property';
 import omit from 'lodash/omit';
 import isEmpty from 'lodash/isEmpty';
 

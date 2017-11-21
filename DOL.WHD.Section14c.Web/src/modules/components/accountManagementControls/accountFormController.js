@@ -32,12 +32,6 @@ module.exports = function(ngModule) {
           $scope.formVals = data;
         },
         function(error) {
-          console.log(
-            error.statusText +
-              (error.data && error.data.error
-                ? ': ' + error.data.error + ' - ' + error.data.error_description
-                : '')
-          );
           vm.loadingError = true;
         }
       );
@@ -53,12 +47,6 @@ module.exports = function(ngModule) {
         $scope.roles = data;
       },
       function(error) {
-        console.log(
-          error.statusText +
-            (error.data && error.data.error
-              ? ': ' + error.data.error + ' - ' + error.data.error_description
-              : '')
-        );
         vm.loadingError = true;
       }
     );
@@ -69,19 +57,10 @@ module.exports = function(ngModule) {
         apiService
           .modifyAccount(stateService.access_token, $scope.formVals)
           .then(
-            function(result) {
+            function() {
               $location.path('/');
             },
             function(error) {
-              console.log(
-                error.statusText +
-                  (error.data && error.data.error
-                    ? ': ' +
-                      error.data.error +
-                      ' - ' +
-                      error.data.error_description
-                    : '')
-              );
               $scope.savingErrors = apiService.parseErrors(error.data);
               vm.savingError = true;
             }
@@ -90,19 +69,10 @@ module.exports = function(ngModule) {
         apiService
           .createAccount(stateService.access_token, $scope.formVals)
           .then(
-            function(result) {
+            function() {
               $location.path('/');
             },
             function(error) {
-              console.log(
-                error.statusText +
-                  (error.data && error.data.error
-                    ? ': ' +
-                      error.data.error +
-                      ' - ' +
-                      error.data.error_description
-                    : '')
-              );
               $scope.savingErrors = apiService.parseErrors(error.data);
               vm.savingError = true;
             }

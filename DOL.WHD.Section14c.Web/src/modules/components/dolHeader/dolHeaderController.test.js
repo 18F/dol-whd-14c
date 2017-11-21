@@ -1,12 +1,12 @@
 describe('dolHeaderController', function() {
+  var scope, dolHeaderController;
+
   beforeEach(module('14c'));
 
   beforeEach(
     inject(function(
       $rootScope,
-      $controller,
-      $timeout,
-      $window
+      $controller
     ) {
       scope = $rootScope.$new();
 
@@ -17,5 +17,4 @@ describe('dolHeaderController', function() {
       };
     })
   );
-
 });

@@ -4,7 +4,7 @@ describe('mainNavigationControl', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<main-navigation-control/>');
-    inject(function($rootScope, $compile) {
+    inject(function($rootScope) {
       rootScope = $rootScope;
       //$compile(element)(rootScope);
     });

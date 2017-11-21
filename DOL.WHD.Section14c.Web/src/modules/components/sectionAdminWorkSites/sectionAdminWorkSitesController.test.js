@@ -1,4 +1,6 @@
 describe('sectionAdminWorkSitesController', function() {
+  var scope, $location, sectionAdminWorkSitesController;
+
   beforeEach(module('14c'));
 
   beforeEach(
