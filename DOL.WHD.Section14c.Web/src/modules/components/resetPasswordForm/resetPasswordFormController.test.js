@@ -1,4 +1,7 @@
 describe('resetPasswordFormController', function() {
+  var scope, $q, mockApiService, mockStateService, mockLocation;
+  var resetPasswordFormController, resetPassword, verifyResetPassword;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -7,21 +10,20 @@ describe('resetPasswordFormController', function() {
       $controller,
       _$q_,
       $location,
-      apiService,
-      stateService
+      apiService
     ) {
       scope = $rootScope.$new();
       $q = _$q_;
       mockApiService = apiService;
       mockStateService = { user: {} };
-      nockLocation = $location;
+      mockLocation = $location;
 
       resetPasswordFormController = function() {
         return $controller('resetPasswordFormController', {
           $scope: scope,
           apiService: mockApiService,
           stateService: mockStateService,
-          $location: nockLocation
+          $location: mockLocation
         });
       };
 
@@ -56,7 +58,7 @@ describe('resetPasswordFormController', function() {
   });
 
   it('toggle hideShowPassword should show password if it is hidden', function() {
-    var controller = resetPasswordFormController();
+    resetPasswordFormController();
     scope.inputType = 'password';
     scope.hideShowPassword();
     scope.$apply();
@@ -65,7 +67,7 @@ describe('resetPasswordFormController', function() {
   });
 
   it('toggle hideShowPassword should hide password if it is shown', function() {
-    var controller = resetPasswordFormController();
+    resetPasswordFormController();
     scope.inputType = 'text';
     scope.hideShowPassword();
     scope.$apply();
@@ -114,7 +116,7 @@ describe('resetPasswordFormController', function() {
   });
 
   it('show verify password form when code and userId are present', function() {
-    spyOn(nockLocation, 'search').and.returnValue({
+    spyOn(mockLocation, 'search').and.returnValue({
       code: 'code',
       userId: 'userId'
     });
