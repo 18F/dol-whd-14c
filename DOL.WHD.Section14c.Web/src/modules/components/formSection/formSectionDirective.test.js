@@ -4,7 +4,7 @@ describe('formSection', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<form-section/>');
-    inject(function($rootScope, $compile) {
+    inject(function($rootScope) {
       rootScope = $rootScope;
       //$compile(element)(rootScope);
     });

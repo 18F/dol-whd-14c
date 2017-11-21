@@ -6,7 +6,7 @@ describe('mainNavigationControl', function() {
     element = angular.element('<main-navigation-control/>');
     inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      //$compile(element)(rootScope);
+      $compile(element)(rootScope);
     });
   });
 

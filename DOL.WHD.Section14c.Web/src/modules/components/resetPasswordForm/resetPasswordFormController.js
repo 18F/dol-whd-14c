@@ -1,6 +1,5 @@
 'use strict';
 
-import some from 'lodash/some';
 var zxcvbn = require('zxcvbn');
 
 module.exports = function(ngModule) {
@@ -8,8 +7,7 @@ module.exports = function(ngModule) {
     $scope,
     $location,
     stateService,
-    apiService,
-    _env
+    apiService
   ) {
     'ngInject';
     'use strict';
@@ -67,8 +65,7 @@ module.exports = function(ngModule) {
       apiService
         .resetPassword($scope.formVals.email, vm.resetPasswordVerificationUrl)
         .then(
-          function(result) {
-            var data = result.data;
+          function() {
             vm.forgotPasswordSuccess = true;
             $scope.formVals.email = '';
           },
@@ -103,8 +100,7 @@ module.exports = function(ngModule) {
           vm.resetPasswordVerificationCode
         )
         .then(
-          function(result) {
-            var data = result.data;
+          function() {
             vm.resetPasswordSuccess = true;
             $scope.formVals.newPass = '';
             $scope.formVals.confirmPass = '';

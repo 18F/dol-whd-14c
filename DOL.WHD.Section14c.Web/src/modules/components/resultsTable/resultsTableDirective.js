@@ -9,8 +9,8 @@ module.exports = function(ngModule) {
         results: "=results",
         columns: "=columns"
       },
-      link: function(scope, controller) {
-        scope.$watch('results', function(newValue, oldValue) {
+      link: function(scope) {
+        scope.$watch('results', function(newValue) {
           scope.vm.refreshTable(newValue, scope.columns);
         }, true);
       },
