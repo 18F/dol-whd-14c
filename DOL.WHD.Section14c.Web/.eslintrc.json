@@ -5,7 +5,9 @@
     "es6": true
   },
   "globals": {
-    "angular": false
+    "angular": false,
+    "$": false,
+    "jquery": false
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -19,6 +21,7 @@
       "expect": false,
       "inject": false,
       "it": false,
+      "jasmine": false,
       "spyOn": false
     }
   }]
