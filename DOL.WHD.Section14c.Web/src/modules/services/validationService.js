@@ -5,8 +5,6 @@ import get from 'lodash/get';
 import isArray from 'lodash/isArray';
 import isEmpty from 'lodash/isEmpty';
 import isNumber from 'lodash/isNumber';
-import includes from 'lodash/includes';
-import forEach from 'lodash/forEach';
 
 module.exports = function(ngModule) {
   ngModule.service('validationService', function(
@@ -16,9 +14,6 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
-
-    // months containing 31 days
-    const months31 = [1, 3, 5, 7, 8, 10, 12];
 
     // validation error tree (mirrors data model tree)
     let state = {};
@@ -197,7 +192,7 @@ module.exports = function(ngModule) {
     };
 
     this.validateEmailAddress = function(email) {
-      let re = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+      let re = /^[-a-z0-9~!$%^&*_=+}{'?]+(\.[-a-z0-9~!$%^&*_=+}{'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
       let match = re.exec(email);
 
       return match !== null;
@@ -483,7 +478,7 @@ module.exports = function(ngModule) {
         'Please indicate if the employer holds any SCA-covered contracts'
       );
       if (sca === _constants.responses.sca.yes) {
-        let scaCount = this.checkRequiredNumber(
+        this.checkRequiredNumber(
           'employer.scaCount',
           'Please provide the total number of workers employed under SCA-covered contracts',
           0
@@ -518,7 +513,7 @@ module.exports = function(ngModule) {
         'Please indicate if the employer took credit for facility costs'
       );
       if (takeCreditForCosts === true) {
-        let deductions = this.checkRequiredValueArray(
+        this.checkRequiredValueArray(
           'employer.providingFacilitiesDeductionTypeId',
           'Please select at least one deduction'
         );
