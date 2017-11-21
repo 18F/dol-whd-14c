@@ -35,8 +35,7 @@ module.exports = function(ngModule) {
           $scope.formVals.confirmPass
         )
         .then(
-          function(result) {
-            var data = result.data;
+          function() {
             stateService.user.loginEmail = '';
             $scope.formVals.currentPass = '';
             $scope.formVals.newPass = '';

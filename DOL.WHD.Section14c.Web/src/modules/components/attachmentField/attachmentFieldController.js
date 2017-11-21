@@ -39,7 +39,7 @@ module.exports = function(ngModule) {
       apiService
         .deleteAttachment(stateService.access_token, stateService.ein, id)
         .then(
-          function(result) {
+          function() {
             $scope.attachmentId = undefined;
             $scope.attachmentName = undefined;
           },
