@@ -25,7 +25,15 @@ module.exports = {
   module: {
     preLoaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
+        include: path.resolve('src/modules/'),
+        loader: 'istanbul-instrumenter',
+        query: {
+          esModules: true
+        }
+      },
+      {
+        test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'eslint'
       }
