@@ -158,7 +158,11 @@
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
     <div class="dol-worksite-employee-help">
+<<<<<<< HEAD
       <p>Information is needed about each specific worker who was employed at this work site at any time during the most recently completed fiscal quarter and received subminimum wages.
+=======
+      <p>Information is needed about each specific worker who was employed at this work site at any time during the most recently completed fiscal quarter and received subminimum wages. 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
         <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">
             Click here for detailed instructions on the required work information.
         </a>
@@ -288,14 +292,24 @@
     <div class="cd-panel-container">
       <div class="cd-panel-content">
         <header class="cd-panel-header">
+<<<<<<< HEAD
           <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-close-button dol-first-focus">Close</a>
+=======
+          <a href="#0" ng-click="vm.clearActiveWorker()" class="cd-panel-close dol-close-button dol-first-focus">Close</a>               
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
           <div ng-show="vm.saveEmployee.status" class="dol-feedback-success">
             <p class="dol-feedback-message">
               <strong>Saved Employee:</strong> {{vm.saveEmployee.name}}
             </p>
+<<<<<<< HEAD
           </div>
           <h3 tabindex="-1" id="addEmployeesHeader">Add New Employee</h3>
         </header>
+=======
+          </div>        
+          <h3 tabindex="-1" id="addEmployeesHeader">Add New Employee</h3> 
+        </header>                 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
 
         <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -480,12 +494,21 @@
     </div> <!-- cd-panel-container -->
   </div> <!-- end addEmployeesSlidePanel -->
   <div class="cd-panel from-right" id="addEmployeeExampleSlidePanel">
+<<<<<<< HEAD
       <div class="cd-panel-container">
           <div class="cd-panel-content" ng-init="dataExample">
             <header class="cd-panel-header">
               <a href="#0" class="cd-panel-close dol-close-button dol-first-focus">Close Example</a>
               <h3 tabindex="-1" id="addEmployeeExampleHeader">Add New Employee</h3>
             </header>
+=======
+      <div class="cd-panel-container">     
+          <div class="cd-panel-content" ng-init="dataExample">
+            <header class="cd-panel-header">
+              <a href="#0" class="cd-panel-close dol-close-button dol-first-focus">Close Example</a>               
+              <h3 tabindex="-1" id="addEmployeeExampleHeader">Add New Employee</h3> 
+            </header> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
             <div class="dol-simple-link-tabs">
                 <a href ng-class="vm.exampleView === '1' ? 'active' : ''" ng-click="vm.showExampleView('1')" aria-selected="{{ vm.exampleView === '1' ? 'true' : 'false' }}">
                   Example One
@@ -500,22 +523,36 @@
               </dt>
               <dd>
                 <span ng-show="vm.exampleView === '1'">John Jones</span>
+<<<<<<< HEAD
                 <span ng-show="vm.exampleView === '2'">Sue Gomez</span>
+=======
+                <span ng-show="vm.exampleView === '2'">Sue Gomez</span>                  
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
               </dd>
               <dt>
                   Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)
               </dt>
               <dd>
                 <span ng-show="vm.exampleView === '1'">Bolt hand assembly</span>
+<<<<<<< HEAD
                 <span ng-show="vm.exampleView === '2'">SCA laundry contract</span>
               </dd>
+=======
+                <span ng-show="vm.exampleView === '2'">SCA laundry contract</span>                  
+              </dd>    
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
               <dt>
                   Primary disability that affects productivity for job described above. Pick only one.
               </dt>
               <dd>
                 <span ng-show="vm.exampleView === '1'">Neuromuscular Disability (NM)</span>
+<<<<<<< HEAD
                 <span ng-show="vm.exampleView === '2'">Intellectual/Developmental Disability (IDD)</span>
               </dd>
+=======
+                <span ng-show="vm.exampleView === '2'">Intellectual/Developmental Disability (IDD)</span>                  
+              </dd>                            
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
             </dl>
             <p class="dol-form-question-text">Wage Data</p>
             <dl class="dol-employee-example-data">
@@ -524,59 +561,101 @@
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">3</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">1</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">1</span>                  
+                </dd>     
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Average # of hours worked per week on all jobs at this work site
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">10.15</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">22</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">22</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Average earnings per hour for all jobs at this work site
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">$3.00</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">$10.65</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">$10.65</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Prevailing wage rate for job described above
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">$10.15</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">$16.42</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">$16.42</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Productivity measure/rating for job described above
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">n/a - Piece Rate</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">64.80%</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">64.80%</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Commensurate wage rate/average earings per hour for job described above
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">$3.38</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">$10.65</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">$10.65</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Total hours worked for job described above
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">65</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">22</span>
                 </dd>
+=======
+                  <span ng-show="vm.exampleView === '2'">22</span>                  
+                </dd> 
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
                 <dt>
                     Does worker perform work for this employer at any other work site?
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">No</span>
+<<<<<<< HEAD
                   <span ng-show="vm.exampleView === '2'">Yes</span>
                 </dd>
               </dl>
 
+=======
+                  <span ng-show="vm.exampleView === '2'">Yes</span>                  
+                </dd>                                       
+              </dl> 
+              
+>>>>>>> 4267723b6787a8f30b329f147836c3c2b6a4e73f
               <button class="cd-panel-close dol-last-focus">Close Example</button>
           </div>
       </div>
