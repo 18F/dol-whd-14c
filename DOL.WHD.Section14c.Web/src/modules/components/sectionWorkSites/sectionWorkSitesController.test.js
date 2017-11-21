@@ -2,7 +2,7 @@ describe('sectionWorkSitesController', function() {
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, validationService) {
+    inject(function($rootScope, $controller, validationService, $document) {
       scope = $rootScope.$new();
       mockValidationService = validationService;
       scope.responses = {
@@ -158,6 +158,7 @@ describe('sectionWorkSitesController', function() {
       'workSites[0].employees[0].1'
     );
   });
+
   it('sectionWorkSitesController has validateActiveWorksiteWorker', function() {
     var controller = sectionWorkSitesController();
     spyOn(mockValidationService, 'getValidationErrors');
@@ -167,6 +168,23 @@ describe('sectionWorkSitesController', function() {
     expect(mockValidationService.getValidationErrors).toHaveBeenCalledWith(
       'workSites[0].employees[1]'
     );
+  });
+
+  it('should toggle example view', function() {
+    var controller = sectionWorkSitesController();
+    var HTMLElements = {};
+    document.getElementById = jasmine.createSpy('HTML Element').and.callFake(function(ID) {
+       if(!HTMLElements[ID]) {
+          var newElement = document.createElement('div');
+          newElement.id = 'exampleFirstFocus';
+          HTMLElements[ID] = newElement;
+       }
+       return HTMLElements[ID];
+    });;
+
+    controller.exampleView = '1';
+    controller.showExampleView('2');
+    expect(controller.exampleView).toBe('2');
   });
 
   // test add/edit/remove workers and worksites
