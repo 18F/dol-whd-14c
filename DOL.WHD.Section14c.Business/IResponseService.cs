@@ -10,5 +10,6 @@ namespace DOL.WHD.Section14c.Business
     public interface IResponseService : IDisposable
     {
         IEnumerable<Response> GetResponses(string questionKey = null, bool onlyActive = true);
+        Response GetResponseById(string id);
     }
 }
