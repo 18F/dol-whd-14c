@@ -1,4 +1,7 @@
 describe('formFooterControlsController', function() {
+  var scope, $q, mockNavService, mockApiService, mockAutoSaveService;
+  var saveApplication, formFooterControlsController;
+
   beforeEach(module('14c'));
 
   beforeEach(
