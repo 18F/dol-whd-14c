@@ -131,4 +131,36 @@ table.dataTable thead .sorting_desc_disabled {
     color: #999 !important;  
 }
 
+// Datatable buttons
+button.dt-button, div.dt-button, a.dt-button {
+    background-color: $color-gray-light !important;
+    border: 0 !important;
+    border-radius: 0.3rem !important;
+    color: $text-color !important;
+    cursor: pointer !important;
+    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+    font-size: 1.7rem !important;
+    font-weight: 700;
+    line-height: 1;
+    outline: none !important;
+    padding: 1rem 2rem !important;
+    text-align: center;
+    text-decoration: none !important;
+    -webkit-font-smoothing: antialiased;
+    background-image: none !important;
+    filter: none;
+    
+    &:hover {
+        background-color: $color-gray-medium !important;
+        color: $text-color !important;
+        background-image: none !important;
+    }
+    
+    &:active {
+        background-color: $color-gray !important;
+        color: $text-color !important;
+        background-image: none !important;
+    }    
+}
+
 

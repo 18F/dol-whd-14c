@@ -8,8 +8,7 @@ module.exports = function(ngModule) {
   ngModule.controller('sectionWorkSitesController', function(
     $scope,
     $location,
-    $document,    
-    $timeout,
+    $document,
     navService,
     responsesService,
     stateService,
@@ -36,6 +35,7 @@ module.exports = function(ngModule) {
     vm.activeWorksiteIndex = -1;
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
+    vm.exampleView = "1";
     vm.saveEmployee = {
       status: false,
       name: ''
@@ -107,10 +107,9 @@ module.exports = function(ngModule) {
       vm.saveEmployee.status = true;
       vm.saveEmployee.name = vm.activeWorker.name;
 
-      $timeout(vm.clearSaveStatus, 3000);
       vm.clearActiveWorker();
 
-      
+
     };
 
     this.addAnotherEmployee = function() {
@@ -298,10 +297,16 @@ module.exports = function(ngModule) {
       }
     });
 
+    // Employee Data Example Views
+    this.showExampleView = function(view) {
+      vm.exampleView = view;
+      $document[0].getElementById('exampleFirstFocus').focus();
+    }
+
     // Show all help text
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
-    }  
+    }
 
     // Tab panel focus
     vm.tabPanelFocus = function(id) {
@@ -311,16 +316,16 @@ module.exports = function(ngModule) {
           $document[0].getElementById('employeesTabPanel').focus();
       }
     };
-    
-    // Sliding Panel
-    var panelTrigger     
 
-    $('.cd-panel-trigger').on('click', function(event){ 
+    // Sliding Panel
+    var panelTrigger
+
+    $('.cd-panel-trigger').on('click', function(event){
       panelTrigger = $(this);
-      var target = $(this).attr('aria-controls');    
+      var target = $(this).attr('aria-controls');
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
-      vm.clearActiveWorker();      
+      vm.clearActiveWorker();
       event.preventDefault();
     });
 
@@ -345,15 +350,15 @@ module.exports = function(ngModule) {
     $(".cd-panel .dol-last-focus").keydown(function(event){
       if (event.which === 9 && !event.shiftKey) {
         $(".cd-panel .dol-first-focus").focus();
-        event.preventDefault(); 
+        event.preventDefault();
       }
-    });    
+    });
     $(".cd-panel .dol-first-focus").keydown(function(event){
       if (event.shiftKey && event.which === 9) {
         $(".cd-panel .dol-last-focus").focus();
-        event.preventDefault(); 
+        event.preventDefault();
       }
-    });   
+    });
 
   });
 };

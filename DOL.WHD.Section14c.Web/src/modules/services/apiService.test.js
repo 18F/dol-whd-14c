@@ -572,7 +572,7 @@ describe('apiService', function() {
       });
 
     $httpBackend
-      .expectPOST(env.api_url + '/api/application')
+      .expectPOST(env.api_url + '/api/application/submit')
       .respond(400, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(false);
@@ -589,7 +589,7 @@ describe('apiService', function() {
     });
 
     $httpBackend
-      .expectPOST(env.api_url + '/api/application')
+      .expectPOST(env.api_url + '/api/application/submit')
       .respond(200, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(true);
