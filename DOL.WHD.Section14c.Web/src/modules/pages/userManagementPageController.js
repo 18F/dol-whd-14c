@@ -3,8 +3,7 @@
 module.exports = function(ngModule) {
   ngModule.controller('userManagementPageController', function(
     $scope,
-    stateService,
-    $location
+    stateService
   ) {
     'ngInject';
     'use strict';
