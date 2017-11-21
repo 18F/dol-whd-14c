@@ -10,7 +10,6 @@ module.exports = function(ngModule) {
     'use strict';
 
     let duration = 60 * 1000; // 60 seconds
-    let timer;
 
     let start = function start() {
       nextTimer();
@@ -31,20 +30,17 @@ module.exports = function(ngModule) {
         .then(
           function() {
             if (callback) callback();
-            console.log('autosave');
           },
           function() {
             if (callback) callback();
             //Todo: Show Error
-            console.error('autosave failed');
           }
         );
     };
 
     function nextTimer() {
-      timer = $timeout(
+      $timeout(
         function() {
-          console.log('timer save initiated');
           save(nextTimer);
         },
         duration,
