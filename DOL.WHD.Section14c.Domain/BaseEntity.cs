@@ -16,14 +16,33 @@ namespace DOL.WHD.Section14c.Domain
 
         [ForeignKey("LastModifiedBy_Id")]
         public ApplicationUser CreatedBy { get; set; }
+        
+        private DateTime? createdAt = null;
+        public DateTime CreatedAt
+        {
+            get
+            {
+                return createdAt ?? DateTime.Now;
+            }
 
-        public DateTime CreatedAt { get; set; }
+            set { this.createdAt = value; }
+        }
 
         public string LastModifiedBy_Id { get; set; }
 
         [ForeignKey("LastModifiedBy_Id")]
         public ApplicationUser LastModifiedBy { get; set; }
 
-        public DateTime LastModifiedAt { get; set; }
+        private DateTime? lastModifiedAt = null;
+
+        public DateTime LastModifiedAt
+        {
+            get
+            {
+                return lastModifiedAt ?? DateTime.Now;
+            }
+
+            set { this.lastModifiedAt = value; }
+        }        
     }
 }
