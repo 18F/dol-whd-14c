@@ -63,7 +63,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
@@ -73,8 +72,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // Add User
             var now = DateTime.UtcNow;
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
-            user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, CreatedAt =now, LastModifiedAt=now };
+
+            // TODO: Move to Another API
+            //user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -124,6 +125,33 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
             };
+        }
+
+        /// <summary>
+        /// Get Employers by user
+        /// </summary>
+        /// <returns></returns>
+        [Route("User/Employer")]
+        public IHttpActionResult GetUserEmployer()
+        {
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            var user =  UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            var userEmployers = user.Organizations;
+            return Ok(userEmployers);
+        }
+
+        [Route("User/Employer")]
+        public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+           
+            user.Organizations.Add(organizationMembership);
+            return Ok(user);
         }
 
         /// <summary>
