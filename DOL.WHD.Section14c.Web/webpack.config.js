@@ -13,8 +13,15 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
   },
-  noInfo: true,
-  quiet: true,
+  eslint: {
+    failOnWarning: false,
+    failOnError: false
+  },
+  devServer: {
+    inline: true,
+    port: 3333,
+    https: true
+  },
   module: {
     preLoaders: [
       {
@@ -29,14 +36,6 @@ module.exports = {
         test: /\.js?$/,
         exclude: /node_modules/,
         loader: 'eslint'
-      },
-      {
-        test: /\.js$/,
-        include: path.resolve('src/modules/'),
-        loader: 'istanbul-instrumenter',
-        query: {
-          esModules: true
-        }
       }
     ],
     loaders: [
@@ -55,7 +54,7 @@ module.exports = {
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        loader: 'html'
+        loader: 'html?-minimize'
       },
       {
         test: /\.scss$/,
@@ -79,7 +78,7 @@ module.exports = {
       },
       {
         test: /\.(png|gif|jpg|jpeg)$/,
-        loader: 'url-loader?name=images/[name].[ext]'
+        loader: 'file-loader?name=images/[name].[ext]'
       },
       {
         test: /\.(eot|svg|ttf|woff(2)?)(\?v=\d+\.\d+\.\d+)?/,
