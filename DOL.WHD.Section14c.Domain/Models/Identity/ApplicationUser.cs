@@ -21,6 +21,8 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+
+            // TODO: Add to another place employer registration page
             // Add custom user claims here
             foreach (var organization in Organizations)
             {
@@ -51,10 +53,17 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
             return userIdentity;
         }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public DateTime LastPasswordChangedDate { get; set; }
 
         public ICollection<OrganizationMembership> Organizations { get; set; }
 
+        public DateTime LastModifiedAt { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 
 }

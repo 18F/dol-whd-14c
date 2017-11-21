@@ -11,5 +11,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         }
 
         public ApplicationRole Role { get; set; }
+
+        public DateTime LastModifiedAt { get; set; }
+
+        public DateTime CreatedAt { get; set; }
     }
 }
