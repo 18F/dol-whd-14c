@@ -1,17 +1,12 @@
 describe('sectionAssurances', function() {
+  var element, rootScope;
+
   beforeEach(module('14c'));
 
-  var element, rootScope;
   beforeEach(function() {
     element = angular.element('<section-assurances/>');
-    inject(function($rootScope, $compile, _$q_, responsesService) {
-      $q = _$q_;
+    inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      responses = $q.defer();
-      mockResponsesService = responsesService;
-      spyOn(mockResponsesService, 'getQuestionResponses').and.returnValue(
-        responses.promise
-      );
       $compile(element)(rootScope);
     });
   });
