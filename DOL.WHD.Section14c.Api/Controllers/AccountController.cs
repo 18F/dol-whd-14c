@@ -20,6 +20,7 @@ using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.Business.Helper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -32,6 +33,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private readonly IEmployerService _employerService;
+        private readonly IOrganizationService _organizationService;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -42,6 +45,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+            set { _userManager = value; }
         }
 
         /// <summary>
@@ -56,6 +60,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="employerService">
+        /// The Employer service this controller should use 
+        /// </param>
+        /// <param name="organizationService">
+        /// The organization service this controller should use
+        /// </param>
+        public AccountController(IEmployerService employerService, IOrganizationService organizationService)
+        {
+            _employerService = employerService;
+            _organizationService = organizationService;
+        }
+
+        /// <summary>
         /// Creates a User Account
         /// </summary>
         /// <param name="model"></param>
@@ -65,48 +84,43 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("Register")]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    BadRequest("Model state is not valid");
-                }
-
-                // Add User
-                var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
-                user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
-
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-
-                // Add to application role
-                result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
-                if (!result.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-
-                // Send Verification Email
-                var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-
-                var queryString = HttpUtility.ParseQueryString(string.Empty);
-                queryString["userId"] = user.Id;
-                queryString["code"] = nounce;
-
-                //TODO: Support Urls with existing querystring
-                var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
-
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
+                BadRequest("Model state is not valid");
             }
-            catch (Exception e)
+
+            // Add User
+            var now = DateTime.UtcNow;
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
+
+            // TODO: Move to Another API
+            //user.Organizations.Add(new OrganizationMembership { Id = model.Id, IsPointOfContact = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
+
+            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
             {
-                // Log Error message to database
-                BadRequest(e.Message);
+                return GetErrorResult(result);
             }
+
+            // Add to application role
+            result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            // Send Verification Email
+            var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
+            queryString["userId"] = user.Id;
+            queryString["code"] = nounce;
+
+            //TODO: Support Urls with existing querystring
+            var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
+
+            await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
+
             return Ok();
         }
 
@@ -125,7 +139,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 UserId = user.Id,
                 Email = user.Email,
                 Organizations = user.Organizations,
-                Roles = user.Roles.Select(r => new RoleViewModel {Id = r.RoleId, Name = r.Role.Name}),
+                Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
@@ -136,20 +150,40 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Get Employers by user
         /// </summary>
         /// <returns></returns>
-        [Route("User/Employer")]
-        public IHttpActionResult GetUserEmployer()
+        [HttpGet]
+        [Route("User/GetApplications")]
+        public IHttpActionResult GetApplications()
         {
             var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user =  UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            // Get user organizations
             var userEmployers = user.Organizations;
-            return Ok(userEmployers);
+            var applications = new List<UserApplications>();
+
+            foreach (var item in userEmployers)
+            {
+                var placeHolder = new Dictionary<string, string>();
+
+                if (string.IsNullOrEmpty(item.ApplicationId))
+                {
+                    placeHolder.Add("ApplicationId", item.ApplicationId);
+                }
+                else
+                {
+                    placeHolder.Add("EmployerId", item.Employer.Id);
+                }
+                applications.Add(new UserApplications() { EmployerName = item.Employer?.LegalName, Id = placeHolder });
+            }
+            return Ok(applications);
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="organizationMembership"></param>
-        /// <returns></returns>
+        /// Set user employer
+        /// </summary> 
+        /// <param name="organizationMembership">
+        /// Organization Membership
+        /// </param>
+        /// <returns>HTTP status code and message</returns>
         [Route("User/SetEmployer")]
         public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
         {
@@ -157,18 +191,37 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
-           
-            user.Organizations.Add(organizationMembership);
 
-            IdentityResult result = await UserManager.UpdateAsync(user);
-            if (!result.Succeeded)
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+            // determine the uniqueness of the employer  
+            var employer = _employerService.FindExistingEmployer(organizationMembership.Employer);
+            if (employer == null)
             {
-                return GetErrorResult(result);
+                var userIdentity = ((ClaimsIdentity)User.Identity);
+                var userId = userIdentity.GetUserId();
+                var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
+                organizationMembership.ApplicationStatusId = StatusIds.New;
+                // set user organization
+                user.Organizations.Add(organizationMembership);
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            else
+            {
+                // Employer exists
+                var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
+                responseMessage.StatusCode = HttpStatusCode.Found;
+                responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
             }
 
-            return Ok();
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>
@@ -181,36 +234,29 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null)
-                {
-                    // Don't reveal that the user does not exist
-                    return Ok();
-                }
-
-                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-
-                var queryString = HttpUtility.ParseQueryString(string.Empty);
-                queryString["userId"] = user.Id;
-                queryString["code"] = code;
-
-                //TODO: Support Urls with existing querystring
-                var callbackUrl = $@"{model.PasswordResetUrl}?{queryString}";
-
-                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Password Reset Link: " + callbackUrl);
+                return BadRequest(ModelState);
             }
-            catch (Exception e)
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if (user == null)
             {
-                // Log Error message to database
-                BadRequest(e.Message);
+                // Don't reveal that the user does not exist
+                return Ok();
             }
+
+            var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
+            queryString["userId"] = user.Id;
+            queryString["code"] = code;
+
+            //TODO: Support Urls with existing querystring
+            var callbackUrl = $@"{model.PasswordResetUrl}?{queryString}";
+
+            await UserManager.SendEmailAsync(user.Id, "Reset Password", "Password Reset Link: " + callbackUrl);
             return Ok();
+
         }
 
         /// <summary>
@@ -308,18 +354,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("VerifyEmail")]
         public async Task<IHttpActionResult> VerifyEmail(VerifyEmailViewModel model)
         {
-            try { 
-                var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
-                if (!result.Succeeded)
-                {
-                    BadRequest("Unable to verify email");
-                }
-            }
-            catch (Exception e)
+            var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
+            if (!result.Succeeded)
             {
-                // Log Error message to database
-                BadRequest(e.Message);
+                BadRequest("Unable to verify email");
             }
+
             return Ok();
         }
 
@@ -385,7 +425,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)});
+                    .Select(i => i.Feature.Key)
+            });
         }
 
         /// <summary>
