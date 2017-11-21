@@ -20,6 +20,8 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
+using System.Threading;
+using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -38,6 +40,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
         private readonly IEmailContentService _emailService;
+        private readonly IResponseService _responseService;
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -65,7 +68,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="emailService">
         /// The email service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService)
+        /// <param name="responseService">
+        /// The response service this controller should use
+        /// </param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IResponseService responseService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -75,6 +81,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService = saveService;
             _attachmentService = attachmentService;
             _emailService = emailService;
+            _responseService = responseService;
         }
 
         /// <summary>
@@ -222,7 +229,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var applicationTemplatesPath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/HtmlTemplates");
                 var templatefiles = Directory.GetFiles(applicationTemplatesPath, "*.html").OrderBy(f => new FileInfo(f).Name).ToList();
 
-                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
                 var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
 
                 // Calling Concatenate Web API

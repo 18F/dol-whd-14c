@@ -198,10 +198,10 @@ namespace DOL.WHD.Section14c.Test.Business
                 var attachment = service.UploadAttachment(einToTest, memoryStream.ToArray(), fileName, "text/plain");
                 var attachment1 = service.UploadAttachment(einToTest1, memoryStream.ToArray(), fileName1, "text/plain");
 
-                List<Attachment> attachments = new List<Attachment>()
+                Dictionary<string, Attachment> attachments = new Dictionary<string, Attachment>()
                 {
-                    attachment,
-                    attachment1
+                    { fileName, attachment },
+                    { fileName1, attachment1 }
                 };
 
                 List<PDFContentData> applicationDataCollection = service.PrepareApplicationContentsForPdfConcatenation(attachments, htmlContent);
@@ -218,7 +218,7 @@ namespace DOL.WHD.Section14c.Test.Business
         public void GetAllApplicationAttachmentsTest()
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            List<Attachment> attachmentArray = service.GetApplicationAttachments(ref application);
+            Dictionary<string, Attachment> attachmentArray = service.GetApplicationAttachments(ref application);
             Assert.AreEqual(5, attachmentArray.Count);
         }
 
