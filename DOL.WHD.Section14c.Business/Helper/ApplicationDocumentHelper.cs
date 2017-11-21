@@ -4,8 +4,6 @@ using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 
 namespace DOL.WHD.Section14c.Business.Helper
 {
