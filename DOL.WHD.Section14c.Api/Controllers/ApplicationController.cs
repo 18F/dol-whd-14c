@@ -20,8 +20,6 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
-using System.Threading;
-using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
