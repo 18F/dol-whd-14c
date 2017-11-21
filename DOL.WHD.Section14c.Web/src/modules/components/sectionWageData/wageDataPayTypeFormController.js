@@ -2,8 +2,6 @@
 
 import merge from 'lodash/merge';
 
-var moment = require('moment');
-
 module.exports = function(ngModule) {
   ngModule.controller('wageDataPayTypeFormController', function(
     $scope,
@@ -38,7 +36,7 @@ module.exports = function(ngModule) {
         vprefix = 'pr';
       }
       return vprefix;
-    };    
+    };
 
     if (!$scope.formData[$scope.modelPrefix()]) {
       $scope.formData[$scope.modelPrefix()] = {
