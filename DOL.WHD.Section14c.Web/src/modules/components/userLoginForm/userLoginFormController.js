@@ -31,7 +31,7 @@ module.exports = function(ngModule) {
 
       //  Call Token Service
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
-        function(result) {
+        function() {
           vm.submittingForm = false;
 
           if ($location.path() === '/') {

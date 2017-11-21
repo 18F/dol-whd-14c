@@ -1,4 +1,6 @@
 describe('changePasswordPageController', function() {
+  var scope, changePasswordPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -15,5 +17,6 @@ describe('changePasswordPageController', function() {
 
   it('invoke controller', function() {
     var controller = changePasswordPageController();
+    expect(controller).toBeDefined();
   });
 });

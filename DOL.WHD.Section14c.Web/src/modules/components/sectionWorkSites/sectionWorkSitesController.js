@@ -130,7 +130,7 @@ module.exports = function(ngModule) {
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
-    		$('.cd-panel').addClass('is-visible');
+        $('.cd-panel').addClass('is-visible');
         vm.addingEmployee = true;
       }
     };
@@ -330,7 +330,7 @@ module.exports = function(ngModule) {
     });
 
     // close the panel
-    function closeSlidingPanel(event) {
+    function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
     }
