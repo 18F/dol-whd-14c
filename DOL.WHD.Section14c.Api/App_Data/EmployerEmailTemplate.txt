@@ -1,6 +1,6 @@
 ﻿To Whom It May Concern:<br/><br />
 
-This email acknowledges receipt of the application for Section 14(c) Subminimum Wage Certificate, which was submitted via the Department of Labor Section 14(c) Online Certification Application and received in our office on {{ formatDateTime Signature.Date }}. A PDF copy of your submitted application is attached.<br /><br />
+This email acknowledges receipt of the application for Section 14(c) Subminimum Wage Certificate, which was submitted via the Department of Labor Section 14(c) Online Certification Application and received in our office on {{ formatDateTime CreatedAt }}. A PDF copy of your submitted application is attached.<br /><br />
 
 The Wage and Hour Division makes every effort to review applications and make certificate decisions in a timely manner. If you have an urgent issue, you may contact our office at (312) 596-7195.<br /><br />
 
