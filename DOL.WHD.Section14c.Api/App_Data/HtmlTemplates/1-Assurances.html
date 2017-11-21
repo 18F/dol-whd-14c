@@ -77,7 +77,7 @@
         <div class="dol-form-title"><h1>Section 14(c) Certificate Application</h1></div>
         <div>ER Name: {{ Employer.LegalName }}</div>
         <div>ER EIN: {{ EIN }}</div>
-        <div>Submission Date: {{ formatDateTime Signature.Date }}</div>
+        <div>Submission Date: {{ formatDateTime CreatedAt }}</div>
         <div class="dol-form-section-title">
             <h2>Representations and Written Assurances</h2>
         </div>
@@ -116,7 +116,7 @@
 
         <p>
             <span class="subtext">Date</span>
-            <div class="subtextanswer">{{ boolOrString Signature.Date }}</div>
+            <div class="subtextanswer">{{ formatDateTime Signature.Date }}</div>
         </p>
     </div>
 </body>
