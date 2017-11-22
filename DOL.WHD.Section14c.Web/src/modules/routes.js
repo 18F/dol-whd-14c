@@ -2,7 +2,6 @@
 var config = require('./routes.config');
 
 module.exports = function (app) {
-
   app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
