@@ -302,10 +302,9 @@
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.dataRetrieved') ? 'usa-input-error' : ''">
-          <label>Date data retrieved</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
-          <fieldset>
-            <legend class="hide">Date data retrieved</legend>
+          <fieldset class="dol-legend-plain"> 
+            <legend>Date data retrieved</legend>
+            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
             <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>
           </fieldset>
         </div>

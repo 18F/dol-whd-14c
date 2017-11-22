@@ -326,6 +326,7 @@ module.exports = function(ngModule) {
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
       vm.clearActiveWorker();
+      $('body').addClass('cd-panel-open'); 
       event.preventDefault();
     });
 
@@ -333,6 +334,7 @@ module.exports = function(ngModule) {
     function closeSlidingPanel(event) {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
+      $('body').removeClass('cd-panel-open'); 
     }
     $(document).keydown(function(event) {
         // escape key
