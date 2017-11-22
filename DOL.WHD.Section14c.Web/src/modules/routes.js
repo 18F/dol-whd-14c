@@ -5,20 +5,27 @@ module.exports = function (app) {
 
   app.config(function($routeProvider) {
     $routeProvider
+      .when('/', {
+        controller: 'systemUseController',
+        reloadOnSearch: false,
+        template: require('./pages/systemUseTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: "Home"
+      })
       .when('/home', {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         isLanding: true,
-        label: 'Home'
+        label: '14c Dashboard'
       })
-      .when('/', {
+      .when('/employerRegistration', {
         controller: 'systemUseController',
         reloadOnSearch: false,
-        template: require('./pages/systemUseTemplate.html'),
-        access: config.access.ROUTE_PUBLIC,
-        label: 'System Use'
+        template: require('./pages/employerRegistrationTemplate.html'),
+        access: config.access.ROUTE_LOGGEDIN,
+        label: "Employer Registration"
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
@@ -37,17 +44,21 @@ module.exports = function (app) {
       .when('/login', {
         controller: 'userLoginPageController',
         template: require('./pages/userLoginPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC
+        access: config.access.ROUTE_PUBLIC,
+        parent: '/home'
       })
       .when('/register', {
         controller: 'userRegistrationPageController',
         template: require('./pages/userRegistrationPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC
+        access: config.access.ROUTE_PUBLIC,
+        parent: '/home'
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
         template: require('./pages/accountPageTemplate.html'),
-        access: config.access.ROUTE_LOGGEDIN
+        access: config.access.ROUTE_LOGGEDIN,
+        parent: '/home',
+        label: "Account"
       })
       .when('/section/assurances', {
         template: '<form-section><section-assurances></section-assurances></form-section>',
@@ -101,7 +112,9 @@ module.exports = function (app) {
       .when('/admin', {
         controller: 'adminDashboardController',
         template: require('./pages/adminDashboardTemplate.html'),
-        access: config.access.ROUTE_ADMIN
+        access: config.access.ROUTE_ADMIN,
+        parent: '/home',
+        label: "Admin Dashboard"
       })
       .when('/admin/users', {
         controller: 'userManagementPageController',
