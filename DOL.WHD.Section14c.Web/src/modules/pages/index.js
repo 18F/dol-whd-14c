@@ -6,6 +6,7 @@ module.exports = function(ngModule) {
   require('./appReviewPageController')(ngModule);
   require('./changePasswordPageController')(ngModule);
   require('./landingPageController')(ngModule);
+  require('./systemUseController')(ngModule);
   require('./userLoginPageController')(ngModule);
   require('./userManagementPageController')(ngModule);
   require('./userRegistrationPageController')(ngModule);

@@ -1,0 +1,26 @@
+<dol-header></dol-header>
+  <div class="usa-grid">
+    <h1>Section 14(c) Certificate Application</h1>
+    <breadcrumb></breadcrumb>
+    <div id="system-use" class="system-use center">
+      <h2>
+        Warning
+      </h2>
+      <p ng-hide="showDetails">
+        You are accessing a U.S. Government information system that is owned and operated by the Department of Labor. There is no expectation of privacy when accessing this system. The Department of Labor information systems are provided for the processing of official U.S. Government information only, and are therefore, owned by the Department of Labor.
+        <a href class="" ng-click="toggleDetails()">Read more details.</a>
+      </p>
+      <p ng-hide="!showDetails">
+        You are accessing a U.S. Government information system that is owned and operated by the Department of Labor. There is no expectation of privacy when accessing this system. The Department of Labor information systems are provided for the processing of official U.S. Government information only, and are therefore, owned by the Department of Labor. Authorized users are responsible for the proper handling of the Government data equipment and resources which they access.
+
+        Use of this system by any user authorized or unauthorized constitutes a consent to this monitoring, recording, disclosure, and accepts that use of the system is subject to audit by authorized personnel.
+
+        Fraud and related activity in connection with computers is prohibited by Title 18, U.S. Code Section 1030. Furthermore, this law states that intentionally accessing a computer without authorization or exceeding authorized access and thereby obtaining information from any department or agency of the United States is prohibited and subject to civil and criminal penalties, including (but not limited to), punishment by fine and/or imprisonment. Additionally, DOL may provide law enforcement with any potential evidence of a crime found on aforementioned systems in order for them to investigate such offenses.
+        <a href class="" ng-click="toggleDetails()">Hide Details.</a>
+      </p>
+      <p>
+        <button ng-click="navToLanding()" class="button-blue">Agree & Continue</button>
+      </p>
+    </div>
+  </div>
+<dol-footer></dol-footer>
