@@ -15,7 +15,7 @@ module.exports = function(ngModule) {
 
     this.dashboardClick = e => {
       e.preventDefault();
-      $location.path('/');
+      $location.path('/home');
     };
 
     this.userClick = e => {
@@ -27,7 +27,7 @@ module.exports = function(ngModule) {
       e.preventDefault();
       autoSaveService.save(() => {
         stateService.logOut();
-        $location.path('/');
+        $location.path('/home');
       });
     };
   });
