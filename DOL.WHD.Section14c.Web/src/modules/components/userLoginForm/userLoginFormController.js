@@ -33,7 +33,6 @@ module.exports = function(ngModule) {
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
         function() {
           vm.submittingForm = false;
-
           if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
