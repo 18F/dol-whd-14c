@@ -5,7 +5,7 @@ module.exports = function (app) {
 
   app.config(function($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/home', {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
@@ -13,23 +13,30 @@ module.exports = function (app) {
         isLanding: true,
         label: '14(c) Home'
       })
+      .when('/', {
+        controller: 'systemUseController',
+        reloadOnSearch: false,
+        template: require('./pages/systemUseTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: 'System Use'
+      })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
-        parent: '/'
+        parent: '/home'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
-        parent: '/'
+        parent: '/home'
       })
       .when('/login', {
         controller: 'userLoginPageController',
-        templateUrl: './pages/userLoginPageTemplate.html',
+        template: require('./pages/userLoginPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC
       })
       .when('/register', {
@@ -93,7 +100,7 @@ module.exports = function (app) {
       })
       .when('/admin', {
         controller: 'adminDashboardController',
-        templateUrl: './pages/adminDashboardTemplate.html',
+        template: require('./pages/adminDashboardTemplate.html'),
         access: config.access.ROUTE_ADMIN
       })
       .when('/admin/users', {
@@ -127,7 +134,7 @@ module.exports = function (app) {
       .when('/v4/hello', { template: '<hello-world></hello-world>' })
       .when('/v4/ui-library', { template: '<ui-library></ui-library>' })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/home'
       });
   });
 }
