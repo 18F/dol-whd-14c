@@ -7,6 +7,8 @@ jobs:
       - checkout
       - restore_cache:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
+      - restore_cache:
+          key: dol-14c-hardsource
       - run:
           name: install dependencies
           command: cd DOL.WHD.Section14c.Web && npm install
@@ -14,6 +16,10 @@ jobs:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
           paths:
             - DOL.WHD.Section14c.Web/node_modules
+      - save_cache:
+          key: dol-14c-hardsource
+          paths:
+            - DOL.WHD.Section14c.Web/node_modules/.cache/hard-source
       - run:
           name: run the tests
           command: cd DOL.WHD.Section14c.Web && npm test
