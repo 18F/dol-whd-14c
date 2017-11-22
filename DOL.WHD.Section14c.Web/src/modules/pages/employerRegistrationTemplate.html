@@ -1,0 +1,73 @@
+<dol-header></dol-header>
+<main-top-nav-control></main-top-nav-control>
+<breadcrumb></breadcrumb>
+<div class="dol-form-page">
+  <fieldset class="dol-form-sub-section">
+    <legend><h3>Register an Employer</h3></legend>
+    <hr />
+    Before you can begin the application, please register an employer for this account.
+    <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-help">
+        <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Has this employer ever previously held a 14(c) certificate?</label>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" ng-value="true" ng-model="formData.employer.hasTradeName">
+            <label for="hasTradeName_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasTradeName_0" type="radio" name="hasTradeName" ng-value="false" ng-model="formData.employer.hasTradeName">
+            <label for="hasTradeName_0">No</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
+      <div class="dol-form-question-help">
+        <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Legal Name of Employer</label>
+        <helplink aria-controls="legalNameHelp" aria-describedby="legalNameLabel"></helplink>
+      </div>
+      <helptext id="legalNameHelp">Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
+      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
+      <input id="legalName" name="legalName" aria-describedby="legalNameHelp" type="text" ng-model="formData.employer.legalName">
+      <a href>What if the Employer's legal name changed since its last application?</a>
+    </div>
+    <div class="dol-form-question-block">
+      <fieldset class="usa-form-large">
+        <legend class="dol-form-question-text">Physical Address of Employer’s Main Establishment</legend>
+        <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
+          <label for="mailing-address-1">Street Address</label>
+          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
+          <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="formData.employer.physicalAddress.streetAddress">
+        </div>
+
+        <div class="clearer" ng-class="validate(['employer.physicalAddress.city', 'employer.physicalAddress.state']) ? 'usa-input-error' : ''">
+          <div class="usa-input-grid usa-input-grid-medium">
+            <label for="city">City</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.city')">{{ validate('employer.physicalAddress.city') }}</span>
+            <input id="city" name="city" type="text" ng-model="formData.employer.physicalAddress.city">
+          </div>
+
+          <div class="usa-input-grid usa-input-grid-small">
+            <label for="state">State</label>
+            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.state')">{{ validate('employer.physicalAddress.state') }}</span>
+            <state-field name="state" selected-state="formData.employer.physicalAddress.state"></state-field>
+          </div>
+        </div>
+
+        <div ng-class="validate('employer.physicalAddress.zipCode') ? 'usa-input-error' : ''">
+          <label for="zip">Zip Code</label>
+          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
+          <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
+        </div>
+
+        <div ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+          <label for="county">County</label>
+          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
+          <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
+        </div>
+      </fieldset>
+    </div>
+    <button ng-click="registerEmployer()">Register Employer</button>
+</div>
+<dol-footer></dol-footer>

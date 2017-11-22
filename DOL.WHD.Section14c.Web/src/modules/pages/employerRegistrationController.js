@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.controller('systemUseController', function(
+  ngModule.controller('employerRegistrationController', function(
     $scope,
     stateService,
     $location
@@ -10,11 +10,6 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.stateService = stateService;
-
-    // redirect to dashboar (home) if user is logged in
-    if (stateService.loggedIn) {
-      $location.path('/home');
-    }
 
     $scope.navToLanding = function() {
       $location.path('/home');
