@@ -16,7 +16,6 @@ module.exports = function(ngModule) {
     };
 
     $scope.showDetails = false;
-
     $scope.toggleDetails = function ()  {
       $scope.showDetails = !$scope.showDetails;
       log.info($scope.showDetails);
