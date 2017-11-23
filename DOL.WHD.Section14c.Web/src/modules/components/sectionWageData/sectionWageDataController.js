@@ -81,15 +81,15 @@ module.exports = function(ngModule) {
 
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
-    }    
-    
+    }
+
     // Sliding Panel
 
-    var panelTrigger    
+    var panelTrigger
 
-    $('.cd-panel-trigger').on('click', function(event){ 
+    $('.cd-panel-trigger').on('click', function(event){
       panelTrigger = $(this);
-      var target = $(this).attr('aria-controls');    
+      var target = $(this).attr('aria-controls');
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
       $('body').addClass('cd-panel-open');
@@ -97,7 +97,7 @@ module.exports = function(ngModule) {
     });
 
     // close the panel
-    function closeSlidingPanel(event) {
+    function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
       $('body').removeClass('cd-panel-open');      
@@ -118,13 +118,13 @@ module.exports = function(ngModule) {
     $(".cd-panel .dol-last-focus").keydown(function(event){
       if (event.which === 9 && !event.shiftKey) {
         $(".cd-panel .dol-first-focus").focus();
-        event.preventDefault(); 
+        event.preventDefault();
       }
-    });    
+    });
     $(".cd-panel .dol-first-focus").keydown(function(event){
       if (event.shiftKey && event.which === 9) {
         $(".cd-panel .dol-last-focus").focus();
-        event.preventDefault(); 
+        event.preventDefault();
       }
     });
 

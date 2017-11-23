@@ -1,4 +1,6 @@
 describe('accountPageController', function() {
+  var scope, accountPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -15,5 +17,6 @@ describe('accountPageController', function() {
 
   it('invoke controller', function() {
     var controller = accountPageController();
+    expect(controller).toBeDefined();
   });
 });

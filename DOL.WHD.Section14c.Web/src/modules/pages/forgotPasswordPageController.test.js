@@ -1,4 +1,6 @@
 describe('forgotPasswordPageController', function() {
+  var scope, forgotPasswordPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -15,5 +17,6 @@ describe('forgotPasswordPageController', function() {
 
   it('invoke controller', function() {
     var controller = forgotPasswordPageController();
+    expect(controller).toBeDefined();
   });
 });

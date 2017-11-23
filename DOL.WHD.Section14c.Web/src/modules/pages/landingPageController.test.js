@@ -1,4 +1,6 @@
 describe('landingPageController', function() {
+  var scope, landingPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -15,5 +17,6 @@ describe('landingPageController', function() {
 
   it('invoke controller', function() {
     var controller = landingPageController();
+    expect(controller).toBeDefined();
   });
 });

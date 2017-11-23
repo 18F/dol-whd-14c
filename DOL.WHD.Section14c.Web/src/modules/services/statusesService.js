@@ -1,7 +1,5 @@
 'use strict';
 
-import * as _ from 'lodash';
-
 module.exports = function(ngModule) {
   ngModule.service('statusesService', function($http, _env, $q) {
     'ngInject';

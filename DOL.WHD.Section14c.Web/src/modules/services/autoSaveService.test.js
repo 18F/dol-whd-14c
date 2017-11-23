@@ -1,15 +1,9 @@
 describe('autoSaveService', function() {
   beforeEach(module('14c'));
 
-  var autoSave;
-  var api;
-  var timer;
-  var duration = 60 * 1000; // 60 seconds
-  var $timeout;
-  var $q;
-  var deferred;
-  var $scope;
-  var current;
+  var autoSave, api, $timeout, $q, stateService;
+  var $cookies, deferred, $scope;
+
   beforeEach(
     inject(function(
       $injector,

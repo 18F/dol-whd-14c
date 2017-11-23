@@ -17,19 +17,16 @@ import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
 import ngSanitize from 'angular-sanitize';
-import angularMoment from 'angular-moment';
-import ngMask from 'ng-mask';
+import 'angular-moment';
+import 'ng-mask';
 import toastr from 'angular-toastr';
-import ngCookies from 'angular-cookies';
+import 'angular-cookies';
 // angular 4 components (& downgrade dependencies)
 import { downgradeComponent, downgradeInjectable } from '@angular/upgrade/static';
 import { DolFooterComponent } from '../v4/dol-footer.component';
-import { DolHeaderComponent } from '../v4/dol-header.component';
 import { HelloWorldComponent } from '../v4/hello-world.component';
 import { UiLibraryComponent } from '../v4/ui-library.component';
 import { LoggingService } from '../v4/services/logging.service';
-
-import { customError } from '../models/customError';
 
 // Styles
 import '../styles/main.scss';
@@ -102,7 +99,7 @@ app.run(function(
   if (accessToken) {
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
-    authenticatedPromise.then(function(response) {
+    authenticatedPromise.then(function() {
       $log.info('Succssfully authenticated user and got saved application.')
     }).catch(function(error){
       $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.', error)
@@ -116,7 +113,7 @@ app.run(function(
   //TODO: remove dev_flag check
   if (!env.dev_flag === true) {
     // watch for route changes and redirect non-public routes if not logged in
-    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+    $rootScope.$on('$routeChangeStart', function(event, next) {
       authenticatedPromise.then(function() {
         if (!next.$$route) {
           return;

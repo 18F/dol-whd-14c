@@ -69,7 +69,7 @@ module.exports = function(ngModule) {
         apiService
           .modifyAccount(stateService.access_token, $scope.formVals)
           .then(
-            function(result) {
+            function() {
               $location.path('/');
             },
             function(error) {
@@ -90,7 +90,7 @@ module.exports = function(ngModule) {
         apiService
           .createAccount(stateService.access_token, $scope.formVals)
           .then(
-            function(result) {
+            function() {
               $location.path('/');
             },
             function(error) {

@@ -15,7 +15,7 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
-    var vm = this;
+    $scope.vm = this;
     $scope.data = [];
 
     this.initDatatable = function () {

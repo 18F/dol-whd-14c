@@ -31,7 +31,7 @@
     "concurrently": "^3.2.0",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.25.0",
-    "eslint": "^3.6.1",
+    "eslint": "^4.11.0",
     "eslint-loader": "^1.5.0",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.4",

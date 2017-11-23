@@ -1,26 +1,9 @@
 /* eslint-disable max-statements */
 describe('apiService', function() {
+  var api, $httpBackend, env;
+
   beforeEach(module('14c'));
 
-  var api;
-  var id;
-  var file;
-  var ein;
-  var userId;
-  var email;
-  var password;
-  var oldPassword;
-  var newPassword;
-  var confirmPassword;
-  var access_token;
-  var $http;
-  var passwordResetUrl;
-  var current;
-  var code;
-  var emailVerificationUrl;
-  var applicationData = { saved: 'place' };
-  var account = { email: 'jonhson', roles: 'admin', userId: 'jmmcnj' };
-  var response = { modelstate: { error: 'something went wrong' } };
   beforeEach(
     inject(function($injector, _$httpBackend_, apiService, _env) {
       api = apiService;
@@ -235,7 +218,7 @@ describe('apiService', function() {
     var ein = '12-1234567';
     var applicationData = {};
     api
-      .saveApplication(access_token, ein, applicationData)
+      .saveApplication('access_token', ein, applicationData)
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -256,7 +239,7 @@ describe('apiService', function() {
     var ein = '12-1234567';
     var applicationData = {};
     api
-      .saveApplication(access_token, ein, applicationData)
+      .saveApplication('access_token', ein, applicationData)
       .then(function(data) {
         result = data.data;
         isResolved = true;
@@ -276,8 +259,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
-    api.getApplication(access_token, ein).then(undefined, function(error) {
+    api.getApplication('access_token', ein).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
@@ -294,8 +276,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
-    api.getApplication(access_token, ein).then(function(data) {
+    api.getApplication('access_token', ein).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -313,8 +294,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
-    api.uploadAttachment(access_token, ein).then(undefined, function(error) {
+    api.uploadAttachment('access_token', ein).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
@@ -331,8 +311,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
-    var applicationData = {};
-    api.uploadAttachment(access_token, ein).then(function(data) {
+    api.uploadAttachment('access_token', ein).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -351,9 +330,8 @@ describe('apiService', function() {
     var result;
     var ein = '12-1234567';
     var id = '1';
-    var applicationData = {};
     api
-      .deleteAttachment(access_token, ein, id)
+      .deleteAttachment('access_token', ein, id)
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -372,8 +350,7 @@ describe('apiService', function() {
     var result;
     var ein = '12-1234567';
     var id = '1';
-    var applicationData = {};
-    api.deleteAttachment(access_token, ein, id).then(function(data) {
+    api.deleteAttachment('access_token', ein, id).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -453,7 +430,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var userId = '1';
-    api.getAccount(access_token, userId).then(undefined, function(error) {
+    api.getAccount('access_token', userId).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
@@ -469,13 +446,13 @@ describe('apiService', function() {
   it('getAccounts success should resolve deferred', function() {
     var isResolved;
     var result;
-    api.getAccount(access_token, userId).then(function(data) {
+    api.getAccount('access_token', 'userId').then(function(data) {
       result = data.data;
       isResolved = true;
     });
 
     $httpBackend
-      .expectGET(env.api_url + '/api/account/' + userId)
+      .expectGET(env.api_url + '/api/account/userId')
       .respond(200, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(true);
@@ -487,7 +464,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var account = { userId: '1' };
-    api.modifyAccount(access_token, account).then(undefined, function(error) {
+    api.modifyAccount('access_token', account).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
@@ -504,7 +481,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var account = { userId: '1' };
-    api.modifyAccount(access_token, account).then(function(data) {
+    api.modifyAccount('access_token', account).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -522,7 +499,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var account = { userId: '1' };
-    api.createAccount(access_token, account).then(undefined, function(error) {
+    api.createAccount('access_token', account).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
@@ -537,7 +514,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var account = { userId: '1' };
-    api.createAccount(access_token, account).then(function(data) {
+    api.createAccount('access_token', account).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -565,7 +542,7 @@ describe('apiService', function() {
     var result;
     var ein = '30-1234567';
     api
-      .submitApplication(access_token, ein, {})
+      .submitApplication('access_token', ein, {})
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -583,7 +560,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '30-1234567';
-    api.submitApplication(access_token, ein, {}).then(function(data) {
+    api.submitApplication('access_token', ein, {}).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -602,7 +579,7 @@ describe('apiService', function() {
     var result;
     var appid = '12345';
     api
-      .getSubmittedApplication(access_token, appid, {})
+      .getSubmittedApplication('access_token', appid, {})
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -621,7 +598,7 @@ describe('apiService', function() {
     var result;
     var appid = '12345';
     var ein = '30-1234567';
-    api.getSubmittedApplication(access_token, appid, {}).then(function(data) {
+    api.getSubmittedApplication('access_token', appid, {}).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -639,7 +616,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     api
-      .getSubmittedApplications(access_token, {})
+      .getSubmittedApplications('access_token', {})
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -657,7 +634,7 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '30-1234567';
-    api.getSubmittedApplications(access_token, {}).then(function(data) {
+    api.getSubmittedApplications('access_token', {}).then(function(data) {
       result = data.data;
       isResolved = true;
     });
@@ -677,7 +654,7 @@ describe('apiService', function() {
     var appid = '12345';
     var newStatusId = '5';
     api
-      .changeApplicationStatus(access_token, appid, newStatusId)
+      .changeApplicationStatus('access_token', appid, newStatusId)
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -702,7 +679,7 @@ describe('apiService', function() {
     var appid = '12345';
     var newStatusId = '5';
     api
-      .changeApplicationStatus(access_token, appid, newStatusId)
+      .changeApplicationStatus('access_token', appid, newStatusId)
       .then(function() {
         isResolved = true;
       });
