@@ -92,6 +92,7 @@ module.exports = function(ngModule) {
       var target = $(this).attr('aria-controls');
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
+      $('body').addClass('cd-panel-open');
       event.preventDefault();
     });
 
@@ -99,6 +100,7 @@ module.exports = function(ngModule) {
     function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
+      $('body').removeClass('cd-panel-open');      
     }
     $(document).keydown(function(event) {
         // escape key
