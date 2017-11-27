@@ -15,7 +15,12 @@ jobs:
           paths:
             - DOL.WHD.Section14c.Web/node_modules
       - run:
+          name: run production build
+          when: always
+          command: cd DOL.WHD.Section14c.Web && npm run deploy
+      - run:
           name: run the tests
+          when: always
           command: cd DOL.WHD.Section14c.Web && npm test
       - run:
           name: report coverage
