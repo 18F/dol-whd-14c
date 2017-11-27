@@ -16,8 +16,7 @@ module.exports = {
   },
   eslint: {
     failOnWarning: false,
-    failOnError: false,
-    emitWarning: true
+    failOnError: false
   },
   devServer: {
     inline: true,
