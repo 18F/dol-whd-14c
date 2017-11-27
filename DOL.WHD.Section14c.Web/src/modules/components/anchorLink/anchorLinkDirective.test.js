@@ -4,7 +4,7 @@ describe('anchorLink', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<anchor-link/>');
-    inject(function($rootScope, $compile) {
+    inject(function($rootScope) {
       rootScope = $rootScope;
     });
   });

@@ -27,6 +27,7 @@ const pa11y = require('pa11y');
 const jsonReporter = require('pa11y/reporter/json');
 const htmlReporter = require('pa11y/reporter/html');
 const program = require('commander');
+import * as log from 'loglevel';
 
 program
   .description('Run an accessibility test against a 14(c) app URL')
@@ -71,20 +72,20 @@ const PARAMS = {
   saveHtml: !!program.saveHtml
 };
 
-console.log('RUN PARAMS:', JSON.stringify(PARAMS));
+log.info('RUN PARAMS:', JSON.stringify(PARAMS));
 
 const runner = pa11y({
   log: {
-    debug: console.log.bind(console),
+    debug: log.info.bind(console),
     error: console.error.bind(console),
-    info: console.log.bind(console)
+    info: log.info.bind(console)
   },
 
   standard: PARAMS.standard,
 
   beforeScript: function(page, options, next) {
     // show console messages from web page
-    page.onConsoleMessage = msg => console.log(msg);
+    page.onConsoleMessage = msg => log.info(msg);
 
     // check for some condition on web page before continuing
     function waitUntil(condition, retries, waitOver) {
@@ -101,7 +102,7 @@ const runner = pa11y({
 
     function doRedirect(args) {
       const redirectUrl = args.url.full;
-      console.log('Redirecting to', redirectUrl);
+      log.info('Redirecting to', redirectUrl);
 
       window.location = redirectUrl;
       window.location.reload();
@@ -110,7 +111,7 @@ const runner = pa11y({
     function checkRedirect(args) {
       // check that current url = target url
       const currUrl = window.location.href;
-      console.log('Current url:', currUrl);
+      log.info('Current url:', currUrl);
       return currUrl === args.url.full;
     }
 
@@ -129,8 +130,8 @@ const runner = pa11y({
     // auth related methods
 
     function doAuth(args) {
-      console.log('args:', JSON.stringify(args));
-      console.log('Filling in login form...');
+      log.info('args:', JSON.stringify(args));
+      log.info('Filling in login form...');
 
       var user = document.querySelector('#userName');
       var password = document.querySelector('#password');
@@ -145,7 +146,7 @@ const runner = pa11y({
       pwEl.val(args.pwVal);
       pwEl.triggerHandler('input');
 
-      console.log('Submitting login form...');
+      log.info('Submitting login form...');
       submit.click();
     }
 
@@ -190,20 +191,20 @@ function displayEntries(data, key) {
   const entries = data[key] || [];
 
   if (!entries.length) {
-    return console.log(`\n\nWoohoo! No ${key}s!`);
+    return log.info(`\n\nWoohoo! No ${key}s!`);
   }
 
-  console.log(`\n\nHere are the ${key} entries:\n------\n`);
-  entries.forEach(e => console.log(prettify(e)));
+  log.info(`\n\nHere are the ${key} entries:\n------\n`);
+  entries.forEach(e => log.info(prettify(e)));
 }
 
 function handleResults(data) {
-  console.log('\n\nPa11y results:\n------\n');
+  log.info('\n\nPa11y results:\n------\n');
   const dataGrouped = _.groupBy(data, d => d.type);
 
   for (const key in dataGrouped) {
     const entries = dataGrouped[key];
-    console.log(`"${key}" entries: ${entries.length}`);
+    log.info(`"${key}" entries: ${entries.length}`);
   }
 
   if (PARAMS.showWarnings) displayEntries(dataGrouped, 'warning');
@@ -217,7 +218,7 @@ function handleResults(data) {
     };
 
     fs.writeFileSync(fname, JSON.stringify(json));
-    console.log(`Results saved to ${fname}!`);
+    log.info(`Results saved to ${fname}!`);
   }
 
   if (PARAMS.saveHtml) {
@@ -225,7 +226,7 @@ function handleResults(data) {
     const url = PARAMS.url.full;
 
     fs.writeFileSync(fname, htmlReporter.process(data, url));
-    console.log(`Results saved to ${fname}!`);
+    log.info(`Results saved to ${fname}!`);
   }
 }
 

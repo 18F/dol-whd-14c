@@ -1,4 +1,7 @@
 describe('mainNavigationControlController', function() {
+  var scope, route, mockNavService;
+  var mainNavigationControlController;
+
   beforeEach(module('14c'));
 
   beforeEach(

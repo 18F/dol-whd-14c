@@ -6,8 +6,7 @@ module.exports = function(ngModule) {
     $location,
     $route,
     navService,
-    stateService,
-    apiService
+    stateService
   ) {
     'ngInject';
     'use strict';
@@ -23,9 +22,8 @@ module.exports = function(ngModule) {
     });
     vm.stateService = stateService;
     vm.navService = navService;
-    vm.current = $route.current.params.section_id;
+    vm.current = $location.$$path.split('/section/')[1];
     vm.collapseMenu = true; //collapse menu by default for small screens
-
     this.onNavClick = function(event) {
       var id = event.target.dataset.sectionid;
       navService.gotoSection(id);

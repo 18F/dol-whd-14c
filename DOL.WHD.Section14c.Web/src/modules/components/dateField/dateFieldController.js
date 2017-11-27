@@ -18,7 +18,7 @@ module.exports = function(ngModule) {
       }
     }
 
-    $scope.$watch('dateVal', function(newValue, oldValue) {
+    $scope.$watch('dateVal', function(newValue) {
       if (!newValue) {
         vm.year = undefined;
         vm.month = undefined;

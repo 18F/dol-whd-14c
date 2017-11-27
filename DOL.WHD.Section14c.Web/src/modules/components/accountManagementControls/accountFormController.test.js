@@ -1,4 +1,8 @@
 describe('accountFormController', function() {
+  var scope, $q, mockApiService, mockRouteParams, mockLocation;
+  var getAccount, getRoles, modifyAccount, createAccount;
+  var accountFormController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -36,7 +40,7 @@ describe('accountFormController', function() {
   );
 
   it('when editing user forVals get set', function() {
-    var controller = accountFormController();
+    accountFormController();
     getAccount.resolve({ data: { userId: 1 } });
     scope.$apply();
 
@@ -56,7 +60,7 @@ describe('accountFormController', function() {
 
   it('default formVals if creating a new account', function() {
     mockRouteParams = { userId: 'create' };
-    var controller = accountFormController();
+    accountFormController();
     scope.$apply();
 
     expect(scope.formVals).not.toBe(undefined);
@@ -64,7 +68,7 @@ describe('accountFormController', function() {
   });
 
   it('load roles', function() {
-    var controller = accountFormController();
+    accountFormController();
     getRoles.resolve({ data: [{ roleId: 1 }] });
     scope.$apply();
 

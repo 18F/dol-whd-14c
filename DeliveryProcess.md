@@ -176,7 +176,8 @@ In the future, we may leverage a manual QA team (e.g. through the bug bounty pro
 ### Nonfunctional testing
 
 #### Accessibility testing
-[tk]
+
+We test using Web Content Accessibility Guidelines 2.0 AA (WCAG 2.0 AA) as our accessibility standards. For automatic scans, we use [pa11y](https://github.com/pa11y/pa11y) or [AXE](https://www.deque.com/blog/google-selects-deques-axe-chrome-devtools/). For manual scans, we use the [DHS Trusted Tester Program (TT)](https://www.dhs.gov/trusted-tester) process. For each, our acceptable quality level is zero errors reported. If errors are found, they should be addressed before a story is marked as complete.
 
 #### Performance testing
 Validating non-functional aspects such as performance compliance should also be accounted for by the product owner or project manager in project plans.

@@ -1,11 +1,13 @@
 # Department of Labor - Wage and Hour - Section 14c
 
-[build status missing]
-[![Maintainability](https://api.codeclimate.com/v1/badges/14bad4b687fc87cb2d13/maintainability)](https://codeclimate.com/github/18F/dol-whd-14c/maintainability)
-[js coverage missing]
-[C# coverage missing]
-[![Dependency Status](https://gemnasium.com/badges/github.com/18F/dol-whd-14c.svg)](https://gemnasium.com/github.com/18F/dol-whd-14c)
+##### Web
+ [![CircleCI](https://circleci.com/gh/18F/dol-whd-14c.svg?style=svg)](https://circleci.com/gh/18F/dol-whd-14c)
+ [![codecov](https://codecov.io/gh/18f/dol-whd-14c/branch/master/graph/badge.svg)](https://codecov.io/gh/18f/dol-whd-14c)
+ [![Maintainability](https://api.codeclimate.com/v1/badges/14bad4b687fc87cb2d13/maintainability)](https://codeclimate.com/github/18F/dol-whd-14c/maintainability)
+[![Dependenc Status](https://gemnasium.com/badges/github.com/18F/dol-whd-14c.svg)](https://gemnasium.com/github.com/18F/dol-whd-14c)
 
+##### API
+[build status missing] [coverage missing] [quality missing] [dependency status missing]
 
 TODO: Project Summary
 

@@ -31,13 +31,13 @@ module.exports = function(ngModule) {
 
       //  Call Token Service
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
-        function(result) {
+        function() {
           vm.submittingForm = false;
 
-          if ($location.path() === '/') {
+          if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
-            $location.path('/');
+            $location.path('/employerRegistration');
           }
         },
         function(error) {
@@ -48,7 +48,7 @@ module.exports = function(ngModule) {
     };
 
     var handleError = function(error) {
-      console.log(error);
+      log.info(error);
       if (error.data && error.data.error_description === 'Password expired') {
         stateService.user.passwordExpired = true;
         $location.path('/changePassword');

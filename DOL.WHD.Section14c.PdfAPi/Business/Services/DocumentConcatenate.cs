@@ -33,6 +33,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business
                         outputDocument = PdfHelper.PdfHelper.ConcatenatePDFs(outputDocument, applicationData);
                     }
                 }
+                PdfHelper.PdfHelper.SetPageNumber(outputDocument);
                 // Conver to Byte array
                 using (var stream = new MemoryStream())
                 {
