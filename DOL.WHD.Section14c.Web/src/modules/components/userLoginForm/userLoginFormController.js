@@ -28,7 +28,6 @@ module.exports = function(ngModule) {
       stateService.user.loginEmail = $scope.formVals.email;
 
       vm.clearError();
-
       //  Call Token Service
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
         function() {
