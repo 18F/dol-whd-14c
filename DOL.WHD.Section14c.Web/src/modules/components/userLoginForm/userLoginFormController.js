@@ -34,10 +34,10 @@ module.exports = function(ngModule) {
         function() {
           vm.submittingForm = false;
 
-          if ($location.path() === '/home') {
+          if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
-            $location.path('/home');
+            $location.path('/employerRegistration');
           }
         },
         function(error) {
