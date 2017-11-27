@@ -158,11 +158,16 @@
       <h4>Number of Employees: <strong>{{ vm.activeWorksite.employees.length  ? vm.activeWorksite.employees.length : 0 }}</strong></h4>
     </div>
     <div class="dol-worksite-employee-help">
-      <p>Information is needed about each specific worker who was employed at this work site at any time during the most recently completed fiscal quarter and received subminimum wages.
-        <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">
-            Click here for detailed instructions on the required work information.
-        </a>
-      </p>
+      <div class="dol-left-column">
+        <p>
+          Information is needed about each specific worker who was employed at this work site at any time during the most recently completed fiscal quarter and received subminimum wages.
+        </p>
+        <p>
+          <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">
+              Click here for detailed instructions on the required work information.
+          </a>
+        </p>        
+      </div>
       <div class="dol-help-callout">
         Need Help? Email us: <a href="mailto:help-14c@dol.gov">help-14c@dol.gov</a>
       </div>
