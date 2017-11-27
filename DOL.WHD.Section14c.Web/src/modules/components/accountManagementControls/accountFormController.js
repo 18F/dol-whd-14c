@@ -32,7 +32,7 @@ module.exports = function(ngModule) {
           $scope.formVals = data;
         },
         function(error) {
-          console.log(
+          log.info(
             error.statusText +
               (error.data && error.data.error
                 ? ': ' + error.data.error + ' - ' + error.data.error_description
@@ -53,7 +53,7 @@ module.exports = function(ngModule) {
         $scope.roles = data;
       },
       function(error) {
-        console.log(
+        log.info(
           error.statusText +
             (error.data && error.data.error
               ? ': ' + error.data.error + ' - ' + error.data.error_description
@@ -73,7 +73,7 @@ module.exports = function(ngModule) {
               $location.path('/');
             },
             function(error) {
-              console.log(
+              log.info(
                 error.statusText +
                   (error.data && error.data.error
                     ? ': ' +
@@ -94,7 +94,7 @@ module.exports = function(ngModule) {
               $location.path('/');
             },
             function(error) {
-              console.log(
+              log.info(
                 error.statusText +
                   (error.data && error.data.error
                     ? ': ' +

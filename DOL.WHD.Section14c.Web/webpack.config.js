@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var bourbon = require('node-bourbon').includePaths;
 var helpers = require('./helpers');
+var log = require('loglevel');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -35,7 +36,7 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'eslint'
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -89,7 +90,8 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
+      log: 'loglevel'
     })
   ]
 };

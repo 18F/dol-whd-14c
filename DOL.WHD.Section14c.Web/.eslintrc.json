@@ -7,7 +7,8 @@
   "globals": {
     "angular": false,
     "$": false,
-    "jquery": false
+    "jquery": false,
+    "log": false
   },
   "extends": "eslint:recommended",
   "parserOptions": {

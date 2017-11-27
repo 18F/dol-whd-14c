@@ -29,6 +29,7 @@ module.exports = function(ngModule) {
             },
             function(error) {
               //TODO: Display error
+              log.info(error);
               fileinput.value = '';
             }
           );
@@ -45,6 +46,7 @@ module.exports = function(ngModule) {
           },
           function(error) {
             //TODO: Display error
+            log.info(error);
             $scope.attachmentId = undefined;
             $scope.attachmentName = undefined;
           }
