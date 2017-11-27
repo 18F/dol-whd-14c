@@ -33,14 +33,12 @@ namespace DOL.WHD.Section14c.Test.Domain.ViewModels
                 Email = "email",
                 ConfirmPassword = "confirmpassword",
                 Password = "password",
-                EIN = "ein",
                 EmailVerificationUrl = uri
             };
 
             Assert.AreEqual("email", obj.Email);
             Assert.AreEqual("confirmpassword", obj.ConfirmPassword);
             Assert.AreEqual("password", obj.Password);
-            Assert.AreEqual("ein", obj.EIN);
             Assert.AreEqual(uri, obj.EmailVerificationUrl);
         }
 
