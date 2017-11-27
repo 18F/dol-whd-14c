@@ -48,7 +48,7 @@ module.exports = function(ngModule) {
     };
 
     var handleError = function(error) {
-      console.log(error);
+      log.info(error);
       if (error.data && error.data.error_description === 'Password expired') {
         stateService.user.passwordExpired = true;
         $location.path('/changePassword');

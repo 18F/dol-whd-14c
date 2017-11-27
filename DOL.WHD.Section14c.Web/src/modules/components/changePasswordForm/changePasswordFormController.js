@@ -43,7 +43,7 @@ module.exports = function(ngModule) {
             vm.changePasswordSuccess = true;
           },
           function(error) {
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +

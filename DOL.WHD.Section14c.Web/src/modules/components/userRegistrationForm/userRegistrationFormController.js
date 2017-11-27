@@ -95,7 +95,7 @@ module.exports = function(ngModule) {
           },
           function(error) {
             vm.emailVerificationError = true;
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
@@ -188,7 +188,7 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
@@ -207,11 +207,11 @@ module.exports = function(ngModule) {
     $scope.regResponse = null;
     $scope.regWidgetId = null;
     $scope.setRegResponse = function(response) {
-      console.info('Response available');
+      log.info('Response available');
       $scope.regResponse = response;
     };
     $scope.createRegWidget = function(widgetId) {
-      console.info('Created widget ID: %s', widgetId);
+      log.info('Created widget ID: %s', widgetId);
       $scope.regWidgetId = widgetId;
     };
     $scope.hideShowPassword = function() {
