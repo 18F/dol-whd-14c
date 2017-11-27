@@ -72,7 +72,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // Add User
             var now = DateTime.UtcNow;
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, CreatedAt =now, LastModifiedAt=now };
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName=model.FirstName, LastName=model.LastName, CreatedAt =now, LastModifiedAt=now };
 
             // TODO: Move to Another API
             //user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
@@ -140,7 +140,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(userEmployers);
         }
 
-        [Route("User/Employer")]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationMembership"></param>
+        /// <returns></returns>
+        [Route("User/SetEmployer")]
         public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
         {
             if (!ModelState.IsValid)
