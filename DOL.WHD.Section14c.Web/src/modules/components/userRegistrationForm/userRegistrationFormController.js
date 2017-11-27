@@ -18,7 +18,8 @@ module.exports = function(ngModule) {
 
     vm.restForm = function() {
       $scope.formVals = {
-        ein: '',
+        firstName: '',
+        lastName: '',
         email: '',
         pass: '',
         confirmPass: ''
@@ -115,7 +116,8 @@ module.exports = function(ngModule) {
       /* eslint-disable complexity */
       apiService
         .userRegister(
-          $scope.formVals.ein,
+          $scope.formVals.firstName,
+          $scope.formVals.lastName,
           $scope.formVals.email,
           $scope.formVals.pass,
           $scope.formVals.confirmPass,

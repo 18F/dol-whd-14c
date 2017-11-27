@@ -108,7 +108,8 @@ module.exports = function(ngModule) {
     };
 
     this.userRegister = function(
-      ein,
+      firstName,
+      lastName,
       email,
       password,
       confirmPassword,
@@ -122,7 +123,8 @@ module.exports = function(ngModule) {
         url: url,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: $.param({
-          EIN: ein,
+          FirstName: firstName,
+          LastName: lastName,
           Email: email,
           Password: password,
           ConfirmPassword: confirmPassword,
