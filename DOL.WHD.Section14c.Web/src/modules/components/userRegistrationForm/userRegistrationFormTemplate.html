@@ -1,15 +1,12 @@
 <form ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest">
   <div class="usa-content">
-    <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
+    <p>We are now accepting Section 14(c) Certificate Applications electronically. This electronic form includes both forms WH-226 and WH-226A.</p>
     <ul>
       <li>
         All Employers, including current Certificate Holders, previous
         Certificate Holders, and new applicants, will have to create an
         account in order to submit the form electronically.
       </li>
-      <li>The Employer’s EIN is required to create an account.</li>
-      <li>Once the Employer’s account is created, additional users can be added.</li>
-      <li>This electronic form includes both forms WH-226 and WH-226A.</li>
     </ul>
     <p>Read our <a href="#">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
   </div>
@@ -26,29 +23,27 @@
   </div>
   <div class="createAcct">
     <h2>Create an Account</h2>
-    <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
-      <label for="EIN">Employer Identification Number (EIN)</label>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
-        <div ng-show="vm.einError">
-          <p>The EIN you provided is already registerd. Please contact the account admin for access.</p>
-          <p>If you do not know the account admin, contact our office at 000-123-4567</p>
-        </div>
-        <div ng-show="vm.einRequired">
-          <p>EIN is required.</p>
-        </div>
-        <div ng-show="vm.invalidEin">
-          <p>Invalid EIN format. Example XX-XXXXXXX</p>
-        </div>
+    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+      <label for="registerEmail">First Name</label>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressError">
+        <p>The email you provided is already registred.</p>
+        <p>If you forgot your password, you can <a href>reset it here</a></p>
       </span>
-      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formVals.ein" />
-      <span class="example">Example: XX-XXXXXXX</span>
-      <a class="dol-additional-info" href ng-click="vm.toggleEinHelp()">Why do you need an EIN to create an account?</a>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
+        <p>Email address is required.</p>
+      </span>
+      <input type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.email" />
     </div>
-    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp">
-      <div class="usa-alert-body">
-        <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>
-        <p>Additional users can be added once the Employer is registered.</p>
-      </div>
+    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+      <label for="registerEmail">Last Name</label>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressError">
+        <p>The email you provided is already registred.</p>
+        <p>If you forgot your password, you can <a href>reset it here</a></p>
+      </span>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
+        <p>Email address is required.</p>
+      </span>
+      <input type="last_name" name="registerLastName" id="registerLastName" ng-model="formVals.email" />
     </div>
     <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
       <label for="registerEmail">Email Address</label>
