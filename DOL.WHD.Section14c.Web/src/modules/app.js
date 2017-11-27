@@ -86,8 +86,7 @@ app.run(function(
   authService,
   $q
 ) {
-  log.enableAll()
-  log.info("lksjdcajlj")
+  log.enableAll();
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
