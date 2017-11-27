@@ -3,6 +3,7 @@ var failPlugin = require('webpack-fail-plugin');
 var copyWebpackPlugin = require('copy-webpack-plugin');
 var bourbon = require('node-bourbon').includePaths;
 var helpers = require('./helpers');
+var WebpackStripLoader = require('strip-loader');
 
 module.exports = {
   devtool: 'source-map',
@@ -30,6 +31,11 @@ module.exports = {
       {
         test: /\.ts$/,
         loaders: ['ts-loader', 'angular2-template-loader']
+      },
+      {
+        test: /\.js?$/,
+        exclude: /node_modules/,
+        loader: WebpackStripLoader.loader('log')
       },
       {
         test: /\.js$/,

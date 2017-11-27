@@ -20,7 +20,7 @@ module.exports = function(ngModule) {
         $scope.accounts = data;
       },
       function(error) {
-        console.log(
+        log.info(
           error.statusText +
             (error.data && error.data.error
               ? ': ' + error.data.error + ' - ' + error.data.error_description

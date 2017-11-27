@@ -39,7 +39,7 @@ module.exports = function(ngModule) {
           );
         },
         function errorCallback(error) {
-          //console.log(error);
+          //log.info(error);
           d.reject(error);
         }
       );

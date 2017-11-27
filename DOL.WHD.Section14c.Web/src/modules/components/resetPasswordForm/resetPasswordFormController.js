@@ -70,7 +70,7 @@ module.exports = function(ngModule) {
             $scope.formVals.email = '';
           },
           function(error) {
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
@@ -106,7 +106,7 @@ module.exports = function(ngModule) {
             $scope.formVals.confirmPass = '';
           },
           function(error) {
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
