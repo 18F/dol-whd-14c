@@ -1,15 +1,12 @@
 describe('sectionWorkSites', function() {
+  var element, rootScope;
+
   beforeEach(module('14c'));
 
-  var element, rootScope;
   beforeEach(function() {
     element = angular.element('<section-work-sites/>');
-    inject(function($rootScope, $compile, responsesService) {
+    inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      mockResponsesService = responsesService;
-      spyOn(mockResponsesService, 'getQuestionResponses').and.returnValue(
-        responses.promise
-      );
       $compile(element)(rootScope);
     });
   });

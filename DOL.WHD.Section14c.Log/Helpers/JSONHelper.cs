@@ -6,6 +6,9 @@ using System.Web.Script.Serialization;
 
 namespace DOL.WHD.Section14c.Log.Helpers
 {
+    /// <summary>
+    /// Extension methods to serialize objects to JSON strings
+    /// </summary>
     public static class JSONHelper
     {
         #region Public extension methods.
@@ -17,15 +20,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
         /// <returns></returns>
         public static string ToJSON(this object obj)
         {
-            var serializer = new JavaScriptSerializer();
-            try
-            {
-                return serializer.Serialize(obj);
-            }
-            catch(Exception e)
-            {
-                return string.Empty;
-            }
+            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }; ;
+            return serializer.Serialize(obj);
         }
         #endregion
     }

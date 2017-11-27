@@ -1,19 +1,19 @@
 
 export class customError extends Error {
-  message: string;
-  level: string;
-  ein: string;
-  exception: string;
-  userId: string;
-  user: string;
+  Message: string;
+  Level: string;
+  EIN: string;
+  Exception: string;
+  UserId: string;
+  User: string;
 
-  constructor(message:string, level: string, ein?: string, userId?: string, user?: string, exception?: string) {
-    super(message);
-    this.message = message;
-    this.ein = ein;
-    this.userId = userId;
-    this.user = user;
-    this.level = level;
-    this.exception = exception;
+  constructor(Message:string, Level: string, EIN?: string, UserId?: string, User?: string, Exception?: string) {
+    super(Message);
+    this.Message = Message;
+    this.EIN = EIN;
+    this.UserId = UserId;
+    this.User = User;
+    this.Level = Level;
+    this.Exception = Exception;
   }
 }

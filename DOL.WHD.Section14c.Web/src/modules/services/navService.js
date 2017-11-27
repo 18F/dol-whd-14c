@@ -135,7 +135,7 @@ module.exports = function(ngModule) {
     this.goNext = function() {
       this.clearBackQuery();
 
-      let current = $route.current.params.section_id;
+      let current = $location.$$path.split('/section/')[1];
       let next = this.getNextSection(current);
 
       if (state.nextQuery) {
@@ -160,7 +160,7 @@ module.exports = function(ngModule) {
 
       if (state.backQuery) {
         $location.search(state.backQuery.query);
-        this.scrollPage(back.query.scrollAnchor);
+        this.scrollPage(state.backQuery.scrollAnchor);
       } else {
         if (state.backStack.length > 0) {
           let back = state.backStack.pop();
@@ -263,7 +263,7 @@ module.exports = function(ngModule) {
 
     this.getPreviousSection = function(current) {
       if (!current) {
-        current = $route.current.params.section_id;
+        current = $location.$$path.split('/section/')[1];
       }
 
       var sectionArray = this.getSections();

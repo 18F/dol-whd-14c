@@ -8,10 +8,22 @@ using System.Web;
 
 namespace DOL.WHD.Section14c.Log.Helpers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [LayoutRenderer("api-log")]
     public class LogLayoutRenderer: LayoutRenderer
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="logEvent"></param>
         protected override void Append(StringBuilder builder, LogEventInfo logEvent)
         {
             if (!string.IsNullOrEmpty(Name) && logEvent != null)

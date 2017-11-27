@@ -16,6 +16,9 @@ using DOL.WHD.Section14c.Log.Areas.HelpPage.Models;
 
 namespace DOL.WHD.Section14c.Log.Areas.HelpPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class HelpPageConfigurationExtensions
     {
         private const string ApiModelPrefix = "MS_HelpPageApiModel_";

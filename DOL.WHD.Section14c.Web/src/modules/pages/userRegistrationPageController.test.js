@@ -1,4 +1,6 @@
 describe('userRegistrationPageController', function() {
+  var scope, userRegistrationPageController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -15,5 +17,6 @@ describe('userRegistrationPageController', function() {
 
   it('invoke controller', function() {
     var controller = userRegistrationPageController();
+    expect(controller).toBeDefined();
   });
 });

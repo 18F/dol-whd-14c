@@ -9,8 +9,7 @@ module.exports = function(ngModule) {
     $scope,
     $location,
     stateService,
-    apiService,
-    _env
+    apiService
   ) {
     'ngInject';
     'use strict';
@@ -91,12 +90,12 @@ module.exports = function(ngModule) {
           $scope.verifyResponse
         )
         .then(
-          function(result) {
+          function() {
             vm.emailVerified = true;
           },
           function(error) {
             vm.emailVerificationError = true;
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
@@ -124,7 +123,7 @@ module.exports = function(ngModule) {
           vm.emailVerificationUrl
         )
         .then(
-          function(result) {
+          function() {
             vm.registerdEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
@@ -138,7 +137,7 @@ module.exports = function(ngModule) {
                 $scope.registerErrors.indexOf('EIN is already registered') > -1
               ) {
                 vm.einError = true;
-              }              
+              }
               if (
                 some($scope.registerErrors, function(error) {
                   return error.indexOf('is already taken') > -1;
@@ -189,7 +188,7 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +
@@ -208,11 +207,11 @@ module.exports = function(ngModule) {
     $scope.regResponse = null;
     $scope.regWidgetId = null;
     $scope.setRegResponse = function(response) {
-      console.info('Response available');
+      log.info('Response available');
       $scope.regResponse = response;
     };
     $scope.createRegWidget = function(widgetId) {
-      console.info('Created widget ID: %s', widgetId);
+      log.info('Created widget ID: %s', widgetId);
       $scope.regWidgetId = widgetId;
     };
     $scope.hideShowPassword = function() {

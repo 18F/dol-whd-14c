@@ -1,9 +1,12 @@
 describe('sectionWioaController', function() {
+  var scope, route, sectionWioaController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller) {
+    inject(function($rootScope, $controller, $route) {
       scope = $rootScope.$new();
+      route = $route;
 
       sectionWioaController = function() {
         return $controller('sectionWioaController', {

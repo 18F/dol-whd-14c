@@ -9,11 +9,19 @@ using DOL.WHD.Section14c.DataAccess.Repositories;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using DOL.WHD.Section14c.Log.DataAccess.Repositories;
+using DOL.WHD.Section14c.PdfApi.Business;
+using DOL.WHD.Section14c.EmailApi.Business;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// Maps resolution from interfaces to concrete classes
+    /// </summary>
     public static class DependencyResolutionConfig
     {
+        /// <summary>
+        /// Map interfaces into concrete implementations
+        /// </summary>
         public static void Register()
         {
             // Create the container as usual.
@@ -33,6 +41,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IAttachmentRepository, AttachmentRepository>(Lifestyle.Scoped);
             container.Register<IAttachmentService, AttachmentService>(Lifestyle.Scoped);            
             container.Register<IAttachmentSupportedFileTypesService, AttachmentSupportedFileTypesService>(Lifestyle.Scoped);
+            container.Register<EmailApi.Business.IEmailService>(() => new EmailApi.Business.EmailService(null), Lifestyle.Scoped);
+            container.Register<Business.IEmailContentService, Business.Services.EmailContentService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
@@ -52,7 +62,7 @@ namespace DOL.WHD.Section14c.Api
             container.Register<IWIOAWorkerValidator, WIOAWorkerValidator>(Lifestyle.Singleton);
             container.Register<IAddressValidatorNoCounty, AddressValidatorNoCounty>(Lifestyle.Singleton);
             container.Register<ISignatureValidator, SignatureValidator>(Lifestyle.Singleton);
-
+            container.Register<IDocumentConcatenate, DocumentConcatenate>(Lifestyle.Singleton);
             // This is an extension method from the integration package.
             container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
 

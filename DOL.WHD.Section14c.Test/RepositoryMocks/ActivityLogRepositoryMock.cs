@@ -17,7 +17,6 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
         public bool AddShouldFail { get; set; } = false;
         public bool Disposed => _disposed;
 
-
         public ActivityLogRepositoryMock()
         {
             _data = new List<APIActivityLogs>
@@ -40,7 +39,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             return _data.AsQueryable();
         }
 
-        public async Task<APIActivityLogs> GetActivityLogByIDAsync(int id)
+        public APIActivityLogs GetActivityLogByIDAsync(int id)
         {
             if (this.AddShouldFail)
             {
@@ -48,11 +47,17 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             }
 
             return _data.AsQueryable().SingleOrDefault(x => x.Id == id);
-        }        
+        }
 
         public void Dispose()
         {
-            _disposed = true;
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            _disposed = _disposed || disposing;
         }
     }
 }

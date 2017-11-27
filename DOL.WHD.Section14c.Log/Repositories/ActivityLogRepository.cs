@@ -15,8 +15,8 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
     public class ActivityLogRepository : IActivityLogRepository
     {
         private readonly ApplicationLogContext _dbContext;
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();        
-        
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+
         private Boolean Disposed;
 
         /// <summary>
@@ -41,7 +41,16 @@ namespace DOL.WHD.Section14c.Log.DataAccess.Repositories
         /// </summary>
         public void Dispose()
         {
-            if (!Disposed)
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Dispose Object
+        /// </summary>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
             {
                 if (_dbContext != null)
                 {

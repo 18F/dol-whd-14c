@@ -12,10 +12,17 @@ using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
+    /// <summary>
+    /// OAuth provider
+    /// </summary>
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="publicClientId"></param>
         public ApplicationOAuthProvider(string publicClientId)
         {
             if (publicClientId == null)
@@ -26,6 +33,11 @@ namespace DOL.WHD.Section14c.Api.Providers
             _publicClientId = publicClientId;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
@@ -95,6 +107,11 @@ namespace DOL.WHD.Section14c.Api.Providers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
@@ -105,6 +122,11 @@ namespace DOL.WHD.Section14c.Api.Providers
             return Task.FromResult<object>(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             // Resource owner password credentials does not provide a client ID.
@@ -116,6 +138,11 @@ namespace DOL.WHD.Section14c.Api.Providers
             return Task.FromResult<object>(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public override Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
             if (context.ClientId == _publicClientId)
@@ -131,6 +158,11 @@ namespace DOL.WHD.Section14c.Api.Providers
             return Task.FromResult<object>(null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public static AuthenticationProperties CreateProperties(string email)
         {
             IDictionary<string, string> data = new Dictionary<string, string>

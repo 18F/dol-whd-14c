@@ -1,10 +1,13 @@
 describe('sectionAdminWorkSitesController', function() {
+  var scope, $location, route, sectionAdminWorkSitesController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function(_$rootScope_, _$controller_, _$location_) {
+    inject(function(_$rootScope_, _$controller_, _$location_, $route) {
       scope = _$rootScope_.$new();
       $location = _$location_;
+      route = $route;
 
       sectionAdminWorkSitesController = function() {
         return _$controller_('sectionAdminWorkSitesController', {

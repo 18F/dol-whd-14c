@@ -1,6 +1,8 @@
 describe('apiService', function() {
   beforeEach(module('14c'));
 
+  var statusesService, $httpBackend, env, $rootScope;
+
   beforeEach(
     inject(function(
       $injector,

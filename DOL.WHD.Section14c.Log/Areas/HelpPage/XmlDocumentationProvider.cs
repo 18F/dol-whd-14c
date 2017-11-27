@@ -27,8 +27,7 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlDocumentationProvider"/> class.
         /// </summary>
-        /// <param name="documentPath">The physical path to XML document.</param>
-
+        /// <param name="appDataPath">The physical path to XML document.</param>
         public XmlDocumentationProvider(string appDataPath)
         {
             if (appDataPath == null)
@@ -59,18 +58,33 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="controllerDescriptor"></param>
+        /// <returns></returns>
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
         {
             XPathNavigator typeNode = GetTypeNode(controllerDescriptor.ControllerType);
             return GetTagValue(typeNode, "summary");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionDescriptor"></param>
+        /// <returns></returns>
         public virtual string GetDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "summary");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parameterDescriptor"></param>
+        /// <returns></returns>
         public virtual string GetDocumentation(HttpParameterDescriptor parameterDescriptor)
         {
             ReflectedHttpParameterDescriptor reflectedParameterDescriptor = parameterDescriptor as ReflectedHttpParameterDescriptor;
@@ -91,12 +105,22 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="actionDescriptor"></param>
+        /// <returns></returns>
         public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
         {
             XPathNavigator methodNode = GetMethodNode(actionDescriptor);
             return GetTagValue(methodNode, "returns");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="member"></param>
+        /// <returns></returns>
         public string GetDocumentation(MemberInfo member)
         {
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
@@ -107,6 +131,11 @@ namespace DOL.WHD.Section14c.Log.Areas.HelpPage
             return GetTagValue(propertyNode, "summary");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public string GetDocumentation(Type type)
         {
             XPathNavigator typeNode = GetTypeNode(type);

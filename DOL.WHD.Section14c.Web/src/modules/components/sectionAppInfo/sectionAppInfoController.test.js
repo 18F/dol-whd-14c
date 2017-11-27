@@ -1,10 +1,15 @@
 describe('sectionAppInfoController', function() {
+  var scope, route, mockResponsesService, mockNavService;
+  var sectionAppInfoController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, responsesService) {
+    inject(function($rootScope, $controller, $route, responsesService, navService) {
       scope = $rootScope.$new();
+      route = $route;
       mockResponsesService = responsesService;
+      mockNavService = navService;
 
       sectionAppInfoController = function() {
         return $controller('sectionAppInfoController', {

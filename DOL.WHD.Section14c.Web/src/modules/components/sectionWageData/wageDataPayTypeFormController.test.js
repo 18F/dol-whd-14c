@@ -1,9 +1,12 @@
 describe('wageDataPayTypeFormController', function() {
+  var scope, route, wageDataPayTypeFormController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller) {
+    inject(function($rootScope, $controller, $route) {
       scope = $rootScope.$new();
+      route = $route;
 
       wageDataPayTypeFormController = function() {
         return $controller('wageDataPayTypeFormController', {

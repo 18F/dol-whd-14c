@@ -9,8 +9,14 @@ using System.Web.Http;
 
 namespace DOL.WHD.Section14c.Log
 {
+    /// <summary>
+    /// Maps interfaces to concrete types
+    /// </summary>
     public class DependencyResolutionConfig
     {
+        /// <summary>
+        /// Setup the mapping
+        /// </summary>
         public static void Register()
         {
             // Create the container as usual.

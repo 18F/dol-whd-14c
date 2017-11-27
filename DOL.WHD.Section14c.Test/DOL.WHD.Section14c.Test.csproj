@@ -54,6 +54,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -80,18 +86,27 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.4.2\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -119,6 +134,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -131,11 +147,15 @@
   <ItemGroup>
     <Compile Include="ActionFilters\GlobalExceptionAttributeTests.cs" />
     <Compile Include="ActionFilters\LoggingFilterAttributeTests.cs" />
+    <Compile Include="Business\ApplicationFormTest.cs" />
     <Compile Include="Business\ApplicationServiceTests.cs" />
     <Compile Include="Business\AttachmentServiceTests.cs" />
     <Compile Include="Business\AttachmentSupportedFileTypesServiceTest.cs" />
     <Compile Include="Business\Factories\ApplicationSummaryFactoryTests.cs" />
+    <Compile Include="Business\Extensions\GetPropertyValueExtensionsTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
+    <Compile Include="Business\Services\DocumentConcatenateTests.cs" />
+    <Compile Include="Business\Services\EmailServiceTests.cs" />
     <Compile Include="Business\StatusServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\ActivityLogsControllerTest.cs" />
@@ -158,6 +178,8 @@
     <Compile Include="Business\Validators\WorkSiteValidatorRenewalTests.cs" />
     <Compile Include="Business\Validators\WorkSiteValidatorInitialTests.cs" />
     <Compile Include="Common\AppSettingsTests.cs" />
+    <Compile Include="Controllers\DocumentManagementControllerTests.cs" />
+    <Compile Include="Controllers\EmailControllerTests.cs" />
     <Compile Include="Domain\BaseEntityTests.cs" />
     <Compile Include="Domain\Models\FeatureTests.cs" />
     <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
@@ -184,6 +206,14 @@
     <Compile Include="Helpers\JSONHelperTests.cs" />
     <Compile Include="Business\BaseAPIControllerTest.cs" />
     <Compile Include="Helpers\NLoggerTests.cs" />
+    <Compile Include="Helpers\ApplicationDocumentHelperTests.cs" />
+    <Compile Include="RepositoryMocks\ApplicationServiceMock.cs" />
+    <Compile Include="PdfHelper\PdfHelperTests.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="RepositoryMocks\AttachmentRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\StatusRepositoryMock.cs" />
@@ -191,6 +221,7 @@
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ActivityLogRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ErrorLogRepositoryMock.cs" />
+    <Compile Include="Business\Services\EmailContentServiceTests.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -204,6 +235,9 @@
     <Compile Include="Domain\ViewModels\AccountViewModelsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
+    <None Include="TestFiles\TestFile1.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
@@ -222,16 +256,39 @@
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
+      <Project>{ea4488e2-66fc-4d46-81e6-1d43a79a3b2d}</Project>
+      <Name>DOL.WHD.Section14c.EmailApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
       <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
       <Name>DOL.WHD.Section14c.Log</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.PdfAPi\DOL.WHD.Section14c.PdfApi.csproj">
+      <Project>{9a4abfb1-b45e-4fea-847d-0b39f4ff9334}</Project>
+      <Name>DOL.WHD.Section14c.PdfApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
+    <Content Include="TestFiles\testImage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestFiles\testImage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
