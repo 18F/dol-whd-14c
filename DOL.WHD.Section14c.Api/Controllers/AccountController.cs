@@ -145,7 +145,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok(userEmployers);
         }
 
-        [Route("User/Employer")]
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="organizationMembership"></param>
+        /// <returns></returns>
+        [Route("User/SetEmployer")]
         public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
         {
             if (!ModelState.IsValid)
