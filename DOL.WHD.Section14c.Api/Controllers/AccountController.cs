@@ -151,7 +151,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="organizationMembership"></param>
         /// <returns></returns>
         [Route("User/SetEmployer")]
-        public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
+        public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
         {
             if (!ModelState.IsValid)
             {
@@ -161,7 +161,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
            
             user.Organizations.Add(organizationMembership);
-            return Ok(user);
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            return Ok();
         }
 
         /// <summary>
