@@ -20,6 +20,7 @@ using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.Business.Helper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -32,6 +33,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private readonly IEmployerService _employerService;
+        private readonly IOrganizationService _organizationService;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -42,6 +45,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+            set { _userManager = value; }
         }
 
         /// <summary>
@@ -53,6 +57,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return _roleManager ?? Request.GetOwinContext().GetUserManager<ApplicationRoleManager>();
             }
+        }
+
+        /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="employerService">
+        /// The Employer service this controller should use 
+        /// </param>
+        /// <param name="organizationService">
+        /// The organization service this controller should use
+        /// </param>
+        public AccountController(IEmployerService employerService, IOrganizationService organizationService)
+        {
+            _employerService = employerService;
+            _organizationService = organizationService;
         }
 
         /// <summary>
@@ -72,11 +91,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // Add User
             var now = DateTime.UtcNow;
-<<<<<<< HEAD
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName=model.FirstName, LastName=model.LastName, CreatedAt =now, LastModifiedAt=now };
-=======
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, CreatedAt =now, LastModifiedAt=now };
->>>>>>> Updated Database.
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
             // TODO: Move to Another API
             //user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
@@ -124,7 +139,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 UserId = user.Id,
                 Email = user.Email,
                 Organizations = user.Organizations,
-                Roles = user.Roles.Select(r => new RoleViewModel {Id = r.RoleId, Name = r.Role.Name}),
+                Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
@@ -135,48 +150,78 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Get Employers by user
         /// </summary>
         /// <returns></returns>
-        [Route("User/Employer")]
-        public IHttpActionResult GetUserEmployer()
+        [HttpGet]
+        [Route("User/GetApplications")]
+        public IHttpActionResult GetApplications()
         {
             var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user =  UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            // Get user organizations
             var userEmployers = user.Organizations;
-            return Ok(userEmployers);
+            var applications = new List<UserApplications>();
+
+            foreach (var item in userEmployers)
+            {
+                var placeHolder = new Dictionary<string, string>();
+
+                if (string.IsNullOrEmpty(item.ApplicationId))
+                {
+                    placeHolder.Add("ApplicationId", item.ApplicationId);
+                }
+                else
+                {
+                    placeHolder.Add("EmployerId", item.Employer.Id);
+                }
+                applications.Add(new UserApplications() { EmployerName = item.Employer?.LegalName, Id = placeHolder });
+            }
+            return Ok(applications);
         }
 
-<<<<<<< HEAD
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="organizationMembership"></param>
-        /// <returns></returns>
+        /// Set user employer
+        /// </summary> 
+        /// <param name="organizationMembership">
+        /// Organization Membership
+        /// </param>
+        /// <returns>HTTP status code and message</returns>
         [Route("User/SetEmployer")]
         public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
-=======
-        [Route("User/Employer")]
-        public IHttpActionResult SetUserEmployer(OrganizationMembership organizationMembership)
->>>>>>> Updated Database.
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
-           
-            user.Organizations.Add(organizationMembership);
-<<<<<<< HEAD
 
-            IdentityResult result = await UserManager.UpdateAsync(user);
-            if (!result.Succeeded)
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+            // determine the uniqueness of the employer  
+            var employer = _employerService.FindExistingEmployer(organizationMembership.Employer);
+            if (employer == null)
             {
-                return GetErrorResult(result);
+                var userIdentity = ((ClaimsIdentity)User.Identity);
+                var userId = userIdentity.GetUserId();
+                var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
+                organizationMembership.ApplicationStatusId = StatusIds.New;
+                // set user organization
+                user.Organizations.Add(organizationMembership);
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            else
+            {
+                // Employer exists
+                var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
+                responseMessage.StatusCode = HttpStatusCode.Found;
+                responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
             }
 
-            return Ok();
-=======
-            return Ok(user);
->>>>>>> Updated Database.
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>
@@ -380,7 +425,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)});
+                    .Select(i => i.Feature.Key)
+            });
         }
 
         /// <summary>
