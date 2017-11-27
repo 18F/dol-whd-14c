@@ -21,7 +21,7 @@ module.exports = function (app) {
         label: '14(c) Home'
       })
       .when('/employerRegistration', {
-        controller: 'systemUseController',
+        controller: 'employerRegistrationController',
         reloadOnSearch: false,
         template: require('./pages/employerRegistrationTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN,
