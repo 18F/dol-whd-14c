@@ -1,8 +1,11 @@
 describe('changePasswordFormController', function() {
+  var scope, $q, mockApiService, mockStateService;
+  var changePasswordFormController, changePassword;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, _$q_, apiService, stateService) {
+    inject(function($rootScope, $controller, _$q_, apiService) {
       scope = $rootScope.$new();
       $q = _$q_;
       mockApiService = apiService;
@@ -25,6 +28,7 @@ describe('changePasswordFormController', function() {
 
   it('invoke controller', function() {
     var controller = changePasswordFormController();
+    expect(controller).toBeDefined();
   });
 
   it('change password click success, reset form and display success message', function() {

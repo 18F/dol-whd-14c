@@ -160,7 +160,7 @@ module.exports = function(ngModule) {
 
       if (state.backQuery) {
         $location.search(state.backQuery.query);
-        this.scrollPage(back.query.scrollAnchor);
+        this.scrollPage(state.backQuery.scrollAnchor);
       } else {
         if (state.backStack.length > 0) {
           let back = state.backStack.pop();

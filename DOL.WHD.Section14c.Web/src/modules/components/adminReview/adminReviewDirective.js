@@ -13,7 +13,7 @@ module.exports = function(ngModule) {
       },
       transclude: true,
       link: function(scope, element, attrs, ctrlr, transclude) {
-        transclude(scope, function(clone, scope) {
+        transclude(scope, function(clone) {
           angular
             .element(element[0].querySelector('.admin-content'))
             .append(clone);

@@ -1,11 +1,17 @@
 describe('sectionReviewController', function() {
+  var scope, route, q, mockLocation;
+  var mockApiService, mockNavService;
+  var sectionReviewController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $location, $controller, apiService, $q) {
+    inject(function($rootScope, $location, $controller, apiService, $q, $route, navService) {
       scope = $rootScope.$new();
       mockLocation = $location;
       mockApiService = apiService;
+      mockNavService = navService;
+      route = $route;
       q = $q;
 
       sectionReviewController = function() {

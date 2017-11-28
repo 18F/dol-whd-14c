@@ -456,11 +456,14 @@ h4#helpfulLinksHeader {
   p {
     margin: 0 0 10px 0;
   }
+  .dol-left-column {
+    margin-bottom: 20px;
+  }  
 }
 
 @media (min-width: 940px) {
   .dol-worksite-employee-help {
-    p {
+    .dol-left-column {
       float: left;
       width: 48%;
       margin: 0;

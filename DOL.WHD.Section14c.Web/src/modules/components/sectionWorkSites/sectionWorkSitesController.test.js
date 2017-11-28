@@ -1,9 +1,12 @@
 describe('sectionWorkSitesController', function() {
+  var scope, route, mockValidationService, sectionWorkSitesController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, validationService, $document) {
+    inject(function($rootScope, $controller, $route, validationService) {
       scope = $rootScope.$new();
+      route = $route;
       mockValidationService = validationService;
       scope.responses = {
         PrimaryDisability: [
@@ -180,7 +183,7 @@ describe('sectionWorkSitesController', function() {
           HTMLElements[ID] = newElement;
        }
        return HTMLElements[ID];
-    });;
+    });
 
     controller.exampleView = '1';
     controller.showExampleView('2');

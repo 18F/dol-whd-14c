@@ -1,9 +1,15 @@
 describe('sectionAssurancesController', function() {
+  var scope, route, mockStateService, mockNavService;
+  var sectionAssurancesController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller) {
+    inject(function($rootScope, $controller, $route, stateService, navService) {
       scope = $rootScope.$new();
+      route = $route;
+      mockStateService = stateService;
+      mockNavService = navService;
 
       mockStateService.formData = 'value';
 
@@ -19,8 +25,7 @@ describe('sectionAssurancesController', function() {
   );
 
   it('invoke controller, intialize formData from state service', function() {
-    var controller = sectionAssurancesController();
-
+    sectionAssurancesController();
     expect(scope.formData).toBe('value');
   });
 });

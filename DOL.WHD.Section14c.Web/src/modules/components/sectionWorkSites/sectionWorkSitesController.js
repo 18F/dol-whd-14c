@@ -130,7 +130,7 @@ module.exports = function(ngModule) {
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
-    		$('.cd-panel').addClass('is-visible');
+        $('.cd-panel').addClass('is-visible');
         vm.addingEmployee = true;
       }
     };
@@ -326,13 +326,15 @@ module.exports = function(ngModule) {
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
       vm.clearActiveWorker();
+      $('body').addClass('cd-panel-open'); 
       event.preventDefault();
     });
 
     // close the panel
-    function closeSlidingPanel(event) {
+    function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
+      $('body').removeClass('cd-panel-open'); 
     }
     $(document).keydown(function(event) {
         // escape key

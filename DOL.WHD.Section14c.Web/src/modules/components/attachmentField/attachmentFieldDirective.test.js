@@ -4,9 +4,8 @@ describe('attachmentField', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<attachment-field/>');
-    inject(function($rootScope, $compile, $injector) {
+    inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      injector = $injector;
       $compile(element)(rootScope);
     });
   });

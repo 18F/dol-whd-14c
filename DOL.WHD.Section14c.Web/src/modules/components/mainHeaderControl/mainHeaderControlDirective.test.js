@@ -4,9 +4,9 @@ describe('mainHeaderControl', function() {
   var element, rootScope;
   beforeEach(function() {
     element = angular.element('<main-header-control/>');
-    inject(function($rootScope, $compile, $route) {
+    inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      //$compile(element)(rootScope);
+      $compile(element)(rootScope);
     });
   });
 

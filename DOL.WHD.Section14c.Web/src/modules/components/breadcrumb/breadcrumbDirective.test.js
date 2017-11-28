@@ -21,8 +21,6 @@ describe('breadcrumb', function() {
 
   it('update crumble object', function() {
     location.path('/section/assurances');
-    var section = location.$$path.split('/section/')[1];
-    var route = section.charAt(0).toUpperCase() + section.slice(1);
     compile(element)(rootScope);
     rootScope.$digest();
     expect(_crumble.update).toHaveBeenCalled();

@@ -31,7 +31,7 @@ module.exports = function(ngModule) {
 
       //  Call Token Service
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
-        function(result) {
+        function() {
           vm.submittingForm = false;
 
           if ($location.path() === '/') {
@@ -48,7 +48,7 @@ module.exports = function(ngModule) {
     };
 
     var handleError = function(error) {
-      console.log(error);
+      log.info(error);
       if (error.data && error.data.error_description === 'Password expired') {
         stateService.user.passwordExpired = true;
         $location.path('/changePassword');

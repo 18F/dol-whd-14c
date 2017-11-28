@@ -35,8 +35,7 @@ module.exports = function(ngModule) {
           $scope.formVals.confirmPass
         )
         .then(
-          function(result) {
-            var data = result.data;
+          function() {
             stateService.user.loginEmail = '';
             $scope.formVals.currentPass = '';
             $scope.formVals.newPass = '';
@@ -44,7 +43,7 @@ module.exports = function(ngModule) {
             vm.changePasswordSuccess = true;
           },
           function(error) {
-            console.log(
+            log.info(
               error.statusText +
                 (error.data && error.data.error
                   ? ': ' +

@@ -3,8 +3,7 @@
 module.exports = function(ngModule) {
   ngModule.controller('sectionAdminWorkSitesController', function(
     $location,
-    $route,
-    $scope
+    $route
   ) {
     'ngInject';
     'use strict';

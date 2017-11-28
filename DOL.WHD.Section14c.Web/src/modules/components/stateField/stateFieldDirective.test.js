@@ -1,12 +1,12 @@
 describe('stateField', function() {
+  var element, rootScope;
+
   beforeEach(module('14c'));
 
-  var element, rootScope;
   beforeEach(function() {
     element = angular.element('<state-field/>');
-    inject(function($rootScope, $compile, $injector) {
+    inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      injector = $injector;
       $compile(element)(rootScope);
     });
   });
