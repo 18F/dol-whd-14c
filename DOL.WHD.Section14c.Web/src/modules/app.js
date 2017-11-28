@@ -87,6 +87,7 @@ app.run(function(
   $q
 ) {
   log.enableAll();
+  log.info('testing removal of log');
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
