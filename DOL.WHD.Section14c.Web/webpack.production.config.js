@@ -84,7 +84,8 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery'
+      jQuery: 'jquery',
+      log: 'loglevel'
     }),
     new webpack.DefinePlugin({
       'process.env': {
