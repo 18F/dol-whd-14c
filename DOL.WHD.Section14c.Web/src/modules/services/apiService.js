@@ -422,6 +422,30 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    this.setEmployer = function (access_token, data) {
+      let url = _env.api_url + '/api/user/setemployer'
+      let d = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param(data)
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
     this.modifyAccount = function(access_token, account) {
       let url = _env.api_url + '/api/account/' + account.userId;
       let d = $q.defer();
