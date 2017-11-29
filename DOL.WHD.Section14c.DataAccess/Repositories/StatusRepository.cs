@@ -6,6 +6,8 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
     public class StatusRepository: IStatusRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private bool Disposed = false;
+
         public StatusRepository()
         {
             _dbContext = new ApplicationDbContext();
@@ -18,7 +20,17 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public void Dispose()
         {
-            _dbContext.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _dbContext.Dispose();
+                Disposed = true;
+            }
         }
     }
 }

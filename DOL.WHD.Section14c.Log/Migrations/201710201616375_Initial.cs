@@ -3,8 +3,14 @@ namespace DOL.WHD.Section14c.Log.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
+    /// <summary>
+    /// Initial database migration
+    /// </summary>
     public partial class Initial : DbMigration
     {
+        /// <summary>
+        /// Migration upgrade
+        /// </summary>
         public override void Up()
         {
             CreateTable(
@@ -45,6 +51,9 @@ namespace DOL.WHD.Section14c.Log.Migrations
             
         }
         
+        /// <summary>
+        /// Migration downgrade
+        /// </summary>
         public override void Down()
         {
             DropTable("dbo.APIErrorLogs");

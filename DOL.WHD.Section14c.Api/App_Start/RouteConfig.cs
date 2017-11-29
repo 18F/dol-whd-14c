@@ -3,8 +3,15 @@ using System.Web.Routing;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// API route configuration
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Registers API routes
+        /// </summary>
+        /// <param name="routes"></param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");

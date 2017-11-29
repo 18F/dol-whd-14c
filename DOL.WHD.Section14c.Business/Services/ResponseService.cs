@@ -8,6 +8,7 @@ namespace DOL.WHD.Section14c.Business.Services
     public class ResponseService : IResponseService
     {
         private readonly IResponseRepository _repository;
+        private bool Disposed = false;
         public ResponseService(IResponseRepository repository)
         {
             _repository = repository;
@@ -30,7 +31,17 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public void Dispose()
         {
-            _repository.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _repository.Dispose();
+                Disposed = true;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
     public class SaveRepository : ISaveRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private Boolean Disposed = false;
 
         public SaveRepository()
         {
@@ -52,7 +53,17 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public void Dispose()
         {
-            _dbContext.Dispose();
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _dbContext.Dispose();
+                Disposed = true;
+            }
         }
     }
 }

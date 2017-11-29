@@ -16,13 +16,26 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
+    /// <summary>
+    /// Attachment API controller, for handling file uploads and downloads.
+    /// These are attachments to 14(c) applications.
+    /// </summary>
     [AuthorizeHttps]
     [RoutePrefix("api/attachment")]
-    public class AttachmentController :  BaseApiController
+    public class AttachmentController : BaseApiController
     {
         private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="attachmentService">
+        /// The attachment service this controller should use
+        /// </param>
+        /// <param name="identityService">
+        /// The identity service this controller should use
+        /// </param>
         public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService)
         {
             _attachmentService = attachmentService;
@@ -55,21 +68,19 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var files = new List<Domain.Models.Submission.Attachment>();
             var allowedMaximumContentLength = AppSettings.Get<int>("AllowedMaximumContentLength");
             foreach (var stream in filesReadToProvider.Contents)
-            {               
-               // The code that handle the max allowed length at the IIS level within web.config.
-               // as well as within the httpRuntime attribute found in the system.web section
-               var bytes = await stream.ReadAsByteArrayAsync();
+            {
+                // The code that handle the max allowed length at the IIS level within web.config.
+                // as well as within the httpRuntime attribute found in the system.web section
+                var bytes = await stream.ReadAsByteArrayAsync();
 
-               if( bytes.Length <1 || bytes.Length  > allowedMaximumContentLength)
+                if (bytes.Length < 1 || bytes.Length > allowedMaximumContentLength)
                 {
                     BadRequest("Invalid file size.");
                 }
-               
                 var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                 var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
                 var fileUpload = _attachmentService.UploadAttachment(EIN, bytes, fileName, fileType);
                 files.Add(fileUpload);
-
             }
             return Ok(files);
         }
@@ -90,36 +101,35 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
             if (!hasEINClaim && !hasViewAllFeature)
             {
-                Unauthorized("User doesn't have rights to download attachments from this EIN"); 
+                Unauthorized("User doesn't have rights to download attachments from this EIN");
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);
             try
             {
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
-                
+
                 var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
 
-
                 result.Content = new StreamContent(attachmentDownload.MemoryStream); // Disponsed by Framework
-              
+
                 result.Content.Headers.ContentType = new MediaTypeHeaderValue(attachmentDownload.Attachment.MimeType);
                 result.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
                     FileName = attachmentDownload.Attachment.OriginalFileName
-                };                
-                
+                };
+
             }
             catch (Exception ex)
             {
                 if (ex is ObjectNotFoundException || ex is FileNotFoundException)
                 {
-                    NotFound("Not found"); 
+                    NotFound("Not found");
                 }
 
                 throw;
             }
-            return Ok(result); //result;
+            return ResponseMessage(result); //result;
         }
 
         /// <summary>

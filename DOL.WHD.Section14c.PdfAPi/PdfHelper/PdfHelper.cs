@@ -41,14 +41,14 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
-                if (applicationData.Type.ToLower().Contains("html"))
+                if (applicationData.Type.ToLower().Contains("html") && !String.IsNullOrEmpty(applicationData.HtmlString))
                 {
                     var doc = GetPdfDocFromHtml(outputDocument, applicationData.HtmlString);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
             }
 
-            if (applicationData?.FilePaths != null)
+            if (applicationData.FilePaths != null)
             {
                 outputDocument = ConcatenatePDFDocumentByPath(outputDocument, applicationData.FilePaths);
             }
@@ -266,6 +266,43 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         {
             XImage image = XImage.FromFile(imagePath);
             gfx.DrawImage(image, x, y, width, height);
+        }
+
+        /// <summary>
+        /// Defines page setup, headers, and footers.
+        /// </summary>
+        public static void SetPageNumber(PdfDocument document)
+        {
+            // Make a font and a brush to draw the page counter.
+            XFont font = new XFont("Verdana", 8, XFontStyle.Regular);
+            XBrush brush = XBrushes.Black;
+
+            // Add the page counter.
+            string pageTotalCount = document.Pages.Count.ToString();
+
+            XStringFormat pageNumberFormat = new XStringFormat
+            {
+                Alignment = XStringAlignment.Far,
+                LineAlignment = XLineAlignment.Near
+            };
+
+            for (int i = 0; i < document.Pages.Count; ++i)
+            {
+                PdfPage page = document.Pages[i];
+
+                // Make a layout rectangle.
+                XRect layoutRectangle = new XRect(0/*X*/, page.Height - font.Height/*Y*/, page.Width - 15/*Width*/, font.Height/*Height*/);
+
+                using (XGraphics gfx = XGraphics.FromPdfPage(page))
+                {
+                    gfx.DrawString(
+                        "Page " + (i + 1).ToString() + " of " + pageTotalCount,
+                        font,
+                        brush,
+                        layoutRectangle,
+                        pageNumberFormat);
+                }
+            }
         }
     }
 }

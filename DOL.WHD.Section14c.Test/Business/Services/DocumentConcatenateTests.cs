@@ -37,7 +37,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
         public void Initialize()
         {
             testHtmlString = @"<html><body><h1>My Content</h1><p>My Content.</p><a href='#'></a></body></html>";
-            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            string testFilePath = Path.GetFullPath(Path.Combine(Assembly.GetExecutingAssembly().Location, @"..\..\..\TestFiles"));
             testPdfPath = Path.Combine(testFilePath, "TestFile1.pdf");
             testImagePath = Path.Combine(testFilePath, "TestImage.jpg");
 
@@ -72,7 +72,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             bMap.Save(memStream, ImageFormat.Jpeg);
             testImageByteArray = memStream.ToArray();
         }
-        
+
         [TestMethod()]
         public void ConcatenatePDf_CreateFromPdfByteTest()
         {
@@ -81,6 +81,16 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             var bytes = _documentConcatenate.Concatenate(applicationData);
             Assert.IsNotNull(bytes);
         }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ApiException))]
+        public void ConcatenatePDf_ThrowsAnExceptionIfNoApplicationDataIsProvided()
+        {
+            List<PDFContentData> applicationData = new List<PDFContentData>();
+            applicationData.Add(null);
+            var bytes = _documentConcatenate.Concatenate(applicationData);
+        }
+
         [TestMethod()]
         [ExpectedException(typeof(ApiException))]
         public void ConcatenatePDf_CreateFromPdfByteTest_Invalid()
@@ -132,7 +142,7 @@ namespace DOL.WHD.Section14c.PdfApi.Business.Tests
             Assert.IsNotNull(bytes);
         }
 
-        [TestMethod()]     
+        [TestMethod()]
         public void ConcatenatePDf_CreateFromFilePathestt_Invalid()
         {
             var path = new List<string>()

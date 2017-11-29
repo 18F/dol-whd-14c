@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using PdfSharp.Pdf;
 namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
 {
     [TestClass()]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class PdfHelperTests
     {
         private string testHtmlString;
@@ -24,7 +25,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         public void Initialize()
         {
             testHtmlString = @"<html><body><h1>My Content</h1><p>My Content.</p><a href='#'></a></body></html>";
-            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            string testFilePath = Path.GetFullPath(Path.Combine(System.Reflection.Assembly.GetExecutingAssembly().Location, @"..\..\..\TestFiles"));
             testPdfPath = Path.Combine(testFilePath, "TestFile1.pdf");
             testImagePath = Path.Combine(testFilePath, "TestImage.jpg");
 
@@ -34,18 +35,29 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
-        public void TestPdfByteArrayToPDF()
+        public void PdfHelper_CanConcatenatePDFFromBytes()
         {
             PDFContentData contentData = new PDFContentData {
                 Buffer = testPdfByteArray,
                 Type = "pdf",
-            };            
+            };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
             Assert.IsNotNull(doc);
         }
 
         [TestMethod()]
-        public void TestImageByteArrayToPdf()
+        public void PdfHelper_CanConcatenatePDFFromFile()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { testPdfPath }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_CanConcatenateImageFromBytes()
         {
             PDFContentData contentData = new PDFContentData
             {
@@ -57,11 +69,91 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper.Tests
         }
 
         [TestMethod()]
-        public void TestHtmlToPdf()
+        public void PdfHelper_CanConcatenateImageFromFile()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { testImagePath }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_CanConcatenateHTMLFromString()
         {
             PDFContentData contentData = new PDFContentData
             {
                 HtmlString = testHtmlString,
+                Type = "html",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyPDFBytes()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                Buffer = null,
+                Type = "pdf",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyImageBytes()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                Buffer = null,
+                Type = "image",
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(ArgumentException))]
+        public void PdfHelper_ThrowsExceptionOnEmptyFilePath()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { "" }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public void PdfHelper_ThrowsExceptionOnNonexistantFilePath()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { @"C:\this-is-a-fake-file-and-i-really-hope-nobody-really-has-one-of-these.pdf" }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_GracefullyHandlesUnsupportedFileType()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                FilePaths = new List<string> { "fake-file.xls" }
+            };
+            PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);
+            Assert.IsNotNull(doc);
+        }
+
+        [TestMethod()]
+        public void PdfHelper_GracefullyHandlesEmptyHTMLString()
+        {
+            PDFContentData contentData = new PDFContentData
+            {
+                HtmlString = "",
                 Type = "html",
             };
             PdfDocument doc = PdfHelper.ConcatenatePDFs(outputDocument, contentData);

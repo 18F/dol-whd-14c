@@ -1,4 +1,7 @@
 describe('userLoginFormController', function() {
+  var scope, $q, mockLocation, mockauthService, route;
+  var mockstateService, userLoginFormController, userLogin;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -6,12 +9,14 @@ describe('userLoginFormController', function() {
       $rootScope,
       $controller,
       _$q_,
+      $route,
       authService,
       stateService,
       $location
     ) {
       scope = $rootScope.$new();
       $q = _$q_;
+      route = $route;
       mockLocation = $location;
       mockauthService = authService;
       mockstateService = stateService;
@@ -41,7 +46,7 @@ describe('userLoginFormController', function() {
   });
 
   it('userLoginFormController has forgotPassword', function() {
-    var controller = userLoginFormController();
+    userLoginFormController();
     scope.forgotPassword();
 
     expect(mockLocation.path()).toBe('/forgotPassword');
@@ -67,7 +72,7 @@ describe('userLoginFormController', function() {
   });
 
   it('on login fails with pasword expired', function() {
-    var controller = userLoginFormController();
+    userLoginFormController();
     spyOn(scope, '$apply');
     scope.onSubmitClick();
     userLogin.reject({ data: { error_description: 'Password expired' } });
@@ -88,7 +93,7 @@ describe('userLoginFormController', function() {
   });
 
   it('on user info success', function() {
-    var controller = userLoginFormController();
+    userLoginFormController();
     scope.onSubmitClick();
     userLogin.resolve({ data: {} });
     scope.$apply();
@@ -97,7 +102,7 @@ describe('userLoginFormController', function() {
   });
 
   it('toggle hideShowPassword should show password if it is hidden', function() {
-    var controller = userLoginFormController();
+    userLoginFormController();
     scope.inputType = 'password';
     scope.hideShowPassword();
     scope.$apply();
@@ -106,7 +111,7 @@ describe('userLoginFormController', function() {
   });
 
   it('toggle hideShowPassword should hide password if it is shown', function() {
-    var controller = userLoginFormController();
+    userLoginFormController();
     scope.inputType = 'text';
     scope.hideShowPassword();
     scope.$apply();

@@ -1,9 +1,13 @@
 describe('sectionEmployerController', function() {
+  var scope, route, mockNavService, sectionEmployerController;
+
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller) {
+    inject(function($rootScope, $controller, $route, navService) {
       scope = $rootScope.$new();
+      route = $route;
+      mockNavService = navService;
 
       sectionEmployerController = function() {
         return $controller('sectionEmployerController', {

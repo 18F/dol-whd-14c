@@ -445,7 +445,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
   </ItemGroup>

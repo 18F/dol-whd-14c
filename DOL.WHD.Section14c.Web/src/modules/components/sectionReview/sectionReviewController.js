@@ -34,12 +34,11 @@ module.exports = function(ngModule) {
             stateService.formData
           )
           .then(
-            function(result) {
+            function() {
               vm.submissionSuccess = true;
               stateService.resetFormData();
             },
             function(error) {
-              console.log(error);
               vm.submissionError = error;
             }
           );

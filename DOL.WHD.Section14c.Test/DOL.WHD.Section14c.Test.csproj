@@ -54,8 +54,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlRenderer, Version=1.5.0.5, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.5\lib\net45\HtmlRenderer.dll</HintPath>
+    <Reference Include="HtmlRenderer, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlRenderer.Core.1.5.0.6\lib\net45\HtmlRenderer.dll</HintPath>
     </Reference>
     <Reference Include="HtmlRenderer.PdfSharp, Version=1.5.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlRenderer.PdfSharp.1.5.0.6\lib\net45\HtmlRenderer.PdfSharp.dll</HintPath>
@@ -106,6 +106,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -146,12 +147,15 @@
   <ItemGroup>
     <Compile Include="ActionFilters\GlobalExceptionAttributeTests.cs" />
     <Compile Include="ActionFilters\LoggingFilterAttributeTests.cs" />
+    <Compile Include="Business\ApplicationFormTest.cs" />
     <Compile Include="Business\ApplicationServiceTests.cs" />
     <Compile Include="Business\AttachmentServiceTests.cs" />
     <Compile Include="Business\AttachmentSupportedFileTypesServiceTest.cs" />
     <Compile Include="Business\Factories\ApplicationSummaryFactoryTests.cs" />
+    <Compile Include="Business\Extensions\GetPropertyValueExtensionsTests.cs" />
     <Compile Include="Business\IdentityServiceTests.cs" />
     <Compile Include="Business\Services\DocumentConcatenateTests.cs" />
+    <Compile Include="Business\Services\EmailServiceTests.cs" />
     <Compile Include="Business\StatusServiceTests.cs" />
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\ActivityLogsControllerTest.cs" />
@@ -175,6 +179,7 @@
     <Compile Include="Business\Validators\WorkSiteValidatorInitialTests.cs" />
     <Compile Include="Common\AppSettingsTests.cs" />
     <Compile Include="Controllers\DocumentManagementControllerTests.cs" />
+    <Compile Include="Controllers\EmailControllerTests.cs" />
     <Compile Include="Domain\BaseEntityTests.cs" />
     <Compile Include="Domain\Models\FeatureTests.cs" />
     <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
@@ -201,6 +206,8 @@
     <Compile Include="Helpers\JSONHelperTests.cs" />
     <Compile Include="Business\BaseAPIControllerTest.cs" />
     <Compile Include="Helpers\NLoggerTests.cs" />
+    <Compile Include="Helpers\ApplicationDocumentHelperTests.cs" />
+    <Compile Include="RepositoryMocks\ApplicationServiceMock.cs" />
     <Compile Include="PdfHelper\PdfHelperTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -214,6 +221,7 @@
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ActivityLogRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ErrorLogRepositoryMock.cs" />
+    <Compile Include="Business\Services\EmailContentServiceTests.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -248,6 +256,10 @@
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
+      <Project>{ea4488e2-66fc-4d46-81e6-1d43a79a3b2d}</Project>
+      <Name>DOL.WHD.Section14c.EmailApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Log\DOL.WHD.Section14c.Log.csproj">
       <Project>{4f4e393e-5cc3-468f-8abe-a44756a8851c}</Project>
       <Name>DOL.WHD.Section14c.Log</Name>
@@ -269,6 +281,11 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
+    <Content Include="TestFiles\testImage.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="TestFiles\testImage.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

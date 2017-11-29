@@ -3,7 +3,6 @@
 module.exports = function(ngModule) {
   ngModule.controller('changePasswordFormController', function(
     $scope,
-    $location,
     stateService,
     apiService
   ) {
@@ -11,7 +10,6 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
-    $scope.stateService = stateService;
 
     vm.resetErrors = function() {
       vm.changePasswordError = false;
@@ -37,8 +35,7 @@ module.exports = function(ngModule) {
           $scope.formVals.confirmPass
         )
         .then(
-          function(result) {
-            var data = result.data;
+          function() {
             stateService.user.loginEmail = '';
             $scope.formVals.currentPass = '';
             $scope.formVals.newPass = '';
@@ -46,15 +43,6 @@ module.exports = function(ngModule) {
             vm.changePasswordSuccess = true;
           },
           function(error) {
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
             $scope.changePasswordErrors = apiService.parseErrors(error.data);
             vm.changePasswordError = true;
           }

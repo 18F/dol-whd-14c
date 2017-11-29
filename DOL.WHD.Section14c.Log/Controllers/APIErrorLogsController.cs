@@ -16,10 +16,17 @@ using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Log.Controllers
 {
-    [RoutePrefix("api/ErrorLogs")]
+    [RoutePrefix("api/errorlogs")]
     public class ErrorLogsController : BaseApiController
     {
         private IErrorLogRepository errorLogRepository;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="repository">
+        /// The repository where logs should be stored
+        /// </param>
         public ErrorLogsController(IErrorLogRepository repository)
         {
             errorLogRepository = repository;
@@ -31,7 +38,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
        
         [HttpGet]
-        [Route("GetAllLogs")]
+        [Route("getalllogs")]
         public IQueryable<APIErrorLogs> GetAllLogs()
         {
             var logs = errorLogRepository.GetAllLogs();
@@ -50,7 +57,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         // GET: api/ErrorLogs/5
         [HttpGet]
         [ResponseType(typeof(APIErrorLogs))]
-        [Route("GetLogByID")]
+        [Route("getlogbyid")]
         public IHttpActionResult GetErrorLogByID(string correlationId)
         {
             var logs = errorLogRepository.GetAllLogs().FirstOrDefault((p) => p.CorrelationId == correlationId);
@@ -67,7 +74,7 @@ namespace DOL.WHD.Section14c.Log.Controllers
         /// <returns></returns>
         // POST: api/ErrorLogs
         [HttpPost]
-        [Route("AddLog")]
+        [Route("addlog")]
         public IHttpActionResult AddLog(LogDetails errorLog)
         {
             if (!ModelState.IsValid)

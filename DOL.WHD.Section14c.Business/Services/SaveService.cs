@@ -7,6 +7,7 @@ namespace DOL.WHD.Section14c.Business.Services
     public class SaveService : ISaveService
     {
         private readonly ISaveRepository _repository;
+        private bool Disposed = false;
 
         public SaveService(ISaveRepository repository)
         {
@@ -32,7 +33,17 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public void Dispose()
         {
-            _repository.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _repository.Dispose();
+                Disposed = true;
+            }
         }
     }
 }

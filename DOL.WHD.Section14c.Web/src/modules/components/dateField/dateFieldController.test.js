@@ -1,4 +1,6 @@
 describe('dateFieldController', function() {
+  var scope, momentMock, dateFieldController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -39,7 +41,7 @@ describe('dateFieldController', function() {
     controller.day = '01';
     scope.$digest();
 
-    expect(momentMock(scope.dateVal).format('YYYY-MM-DD')).toBe('2001-01-01');
+    expect(scope.dateVal.substr(0, 10)).toBe('2001-01-01');
   });
 
   it('invalid date change', function() {
@@ -54,42 +56,17 @@ describe('dateFieldController', function() {
     controller.month = '99';
     controller.day = '01';
     scope.$digest();
+    expect(scope.dateVal).toBeUndefined();
 
     controller.year = '2001';
     controller.month = '02';
     controller.day = '01';
     scope.$digest();
+    expect(scope.dateVal.substr(0, 10)).toBe('2001-02-01');
   });
 
   it('invoke controller', function() {
-    var testDate = new Date();
-    momentMock = function() {
-      return {
-        isSame: function() {
-          return false;
-        },
-        isValid: function() {
-          return true;
-        },
-        isDate: function() {
-          return true;
-        },
-        month: function() {
-          return true;
-        },
-        date: function() {
-          return true;
-        },
-        year: function() {
-          return true;
-        }
-      };
-    };
-    momentMock.isDate = function() {
-      return true;
-    };
     var controller = dateFieldController();
-    scope.vm = controller;
-    scope.$digest();
+    expect(controller).toBeDefined();
   });
 });

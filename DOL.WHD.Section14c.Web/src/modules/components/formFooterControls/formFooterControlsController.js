@@ -6,8 +6,7 @@ module.exports = function(ngModule) {
     $location,
     $route,
     navService,
-    autoSaveService,
-    validationService
+    autoSaveService
   ) {
     'ngInject';
     'use strict';

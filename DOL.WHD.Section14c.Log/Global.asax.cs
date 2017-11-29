@@ -12,8 +12,14 @@ using System.Web.Routing;
 
 namespace DOL.WHD.Section14c.Log
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class WebApiApplication : System.Web.HttpApplication
     {
+        /// <summary>
+        /// 
+        /// </summary>
         protected void Application_Start()
         {
             DependencyResolutionConfig.Register();

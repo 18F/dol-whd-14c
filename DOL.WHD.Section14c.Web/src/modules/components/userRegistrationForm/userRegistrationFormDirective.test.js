@@ -1,7 +1,7 @@
 describe('userRegistrationForm', function() {
+  var element, rootScope, scope;
   beforeEach(module('14c'));
 
-  var element, rootScope;
   beforeEach(function() {
     element = angular.element('<user-registration-form/>');
     inject(function($rootScope, $compile) {

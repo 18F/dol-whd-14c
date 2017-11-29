@@ -2,18 +2,21 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
     public class ApplicationRepository : IApplicationRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private bool Disposed = false;
+
         public ApplicationRepository()
         {
             _dbContext = new ApplicationDbContext();
         }
 
-        public IQueryable<ApplicationSubmission> Get()
+        public IEnumerable<ApplicationSubmission> Get()
         {
             return _dbContext.ApplicationSubmissions.AsQueryable();
         }
@@ -37,7 +40,16 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public void Dispose()
         {
-            _dbContext.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _dbContext.Dispose();
+            }
         }
     }
 }

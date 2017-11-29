@@ -9,8 +9,7 @@ module.exports = function(ngModule) {
     $scope,
     $location,
     stateService,
-    apiService,
-    _env
+    apiService
   ) {
     'ngInject';
     'use strict';
@@ -91,20 +90,11 @@ module.exports = function(ngModule) {
           $scope.verifyResponse
         )
         .then(
-          function(result) {
+          function() {
             vm.emailVerified = true;
           },
-          function(error) {
+          function() {
             vm.emailVerificationError = true;
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
           }
         );
     }
@@ -124,7 +114,7 @@ module.exports = function(ngModule) {
           vm.emailVerificationUrl
         )
         .then(
-          function(result) {
+          function() {
             vm.registerdEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
@@ -138,7 +128,7 @@ module.exports = function(ngModule) {
                 $scope.registerErrors.indexOf('EIN is already registered') > -1
               ) {
                 vm.einError = true;
-              }              
+              }
               if (
                 some($scope.registerErrors, function(error) {
                   return error.indexOf('is already taken') > -1;
@@ -189,15 +179,6 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
             vm.submittingForm = false;
             $location.path('/');
           }
@@ -208,11 +189,9 @@ module.exports = function(ngModule) {
     $scope.regResponse = null;
     $scope.regWidgetId = null;
     $scope.setRegResponse = function(response) {
-      console.info('Response available');
       $scope.regResponse = response;
     };
     $scope.createRegWidget = function(widgetId) {
-      console.info('Created widget ID: %s', widgetId);
       $scope.regWidgetId = widgetId;
     };
     $scope.hideShowPassword = function() {

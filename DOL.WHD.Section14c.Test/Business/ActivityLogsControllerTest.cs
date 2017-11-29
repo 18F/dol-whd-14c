@@ -11,6 +11,7 @@ using DOL.WHD.Section14c.Log.LogHelper;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class ActivityLogsControllerTest
     {
         private readonly IActivityLogRepository _activityLogRepository;

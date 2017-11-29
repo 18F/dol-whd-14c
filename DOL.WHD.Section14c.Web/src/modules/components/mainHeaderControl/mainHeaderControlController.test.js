@@ -1,4 +1,7 @@
 describe('mainHeaderControlController', function() {
+  var scope, mockNavService, mockLocation, mockStateService;
+  var mockAutoSaveService, mainHeaderControlController;
+
   beforeEach(module('14c'));
 
   beforeEach(
@@ -35,4 +38,9 @@ describe('mainHeaderControlController', function() {
       };
     })
   );
+
+  it('invoke controller', function() {
+    var controller = mainHeaderControlController();
+    expect(controller).toBeDefined();
+  });
 });
