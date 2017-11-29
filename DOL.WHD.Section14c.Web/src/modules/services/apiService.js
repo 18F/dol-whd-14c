@@ -48,7 +48,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //log.info(error);
           d.reject(error);
         }
       );
@@ -101,7 +100,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //log.info(error);
           d.reject(error);
         }
       );
@@ -135,7 +133,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //log.info(error);
           d.reject(error);
         }
       );
@@ -304,7 +301,6 @@ module.exports = function(ngModule) {
           d.resolve(data);
         },
         function errorCallback(error) {
-          //log.info(error);
           d.reject(error);
         }
       );
