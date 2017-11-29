@@ -119,8 +119,7 @@ module.exports = function(ngModule) {
 
     this.doneAddingEmployees = function($event) {
       vm.addEmployee();
-      $('.cd-panel').removeClass('is-visible');
-      $('body').removeClass('cd-panel-open'); 
+      closeSlidingPanel(); 
       $event.preventDefault();
       vm.addingEmployee = false;
     };
