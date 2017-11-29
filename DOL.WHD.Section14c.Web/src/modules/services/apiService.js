@@ -423,7 +423,7 @@ module.exports = function(ngModule) {
     };
 
     this.setEmployer = function (access_token, data) {
-      let url = _env.api_url + '/api/user/setemployer'
+      let url = _env.api_url + '/api/Account/User/setEmployer'
       let d = $q.defer();
 
       $http({
