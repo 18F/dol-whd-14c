@@ -6,11 +6,13 @@ module.exports = function(ngModule) {
       template: require('./resultsTableTemplate.html'),
       controller: 'resultsTableController',
       scope: {
-        results: "=results",
-        columns: "=columns"
+        "results": "=results",
+        "columns": "=columns",
+        "definitions": "=definitions"
       },
       link: function(scope) {
         scope.$watch('results', function(newValue) {
+          console.log(scope)
           scope.vm.refreshTable(newValue, scope.columns);
         }, true);
       },
