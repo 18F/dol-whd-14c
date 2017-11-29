@@ -1,6 +1,7 @@
 verison: 2
 jobs:
-  build:
+  web:
+    working_directory: ~/project/DOL.WHD.Section14c.Web
     docker:
       - image: circleci/node:6
     steps:
@@ -9,15 +10,34 @@ jobs:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
       - run:
           name: install dependencies
-          command: cd DOL.WHD.Section14c.Web && npm install
+          command: npm install
       - save_cache:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
           paths:
-            - DOL.WHD.Section14c.Web/node_modules
+            - node_modules
       - run:
           name: run the tests
-          command: cd DOL.WHD.Section14c.Web && npm test
+          command: npm test
       - run:
           name: report coverage
           when: always
-          command: cd DOL.WHD.Section14c.Web && bash <(curl -s https://codecov.io/bash)
+          command: bash <(curl -s https://codecov.io/bash)
+
+  api:
+    docker:
+      - image: mono:5
+    steps:
+      - checkout
+      - run:
+          name: install dependencies
+          command: nuget restore
+      - run:
+          name: build
+          command: msbuild
+
+workflows:
+  version: 2
+  web_and_api:
+    jobs:
+      - web
+      - api
