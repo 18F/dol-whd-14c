@@ -86,7 +86,6 @@ app.run(function(
   authService,
   $q
 ) {
-  log.enableAll();
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
@@ -100,9 +99,7 @@ app.run(function(
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
     authenticatedPromise.then(function() {
-      $log.info('Succssfully authenticated user and got saved application.')
-    }).catch(function(error){
-      $log.warn('Error in authenticating user or getting saved application. This warning will appear if the user does not currently have a saved application.', error)
+    }).catch(function(){
     });
   } else {
     const d = $q.defer();
