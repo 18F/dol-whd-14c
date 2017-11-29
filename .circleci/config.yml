@@ -26,6 +26,12 @@ jobs:
   api:
     docker:
       - image: mono:5
+    environment:
+      # The docker image is Linux and thus case-sensitive. This turns
+      # on the Mono file IO abstraction layer, which makes everything
+      # case-insensitive.  Otherwise, msbuild can't find a bunch of
+      # stuff.
+      - MONO_IOMAP: "all"
     steps:
       - checkout
       - run:
