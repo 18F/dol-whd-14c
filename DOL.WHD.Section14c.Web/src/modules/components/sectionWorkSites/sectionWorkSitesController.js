@@ -119,7 +119,7 @@ module.exports = function(ngModule) {
 
     this.doneAddingEmployees = function($event) {
       vm.addEmployee();
-      $('.cd-panel').removeClass('is-visible');
+      closeSlidingPanel(); 
       $event.preventDefault();
       vm.addingEmployee = false;
     };
@@ -333,14 +333,15 @@ module.exports = function(ngModule) {
     // close the panel
     function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
-      panelTrigger.focus();
-      $('body').removeClass('cd-panel-open'); 
+      $('body').removeClass('cd-panel-open');
+      if (panelTrigger) {
+        panelTrigger.focus();        
+      }    
     }
     $(document).keydown(function(event) {
         // escape key
         if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
           closeSlidingPanel();
-          event.preventDefault();
         }
     });
     $('.cd-panel-close').on('click', function(event){
