@@ -1,7 +1,7 @@
 <dol-header></dol-header>
 <main-top-nav-control></main-top-nav-control>
 <breadcrumb></breadcrumb>
-<div class="dol-form-page">
+<form ng-submit="onSubmitClick()" class="dol-form-page">
   <fieldset class="dol-form-sub-section">
     <legend><h3>Register an Employer</h3></legend>
     <hr />
@@ -68,6 +68,6 @@
         </div>
       </fieldset>
     </div>
-    <button ng-click="registerEmployer()">Register Employer</button>
-</div>
+    <button type="submit">Register Employer</button>
+</form>
 <dol-footer></dol-footer>
