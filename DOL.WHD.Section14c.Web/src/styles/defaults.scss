@@ -2,7 +2,7 @@
 
 
 // Typography 
-$font-sans:                  "Source Sans Pro", "Tahoma", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+$font-sans:                  "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
 
 // Color
 $color-primary:              #224687 !default;
@@ -29,9 +29,13 @@ $color-green:                #187d35;
 $color-green-dark:           #146a2d;
 $color-green-darker:         #115926;   
 
-$color-link:                 #003399;
-$color-hover:                $color-base;
-$color-visited:              #800080;
+$color-red:                  #990000;
+$color-red-dark:             #7B0000;
+$color-red-darker:           #610000;
+
+$color-link:                 $color-red;
+$color-hover:                #800000;
+$color-visited:              #800000;
 
 $text-color:                 $color-base;
 

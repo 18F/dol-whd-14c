@@ -1,9 +1,14 @@
 <div ng-show="attachmentId == undefined">
-    <input id="{{::$id}}_FileUpload" class="upload-file-input" type="file" ng-hide="true" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-    <label for="{{::$id}}_FileUpload" class="upload-label usa-button-primary">Browse</label><input id="{{::$id}}" name="{{::$id}}" class="upload-input" type="text" disabled>
-    <label class="underlabel" for="{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+  <div class="dol-file-upload-ui">
+    <div aria-hidden="true" class="usa-button-primary">Browse</div>
+    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+    <div class="dol-file-upload-focus"></div>
+  </div>  
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</p>
 </div>
 <div ng-if="attachmentId != undefined">
-    <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}"><span>{{attachmentName}}</span></a>
-    <button class="usa-button-secondary" ng-click="vm.deleteAttachment(attachmentId)">Delete</button>
+  <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
+    <span>{{attachmentName}}</span>
+  </a>
+  <button class="usa-button-secondary" ng-click="vm.deleteAttachment(attachmentId)">Delete</button>
 </div>

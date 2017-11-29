@@ -2,14 +2,13 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAdminWageData', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAdminWageDataTemplate.html'),
-          controller: 'sectionAdminWageDataController',
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAdminWageDataTemplate.html'),
+      controller: 'sectionAdminWageDataController',
+      controllerAs: 'vm'
+    };
   });
-}
+};

@@ -1,139 +1,139 @@
+<breadcrumb></breadcrumb>
 <div class="dol-form-section-title">
-    <h2>Application Info</h2>
+  <h2>Application Info</h2>
 
-    <div class="dol-form-section-help">
-        <ul>
-            <li><a href="">Show Help for All Items</a></li>
-        </ul>
-    </div>
+  <div class="dol-form-section-help">
+    <ul>
+      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+    </ul>
+  </div>
 </div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__appinfo')">
-    <div class="usa-alert-body">
-        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
-    </div>
+  <div class="usa-alert-body">
+    <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+  </div>
 </div>
-<div class="form-page">
-    <h3>Application Type</h3>
+<div class="dol-form-page">
+  <fieldset class="dol-form-sub-section">
+    <legend><h3>Application Type</h3></legend>
     <hr />
-    <div class="form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What type of application is this?
-            <helplink></helplink>
-            <helptext>Initial applicants are those who do not currently hold a valid section 14 (c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+
+    <div class="dol-form-question-block" ng-class="validate('applicationTypeId') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="hide"><span id="applicationTypeLabel">What type of application is this?</span></legend>
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">What type of application is this?</span>
+          <helplink aria-controls="applicationTypeIdHelp" aria-describedby="applicationTypeLabel"></helplink>
         </div>
-        <div class="form-question-subtext">If the employer currently holds a valid 14(c) certificate, choose Renewal. If not, choose Initial.</div>
+        <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14(c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li ng-repeat="response in responses.ApplicationType">
-                    <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
-                    <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list">
+          <li ng-repeat="response in responses.ApplicationType">
+            <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
+            <label for="applicationType_{{ response.id }}">{{ response.display }}</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Has this employer ever applied for a 14(c) certificate?</div>
+    <div class="dol-form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">Has this employer ever previously applied for a 14(c) certificate?</legend>
         <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li>
-                    <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
-                    <label for="hasPreviousApplication_1">Yes</label>
-                </li>
-                <li>
-                    <input id="hasPreviousApplication_0" type="radio" name="hasPreviousApplication" ng-value="false" ng-model="formData.hasPreviousApplication">
-                    <label for="hasPreviousApplication_0">No</label>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
+            <label for="hasPreviousApplication_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasPreviousApplication_0" type="radio" name="hasPreviousApplication" ng-value="false" ng-model="formData.hasPreviousApplication">
+            <label for="hasPreviousApplication_0">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Has this employer ever previously held a 14(c) certificate?</div>
+    <div class="dol-form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">Has this employer ever previously held a 14(c) certificate?</legend>
         <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li>
-                    <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
-                    <label for="hasPreviousCertificate_1">Yes</label>
-                </li>
-                <li>
-                    <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" ng-value="false" ng-model="formData.hasPreviousCertificate">
-                    <label for="hasPreviousCertificate_0">No</label>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
+            <label for="hasPreviousCertificate_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasPreviousCertificate_0" type="radio" name="hasPreviousCertificate" ng-value="false" ng-model="formData.hasPreviousCertificate">
+            <label for="hasPreviousCertificate_0">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
 
-    <div class="form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What is the most recently held certificate number for the main establishment?</div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
-        <div class="form-question-answer">
-            <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="sidelabeled certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber">
-            <label class="example">Example: 12-34567-H-890</label>
-        </div>
+    <div class="dol-form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
+      <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held certificate number for the main establishment?</label>
+      <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
+      <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber" aria-describedby="examplePrevCertNumber">
+      <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
     </div>
 
-    <div class="form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
-        <div class="form-question-text">What type of establishment(s) is this request for authority to employ workers with disabilities for?
-            <helplink></helplink>
-            <helptext>
-                <p><strong>Community Rehabilitation (Work Center):</strong> facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</p>
-                <p><strong>Hospital/Residential Care Facility (Patient Workers):</strong> A facility (public or private, non-profit or for-profit) that primarily providesresidential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assistedliving facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percentof the facility’s income is attributable to this residential care.A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where thepatient worker receives inpatient or outpatient treatment or care.</p>
-                <p><strong>School Work Experience Program (SWEP):</strong> A school-operated program in which students with disabilities may be placed in jobswith private industry within the community. School employers are responsible for compliance with all applicable child labor laws,minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application whichcovers all students with disabilities and all of the business locations at which the students will be placed.</p>
-                <p><strong>Business Establishment:</strong> Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</p>
-            </helptext>
-        </div>
-        <div class="form-question-subtext">Select all that apply</div>
+    <div class="dol-form-question-block" ng-class="validate('establishmentTypeId') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</legend>
+        <p class="dol-form-question-subtext">Select all that apply</p>
         <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li ng-repeat="response in responses.EstablishmentType">
-                    <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
-                    <label for="establishmentType_{{ response.id }}">{{ response.display }}</label>
-                    <div class="underlabel checkbox-indent">{{ response.subDisplay }}</div>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list dol-list-help">
+          <li ng-repeat="response in responses.EstablishmentType">
+            <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
+            <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
+            <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
+            <helptext id="establishmentType_{{ response.id }}Help">
+                {{ response.subDisplay }}
+            </helptext>
+          </li>
+        </ul>
+      </fieldset>
     </div>
+  </fieldset>
 
-    <h3>Application Contact Person</h3>
-    <div class="form-question-subtext">This should be a person who can best answer questions concerning information contained on this application.</div>
+
+  <fieldset class="dol-form-sub-section">
+    <legend class="hide">
+      <span id="applicationContactLabel">Application Contact Person</span>
+    </legend>
+    <div class="dol-legend-h3-help">
+      <h3 aria-hidden="true">Application Contact Person</span></h3>
+      <helplink aria-controls="applicationContactPersonHelp" aria-describedby="applicationContactLabel"></helplink>
+    </div>
+    <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
     <hr />
-
-    <div class="form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
-        <div class="form-question-answer">
-            <label for="contactName">Full Name</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
-            <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
-        </div>
+    <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
+      <label for="contactName">Full Name</label>
+      <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
+      <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
-        <div class="form-question-answer">
-            <label for="contactPhone">Telephone Number</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
-            <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="sidelabeled phoneno"></input>
-            <label class="example">Example: 123-456-7890</label>
-        </div>
+    <div class="dol-form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
+      <label for="contactPhone">Telephone Number</label>
+      <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
+      <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="dol-side-example phoneno" aria-describedby="exampleContactPhone"></input>
+      <span id="exampleContactPhone" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
-        <div class="form-question-answer">
-            <label for="contactFax">Fax Number</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
-            <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="sidelabeled phoneno"></input>
-            <label class="example">Example: 123-456-7890</label>
-        </div>
+    <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
+      <label for="contactFax">Fax Number</label>
+      <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
+      <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
+      <span id="exampleContactFax" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 
-    <div class="form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
-        <div class="form-question-answer">
-            <label for="contactEmail">Email Address</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
-            <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="sidelabeled email"></input>
-            <label class="example">Example: contact.name@company.com</label>
-        </div>
+    <div class="dol-form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
+        <label for="contactEmail">Email Address</label>
+        <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
+        <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="dol-side-example email" aria-describedby="exampleContactEmail"></input>
+        <span id="exampleContactEmail" class="dol-example-text">Example: contact.name@company.com</span>
     </div>
+  </fieldset>
+
+
 </div>

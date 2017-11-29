@@ -2,14 +2,13 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('accountForm', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./accountFormTemplate.html'),
-          controller: 'accountFormController',
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./accountFormTemplate.html'),
+      controller: 'accountFormController',
+      controllerAs: 'vm'
+    };
   });
-}
+};

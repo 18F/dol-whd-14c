@@ -1,14 +1,20 @@
-<div class="usa-date-of-birth">
-    <div class="usa-form-group usa-form-group-month">
-    <label for="{{::$id}}_Month">Month</label>
-    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Month" name="{{::$id}}_Month" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.month">
-    </div>
-    <div class="usa-form-group usa-form-group-day">
-    <label for="{{::$id}}_Day">Day</label>
-    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Day" name="{{::$id}}_Day" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.day">
-    </div>
-    <div class="usa-form-group usa-form-group-year">
-    <label for="{{::$id}}_Year">Year</label>
-    <input class="usa-input-inline" aria-describedby="dobHint" class="usa-form-control" id="{{::$id}}_Year" name="{{::$id}}_Year" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="vm.year">
-    </div>
+<div class="usa-date-of-birth dol-side-example">
+  <div class="usa-form-group usa-form-group-month">
+    <label for="Month_{{::$id}}">Month</label>
+    <input class="usa-input-inline" aria-describedby="dateExample_{{::$id}} dateExampleMonth_{{::$id}}" class="usa-form-control" id="Month_{{::$id}}" name="Month_{{::$id}}" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.month">
+  </div>
+  <div class="usa-form-group usa-form-group-day">
+    <label for="Day_{{::$id}}">Day</label>
+    <input class="usa-input-inline" aria-describedby="dateExample_{{::$id}} dateExampleDay_{{::$id}}" class="usa-form-control" id="Day_{{::$id}}" name="Day_{{::$id}}" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="" ng-model="vm.day">
+  </div>
+  <div class="usa-form-group usa-form-group-year">
+    <label for="Year_{{::$id}}">Year</label>
+    <input class="usa-input-inline" aria-describedby="dateExample_{{::$id}} dateExampleYear_{{::$id}}" class="usa-form-control" id="Year_{{::$id}}" name="Year_{{::$id}}" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="vm.year">
+  </div>
 </div>
+<div class="dol-example-text"><span id="dateExample_{{::$id}}">Example: </span>
+    <span id="dateExampleMonth_{{::$id}}">04</span> 
+    <span id="dateExampleDay_{{::$id}}">30</span> 
+    <span id="dateExampleYear_{{::$id}}">2016</span> 
+</div>
+

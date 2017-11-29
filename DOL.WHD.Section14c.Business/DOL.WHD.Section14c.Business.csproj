@@ -37,6 +37,13 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Handlebars, Version=1.8.1.0, Culture=neutral, PublicKeyToken=22225d0bf33cd661, processorArchitecture=MSIL">
+      <HintPath>..\packages\Handlebars.Net.1.9.0\lib\net40\Handlebars.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.6.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.6.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -57,20 +64,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\GetPropertyValueExtensions.cs" />
     <Compile Include="Factories\ApplicationSummaryFactory.cs" />
     <Compile Include="Factories\IApplicationSummaryFactory.cs" />
+    <Compile Include="Helper\ApplicationDocumentHelper.cs" />
+    <Compile Include="Helper\ApplicationEmailReceivers.cs" />
+    <Compile Include="Helper\ApplicationFormViewHelper.cs" />
     <Compile Include="IApplicationService.cs" />
+    <Compile Include="IAttachmentSupportedFileTypesService.cs" />
+    <Compile Include="IEmailContentService.cs" />
     <Compile Include="IIdentityService.cs" />
     <Compile Include="IResponseService.cs" />
     <Compile Include="ISaveService.cs" />
     <Compile Include="IStatusService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IReCaptchaService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="IAttachmentService.cs" />
+    <Compile Include="Services\AttachmentSupportedFileTypesService.cs" />
+    <Compile Include="Services\EmailContentService.cs" />
     <Compile Include="Services\IdentityService.cs" />
-    <Compile Include="Services\ReCaptchaService.cs" />
     <Compile Include="Services\ResponseService.cs" />
     <Compile Include="Services\SaveService.cs" />
     <Compile Include="Services\StatusService.cs" />
@@ -112,6 +125,10 @@
     <Compile Include="Validators\WorkSiteValidatorInitial.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
       <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>
@@ -119,6 +136,14 @@
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
       <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
+      <Project>{ea4488e2-66fc-4d46-81e6-1d43a79a3b2d}</Project>
+      <Name>DOL.WHD.Section14c.EmailApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DOL.WHD.Section14c.PdfAPi\DOL.WHD.Section14c.PdfApi.csproj">
+      <Project>{9a4abfb1-b45e-4fea-847d-0b39f4ff9334}</Project>
+      <Name>DOL.WHD.Section14c.PdfApi</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

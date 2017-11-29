@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Linq;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.DataAccess.Repositories
 {
     public class AttachmentRepository : IAttachmentRepository
     {
         private readonly ApplicationDbContext _dbContext;
+        private bool Disposed = false;
+
         public AttachmentRepository()
         {
             _dbContext = new ApplicationDbContext();
         }
 
-        public IQueryable<Attachment> Get()
+        public IEnumerable<Attachment> Get()
         {
             return _dbContext.FileUploads.AsQueryable();
         }
@@ -29,7 +32,16 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public void Dispose()
         {
-            _dbContext.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _dbContext.Dispose();
+            }
         }
     }
 }

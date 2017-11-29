@@ -13,8 +13,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         {
             var prevailingWageDetermined = 50.50;
             var sourceEmployers = new List<SourceEmployer>();
-            var attachmentId = Guid.NewGuid();
-            var attachment = new Attachment {Id = attachmentId};
+            var attachmentId = Guid.NewGuid().ToString();
+            var attachment = new Attachment {Id = attachmentId.ToString() };
 
             var model = new PrevailingWageSurveyInfo
             {

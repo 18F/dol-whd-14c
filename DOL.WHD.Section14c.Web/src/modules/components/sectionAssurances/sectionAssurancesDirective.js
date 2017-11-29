@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAssurances', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAssurancesTemplate.html'),
-          controller: 'sectionAssurancesController',
-          scope: { },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAssurancesTemplate.html'),
+      controller: 'sectionAssurancesController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};

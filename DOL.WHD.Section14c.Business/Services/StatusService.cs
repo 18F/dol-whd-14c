@@ -8,6 +8,8 @@ namespace DOL.WHD.Section14c.Business.Services
     public class StatusService : IStatusService
     {
         private readonly IStatusRepository _repository;
+        private bool Disposed = false;
+
         public StatusService(IStatusRepository repository)
         {
             _repository = repository;
@@ -25,7 +27,17 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public void Dispose()
         {
-            _repository.Dispose();
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!Disposed && disposing)
+            {
+                _repository.Dispose();
+                Disposed = true;
+            }
         }
     }
 }

@@ -1,31 +1,30 @@
-
 // Colors
 $form-em-grey: #f0f0f0;
-$help-link-color: #5A7FA8;
-$help-em-color: #D0E2FB;
+$help-link-color: #5a7fa8;
+$help-em-color: #d0e2fb;
 
 // Layout
 .pull-left {
-    float: left;
+  float: left;
 }
 
 .pull-right {
-    float: right;
+  float: right;
 }
 
 .clearer {
-    @include clearfix;
+  @include clearfix;
 }
 
 // Links
 a {
-    // Modified from USWDS for DOL
-    color: $color-link;
+  // Modified from USWDS for DOL
+  color: $color-link;
 
-    &:hover,
-    &:active {
-        color: $text-color;
-    }
+  &:hover,
+  &:active {
+    color: $color-hover;
+  }
 }
 
 // Typography
@@ -40,54 +39,138 @@ h6 {
 
 // Button Customizations
 .grey-button {
-    background-color: $color-gray-light;
+  background-color: $color-gray-light;
+  color: $text-color;
+
+  &:hover {
+    background-color: $color-gray-medium;
     color: $text-color;
+  }
 
-    &:hover {
-        background-color: $color-gray-medium;
-        color: $text-color;
-    }
-
-    &:active {
-        background-color: $color-gray;
-        color: $text-color;
-    }
+  &:active {
+    background-color: $color-gray;
+    color: $text-color;
+  }
 }
 
 .disabled-button {
-    background-color: $color-gray-light;
-    color: $text-color;
+  background-color: $color-gray-light;
+  color: $text-color;
 
-    &:hover {
-        background-color: $color-gray-light;
-    }
+  &:hover {
+    background-color: $color-gray-light;
+  }
 }
 
 .green-button {
-    &:not(.nomargin) {
-        margin-left: 40px;
-    }
-    background-color: $color-green;
+  &:not(.nomargin) {
+    margin-left: 40px;
+  }
+  background-color: $color-green;
 
-    &:hover {
-        background-color: $color-green-dark;
-    }
+  &:hover {
+    background-color: $color-green-dark;
+  }
 
-    &:active {
-        background-color: $color-green-darker;
-    }
+  &:active {
+    background-color: $color-green-darker;
+  }
 }
 
 button + .green-button {
-    margin-left: 4rem;
+  margin-left: 4rem;
+}
+
+.red-button {
+  background-color: $color-red;
+
+  &:hover {
+    background-color: $color-red-dark;
+  }
+
+  &:active {
+    background-color: $color-red-darker;
+  }
 }
 
 .loading-blue {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background-image: url('../images/dol-loading-small-blue.gif');
+  background-size: contain;
+  vertical-align: middle;
+}
+
+.dol-close-button {
+  height: 60px;
+  width: 60px;
+  display: inline-block;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
+}
+.dol-close-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -14px;
+  margin-left: -16px;
+  height: 28px;
+  width: 32px;
+  border-radius: 3px;
+  background: #990000 url(../images/dol-close-gray.png) center center no-repeat;
+  background: #990000 url(../images/dol-close-gray.svg) center center no-repeat;
+  background-size: 50%;
+}
+
+.dol-simple-link-tabs {
+  margin-bottom: 30px;
+  a, a:visited, a:hover {
     display: inline-block;
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-    background-image: url('../images/dol-loading-small-blue.gif');
-    background-size: contain;
-    vertical-align: middle;
+    padding-bottom: 6px;
+    margin-right: 18px;
+
+    &.active {
+      border-bottom: solid 3px $color-primary;
+      text-decoration: none;
+      color: #666666;
+    }
+  }
+}
+
+.hide {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+// Help Callout
+
+.dol-help-callout {
+  position: relative;
+  padding: 10px 10px 10px 70px;
+  border: 1px solid #afafaf;
+  background-color: #ffffff;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    bottom: -1px;
+    width: 60px;
+    background: $color-primary url('../images/chat-icon.png') 12px 4px no-repeat;
+    background: #224687 url(../images/chat-icon.svg) 12px 4px no-repeat;
+    background-size: 34px 34px;
+  }
+
 }

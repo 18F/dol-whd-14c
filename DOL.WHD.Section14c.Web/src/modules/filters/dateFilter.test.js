@@ -1,19 +1,23 @@
 describe('dateFilter', function() {
-    beforeEach(module('14c'));
+  var dateFilter;
 
-    beforeEach(inject(function(_dateFilterFilter_) {
-        dateFilter = _dateFilterFilter_;
-    }));
+  beforeEach(module('14c'));
 
-    it('should convert date to mm/dd/yyyy format', function() {
-        var date = '2016-01-01';
-        var formatted = dateFilter(date);
-        expect(formatted).toEqual('1/1/2016');
-    });
+  beforeEach(
+    inject(function(_dateFilterFilter_) {
+      dateFilter = _dateFilterFilter_;
+    })
+  );
 
-    it('should handle invalid date', function() {
-        var date = 'bad date';
-        var formatted = dateFilter(date);
-        expect(formatted).toEqual('INVALID DATE');
-    });
+  it('should convert date to mm/dd/yyyy format', function() {
+    var date = '2016-01-01';
+    var formatted = dateFilter(date);
+    expect(formatted).toEqual('1/1/2016');
+  });
+
+  it('should handle invalid date', function() {
+    var date = 'bad date';
+    var formatted = dateFilter(date);
+    expect(formatted).toEqual('INVALID DATE');
+  });
 });

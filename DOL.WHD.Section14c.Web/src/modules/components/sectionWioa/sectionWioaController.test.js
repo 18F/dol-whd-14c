@@ -1,50 +1,52 @@
 describe('sectionWioaController', function() {
+  var scope, route, sectionWioaController;
 
-    beforeEach(module('14c'));
+  beforeEach(module('14c'));
 
-    beforeEach(inject(function ($rootScope, $controller) {
-        scope = $rootScope.$new();
+  beforeEach(
+    inject(function($rootScope, $controller, $route) {
+      scope = $rootScope.$new();
+      route = $route;
 
-        sectionWioaController = function() {
-            return $controller('sectionWioaController', {
-                '$scope': scope,
-                '$route': route
-            });
-        };
-    }));
+      sectionWioaController = function() {
+        return $controller('sectionWioaController', {
+          $scope: scope,
+          $route: route
+        });
+      };
+    })
+  );
 
+  it('should toggle learn more on', function() {
+    var controller = sectionWioaController();
+    scope.showWIOAReqs = false;
+    controller.toggleLearnMore();
 
-    it('should toggle learn more on', function() {
-        var controller = sectionWioaController();
-        scope.showWIOAReqs = false;
-        controller.toggleLearnMore();
-        
-        expect(scope.showWIOAReqs).toBe(true);
-    });
+    expect(scope.showWIOAReqs).toBe(true);
+  });
 
-    it('should toggle learn more off', function() {
-        var controller = sectionWioaController();
-        scope.showWIOAReqs = true;
-        controller.toggleLearnMore();
-        
-        expect(scope.showWIOAReqs).toBe(false);
-    });
-    
+  it('should toggle learn more off', function() {
+    var controller = sectionWioaController();
+    scope.showWIOAReqs = true;
+    controller.toggleLearnMore();
 
-    it('should add/edit/delete worker', function() {
-        var controller = sectionWioaController();
+    expect(scope.showWIOAReqs).toBe(false);
+  });
 
-        controller.activeWorker = { "fullName": "Worker" };
-        controller.addWorker();
-        expect(scope.formData.WIOA.WIOAWorkers.length).toBe(1);
+  it('should add/edit/delete worker', function() {
+    var controller = sectionWioaController();
 
-        controller.editWorker(0);
-        controller.addWorker();
-        expect(scope.formData.WIOA.WIOAWorkers.length).toBe(1);
+    controller.activeWorker = { fullName: 'Worker' };
+    controller.addWorker();
+    expect(scope.formData.WIOA.WIOAWorkers.length).toBe(1);
 
-        controller.deleteWorker(0);
-        expect(scope.formData.WIOA.WIOAWorkers.length).toBe(0);
+    controller.editWorker(0);
+    controller.addWorker();
+    expect(scope.formData.WIOA.WIOAWorkers.length).toBe(1);
 
-        controller.cancelAddWorker();
-    });
+    controller.deleteWorker(0);
+    expect(scope.formData.WIOA.WIOAWorkers.length).toBe(0);
+
+    controller.cancelAddWorker();
+  });
 });

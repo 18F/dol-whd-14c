@@ -1,0 +1,22 @@
+.dol-header {
+  background-color: #900;
+  padding: 8px 16px;
+}
+
+.brand {
+  align-items: center;
+  display: flex;
+  text-decoration: none;
+}
+
+.brand--img {
+  margin-right: 10px;
+}
+
+.brand--text {
+  color: #fff;
+  flex: 1;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.2;
+}

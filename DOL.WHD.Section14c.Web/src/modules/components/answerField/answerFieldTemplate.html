@@ -1,24 +1,25 @@
 <div class="answer-block">
-    <div class="answer-question">
-        <ng-transclude></ng-transclude>
+  <div class="answer-question">
+    <ng-transclude></ng-transclude>
+  </div>
+  <div class="answer-answer" ng-show="answer !== undefined">
+    <div ng-show="!addressField && !datefield && !attachmentField">
+      {{ answer === true ? 'Yes' : answer === false ? 'No' : answer }}
     </div>
-    <div class="answer-answer" ng-show="answer !== undefined">
-        <div ng-show="!addressField && !datefield && !attachmentField">
-            {{ answer === true ? 'Yes' : answer === false ? 'No' : answer }}
-        </div>
-        <div ng-show="addressField">
-            {{ answer.streetAddress }} <br>
-            {{ answer.city + ', ' + answer.state + ' ' + answer.zipCode }} <br>
-            <p ng-show="answer.county"><em>County:</em> {{ answer.county }}</p>
-        </div>
-        <div ng-show="datefield">
-            {{ answer | dateFilter }}
-        </div>
-        <div ng-show="attachmentField">
-            <a ng-href="{{vm.attachmentApiURL}}{{answer.ein}}/{{answer.id}}?access_token={{vm.access_token}}"><span>{{answer.originalFileName}}</span></a>
-        </div>
+    <div ng-show="addressField">
+      {{ answer.streetAddress }} <br> {{ answer.city + ', ' + answer.state + ' ' + answer.zipCode }} <br>
+      <p ng-show="answer.county"><em>County:</em> {{ answer.county }}</p>
     </div>
-    <div class="answer-answer" ng-show="answer === undefined">
-        NOT PROVIDED
+    <div ng-show="datefield">
+      {{ answer | dateFilter }}
     </div>
+    <div ng-show="attachmentField">
+      <a ng-href="{{vm.attachmentApiURL}}{{answer.ein}}/{{answer.id}}?access_token={{vm.access_token}}">
+        <span>{{answer.originalFileName}}</span>
+      </a>
+    </div>
+  </div>
+  <div class="answer-answer" ng-show="answer === undefined">
+    NOT PROVIDED
+  </div>
 </div>

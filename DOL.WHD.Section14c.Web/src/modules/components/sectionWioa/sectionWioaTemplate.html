@@ -1,129 +1,147 @@
+<breadcrumb></breadcrumb>
 <div class="dol-form-section-title">
-    <h2>WIOA</h2>
+  <h2>WIOA</h2>
 
-    <div class="dol-form-section-help">
-        <ul>
-            <li><a href="" ng-click="vm.showAllHelp = !vm.showAllHelp">Show Help for All Items</a></li>
-        </ul>
-    </div>
+  <div class="dol-form-section-help">
+    <ul>
+      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+    </ul>
+  </div>
 </div>
+
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__wioa')">
-    <div class="usa-alert-body">
-        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
-    </div>
+  <div class="usa-alert-body">
+    <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
+  </div>
 </div>
-<div class="form-page">
-    <h3>Workforce Innovation and Opportunity Act (WIOA)</h3>
-    <hr>
-    <p>WIOA requirements are effective July 22, 2016. <a href ng-click="vm.toggleLearnMore()">Learn More</a></p>
-    <div ng-show="showWIOAReqs" class="em-block usa-content">
-        <p>The Workforce Innovation and Opportunity Act (WIOA) of 2014 added section 511 to the Rehabilitation Act of 1973, <a href="https://www.gpo.gov/fdsys/pkg/USCODE-2014-title29/html/USCODE-2014-title29-chap16-subchapV-sec794g.htm" target="_blank">29 U.S.C. 794g</a>.</p>
-        <p>Beginning on July 22, 2016, this section places requirements on all entities that hold a section 14(c) certificate and pay any worker a subminimum wage.</p>
-        <p>The employer may not employ an individual, regardless of age, at a subminimum wage unless the individual</p>
-        <p>(A) is provided by the appropriate state agency with career counseling, information, and referrals to Federal and State programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to enable the individual to explore,
-        discover, experience, and attain competitive integrated employment; and</p>
-        <p>(B) is informed by the employer of self-advocacy, self-determination, and peer mentoring training opportunities available in the individual’s geographic area and provided by an entity that does not have any financial interest in the individual’s employment outcome. The employer must verify completion of these requirements, including by reviewing any relevant documents provided by the individual, every 6 months for the first year of the individual’s employment at a subminimum wage, and annually every subsequent year as long as the individual is paid a
-        subminimum wage. <a href="https://www.gpo.gov/fdsys/pkg/USCODE-2014-title29/html/USCODE-2014-title29-chap16-subchapV-sec794g.htm" target="_blank">See 29 U.S.C. 794g(c) and (e)</a>. (If the certificate holder has fewer than 15 employees paid at subminimum wages, the employer may be able to satisfy the information required in (B) above by referring the individual, at each required interval, to the appropriate state agency. <a href="https://www.gpo.gov/fdsys/pkg/USCODE-2014-title29/html/USCODE-2014-title29-chap16-subchapV-sec794g.htm" target="_blank">See 29 U.S.C. 794g(c)(3)</a>.)</p>
-        <p>Before an employer may pay a worker with a disability who is age 24 or younger a subminimum wage, WIOA requires that the
-        employer review, verify, and maintain documentation indicating that the worker has completed the following requirements prior to
-        being paid a subminimum wage: (A) the individual has received pre-employment transition services; and (B) the individual has
-        applied for vocational rehabilitation services and (1a) has been found ineligible for services, or (1b) has been found eligible for
-        services and has an individualized plan for employment, has been working toward an employment outcome specified in his or her
-        plan with appropriate supports and services, and the individual’s vocational rehabilitation case is closed, and (2a) the individual
-        has been provided by the appropriate state agency with career counseling, and information and referrals to Federal and State
-        programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to
-        enable the individual to explore, discover, experience, and attain competitive integrated employment; and (2b) such counseling
-        and information and referrals are not for employment at a subminimum wage and do not directly result in employment
-        compensated at a subminimum wage by a section 14(c) certificate holder. <a href="https://www.gpo.gov/fdsys/pkg/USCODE-2014-title29/html/USCODE-2014-title29-chap16-subchapV-sec794g.htm" target="_blank">See 29 U.S.C. 794g(a)(2)</a>.
-        </p>
-    </div>
 
-    <div class="form-question-block" ng-class="validate('WIOA.hasVerifiedDocumentation') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</div>
+<div class="dol-form-page">
+  <fieldset class="dol-form-sub-section">
+    <legend class="hide">
+        <span id="wioaLabel">Workforce Innovation and Opportunity Act (WIOA)</span>
+    </legend>
+    <div class="dol-legend-h3-help">
+        <h3 aria-hidden="true">Workforce Innovation and Opportunity Act (WIOA)</span></h3>
+        <helplink aria-controls="wioaHelp" aria-describedby="wioaLabel"></helplink>
+    </div>
+    <helptext id="wioaHelp">
+        <p>The Workforce Innovation and Opportunity Act (WIOA) of 2014 added section 511 to the Rehabilitation Act of 1973, <a target="_blank" href="http://uscode.house.gov/view.xhtml?req=(title:29%20section:794g%20edition:prelim)">29 U.S.C. 794g</a>. Beginning on July 22, 2016, this section places requirements on all entities that hold a section 14(c) certificate and pay any worker a subminimum wage.</p>
+        <p><strong>(a)</strong> The employer may not employ an individual, regardless of age, at a subminimum wage unless the individual (A) is provided by the appropriate state agency with career counseling, information, and referrals to Federal and State programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to enable the individual to explore, discover, experience, and attain competitive integrated employment; and (B) is informed by the employer of self-advocacy, self-determination, and peer mentoring training opportunities available in the individual’s geographic area and provided by an entity that does not have any financial interest in the individual’s employment outcome.</p>
+        <p><strong>(b)</strong> Before an employer may pay a worker with a disability who is age 24 or younger a subminimum wage, WIOA requires that the employer review, verify, and maintain documentation indicating that the worker has completed the following requirements prior to being paid a subminimum wage: (A) the individual has received pre-employment transition services; and (B) the individual has applied for vocational rehabilitation services and (1a) has been found ineligible for services, or (1b) has been found eligible for services and has an individualized plan for employment, has been working toward an employment outcome specified in his or her plan with appropriate supports and services, and the individual’s vocational rehabilitation case is closed, and (2a) the individual has been provided by the appropriate state agency with career counseling, and information and referrals to Federal and State programs and other resources in the individual’s geographic area that offer employment-related services and supports designed to enable the individual to explore, discover, experience, and attain competitive integrated employment; and (2b) such counseling and information and referrals are not for employment at a subminimum wage and do not directly result in employment compensated at a subminimum wage by a section 14(c) certificate holder. See <a target="_blank" href="http://uscode.house.gov/view.xhtml?req=(title:29%20section:794g%20edition:prelim)">29 U.S.C. 794g(a)(2)</a>.</p>
+    </helptext>
+    <hr>
+    <div class="dol-form-question-block" ng-class="validate('WIOA.hasVerifiedDocumentation') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="hide"><span id="hasReviewedLabel">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</span></legend>
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</span>
+          <helplink aria-controls="hasReviewedHelp" aria-describedby="hasReviewedLabel"></helplink>
+        </div>
+        <helptext id="hasReviewedHelp">The employer must verify completion of these requirements, including by reviewing any relevant documents provided by the individual, every 6 months for the first year of the individual’s employment at a subminimum wage, and annually every subsequent year as long as the individual is paid a subminimum wage. See <a target="_blank" href="http://uscode.house.gov/view.xhtml?req=(title:29%20section:794g%20edition:prelim)">29 U.S.C. 794g(c) and (e)</a>. (If the certificate holder has fewer than 15 employees paid at subminimum wages, the employer may be able to satisfy the requirement for the employer to provide information on self-advocacy, self-determination, and peer mentoring training opportunities by referring the individual, at each required interval, to the appropriate state agency. See <a target="_blank" href="http://uscode.house.gov/view.xhtml?req=(title:29%20section:794g%20edition:prelim)">29 U.S.C. 794g(c)(3).</a>)</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasVerifiedDocumentation')">{{ validate('WIOA.hasVerifiedDocumentation') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li>
-                    <input id="hasVerifiedDocumentation_1" type="radio" name="hasVerifiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerifiedDocumentation">
-                    <label for="hasVerifiedDocumentation_1">Yes</label>
-                </li>
-                <li>
-                    <input id="hasVerifiedDocumentation_0" type="radio" name="hasVerifiedDocumentation" ng-value="false" ng-model="formData.WIOA.hasVerifiedDocumentation">
-                    <label for="hasVerifiedDocumentation_0">No</label>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasVerifiedDocumentation_1" type="radio" name="hasVerifiedDocumentation" ng-value="true" ng-model="formData.WIOA.hasVerifiedDocumentation">
+            <label for="hasVerifiedDocumentation_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasVerifiedDocumentation_0" type="radio" name="hasVerifiedDocumentation" ng-value="false" ng-model="formData.WIOA.hasVerifiedDocumentation">
+            <label for="hasVerifiedDocumentation_0">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
-    <div class="form-question-block" ng-class="validate('WIOA.hasWIOAWorkers') ? 'usa-input-error' : ''">
-        <div class="form-question-text">Were any workers paid a subminimum wage age 24 or younger?
-            <helplink></helplink>
-            <helptext>List the name of each worker with a disability age 24 or younger and provide a response for each individual. Answer “Y” if the employer has reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed. Answer “N” if the employer has not verified that these requirements have been completed for this individual or if these requirements have not yet been completed. Answer “NR” if the employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</helptext>
-        </div>
+    <div class="dol-form-question-block" ng-class="validate('WIOA.hasWIOAWorkers') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="dol-form-question-text">Were any workers paid a subminimum wage age 24 or younger?</legend>
         <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.hasWIOAWorkers')">{{ validate('WIOA.hasWIOAWorkers') }}</span>
-        <fieldset class="usa-fieldset-inputs form-question-answer">
-            <ul class="usa-unstyled-list">
-                <li>
-                    <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" ng-value="true" ng-model="formData.WIOA.hasWIOAWorkers">
-                    <label for="hasWIOAWorkers_1">Yes</label>
-                </li>
-                <li>
-                    <input id="hasWIOAWorkers_0" type="radio" name="hasWIOAWorkers" ng-value="false" ng-model="formData.WIOA.hasWIOAWorkers">
-                    <label for="hasWIOAWorkers_0">No</label>
-                </li>
-            </ul>
-        </fieldset>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasWIOAWorkers_1" type="radio" name="hasWIOAWorkers" aria-describedby="hasWIOAWorkersHelp" ng-value="true" ng-model="formData.WIOA.hasWIOAWorkers">
+            <label for="hasWIOAWorkers_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasWIOAWorkers_0" type="radio" name="hasWIOAWorkers" aria-describedby="hasWIOAWorkersHelp" ng-value="false" ng-model="formData.WIOA.hasWIOAWorkers">
+            <label for="hasWIOAWorkers_0">No</label>
+          </li>
+        </ul>
+      </fieldset>
     </div>
-    <div class="form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1" ng-class="validate('WIOA.WIOAWorkers') ? 'usa-input-error' : ''">
-        <div class="form-question-text">List the name of each worker with a disability age 24 or younger and provide a response for each individual. </div>
-        <div class="usa-content">
-            Accepted Responses:
-            <p><strong>Yes</strong> - The employer reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
-            <p><strong>No</strong> - The employer has NOT verified that these requirements have been completed for this individual or these requirements have not yet been completed.</p>
-            <p><strong>Not Required</strong> - The employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
-        </div>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers')">{{ validate('WIOA.WIOAWorkers') }}</span>
-        <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
-        <div class="form-question-block em-block" ng-show="vm.addingWorker">
+    <div class="dol-form-question-block" ng-show="formData.WIOA.hasWIOAWorkers == 1" ng-class="validate('WIOA.WIOAWorkers') ? 'usa-input-error' : ''">
+        <fieldset class="usa-fieldset-inputs form-question-answer">
+          <legend class="hide">
+              <p>Please list the name of each worker who is age 24 or younger and answer yes/no/not required to the following question for each worker listed.</p>
+              <p>
+                <span id="employerVerifiedLabel">Did the employer review, verify, and maintain documentation showing that the worker received all services and counseling required by WIOA before paying the worker a subminimum wage?</span>
+              </p>
+          </legend>
+          <div class="dol-legend-help">
+              <div class="dol-form-question-text">
+                <p aria-hidden="true">Please list the name of each worker who is age 24 or younger and answer yes/no/not required to the following question for each worker listed.</p>
+                <p><span aria-hidden="true">Did the employer review, verify, and maintain documentation showing that the worker received all services and counseling required by WIOA before paying the worker a subminimum wage?</span>
+                  <helplink aria-controls="employerVerifiedHelp" aria-describedby="employerVerifiedLabel"></helplink>
+                </p>
+              </div>
+          </div>
+          <helptext id="employerVerifiedHelp">
+              <p>Answer “Yes” if the employer has reviewed, verified, and maintained documentation from the individual showing that the requirements described above have been completed.</p>
+              <p>Answer “No” if the employer has not verified that these requirements have been completed for this individual or if these requirements have not yet been completed.</p>
+              <p>Answer “Not Required” if the employer is aware that the individual was employed on July 22, 2016 by this employer or by another entity that held a section 14(c) certificate.</p>
+          </helptext>
+          <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers')">{{ validate('WIOA.WIOAWorkers') }}</span>
+          <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
+          <div class="dol-form-question-block em-block" ng-show="vm.addingWorker">
             <div class="usa-content">
-                <div class="form-question-text">Full Name of Worker</div>
-                <fieldset class="usa-fieldset-inputs form-question-answer">
-                    <div class="usa-input-grid usa-input-grid-medium">
-                        <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">
-                    </div>
-                    <div class="usa-input-grid usa-input-grid-small">
-                        <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
-                    </div>
-                </fieldset>
+
+
+                  <div class="usa-input-grid usa-input-grid-medium">
+                    <label for="fullName">Full Name of Worker</label>
+                    <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">
+                  </div>
+                  <div class="usa-input-grid usa-input-grid-small">
+                    <label for="WIOAWorkerVerified">Yes/No/Not Required</label>
+                    <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
+                  </div>
+
                 <div class="form-spaced-div">
-                    <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button><span class="pull-right"><button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button></span>
+                    <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button>
+                    <span class="pull-right">
+                      <button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button>
+                    </span>
                 </div>
             </div>
-        </div>
+          </div>
+        </fieldset>
         <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
-            <thead>
-                <tr>
-                    <th scope="col">Name of Worker</th>
-                    <th scope="col">Response</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
-                    <th scope="row">
-                        <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].fullName') ? 'usa-input-error' : ''">
-                            <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
-                            {{ worker.fullName }}
-                        </div>
-                    </th>
-                    <td>
-                        <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') ? 'usa-input-error' : ''">
-                            <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
-                            {{ worker.WIOAWorkerVerified.display }}
-                        </div>
-                    </td>
-                    <td class="button-column"><button class="green-button" ng-click="vm.editWorker($index)">Edit</button><button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button></td>
-                </tr>
-            </tbody>
+          <caption class="hide">List of Workers Age 24 or Younger</caption>
+          <thead>
+            <tr>
+              <th scope="col">Name of Worker</th>
+              <th scope="col">Response</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
+              <th scope="row">
+                <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].fullName') ? 'usa-input-error' : ''">
+                  <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
+                  {{ worker.fullName }}
+                </div>
+              </th>
+              <td>
+                <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') ? 'usa-input-error' : ''">
+                  <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
+                  {{ worker.WIOAWorkerVerified.display }}
+                </div>
+              </td>
+              <td class="button-column">
+                <button class="green-button" ng-click="vm.editWorker($index)">Edit</button>
+                <button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
         </table>
     </div>
+  </fieldset>
 </div>

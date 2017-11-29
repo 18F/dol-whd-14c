@@ -2,15 +2,14 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionWorkSites', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionWorkSitesTemplate.html'),
-          controller: 'sectionWorkSitesController',
-          scope: { },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionWorkSitesTemplate.html'),
+      controller: 'sectionWorkSitesController',
+      scope: {},
+      controllerAs: 'vm'
+    };
   });
-}
+};

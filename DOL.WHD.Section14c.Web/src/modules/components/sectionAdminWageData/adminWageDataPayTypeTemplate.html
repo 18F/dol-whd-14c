@@ -1,102 +1,96 @@
 <answer-field answer="data.numWorkers">
-    How many workers did the employer pay {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'hourly' : 'on a piece rate basis'}}?
+  {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?' : 'How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?' }}
 </answer-field>
 
 <answer-field answer="data.jobName">
-    What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates
-    during the most recently completed fiscal quarter?
+  What was the job or contract on which the employer employed the largest number of workers {{ paytype === $parent.$parent.$parent.constants.responses.payType.hourly ? 'at hourly subminimum wage rates' : 'who received subminimum wages and were paid piece rates' }} during the most recently completed fiscal quarter?
 </answer-field>
 
 <answer-field answer="data.jobDescription">
-    Description of Work Performed
+  Description of Work Performed
 </answer-field>
 
 <answer-field answer="data.prevailingWageMethod.display">
-    Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?
+  Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?
 </answer-field>
 
 <answer-field answer="data.mostRecentPrevailingWageSurvey.prevailingWageDetermined" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.survey">
-    Prevailing Wage Determined based on this survey
+  Prevailing Wage Determined based on this survey
 </answer-field>
 
 <h3 ng-show="data.mostRecentPrevailingWageSurvey.sourceEmployers.length">Source Employers</h3>
 
 <div ng-repeat="employer in data.mostRecentPrevailingWageSurvey.sourceEmployers" ng-show="data.mostRecentPrevailingWageSurvey.sourceEmployers.length">
-    <answer-field answer="employer.employerName">
-        Source Employer Name
-    </answer-field>
-    <answer-field answer="employer.address" address-field="true">
-        Address
-    </answer-field>
-    <answer-field answer="employer.phone">
-        Telephone Number
-    </answer-field>
-    <answer-field answer="employer.contactName">
-        Full Name of Individual Contacted
-    </answer-field>
-    <answer-field answer="employer.contactTitle">
-        Title of Individual Contacted
-    </answer-field>
-    <answer-field answer="employer.contactDate" datefield="true">
-        Date of Contact
-    </answer-field>
-    <answer-field answer="employer.jobDescription">
-        Brief Description of Job/Task
-    </answer-field>
-    <answer-field answer="employer.experiencedWorkerWageProvided">
-        Experience Worker Wage Provided
-    </answer-field>
-    <answer-field answer="employer.conclusionWageRateNotBasedOnEntry">
-        Basis for Conclusion Wage Rate is Not Based on Entry
-    </answer-field>
-    <hr>
+  <answer-field answer="employer.employerName">
+    Source Employer Name
+  </answer-field>
+  <answer-field answer="employer.address" address-field="true">
+    Address
+  </answer-field>
+  <answer-field answer="employer.phone">
+    Telephone Number
+  </answer-field>
+  <answer-field answer="employer.contactName">
+    Full Name of Individual Contacted
+  </answer-field>
+  <answer-field answer="employer.contactTitle">
+    Title of Individual Contacted
+  </answer-field>
+  <answer-field answer="employer.contactDate" datefield="true">
+    Date of Contact
+  </answer-field>
+  <answer-field answer="employer.jobDescription">
+    Brief Description of Job/Task
+  </answer-field>
+  <answer-field answer="employer.experiencedWorkerWageProvided">
+    Experienced Worker Wage Provided
+  </answer-field>
+  <answer-field answer="employer.conclusionWageRateNotBasedOnEntry">
+    Basis for Conclusion Wage Rate is Not Based on Entry Level
+  </answer-field>
+  <hr>
 </div>
 
-<answer-field answer="data.mostRecentPrevailingWageSurvey.attachment" attachment-field="true" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.survey">
-    If needed, attach an additional sheet headed "Prevailing Wage Determination-Hourly"
-</answer-field>
-
-
 <answer-field answer="data.alternateWageData.alternateWorkDescription" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.alternate">
-    Description of Work (include job classification code, if known)
+  Description of Work (include job classification code, if known)
 </answer-field>
 
 <answer-field answer="data.alternateWageData.alternateDataSourceUsed" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.alternate">
-    Alternate data source used
+  Alternate data source used
 </answer-field>
 
 <answer-field answer="data.alternateWageData.prevailingWageProvidedBySource" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.alternate">
-    Prevailing wage provided by source
+  Prevailing wage provided by source
 </answer-field>
 
 <answer-field answer="data.alternateWageData.dataRetrieved" datefield="true" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.alternate">
-    Date data retrieved
+  Date data retrieved
 </answer-field>
 
 <answer-field answer="data.scaWageDeterminationAttachment" attachment-field="true" ng-show="data.prevailingWageMethodId === $parent.constants.responses.prevailingWageMethod.sca">
-    Attach the applicable SCA Wage Determination
+  Attach the applicable SCA Wage Determination
 </answer-field>
 
 <answer-field answer="data.attachment" attachment-field="true" ng-show="paytype == $parent.constants.responses.payType.hourly">
-    Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.
+  Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.
 </answer-field>
 
 <answer-field answer="data.pieceRateWorkDescription" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-    Descripton of Work
+  Descripton of Work
 </answer-field>
 
 <answer-field answer="data.prevailingWageDeterminedForJob" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-    Prevailing Wage Determined for This Job
+  Prevailing Wage Determined for This Job
 </answer-field>
 
 <answer-field answer="data.standardProductivity" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-    Standard Productivity
+  Standard Productivity
 </answer-field>
 
 <answer-field answer="data.pieceRatePaidToWorkers" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-    Piece Rate Paid to Workers
+  Piece Rate Paid to Workers
 </answer-field>
 
 <answer-field answer="data.attachment" attachment-field="true" ng-show="paytype == $parent.constants.responses.payType.pieceRate">
-    Attach all documents of the methods used to determine the standard productivity and the piece rate.
+  Attach all documentation of the methods used to determine the standard productivity and the piece rate.
 </answer-field>

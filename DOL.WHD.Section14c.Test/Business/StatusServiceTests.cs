@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace DOL.WHD.Section14c.Test.Business
 {
     [TestClass]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class StatusServiceTests
     {
         private readonly IStatusRepository _statusRepositoryMock;

@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var appId = Guid.NewGuid();
             var applications = new List<ApplicationSubmission>
             {
-                new ApplicationSubmission {Id = appId}
+                new ApplicationSubmission {Id = appId.ToString()}
             };
             _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
 
@@ -52,8 +52,8 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var applications = new List<ApplicationSubmission>
             {
-                new ApplicationSubmission {Id = Guid.NewGuid()},
-                new ApplicationSubmission {Id = Guid.NewGuid()}
+                new ApplicationSubmission {Id =string.Empty },
+                new ApplicationSubmission {Id = string.Empty }
             };
             _mockRepo.Setup(x => x.Get()).Returns(applications.AsQueryable());
 
@@ -71,7 +71,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var oldStatusId = 1;
             var newStatusId = 2;
             var application = new ApplicationSubmission {StatusId = oldStatusId};
-            
+
             // Act
             await _applicationService.ChangeApplicationStatus(application, newStatusId);
 
@@ -126,7 +126,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAWageDeterminationAttachmentId = Guid.NewGuid()
+                    SCAWageDeterminationAttachmentId = Guid.NewGuid().ToString()
                 }
             };
 
@@ -150,7 +150,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAWageDeterminationAttachmentId = Guid.NewGuid()
+                    SCAWageDeterminationAttachmentId = Guid.NewGuid().ToString()
                 }
             };
 
@@ -174,7 +174,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAWageDeterminationAttachmentId = Guid.NewGuid()
+                    SCAWageDeterminationAttachmentId = Guid.NewGuid().ToString()
                 }
             };
 

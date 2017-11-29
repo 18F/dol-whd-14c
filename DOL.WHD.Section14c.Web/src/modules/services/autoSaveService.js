@@ -1,43 +1,56 @@
 'use strict';
 
 module.exports = function(ngModule) {
-    ngModule.service('autoSaveService', function($timeout, stateService, apiService) {
-        'ngInject';
-        'use strict';
+  ngModule.service('autoSaveService', function(
+    $timeout,
+    stateService,
+    apiService
+  ) {
+    'ngInject';
+    'use strict';
 
-        let duration =  60 * 1000; // 60 seconds
-        let timer;
+    let duration = 60 * 1000; // 60 seconds
 
-        let start = function start(){
-            nextTimer();
-        }
+    let start = function start() {
+      nextTimer();
+    };
 
-        let save = function save(callback){
-            if (!stateService.access_token || !stateService.ein) {
-                if(callback) callback();
-                return undefined;
-            }
+    let save = function save(callback) {
+      if (!stateService.access_token || !stateService.ein) {
+        if (callback) callback();
+        return undefined;
+      }
 
-            return apiService.saveApplication(stateService.access_token, stateService.ein, stateService.formData).then(function () {
-                if(callback) callback();
-                console.log("autosave");
-            }, function() {
-                if(callback) callback();
-                //Todo: Show Error
-                console.error("autosave failed");
-            });
-        }
+      return apiService
+        .saveApplication(
+          stateService.access_token,
+          stateService.ein,
+          stateService.formData
+        )
+        .then(
+          function() {
+            if (callback) callback();
+          },
+          function() {
+            if (callback) callback();
+            //Todo: Show Error
+          }
+        );
+    };
 
-        function nextTimer() {
-            timer = $timeout(function () {
-                console.log("timer save initiated");
-                save(nextTimer)
-            }, duration, false);
-        }
+    function nextTimer() {
+      $timeout(
+        function() {
+          save(nextTimer);
+        },
+        duration,
+        false
+      );
+    }
 
-        return {
-            start: start,
-            save: save
-        }
-    });
-}
+    return {
+      start: start,
+      save: save
+    };
+  });
+};

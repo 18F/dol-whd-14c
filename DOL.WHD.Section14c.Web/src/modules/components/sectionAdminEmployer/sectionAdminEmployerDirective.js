@@ -2,12 +2,11 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('sectionAdminEmployer', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./sectionAdminEmployerTemplate.html')
-      };
+    return {
+      restrict: 'EA',
+      template: require('./sectionAdminEmployerTemplate.html')
+    };
   });
-}
+};

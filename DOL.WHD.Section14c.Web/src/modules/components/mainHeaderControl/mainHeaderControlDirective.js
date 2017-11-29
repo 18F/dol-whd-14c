@@ -2,17 +2,16 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('mainHeaderControl', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./mainHeaderControlTemplate.html'),
-          controller: 'mainHeaderControlController',
-          scope: {
-              admin: '='
-          },
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./mainHeaderControlTemplate.html'),
+      controller: 'mainHeaderControlController',
+      scope: {
+        admin: '='
+      },
+      controllerAs: 'vm'
+    };
   });
-}
+};

@@ -1,10 +1,19 @@
 ﻿using System.Web.Http;
 using Microsoft.Owin.Security.OAuth;
+using System.Web.Http.ExceptionHandling;
+using DOL.WHD.Section14c.Log.LogHelper;
 
 namespace DOL.WHD.Section14c.Api
 {
+    /// <summary>
+    /// API web config
+    /// </summary>
     public static class WebApiConfig
     {
+        /// <summary>
+        /// Registers API web config
+        /// </summary>
+        /// <param name="config"></param>
         public static void Register(HttpConfiguration config)
         {
             // Enable Cors Support
@@ -23,6 +32,12 @@ namespace DOL.WHD.Section14c.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.LoggingFilterAttribute());
+            config.Filters.Add(new DOL.WHD.Section14c.Log.ActionFilters.GlobalExceptionAttribute());
+            
         }
+
+        
     }
 }

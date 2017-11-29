@@ -17,13 +17,13 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var obj = new ApplicationSubmissionEstablishmentType
             {
                 ApplicationSubmission = applicationSubmission,
-                ApplicationSubmissionId = Guid.Empty,
+                ApplicationSubmissionId = Guid.Empty.ToString(),//Guid.Empty,
                 EstablishmentType = response,
                 EstablishmentTypeId = 1
             };
 
             Assert.AreEqual(applicationSubmission, obj.ApplicationSubmission);
-            Assert.AreEqual(Guid.Empty, obj.ApplicationSubmissionId);
+            Assert.AreEqual(Guid.Empty.ToString(), obj.ApplicationSubmissionId);
             Assert.AreEqual(response, obj.EstablishmentType);
             Assert.AreEqual(1, obj.EstablishmentTypeId);
         }

@@ -1,34 +1,36 @@
 <main-top-nav-control></main-top-nav-control>
-<div class="dol-applicant-meta">
-    <div class="dol-feedback-save">
-        <span class="dol-feedback-save-success" ng-show="vm.stateService.formData.lastSaved > 0">
-            Saved {{vm.stateService.formData.lastSaved  | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
-        </span>
-        <span class="dol-feedback-save-error" ng-show="vm.stateService.formData.lastSaved === 0">
-            Error Saving Form
-        </span>
-    </div>
 
-    <div class="dol-applicant-ein" ng-show="!admin">
-        Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span>
-    </div>
-    <div class="dol-applicant-ein" ng-show="admin">
-        {{ appData.employer.legalName }}
-    </div>
+<div class="dol-applicant-meta">
+  <div class="dol-feedback-save">
+    <span class="dol-feedback-save-success" ng-show="vm.stateService.formData.lastSaved > 0">
+      Saved {{vm.stateService.formData.lastSaved | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
+    </span>
+    <span class="dol-feedback-save-error" ng-show="vm.stateService.formData.lastSaved === 0">
+      Error Saving Form
+    </span>
+  </div>
+
+  <div class="dol-applicant-ein" ng-show="!admin">
+    Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span>
+  </div>
+  <div class="dol-applicant-ein" ng-show="admin">
+    {{ appData.employer.legalName }}
+  </div>
 </div>
 <div class="dol-form-meta">
-    <div class="usa-content">
-        <p ng-show="!admin">Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
-        <p ng-show="admin">Applicant EIN: <span>{{ appData.ein ? appData.ein : "XX-XXXXXXX" }}</span></p>
-    </div>
+  <div class="usa-content">
+    <p ng-show="!admin">Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
+    <p ng-show="admin">Applicant EIN: <span>{{ appData.ein ? appData.ein : "XX-XXXXXXX" }}</span></p>
+  </div>
 
-    <div class="dol-form-omb" ng-show="!admin">
-        <p>OMB NO: 1235-0001</p>
-        <p>REV XX/20XX</p>
-    </div>
+  <div class="dol-form-omb" ng-show="!admin">
+    <p>OMB NO: 1235-0001</p>
+    <p>REV XX/20XX</p>
+  </div>
 
-    <div class="dol-form-status" ng-show="admin">
-        Status: {{ appData.status ? appData.status.name : 'Unknown' }}
-    </div>
+  <div class="dol-form-status" ng-show="admin">
+    Status: {{ appData.status ? appData.status.name : 'Unknown' }}
+  </div>
 </div>
+
 <main-navigation-control admin="admin"></main-navigation-control>

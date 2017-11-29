@@ -1,40 +1,63 @@
-
-$susy: (
-    columns: 12,
-    container: 1200px,
-    global-box-sizing: border-box
-);
+$susy: (columns: 12, container: 1200px, global-box-sizing: border-box);
 
 .full-view {
-    @include container;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  @include container;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .main-content {
-    position: relative;
-    margin-top: 40px;
-    @include clearfix();
+  position: relative;
+  margin-top: 40px;
+  @include clearfix();
+}
+
+#mainContent {
+  &:focus {
+    outline: none;
+  }
+}
+
+// Skip to main content
+a.dol-skip-to-main {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: -60px;
+  padding: 10px;
+  background-color: $color-primary;
+  color: #fff;
+  border: solid #fff;
+  border-width: 0 4px 4px 0;
+
+  &:hover, &:visited {
+    color: #fff;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  &:focus {
+    top: 0;
+  }
 }
 
 // Public Landing Page
 @media (min-width: 50em) {
-
-    .dol-width-one-half {
-        // Visually swap the column order or larger screens
-        &:first-of-type {
-            @include span(last 6 of 12);
-        }
-
-        &:last-of-type {
-            @include span(6 of 12);
-        }
+  .dol-width-one-half {
+    // Visually swap the column order or larger screens
+    &:first-of-type {
+      @include span(last 6 of 12);
     }
+
+    &:last-of-type {
+      @include span(6 of 12);
+    }
+  }
 }
 
 @media (min-width: 50em) and (max-width: 56.25em) {
-    .dol-width-one-half {
-        padding-left: 1.5rem;
-        padding-right: 1.5em;
-    }
+  .dol-width-one-half {
+    padding-left: 1.5rem;
+    padding-right: 1.5em;
+  }
 }

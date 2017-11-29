@@ -2,14 +2,13 @@
 
 module.exports = function(ngModule) {
   ngModule.directive('accountCreateButton', function() {
+    'use strict';
 
-      'use strict';
-
-      return {
-          restrict: 'EA',
-          template: require('./accountCreateButtonTemplate.html'),
-          controller: 'accountCreateButtonController',
-          controllerAs: 'vm'
-      };
+    return {
+      restrict: 'EA',
+      template: require('./accountCreateButtonTemplate.html'),
+      controller: 'accountCreateButtonController',
+      controllerAs: 'vm'
+    };
   });
-}
+};

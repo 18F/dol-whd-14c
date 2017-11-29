@@ -7,8 +7,16 @@ using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.Api.Filters
 {
+    /// <summary>
+    /// Authorization attribute to enforce HTTPS if the app
+    /// is configured for that
+    /// </summary>
     public class AuthorizeHttps : AuthorizeAttribute
     {
+        /// <summary>
+        /// Enforce HTTPS as configured
+        /// </summary>
+        /// <param name="actionContext"></param>
         public override void OnAuthorization(HttpActionContext actionContext)
         {
             if (actionContext.Request.RequestUri.Scheme != Uri.UriSchemeHttps  && AppSettings.Get<bool>("RequireHttps"))
