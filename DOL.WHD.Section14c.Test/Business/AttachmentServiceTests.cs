@@ -226,7 +226,9 @@ namespace DOL.WHD.Section14c.Test.Business
         public void ApplicationFormViewTest()
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
-            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
+            string testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestFiles"));
+            if (!Directory.Exists(testFilePath))
+                testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
             string template = File.ReadAllText(applicationViewTemplatePath);
             string applicationFormHtmlContent = service.GetApplicationFormViewContent(application, template);
