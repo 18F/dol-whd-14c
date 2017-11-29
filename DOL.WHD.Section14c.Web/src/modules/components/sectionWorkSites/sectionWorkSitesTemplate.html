@@ -7,13 +7,11 @@
     </ul>
   </div>
 </div>
-
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
   </div>
 </div>
-
 <div class="dol-form-page">
   <div class="dol-form-question-block" ng-class="validate('totalNumWorkSites') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
@@ -24,13 +22,11 @@
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
     <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
   </div>
-
   <div class="dol-form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
     <div class="dol-form-question-text">We’ll need to collect information about each worksite and its employees.</div>
     <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
     <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site & Employee(s)</button>
   </div>
-
   <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
     <a href class="form-tab {{ vm.activeTab === 1 ? 'active' : '' }}" ng-click="vm.setActiveTab(1)" aria-selected="{{ vm.activeTab === 1 ? 'true' : 'false' }}" ng-keyup="$event.keyCode === 13 ? vm.tabPanelFocus(1) : vm.setActiveTab(1)">
       <div class="circle">1</div> <span>Add</span> Work Site
@@ -39,7 +35,6 @@
       <div class="circle">2</div> <span>Add</span> Employees
     </a>
   </div>
-
   <!-- Tab 1 (Add Work Site) -->
   <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 1">
     <!-- ID for tab panel focus -->
@@ -149,7 +144,6 @@
       <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
     </div>
   </div>
-
   <!-- Tab 2 (Add Employees) -->
   <div class="form-spaced-div" ng-show="vm.notInitialApp() && vm.addingWorkSite && vm.activeTab === 2">
     <!-- ID for tab panel focus. -->
@@ -166,7 +160,7 @@
           <a href="" ng-click="vm.showEmployeeInfoHelp = !vm.showEmployeeInfoHelp" aria-controls="helpEmployeeInfo" aria-expanded="{{ vm.showEmployeeInfoHelp ? 'true' : 'false' }}">
               Click here for detailed instructions on the required work information.
           </a>
-        </p>        
+        </p>
       </div>
       <div class="dol-help-callout">
         Need Help? Email us: <a href="mailto:help-14c@dol.gov">help-14c@dol.gov</a>
@@ -246,6 +240,8 @@
       </div>
     </div>
 
+
+  </div>
   <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
     <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>
     <table class="usa-table-borderless expandable-table">
@@ -286,9 +282,7 @@
         </tr>
       </tbody>
     </table>
-
   </div>
-
   <div class="cd-panel from-right" id="addEmployeesSlidePanel">
     <div class="cd-panel-container">
       <div class="cd-panel-content">
