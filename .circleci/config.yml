@@ -1,7 +1,6 @@
 verison: 2
 jobs:
   web:
-    working_directory: ~/project/DOL.WHD.Section14c.Web
     docker:
       - image: circleci/node:6
     steps:
@@ -10,17 +9,20 @@ jobs:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
       - run:
           name: install dependencies
+          working_directory: ~/project/DOL.WHD.Section14c.Web
           command: npm install
       - save_cache:
           key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
           paths:
-            - node_modules
+            - DOL.WHD.Section14c.Web/node_modules
       - run:
           name: run the tests
+          working_directory: ~/project/DOL.WHD.Section14c.Web
           command: npm test
       - run:
           name: report coverage
           when: always
+          working_directory: ~/project/DOL.WHD.Section14c.Web
           command: bash <(curl -s https://codecov.io/bash)
 
   api:
