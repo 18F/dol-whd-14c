@@ -234,7 +234,7 @@
         <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
         <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
         <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
-          <results-table results="vm.activeWorksite.employees" columns="vm.columns"></results-table>
+          <results-table results="vm.activeWorksite.employees" definitions="vm.employeeColumnDefs" columns="vm.employeeColumns"></results-table>
         </div>
 
       </div>

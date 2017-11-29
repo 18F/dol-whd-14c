@@ -40,7 +40,7 @@ module.exports = function(ngModule) {
       status: false,
       name: ''
     };
-    vm.columns = [
+    vm.employeeColumns = [
       {
           "className": '',
           "orderable": false,
@@ -72,6 +72,18 @@ module.exports = function(ngModule) {
       }
     ]
 
+    vm.employeeColumnDefs = [
+      {
+          className: 'control',
+          orderable: false,
+          targets:   0
+      },
+      { responsivePriority: 1, targets: 0 },
+      { responsivePriority: 2, targets: 1 },
+      { responsivePriority: 3, targets: 2 },
+      { responsivePriority: 3, width: "10%", targets: vm.employeeColumns.length -1 },
+      { responsivePriority: 3, width: "10%", targets: vm.employeeColumns.length -2 }
+    ]
     // multiple choice responses
     let questionKeys = ['WorkSiteType', 'PrimaryDisability'];
     responsesService.getQuestionResponses(questionKeys).then(responses => {
@@ -326,17 +338,22 @@ module.exports = function(ngModule) {
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
       vm.clearActiveWorker();
-      $('body').addClass('cd-panel-open'); 
+      $('body').addClass('cd-panel-open');
       event.preventDefault();
     });
 
     // close the panel
     function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
+<<<<<<< HEAD
       $('body').removeClass('cd-panel-open');
       if (panelTrigger) {
         panelTrigger.focus();        
       }    
+=======
+      panelTrigger.focus();
+      $('body').removeClass('cd-panel-open');
+>>>>>>> abstracts results table
     }
     $(document).keydown(function(event) {
         // escape key

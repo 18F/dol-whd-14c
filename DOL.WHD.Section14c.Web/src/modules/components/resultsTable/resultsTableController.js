@@ -37,18 +37,7 @@ module.exports = function(ngModule) {
         select: true,
         autoWidth: false,
         order: [[ 1, "desc" ]],
-        columnDefs: [
-            {
-              className: 'control',
-              orderable: false,
-              targets:   0
-          },
-          { responsivePriority: 1, targets: 0 },
-          { responsivePriority: 2, targets: 1 },
-          { responsivePriority: 3, targets: 2 },
-          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -1 },
-          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -2 }
-        ]
+        columnDefs: $scope.definitions
       });
       $.fn.dataTable.ext.errMode = 'none';
     }
