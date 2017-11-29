@@ -106,7 +106,6 @@ module.exports = function(ngModule) {
         // escape key
         if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
           closeSlidingPanel();
-          event.preventDefault();
         }
     });
     $('.cd-panel-close').on('click', function(event){

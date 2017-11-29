@@ -120,6 +120,7 @@ module.exports = function(ngModule) {
     this.doneAddingEmployees = function($event) {
       vm.addEmployee();
       $('.cd-panel').removeClass('is-visible');
+      $('body').removeClass('cd-panel-open'); 
       $event.preventDefault();
       vm.addingEmployee = false;
     };
@@ -340,7 +341,6 @@ module.exports = function(ngModule) {
         // escape key
         if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
           closeSlidingPanel();
-          event.preventDefault();
         }
     });
     $('.cd-panel-close').on('click', function(event){
