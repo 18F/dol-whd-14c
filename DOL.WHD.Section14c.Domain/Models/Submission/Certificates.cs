@@ -6,22 +6,16 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class Employer : BaseEntity
+    public class Certificates : BaseEntity
     {
-        public Employer()
+        public Certificates()
         {
             Id = Id ?? Guid.NewGuid().ToString();
         }
 
         public string Id { get; set; }
 
-        public virtual Certificates CertificateNumber { get; set; }
-
-        public string LegalName { get; set; }
-        
-        public string EIN { get; set; }
-
-        public virtual Address PhysicalAddress { get; set; }
-
+        public string CertificateNumber { get; set; }
     }
 }
+

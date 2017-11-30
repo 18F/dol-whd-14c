@@ -29,7 +29,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
             var user = new ApplicationUser();
             user.Organizations = new List<OrganizationMembership>
             {
-                new OrganizationMembership { EIN = ein, IsAdmin = true}
+                new OrganizationMembership { EIN = ein, IsPointOfContact = true}
             };
 
             // Act

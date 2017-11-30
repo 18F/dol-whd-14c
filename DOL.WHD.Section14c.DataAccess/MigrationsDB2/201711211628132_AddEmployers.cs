@@ -8,11 +8,27 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
         public override void Up()
         {
             CreateTable(
+                "dbo.Certificates",
+                c => new
+                {
+                    Id = c.String(nullable: false, maxLength: 128),
+                    CertificateNumber = c.String(),
+                    PriviteId = c.String(),
+                    CreatedBy_Id = c.String(),
+                    CreatedAt = c.DateTime(nullable: false),
+                    LastModifiedBy_Id = c.String(maxLength: 128),
+                    LastModifiedAt = c.DateTime(nullable: false),
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.LastModifiedBy_Id)
+                .Index(t => t.LastModifiedBy_Id);
+
+            CreateTable(
                 "dbo.Employers",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        CertificateNumber = c.String(),
+                        CertificateNumber_Id = c.String(maxLength: 128),
                         LegalName = c.String(),
                         EIN = c.String(),
                         PriviteId = c.String(),
@@ -23,8 +39,10 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
                         PhysicalAddress_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Certificates", t => t.CertificateNumber_Id)
                 .ForeignKey("dbo.Users", t => t.LastModifiedBy_Id)
                 .ForeignKey("dbo.Addresses", t => t.PhysicalAddress_Id)
+                .Index(t => t.CertificateNumber_Id)
                 .Index(t => t.LastModifiedBy_Id)
                 .Index(t => t.PhysicalAddress_Id);
             
@@ -73,6 +91,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropColumn("dbo.ApplicationSaves", "Employer_Id");
             DropColumn("dbo.ApplicationSaves", "ApplicationId");
             DropTable("dbo.Employers");
+            DropTable("dbo.Certificates");
         }
     }
 }

@@ -6,12 +6,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
     public class ApplicationSubmission : BaseEntity
     {
-        public ApplicationSubmission()
-        {
-            if (string.IsNullOrEmpty(Id))
-                Id = Guid.NewGuid().ToString();
-        }
-
         public string Id { get; set; }
 
         #region Assurances
