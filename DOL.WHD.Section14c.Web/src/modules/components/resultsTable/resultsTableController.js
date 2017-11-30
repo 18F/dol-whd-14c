@@ -16,7 +16,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.vm = this;
-    $scope.data = [];
+    $scope.data = $scope.results;
 
     this.initDatatable = function () {
       let exampleId = $('#example');
@@ -43,6 +43,7 @@ module.exports = function(ngModule) {
     }
 
     this.refreshTable = function (data, columns) {
+      console.log(data);
       columns = columns.map(function(element) {
         return element.model
       });
@@ -75,6 +76,7 @@ module.exports = function(ngModule) {
     }
 
     this.initDatatable();
+    this.refreshTable(null, $scope.columns);
 
     $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
         var tr = $(this).closest('tr');
