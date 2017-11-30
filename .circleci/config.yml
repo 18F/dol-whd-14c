@@ -38,22 +38,10 @@ jobs:
       - checkout
       - run:
           name: install dependencies
-          command: |
-            apt-get update
-            apt-get install -y mono-profiler mono-utils
-            nuget restore
+          command: nuget restore
       - run:
           name: build
           command: msbuild
-      - run:
-          name: run the tests
-          working_directory: ~/project/DOL.WHD.Section14c.Test
-          command: ./coverage.sh
-      - run:
-          name: report coverage
-          when: always
-          working_directory: ~/project/DOL.WHD.Section14c.Test
-          command: bash <(curl -s https://codecov.io/bash) -f coverage.xml
 
 workflows:
   version: 2
