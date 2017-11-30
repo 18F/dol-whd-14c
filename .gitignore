@@ -248,6 +248,8 @@ ModelManifest.xml
 # MacOS system files
 .DS_Store
 DOL.WHD.Section14c.Test/results.xml
+DOL.WHD.Section14c.Test/output.mlpd
+DOL.WHD.Section14c.Test/coverage.xml
 DOL.WHD.Section14c.Test/CoverageReport/**/*.*
 DOL.WHD.Section14c.Web/coverage/**/*.*
 DOL.WHD.Section14c.Test/nuget.exe
