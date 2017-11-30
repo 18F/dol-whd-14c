@@ -18,7 +18,7 @@ module.exports = function(ngModule) {
 
     return {
       template:
-        '<div class="reviewbar {{ errorstate ? \'error\' : \'\'}}"><div class="reviewbar-container"><span class="hide">{{ errorstate ? \'Needs Review\' : \'Looks good!\'}}</span><div class="reviewbar-bar"></div><div class="reviewbar-circle"></div></div></div>',
+        '<div class="reviewbar {{ errorstate ? \'error\' : \'\'}}"><div class="reviewbar-container"><div class="reviewbar-bar"></div><div class="reviewbar-circle"></div><span class="reviewbar-text">{{ errorstate ? \'Needs Review\' : \'Looks good!\'}}</span></div></div>',
       replace: true,
       scope: {
         errorstate: '@'

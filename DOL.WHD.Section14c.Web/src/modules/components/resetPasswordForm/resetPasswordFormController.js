@@ -69,16 +69,7 @@ module.exports = function(ngModule) {
             vm.forgotPasswordSuccess = true;
             $scope.formVals.email = '';
           },
-          function(error) {
-            log.info(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
+          function() {
             vm.forgotPasswordError = true;
           }
         );
@@ -106,15 +97,6 @@ module.exports = function(ngModule) {
             $scope.formVals.confirmPass = '';
           },
           function(error) {
-            log.info(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
             $scope.resetPasswordErrors = apiService.parseErrors(error.data);
             vm.resetPasswordError = true;
           }

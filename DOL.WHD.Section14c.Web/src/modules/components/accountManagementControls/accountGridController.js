@@ -19,13 +19,7 @@ module.exports = function(ngModule) {
         var data = result.data;
         $scope.accounts = data;
       },
-      function(error) {
-        log.info(
-          error.statusText +
-            (error.data && error.data.error
-              ? ': ' + error.data.error + ' - ' + error.data.error_description
-              : '')
-        );
+      function() {
         vm.loadingError = true;
       }
     );
