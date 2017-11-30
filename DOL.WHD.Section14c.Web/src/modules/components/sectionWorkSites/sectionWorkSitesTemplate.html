@@ -239,12 +239,23 @@
 
       </div>
     </div>
+    <div class="dol-form-question-group">
+      <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
+        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
 
+        <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
+        <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
+        <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
+          <results-table results="formData.workSites" columns="vm.workSiteColumns" definitions="vm.workSiteColumnDefs"></results-table>
+        </div>
+
+      </div>
+    </div>
 
   </div>
   <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
     <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>
-    <table class="usa-table-borderless expandable-table">
+    <!-- <table class="usa-table-borderless expandable-table">
       <thead>
         <tr>
           <td></td>
@@ -281,7 +292,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
   <div class="cd-panel from-right" id="addEmployeesSlidePanel">
     <div class="cd-panel-container">
