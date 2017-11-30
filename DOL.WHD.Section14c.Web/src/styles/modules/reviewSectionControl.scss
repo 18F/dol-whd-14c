@@ -41,9 +41,6 @@
         z-index: 100;
       }
 
-      &:after {
-        content: 'Looks good!';
-      }
     }
 
     &.error {
@@ -56,9 +53,6 @@
           background-image: url('../images/dol-error-red.svg');
         }
 
-        &:after {
-          content: 'Needs Review';
-        }
       }
     }
   }
