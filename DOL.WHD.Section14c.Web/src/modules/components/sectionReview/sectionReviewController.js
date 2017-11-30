@@ -39,7 +39,6 @@ module.exports = function(ngModule) {
               stateService.resetFormData();
             },
             function(error) {
-              log.info(error);
               vm.submissionError = error;
             }
           );

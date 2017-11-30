@@ -19,7 +19,6 @@ module.exports = function(ngModule) {
             var errorMessage = new customError(exception.toString(), "Error")
             // Log the JavaScript error to the server.
             const url = _env.api_url + "/api/ErrorLogs/AddLog";
-            $log.info( "Logging error to server" );
             $.ajax({
                 type: "POST",
                 url: url,

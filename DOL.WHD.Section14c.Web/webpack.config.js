@@ -3,7 +3,6 @@ var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 var path = require('path');
 var bourbon = require('node-bourbon').includePaths;
 var helpers = require('./helpers');
-var log = require('loglevel');
 
 module.exports = {
   devtool: 'eval-source-map',
@@ -17,7 +16,8 @@ module.exports = {
   },
   eslint: {
     failOnWarning: false,
-    failOnError: false
+    failOnError: false,
+    emitWarning: true
   },
   devServer: {
     inline: true,
@@ -91,8 +91,12 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       $: 'jquery',
-      jQuery: 'jquery',
-      log: 'loglevel'
+      jQuery: 'jquery'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        drop_console: true
+      }
     }),
     new HardSourceWebpackPlugin()
   ]
