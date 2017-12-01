@@ -16,7 +16,6 @@ module.exports = function(ngModule) {
       if(element.display === "WIOA") {
         element.ariaLabel = "Workforce Innovation and Opportunity Act"
       } else {
-        document.title = element.display;
         element.ariaLabel = element.display;
       }
       return element;
