@@ -44,6 +44,8 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<Certificates> Certificates { get; set; }
 
+        public DbSet<OrganizationMembership> OrganizationMemberships { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -178,7 +180,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
-
+            modelBuilder.Entity<OrganizationMembership>().ToTable("OrganizationMemberships");
         }
 
         public override int SaveChanges()

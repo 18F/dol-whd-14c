@@ -51,7 +51,6 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
                 }
             }
 
-
             return userIdentity;
         }
 

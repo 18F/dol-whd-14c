@@ -114,9 +114,11 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Extensions\ContextSeedRole.cs" />
+    <Compile Include="IAccountRepository.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />
+    <Compile Include="IOrganizationRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="IStatusRepository.cs" />
@@ -302,9 +304,11 @@
     </Compile>
     <Compile Include="Repositories\ApplicationRepository.cs" />
     <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\EmployerRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="IAttachmentRepository.cs" />
+    <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Repositories\StatusRepository.cs" />

@@ -1,6 +1,8 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Submission;
+﻿using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace DOL.WHD.Section14c.Domain.Models
@@ -23,8 +25,8 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         [Required]
         [DataMember]
-        public virtual Employer Employer { get; set; }
-        
+        public virtual Employer Employer { get; set; }        
+
         public string ApplicationId { get; set; }
 
         [Required]
