@@ -26,7 +26,7 @@ module.exports = function(ngModule) {
     vm.collapseMenu = true; //collapse menu by default for small screens
     this.onNavClick = function(event) {
       var id = event.target.dataset.sectionid;
-      document.title = id + " | DOL WHD Section 14(c)";
+      document.title = id + " | DOL WHD Sectionn 14(c)";
       navService.gotoSection(id);
     };
 
