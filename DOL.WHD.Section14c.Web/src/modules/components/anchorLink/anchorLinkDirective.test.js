@@ -4,8 +4,8 @@ describe('anchorLink', function() {
   var element, rootScope, documentMock;
 
   beforeEach(function() {
-    element = angular.element('<anchor-link anchor="scroll-target"/>');
-    inject(function($rootScope, $anchorScroll, $document, $compile) {
+    element = angular.element('<anchor-link/>');
+    inject(function($rootScope, $document, $compile) {
       rootScope = $rootScope;
       documentMock = $document;
       $compile(element)(rootScope);
