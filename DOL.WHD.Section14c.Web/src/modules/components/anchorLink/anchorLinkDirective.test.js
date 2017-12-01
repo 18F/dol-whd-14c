@@ -1,13 +1,12 @@
 describe('anchorLink', function() {
   beforeEach(module('14c'));
 
-  var element, rootScope, anchorScrollMock, documentMock;
+  var element, rootScope, documentMock;
 
   beforeEach(function() {
     element = angular.element('<anchor-link anchor="scroll-target"/>');
     inject(function($rootScope, $anchorScroll, $document, $compile) {
       rootScope = $rootScope;
-      anchorScrollMock = $anchorScroll;
       documentMock = $document;
       $compile(element)(rootScope);
     });
