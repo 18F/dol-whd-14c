@@ -32,6 +32,7 @@ module.exports = function(ngModule) {
       }
 
       var id = event.target.dataset.sectionid;
+      document.title = id + " | DOL WHD Section 14(c)";
       navService.gotoSection(id);
     
 
