@@ -11,6 +11,8 @@ module.exports = function(ngModule) {
         "definitions": "=definitions"
       },
       link: function(scope) {
+        scope.vm.initDatatable();
+        console.log(scope.results, scope.columns, scope.definitions);
         scope.$watch('results', function(newValue) {
           scope.vm.refreshTable(newValue, scope.columns);
         }, true);
