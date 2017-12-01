@@ -43,7 +43,6 @@ module.exports = function(ngModule) {
     }
 
     this.refreshTable = function (data, columns) {
-      console.log(data);
       columns = columns.map(function(element) {
         return element.model
       });
@@ -51,12 +50,14 @@ module.exports = function(ngModule) {
       if(data) {
         $scope.data = data.map(function(element){
           let arr = new Array(columns.length)
-
           for(var property in element) {
             if(element.hasOwnProperty(property)) {
-              var index = columns.indexOf(property)
+              var index = columns.indexOf(property);
               if(index >=0 ) {
                 arr[index] = element[property];
+              }
+              if(property === "address" && index>=0) {
+                arr[index] = element[property]["streetAddress"] + element[property]["city"];
               }
               else if (property === "primaryDisabilityText") {
                 index = columns.indexOf("primaryDisabilityId");
@@ -75,8 +76,8 @@ module.exports = function(ngModule) {
       }
     }
 
-    this.initDatatable();
-    this.refreshTable(null, $scope.columns);
+    //this.initDatatable();
+    //this.refreshTable(null, $scope.columns);
 
     $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
         var tr = $(this).closest('tr');
