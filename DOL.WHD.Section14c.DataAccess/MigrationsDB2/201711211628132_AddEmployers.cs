@@ -70,8 +70,12 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
         {
             DropForeignKey("dbo.ApplicationSaves", "Employer_Id", "dbo.Employers");
             DropForeignKey("dbo.OrganizationMemberships", "Employer_Id", "dbo.Employers");
+            DropForeignKey("dbo.Certificates", "LastModifiedBy_Id", "dbo.Users");
+            DropForeignKey("dbo.Employers", "CertificateNumber_Id", "dbo.Certificates");
             DropForeignKey("dbo.Employers", "PhysicalAddress_Id", "dbo.Addresses");
             DropForeignKey("dbo.Employers", "LastModifiedBy_Id", "dbo.Users");
+            DropIndex("dbo.Certificates", new[] { "LastModifiedBy_Id" });
+            DropIndex("dbo.Employers", new[] { "CertificateNumber_Id" });
             DropIndex("dbo.Employers", new[] { "PhysicalAddress_Id" });
             DropIndex("dbo.Employers", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.OrganizationMemberships", new[] { "Employer_Id" });
