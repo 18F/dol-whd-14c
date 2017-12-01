@@ -42,6 +42,8 @@ namespace DOL.WHD.Section14c.DataAccess
 
         public DbSet<Employer> Employers { get; set; }
 
+        public DbSet<OrganizationMembership> OrganizationMemberships { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
