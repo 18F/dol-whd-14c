@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
+using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Domain.Models.Identity
 {
-    public class ApplicationRole : IdentityRole<string, ApplicationUserRole>
+    public class ApplicationRole : IdentityRole<string, ApplicationUserRole>, IAuditedEntity
     {
         public virtual ICollection<RoleFeature> RoleFeatures { get; set; }
 
@@ -12,7 +14,19 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         {
             Id = Id ?? Guid.NewGuid().ToString();
         }
+
+        public DateTime LastModifiedAt { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public string CreatedBy_Id { get; set; }
+
+        [ForeignKey("CreatedBy_Id")]
+        public ApplicationUser CreatedBy { get; set; }
+
+        public string LastModifiedBy_Id { get; set; }
+
+        [ForeignKey("LastModifiedBy_Id")]
+        public ApplicationUser LastModifiedBy { get; set; }
     }
-
-
 }
