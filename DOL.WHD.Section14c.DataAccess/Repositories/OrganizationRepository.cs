@@ -19,7 +19,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public IEnumerable<OrganizationMembership> Get()
         {
-            return null;// _dbContext.OrganizationMemberships.AsQueryable();
+            return _dbContext.OrganizationMemberships.AsQueryable();
         }
 
         public void Dispose()
