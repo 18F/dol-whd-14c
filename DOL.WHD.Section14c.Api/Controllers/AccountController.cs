@@ -197,7 +197,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership.CreatedBy.FirstName, orgMembership.CreatedBy.LastName));
             }
 
-            return Ok(responseMessage);
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>
