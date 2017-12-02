@@ -5,11 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
+using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Domain.Models.Identity
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser<string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
+    public class ApplicationUser : IdentityUser<string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>, IAuditedEntity
     {
         public ApplicationUser()
         {
@@ -64,6 +66,15 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         public DateTime LastModifiedAt { get; set; }
 
         public DateTime CreatedAt { get; set; }
-    }
 
+        public string CreatedBy_Id { get; set; }
+
+        [ForeignKey("CreatedBy_Id")]
+        public ApplicationUser CreatedBy { get; set; }
+
+        public string LastModifiedBy_Id { get; set; }
+
+        [ForeignKey("LastModifiedBy_Id")]
+        public ApplicationUser LastModifiedBy { get; set; }
+    }
 }

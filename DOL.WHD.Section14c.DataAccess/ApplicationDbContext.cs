@@ -170,6 +170,8 @@ namespace DOL.WHD.Section14c.DataAccess
                 .ToTable("EmployerInfoFacilitiesDeductionType")
                 .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
 
+            modelBuilder.Entity<ApplicationUser>().HasOptional(x => x.CreatedBy).WithMany();
+            modelBuilder.Entity<ApplicationUser>().HasOptional(x => x.LastModifiedBy).WithMany();
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
