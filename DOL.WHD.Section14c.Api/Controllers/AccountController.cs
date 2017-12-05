@@ -196,8 +196,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 // Employer exists
                 var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
                 responseMessage.StatusCode = HttpStatusCode.Found;
-                var user = UserManager.Users.SingleOrDefault(s => s.Id == orgMembership.CreatedBy_Id);
-                responseMessage.Content = new StringContent(string.Format("{0} {1}", user?.FirstName, user?.LastName));
+                responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
             }
 
             return ResponseMessage(responseMessage);
