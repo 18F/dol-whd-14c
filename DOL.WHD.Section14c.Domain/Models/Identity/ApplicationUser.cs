@@ -23,13 +23,17 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
-
-            // TODO: Add to another place employer registration page
+            
             // Add custom user claims here
             foreach (var organization in Organizations)
             {
                 var claim = new Claim("EIN", organization.EIN);
-                userIdentity.AddClaim(claim);
+                if (organization.ApplicationId != null)
+                {
+                    var applicationClaim = new Claim("APPID", organization.ApplicationId);
+                    userIdentity.AddClaim(applicationClaim);
+                }
+                userIdentity.AddClaim(claim);                
             }
 
             var userRoles = Roles.Select(x => x.RoleId).ToList();

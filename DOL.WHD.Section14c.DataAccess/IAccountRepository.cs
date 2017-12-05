@@ -10,8 +10,5 @@ namespace DOL.WHD.Section14c.DataAccess
     public interface IEmployerRepository : IDisposable
     {
         IEnumerable<Employer> Get();
-        Task<int> AddAsync(Employer employer);
-        Task<int> ModifyEmployer(Employer employer);
-        Task<int> SaveChangesAsync();
     }
 }

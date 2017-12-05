@@ -17,8 +17,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             _data = new ConcurrentDictionary<string, ApplicationSave>();
             AddOrUpdate(new ApplicationSave
             {
-                EIN = "30-1234567",
-                ApplicationState = "{ \"name\": \"Barack Obama\", \"email:\" \"president@whitehouse.gov\" }"
+                ApplicationId = "CE7F5AA5-6832-47FE-BAE1-80D14CD8F667",
+            ApplicationState = "{ \"name\": \"Barack Obama\", \"email:\" \"president@whitehouse.gov\" }"
             });
         }
 
@@ -29,13 +29,13 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public void AddOrUpdate(ApplicationSave applicationSave)
         {
-            _data.AddOrUpdate(applicationSave.EIN, applicationSave, (key, oldValue) => applicationSave);
+            _data.AddOrUpdate(applicationSave.ApplicationId, applicationSave, (key, oldValue) => applicationSave);
         }
 
-        public void Remove(string EIN)
+        public void Remove(string applicationId)
         {
             ApplicationSave save;
-            _data.TryRemove(EIN, out save);
+            _data.TryRemove(applicationId, out save);
         }
 
         public int SaveChanges()
