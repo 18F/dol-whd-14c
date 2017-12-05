@@ -1,6 +1,6 @@
 verison: 2
 jobs:
-  web:
+  web-tests:
     docker:
       - image: circleci/node:6
     steps:
@@ -16,11 +16,6 @@ jobs:
           paths:
             - DOL.WHD.Section14c.Web/node_modules
       - run:
-          name: run production build
-          when: always
-          working_directory: ~/project/DOL.WHD.Section14c.Web
-          command: npm run deploy
-      - run:
           name: run the tests
           when: always
           working_directory: ~/project/DOL.WHD.Section14c.Web
@@ -30,6 +25,23 @@ jobs:
           when: always
           working_directory: ~/project/DOL.WHD.Section14c.Web
           command: bash <(curl -s https://codecov.io/bash)
+
+  web-build:
+    docker:
+      - image: circleci/node:6
+    steps:
+      - checkout
+      - restore_cache:
+          key: dol-14c-{{ checksum "DOL.WHD.Section14c.Web/package.json" }}
+      - run:
+          name: install dependencies
+          working_directory: ~/project/DOL.WHD.Section14c.Web
+          command: npm install
+      - run:
+          name: run production build
+          when: always
+          working_directory: ~/project/DOL.WHD.Section14c.Web
+          command: npm run deploy
 
   api:
     docker:
@@ -51,7 +63,8 @@ jobs:
 
 workflows:
   version: 2
-  web_and_api:
+  do_everything:
     jobs:
-      - web
+      - web-tests
+      - web-build
       - api
