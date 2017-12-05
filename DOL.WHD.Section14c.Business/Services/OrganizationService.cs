@@ -1,9 +1,14 @@
 ﻿using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.DataAccess.Identity;
 using DOL.WHD.Section14c.Domain.Models;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using DOL.WHD.Section14c.Domain.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +20,7 @@ namespace DOL.WHD.Section14c.Business.Services
     public class OrganizationService: IOrganizationService
     {
         private readonly IOrganizationRepository _organizationRepository;
+
         /// <summary>
         ///  Default constructor
         /// </summary>
@@ -33,6 +39,16 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsAdmin == true);
         }
+
+        ///// <summary>
+        ///// Get Organization Membership By User
+        ///// </summary>
+        ///// <param name="user">Application User</param>
+        ///// <returns></returns>
+        //public OrganizationMembership GetOrganizationMembershipByUser(string userId, string applicationId)
+        //{
+        //    return _organizationRepository.Get().SingleOrDefault(x =>x.ApplicationId == applicationId && x.CreatedBy.CreatedBy_Id == userId);
+        //}
 
         /// <summary>
         /// Get All Organization Memberships
