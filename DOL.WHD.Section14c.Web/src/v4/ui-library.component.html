@@ -1,236 +1,657 @@
-<h1>UI Library for 508 Testing</h1>
+<h1>UI Pattern Library for 14(c) Application</h1>
 
-<h2 class="mb3">Basic elements</h2>
-
-<div class="mb2">
-  <a href="/foo">A lovely link</a>
-</div>
-
-<div class="form-footer-controls p0">
-  <button type="button">Button 1</button>
-  <button class="back-button">Button 2</button>
-  <button class="next-button ml0">Button 3</button>
-</div>
-
-<h2 class="mb3">Form elements</h2>
-
-<div class="form-page float-inherit m0">
-  <div class="form-question-block">
-    <div class="form-question-text">Which bear is best?
-      <div class="help-link">?</div>
-      <div class="help-text show">
-        It’s a simple question :)
-      </div>
-    </div>
-    <fieldset class="usa-fieldset-inputs form-question-answer">
-      <legend class="hide">Bear options</legend>
-      <ul class="usa-unstyled-list">
-        <li>
-          <input id="q1_0" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched" value="true">
-          <label for="q1_0">Black</label>
-        </li>
-        <li>
-          <input id="q1_1" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" value="false">
-          <label for="q1_1">Polar</label>
-        </li>
-        <li>
-          <input id="q1_2" type="radio" name="q1" class="ng-valid ng-not-empty ng-dirty ng-touched ng-valid-parse" value="false">
-          <label for="q1_2">Panda</label>
-        </li>
-      </ul>
-    </fieldset>
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Link</h2>
+  <div class="dol-ui-pattern-rendered">
+    <a href="http://www.dol.gov">This is a link.</a>
   </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Link</summary>
+<pre rel="HTML"><code>
+&lt;a href="http://www.dol.gov"&gt;This is a link.&lt;/a&gt;   
+</code></pre>
+  </details>
+</div>
 
-  <div class="form-question-block">
-    <div class="form-question-text">
-      Please attach your long-form birth certificate. Just kidding :)
-      <div class="help-link">?</div>
-      <div class="help-text"></div>
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Buttons</h2>
+  <div class="dol-ui-pattern-rendered">
+    <p>Button Colors:</p>
+    <p>
+      <button>Primary</button>
+      <button class="grey-button">Secondary</button>
+      <button class="green-button">Action</button>
+      <button class="red-button">Delete</button>
+    </p>
+    <p>Form Footer Buttons:</p>
+    <div class="form-footer-controls">    
+      <div class="button-group">
+        <button class="back-button">Back</button>
+        <div class="pull-right">
+          <button class="next-button">Next</button>
+        </div>
+      </div> 
+    </div>   
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Buttons</summary>
+<pre rel="HTML"><code>
+&lt;!-- Button Color Examples --&gt;
+&lt;button&gt;Primary&lt;/button&gt;
+&lt;button class="grey-button"&gt;Secondary&lt;/button&gt;
+&lt;button class="green-button"&gt;Action&lt;/button&gt;
+&lt;button class="red-button"&gt;Delete&lt;/button&gt;
+
+&lt;!-- Form Footer Buttons --&gt;    
+&lt;div class="form-footer-controls"&gt;
+  &lt;div class="button-group"&gt;
+    &lt;button class="back-button"&gt;Back&lt;/button&gt;
+    &lt;div class="pull-right"&gt;
+      &lt;button class="next-button"&gt;Next&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;         
+</code></pre>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question - Text Input</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <label for="tradeName" class="dol-form-question-text">Employer's Trade Name</label>
+      <input id="tradeName" name="tradeName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
     </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Text Input</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+&lt;label for="thisInput" class="dol-form-question-text"&gt;Employer's Trade Name&lt;/label&gt;
+&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;input id="thisInput" name="thisInput" type="text"&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question - Text Input</summary>
     <div>
-      <input id="99_FileUpload" class="upload-file-input ng-hide" type="file" ng-hide="true" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
-      <label for="99_FileUpload" class="upload-label usa-button-primary">Browse</label>
-      <input id="99" name="99" class="upload-input" type="text" disabled="">
-      <label class="underlabel" for="99">File types accepted: PDF, Word, Excel, JPG, PNG</label>
+        <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>     
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question - Text Input with Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <div class="dol-form-question-help">
+        <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Legal Name of Employer</label>
+        <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="legalNameHelp" aria-describedby="legalNameLabel">Learn More</button>
+      </div>
+      <div class="dol-help-text" style="display: block" id="legalNameHelp">
+          Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.
+        </div>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <input id="legalName" name="legalName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
     </div>
   </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Text Input with Help Text</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+&lt;div class="dol-form-question-help"&gt;
+  &lt;label for="thisInput" class="dol-form-question-text" id="thisInputLabel"&gt;Legal Name of Employer&lt;/label&gt;
+  &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+&lt;/div&gt;
+&lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
+&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;input id="thisInput" name="thisInput" type="text"&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Secondary Form Field - Text Input with Help Text</summary>
+    <div>
+        <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+    </div>
+  </details>
+</div>
 
-  <div class="form-question-block">
-    <fieldset class="usa-fieldset-inputs form-question-answer">
-      <legend class="hide">You in?</legend>
-      <ul class="usa-unstyled-list">
-        <li>
-          <input id="agreement" type="checkbox" name="agreement" class="ng-valid ng-dirty ng-valid-parse ng-not-empty ng-touched" value="true">
-          <label for="agreement" class="full-width-label">I agree to check this box.</label>
-        </li>
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Secondary Form Field - Text Input</h2>
+  <div class="dol-ui-pattern-rendered">
+    <label for="hJobName">Name of Job or Contract</label>
+    <input id="hJobName" name="hJobName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Secondary Form Field - Text Input</summary>
+<pre rel="HTML"><code>
+&lt;label for="thisInput"&gt;Name of Job or Contract&lt;/label&gt;
+&lt;input id="thisInput" name="thisInput" type="text"&gt; 
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Secondary Form Field - Text Input</summary>
+    <div>
+      <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>        
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Secondary Form Field - Text Input with Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-plain-label-help">
+      <label for="hSourceEmployerJobDescription" id="hSourceEmployerJobDescriptionLabel">Brief Description of Job/Task</label>
+      <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="hSourceEmployerJobDescriptionHelp" aria-describedby="hSourceEmployerJobDescriptionLabel">Learn More</button>
+    </div>
+    <div style="display: block" class="dol-help-text" id="hSourceEmployerJobDescriptionHelp">
+      For example, “Hand assembly of cardboard shipping boxes.”
+    </div>
+    <input id="hSourceEmployerJobDescription" name="hSourceEmployerJobDescription" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Text Input with Help Text</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-plain-label-help"&gt;
+  &lt;label for="thisInput" id="thisInputLabel"&gt;Brief Description of Job/Task&lt;/label&gt;
+  &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+&lt;/div&gt;
+&lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
+&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;input id="thisInput" name="thisInput" type="text"&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Secondary Form Field - Text Input with Help Text</summary>
+    <div>
+      <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+    </div>
+  </details>
+</div>  
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question - Radio Buttons</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <fieldset class="usa-fieldset-inputs usa-sans">
+        <legend class="dol-form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</legend>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="worksiteScaYes" type="radio" name="worksiteSca" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
+            <label for="worksiteScaYes">Yes</label>
+          </li>
+          <li>
+            <input id="worksiteScaNo" type="radio" name="worksiteSca" class="ng-pristine ng-untouched ng-valid ng-empty" value="false">
+            <label for="worksiteScaNo">No</label>
+          </li>
+        </ul>
+      </fieldset>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Radio Buttons</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block" class="form-question-block"&gt;
+  &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
+    &lt;legend class="dol-form-question-text"&gt;Is Service Contract Act (SCA)-covered work performed at this establishment / work site?&lt;/legend&gt;
+    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;ul class="usa-unstyled-list"&gt;
+      &lt;li&gt;
+        &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
+        &lt;label for="thisInputYes"&gt;Yes&lt;/label&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;input id="thisInputNo" type="radio" name="thisInput"&gt;
+        &lt;label for="thisInputNo"&gt;No&lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question - Radio Buttons</summary>
+    <div>
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title"> Main Form Question - Radio Buttons with Single Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <fieldset class="usa-fieldset-inputs">
+        <legend class="hide"><span id="hasTradeNameLabel">Does the Employer have a Trade Name?</span></legend>
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">Does the Employer have a Trade Name?</span>
+          <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="hasTradeNameHelp" aria-describedby="hasTradeNameLabel">Learn More</button>
+        </div>
+        <div style="display: block" class="dol-help-text" id="hasTradeNameHelp">
+          Provide the trade name of the employer, if applicable.
+        </div>
+        <span class="usa-input-error-message ng-binding" role="alert"></span>
+        <ul class="usa-unstyled-list">
+          <li>
+            <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="true">
+            <label for="hasTradeName_1">Yes</label>
+          </li>
+          <li>
+            <input id="hasTradeName_0" type="radio" name="hasTradeName" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="false">
+            <label for="hasTradeName_0">No</label>
+          </li>
+        </ul>
+      </fieldset>
+    </div>      
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question  - Radio Buttons with Single Help Text</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+  &lt;fieldset class="usa-fieldset-inputs"&gt;
+    &lt;legend class="hide"&gt;&lt;span id="thisInputLabel"&gt;Does the Employer have a Trade Name?&lt;/span&gt;&lt;/legend&gt;
+    &lt;div class="dol-legend-help"&gt;
+      &lt;span class="dol-form-question-text" aria-hidden="true"&gt;Does the Employer have a Trade Name?&lt;/span&gt;
+      &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+    &lt;/div&gt;
+    &lt;helptext id="thisInputHelp"&gt;Provide the trade name of the employer, if applicable.&lt;/helptext&gt;
+    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;ul class="usa-unstyled-list"&gt;
+      &lt;li&gt;
+        &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
+        &lt;label for="thisInputYes"&gt;Yes&lt;/label&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;input id="thisInputNo" type="radio" name="thisInput"&gt;
+        &lt;label for="thisInputNo"&gt;No&lt;/label&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question  - Radio Buttons with Single Help Text</summary>
+    <div>
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+      <p>Further explanation of the complexity of this pattern:</p>
+      <ul>
+        <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
+        <li>Screen reader accessibility dictates that the Form Question text should be the &lt;legend&gt; for the fieldset. The &lt;legend&gt; is inherently a block element, therefore cannot flow inline with the help link.</li>
+        <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;legend&gt; text (such as when identifying the group title for the radio buttons). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
+        <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
       </ul>
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question  - Radio Buttons with Individual Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
+      <fieldset class="usa-fieldset-inputs usa-sans">
+        <legend class="dol-form-question-text">What type of establishment is this?</legend>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')"></span>
+          <ul class="usa-unstyled-list dol-list-help">
+            <li ng-repeat="response in responses.WorkSiteType" class="ng-scope">
+              <input id="establishmentType_27" type="radio" name="establishmentType_27" ng-value="27" ng-model="vm.activeWorksite.workSiteTypeId" class="ng-pristine ng-untouched ng-valid ng-empty" value="27">
+              <label id="establishmentType_27Label" for="establishmentType_27" class="ng-binding">Main Establishment (ME)</label>
+              <button type="button" aria-expanded="true" class="dol-help-link" aria-controls="establishmentType_27Help" aria-describedby="establishmentType_27Label">Learn More</button>
+              <div ng-show="showAllHelp" class="dol-help-text show" id="establishmentType_27Help">
+                  The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)
+              </div>
+            </li>
+            <li ng-repeat="response in responses.WorkSiteType" class="ng-scope">
+              <input id="establishmentType_28" type="radio" name="establishmentType_28" ng-value="28" ng-model="vm.activeWorksite.workSiteTypeId" class="ng-pristine ng-untouched ng-valid ng-empty" value="28">
+              <label id="establishmentType_28Label" for="establishmentType_28" class="ng-binding">Branch establishment (BE)</label>
+              <button type="button" aria-expanded="true" class="dol-help-link" aria-controls="establishmentType_28Help" aria-describedby="establishmentType_28Label">Learn More</button>
+              <div ng-show="showAllHelp" class="dol-help-text show" id="establishmentType_28Help">
+                  A branch establishment is a physically separate work site that is part of the same organization as the main establishment.
+              </div>
+            </li>
+          </ul>
+      </fieldset>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question  - Radio Buttons with Individual Help Text</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+  &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
+    &lt;legend class="dol-form-question-text"&gt;What type of establishment is this?&lt;/legend&gt;
+    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+      &lt;ul class="usa-unstyled-list dol-list-help"&gt;
+        &lt;li ng-repeat=""&gt;
+          &lt;input id="thisInput" type="radio" name="thisInput" ng-value="" ng-model=""&gt;
+          &lt;label id="thisInputLabel" for="thisInput"&gt;[LABEL GOES HERE]&lt;/label&gt;
+          &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+          &lt;helptext id="thisInputHelp"&gt;
+              [HELP TEXT GOES HERE]
+          &lt;/helptext&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question  - Radio Buttons with Individual Help Text</summary>
+    <div>
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
+      <p>For each radio button, the &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title"> Secondary Form Field - Radio Buttons with Single Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
+        <legend class="hide"><span id="workerOtherSiteLabel">Does worker perform work for this employer at any other work site?</span></legend>
+        <div class="dol-legend-help">
+          <span aria-hidden="true">Does worker perform work for this employer at any other work site?</span>
+          <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="workerOtherSiteHelp" aria-describedby="workerOtherSiteLabel">Learn More</button>
+        </div>
+        <div ng-show="showAllHelp" style="display: block" class="dol-help-text" id="workerOtherSiteHelp">
+            Answer “yes” if the employee also performed work at another work site included with this application. The worker should be listed at each work site where they performed subminimum wage work.
+        </div>
+        <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
+          <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+          <ul class="usa-unstyled-list dol-list-help">
+            <li>
+              <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
+              <label for="workerOtherSiteYes">Yes</label>
+            </li>
+            <li>
+              <input id="workerOtherSiteNo" type="radio" name="workerOtherSite" class="ng-pristine ng-untouched ng-valid ng-empty" value="false">
+              <label for="workerOtherSiteNo">No</label>
+            </li>
+          </ul>
+        </div>
+      </fieldset>  
+    </div>           
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Secondary Form Field - Radio Buttons with Single Help Text</summary>
+<pre rel="HTML"><code>
+  &lt;div class="dol-form-question-block"&gt;
+    &lt;fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans"&gt;
+      &lt;legend class="hide"&gt;&lt;span id="thisInputLabel"&gt;Does worker perform work for this employer at any other work site?&lt;/span&gt;&lt;/legend&gt;
+      &lt;div class="dol-legend-help"&gt;
+        &lt;span aria-hidden="true"&gt;Does worker perform work for this employer at any other work site?&lt;/span&gt;
+        &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+      &lt;/div&gt;
+      &lt;helptext id="thisInputHelp"&gt;
+          [HELP TEXT GOES HERE]
+      &lt;/helptext&gt;
+      &lt;div&gt;
+        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;ul class="usa-unstyled-list"&gt;
+          &lt;li&gt;
+            &lt;input id="thisInputYes" type="radio" name="thisInput" ng-value="true"&gt;
+            &lt;label for="thisInputYes"&gt;Yes&lt;/label&gt;
+          &lt;/li&gt;
+          &lt;li&gt;
+            &lt;input id="thisInputNo" type="radio" name="thisInput" ng-value="false"&gt;
+            &lt;label for="thisInputNo"&gt;No&lt;/label&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/fieldset&gt;
+  &lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Secondary Form Field - Radio Buttons with Single Help Text</summary>
+    <div>
+      <p>Use &lt;fieldset <em>class="dol-legend-plain"</em>&gt; for Secondary fieldsets.</p>
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+      <p>Further explanation of the complexity of this pattern:</p>
+      <ul>
+        <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
+        <li>Screen reader accessibility dictates that the Form Question text should be the &lt;legend&gt; for the fieldset. The &lt;legend&gt; is inherently a block element, therefore cannot flow inline with the help link.</li>
+        <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;legend&gt; text (such as when identifying the group title for the radio buttons). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
+        <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question - Date Fieldset with Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <fieldset>
+        <legend class="hide"><span id="fiscalQuarterEndDateLabel">When did the Employer’s most recently completed fiscal quarter end?</span></legend>
+        <div class="dol-legend-help">
+          <span class="dol-form-question-text" aria-hidden="true">When did the Employer’s most recently completed fiscal quarter end?</span>
+          <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="fiscalQuarterEndDateHelp" aria-describedby="fiscalQuarterEndDateLabel">Learn More</button>
+        </div>
+        <div ng-show="showAllHelp" style="display: block" class="dol-help-text" id="fiscalQuarterEndDateHelp">
+          Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if
+            the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June
+            30, September 30, or December 31).
+        </div>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <div>
+          <div class="usa-date-of-birth dol-side-example">
+            <div class="usa-form-group usa-form-group-month">
+              <label for="Month_293">Month</label>
+              <input class="usa-input-inline" aria-describedby="dateExample_293 dateExampleMonth_293"
+                id="Month_293" name="Month_293" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="">
+            </div>
+            <div class="usa-form-group usa-form-group-day">
+              <label for="Day_293">Day</label>
+              <input class="usa-input-inline" aria-describedby="dateExample_293 dateExampleDay_293"
+                id="Day_293" name="Day_293" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value="">
+            </div>
+            <div class="usa-form-group usa-form-group-year">
+              <label for="Year_293">Year</label>
+              <input class="usa-input-inline" aria-describedby="dateExample_293 dateExampleYear_293"
+                id="Year_293" name="Year_293" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="">
+            </div>
+          </div>
+          <div class="dol-example-text"><span id="dateExample_293">Example: </span>
+            <span id="dateExampleMonth_293">04</span>
+            <span id="dateExampleDay_293">30</span>
+            <span id="dateExampleYear_293">2016</span>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Date Fieldset with Help Text</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+  &lt;fieldset&gt;
+    &lt;legend class="hide"&gt;&lt;span id="thisInputLabel"&gt;When did the Employer’s most recently completed fiscal quarter end?&lt;/span&gt;&lt;/legend&gt;
+    &lt;div class="dol-legend-help"&gt;
+      &lt;span class="dol-form-question-text" aria-hidden="true"&gt;When did the Employer’s most recently completed fiscal quarter end?&lt;/span&gt;
+      &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
+    &lt;/div&gt;
+    &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
+    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;date-field date-val=""&gt;&lt;/date-field&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question - Date Fieldset with Help Text</summary>
+    <div>
+        <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>  
+        <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+        <p>Further explanation of the complexity of this pattern:</p>
+        <ul>
+          <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
+          <li>Screen reader accessibility dictates that the Form Question text should be the &lt;legend&gt; for the fieldset. The &lt;legend&gt; is inherently a block element, therefore cannot flow inline with the help link.</li>
+          <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;legend&gt; text (such as when identifying the group title for the radio buttons). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
+          <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
+        </ul>   
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Secondary Form Field - Date Fieldset</h2>
+  <div class="dol-ui-pattern-rendered">
+    <fieldset class="dol-legend-plain">
+      <legend>Date of Contact</legend>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <div>
+        <div class="usa-date-of-birth dol-side-example">
+          <div class="usa-form-group usa-form-group-month">
+            <label for="Month_102">Month</label>
+            <input class="usa-input-inline" aria-describedby="dateExample_102 dateExampleMonth_102"
+              id="Month_102" name="Month_102" pattern="0?[1-9]|1[012]" type="number" min="1" max="12" value="" ng-model="vm.month">
+          </div>
+          <div class="usa-form-group usa-form-group-day">
+            <label for="Day_102">Day</label>
+            <input class="usa-input-inline" aria-describedby="dateExample_102 dateExampleDay_102"
+              id="Day_102" name="Day_102" pattern="0?[1-9]|1[0-9]|2[0-9]|3[01]" type="number" min="1" max="31" value=""
+              ng-model="vm.day">
+          </div>
+          <div class="usa-form-group usa-form-group-year">
+            <label for="Year_102">Year</label>
+            <input class="usa-input-inline" aria-describedby="dateExample_102 dateExampleYear_102"
+              id="Year_102" name="Year_102" pattern="[0-9]{4}" type="number" min="1900" max="3000" value="" ng-model="vm.year">
+          </div>
+        </div>
+        <div class="dol-example-text"><span id="dateExample_102">Example: </span>
+          <span id="dateExampleMonth_102">04</span>
+          <span id="dateExampleDay_102">30</span>
+          <span id="dateExampleYear_102">2016</span>
+        </div>
+      </div>
     </fieldset>
   </div>
-
-  <div class="form-question-block">
-    <div class="form-question-answer">
-      <label for="contactName">Full Name</label>
-      <input id="contactName" name="contactName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Secondary Form Field - Date Fieldset</summary>
+<pre rel="HTML"><code>
+&lt;fieldset class="dol-legend-plain"&gt;
+  &lt;legend&gt;Date of Contact&lt;/legend&gt;
+  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;date-field date-val=""&gt;&lt;/date-field&gt;
+&lt;/fieldset&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Secondary Form Field - Date Fieldset</summary>
+    <div>
+      <p>Use &lt;fieldset <em>class="dol-legend-plain"</em>&gt; for Secondary fieldsets.</p>    
     </div>
-  </div>
-
-  <div class="form-question-block">
-    <div class="form-question-answer">
-      <label for="contactEmail">Email Address</label>
-      <input id="contactEmail" name="contactEmail" type="email" class="sidelabeled email ng-pristine ng-untouched ng-valid ng-empty ng-valid-email">
-      <label class="example">Example: contact.name@company.com</label>
-    </div>
-  </div>
-
-  <div class="form-question-block usa-input-error">
-    <div class="form-question-answer">
-      <label for="contactPhone">Telephone Number</label>
-      <span class="usa-input-error-message ng-binding" role="alert">Please provide a valid contact telephone number</span>
-      <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" class="sidelabeled phoneno ng-pristine ng-untouched ng-valid ng-empty">
-      <label class="example">Example: 123-456-7890</label>
-    </div>
-  </div>
+  </details>
 </div>
 
-<h2 class="mb3">Tables</h2>
-
-<table class="usa-table-borderless expandable-table">
-  <thead>
-    <tr>
-      <td></td>
-      <th scope="col">Column 1</th>
-      <th scope="col">Column 2</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="expanding-row">
-      <td>
-        <div class="arrow-expander"></div>
-      </td>
-      <th scope="row">
-        <div class="ng-binding">Foo</div>
-      </th>
-      <td class="ng-binding"></td>
-      <td>
-        <button class="green-button">A</button>
-        <button class="usa-button-secondary">B</button>
-      </td>
-    </tr>
-    <tr class="expanded-row " ng-repeat-end="">
-      <td></td>
-      <td colspan="3">
-      </td>
-    </tr>
-    <tr class="expanding-row greyed">
-      <td>
-        <div class="arrow-expander"></div>
-      </td>
-      <th scope="row">
-        <div class="ng-binding">Bar</div>
-      </th>
-      <td class="ng-binding"></td>
-      <td>
-        <button class="green-button">A</button>
-        <button class="usa-button-secondary">B</button>
-      </td>
-    </tr>
-    <tr class="expanded-row greyed" ng-repeat-end="">
-      <td></td>
-      <td colspan="3">
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 class="mb3">Misc</h2>
-
-<div class="mb5">
-  <nav role="navigation" class="main-nav-bar collapsed">
-    <ul>
-      <li class="nav-button active" data-sectionid="assurances">Assurances</li>
-      <li class="nav-button" data-sectionid="app-info">Application Info</li>
-      <li class="nav-button" data-sectionid="employer">Employer</li>
-      <li class="nav-button" data-sectionid="wage-data">Wage Data</li>
-      <li class="nav-button" data-sectionid="work-sites">Work Sites & Employees</li>
-      <li class="nav-button" data-sectionid="wioa">WIOA</li>
-      <li class="nav-button ng-hide" data-sectionid="review">Review & Submit</li>
-    </ul>
-  </nav>
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Address Fieldset</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <fieldset>
+        <legend class="dol-form-question-text no-margin">Address of Establishment / Work Site</legend>
+        <div class="usa-form-large">
+          <div ng-class="">
+            <label for="worksiteAddress1">Street address</label>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <input id="worksiteAddress1" name="worksiteAddress1" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+          </div>
+          <div class="clearer">
+            <div class="usa-input-grid usa-input-grid-medium">
+              <label for="workAddressCity">City</label>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')"></span>
+              <input style="margin-bottom: 0" id="workAddressCity" name="workAddressCity" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
+            </div>
+            <div class="usa-input-grid usa-input-grid-small">
+              <label for="workAddressState">State</label>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+              <label for="workAddressState" class="hide">State</label>
+              <select style="margin-bottom: 0" id="workAddressState" class="ng-pristine ng-untouched ng-valid ng-empty"
+                  name="workAddressState">
+                <option value="" selected="selected"></option>
+                <option value="AL">Alabama</option>
+                <option value="etc">etc.</option>
+              </select>
+            </div>
+          </div>
+          <div ng-class="">
+            <label for="workAddressZip">Zip Code</label>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <input class="usa-input-medium ng-pristine ng-untouched ng-valid ng-empty ng-valid-pattern" id="workAddressZip" name="workAddressZip"
+              type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace=""
+              ng-model="vm.activeWorksite.address.zipCode">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> </summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+  &lt;fieldset&gt;
+    &lt;legend class="dol-form-question-text no-margin"&gt;Address of Establishment / Work Site&lt;/legend&gt;
+    &lt;div class="usa-form-large"&gt;
+      &lt;div ng-class=""&gt;
+        &lt;label for="thisInputAddress1"&gt;Street address&lt;/label&gt;
+        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;input id="thisInputAddress1" name="thisInputAddress1" type="text"&gt;
+      &lt;/div&gt;
+      &lt;div class="clearer" ng-class=""&gt;
+        &lt;div class="usa-input-grid usa-input-grid-medium"&gt;
+          &lt;label for="thisInputCity"&gt;City&lt;/label&gt;
+          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;input id="thisInputCity" name="thisInputCity" type="text"&gt;
+        &lt;/div&gt;
+        &lt;div class="usa-input-grid usa-input-grid-small"&gt;
+          &lt;label for="thisInputState"&gt;State&lt;/label&gt;
+          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;state-field name="thisInputState" selected-state=""&gt;&lt;/state-field&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div ng-class=""&gt;
+        &lt;label for="thisInputZip"&gt;Zip Code&lt;/label&gt;
+        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;input class="usa-input-medium" id="thisInputZip" name="thisInputZip" type="text" mask="99999-?9?9?9?9?" pattern=""
+          data-grouplength="5,4" data-delimiter="-" data-politespace&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/fieldset&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> </summary>
+    <div>
+      <p>Use &lt;legend class="dol-form-question-text <em>no-margin</em>"&gt; for proper styling.</p> 
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each &lt;input&gt; has an associated &lt;label&gt;.</p>    
+    </div>
+  </details>
 </div>
 
-<div class="mb5">
-  <div id="wagedata_tab_box" class="form-tabbed-section">
-    <div class="form-tab active">
-      <div class="circle">1</div> Hourly
-    </div>
-    <div class="form-tab ">
-      <div class="circle">2</div> Piece Rate
-    </div>
-  </div>
-</div>
+<!-- begin PATTERN TEMPLATE ------
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title"> </h2>
+  <div class="dol-ui-pattern-rendered">
 
-<div class="mb5">
-  <div class="dol-applicant-meta">
-    <div class="dol-feedback-save">
-      <span class="dol-feedback-save-success ng-binding">
-        Saved 09/11/2017, 11:53 AM
-      </span>
-    </div>
-    <div class="dol-applicant-ein">
-      Applicant EIN:
-      <span class="ng-binding">12-1233333</span>
-    </div>
   </div>
-  <div class="dol-form-meta">
-    <div class="usa-content">
-      <p>Application for Authority to Employ Workers with Disabilities at Subminimum Wages</p>
-      <p class="ng-hide">Applicant EIN:
-        <span class="ng-binding">XX-XXXXXXX</span>
-      </p>
-    </div>
-    <div class="dol-form-omb" ng-show="!admin">
-      <p>OMB NO: 1235-0001</p>
-      <p>REV XX/20XX</p>
-    </div>
-  </div>
-</div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> </summary>
+<pre rel="HTML"><code>
 
-<div class="mb5">
-  <div class="main-content form-content">
-    <div class="usa-alert usa-alert-error" role="alert">
-      <div class="usa-alert-body">
-        <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
-      </div>
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> </summary>
+    <div>
+      <p> </p>    
     </div>
-  </div>
+  </details>
 </div>
-
-<div class="mb5">
-  <div class="reviewbar">
-    <div class="reviewbar-container">
-      <div class="reviewbar-bar"></div>
-      <div class="reviewbar-circle"></div>
-    </div>
-  </div>
-  <div class="reviewbar error">
-    <div class="reviewbar-container">
-      <div class="reviewbar-bar"></div>
-      <div class="reviewbar-circle"></div>
-    </div>
-  </div>
-</div>
-
-<div class="mb5">
-  <div class="dol-panel-login">
-    <h2>Log in</h2>
-    <p>...</p>
-  </div>
-</div>
-
-<div class="mb5">
-  <div class="dol-panel-info mw-300p">
-    <h3>Questions?</h3>
-    <p>Contact the <a href="#">Wage and Hour office closest to you.</a></p>
-  </div>
-</div>
+------- end PATTERN TEMPLATE -->
