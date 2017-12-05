@@ -65,6 +65,6 @@ workflows:
   version: 2
   do_everything:
     jobs:
-      - web-tests
-      - web-build
+      - web tests
+      - web build
       - api
