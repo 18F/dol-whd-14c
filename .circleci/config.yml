@@ -1,6 +1,6 @@
 verison: 2
 jobs:
-  web-tests:
+  web tests:
     docker:
       - image: circleci/node:6
     steps:
@@ -26,7 +26,7 @@ jobs:
           working_directory: ~/project/DOL.WHD.Section14c.Web
           command: bash <(curl -s https://codecov.io/bash)
 
-  web-build:
+  web build:
     docker:
       - image: circleci/node:6
     steps:
