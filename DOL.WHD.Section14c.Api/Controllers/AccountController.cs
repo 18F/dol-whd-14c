@@ -20,6 +20,7 @@ using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.Business.Helper;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -148,13 +149,29 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Get Employers by user
         /// </summary>
         /// <returns></returns>
-        [Route("User/Employer")]
-        public IHttpActionResult GetUserEmployer()
+        [HttpGet]
+        [Route("User/GetApplications")]
+        public IHttpActionResult GetApplications()
         {
             var userId = ((ClaimsIdentity)User.Identity).GetUserId();
             var user =  UserManager.Users.SingleOrDefault(s => s.Id == userId);
+            // Get user organizations
             var userEmployers = user.Organizations;
-            return Ok(userEmployers);
+            var applications = new List<UserApplications>();
+
+            foreach (var item in userEmployers)
+            {
+               var placeHolder = new Dictionary<string, string>();
+
+                if (string.IsNullOrEmpty( item.ApplicationId)){
+                    placeHolder.Add("ApplicationId", item.ApplicationId);
+                }
+                else{
+                    placeHolder.Add("EmployerId", item.Employer.Id);
+                }
+                applications.Add (new UserApplications(){ EmployerName = item.Employer?.LegalName, Id = placeHolder});
+            }
+            return Ok(applications);
         }
 
         /// <summary>
