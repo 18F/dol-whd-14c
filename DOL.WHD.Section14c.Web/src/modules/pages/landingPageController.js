@@ -17,6 +17,7 @@ module.exports = function(ngModule) {
 
     $scope.navToApplication = function() {
       $location.path('/section/assurances');
+      document.title = "Assurances";
     };
 
   });
