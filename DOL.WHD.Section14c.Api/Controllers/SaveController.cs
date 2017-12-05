@@ -8,8 +8,6 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using DOL.WHD.Section14c.Log.LogHelper;
-using DOL.WHD.Section14c.DataAccess.Identity;
-using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -20,7 +18,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
     [RoutePrefix("api/save")]
     public class SaveController : BaseApiController
     {
-        private ApplicationUserManager _userManager;
         private readonly ISaveService _saveService;
         private readonly IIdentityService _identityService;
         private readonly IOrganizationService _organizationService;
