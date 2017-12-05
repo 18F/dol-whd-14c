@@ -178,12 +178,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var employer = _employerService.FindExistingEmployer(organizationMembership.Employer);
             if (employer == null)
             {
-                var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+                var userIdentity = ((ClaimsIdentity)User.Identity);
+                var userId = userIdentity.GetUserId();
                 var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
                 // set user organization
                 user.Organizations.Add(organizationMembership);
 
                 IdentityResult result = await UserManager.UpdateAsync(user);
+
                 if (!result.Succeeded)
                 {
                     return GetErrorResult(result);
@@ -194,7 +196,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 // Employer exists
                 var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
                 responseMessage.StatusCode = HttpStatusCode.Found;
-                responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership.CreatedBy.FirstName, orgMembership.CreatedBy.LastName));
+                var user = UserManager.Users.SingleOrDefault(s => s.Id == orgMembership.CreatedBy_Id);
+                responseMessage.Content = new StringContent(string.Format("{0} {1}", user?.FirstName, user?.LastName));
             }
 
             return ResponseMessage(responseMessage);
