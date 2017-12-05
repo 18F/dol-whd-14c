@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Web;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
@@ -222,6 +223,51 @@ namespace DOL.WHD.Section14c.DataAccess
             return base.SaveChanges();
         }
 
+        public override async Task<int> SaveChangesAsync()
+        {
+            var addedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
+                .Where(p => p.State == EntityState.Added)
+                .Select(p => p.Entity);
 
+            var modifiedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
+                .Where(p => p.State == EntityState.Modified)
+                .Select(p => p.Entity);
+
+            var now = DateTime.UtcNow;
+            var zeroTime = new DateTime();
+
+            var userId = Guid.Empty.ToString();
+
+            if (HttpContext.Current != null && HttpContext.Current.User != null)
+            {
+                userId = HttpContext.Current.User.Identity.GetUserId();
+            }
+
+            foreach (var added in addedAuditedEntities)
+            {
+                if (added.CreatedAt == zeroTime) { added.CreatedAt = now; }
+                added.LastModifiedAt = now;
+                if (userId != Guid.Empty.ToString())
+                {
+                    added.CreatedBy_Id = userId;
+                    added.LastModifiedBy_Id = userId;
+                }
+            }
+
+            foreach (var modified in modifiedAuditedEntities)
+            {
+                if (modified.CreatedAt == zeroTime)
+                {
+                    modified.CreatedAt = now;
+                    if (userId != Guid.Empty.ToString())
+                        modified.CreatedBy_Id = userId;
+                }
+                modified.LastModifiedAt = now;
+                if (userId != Guid.Empty.ToString())
+                    modified.LastModifiedBy_Id = userId;
+            }
+
+            return await base.SaveChangesAsync();
+        }
     }
 }
