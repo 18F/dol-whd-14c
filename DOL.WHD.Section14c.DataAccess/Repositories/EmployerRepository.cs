@@ -20,24 +20,7 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public IEnumerable<Employer> Get()
         {
-            return _dbContext.Employers.AsQueryable();
-        }
-
-        public async Task<int> AddAsync(Employer employer)
-        {
-            _dbContext.Employers.Add(employer);
-            return await SaveChangesAsync();
-        }
-
-        public async Task<int> ModifyEmployer(Employer employer)
-        {
-            _dbContext.Entry(employer).State = EntityState.Modified;
-            return await SaveChangesAsync();
-        }
-
-        public Task<int> SaveChangesAsync()
-        {
-            return _dbContext.SaveChangesAsync();
+            return _dbContext.Employers.Include( x => x.PhysicalAddress).AsQueryable();
         }
 
         public void Dispose()

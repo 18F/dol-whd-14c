@@ -26,16 +26,6 @@ namespace DOL.WHD.Section14c.Business.Services
         }
 
         /// <summary>
-        /// Add new Employer
-        /// </summary>
-        /// <param name="employer"></param>
-        /// <returns></returns>
-        public Task<int> AddEmployer(Employer employer)
-        {
-            return _employerRepository.AddAsync(employer);
-        }
-
-        /// <summary>
         /// Get Employer By Id
         /// </summary>
         /// <param name="id"></param>
@@ -51,7 +41,7 @@ namespace DOL.WHD.Section14c.Business.Services
         /// <returns></returns>
         public IEnumerable<Employer> GetAllEmployers()
         {
-            return _employerRepository.Get();
+            return _employerRepository.Get().ToList();
         }
 
         /// <summary>
