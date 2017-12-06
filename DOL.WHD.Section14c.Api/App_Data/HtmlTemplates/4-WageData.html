@@ -1,6 +1,14 @@
 ﻿<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+        
+        th, td {
+            text-align: left;
+        }
+
         td {
             page-break-inside: avoid;
         }
@@ -69,9 +77,15 @@
             font-size: 10px;
             margin-bottom: 20px;
         }
+
+        .move-up-10 {
+            margin-top: -10px;
+        }
     </style>
 </head>
 <body>
+    <!-- Need Correct Syntax -->
+    {{#if Employer.ApplicationType = Renewal }}
     <div class="admin-page">
         <div class="dol-form-section-title">
             <h2>Wage Data</h2>
@@ -94,24 +108,26 @@
             </p>
 
             <p>
-                <span class="subtext">Description of Work Performed</span>
+                <span class="subtext">Description of Work Performed on this Job/Contract by Workers Paind Subminimum Wages</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.JobDescription }}</div>
             </p>
 
             <p>
-                <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
+                <span class="subtext">Which method did the employer use to determine the prevailing wage for the job or contract identified above?</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.PrevailingWageMethod.Display }}</div>
             </p>
 
+            <!-- Need Correct Syntax -->
+            {{#if Employer.HourlyWageInfo.PrevailingWageMethod = PrevailingWageSurvey }}
             <p>
-                <span class="subtext">Prevailing Wage Determined based on this survey</span>
+                <span class="subtext">Prevailing wage determined based on this survey</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
             </p>
 
             <h3>Source Employers</h3>
 
             {{#each HourlyWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
-            <div>
+            <div class="move-up-10">
                 <div>{{ EmployerName }}</div>
                 <div>{{ formatAddress Address }}</div>
                 <div>{{ Phone }}</div>
@@ -121,10 +137,12 @@
                 <div>{{ JobDescription }}</div>
                 <div>{{ ExperiencedWorkerWageProvided }}</div>
                 <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
-                <hr>
             </div>
             {{/each}}
+            {{/if}}
 
+            <!-- Need Correct Syntax -->
+            {{#if Employer.HourlyWageInfo.PrevailingWageMethod = AlternateWageData }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
@@ -144,15 +162,27 @@
                 <span class="subtext">Date data retrieved</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
+            {{/if}}
 
+            <!-- Need Correct Syntax -->
+            {{#if Employer.HourlyWageInfo.PrevailingWageMethod = SCAWageDetermination }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">{{ formatAttachment HourlyWageInfoScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File name: {{ formatAttachment HourlyWageInfoScaWageDeterminationAttachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
+            </p>
+            {{/if}}
+
+            <!-- Missing Question from Application // Need Correct Syntax -->
+            <p>
+                <span class="subtext">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminium wage?</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.TODO }}</div>
             </p>
 
             <p>
                 <span class="subtext">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</span>
-                <div class="subtextanswer">{{ formatAttachment HourlyWageInfo.Attachment }}</div>
+                <div class="subtextanswer">File name: {{ formatAttachment HourlyWageInfo.Attachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
             </p>
         </div>
         <div wage-data-piecerate="true">
@@ -167,7 +197,7 @@
                 <div class="subtextanswer">{{ boolOrString JPieceRateWageInfo.obName }}</div>
             </p>
             <p>
-                <span class="subtext">Description of Work Performed</span>
+                <span class="subtext">Description of Work Performed on this Job/Contract by Workers Paid Subminimum Wages</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.JobDescription }}</div>
             </p>
 
@@ -175,6 +205,8 @@
                 <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageMethod.Display }}</div>
             </p>
+
+            {{#if Employer.PieceRateWageInfo.PrevailingWageMethod = PrevailingWageSurvey }}
             <p>
                 <span class="subtext">Prevailing Wage Determined based on this survey</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
@@ -183,7 +215,7 @@
             <h3>Source Employers</h3>
 
             {{#each PieceRateWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
-            <div>
+            <div class="move-up-10">
                 <div>{{ EmployerName }}</div>
                 <div>{{ formatAddress Address }}</div>
                 <div>{{ Phone }}</div>
@@ -193,10 +225,11 @@
                 <div>{{ JobDescription }}</div>
                 <div>{{ ExperiencedWorkerWageProvided }}</div>
                 <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
-                <hr>
             </div>
             {{/each}}
+            {{/if}}
 
+            {{#if Employer.PieceRateWageInfo.PrevailingWageMethod = AlternateWageData }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
@@ -216,11 +249,16 @@
                 <span class="subtext">Date data retrieved</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
+            {{/if}}
 
+            {{#if Employer.PieceRateWageInfo.PrevailingWageMethod = SCAWageDetermination }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">{{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
             </p>
+            {{/if}}
+
             <p>
                 <span class="subtext">Descripton of Work</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRateWorkDescription }}</div>
@@ -228,24 +266,26 @@
 
             <p>
                 <span class="subtext">Prevailing Wage Determined for This Job</span>
-                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageDeterminedForJob }}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageDeterminedForJob }} rate per hour</div>
             </p>
 
             <p>
                 <span class="subtext">Standard Productivity</span>
-                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.StandardProductivity }}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.StandardProductivity }} units per hour</div>
             </p>
 
             <p>
                 <span class="subtext">Piece Rate Paid to Workers</span>
-                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRatePaidToWorkers }}</div>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRatePaidToWorkers }} rate per unit</div>
             </p>
-
+            
             <p>
                 <span class="subtext">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</span>
-                <div class="subtextanswer">{{ formatAttachment PieceRateWageInfo.Attachment }}</div>
+                <div class="subtextanswer">File name: {{ formatAttachment PieceRateWageInfo.Attachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
             </p>
         </div>
     </div>
+    {{/if}}
 </body>
 </html>

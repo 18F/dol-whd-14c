@@ -1,6 +1,10 @@
 ﻿<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+        
         td {
             page-break-inside: avoid;
         }
@@ -95,13 +99,13 @@
 
         {{#if HasPreviousCertificate }}
         <p>
-            <span class="subtext">What is the most recently held certificate number for the main establishment?</span>
+            <span class="subtext">What is the most recently held main establishment certificate number?</span>
             <div class="subtextanswer">{{ boolOrString PreviousCertificateNumber }}</div>
         </p>
         {{/if}}
 
         <p>
-            <span class="subtext">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</span>
+            <span class="subtext">This application is for authority to employ workers with disabilities in which employment setting(s)?</span>
         </p>
 
         <ul class="usa-unstyled-list">
