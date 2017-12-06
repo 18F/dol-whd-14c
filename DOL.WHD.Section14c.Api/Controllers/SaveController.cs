@@ -115,7 +115,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest(e.Message);
             }
             var employer = _employerService.GetEmployerById(new Guid( employerId));
-            _saveService.AddOrUpdate(EIN, applicationId, employer, state);
+            _saveService.AddOrUpdate(EIN, applicationId, null, state);
 
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
         }

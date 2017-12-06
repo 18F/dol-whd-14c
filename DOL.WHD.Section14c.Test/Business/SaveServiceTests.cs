@@ -44,7 +44,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new SaveService(_saveRepositoryMock);
 
             // Act
-            service.AddOrUpdate(newData.EIN, newData.ApplicationId, newData.ApplicationState);
+            service.AddOrUpdate(newData.EIN, newData.ApplicationId, null, newData.ApplicationState);
             var save = service.GetSave(newData.ApplicationId);
 
             // Assert
@@ -71,11 +71,11 @@ namespace DOL.WHD.Section14c.Test.Business
             };
 
             var service = new SaveService(_saveRepositoryMock);
-            service.AddOrUpdate(einToTest, applicationId, oldData.ApplicationState);
+            service.AddOrUpdate(einToTest, applicationId, null, oldData.ApplicationState);
             var existingRecord = service.GetSave(applicationId);
 
             // Act
-            service.AddOrUpdate(einToTest, applicationId, newData.ApplicationState);
+            service.AddOrUpdate(einToTest, applicationId, null, newData.ApplicationState);
             var newRecord = service.GetSave(applicationId);
 
             // Assert
