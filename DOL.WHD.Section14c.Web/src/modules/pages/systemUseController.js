@@ -13,11 +13,11 @@ module.exports = function(ngModule) {
 
     // redirect to dashboar (home) if user is logged in
     if (stateService.loggedIn) {
-      $location.path('/home');
+      $location.path('/login');
     }
 
     $scope.navToLanding = function() {
-      $location.path('/home');
+      $location.path('/login');
     };
 
     $scope.showDetails = false;
