@@ -13,8 +13,8 @@ namespace DOL.WHD.Section14c.Business
 {
     public interface IOrganizationService
     {
-        OrganizationMembership GetOrganizationMembershipByEmployer(Employer employer);
-        
+        OrganizationMembership GetOrganizationMembershipByEmployer(Employer employer);        
         IEnumerable<OrganizationMembership> GetAllOrganizationMemberships();
+        Task<int> UpdateOrganizationMembership(OrganizationMembership organizationMembership);
     }
 }
