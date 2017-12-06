@@ -20,7 +20,7 @@ module.exports = function(ngModule) {
         if (callback) callback();
         return undefined;
       }
-
+      
       return apiService
         .saveApplication(
           stateService.access_token,

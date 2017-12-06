@@ -58,22 +58,21 @@ module.exports = function(ngModule) {
             stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
           } else {
             d.resolve();
-            return d.promise;
           }
           if (!stateService.isAdmin) {
-
-            stateService.loadSavedApplication().then(
-              function() {
-                // start auto-save
-                if (stateService.ein) {
-                  autoSaveService.start();
-                }
-                d.resolve();
-              },
-              function(error) {
-                d.reject(error);
-              }
-            );
+            d.resolve();
+            // stateService.loadSavedApplication().then(
+            //   function() {
+            //     // start auto-save
+            //     if (stateService.ein) {
+            //       autoSaveService.start();
+            //     }
+            //     d.resolve();
+            //   },
+            //   function(error) {
+            //     d.reject(error);
+            //   }
+            // );
           } else {
             stateService.loadApplicationList().then(
               function() {
