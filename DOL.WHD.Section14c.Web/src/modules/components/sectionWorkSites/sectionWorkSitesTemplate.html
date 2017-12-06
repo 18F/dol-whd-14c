@@ -43,7 +43,7 @@
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">What type of establishment is this?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')">{{ vm.validateActiveWorksiteProperty('type') }}</span>
+        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('workSiteTypeId')">{{ vm.validateActiveWorksiteProperty('workSiteTypeId') }}</span>
           <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType">
               <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType_{{ response.id }}" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">

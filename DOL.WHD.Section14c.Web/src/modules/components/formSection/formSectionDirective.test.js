@@ -32,6 +32,20 @@ describe('helplink', function() {
     rootScope.$digest();
     expect(element).toBeDefined();
   });
+
+  it('when clicked, toggles expanded to false when true', function() {
+    rootScope.$digest();
+    rootScope.expanded = true;
+    element.trigger('click');
+    expect(rootScope.expanded).toBe(false);
+  });
+
+  it('when clicked, toggles expanded to true when false', function() {
+    rootScope.$digest();
+    rootScope.expanded = false;
+    element.trigger('click');
+    expect(rootScope.expanded).toBe(true);
+  });
 });
 
 describe('helptext', function() {
