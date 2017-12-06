@@ -56,6 +56,101 @@
 </div>
 
 <div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Help Callout</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-help-callout">
+      Need Help? Email us: <a href="mailto:help-14c@dol.gov">help-14c@dol.gov</a>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> </summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-help-callout"&gt;
+  Need Help? Email us: &lt;a href="mailto:help-14c@dol.gov"&gt;help-14c@dol.gov&lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Form Subsection Heading</h2>
+  <div class="dol-ui-pattern-rendered">
+    <fieldset class="dol-form-sub-section">
+      <legend><h3>Application Type</h3></legend>
+      <hr>
+      [FORM FIELDS GO HERE]
+    </fieldset>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Form Subsection Heading</summary>
+<pre rel="HTML"><code>
+&lt;fieldset class="dol-form-sub-section"&gt;
+  &lt;legend&gt;&lt;h3&gt;Application Type&lt;/h3&gt;&lt;/legend&gt;
+  &lt;hr&gt;
+  [FORM FIELDS GO HERE]
+&lt;/fieldset&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Form Subsection Heading</summary>
+    <div>
+      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;. The &lt;h3&gt; heading is inside the &lt;legend&gt; of the fieldset.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Form Subsection Heading with Help Text</h2>
+  <div class="dol-ui-pattern-rendered">
+    <fieldset class="dol-form-sub-section">
+      <legend class="hide">
+        <span id="applicationContactLabel">Application Contact Person</span>
+      </legend>
+      <div class="dol-legend-h3-help">
+        <h3 aria-hidden="true">Application Contact Person</h3>
+        <button type="button" aria-expanded="false" class="dol-help-link" aria-controls="applicationContactPersonHelp" aria-describedby="applicationContactLabel">Learn More</button>
+      </div>
+      <div style="display: block" class="dol-help-text" id="applicationContactPersonHelp">
+          This should be a person who can best answer questions concerning information contained on this application.
+      </div>
+      <hr>
+      [FORM FIELDS GO HERE]
+    </fieldset>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Form Subsection Heading with Help Text</summary>
+<pre rel="HTML"><code>
+&lt;fieldset class="dol-form-sub-section"&gt;
+  &lt;legend class="hide"&gt;
+    &lt;span id="thisHeadingLabel"&gt;Application Contact Person&lt;/span&gt;
+  &lt;/legend&gt;
+  &lt;div class="dol-legend-h3-help"&gt;
+    &lt;h3 aria-hidden="true"&gt;Application Contact Person&lt;/span&gt;&lt;/h3&gt;
+    &lt;helplink aria-controls="thisHeadingHelp" aria-describedby="thisHeadingLabel"&gt;&lt;/helplink&gt;
+  &lt;/div&gt;
+  &lt;helptext id="thisHeadingHelp"&gt;This should be a person who can best answer questions concerning information contained on this application.&lt;/helptext&gt;
+  &lt;hr /&gt;
+  [FORM FIELDS GO HERE]
+&lt;/fieldset&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Form Subsection Heading with Help Text</summary>
+    <div>
+      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;.</p>    
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+      <p>Further explanation of the complexity of this pattern:</p>
+      <ul>
+        <li>The visual design dictates that the help link (?) icon should flow inline with the Heading text.</li>
+        <li>Screen reader accessibility dictates that the Heading text should be the &lt;legend&gt; for the fieldset. However, &lt;legend&gt; and &lt;h3&gt; are inherently block elements, therefore cannot flow inline with the help link.</li>
+        <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;h3&gt; text (such as when identifying the group elements below). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
+        <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
+      </ul>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
   <h2 class="dol-ui-pattern-title">Main Form Question - Text Input</h2>
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block">
@@ -424,6 +519,35 @@
 </div>
 
 <div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Main Form Question - Text Input with Example</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block">
+      <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held certificate number for the main establishment?</label>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno ng-pristine ng-untouched ng-valid ng-not-empty" mask="99-99999-A-999" aria-describedby="examplePrevCertNumber">
+      <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Main Form Question - Text Input with Example</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block"&gt;
+  &lt;label for="thisInput" class="dol-form-question-text"&gt;What is the most recently held certificate number for the main establishment?&lt;/label&gt;
+  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;input id="thisInput" name="thisInput" type="text" aria-describedby="thisInputExample" class="dol-side-example"&gt;
+  &lt;span id="thisInputExample" class="dol-example-text"&gt;Example: 12-34567-H-890&lt;/span&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Main Form Question - Text Input with Example</summary>
+    <div>
+      <p>The &lt;input <em>aria-describedby</em>&gt; value should match the example text &lt;span <em>id</em>&gt; value.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
   <h2 class="dol-ui-pattern-title">Main Form Question - Date Fieldset with Help Text</h2>
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block">
@@ -631,6 +755,38 @@
     <div>
       <p>Use &lt;legend class="dol-form-question-text <em>no-margin</em>"&gt; for proper styling.</p> 
       <p>The form question itself is the &lt;legend&gt; of the fieldset. Each &lt;input&gt; has an associated &lt;label&gt;.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">File Upload</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="dol-form-question-block" ng-class="">
+      <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <div class="dol-file-upload-ui">
+        <div aria-hidden="true" class="usa-button-primary">Browse</div>
+        <input class="dol-file-upload-input" id="fileUploadSCA" type="file" aria-describedby="fileUploadDesc_111">
+        <div class="dol-file-upload-focus"></div>
+      </div>
+      <p class="underlabel" id="fileUploadDesc_111">File types accepted: PDF</p>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> File Upload</summary>
+<pre rel="HTML"><code>
+&lt;div class="dol-form-question-block" ng-class=""&gt;
+  &lt;label for="thisFileUpload"&gt;Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.&lt;/label&gt;
+  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;attachment-field input-id="thisFileUpload" attachment-id="" attachment-name="" /&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> File Upload</summary>
+    <div>
+      <p>The &lt;label <em>for</em>&gt; value should match the &lt;attachment-field <em>input-id</em>&gt; value.</p>    
     </div>
   </details>
 </div>

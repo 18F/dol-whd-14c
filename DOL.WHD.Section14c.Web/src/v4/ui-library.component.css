@@ -70,5 +70,11 @@ h2.dol-ui-pattern-title {
 .form-footer-controls {
   padding: 0;
 }
+.dol-help-callout {
+  max-width: 60rem;
+}
+.dol-file-upload-ui {
+  margin-top: 6px;
+}
 
 
