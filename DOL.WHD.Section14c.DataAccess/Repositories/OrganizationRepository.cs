@@ -1,6 +1,7 @@
 ﻿using DOL.WHD.Section14c.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,17 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
         public IEnumerable<OrganizationMembership> Get()
         {
             return _dbContext.OrganizationMemberships.Include("CreatedBy").AsQueryable();
+        }
+
+        public async Task<int> ModifyOrganizationMembership(OrganizationMembership organizationMembership)
+        {
+            _dbContext.Entry(organizationMembership).State = EntityState.Modified;
+            return await SaveChangesAsync();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _dbContext.SaveChangesAsync();
         }
 
         public void Dispose()
