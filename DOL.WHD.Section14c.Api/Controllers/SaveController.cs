@@ -89,7 +89,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="employerId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("{EIN}")]
+        [Route("{EIN}/{employerId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult AddSave(string EIN, string employerId)
         {
