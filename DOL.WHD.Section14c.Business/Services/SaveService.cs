@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
@@ -19,9 +20,17 @@ namespace DOL.WHD.Section14c.Business.Services
             return _repository.Get().SingleOrDefault(x => x.ApplicationId == applicationId);
         }
 
-        public void AddOrUpdate(string EIN, string applicationId, string state)
+        public void AddOrUpdate(string EIN, string applicationId, Employer employer, string state)
         {
-            var applicationSave = new ApplicationSave {EIN = EIN, ApplicationId = applicationId, ApplicationState = state};
+            var applicationSave = new ApplicationSave();
+            if (employer != null)
+            {
+                applicationSave.Employer = employer;
+            }
+            applicationSave.EIN = EIN;
+            applicationSave.ApplicationId = applicationId;               
+            applicationSave.ApplicationState = state;
+           
             _repository.AddOrUpdate(applicationSave);
         }
 

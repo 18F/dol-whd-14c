@@ -199,6 +199,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var userIdentity = ((ClaimsIdentity)User.Identity);
                 var userId = userIdentity.GetUserId();
                 var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
                 // set user organization
                 user.Organizations.Add(organizationMembership);
 

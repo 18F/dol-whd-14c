@@ -1,5 +1,6 @@
 ﻿using System;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Business
 {
@@ -7,7 +8,7 @@ namespace DOL.WHD.Section14c.Business
     {
         ApplicationSave GetSave(string applicationId);
 
-        void AddOrUpdate(string EIN, string applicationId, string state);
+        void AddOrUpdate(string EIN, string applicationId, Employer employer, string state);
 
         void Remove(string applicationId);
     }
