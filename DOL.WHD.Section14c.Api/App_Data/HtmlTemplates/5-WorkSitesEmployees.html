@@ -1,6 +1,14 @@
 ﻿<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+        
+        th, td {
+            text-align: left;
+        }
+
         td {
             page-break-inside: avoid;
         }
@@ -69,6 +77,10 @@
             font-size: 10px;
             margin-bottom: 20px;
         }
+
+        h3 + h4 {
+            margin-top: -10px;
+        }
     </style>
 </head>
 <body>
@@ -82,37 +94,26 @@
 
         <div class="table-responsive">
             <div worksites-section="true" answer="WorkSites">
-                {{#each WorkSites}}
-                <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
-                    <thead>
-                        <tr class="row_greyed">
-                            <th scope="col">Work Site Name</th>
-                            <th scope="col">Number of Workers</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="text-align:center">
-                            <td scope="row">{{ Name }}</td>
-                            <td>{{ Employees.Count }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h2>Work Site(s)</h2>
+
+                {{#each WorkSites}}               
                 <div worksites-content>
+                    <hr>
+                    <h3> Work Site Name: {{ Name }}</h3>
+                    <h4>Number of Workers: {{ Employees.Count }}</h4>
                     <div worksites-sub="true" answer="WorkSites">
-                        <p><span class="title">Work Site </span></p>
-                        <hr>
                         <div class="worksites-sub-field">
-                            <span class="subtext">What type of establishment is this?</span>
+                            <span class="subtext">What type of establishment / work site is this?</span>
                             <div class="subtextanswer">{{ WorkSiteType.Display }}</div>
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Name of Establishment / Work Site</span>
+                            <span class="subtext">Name of establishment / work Site</span>
                             <div class="subtextanswer">{{ Name }}</div>
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Address of Establishment / Work Site</span>
+                            <span class="subtext">Address of establishment / work Site</span>
                             <div class="subtextanswer">{{ formatAddress Address }}</div>
                         </div>
 
@@ -127,64 +128,53 @@
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
+                            <span class="subtext">Total number of employees who were employed at this establishment / work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
                             <div class="subtextanswer">{{ NumEmployees }}</div>
                         </div>
 
 
                     </div>
+                    
+                    <!-- Need Correct Syntax -->
+                    {{#if Employer.ApplicationType = Renewal }}
                     <div employee-sub="true" answer="WorkSites.Employee">
-                        <p><span class="title">Employee</span></p>
-                        <hr>
+                        <h4>Employee(s)</h4>
                         <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Disability</th>
-                                    <th scope="col">Work Performed</th>
+                                    <th scope="col" style="font-size:9px">Name of worker</th>
+                                    <th scope="col" style="font-size:9px">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</th>
+                                    <th scope="col" style="font-size:9px">Primary disability that affects productivity for job described above. Pick only one.</th>
+                                    <th scope="col" style="font-size:9px">How many jobs did this worker perform at this work site?</th>
+                                    <th scope="col" style="font-size:9px">Average # of hours worked per week on all jobs at this work site?</th>
+                                    <th scope="col" style="font-size:9px">Average earnings per hour for all jobs at this work site</th>
+                                    <th scope="col" style="font-size:9px">Prevailing wage rate for job described above</th>
+                                    <th scope="col" style="font-size:9px">Productivity measure/rating for job described above</th>
+                                    <th scope="col" style="font-size:9px">Commensurate wage rate/average earnings per hour for job described above</th>
+                                    <th scope="col" style="font-size:9px">Total hours worked for job described above</th>
+                                    <th scope="col" style="font-size:9px">Does worker perform work for this employer at any other work site?</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each Employees }}
                                 <tr>
-                                    <td>{{ Name }}</td>
-                                    <td>{{ PrimaryDisability.Display }}</td>
-                                    <td>{{ WorkType }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="text-align:center">
-                                        <table cellpadding="0" cellspacing="0" border="0" class="employeeSubTable">
-                                            <thead>
-                                                <tr>
-                                                    <td></td>
-                                                    <th style="font-size:11px">Number of Jobs</th>
-                                                    <th style="font-size:11px">Average Hours per Week</th>
-                                                    <th style="font-size:11px">Average Earnings per Hours</th>
-                                                    <th style="font-size:11px">Prevailing Wage Rate</th>
-                                                    <th style="font-size:11px">Productivity Measure</th>
-                                                    <th style="font-size:11px">Commensurate Wage Rate</th>
-                                                    <th style="font-size:11px">Total Hours Worked</th>
-                                                    <th style="font-size:11px">Work at Other Site?</th>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td style="font-size:11px">{{ NumJobs }}</td>
-                                                    <td style="font-size:11px">{{ AvgWeeklyHours }}</td>
-                                                    <td style="font-size:11px">{{ AvgHourlyEarnings }}</td>
-                                                    <td style="font-size:11px">{{ PrevailingWage }}</td>
-                                                    <td style="font-size:11px">{{ ProductivityMeasure }}</td>
-                                                    <td style="font-size:11px">{{ CommensurateWageRate }}</td>
-                                                    <td style="font-size:11px">{{ TotalHours }}</td>
-                                                    <td style="font-size:11px">{{ WorkAtOtherSite }}</td>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </td>
+                                    <td style="font-size:11px">{{ Name }}</td> 
+                                    <td style="font-size:11px">{{ WorkType }}</td>
+                                    <td style="font-size:11px">{{ PrimaryDisability.Display }}</td>
+                                    <td style="font-size:11px">{{ NumJobs }}</td>
+                                    <td style="font-size:11px">{{ AvgWeeklyHours }}</td>
+                                    <td style="font-size:11px">{{ AvgHourlyEarnings }}</td>
+                                    <td style="font-size:11px">{{ PrevailingWage }}</td>
+                                    <td style="font-size:11px">{{ ProductivityMeasure }}</td>
+                                    <td style="font-size:11px">{{ CommensurateWageRate }}</td>
+                                    <td style="font-size:11px">{{ TotalHours }}</td>
+                                    <td style="font-size:11px">{{ WorkAtOtherSite }}</td>
                                 </tr>
                                 {{/each}}
                             </tbody>
                         </table>
                     </div>
+                    {{/if}}
                 </div>
                 {{/each}}
             </div>

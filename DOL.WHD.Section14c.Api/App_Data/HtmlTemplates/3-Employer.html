@@ -1,6 +1,10 @@
 ﻿<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+        
         td {
             page-break-inside: avoid;
         }
@@ -98,27 +102,41 @@
         {{/if}}
 
         <p>
-            <span class="subtext">Has the Employer’s legal name changed since its last application?</span>
+            <span class="subtext">Has the Employer’s name(s) changed since its last application?</span>
             <div class="subtextanswer">{{ boolOrString Employer.LegalNameHasChanged }}</div>
         </p>
 
         {{#if Employer.LegalNameHasChanged }}
         <p>
-            <span class="subtext">Prior Legal Name of Employer</span>
+            <span class="subtext">Prior Name(s) of Employer</span>
             <div class="subtextanswer">{{ boolOrString Employer.PriorLegalName }}</div>
         </p>
         {{/if}}
+
+        <!-- TO DO: NEED EIN ADDED TO APPLICATION -->
+        <p>
+            <span class="subtext">Federal Employer Identification Number (EIN)</span>
+            <div class="subtextanswer">{{ boolOrString Employer.TODO }}</div>
+        </p>
 
         <p>
             <span class="subtext">Physical Address of Employer’s Main Establishment</span>
             <div class="subtextanswer">{{ formatAddress Employer.PhysicalAddress }}</div>
         </p>
 
+        <!-- Need checkbox value of "Mailing Address is different from Physical Address" -->
+
+        {{#if Employer.TODO }}    
+        <!-- Need Values of Mailing Address of Employer's Main Establishment -->
+        <span class="subtext">Mailing Address of Employer's Main Establishment</span>
+        {{/if}}    
+
         <p>
             <span class="subtext">Does the Employer have a Parent Organization?</span>
             <div class="subtextanswer">{{ boolOrString Employer.HasParentOrg }}</div>
         </p>
 
+        {{#if Employer.HasParentOrg }}
         <div>
             <p>
                 <span class="subtext">Parent Organization Legal Name</span>
@@ -136,10 +154,11 @@
             </p>
 
             <p>
-                <span class="subtext">Send mail to Parent Organiation address?</span>
+                <span class="subtext">Should mail be sent to Parent Organiation instead of the employer's address?</span>
                 <div class="subtextanswer">{{ boolOrString Employer.SendMailToParent }}</div>
             </p>
         </div>
+        {{/if}}   
 
         <p>
             <span class="subtext">Employer Status</span>
@@ -153,11 +172,13 @@
             <div class="subtextanswer">{{ boolOrString Employer.IsEducationalAgency }}</div>
         </p>
 
+        <!-- Need Correct Syntax -->
+        {{#if Employer.ApplicationType = Renewal }}
         <h3>Number of Workers With Disabilities</h3>
         <hr>
 
         <p>
-            <span class="subtext">When did the Employer’s most recently completed fiscal quarter end?</span>
+            <span class="subtext">When did the employer’s most recently completed fiscal quarter end?</span>
             <div class="subtextanswer">{{ boolOrString Employer.FiscalQuarterEndDate }}</div>
         </p>
 
@@ -191,6 +212,7 @@
             <span class="subtext">Business Establishment</span>
             <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.BusinessEstablishment }}</div>
         </p>
+        {{/if}}
 
         <h3>Government Contracts</h3>
         <hr>
@@ -205,6 +227,8 @@
             <div class="subtextanswer">{{ boolOrString Employer.SCA.Display }}</div>
         </p>
 
+        <!-- Check Syntax -->
+        {{#if Employer.SCA }}
         <p>
             <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
             <div class="subtextanswer">{{ boolOrString Employer.SCACount }}</div>
@@ -212,32 +236,39 @@
 
         <p>
             <span class="subtext">SCA Wage Determination Attachment</span>
-            <div class="subtextanswer">{{ formatAttachment Employer.SCAAttachment }}</div>
+            <div class="subtextanswer">File name: {{ formatAttachment Employer.SCAAttachment }}</div>
+            <p>Attachments are included at the end of the PDF.</p>
         </p>
+        {{/if}}
 
         <p>
             <span class="subtext">Since January 1, 2015, has this Employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
             <div class="subtextanswer">{{ boolOrString Employer.EO13658.Display }}</div>
         </p>
-
+        
         <h3>Additional Questions</h3>
         <hr>
 
         <p>
-            <span class="subtext">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</span>
+            <span class="subtext">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span>
             <div class="subtextanswer">{{ boolOrString Employer.RepresentativePayee }}</div>
         </p>
 
+        <!-- Check Syntax -->
+        {{#if Employer.RepresentativePayee }}
         <p>
             <span class="subtext">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</span>
             <div class="subtextanswer">{{ boolOrString Employer.TotalDisabledWorkers }}</div>
         </p>
+        {{/if}}
 
         <p>
             <span class="subtext">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</span>
             <div class="subtextanswer">{{ boolOrString Employer.TakeCreditForCosts }}</div>
         </p>
 
+        <!-- Check Syntax -->
+        {{#if Employer.TakeCreditForCosts }}
         <div>
             <p>
                 <span class="subtext">Which type of deduction(s) did the employer take?</span>
@@ -249,9 +280,10 @@
                 {{/each}}
             </ul>
         </div>
+        {{/if}}
 
         <p>
-            <span class="subtext">Is this a request for Temporary Authority?</span>
+            <span class="subtext">Is this a request for Temporary Authority by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration?</span>
             <div class="subtextanswer">{{ boolOrString Employer.TemporaryAuthority }}</div>
         </p>
     </div>
