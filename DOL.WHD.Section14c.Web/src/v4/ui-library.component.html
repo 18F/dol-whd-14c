@@ -716,7 +716,7 @@
     </div>
   </div>
   <details class="dol-ui-pattern-code-snippet">
-    <summary><span>CODE SNIPPET:</span> </summary>
+    <summary><span>CODE SNIPPET:</span> Address Fieldset</summary>
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block"&gt;
   &lt;fieldset&gt;
@@ -751,7 +751,7 @@
 </code></pre>
   </details>
   <details class="dol-ui-pattern-notes">
-    <summary><span>NOTES:</span> </summary>
+    <summary><span>NOTES:</span> Address Fieldset</summary>
     <div>
       <p>Use &lt;legend class="dol-form-question-text <em>no-margin</em>"&gt; for proper styling.</p> 
       <p>The form question itself is the &lt;legend&gt; of the fieldset. Each &lt;input&gt; has an associated &lt;label&gt;.</p>    
@@ -787,6 +787,82 @@
     <summary><span>NOTES:</span> File Upload</summary>
     <div>
       <p>The &lt;label <em>for</em>&gt; value should match the &lt;attachment-field <em>input-id</em>&gt; value.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Tabs</h2>
+  <div class="dol-ui-pattern-rendered">
+    <p>Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>    
+    <div id="worksite_tab_box" class="form-tabbed-section">
+      <a href="" class="form-tab active" ng-click="" aria-selected="true" ng-keyup="">
+        <div class="circle">1</div> <span>Add</span> Work Site
+      </a>
+      <a href="" class="form-tab " ng-click="" aria-selected="false" ng-keyup="">
+        <div class="circle">2</div> <span>Add</span> Employees
+      </a>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Tabs</summary>
+<pre rel="HTML"><code>
+&lt;div id="" class="form-tabbed-section" ng-show=""&gt;
+  &lt;a href class="form-tab active" ng-click="" aria-selected="true" ng-keyup=""&gt;
+    &lt;div class="circle"&gt;1&lt;/div&gt; Tab 1 Name
+  &lt;/a&gt;
+  &lt;a href class="form-tab" ng-click="" aria-selected="false" ng-keyup=""&gt;
+    &lt;div class="circle"&gt;2&lt;/div&gt; Tab 2 Name
+  &lt;/a&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Tabs</summary>
+    <div>
+      <p>Angular code is required for the tabs to function. Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>    
+    </div>
+  </details>
+</div>
+
+<div class="dol-ui-pattern">
+  <h2 class="dol-ui-pattern-title">Review and Submit</h2>
+  <div class="dol-ui-pattern-rendered">
+    <div class="section-results">
+      <h3>Assurances</h3>
+      <div class="reviewbar" errorstate=""><div class="reviewbar-container"><div class="reviewbar-bar"></div><div class="reviewbar-circle"></div><span class="reviewbar-text ng-binding">Looks good!</span></div></div>
+      <div class="">
+        <a href="">Review Assurances</a>
+      </div>
+      <button class="ng-hide">Edit Responses<span class="hide"> for Assurances</span></button>
+      <hr>
+      <div class="section-results">
+        <h3>Application Info</h3>
+        <div class="reviewbar error" errorstate="true"><div class="reviewbar-container"><div class="reviewbar-bar"></div><div class="reviewbar-circle"></div><span class="reviewbar-text ng-binding">Needs Review</span></div></div>
+        <div class="ng-hide">
+          <a href="" ng-click="navService.gotoSection('app-info')">Review Application Info</a>
+        </div>
+        <button class="">Edit Responses<span class="hide"> for Application Info</span></button>
+      </div>
+    </div>
+  </div>
+  <details class="dol-ui-pattern-code-snippet">
+    <summary><span>CODE SNIPPET:</span> Review and Submit</summary>
+<pre rel="HTML"><code>
+&lt;div class="section-results"&gt;
+  &lt;h3&gt;Assurances&lt;/h3&gt;
+  &lt;reviewbar errorstate=""&gt;&lt;/reviewbar&gt;
+  &lt;div ng-hide=""&gt;
+    &lt;a href="" ng-click=""&gt;Review Assurances&lt;/a&gt;
+  &lt;/div&gt;
+  &lt;button ng-click="" ng-show=""&gt;Edit Responses&lt;span class="hide"&gt; for Assurances&lt;/span&gt;&lt;/button&gt;
+&lt;/div&gt;
+</code></pre>
+  </details>
+  <details class="dol-ui-pattern-notes">
+    <summary><span>NOTES:</span> Review and Submit</summary>
+    <div>
+      <p>Each "Edit Responses" button includes additional identifying text for screen readers only.</p>    
     </div>
   </details>
 </div>
