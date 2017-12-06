@@ -24,7 +24,8 @@ namespace DOL.WHD.Section14c.Domain.Models
         [Required]
         [DataMember]
         public virtual Employer Employer { get; set; }
-        
+
+        [DataMember]
         public string ApplicationId { get; set; }
 
         [Required]

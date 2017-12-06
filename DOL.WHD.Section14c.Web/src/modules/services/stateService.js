@@ -52,6 +52,15 @@ module.exports = function(ngModule) {
       }
     });
 
+    Object.defineProperty(this, 'applicationId', {
+      get: function() {
+        return state.activeApplicationId;
+      },
+      set: function(value) {
+        state.activeApplicationId = value;
+      }
+    });
+
     Object.defineProperty(this, 'loggedIn', {
       get: function() {
         return state.loggedIn;
@@ -160,7 +169,7 @@ module.exports = function(ngModule) {
       const d = $q.defer();
 
       // Get Application State for Organization
-      apiService.saveApplication(self.access_token, self.ein, self.employerId, self.formData).then(
+      apiService.saveApplication(self.access_token, self.ein, self.employerId, self.applicationId, self.formData).then(
         function(result) {
           // const data = result.data;
           // self.setFormData(JSON.parse(data));
@@ -181,6 +190,7 @@ module.exports = function(ngModule) {
         app_list: [],
         activeEIN: undefined,
         activeEmployerId: undefined,
+        activeApplicationId: undefined,
         user: {
           email: '',
           claims: []
