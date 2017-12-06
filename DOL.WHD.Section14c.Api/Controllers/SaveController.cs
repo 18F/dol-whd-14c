@@ -8,6 +8,9 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Linq;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -22,6 +25,18 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IIdentityService _identityService;
         private readonly IOrganizationService _organizationService;
         private readonly IEmployerService _employerService;
+        private ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
         /// <summary>
         /// Constructor to inject services
@@ -48,6 +63,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult GetSave(string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
             var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
@@ -78,6 +94,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult AddSave(string EIN, string employerId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
             var hasPermission = _identityService.HasAddPermission(userInfo, employerId);
@@ -95,8 +112,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
+            var applicationId = Guid.NewGuid().ToString();
+            _saveService.AddOrUpdate(EIN, applicationId, state);
 
-            _saveService.AddOrUpdate(EIN, null, state);
+            // Set Application Id for organization 
+            var organization = userInfo.Organizations.SingleOrDefault(x => x.Employer.Id == employerId && string.IsNullOrEmpty( x.ApplicationId));
+            if (organization != null)
+            {
+                organization.ApplicationId = applicationId;
+                _organizationService.UpdateOrganizationMembership(organization);
+            }
+
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
         }
 
@@ -112,6 +138,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult UpdateSave(string applicationId, string EIN)
         {
             AccountController account = new AccountController( _employerService, _organizationService);
+            account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
             var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
@@ -145,6 +172,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public IHttpActionResult DeleteSave(string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
             var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);

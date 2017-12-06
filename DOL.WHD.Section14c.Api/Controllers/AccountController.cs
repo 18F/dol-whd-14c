@@ -45,6 +45,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+            set { _userManager = value;  }
         }
 
         /// <summary>

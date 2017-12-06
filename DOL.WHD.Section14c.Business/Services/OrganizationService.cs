@@ -40,6 +40,11 @@ namespace DOL.WHD.Section14c.Business.Services
             return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsAdmin == true);
         }
 
+        public async Task<int> UpdateOrganizationMembership(OrganizationMembership organizationMembership)
+        {
+            return await _organizationRepository.ModifyOrganizationMembership(organizationMembership);
+        }
+
         ///// <summary>
         ///// Get Organization Membership By User
         ///// </summary>
