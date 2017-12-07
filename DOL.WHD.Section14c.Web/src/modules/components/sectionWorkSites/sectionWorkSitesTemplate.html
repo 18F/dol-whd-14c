@@ -226,72 +226,25 @@
         </div>
       </dl>
     </div>
-
-    <div class="dol-form-question-group">
-      <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
-        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
-        <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
-        <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
-        <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
-          <results-table results="vm.activeWorksite.employees" definitions="vm.employeeColumnDefs" columns="vm.employeeColumns"></results-table>
-        </div>
+    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
+    <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
+    <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
+  </div>
+  <div class="dol-form-question-group">
+    <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
+      <div ng-show="vm.activeWorksite.employees.length > 0" class="container dol-employees-data-container">
+        <results-table id="Employee" results="vm.activeWorksite.employees" definitions="vm.employeeColumnDefs" columns="vm.employeeColumns"></results-table>
       </div>
     </div>
   </div>
   <div class="dol-form-question-group">
     <div class="container dol-employees-data-container">
       <div ng-show="!vm.addingWorkSite && formData.workSites.length" >
-        <results-table results="formData.workSites" definitions="vm.workSiteColumnDefs" columns="vm.workSiteColumns"></results-table>
+        <results-table id="WorkSite" results="formData.workSites" definitions="vm.workSiteColumnDefs" columns="vm.workSiteColumns"></results-table>
       </div>
     </div>
   </div>
-  <!-- <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
-    <span class="usa-input-error-message" role="alert" ng-show="validate('workSites_count')">{{ validate('workSites_count') }}</span>
-    <table class="usa-table-borderless expandable-table">
-      <thead>
-        <tr>
-          <td></td>
-          <th scope="col">Work Site Name</th>
-          <th scope="col">Number of Workers</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="expanding-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-start="site in formData.workSites">
-          <td>
-            <a id="worksite_row_toggle_{{$index}}" href="" ng-click="vm.siteRowClicked($event)">
-              <div class="arrow-expander"></div>
-            </a>
-          </td>
-          <th scope="row">
-            <div ng-class="validate('workSites[' + $index + ']') ? 'usa-input-error' : ''">
-              <span class="usa-input-error-message" role="alert" ng-show="validate('workSites[' + $index + ']')">Please review this work site</span>
-              {{ site.name }}
-            </div>
-          </th>
-          <td>{{ site.numEmployees }}</td>
-          <td>
-            <button class="green-button" ng-click="vm.editWorkSite($index)">Edit</button>
-            <button class="usa-button-secondary" ng-click="vm.deleteWorkSite($index)">Delete</button>
-          </td>
-        </tr>
-        <tr class="expanded-row {{ $index % 2 !== 0 ? 'greyed' : ''}}" ng-repeat-end>
-          <td></td>
-          <td colspan="3">
-            <div ng-repeat="employee in site.employees">
-              {{ employee.name }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div> -->
-  <!-- <div class="dol-form-question-group">
-    <div ng-class="validate('workSites_count') ? 'usa-input-error' : ''" ng-show="!vm.addingWorkSite && formData.workSites.length">
-      <results-table results="formData.workSites" definitions="vm.workSiteColumnDefs" columns="vm.workSiteColumns"></results-table>
-    </div>
-  </div> -->
-  <div class="cd-panel from-right" id="addEmployeesSlidePanel">
+  <div class="cd-panel from-right employee" id="addEmployeesSlidePanel">
     <div class="cd-panel-container">
       <div class="cd-panel-content">
         <header class="cd-panel-header">

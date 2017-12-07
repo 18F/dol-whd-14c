@@ -9,7 +9,8 @@ import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
 module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
-    $scope
+    $scope,
+    $attrs
   ) {
 
     'ngInject';
@@ -17,10 +18,9 @@ module.exports = function(ngModule) {
 
     $scope.vm = this;
     $scope.data = $scope.results;
-
-    this.initDatatable = function () {
-      let exampleId = $('#example');
-      $scope.tableWidget = exampleId.DataTable({
+    this.initDatatable = function (id) {
+      let dt = $("#" + id).children("table");
+      $scope.tableWidget = dt.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
         responsive: {
@@ -42,7 +42,7 @@ module.exports = function(ngModule) {
       $.fn.dataTable.ext.errMode = 'none';
     }
 
-    this.refreshTable = function (data, columns) {
+    this.refreshTable = function (data, columns, id) {
       columns = columns.map(function(element) {
         return element.model
       });
@@ -57,7 +57,7 @@ module.exports = function(ngModule) {
                 arr[index] = element[property];
               }
               if(property === "address" && index>=0) {
-                arr[index] = element[property]["streetAddress"] + element[property]["city"];
+                arr[index] = element[property]["streetAddress"] + " " + element[property]["city"] + ", " + element[property]["state"];
               }
               else if (property === "primaryDisabilityText") {
                 index = columns.indexOf("primaryDisabilityId");
@@ -72,23 +72,25 @@ module.exports = function(ngModule) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null
         }
-       setTimeout(() => this.initDatatable(),0)
+       setTimeout(() => this.initDatatable(id),0)
       }
     }
 
     //this.initDatatable();
     //this.refreshTable(null, $scope.columns);
 
-    $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
+    $('#' + $attrs.id).children("table").on('click', 'td.edit-table-entry', function ($event) {
+        $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm.editEmployee(row[0][0], $event);
+        $scope.$parent.vm["edit" + $attrs.id](row[0][0], $event);
     } );
 
-    $('#example tbody').on('click', 'td.delete-table-entry', function ($event) {
+    $('#' + $attrs.id).children("table").on('click', 'td.delete-table-entry', function ($event) {
+        $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm.deleteEmployee(row[0][0], $event);
+        $scope.$parent.vm["delete" + $attrs.id](row[0][0], $event);
     } );
   });
 };

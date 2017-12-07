@@ -99,13 +99,13 @@ module.exports = function(ngModule) {
     };
 
     this.editEmployee = function(index, $event) {
+      vm.addingEmployee = true;
       vm.clearSaveStatus();
       $event.preventDefault();
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
-        $('.cd-panel').addClass('is-visible');
-        vm.addingEmployee = true;
+        $('.employee').addClass('is-visible');
       }
     };
 
@@ -312,6 +312,7 @@ module.exports = function(ngModule) {
         panelTrigger.focus();
       }
     }
+
     $(document).keydown(function(event) {
         // escape key
         if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
