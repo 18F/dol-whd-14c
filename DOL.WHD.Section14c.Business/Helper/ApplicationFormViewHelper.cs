@@ -69,6 +69,18 @@ namespace DOL.WHD.Section14c.Business.Helper
                 }
             });
 
+            Handlebars.RegisterHelper("if_eq", (writer, options, context, parameters) =>
+            {
+                if (parameters[0].ToString() == parameters[1].ToString())
+                {
+                    options.Template(writer, (object)context);
+                }
+                else
+                {
+                    options.Inverse(writer, (object)context);
+                }
+            });
+
             var template = Handlebars.Compile(handlebarsTemplate);
             return template(application);
         }

@@ -1,87 +1,96 @@
 ﻿<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
-        hr {
-            border-style: solid;
-        }
-        
-        th, td {
-            text-align: left;
-        }
+	hr {
+		border-style: solid;
+	}
 
-        td {
-            page-break-inside: avoid;
-        }
+	th, td {
+		text-align: left;
+	}
 
-        span {
-            page-break-inside: avoid;
-        }
+	td {
+		page-break-inside: avoid;
+	}
 
-        div.subtextanswer {
-            page-break-inside: avoid;
-        }
+	span {
+		page-break-inside: avoid;
+	}
 
-        span.subtext {
-            font-weight: bold
-        }
+	h3 {
+		page-break-inside: avoid;
+		margin-top: -10px;
+	}
 
-        span.title {
-            font-weight: bold;
-            margin-top: 40px;
-        }
+	h4 {
+		page-break-inside: avoid;
+		margin-top: -10px;
+	}
+	div.subtextanswer {
+		page-break-inside: avoid;
+	}
 
-        span.subtextanswer {
-            font-weight: normal;
-            margin-bottom: 10px;
-        }
+	span.subtext {
+		font-weight: bold
+	}
 
-        .row_greyed {
-            background-color: #9F9F9F;
-        }
+	span.title {
+		font-weight: bold;
+		margin-top: 40px;
+	}
 
-        table .subtable {
-            display: table;
-            width: 100%;
-            font-size: 14px;
-        }
+	span.subtextanswer {
+		font-weight: normal;
+		margin-bottom: 10px;
+	}
 
-            table .subtable > div {
-                display: table-cell;
-                padding: 10px 5px;
-                font-weight: 700;
-            }
+	.row_greyed {
+		background-color: #9F9F9F;
+	}
 
-                table .subtable > div:not(:last-of-type) {
-                    border-right: 1px solid #212121;
-                }
+	table .subtable {
+		display: table;
+		width: 100%;
+		font-size: 14px;
+	}
 
-                table .subtable > div > div {
-                    margin-top: 4px;
-                    font-weight: 400;
-                }
+		table .subtable > div {
+			display: table-cell;
+			padding: 10px 5px;
+			font-weight: 700;
+		}
 
-        th .subtext {
-            font-size: 11px;
-        }
+			table .subtable > div:not(:last-of-type) {
+				border-right: 1px solid #212121;
+			}
 
-        .employeeSubTable {
-            width: 100%;
-            border-bottom: 1px;
-            border-top: 1px;
-            border-bottom-style: solid;
-            border-bottom-style: solid;
-            margin-top: 20px;
-        }
+			table .subtable > div > div {
+				margin-top: 4px;
+				font-weight: 400;
+			}
 
-        div.accessibility-text {
-            font-size: 10px;
-            margin-bottom: 20px;
-        }
+	th .subtext {
+		font-size: 11px;
+	}
 
-        h3 + h4 {
-            margin-top: -10px;
-        }
-    </style>
+	.employeeSubTable {
+		width: 100%;
+		border-bottom: 1px;
+		border-top: 1px;
+		border-bottom-style: solid;
+		border-bottom-style: solid;
+		margin-top: 20px;
+	}
+
+	div.accessibility-text {
+		font-size: 10px;
+		margin-bottom: 20px;
+	}
+
+	h3 + h4 {
+		margin-top: -10px;
+	}
+	</style>
 </head>
 <body>
     <div class="admin-page">
@@ -93,11 +102,11 @@
         </p>
 
         <div class="table-responsive">
-            <div worksites-section="true" answer="WorkSites">
+            <div>
                 <h2>Work Site(s)</h2>
 
                 {{#each WorkSites}}               
-                <div worksites-content>
+                <div>
                     <hr>
                     <h3> Work Site Name: {{ Name }}</h3>
                     <h4>Number of Workers: {{ Employees.Count }}</h4>
@@ -131,12 +140,9 @@
                             <span class="subtext">Total number of employees who were employed at this establishment / work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
                             <div class="subtextanswer">{{ NumEmployees }}</div>
                         </div>
-
-
                     </div>
                     
-                    <!-- Need Correct Syntax -->
-                    {{#if Employer.ApplicationType = Renewal }}
+                   {{#if_eq ../ApplicationType.Display 'Renewal Application' }}
                     <div employee-sub="true" answer="WorkSites.Employee">
                         <h4>Employee(s)</h4>
                         <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
@@ -174,7 +180,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{/if}}
+                    {{/if_eq}}
                 </div>
                 {{/each}}
             </div>

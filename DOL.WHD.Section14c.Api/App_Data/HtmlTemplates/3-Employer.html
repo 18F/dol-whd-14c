@@ -116,7 +116,7 @@
         <!-- TO DO: NEED EIN ADDED TO APPLICATION -->
         <p>
             <span class="subtext">Federal Employer Identification Number (EIN)</span>
-            <div class="subtextanswer">{{ boolOrString Employer.TODO }}</div>
+            <div class="subtextanswer">{{ boolOrString EIN }}</div>
         </p>
 
         <p>
@@ -124,11 +124,13 @@
             <div class="subtextanswer">{{ formatAddress Employer.PhysicalAddress }}</div>
         </p>
 
-        <!-- Need checkbox value of "Mailing Address is different from Physical Address" -->
-
-        {{#if Employer.TODO }}    
-        <!-- Need Values of Mailing Address of Employer's Main Establishment -->
+        <p>
+            <span class="subtext">Mailing Address is different from Physical Address</span>
+            <div class="subtextanswer">{{ boolOrString Employer.HasMailingAddress }}</div>
+        </p>
+        {{#if Employer.HasMailingAddress }}    
         <span class="subtext">Mailing Address of Employer's Main Establishment</span>
+        <div class="subtextanswer">{{ formatAddress Employer.MailingAddress }}</div>
         {{/if}}    
 
         <p>
@@ -171,9 +173,8 @@
             <span class="subtext">Is this employer a local or State educational agency?</span>
             <div class="subtextanswer">{{ boolOrString Employer.IsEducationalAgency }}</div>
         </p>
-
-        <!-- Need Correct Syntax -->
-        {{#if Employer.ApplicationType = Renewal }}
+        
+        {{#if_eq ApplicationType.Display 'Renewal Application' }}
         <h3>Number of Workers With Disabilities</h3>
         <hr>
 
@@ -212,7 +213,7 @@
             <span class="subtext">Business Establishment</span>
             <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.BusinessEstablishment }}</div>
         </p>
-        {{/if}}
+        {{/if_eq}}
 
         <h3>Government Contracts</h3>
         <hr>
@@ -227,7 +228,6 @@
             <div class="subtextanswer">{{ boolOrString Employer.SCA.Display }}</div>
         </p>
 
-        <!-- Check Syntax -->
         {{#if Employer.SCA }}
         <p>
             <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
@@ -254,7 +254,6 @@
             <div class="subtextanswer">{{ boolOrString Employer.RepresentativePayee }}</div>
         </p>
 
-        <!-- Check Syntax -->
         {{#if Employer.RepresentativePayee }}
         <p>
             <span class="subtext">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</span>
@@ -267,7 +266,6 @@
             <div class="subtextanswer">{{ boolOrString Employer.TakeCreditForCosts }}</div>
         </p>
 
-        <!-- Check Syntax -->
         {{#if Employer.TakeCreditForCosts }}
         <div>
             <p>
@@ -276,7 +274,7 @@
 
             <ul class="usa-unstyled-list">
                 {{#each Employer.ProvidingFacilitiesDeductionType}}
-                <li>{{ this.EstablishmentType.Display }}</li>
+                <li>{{ this.ProvidingFacilitiesDeductionType.Display }}</li>
                 {{/each}}
             </ul>
         </div>
