@@ -72,7 +72,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     BadRequest("Model state is not valid");
                 }
-
                 // Add User
                 var now = DateTime.UtcNow;
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
