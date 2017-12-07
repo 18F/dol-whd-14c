@@ -1,4 +1,5 @@
-﻿<html class="ng-scope" lang="en">
+﻿{{#if_eq ApplicationType.Display 'Renewal Application' }}
+<html class="ng-scope" lang="en">
 <head>
     <style type="text/css">
         hr {
@@ -84,7 +85,6 @@
     </style>
 </head>
 <body>
-    {{#if_eq ApplicationType.Display 'Renewal Application' }}
     <div class="admin-page">
         <div class="dol-form-section-title">
             <h2>Wage Data</h2>
@@ -281,7 +281,7 @@
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
         </div>
-    </div>
-    {{/if_eq}}
+    </div>   
 </body>
 </html>
+{{/if_eq}}

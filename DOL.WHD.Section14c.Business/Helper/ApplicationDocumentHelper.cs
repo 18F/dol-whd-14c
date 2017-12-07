@@ -4,6 +4,7 @@ using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace DOL.WHD.Section14c.Business.Helper
 {
@@ -54,7 +55,12 @@ namespace DOL.WHD.Section14c.Business.Helper
                 // Get Application Template
                 var templatString = File.ReadAllText(path);
                 var htmlString = _attachmentService.GetApplicationFormViewContent(application, templatString);
-                htmlTemplates.Add(htmlString);
+                //exclude \r\n from html string
+                string validation = "^(?:[\r\n])*$";
+                if (!Regex.IsMatch(htmlString, validation))
+                {
+                    htmlTemplates.Add(htmlString);
+                }                
             }
 
             // Prepare attachemnt for PDF generation
