@@ -1,6 +1,7 @@
 ﻿using DOL.WHD.Section14c.Domain.Models.Submission;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace DOL.WHD.Section14c.Domain.Models
@@ -21,6 +22,10 @@ namespace DOL.WHD.Section14c.Domain.Models
         [DataMember]
         public string EIN { get; set; }
 
+        [DataMember]
+        public string Employer_Id { get; set; }
+
+        [ForeignKey("Employer_Id")]
         [Required]
         [DataMember]
         public virtual Employer Employer { get; set; }
