@@ -10,11 +10,10 @@ module.exports = function(ngModule) {
         "columns": "=columns",
         "definitions": "=definitions"
       },
-      link: function(scope) {
-        scope.vm.initDatatable();
-        console.log(scope.results, scope.columns, scope.definitions);
+      link: function(scope, element, attrs) {
+        scope.vm.initDatatable(attrs.id);
         scope.$watch('results', function(newValue) {
-          scope.vm.refreshTable(newValue, scope.columns);
+          scope.vm.refreshTable(newValue, scope.columns, attrs.id);
         }, true);
       },
       controllerAs: 'vm'
