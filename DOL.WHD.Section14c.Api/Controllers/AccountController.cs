@@ -66,41 +66,48 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                BadRequest("Model state is not valid");
+                if (!ModelState.IsValid)
+                {
+                    BadRequest("Model state is not valid");
+                }
+
+                // Add User
+                var now = DateTime.UtcNow;
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
+                user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
+
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                // Add to application role
+                result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+
+                // Send Verification Email
+                var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                var queryString = HttpUtility.ParseQueryString(string.Empty);
+                queryString["userId"] = user.Id;
+                queryString["code"] = nounce;
+
+                //TODO: Support Urls with existing querystring
+                var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
+
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
             }
-
-            // Add User
-            var now = DateTime.UtcNow;
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
-            user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
-
-            IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
+            catch (Exception e)
             {
-                return GetErrorResult(result);
+                // Log Error message to database
+                BadRequest(e.Message);
             }
-
-            // Add to application role
-            result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            // Send Verification Email
-            var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-
-            var queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["userId"] = user.Id;
-            queryString["code"] = nounce;
-
-            //TODO: Support Urls with existing querystring
-            var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
-
-            await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
-
             return Ok();
         }
 
@@ -136,27 +143,35 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("ResetPassword")]
         public async Task<IHttpActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var user = await UserManager.FindByNameAsync(model.Email);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return Ok();
+                }
+
+                var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+
+                var queryString = HttpUtility.ParseQueryString(string.Empty);
+                queryString["userId"] = user.Id;
+                queryString["code"] = code;
+
+                //TODO: Support Urls with existing querystring
+                var callbackUrl = $@"{model.PasswordResetUrl}?{queryString}";
+
+                await UserManager.SendEmailAsync(user.Id, "Reset Password", "Password Reset Link: " + callbackUrl);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            catch (Exception e)
             {
-                // Don't reveal that the user does not exist
-                return Ok();
+                // Log Error message to database
+                BadRequest(e.Message);
             }
-
-            var code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-
-            var queryString = HttpUtility.ParseQueryString(string.Empty);
-            queryString["userId"] = user.Id;
-            queryString["code"] = code;
-
-            //TODO: Support Urls with existing querystring
-            var callbackUrl = $@"{model.PasswordResetUrl}?{queryString}";
-
-            await UserManager.SendEmailAsync(user.Id, "Reset Password", "Password Reset Link: " + callbackUrl);
             return Ok();
 
         }

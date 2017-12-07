@@ -106,9 +106,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="zxcvbn-core, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\zxcvbn-core.1.1.10\lib\net451\zxcvbn-core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="zxcvbn-core, Version=1.1.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zxcvbn-core.1.1.17\lib\net451\zxcvbn-core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +303,7 @@
     <Compile Include="Validators\Section14cUserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
