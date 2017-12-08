@@ -1,5 +1,5 @@
 describe('resultsTableController', function() {
-var resultsTableController, scope
+var resultsTableController, scope, attrs
   beforeEach(module('14c'));
 
   beforeEach(

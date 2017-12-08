@@ -85,14 +85,14 @@ module.exports = function(ngModule) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm["edit" + $attrs.id](row[0][0], $event);
+        $scope.edit()(row[0][0], $event);
     } );
 
     $('#' + $attrs.id).children("table").on('click', 'td.delete-table-entry', function ($event) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm["delete" + $attrs.id](row[0][0], $event);
+        $scope.delete()(row[0][0], $event);
     } );
   });
 };

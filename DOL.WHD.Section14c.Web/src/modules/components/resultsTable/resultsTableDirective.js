@@ -8,7 +8,9 @@ module.exports = function(ngModule) {
       scope: {
         "results": "=results",
         "columns": "=columns",
-        "definitions": "=definitions"
+        "definitions": "=definitions",
+        "edit": "&edit",
+        "delete": "&delete"
       },
       link: function(scope, element, attrs) {
         scope.vm.initDatatable(attrs.id);
