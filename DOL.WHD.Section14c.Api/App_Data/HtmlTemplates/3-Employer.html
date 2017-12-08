@@ -4,6 +4,16 @@
         hr {
             border-style: solid;
         }
+
+        table {
+            border-collapse: collapse;
+            border: 0;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 3px;
+        }
         
         td {
             page-break-inside: avoid;
@@ -236,7 +246,7 @@
 
         <p>
             <span class="subtext">SCA Wage Determination Attachment</span>
-            <div class="subtextanswer">File name: {{ formatAttachment Employer.SCAAttachment }}</div>
+            <div class="subtextanswer">File name(s): {{ formatAttachment Employer.SCAAttachment }}</div>
             <p>Attachments are included at the end of the PDF.</p>
         </p>
         {{/if}}

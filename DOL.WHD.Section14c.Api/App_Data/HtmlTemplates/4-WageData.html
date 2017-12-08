@@ -5,9 +5,15 @@
         hr {
             border-style: solid;
         }
+
+        table {
+            border-collapse: collapse;
+            border: 0;
+        }
         
         th, td {
             text-align: left;
+            padding: 3px;
         }
 
         td {
@@ -169,7 +175,7 @@
             {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File name: {{ formatAttachment HourlyWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.ScaWageDeterminationAttachment }}</div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}
@@ -182,7 +188,7 @@
 
             <p>
                 <span class="subtext">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</span>
-                <div class="subtextanswer">File name: {{ formatAttachment HourlyWageInfo.Attachment }}</div>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.Attachment }}</div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
         </div>
@@ -255,7 +261,7 @@
             {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}
@@ -282,7 +288,7 @@
             
             <p>
                 <span class="subtext">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</span>
-                <div class="subtextanswer">File name: {{ formatAttachment PieceRateWageInfo.Attachment }}</div>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.Attachment }}</div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
         </div>

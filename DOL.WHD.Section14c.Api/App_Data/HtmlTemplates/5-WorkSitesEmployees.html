@@ -5,8 +5,20 @@
 		border-style: solid;
 	}
 
+    hr.faux-page-break {
+        border-style: dashed;
+        border-width: 2px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        border: 0;
+    }
+
 	th, td {
 		text-align: left;
+        padding: 3px;
 	}
 
 	td {
@@ -30,17 +42,19 @@
 		page-break-inside: avoid;
 	}
 
-	span.subtext {
-		font-weight: bold
-	}
-
-	span.title {
+    span.title {
 		font-weight: bold;
 		margin-top: 40px;
 	}
 
-	span.subtextanswer {
+	.subtext {
+		font-weight: bold;
+        margin-bottom: 5px;
+	}
+
+	.subtextanswer {
 		font-weight: normal;
+        margin-top: 0;
 		margin-bottom: 10px;
 	}
 
@@ -90,6 +104,10 @@
 	h3 + h4 {
 		margin-top: -10px;
 	}
+
+    .work-site-break + .work-site-break {
+        margin-top: 60px;
+    }
 	</style>
 </head>
 <body>
@@ -106,39 +124,118 @@
                 <h3>Work Site(s)</h3>
 
                 {{#each WorkSites}}               
-                <div>
-                    <hr>
+                <div class="work-site-break">
+                    <hr class="faux-page-break"> 
                     <h3> Work Site Name: {{ Name }}</h3>
                     <h4>Number of Workers: {{ Employees.Count }}</h4>
                     <div worksites-sub="true" answer="WorkSites">
                         <div class="worksites-sub-field">
-                            <span class="subtext">What type of establishment / work site is this?</span>
-                            <div class="subtextanswer">{{ WorkSiteType.Display }}</div>
+                            <p class="subtext">What type of establishment / work site is this?</p>
+                            <p class="subtextanswer">{{ WorkSiteType.Display }}</p>
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Name of establishment / work Site</span>
-                            <div class="subtextanswer">{{ Name }}</div>
+                            <p class="subtext">Name of establishment / work Site</p>
+                            <p class="subtextanswer">{{ Name }}</p>
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Address of establishment / work Site</span>
-                            <div class="subtextanswer">{{ formatAddress Address }}</div>
+                            <p class="subtext">Address of establishment / work Site</p>
+                            <p class="subtextanswer">{{ formatAddress Address }}</p>
                         </div>
 
                         <worksites-sub-sub-field answer="SCA">
-                            <span class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</span>
-                            <div class="subtextanswer">{{ boolOrString SCA }}</div>
+                            <p class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</p>
+                            <p class="subtextanswer">{{ boolOrString SCA }}</p>
                         </worksites-sub-sub-field>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-                            <div class="subtextanswer">{{ boolOrString FederalContractWorkPerformed }}</div>
+                            <p class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</p>
+                            <p class="subtextanswer">{{ boolOrString FederalContractWorkPerformed }}</p>
                         </div>
 
                         <div class="worksites-sub-field">
-                            <span class="subtext">Total number of employees who were employed at this establishment / work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
-                            <div class="subtextanswer">{{ NumEmployees }}</div>
+                            <p class="subtext">Total number of employees who were employed at this establishment / work site at any time during the most recently completed fiscal quarter and received subminimum wages:</p>
+                            <p class="subtextanswer">{{ NumEmployees }}</p>
+                        </div>
+                    </div>
+                    
+                   {{#if_eq ../ApplicationType.Display 'Renewal Application' }}
+                    <div employee-sub="true" answer="WorkSites.Employee">
+                        <h4>Employee(s)</h4>
+                        <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="font-size:9px">Name of worker</th>
+                                    <th scope="col" style="font-size:9px">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</th>
+                                    <th scope="col" style="font-size:9px">Primary disability that affects productivity for job described above. Pick only one.</th>
+                                    <th scope="col" style="font-size:9px">How many jobs did this worker perform at this work site?</th>
+                                    <th scope="col" style="font-size:9px">Average # of hours worked per week on all jobs at this work site?</th>
+                                    <th scope="col" style="font-size:9px">Average earnings per hour for all jobs at this work site</th>
+                                    <th scope="col" style="font-size:9px">Prevailing wage rate for job described above</th>
+                                    <th scope="col" style="font-size:9px">Productivity measure/rating for job described above</th>
+                                    <th scope="col" style="font-size:9px">Commensurate wage rate/average earnings per hour for job described above</th>
+                                    <th scope="col" style="font-size:9px">Total hours worked for job described above</th>
+                                    <th scope="col" style="font-size:9px">Does worker perform work for this employer at any other work site?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each Employees }}
+                                <tr>
+                                    <td style="font-size:11px">{{ Name }}</td> 
+                                    <td style="font-size:11px">{{ WorkType }}</td>
+                                    <td style="font-size:11px">{{ PrimaryDisability.Display }}</td>
+                                    <td style="font-size:11px">{{ NumJobs }}</td>
+                                    <td style="font-size:11px">{{ AvgWeeklyHours }}</td>
+                                    <td style="font-size:11px">{{ AvgHourlyEarnings }}</td>
+                                    <td style="font-size:11px">{{ PrevailingWage }}</td>
+                                    <td style="font-size:11px">{{ ProductivityMeasure }}</td>
+                                    <td style="font-size:11px">{{ CommensurateWageRate }}</td>
+                                    <td style="font-size:11px">{{ TotalHours }}</td>
+                                    <td style="font-size:11px">{{ WorkAtOtherSite }}</td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    {{/if_eq}}
+                </div>
+                {{/each}}
+
+                {{#each WorkSites}}               
+                <div class="work-site-break">
+                    <hr class="faux-page-break"> 
+                    <h3> Work Site Name: {{ Name }}</h3>
+                    <h4>Number of Workers: {{ Employees.Count }}</h4>
+                    <div worksites-sub="true" answer="WorkSites">
+                        <div class="worksites-sub-field">
+                            <p class="subtext">What type of establishment / work site is this?</p>
+                            <p class="subtextanswer">{{ WorkSiteType.Display }}</p>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <p class="subtext">Name of establishment / work Site</p>
+                            <p class="subtextanswer">{{ Name }}</p>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <p class="subtext">Address of establishment / work Site</p>
+                            <p class="subtextanswer">{{ formatAddress Address }}</p>
+                        </div>
+
+                        <worksites-sub-sub-field answer="SCA">
+                            <p class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</p>
+                            <p class="subtextanswer">{{ boolOrString SCA }}</p>
+                        </worksites-sub-sub-field>
+
+                        <div class="worksites-sub-field">
+                            <p class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</p>
+                            <p class="subtextanswer">{{ boolOrString FederalContractWorkPerformed }}</p>
+                        </div>
+
+                        <div class="worksites-sub-field">
+                            <p class="subtext">Total number of employees who were employed at this establishment / work site at any time during the most recently completed fiscal quarter and received subminimum wages:</p>
+                            <p class="subtextanswer">{{ NumEmployees }}</p>
                         </div>
                     </div>
                     
