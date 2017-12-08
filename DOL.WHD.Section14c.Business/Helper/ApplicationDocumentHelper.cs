@@ -134,12 +134,15 @@ namespace DOL.WHD.Section14c.Business.Helper
         private List<Employee> LoadEmployeeData(ICollection<Employee> employees)
         {
             var employeeList = new List<Employee>();
-            foreach (var employee in employees)
+            if (employees != null)
             {
-                if (employee.PrimaryDisabilityId != null)
+                foreach (var employee in employees)
                 {
-                    employee.PrimaryDisability = _responseService.GetResponseById(employee.PrimaryDisabilityId.ToString());
-                    employeeList.Add(employee);
+                    if (employee.PrimaryDisabilityId != null)
+                    {
+                        employee.PrimaryDisability = _responseService.GetResponseById(employee.PrimaryDisabilityId.ToString());
+                        employeeList.Add(employee);
+                    }
                 }
             }
             return employeeList;
