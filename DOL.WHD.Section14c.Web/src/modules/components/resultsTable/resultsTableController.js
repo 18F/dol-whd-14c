@@ -46,7 +46,6 @@ module.exports = function(ngModule) {
       columns = columns.map(function(element) {
         return element.model
       });
-
       if(data) {
         $scope.data = data.map(function(element){
           let arr = new Array(columns.length)
@@ -58,6 +57,9 @@ module.exports = function(ngModule) {
               }
               if(property === "address" && index>=0) {
                 arr[index] = element[property]["streetAddress"] + " " + element[property]["city"] + ", " + element[property]["state"];
+              }
+              if(property === "WIOAWorkerVerified" && index>=0) {
+                arr[index] = element[property].display;
               }
               else if (property === "primaryDisabilityText") {
                 index = columns.indexOf("primaryDisabilityId");

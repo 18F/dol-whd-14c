@@ -112,7 +112,14 @@
             </div>
           </div>
         </fieldset>
-        <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
+        <div class="dol-form-question-group">
+          <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
+            <div ng-show="formData.WIOA.WIOAWorkers.length" class="container dol-employees-data-container">
+              <results-table id="Worker" results="formData.WIOA.WIOAWorkers" definitions="vm.wioaColumnDefs" columns="vm.wioaColumns"></results-table>
+            </div>
+          </div>
+        </div>
+        <!-- <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
           <caption class="hide">List of Workers Age 24 or Younger</caption>
           <thead>
             <tr>
@@ -141,7 +148,7 @@
               </td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
     </div>
   </fieldset>
 </div>
