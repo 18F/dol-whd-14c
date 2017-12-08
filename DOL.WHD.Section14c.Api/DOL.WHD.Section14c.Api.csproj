@@ -280,6 +280,7 @@
   <ItemGroup>
     <Content Include="App_Data\CertificationTeamEmailTemplate.txt" />
     <Content Include="App_Data\EmployerEmailTemplate.txt" />
+    <Content Include="App_Data\HtmlTemplates\0-ApplicationCoverPage.html" />
     <Content Include="App_Data\HtmlTemplates\1-Assurances.html" />
     <Content Include="App_Data\HtmlTemplates\2-ApplicationInfo.html" />
     <Content Include="App_Data\HtmlTemplates\3-Employer.html" />
