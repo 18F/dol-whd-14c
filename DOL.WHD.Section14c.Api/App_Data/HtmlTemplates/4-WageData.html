@@ -18,6 +18,10 @@
             page-break-inside: avoid;
         }
 
+        div {
+            page-break-inside: avoid;
+        }
+
         div.subtextanswer {
             page-break-inside: avoid;
         }
@@ -81,6 +85,7 @@
 
         .move-up-10 {
             margin-top: -10px;
+            margin-bottom:15px;
         }
     </style>
 </head>
@@ -131,7 +136,7 @@
                 <div>{{ Phone }}</div>
                 <div>{{ ContactName }}</div>
                 <div>{{ ContactTitle }}</div>
-                <div>{{ ContactDate }}</div>
+                <div>{{ formatDateTime ContactDate }}</div>
                 <div>{{ JobDescription }}</div>
                 <div>{{ ExperiencedWorkerWageProvided }}</div>
                 <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
@@ -157,7 +162,7 @@
 
             <p>
                 <span class="subtext">Date data retrieved</span>
-                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.DataRetrieved }}</div>
+                <div class="subtextanswer">{{ formatDateTime HourlyWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
             {{/if_eq}}
 
@@ -217,7 +222,7 @@
                 <div>{{ Phone }}</div>
                 <div>{{ ContactName }}</div>
                 <div>{{ ContactTitle }}</div>
-                <div>{{ ContactDate }}</div>
+                <div>{{ formatDateTime ContactDate }}</div>
                 <div>{{ JobDescription }}</div>
                 <div>{{ ExperiencedWorkerWageProvided }}</div>
                 <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
@@ -243,7 +248,7 @@
 
             <p>
                 <span class="subtext">Date data retrieved</span>
-                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.DataRetrieved }}</div>
+                <div class="subtextanswer">{{ formatDateTime PieceRateWageInfo.AlternateWageData.DataRetrieved }}</div>
             </p>
             {{/if_eq}}
 
