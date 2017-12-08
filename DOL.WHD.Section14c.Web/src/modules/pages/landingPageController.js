@@ -10,9 +10,13 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
-    $scope.stateService = stateService;
-    $scope.organizations = $scope.stateService.user.organizations
-    console.log($scope.stateService.user)
+
+    apiService.userInfo(stateService.access_token).then(function(result) {
+      $scope.organizations = result.data.organizations;
+      console.log($scope.organizations)
+    });
+    
+
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
