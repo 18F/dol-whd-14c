@@ -9,18 +9,18 @@ import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
 module.exports = function(ngModule) {
   ngModule.controller('resultsTableController', function(
-    $scope
+    $scope,
+    $attrs
   ) {
 
     'ngInject';
     'use strict';
 
     $scope.vm = this;
-    $scope.data = [];
-
-    this.initDatatable = function () {
-      let exampleId = $('#example');
-      $scope.tableWidget = exampleId.DataTable({
+    $scope.data = $scope.results;
+    this.initDatatable = function (id) {
+      let dt = $("#" + id).children("table");
+      $scope.tableWidget = dt.DataTable({
         data: $scope.data,
         dom:'Bfrtip',
         responsive: {
@@ -37,36 +37,29 @@ module.exports = function(ngModule) {
         select: true,
         autoWidth: false,
         order: [[ 1, "desc" ]],
-        columnDefs: [
-            {
-              className: 'control',
-              orderable: false,
-              targets:   0
-          },
-          { responsivePriority: 1, targets: 0 },
-          { responsivePriority: 2, targets: 1 },
-          { responsivePriority: 3, targets: 2 },
-          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -1 },
-          { responsivePriority: 3, width: "10%", targets: $scope.columns.length -2 }
-        ]
+        columnDefs: $scope.definitions
       });
       $.fn.dataTable.ext.errMode = 'none';
     }
 
-    this.refreshTable = function (data, columns) {
+    this.refreshTable = function (data, columns, id) {
       columns = columns.map(function(element) {
         return element.model
       });
-
       if(data) {
         $scope.data = data.map(function(element){
           let arr = new Array(columns.length)
-
           for(var property in element) {
             if(element.hasOwnProperty(property)) {
-              var index = columns.indexOf(property)
+              var index = columns.indexOf(property);
               if(index >=0 ) {
                 arr[index] = element[property];
+              }
+              if(property === "address" && index>=0) {
+                arr[index] = element[property]["streetAddress"] + " " + element[property]["city"] + ", " + element[property]["state"];
+              }
+              if(property === "WIOAWorkerVerified" && index>=0) {
+                arr[index] = element[property].display;
               }
               else if (property === "primaryDisabilityText") {
                 index = columns.indexOf("primaryDisabilityId");
@@ -81,22 +74,25 @@ module.exports = function(ngModule) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null
         }
-       setTimeout(() => this.initDatatable(),0)
+       setTimeout(() => this.initDatatable(id),0)
       }
     }
 
-    this.initDatatable();
+    //this.initDatatable();
+    //this.refreshTable(null, $scope.columns);
 
-    $('#example tbody').on('click', 'td.edit-table-entry', function ($event) {
+    $('#' + $attrs.id).children("table").on('click', 'td.edit-table-entry', function ($event) {
+        $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm.editEmployee(row[0][0], $event);
+        $scope.edit()(row[0][0], $event);
     } );
 
-    $('#example tbody').on('click', 'td.delete-table-entry', function ($event) {
+    $('#' + $attrs.id).children("table").on('click', 'td.delete-table-entry', function ($event) {
+        $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.$parent.vm.deleteEmployee(row[0][0], $event);
+        $scope.delete()(row[0][0], $event);
     } );
   });
 };
