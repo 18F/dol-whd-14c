@@ -26,7 +26,9 @@ module.exports = function(ngModule) {
       $scope.formData.isAdmin = $scope.stateService.isAdmin;
       $scope.formData.employer.ein = $scope.formData.ein;
       apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function(result) {
-        console.log(result);
+        apiService.userInfo().then(function(result) {
+          console.log(result);
+        })
         $location.path('/home');
       }).catch(function(error) {
         console.log(error, "error")

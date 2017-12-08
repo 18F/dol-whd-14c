@@ -32,10 +32,14 @@ module.exports = function(ngModule) {
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
         function() {
           vm.submittingForm = false;
-          if ($location.path() === '/employerRegistration') {
+          console.log(stateService.user.organizations.length)
+          if(stateService.user.organizations.length) {
+            $location.path("/home");
+          } 
+          else if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
-            $location.path('/employerRegistration');
+            $location.path("/employerRegistration");
           }
         },
         function(error) {

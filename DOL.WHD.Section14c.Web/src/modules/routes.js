@@ -146,7 +146,7 @@ module.exports = function (app) {
       .when('/v4/hello', { template: '<hello-world></hello-world>' })
       .when('/v4/ui-library', { template: '<ui-library></ui-library>' })
       .otherwise({
-        redirectTo: '/home'
+        redirectTo: '/login'
       });
   });
 }
