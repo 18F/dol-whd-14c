@@ -97,6 +97,7 @@ namespace DOL.WHD.Section14c.Business.Helper
                 foreach (var wSite in application.WorkSites)
                 {
                     wSite.WorkSiteType = _responseService.GetResponseById(wSite.WorkSiteTypeId.ToString());                    
+                    wSite.Employees = LoadEmployeeData(wSite.Employees);
                     workSites.Add(wSite);
                 };
                 application.WorkSites = workSites;
@@ -123,6 +124,25 @@ namespace DOL.WHD.Section14c.Business.Helper
                 }
                 application.Employer.ProvidingFacilitiesDeductionType = employerInfoProvidingFacilitiesDeductionTypes;
             }
-        }        
+        }
+        
+        /// <summary>
+        /// Get Employee Data
+        /// </summary>
+        /// <param name="employees">Employees</param>
+        /// <returns></returns>
+        private List<Employee> LoadEmployeeData(ICollection<Employee> employees)
+        {
+            var employeeList = new List<Employee>();
+            foreach (var employee in employees)
+            {
+                if (employee.PrimaryDisabilityId != null)
+                {
+                    employee.PrimaryDisability = _responseService.GetResponseById(employee.PrimaryDisabilityId.ToString());
+                    employeeList.Add(employee);
+                }
+            }
+            return employeeList;
+        } 
     }
 }
