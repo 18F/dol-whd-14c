@@ -36,5 +36,11 @@ namespace DOL.WHD.Section14c.Domain.Models
         [Required]
         [DataMember]
         public bool IsAdmin { get; set; }
+
+        [DataMember]
+        public int? ApplicationStatusId { get; set; }
+
+        [DataMember]
+        public virtual Status ApplicationStatus { get; set; }
     }
 }

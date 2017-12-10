@@ -15,6 +15,6 @@ namespace DOL.WHD.Section14c.Business
     {
         OrganizationMembership GetOrganizationMembershipByEmployer(Employer employer);        
         IEnumerable<OrganizationMembership> GetAllOrganizationMemberships();
-        Task<int> UpdateOrganizationMembership(OrganizationMembership organizationMembership);
+        void UpdateOrganizationMembership(OrganizationMembership organizationMembership);
     }
 }
