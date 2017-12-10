@@ -20,6 +20,9 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using DOL.WHD.Section14c.Domain.Models;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -38,7 +41,22 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
         private readonly IEmailContentService _emailService;
-        private readonly IResponseService _responseService;
+        private readonly IOrganizationService _organizationService;
+        private readonly IEmployerService _employerService;
+
+        private ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -66,10 +84,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="emailService">
         /// The email service this controller should use
         /// </param>
-        /// <param name="responseService">
-        /// The response service this controller should use
+        ///  /// <param name="organizationService">
+        /// The organization service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IResponseService responseService)
+        /// <param name="employerService">
+        /// The employer service this controller should use
+        /// </param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -79,7 +100,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService = saveService;
             _attachmentService = attachmentService;
             _emailService = emailService;
-            _responseService = responseService;
+            _organizationService = organizationService;
+            _employerService = employerService;
         }
 
         /// <summary>
@@ -91,6 +113,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmission submission)
         {
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
@@ -99,17 +124,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             _applicationService.ProcessModel(submission);
 
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
-            if (!hasEINClaim)
+            // make sure user has rights to the Id
+            var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
             await _applicationService.SubmitApplicationAsync(submission);
 
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.InProgress;
+            await UserManager.UpdateAsync(user);
+
             // remove the associated application save
-            _saveService.Remove(submission.EIN);
+            _saveService.Remove(submission.Id);
 
             var response = await GetApplicationDocument(new Guid(submission.Id));
 
@@ -224,11 +253,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 // Get Application Template
-                var applicationTemplatesPath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/HtmlTemplates");
-                var templatefiles = Directory.GetFiles(applicationTemplatesPath, "*.html").OrderBy(f => new FileInfo(f).Name).ToList();
+                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
 
-                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
-                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
 
                 // Calling Concatenate Web API
                 var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
