@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,21 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             return _dbContext.OrganizationMemberships.Include("CreatedBy").AsQueryable();
         }
 
-        public async Task<int> ModifyOrganizationMembership(OrganizationMembership organizationMembership)
+        public void ModifyOrganizationMembership(OrganizationMembership organizationMembership)
         {
-            _dbContext.Entry(organizationMembership).State = EntityState.Modified;
-            return await SaveChangesAsync();
+            using (var dbContextTransaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    _dbContext.OrganizationMemberships.AddOrUpdate(organizationMembership);
+                    SaveChangesAsync();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
         }
 
         public Task<int> SaveChangesAsync()

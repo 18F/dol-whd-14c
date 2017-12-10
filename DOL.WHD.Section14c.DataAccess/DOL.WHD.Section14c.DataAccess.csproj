@@ -133,6 +133,10 @@
     <Compile Include="MigrationsDB2\201712020202557_AddAuditingColumn.Designer.cs">
       <DependentUpon>201712020202557_AddAuditingColumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="MigrationsDB2\201712101858147_UpdateOrganizationMembership.cs" />
+    <Compile Include="MigrationsDB2\201712101858147_UpdateOrganizationMembership.Designer.cs">
+      <DependentUpon>201712101858147_UpdateOrganizationMembership.cs</DependentUpon>
+    </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
@@ -337,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MigrationsDB2\201712020202557_AddAuditingColumn.resx">
       <DependentUpon>201712020202557_AddAuditingColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MigrationsDB2\201712101858147_UpdateOrganizationMembership.resx">
+      <DependentUpon>201712101858147_UpdateOrganizationMembership.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>
