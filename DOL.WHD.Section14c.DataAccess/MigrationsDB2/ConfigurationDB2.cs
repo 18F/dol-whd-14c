@@ -134,6 +134,10 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.New, Name = "New", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.InProgress, Name = "InProgress", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Completed, Name = "Completed", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Submitted, Name = "Submitted", IsActive = true });
 
 
             // Commit changes so that roles/features can be assigned

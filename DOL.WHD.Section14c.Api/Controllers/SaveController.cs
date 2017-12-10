@@ -112,6 +112,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
+
             var applicationId = Guid.NewGuid().ToString();
             _saveService.AddOrUpdate(EIN, applicationId, state);
 
@@ -122,6 +123,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 organization.ApplicationId = applicationId;
                 _organizationService.UpdateOrganizationMembership(organization);
             }
+
+            // Update Organization Status
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            user.Organizations.FirstOrDefault(x=>x.ApplicationId == applicationId).ApplicationStatusId = StatusIds.InProgress;
+            UserManager.UpdateAsync(user);
 
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
         }
