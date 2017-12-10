@@ -19,10 +19,14 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
     public class PdfHelper
     {
         /// <summary>
-        /// 
+        /// Concatenate PDF
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="applicationData"></param>
+        /// <param name="outputDocument">
+        /// Pdf Document
+        /// </param>
+        /// <param name="applicationData">
+        /// Content Data
+        /// </param>
         /// <returns></returns>
         public static PdfDocument ConcatenatePDFs(PdfDocument outputDocument, PDFContentData applicationData)
         {
@@ -37,7 +41,7 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 // Create PDF image
                 if (applicationData.Type.ToLower().Contains("image"))
                 {
-                    var doc = ConcatenatePDFWithImage(applicationData.Buffer, applicationData.FileName);
+                    var doc = CreatePDFWithImage(applicationData.Buffer, applicationData.FileName);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
@@ -65,8 +69,12 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from HTML string
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="htmlString"></param>
+        /// <param name="outputDocument">
+        /// Pdf Document 
+        /// </param>
+        /// <param name="htmlString">
+        /// Html string
+        /// </param>
         /// <returns></returns>
         private static PdfDocument GetPdfDocFromHtml(PdfDocument outputDocument, string htmlString)
         {
@@ -83,7 +91,9 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Clean Html string and fix any html errors
         /// </summary>
-        /// <param name="htmlString"></param>
+        /// <param name="htmlString">
+        /// Html string
+        /// </param>
         /// <returns></returns>
         private static string ScrubHtmlString(string htmlString)
         {
@@ -109,7 +119,15 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Concatenate PDF Document By Array
         /// </summary>
-        /// <param name="documentContentByteArray"></param>
+        /// <param name="outputDocument">
+        /// Output document
+        /// </param>
+        /// <param name="buffer">
+        /// Byte array
+        /// </param>
+        /// <param name="fileName">
+        /// File name
+        /// </param>
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFDocumentByBytes(PdfDocument outputDocument, byte[] buffer, string fileName)
         {
@@ -139,10 +157,14 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from Image
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="buffer"></param>
+        /// <param name="buffer">
+        /// Byte array
+        /// </param>
+        /// <param name="fileName">
+        /// File name
+        /// </param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFWithImage(byte[] buffer, string fileName)
+        private static PdfDocument CreatePDFWithImage(byte[] buffer, string fileName)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
@@ -162,12 +184,17 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 gfx.DrawImage(img, 0, 25);
             }
             return doc;
-        }        
+        }
 
         /// <summary>
         /// Concatenate PDF Document By File Path
         /// </summary>
-        /// <param name="filePaths"></param>
+        /// <param name="outputDocument">
+        /// PdfDocument for return
+        /// </param>
+        /// <param name="filePaths">
+        /// File Path
+        /// </param>
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFDocumentByPath(PdfDocument outputDocument, List<string> filePaths)
         {
@@ -205,8 +232,12 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from existing PDF files
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="file"></param>
+        /// <param name="outputDocument">
+        /// PdfDocument for return
+        /// </param>
+        /// <param name="file">
+        /// file path
+        /// </param>
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFByPath(PdfDocument outputDocument, string file)
         {
@@ -248,7 +279,6 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from image file
         /// </summary>
-        /// <param name="outputDocument"></param>
         /// <param name="imageLocation"></param>
         /// <returns></returns>
         private static PdfDocument CreatePDFDocumentByImage(string imageLocation)

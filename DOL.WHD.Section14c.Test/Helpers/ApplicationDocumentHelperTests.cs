@@ -33,8 +33,6 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestFiles"));
             if (!Directory.Exists(testFilePath))
                 testFilePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\TestFiles"));
-            EventLog.WriteEntry("Test", testFilePath);
-            EventLog.WriteEntry("Test", AppDomain.CurrentDomain.BaseDirectory);
             _mockApplicationService.Reset();
             _mockAttachmentService.Reset();
             _mockResponseService.Reset();

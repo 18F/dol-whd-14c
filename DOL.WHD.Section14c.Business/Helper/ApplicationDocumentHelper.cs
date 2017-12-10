@@ -114,10 +114,10 @@ namespace DOL.WHD.Section14c.Business.Helper
                 application.EstablishmentType = applicationSubmissionEstablishmentTypes;
             }
             // Load Employer Providing Facilities Deduction types related data
-            if (application.Employer?.ProvidingFacilitiesDeductionType != null)
+            if (application.Employer != null && application.Employer.ProvidingFacilitiesDeductionType != null)
             {
                 var employerInfoProvidingFacilitiesDeductionTypes = new List<EmployerInfoProvidingFacilitiesDeductionType>();
-                foreach (var type in application.Employer?.ProvidingFacilitiesDeductionType)
+                foreach (var type in application.Employer.ProvidingFacilitiesDeductionType)
                 {
                     type.ProvidingFacilitiesDeductionType = _responseService.GetResponseById(type.ProvidingFacilitiesDeductionTypeId.ToString());
                     employerInfoProvidingFacilitiesDeductionTypes.Add(type);
