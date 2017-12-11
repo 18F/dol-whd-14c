@@ -1,0 +1,298 @@
+﻿{{#if_eq ApplicationType.Display 'Renewal Application' }}
+<html class="ng-scope" lang="en">
+<head>
+    <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 0;
+        }
+        
+        th, td {
+            text-align: left;
+            padding: 3px;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
+        span.subtext {
+            font-weight: bold
+        }
+
+        span.title {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        span.subtextanswer {
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .row_greyed {
+            background-color: #9F9F9F;
+        }
+
+        table .subtable {
+            display: table;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
+            font-size: 11px;
+        }
+
+        .employeeSubTable {
+            width: 100%;
+            border-bottom: 1px;
+            border-top: 1px;
+            border-bottom-style: solid;
+            border-bottom-style: solid;
+            margin-top: 20px;
+        }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+
+        .move-up-10 {
+            margin-top: -10px;
+            margin-bottom:15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-page">
+        <div class="dol-form-section-title">
+            <h2>Wage Data</h2>
+        </div>
+        <p>
+            <span class="subtext">Pay Type</span>
+            <div class="subtextanswer">{{ boolOrString PayType.Display }}</div>
+        </p>
+        <div wage-data-hourly="true">
+            <h3>Hourly</h3>
+            <hr>
+            <p>
+                <span class="subtext">How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.NumWorkers }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.JobName }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Description of Work Performed on this Job/Contract by Workers Paid Subminimum Wages</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.JobDescription }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Which method did the employer use to determine the prevailing wage for the job or contract identified above?</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.PrevailingWageMethod.Display }}</div>
+            </p>
+
+            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Prevailing Wage Survey' }}
+            <p>
+                <span class="subtext">Prevailing wage determined based on this survey</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
+            </p>
+
+            <h3>Source Employers</h3>
+
+            {{#each HourlyWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
+            <div class="move-up-10">
+                <div>{{ EmployerName }}</div>
+                <div>{{ formatAddress Address }}</div>
+                <div>{{ Phone }}</div>
+                <div>{{ ContactName }}</div>
+                <div>{{ ContactTitle }}</div>
+                <div>{{ formatDateTime ContactDate }}</div>
+                <div>{{ JobDescription }}</div>
+                <div>{{ ExperiencedWorkerWageProvided }}</div>
+                <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
+            </div>
+            {{/each}}
+            {{/if_eq}}
+
+            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            <p>
+                <span class="subtext">Description of Work (include job classification code, if known)</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Alternate data source used</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateDataSourceUsed }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Prevailing wage provided by source</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Date data retrieved</span>
+                <div class="subtextanswer">{{ formatDateTime HourlyWageInfo.AlternateWageData.DataRetrieved }}</div>
+            </p>
+            {{/if_eq}}
+
+            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
+            <p>
+                <span class="subtext">Attach the applicable SCA Wage Determination</span>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.ScaWageDeterminationAttachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
+            </p>
+            {{/if_eq}}
+
+            <!-- Missing Question from Application // Need Correct Syntax -->
+            <p>
+                <span class="subtext">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminium wage?</span>
+                <div class="subtextanswer">{{ boolOrString HourlyWageInfo.WorkMeasurementFrequency }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</span>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.Attachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
+            </p>
+        </div>
+        <div wage-data-piecerate="true">
+            <h3>Piece Rate</h3>
+            <hr>
+            <p>
+                <span class="subtext">How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.NumWorkers }}</div>
+            </p>
+            <p>
+                <span class="subtext">What was the job or contract on which the employer employed the largest number of workers who received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
+                <div class="subtextanswer">{{ boolOrString JPieceRateWageInfo.obName }}</div>
+            </p>
+            <p>
+                <span class="subtext">Description of Work Performed on this Job/Contract by Workers Paid Subminimum Wages</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.JobDescription }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageMethod.Display }}</div>
+            </p>
+
+            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Prevailing Wage Survey' }}
+            <p>
+                <span class="subtext">Prevailing Wage Determined based on this survey</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined }}</div>
+            </p>
+
+            <h3>Source Employers</h3>
+
+            {{#each PieceRateWageInfo.MostRecentPrevailingWageSurvey.SourceEmployers}}
+            <div class="move-up-10">
+                <div>{{ EmployerName }}</div>
+                <div>{{ formatAddress Address }}</div>
+                <div>{{ Phone }}</div>
+                <div>{{ ContactName }}</div>
+                <div>{{ ContactTitle }}</div>
+                <div>{{ formatDateTime ContactDate }}</div>
+                <div>{{ JobDescription }}</div>
+                <div>{{ ExperiencedWorkerWageProvided }}</div>
+                <div>{{ ConclusionWageRateNotBasedOnEntry }}</div>
+            </div>
+            {{/each}}
+            {{/if_eq}}
+
+            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            <p>
+                <span class="subtext">Description of Work (include job classification code, if known)</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Alternate data source used</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateDataSourceUsed }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Prevailing wage provided by source</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.PrevailingWageProvidedBySource }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Date data retrieved</span>
+                <div class="subtextanswer">{{ formatDateTime PieceRateWageInfo.AlternateWageData.DataRetrieved }}</div>
+            </p>
+            {{/if_eq}}
+
+            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
+            <p>
+                <span class="subtext">Attach the applicable SCA Wage Determination</span>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
+            </p>
+            {{/if_eq}}
+
+            <p>
+                <span class="subtext">Descripton of Work</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRateWorkDescription }}</div>
+            </p>
+
+            <p>
+                <span class="subtext">Prevailing Wage Determined for This Job</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PrevailingWageDeterminedForJob }} rate per hour</div>
+            </p>
+
+            <p>
+                <span class="subtext">Standard Productivity</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.StandardProductivity }} units per hour</div>
+            </p>
+
+            <p>
+                <span class="subtext">Piece Rate Paid to Workers</span>
+                <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.PieceRatePaidToWorkers }} rate per unit</div>
+            </p>
+            
+            <p>
+                <span class="subtext">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</span>
+                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.Attachment }}</div>
+                <p>Attachments are included at the end of the PDF.</p>
+            </p>
+        </div>
+    </div>   
+</body>
+</html>
+{{/if_eq}}

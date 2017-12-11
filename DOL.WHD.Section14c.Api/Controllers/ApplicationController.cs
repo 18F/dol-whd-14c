@@ -38,6 +38,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
         private readonly IEmailContentService _emailService;
+        private readonly IResponseService _responseService;
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -65,7 +66,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="emailService">
         /// The email service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService)
+        /// <param name="responseService">
+        /// The response service this controller should use
+        /// </param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IResponseService responseService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -75,6 +79,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService = saveService;
             _attachmentService = attachmentService;
             _emailService = emailService;
+            _responseService = responseService;
         }
 
         /// <summary>
@@ -219,10 +224,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 // Get Application Template
-                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+                var applicationTemplatesPath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/HtmlTemplates");
+                var templatefiles = Directory.GetFiles(applicationTemplatesPath, "*.html").OrderBy(f => new FileInfo(f).Name).ToList();
 
-                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
-                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
 
                 // Calling Concatenate Web API
                 var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
