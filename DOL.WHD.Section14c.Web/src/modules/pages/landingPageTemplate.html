@@ -5,11 +5,11 @@
   <div>
     <main-top-nav-control></main-top-nav-control>
     <div ng-repeat="organization in organizations track by $index">
-      <div ng-show="!stateService.applicationStarted()">
-        <button class="save-button" ng-click="navToApplication($index)">Start A New Application for {{organization.employer.legalName}}</button>
+      <div >
+        <button class="save-button" ng-click="startNewApplication($index)">Start A New Application for {{organization.employer.legalName}}</button>
       </div>
-      <div ng-show="stateService.applicationStarted()">
-        <button class="save-button" ng-click="navToApplication($index)">Continue Application for {{organization.employer.legalName}}</button>
+      <div >
+        <button class="save-button" ng-click="continueApplication($index)">Continue Application for {{organization.employer.legalName}}</button>
       </div>
     </div>
     <button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button>

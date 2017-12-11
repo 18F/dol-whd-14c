@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.controller('landingPageController', function(
     $scope,
     stateService,
+    autoSaveService,
     apiService,
     $location,
     $route
@@ -13,7 +14,6 @@ module.exports = function(ngModule) {
 
     apiService.userInfo(stateService.access_token).then(function(result) {
       $scope.organizations = result.data.organizations;
-      console.log($scope.organizations)
     });
     
 
@@ -21,18 +21,44 @@ module.exports = function(ngModule) {
       $location.path('/changePassword');
     };
 
-    $scope.navToApplication = function(index) {
+    $scope.startNewApplication = function(index) {
 
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
-      console.log(index, $scope.organizations[index].applicationId, stateService.applicationId )
+
+
       stateService.saveNewApplication().then(
         function(result) {
           console.log('success');
           // start auto-save
           if (stateService.ein) {
-            //autoSaveService.start();
+            autoSaveService.start();
+            $location.path('/section/assurances');
+          }
+        
+        },
+        function(error) {
+          console.log(error);
+        }
+      );
+
+      //$location.path('/section/assurances');
+    };
+
+    $scope.continueApplication = function(index) {
+
+      stateService.employerId = $scope.organizations[index].employer.id;
+      stateService.applicationId = $scope.organizations[index].applicationId;
+      stateService.ein = $scope.organizations[index].ein;
+
+      stateService.loadSavedApplication().then(
+        function(result) {
+          console.log('success');
+          // start auto-save
+          if (stateService.ein) {
+            autoSaveService.start();
+            $location.path('/section/assurances');
           }
         
         },
@@ -45,7 +71,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.navToEmployerRegistration = function ()  {
-      $location.path('/registerEmployer')
+      $location.path('/registerEmployer');
     };
 
   });

@@ -58,7 +58,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="applicationId">Employer Identification Number</param>
         [HttpGet]
-        [Route("{EIN}")]
+        [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult GetSave(string applicationId)
         {

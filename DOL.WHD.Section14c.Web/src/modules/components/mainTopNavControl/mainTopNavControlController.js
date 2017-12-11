@@ -27,7 +27,7 @@ module.exports = function(ngModule) {
       e.preventDefault();
       autoSaveService.save(() => {
         stateService.logOut();
-        $location.path('/home');
+        $location.path('/login');
       });
     };
   });
