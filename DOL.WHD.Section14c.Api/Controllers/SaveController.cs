@@ -11,6 +11,10 @@ using DOL.WHD.Section14c.Log.LogHelper;
 using DOL.WHD.Section14c.DataAccess.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
+using System.Threading.Tasks;
+using DOL.WHD.Section14c.Domain.Models.Submission;
+using DOL.WHD.Section14c.Domain.Models;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -58,7 +62,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="applicationId">Employer Identification Number</param>
         [HttpGet]
-        [Route("{applicationId}")]
+        [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult GetSave(string applicationId)
         {
@@ -79,7 +83,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             return Ok(applicationSave.ApplicationState);
-            
+
         }
 
         /// <summary>
@@ -87,11 +91,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="EIN"></param>
         /// <param name="employerId"></param>
+        /// <param name="applicationId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("{EIN}/{employerId}")]
+        [Route("{EIN}/{employerId}/{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult AddSave(string EIN, string employerId)
+        public IHttpActionResult AddSave(string EIN, string employerId, string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
             account.UserManager = UserManager;
@@ -112,21 +117,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
-
-            var applicationId = Guid.NewGuid().ToString();
-            _saveService.AddOrUpdate(EIN, applicationId, state);
-
-            // Set Application Id for organization 
-            var organization = userInfo.Organizations.SingleOrDefault(x => x.Employer.Id == employerId && string.IsNullOrEmpty( x.ApplicationId));
-            if (organization != null)
-            {
-                organization.ApplicationId = applicationId;
-                _organizationService.UpdateOrganizationMembership(organization);
-            }
+            _saveService.AddOrUpdate(EIN, applicationId, employerId, state);
 
             // Update Organization Status
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
-            user.Organizations.FirstOrDefault(x=>x.ApplicationId == applicationId).ApplicationStatusId = StatusIds.InProgress;
+            user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId).ApplicationStatusId = StatusIds.InProgress;
             UserManager.UpdateAsync(user);
 
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
@@ -143,7 +138,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult UpdateSave(string applicationId, string EIN)
         {
-            AccountController account = new AccountController( _employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
@@ -163,7 +158,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest(e.Message);
             }
 
-            _saveService.AddOrUpdate(EIN, applicationId, state);
+            _saveService.AddOrUpdate(EIN, applicationId, null, state);
             return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
         }
 
@@ -190,7 +185,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService.Remove(applicationId);
             return Ok();
         }
-        
+
         /// <summary>
         /// OPTIONS endpoint for CORS
         /// </summary>
