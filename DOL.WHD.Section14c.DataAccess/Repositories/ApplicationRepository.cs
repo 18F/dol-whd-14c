@@ -18,8 +18,14 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
 
         public IEnumerable<ApplicationSubmission> Get()
         {
-            return _dbContext.ApplicationSubmissions.AsQueryable();
-        }
+            //explicitly loading related entities 
+            return _dbContext.ApplicationSubmissions
+                        .Include(a => a.ApplicationType).Include(a => a.PayType)
+                        .Include(a => a.PieceRateWageInfo.SCAWageDeterminationAttachment).Include(a => a.PieceRateWageInfo.Attachment).Include(a => a.PieceRateWageInfo.PrevailingWageMethod)
+                        .Include(a => a.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment).Include(a => a.HourlyWageInfo.Attachment).Include(a => a.HourlyWageInfo.PrevailingWageMethod)
+                        .Include(a => a.Employer.EmployerStatus).Include(a => a.Employer.SCA) .Include(a => a.Employer.SCAAttachment) .Include(a => a.Employer.EO13658)
+                        .AsQueryable();
+}
 
         public async Task<int> AddAsync(ApplicationSubmission submission)
         {
