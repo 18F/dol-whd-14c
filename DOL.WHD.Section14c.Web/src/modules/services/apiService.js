@@ -239,8 +239,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.getApplication = function(access_token, ein, employerId) {
-      let url = _env.api_url + '/api/save/' + ein + '/' + employerId;
+    this.getApplication = function(access_token, applicationId) {
+      let url = _env.api_url + '/api/save/' + applicationId;
       let d = $q.defer();
 
       $http({
