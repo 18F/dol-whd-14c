@@ -148,9 +148,8 @@ module.exports = function(ngModule) {
       const self = this;
       const d = $q.defer();
 
-      console.log(self.access_token, self.ein, self.employerId);
       // Get Application State for Organization
-      apiService.getApplication(self.access_token, self.ein, self.employerId).then(
+      apiService.getApplication(self.access_token, self.applicationId).then(
         function(result) {
           const data = result.data;
           self.setFormData(JSON.parse(data));
