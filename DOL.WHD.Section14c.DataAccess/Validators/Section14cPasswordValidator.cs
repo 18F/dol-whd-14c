@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using DOL.WHD.Section14c.Common;
 
 namespace DOL.WHD.Section14c.DataAccess.Validators
 {
@@ -11,12 +12,12 @@ namespace DOL.WHD.Section14c.DataAccess.Validators
         public override async Task<IdentityResult> ValidateAsync(string item)
         {
             var result = await base.ValidateAsync(item);
-
+            var passwordComplexityScore = AppSettings.Get<int>("PasswordComplexityScore");
             if (RequireZxcvbn)
             {
                 var errors = new List<string>(result.Errors);
                 var zxcvbnResult = Zxcvbn.Zxcvbn.MatchPassword(item);
-                if (zxcvbnResult.Score <= 1)
+                if (zxcvbnResult.Score < passwordComplexityScore)
                 {
                     errors.Add("Password does not meet complexity requirements.");
                 }
