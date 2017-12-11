@@ -14,6 +14,7 @@ module.exports = function(ngModule) {
 
     apiService.userInfo(stateService.access_token).then(function(result) {
       $scope.organizations = result.data.organizations;
+      console.log($scope.organizations)
     });
     
 
@@ -21,57 +22,49 @@ module.exports = function(ngModule) {
       $location.path('/changePassword');
     };
 
-    $scope.startNewApplication = function(index) {
+    $scope.onApplicationClick = function(index) {
 
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
 
-
-      stateService.saveNewApplication().then(
-        function(result) {
-          console.log('success');
-          // start auto-save
-          if (stateService.ein) {
-            autoSaveService.start();
-            $location.path('/section/assurances');
+      if($scope.organizations[index].applicationStatus.name === "New") {
+         stateService.saveNewApplication().then(
+          function(result) {
+            console.log('success');
+            // start auto-save
+            if (stateService.ein) {
+              autoSaveService.start();
+              $location.path('/section/assurances');
+            }
+          
+          },
+          function(error) {
+            console.log(error);
           }
-        
-        },
-        function(error) {
-          console.log(error);
-        }
-      );
-
-      //$location.path('/section/assurances');
-    };
-
-    $scope.continueApplication = function(index) {
-
-      stateService.employerId = $scope.organizations[index].employer.id;
-      stateService.applicationId = $scope.organizations[index].applicationId;
-      stateService.ein = $scope.organizations[index].ein;
-
-      stateService.loadSavedApplication().then(
-        function(result) {
-          console.log('success');
-          // start auto-save
-          if (stateService.ein) {
-            autoSaveService.start();
-            $location.path('/section/assurances');
+        );
+       } else {
+        stateService.loadSavedApplication().then(
+          function(result) {
+            console.log('success');
+            // start auto-save
+            if (stateService.ein) {
+              autoSaveService.start();
+              $location.path('/section/assurances');
+            }
+          
+          },
+          function(error) {
+            console.log(error);
           }
-        
-        },
-        function(error) {
-          console.log(error);
-        }
-      );
-
-      //$location.path('/section/assurances');
+        );
+       }
+     
+      $location.path('/section/assurances');
     };
 
     $scope.navToEmployerRegistration = function ()  {
-      $location.path('/registerEmployer');
+      $location.path('/employerRegistration');
     };
 
   });

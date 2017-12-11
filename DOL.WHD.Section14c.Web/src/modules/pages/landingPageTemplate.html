@@ -6,10 +6,10 @@
     <main-top-nav-control></main-top-nav-control>
     <div ng-repeat="organization in organizations track by $index">
       <div >
-        <button class="save-button" ng-click="startNewApplication($index)">Start A New Application for {{organization.employer.legalName}}</button>
-      </div>
-      <div >
-        <button class="save-button" ng-click="continueApplication($index)">Continue Application for {{organization.employer.legalName}}</button>
+        <button class="save-button" ng-click="onApplicationClick($index)">
+          <span ng-show="organization.applicationStatus.name === 'New'">Start A New</span> 
+          <span ng-show="organization.applicationStatus.name === 'InProgress'">Continue</span> 
+          <span ng-show="organization.applicationStatus.name === 'Submitted'">View</span> Application for {{organization.employer.legalName}}</button>
       </div>
     </div>
     <button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button>
