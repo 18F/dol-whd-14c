@@ -20,6 +20,8 @@ using System.Data.Entity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
+using System.Runtime.Serialization;
+using System.Text;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -298,176 +300,27 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
-        #region Account Management
-
         /// <summary>
-        /// Returns collection of user accounts
+        /// Password Complexity Check
         /// </summary>
-        // GET api/Account
-        [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
+        /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet]
-        public async Task<IEnumerable<UserInfoViewModel>> GetAccounts()
+        [Route("PasswordComplexityCheck")]
+        public IHttpActionResult PasswordComplexityCheck()
         {
-            return await UserManager.Users.Select(x => new UserInfoViewModel
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            var password = Request.Content.ReadAsStringAsync().Result;
+            var passwordComplexityScore = AppSettings.Get<int>("PasswordComplexityScore");
+            var zxcvbnResult = Zxcvbn.Zxcvbn.MatchPassword(password);
+            if(zxcvbnResult.Score < passwordComplexityScore)
             {
-                UserId = x.Id,
-                Email = x.Email,
-                Organizations = x.Organizations,
-                Roles = x.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
-                ApplicationClaims = x.Roles.SelectMany(y => y.Role.RoleFeatures)
-                    .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)
-            }).ToListAsync();
+                responseMessage.StatusCode = HttpStatusCode.ExpectationFailed;
+                responseMessage.Content = new StringContent("Password does not meet complexity requirements.");
+            }
+
+            return ResponseMessage(responseMessage);
         }
-
-        /// <summary>
-        /// Returns user account by Id
-        /// </summary>
-        /// <param name="userId">User Id</param>
-        // POST api/Account/{userId}
-        [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
-        [HttpGet]
-        [Route("{userId}")]
-        public IHttpActionResult GetSingleAccount(string userId)
-        {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                BadRequest("User not found.");
-            }
-            return Ok(new AccountDetailsViewModel
-            {
-                UserId = user.Id,
-                Email = user.Email,
-                Organizations = user.Organizations,
-                EmailConfirmed = user.EmailConfirmed,
-                LastPasswordChangedDate = user.LastPasswordChangedDate,
-                LockoutEndDateUtc = user.LockoutEndDateUtc,
-                Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
-                ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
-                    .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)});
-        }
-
-        /// <summary>
-        /// Returns all available roles in system
-        /// </summary>
-        // GET api/Account/Roles
-        [AuthorizeClaims(ApplicationClaimTypes.GetRoles)]
-        [HttpGet]
-        [Route("Roles")]
-        public async Task<IEnumerable<RoleViewModel>> GetRoles()
-        {
-            return await RoleManager.Roles.Select(x => new RoleViewModel
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).OrderBy(x => x.Name).ToListAsync();
-        }
-
-        /// <summary>
-        /// Creates User Account
-        /// </summary>
-        /// <param name="model">UserInfoViewModel</param>
-        /// <returns>Http status code</returns>
-        // POST api/Account
-        [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
-        [HttpPost]
-        public async Task<IHttpActionResult> CreateAccount(UserInfoViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                BadRequest("Model state is not valid");
-            }
-
-            // Add User
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            // Add to Roles
-            foreach (var role in model.Roles)
-            {
-                var newUser = UserManager.FindByNameAsync(model.Email);
-                var addResult = await UserManager.AddToRoleAsync(newUser.Result.Id, role.Name);
-                if (!addResult.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-            }
-
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Updates User Account
-        /// </summary>
-        /// <param name="userId">User Id</param>
-        /// <param name="model">UserInfoViewModel</param>
-        /// <returns>Http status code</returns>
-        // POST api/Account/{userId}
-        [AuthorizeClaims(ApplicationClaimTypes.ModifyAccount)]
-        [HttpPost]
-        [Route("{userId}")]
-        public IHttpActionResult ModifyAccount(string userId, UserInfoViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                BadRequest("Model state is not valid");
-            }
-
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                BadRequest("User not found.");
-            }
-
-            // Modify User
-            if (user.Email != model.Email || user.UserName != model.Email)
-            {
-                user.Email = model.Email;
-                user.UserName = model.Email;
-                var userUpdated = UserManager.Update(user);
-
-                if (!userUpdated.Succeeded)
-                {
-                    return GetErrorResult(userUpdated);
-                }
-            }
-
-            // Add Roles
-            foreach (var role in model.Roles)
-            {
-                if (user.Roles.All(x => x.Role.Name != role.Name))
-                {
-                    var addResult = UserManager.AddToRole(user.Id, role.Name);
-                    if (!addResult.Succeeded)
-                    {
-                        return GetErrorResult(addResult);
-                    }
-                }
-            }
-
-            // Remove
-            foreach (var role in user.Roles.ToList())
-            {
-                if (model.Roles.All(x => x.Name != role.Role.Name))
-                {
-                    var removeResult = UserManager.RemoveFromRole(user.Id, role.Role.Name);
-                    if (!removeResult.Succeeded)
-                    {
-                        return GetErrorResult(removeResult);
-                    }
-                }
-            }
-
-            return Ok();
-        }
-        #endregion
 
         /// <summary>
         /// OPTIONS endpoint for CORS
