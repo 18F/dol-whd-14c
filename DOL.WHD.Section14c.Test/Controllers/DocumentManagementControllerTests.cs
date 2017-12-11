@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.PdfApi.Controllers.Tests
         {
             var testHtmlString = @"<html><body> <h1>My Content</h1><p>My Content.</p></body></html>";
             List<PDFContentData> applicationData = new List<PDFContentData>();
-            applicationData.Add(new PDFContentData() { HtmlString = testHtmlString, Type = "html" });
+            applicationData.Add(new PDFContentData() { HtmlString = new List<string>() { testHtmlString }, Type = "html" });
             DocumentManagementController documentManagementController = new DocumentManagementController(_documentConcatenateService);
             var bytes = documentManagementController.Concatenate(applicationData);
             Assert.IsNotNull(bytes);

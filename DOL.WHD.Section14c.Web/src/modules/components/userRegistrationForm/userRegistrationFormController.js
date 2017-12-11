@@ -93,17 +93,8 @@ module.exports = function(ngModule) {
           function() {
             vm.emailVerified = true;
           },
-          function(error) {
+          function() {
             vm.emailVerificationError = true;
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
           }
         );
     }
@@ -188,15 +179,6 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
             vm.submittingForm = false;
             $location.path('/');
           }
@@ -207,11 +189,9 @@ module.exports = function(ngModule) {
     $scope.regResponse = null;
     $scope.regWidgetId = null;
     $scope.setRegResponse = function(response) {
-      console.info('Response available');
       $scope.regResponse = response;
     };
     $scope.createRegWidget = function(widgetId) {
-      console.info('Created widget ID: %s', widgetId);
       $scope.regWidgetId = widgetId;
     };
     $scope.hideShowPassword = function() {

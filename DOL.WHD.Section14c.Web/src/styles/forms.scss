@@ -1,9 +1,5 @@
 // ----- begin NEW CSS RULES for semantic html restructuring and a11y remediation.
 // The legacy styles will be integrated here or deleted during a11y remediation.
-// This comment will be removed when a11y remediation is complete.
-// Pages updated with the new styles:
-// Application Info (in progress)
-
 .dol-form-page {
   margin-top: 4rem;
 
@@ -333,6 +329,22 @@ input.email {
   max-width: 32rem;
 }
 
+input.sidelabeled {
+  display: inline-block;
+
+  & + label,
+  & + span {
+    display: inline-block;
+    margin-top: 0px;
+  }
+}
+
+label.example,
+span.example {
+  color: #666;
+  margin-left: 1.5rem;
+}
+
 // Limit the width of text in the form per USWDS recommendation
 // Within the form, increase the default width b/c the default font size is larger
 .dol-form-page ul,
@@ -456,11 +468,14 @@ h4#helpfulLinksHeader {
   p {
     margin: 0 0 10px 0;
   }
+  .dol-left-column {
+    margin-bottom: 20px;
+  }  
 }
 
 @media (min-width: 940px) {
   .dol-worksite-employee-help {
-    p {
+    .dol-left-column {
       float: left;
       width: 48%;
       margin: 0;
@@ -584,13 +599,9 @@ dl.dol-employee-example-data {
   }
 }
 
-
-// ----- end NEW CSS RULES
-
-// ----- begin LEGACY CSS RULES
-// There may be duplicates with the new styles above.
-// The legacy styles will be integrated or deleted during a11y remediation.
-// This comment will be removed when a11y remediation is complete.
+// ----- BEGIN LEGACY CSS RULES -----------------------------------------------------------
+// There may be duplicates with the new styles above, 
+// but some of these legacy styles are still in use.
 
 .form-content,
 .form-page-full {
@@ -605,26 +616,6 @@ dl.dol-employee-example-data {
   .form-question-text {
     font-size: 2rem;
   }
-}
-
-// TODO: Remove after new example styles are updated on all pages
-// Example text should not be the field label.
-input.sidelabeled {
-  display: inline-block;
-
-  & + label,
-  & + span {
-    display: inline-block;
-    margin-top: 0px;
-  }
-}
-
-// TODO: Remove after new example styles are updated on all pages
-// Example text should not be the field label.
-label.example,
-span.example {
-  color: #666;
-  margin-left: 1.5rem;
 }
 
 @include nested(12) {
@@ -652,66 +643,6 @@ span.example {
 
     & > h3:first-of-type {
       margin-top: 0px;
-    }
-
-    .em-block {
-      background-color: $color-gray-lightest;
-      padding: 2rem;
-
-      table thead th {
-        background-color: darken($form-em-grey, 10%);
-      }
-    }
-
-    .underlabel {
-      margin-top: 0px;
-
-      &.checkbox-indent {
-        margin-left: 3rem;
-        margin-top: -5px;
-        margin-bottom: 20px;
-      }
-    }
-
-    .help-link {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      vertical-align: 2px;
-      margin: 0 0 0 4px;
-      padding: 0;
-      cursor: pointer;
-      background: url('../images/dol-help-blue.png') center center;
-      background: url('../images/dol-help-blue.svg') center center;
-      background-size: contain;
-      text-indent: -9999px;
-
-      &:hover {
-        opacity: 0.8;
-      }
-    }
-
-    .help-text {
-      font-size: 1.7rem;
-      font-weight: 400;
-      background-color: $help-em-color;
-      padding: 1.5rem 2rem;
-      margin-top: 1.5rem;
-      display: none;
-
-      p {
-        &:first-of-type {
-          margin-top: 0;
-        }
-
-        &:last-of-type {
-          margin-bottom: 0;
-        }
-      }
-
-      &.show {
-        display: block;
-      }
     }
 
     ul.compact-list {
@@ -747,21 +678,6 @@ span.example {
       }
     }
 
-    // Remove bottom margins for address layout
-    .usa-input-grid-medium,
-    .usa-input-grid-small {
-      input,
-      select {
-        margin-bottom: 0;
-      }
-    }
-
-    hr {
-      margin-top: 2rem;
-      margin-bottom: 2rem;
-      border: 0;
-      border-top: 1px solid #aeb0b5;
-    }
 
     hr + .form-question-block {
       &:not(:first-of-type) {
@@ -803,6 +719,8 @@ span.example {
       font-weight: bold;
     }
 
+    // These wage data table style rules may go away after
+    // the wage data table is updated with Data-Tables functionality
     .wage-data-table {
       font-size: 12px;
 
@@ -974,13 +892,6 @@ span.example {
 }
 
 
-
-//Example of Employee data
-.dol-help-employee-example {
-  .dol-view-large {
-    display: none;
-  }
-}
 
 @media (min-width: 37.5em) {
   .form-tabbed-section {

@@ -3,6 +3,7 @@
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
 import find from 'lodash/find';
+import * as tableConfig from './tableConfig';
 
 module.exports = function(ngModule) {
   ngModule.controller('sectionWorkSitesController', function(
@@ -40,38 +41,11 @@ module.exports = function(ngModule) {
       status: false,
       name: ''
     };
-    vm.columns = [
-      {
-          "className": '',
-          "orderable": false,
-          "data":null,
-          "defaultContent": ""
-      },
-      { title: 'Name', model: 'name' },
-      { title: 'Type of work performed', model: 'workType'  },
-      { title: 'Primary disability', model: 'primaryDisabilityId'  },
-      { title: 'How many jobs did this worker perform at this work site?', model: 'numJobs'  },
-      { title: 'Average # of hours worked per week on all jobs at this work site', model: 'avgWeeklyHours'  },
-      { title: 'Average earnings per hour for all jobs at this work site', model: 'avgHourlyEarnings'  },
-      { title: 'Prevailing wage rate for job described above', model: 'prevailingWage'  },
-      { title: 'Productivity measure/rating for job described above', model: 'hasProductivityMeasure'  },
-      { title: 'Commensurate wage rate/average earnings per hour for job described above', model: "commensurateWageRate" },
-      { title: 'Total hours worked for job described above', model: 'totalHours'  },
-      { title: 'Does worker perform work for this employer at any other work site?', model: 'workAtOtherSite'  },
-      {
-          "className": 'edit-table-entry',
-          "orderable": false,
-          "data":null,
-          "defaultContent": "<button class='green-button'>Edit</button>"
-      },
-      {
-          "className": 'delete-table-entry',
-          "orderable": false,
-          "data":null,
-          "defaultContent": "<button class='usa-button-secondary'>Delete</button>"
-      }
-    ]
 
+    vm.employeeColumns = tableConfig.employeeColumns;
+    vm.employeeColumnDefs = tableConfig.employeeColumnDefinitions;
+    vm.workSiteColumns = tableConfig.workSiteColumns;
+    vm.workSiteColumnDefs = tableConfig.workSiteColumnDefinitions;
     // multiple choice responses
     let questionKeys = ['WorkSiteType', 'PrimaryDisability'];
     responsesService.getQuestionResponses(questionKeys).then(responses => {
@@ -119,19 +93,19 @@ module.exports = function(ngModule) {
 
     this.doneAddingEmployees = function($event) {
       vm.addEmployee();
-      $('.cd-panel').removeClass('is-visible');
+      closeSlidingPanel();
       $event.preventDefault();
       vm.addingEmployee = false;
     };
 
     this.editEmployee = function(index, $event) {
+      vm.addingEmployee = true;
       vm.clearSaveStatus();
       $event.preventDefault();
       if (vm.activeWorksite && vm.activeWorksite.employees.length > index) {
         vm.activeWorkerIndex = index;
         vm.activeWorker = merge({}, vm.activeWorksite.employees[index]);
-        $('.cd-panel').addClass('is-visible');
-        vm.addingEmployee = true;
+        $('.employee').addClass('is-visible');
       }
     };
 
@@ -326,21 +300,23 @@ module.exports = function(ngModule) {
       $(`#${target}`).addClass('is-visible');
       $(`#${target} .cd-panel-header h3`).focus();
       vm.clearActiveWorker();
-      $('body').addClass('cd-panel-open'); 
+      $('body').addClass('cd-panel-open');
       event.preventDefault();
     });
 
     // close the panel
     function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
-      panelTrigger.focus();
-      $('body').removeClass('cd-panel-open'); 
+      $('body').removeClass('cd-panel-open');
+      if (panelTrigger) {
+        panelTrigger.focus();
+      }
     }
+
     $(document).keydown(function(event) {
         // escape key
         if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
           closeSlidingPanel();
-          event.preventDefault();
         }
     });
     $('.cd-panel-close').on('click', function(event){

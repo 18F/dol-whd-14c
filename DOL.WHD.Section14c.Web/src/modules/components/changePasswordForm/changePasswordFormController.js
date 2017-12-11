@@ -43,15 +43,6 @@ module.exports = function(ngModule) {
             vm.changePasswordSuccess = true;
           },
           function(error) {
-            console.log(
-              error.statusText +
-                (error.data && error.data.error
-                  ? ': ' +
-                    error.data.error +
-                    ' - ' +
-                    error.data.error_description
-                  : '')
-            );
             $scope.changePasswordErrors = apiService.parseErrors(error.data);
             vm.changePasswordError = true;
           }

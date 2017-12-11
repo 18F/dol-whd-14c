@@ -31,13 +31,7 @@ module.exports = function(ngModule) {
           var data = result.data;
           $scope.formVals = data;
         },
-        function(error) {
-          console.log(
-            error.statusText +
-              (error.data && error.data.error
-                ? ': ' + error.data.error + ' - ' + error.data.error_description
-                : '')
-          );
+        function() {
           vm.loadingError = true;
         }
       );
@@ -52,13 +46,7 @@ module.exports = function(ngModule) {
         var data = result.data;
         $scope.roles = data;
       },
-      function(error) {
-        console.log(
-          error.statusText +
-            (error.data && error.data.error
-              ? ': ' + error.data.error + ' - ' + error.data.error_description
-              : '')
-        );
+      function() {
         vm.loadingError = true;
       }
     );
@@ -73,15 +61,6 @@ module.exports = function(ngModule) {
               $location.path('/');
             },
             function(error) {
-              console.log(
-                error.statusText +
-                  (error.data && error.data.error
-                    ? ': ' +
-                      error.data.error +
-                      ' - ' +
-                      error.data.error_description
-                    : '')
-              );
               $scope.savingErrors = apiService.parseErrors(error.data);
               vm.savingError = true;
             }
@@ -94,15 +73,6 @@ module.exports = function(ngModule) {
               $location.path('/');
             },
             function(error) {
-              console.log(
-                error.statusText +
-                  (error.data && error.data.error
-                    ? ': ' +
-                      error.data.error +
-                      ' - ' +
-                      error.data.error_description
-                    : '')
-              );
               $scope.savingErrors = apiService.parseErrors(error.data);
               vm.savingError = true;
             }

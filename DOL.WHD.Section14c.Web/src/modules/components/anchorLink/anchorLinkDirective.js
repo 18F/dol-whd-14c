@@ -12,12 +12,12 @@ module.exports = function(ngModule) {
           $anchorScroll(attr.scrollto);
           $document[0].getElementById(attr.scrollto).focus();
         });
-        element.bind('keydown keypress', function() {
+        element.bind('keydown keypress', function(event) {
           if (event.which === 13) {
             $anchorScroll(attr.scrollto);
             $document[0].getElementById(attr.scrollto).focus();
             event.preventDefault();
-          }  
+          }
         });
       },
       transclude: true

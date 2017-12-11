@@ -1,6 +1,7 @@
 'use strict';
 
 import merge from 'lodash/merge';
+import * as tableConfig from './tableConfig';
 
 module.exports = function(ngModule) {
   ngModule.controller('sectionWioaController', function(
@@ -12,7 +13,7 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
-    $scope.showAllHelp = false;     
+    $scope.showAllHelp = false;
 
     // multiple choice responses
     let questionKeys = ['WIOAWorkerVerified'];
@@ -22,12 +23,15 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
+
     $scope.showWIOAReqs = false;
     if (!$scope.formData.WIOA) {
       $scope.formData.WIOA = { WIOAWorkers: [] };
     }
 
     var vm = this;
+    vm.wioaColumns = tableConfig.wioaColumns;
+    vm.wioaColumnDefs = tableConfig.wioaColumnDefinitions;
     vm.addingWorker = $scope.formData.WIOA.WIOAWorkers.length === 0;
     vm.activeWorker = {};
     vm.activeWorkerIndex = -1;
@@ -65,6 +69,6 @@ module.exports = function(ngModule) {
 
     this.toggleAllHelpText = function() {
       $scope.showAllHelp = !$scope.showAllHelp;
-    }    
+    }
   });
 };

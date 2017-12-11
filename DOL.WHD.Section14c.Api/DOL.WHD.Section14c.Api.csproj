@@ -280,7 +280,13 @@
   <ItemGroup>
     <Content Include="App_Data\CertificationTeamEmailTemplate.txt" />
     <Content Include="App_Data\EmployerEmailTemplate.txt" />
-    <Content Include="App_Data\Section14cApplicationPdfView.html" />
+    <Content Include="App_Data\HtmlTemplates\0-ApplicationCoverPage.html" />
+    <Content Include="App_Data\HtmlTemplates\1-Assurances.html" />
+    <Content Include="App_Data\HtmlTemplates\2-ApplicationInfo.html" />
+    <Content Include="App_Data\HtmlTemplates\3-Employer.html" />
+    <Content Include="App_Data\HtmlTemplates\4-WageData.html" />
+    <Content Include="App_Data\HtmlTemplates\5-WorkSitesEmployees.html" />
+    <Content Include="App_Data\HtmlTemplates\6-WIOA.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />

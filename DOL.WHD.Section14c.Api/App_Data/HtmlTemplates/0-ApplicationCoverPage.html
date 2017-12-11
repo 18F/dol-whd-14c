@@ -1,0 +1,92 @@
+﻿<html class="ng-scope" lang="en">
+<head>
+    <style type="text/css">
+        hr {
+            border-style: solid;
+        }
+
+        td {
+            page-break-inside: avoid;
+        }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
+        span.subtext {
+            font-weight: bold
+        }
+
+        span.title {
+            font-weight: bold;
+            margin-top: 40px;
+        }
+
+        span.subtextanswer {
+            font-weight: normal;
+            margin-bottom: 10px;
+        }
+
+        .row_greyed {
+            background-color: #9F9F9F;
+        }
+
+        table .subtable {
+            display: table;
+            width: 100%;
+            font-size: 14px;
+        }
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
+            font-size: 11px;
+        }
+
+        .employeeSubTable {
+            width: 100%;
+            border-bottom: 1px;
+            border-top: 1px;
+            border-bottom-style: solid;
+            border-bottom-style: solid;
+            margin-top: 20px;
+        }
+
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-page">
+        <div class="accessibility-text">
+            <p>Accessibility Statement:</p>
+            <p>The U.S. Department of Labor (DOL) is committed to providing access to all individuals who are seeking to utilize the Section 14(c) Online Certification Application.  To provide this access, the Section 14(c) Online Certification Application has been developed to comply with Section 508 of the Rehabilitation Act of 1973 as amended.  Section 508 requires that all individuals with disabilities (whether they are federal government employees or members of the general public) have access to, and use of information and data, comparable to that provided to individuals without disabilities, unless an undue burden would be imposed on the Department.</p>
+            <p>This automatically-generated PDF is a copy of an application for Section 14(c) Subminimum Wage Certificate, submitted via the Department of Labor Section 14(c) Online Certification Application, which consists of employer-provided form data and uploaded attachments.  Therefore, while DOL strives to adhere to the accepted guidelines and standards for accessibility and usability, it is possible that this PDF will not be accessible.</p>
+            <p>DOL is continually seeking out solutions that will bring all areas of the Section 14(c) Online Certification Application up to the same level of overall accessibility. If you experience any difficulty in accessing this PDF, please contact us at WHDNOComm@dol.gov.</p>
+        </div>
+        <div class="dol-form-title"><h1>Section 14(c) Certificate Application</h1></div>
+        <div>Employer Name: {{ Employer.LegalName }}</div>
+        <div>Employer EIN: {{ EIN }}</div>
+        <div>Submission Date: {{ formatDateTime CreatedAt }}</div>   
+    </div>
+</body>
+</html>

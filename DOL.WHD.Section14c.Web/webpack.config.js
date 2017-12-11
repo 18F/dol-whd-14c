@@ -15,7 +15,8 @@ module.exports = {
   },
   eslint: {
     failOnWarning: false,
-    failOnError: false
+    failOnError: false,
+    emitWarning: true
   },
   devServer: {
     inline: true,
@@ -35,7 +36,7 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
-        loader: 'eslint'
+        loader: 'eslint-loader'
       }
     ],
     loaders: [
@@ -90,6 +91,11 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery'
-    })
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        drop_console: true
+      }
+    }),
   ]
 };
