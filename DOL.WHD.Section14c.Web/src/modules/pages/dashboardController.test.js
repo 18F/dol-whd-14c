@@ -1,5 +1,5 @@
-describe('landingPageController', function() {
-  var scope, landingPageController;
+describe('dashboardController', function() {
+  var scope, dashboardController;
 
   beforeEach(module('14c'));
 
@@ -7,8 +7,8 @@ describe('landingPageController', function() {
     inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
 
-      landingPageController = function() {
-        return $controller('landingPageController', {
+      dashboardController = function() {
+        return $controller('dashboardController', {
           $scope: scope
         });
       };
@@ -16,7 +16,7 @@ describe('landingPageController', function() {
   );
 
   it('invoke controller', function() {
-    var controller = landingPageController();
+    var controller = dashboardController();
     expect(controller).toBeDefined();
   });
 });

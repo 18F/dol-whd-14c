@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.controller('landingPageController', function(
+  ngModule.controller('homePageController', function(
     $scope,
     stateService,
     $location

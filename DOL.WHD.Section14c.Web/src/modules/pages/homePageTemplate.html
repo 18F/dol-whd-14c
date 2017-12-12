@@ -1,0 +1,15 @@
+<dol-header></dol-header>
+
+<main tabindex="-1" id="mainContent" role="main" class="main-content">
+  <div ng-if="!stateService.user.email">
+    <div class="dol-landing-public">
+      <h1>Section 14(c) Certificate Application</h1>
+      <div class="dol-width-one-half">
+        <user-login></user-login>
+      </div>
+      <div class="dol-width-one-half">
+        <user-registration-form></user-registration-form>
+      </div>
+    </div>
+  </div>
+<dol-footer></dol-footer>

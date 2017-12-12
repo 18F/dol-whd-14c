@@ -6,19 +6,26 @@ module.exports = function (app) {
   app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
-        controller: 'landingPageController',
+        controller: 'homePageController',
         reloadOnSearch: false,
-        template: require('./pages/landingPageTemplate.html'),
+        template: require('./pages/homePageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         isLanding: true,
         label: '14(c) Home'
+      })
+      .when('/dashboard', {
+        controller: 'dashboardController',
+        reloadOnSearch: false,
+        template: require('./pages/dashboardTemplate.html'),
+        access: config.access.ROUTE_LOGGEDIN,
+        label: 'Dashboard'
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
-        parent: '/'
+        parent: '/dashboard'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
