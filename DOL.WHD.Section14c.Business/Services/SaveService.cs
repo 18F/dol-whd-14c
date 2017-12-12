@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Business.Services
             {
                 applicationSave.Employer_Id = employerId;
             }
-            applicationSave.EIN = EIN;
+            applicationSave.Id = EIN;
             applicationSave.ApplicationId = applicationId;
             applicationSave.ApplicationState = state;
 

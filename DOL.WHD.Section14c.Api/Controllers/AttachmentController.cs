@@ -47,7 +47,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="EIN">Employer Identification Number</param>
         /// <returns>Http status code</returns>
-        [Route("{EIN}")]
+        [Route("{Id}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string EIN)
         {
@@ -56,7 +56,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return StatusCode(HttpStatusCode.UnsupportedMediaType);
             }
 
-            // make sure user has rights to the EIN
+            // make sure user has rights to the Id
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {
@@ -92,16 +92,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{EIN}/{fileId}")]
+        [Route("{Id}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public IHttpActionResult Download(string EIN, Guid fileId)
         {
-            // make sure user has rights to the EIN or has View All Application rights
+            // make sure user has rights to the Id or has View All Application rights
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
             if (!hasEINClaim && !hasViewAllFeature)
             {
-                Unauthorized("User doesn't have rights to download attachments from this EIN");
+                Unauthorized("User doesn't have rights to download attachments from this Id");
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -139,11 +139,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{EIN}/{fileId}")]
+        [Route("{Id}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult Delete(string EIN, Guid fileId)
         {
-            // make sure user has rights to the EIN
+            // make sure user has rights to the Id
             var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
             if (!hasEINClaim)
             {

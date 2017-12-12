@@ -37,7 +37,7 @@ namespace DOL.WHD.Section14c.Business.Services
         /// <returns></returns>
         public OrganizationMembership GetOrganizationMembershipByEmployer(Employer employer)
         {
-            return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsAdmin == true);
+            return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsPointOfContact == true);
         }
 
         public void UpdateOrganizationMembership(OrganizationMembership organizationMembership)

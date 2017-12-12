@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         }
 
         [Key]
-        public string EIN { get; set; }
+        public string Id { get; set; }
 
         public string ApplicationId { get; set; }
 

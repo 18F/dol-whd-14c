@@ -24,12 +24,12 @@ namespace DOL.WHD.Section14c.Test.Domain.Models
             // Act
             var obj = new ApplicationSave
             {
-                EIN = ein,
+                Id = ein,
                 ApplicationState = state
             };
 
             // Assert
-            Assert.AreEqual(ein, obj.EIN);
+            Assert.AreEqual(ein, obj.Id);
             Assert.AreEqual(state, obj.ApplicationState);
         }
     }

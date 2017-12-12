@@ -35,7 +35,7 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         [Required]
         [DataMember]
-        public bool IsAdmin { get; set; }
+        public bool IsPointOfContact { get; set; }
 
         [DataMember]
         public int? ApplicationStatusId { get; set; }
