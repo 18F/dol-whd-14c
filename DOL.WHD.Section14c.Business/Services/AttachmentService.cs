@@ -76,20 +76,26 @@ namespace DOL.WHD.Section14c.Business.Services
         ///     A list of PDF content data objects that can be sent to
         ///     the PDF API to generate a new PDF document
         /// </returns>
-        public List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(List<Attachment> attachments, string applicationFormData)
+        public List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(Dictionary<string, Attachment> attachments, List<string> applicationFormData)
         {
             var applicationData = new List<PDFContentData>();
 
-            if (!string.IsNullOrEmpty(applicationFormData))
+            if (applicationFormData != null)
             {
                 applicationData.Add(new PDFContentData() { HtmlString = applicationFormData, Type = "html" });
             }
             foreach (var attachment in attachments)
             {
-                using (var memoryStream = new MemoryStream())
+                if (attachment.Value != null)
                 {
-                    var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
-                    applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.MimeType });
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        // Create file name for each attachment. 
+                        // File name format: attachment type - original file name 
+                        var fileName = string.Format("{0} - {1}", attachment.Key,  attachment.Value.OriginalFileName);
+                        var stream = _fileRepository.Download(memoryStream, attachment.Value.RepositoryFilePath);
+                        applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.Value.MimeType, FileName = fileName });
+                    }
                 }
             }
             return applicationData;
@@ -100,47 +106,35 @@ namespace DOL.WHD.Section14c.Business.Services
         /// </summary>
         /// <param name="application"></param>
         /// <returns></returns>
-        public List<Attachment> GetApplicationAttachments(ApplicationSubmission application)
+        public Dictionary<string, Attachment> GetApplicationAttachments(ref ApplicationSubmission application)
         {
-            List<Attachment> attachments = new List<Attachment>();
+            var attachments = new Dictionary<string, Attachment>();
+            var applicationSubmission = application;
             if (application != null)
             {
                 if (application.Employer?.SCAAttachmentId != null)
                 {
-                    // The attachment is null right after application is submitted. 
-                    // In order to be able to send application submit email to employer with concatenate pdf document 
-                    // The attachment need to get from attachment database table directly
-                    var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.Employer?.SCAAttachmentId.ToString());
-                    attachments.Add(attachment);
+                    attachments.Add("SCA Wage Determination Attachment", application.Employer.SCAAttachment);
                 }
 
                 if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
-                    var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId.ToString());
-                    attachments.Add(application.PieceRateWageInfo.SCAWageDeterminationAttachment);
+                    attachments.Add("Piece Rate Wage Info ScaWage Determination Attachment", application.PieceRateWageInfo.SCAWageDeterminationAttachment);
                 }
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
                 {
-                    var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.PieceRateWageInfo?.AttachmentId.ToString());
-                    attachments.Add(application.PieceRateWageInfo.Attachment);
+                    attachments.Add("Piece Rate Wage Info Attachment", application.PieceRateWageInfo.Attachment);
                 }
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
                 {
-                    var attachment = _attachmentRepository.Get()
-                        .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId.ToString());
-                    attachments.Add(application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+                    attachments.Add("Hourly Wage Info SCA Wage Determination Attachment", application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
                 }
 
                 if (application.HourlyWageInfo?.AttachmentId != null)
                 {
-                    var attachment = _attachmentRepository.Get()
-                       .SingleOrDefault(x => x.Deleted == false && x.Id == application.HourlyWageInfo?.AttachmentId.ToString());
-                    attachments.Add(application.HourlyWageInfo.Attachment);
+                    attachments.Add("Hourly Wage Info Attachmen", application.HourlyWageInfo.Attachment);
                 }
             }
             return attachments;

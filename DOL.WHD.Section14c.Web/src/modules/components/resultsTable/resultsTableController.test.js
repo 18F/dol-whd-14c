@@ -1,14 +1,18 @@
 describe('resultsTableController', function() {
-var resultsTableController, scope
+var resultsTableController, scope, attrs
   beforeEach(module('14c'));
 
   beforeEach(
     inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
+      attrs = {
+        id: "test"
+      };
 
       resultsTableController = function() {
         return $controller('resultsTableController', {
-          $scope: scope
+          $scope: scope,
+          $attrs: attrs
         });
       };
     })
@@ -19,7 +23,7 @@ var resultsTableController, scope
     scope.tableWidget = undefined;
 
     var controller = resultsTableController();
-    controller.initDatatable();
+    controller.initDatatable("test");
 
     // Ideally we could mock the call to jQuery.DataTable and
     // just verify that it was called, but since we can't do
@@ -47,7 +51,7 @@ var resultsTableController, scope
       { a: 12, b: 22, c: 32 },
     ];
 
-    controller.refreshTable(data, columns);
+    controller.refreshTable(data, columns, "test");
 
     expect(scope.data).toEqual([
       [ 40, 10, 20, 30 ],

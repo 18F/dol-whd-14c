@@ -7,6 +7,7 @@ using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Test.RepositoryMocks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -58,6 +59,19 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.IsTrue(responses.Any(r => !r.IsActive));
+        }
+
+        [TestMethod]
+        public void GetResponseById()
+        {
+            // Arrange
+            var service = new ResponseService(_responseRepositoryMock);
+
+            // Act
+            var response = service.GetResponseById("1");
+
+            // Assert
+            Assert.AreEqual("Initial Application", response.Display);
         }
 
         [TestMethod]

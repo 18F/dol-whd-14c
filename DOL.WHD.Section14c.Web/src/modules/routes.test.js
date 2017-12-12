@@ -6,17 +6,11 @@ describe('sectionAssurancesController', function() {
   it('should map routes to controllers', function() {
     inject(function($route) {
       expect($route.routes['/'].controller).toBe('landingPageController');
-      expect($route.routes['/changePassword'].templateUrl).toEqual('./pages/changePasswordPageTemplate.html');
       expect($route.routes['/changePassword'].controller).toEqual('changePasswordPageController');
-      expect($route.routes['/forgotPassword'].templateUrl).toEqual('./pages/forgotPasswordPageTemplate.html');
       expect($route.routes['/forgotPassword'].controller).toEqual('forgotPasswordPageController');
-      expect($route.routes['/login'].templateUrl).toEqual('./pages/userLoginPageTemplate.html');
       expect($route.routes['/login'].controller).toEqual('userLoginPageController');
-      expect($route.routes['/register'].templateUrl).toEqual('./pages/userRegistrationPageTemplate.html');
       expect($route.routes['/register'].controller).toEqual('userRegistrationPageController');
-      expect($route.routes['/account/:userId'].templateUrl).toEqual('./pages/accountPageTemplate.html');
       expect($route.routes['/account/:userId'].controller).toEqual('accountPageController');
-      expect($route.routes['/admin/users'].templateUrl).toEqual('./pages/userManagementPageTemplate.html');
       expect($route.routes['/admin/users'].controller).toEqual('userManagementPageController');
       expect($route.routes['/section/assurances'].template).toEqual('<form-section><section-assurances></section-assurances></form-section>');
       expect($route.routes['/section/app-info'].template).toEqual('<form-section><section-app-info></section-app-info></form-section>');

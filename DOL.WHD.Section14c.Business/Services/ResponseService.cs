@@ -29,6 +29,11 @@ namespace DOL.WHD.Section14c.Business.Services
             return responses.ToList();
         }
 
+        public Response GetResponseById(string id)
+        {
+            return _repository.Get().SingleOrDefault(x => x.Id.ToString() == id.ToString());
+        }
+
         public void Dispose()
         {
             Dispose(true);

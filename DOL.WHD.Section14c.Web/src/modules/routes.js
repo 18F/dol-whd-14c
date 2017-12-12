@@ -11,18 +11,18 @@ module.exports = function (app) {
         template: require('./pages/landingPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         isLanding: true,
-        label: 'Home'
+        label: '14(c) Home'
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
-        templateUrl: './pages/changePasswordPageTemplate.html',
+        template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
         parent: '/'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
-        templateUrl: './pages/forgotPasswordPageTemplate.html',
+        template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
         parent: '/'
@@ -34,62 +34,62 @@ module.exports = function (app) {
       })
       .when('/register', {
         controller: 'userRegistrationPageController',
-        templateUrl: './pages/userRegistrationPageTemplate.html',
+        template: require('./pages/userRegistrationPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
-        templateUrl: './pages/accountPageTemplate.html',
+        template: require('./pages/accountPageTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN
       })
       .when('/section/assurances', {
         template: '<form-section><section-assurances></section-assurances></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Assurances',
+        label: 'Assurances',
         parent:'/'
       })
       .when('/section/app-info', {
         template: '<form-section><section-app-info></section-app-info></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Application Info',
-        parent:'/section/assurances'
+        label: 'Application Info',
+        parent:'/'
       })
       .when('/section/employer', {
         template: '<form-section><section-employer></section-employer></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Employer',
-        parent:'/section/app-info'
+        label: 'Employer',
+        parent:'/'
       })
       .when('/section/wage-data', {
         template: '<form-section><section-wage-data></section-wage-data></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Wage Data',
-        parent:'/section/employer'
+        label: 'Wage Data',
+        parent:'/'
       })
       .when('/section/work-sites', {
         template: '<form-section><section-work-sites></section-work-sites></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Work Sites & Employees',
-        parent:'/section/wage-data'
+        label: 'Work Sites & Employees',
+        parent:'/'
       })
       .when('/section/wioa', {
         template: '<form-section><section-wioa></section-wioa></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: WIOA',
-        parent:'/section/work-sites'
+        label: 'WIOA',
+        parent:'/'
       })
       .when('/section/review', {
         template: '<form-section><section-review></section-review></form-section>',
         reloadOnSearch: false,
         access: config.access.ROUTE_USER,
-        label: 'Section: Review',
-        parent:'/section/wioa'
+        label: 'Review',
+        parent:'/'
       })
       .when('/admin', {
         controller: 'adminDashboardController',
@@ -98,7 +98,7 @@ module.exports = function (app) {
       })
       .when('/admin/users', {
         controller: 'userManagementPageController',
-        templateUrl: './pages/userManagementPageTemplate.html',
+        template: require('./pages/userManagementPageTemplate.html'),
         access: config.access.ROUTE_ADMIN
       })
       .when('/admin/:app_id', {

@@ -19,10 +19,14 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
     public class PdfHelper
     {
         /// <summary>
-        /// 
+        /// Concatenate PDF
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="applicationData"></param>
+        /// <param name="outputDocument">
+        /// Pdf Document
+        /// </param>
+        /// <param name="applicationData">
+        /// Content Data
+        /// </param>
         /// <returns></returns>
         public static PdfDocument ConcatenatePDFs(PdfDocument outputDocument, PDFContentData applicationData)
         {
@@ -31,20 +35,26 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 // Create PDF file
                 if (applicationData.Type.ToLower().Contains("pdf"))
                 {
-                    outputDocument = ConcatenatePDFDocumentByBytes(outputDocument, applicationData.Buffer);
+                    outputDocument = ConcatenatePDFDocumentByBytes(outputDocument, applicationData.Buffer, applicationData.FileName);
                 }
 
                 // Create PDF image
                 if (applicationData.Type.ToLower().Contains("image"))
                 {
-                    var doc = ConcatenatePDFWithImage(outputDocument, applicationData.Buffer);
+                    var doc = CreatePDFWithImage(applicationData.Buffer, applicationData.FileName);
                     AddPagesToPdf(ref outputDocument, doc);
                 }
 
-                if (applicationData.Type.ToLower().Contains("html") && !String.IsNullOrEmpty(applicationData.HtmlString))
+                if (applicationData.Type.ToLower().Contains("html") && applicationData.HtmlString != null)
                 {
-                    var doc = GetPdfDocFromHtml(outputDocument, applicationData.HtmlString);
-                    AddPagesToPdf(ref outputDocument, doc);
+                    foreach (var htmlString in applicationData.HtmlString)
+                    {
+                        if (!string.IsNullOrEmpty(htmlString))
+                        {
+                            var doc = GetPdfDocFromHtml(outputDocument, htmlString);
+                            AddPagesToPdf(ref outputDocument, doc);
+                        }
+                    }
                 }
             }
 
@@ -59,8 +69,12 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from HTML string
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="htmlString"></param>
+        /// <param name="outputDocument">
+        /// Pdf Document 
+        /// </param>
+        /// <param name="htmlString">
+        /// Html string
+        /// </param>
         /// <returns></returns>
         private static PdfDocument GetPdfDocFromHtml(PdfDocument outputDocument, string htmlString)
         {
@@ -77,7 +91,9 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Clean Html string and fix any html errors
         /// </summary>
-        /// <param name="htmlString"></param>
+        /// <param name="htmlString">
+        /// Html string
+        /// </param>
         /// <returns></returns>
         private static string ScrubHtmlString(string htmlString)
         {
@@ -103,9 +119,17 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Concatenate PDF Document By Array
         /// </summary>
-        /// <param name="documentContentByteArray"></param>
+        /// <param name="outputDocument">
+        /// Output document
+        /// </param>
+        /// <param name="buffer">
+        /// Byte array
+        /// </param>
+        /// <param name="fileName">
+        /// File name
+        /// </param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFDocumentByBytes(PdfDocument outputDocument, byte[] buffer)
+        private static PdfDocument ConcatenatePDFDocumentByBytes(PdfDocument outputDocument, byte[] buffer, string fileName)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
@@ -120,10 +144,11 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                 for (int idx = 0; idx < count; idx++)
                 {
                     // Get the page from the external document...
-                    PdfPage page = inputDocument.Pages[idx];
-                   
+                    PdfPage page = inputDocument.Pages[idx];                    
                     // ...and add them to the output document.
-                    outputDocument.AddPage(page);
+                    var outputPage = outputDocument.AddPage(page);
+                    // Set Page Header
+                    SetPageheader(outputPage, fileName);
                 }
             }
             return outputDocument;
@@ -132,32 +157,44 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from Image
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="buffer"></param>
+        /// <param name="buffer">
+        /// Byte array
+        /// </param>
+        /// <param name="fileName">
+        /// File name
+        /// </param>
         /// <returns></returns>
-        private static PdfDocument ConcatenatePDFWithImage(PdfDocument outputDocument, byte[] buffer)
+        private static PdfDocument CreatePDFWithImage(byte[] buffer, string fileName)
         {
             if (buffer == null)
                 throw new ArgumentException("No data provided", "buffer");
-
+            PdfDocument doc = new PdfDocument();
             using (var stream = new MemoryStream(buffer))
             {
                 // Create an empty page
+                var page = doc.AddPage();
+                page.Size = PageSize.A4;
+                // Set Page Header
+                SetPageheader(page, fileName);
                 // Get an XGraphics object for drawing
-                XGraphics gfx = XGraphics.FromPdfPage(outputDocument.AddPage());
+                XGraphics gfx = XGraphics.FromPdfPage(page);
 
-                Image image = Image.FromStream(stream);
-
-                XImage img = XImage.FromGdiPlusImage(image);
-                gfx.DrawImage(img, 0, 0);
+                XImage img = XImage.FromStream(stream);
+                
+                gfx.DrawImage(img, 0, 25);
             }
-            return outputDocument;
-        }        
+            return doc;
+        }
 
         /// <summary>
         /// Concatenate PDF Document By File Path
         /// </summary>
-        /// <param name="filePaths"></param>
+        /// <param name="outputDocument">
+        /// PdfDocument for return
+        /// </param>
+        /// <param name="filePaths">
+        /// File Path
+        /// </param>
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFDocumentByPath(PdfDocument outputDocument, List<string> filePaths)
         {
@@ -195,8 +232,12 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from existing PDF files
         /// </summary>
-        /// <param name="outputDocument"></param>
-        /// <param name="file"></param>
+        /// <param name="outputDocument">
+        /// PdfDocument for return
+        /// </param>
+        /// <param name="file">
+        /// file path
+        /// </param>
         /// <returns></returns>
         private static PdfDocument ConcatenatePDFByPath(PdfDocument outputDocument, string file)
         {
@@ -238,7 +279,6 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
         /// <summary>
         /// Create PDF from image file
         /// </summary>
-        /// <param name="outputDocument"></param>
         /// <param name="imageLocation"></param>
         /// <returns></returns>
         private static PdfDocument CreatePDFDocumentByImage(string imageLocation)
@@ -301,6 +341,29 @@ namespace DOL.WHD.Section14c.PdfApi.PdfHelper
                         brush,
                         layoutRectangle,
                         pageNumberFormat);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Get Page Header
+        /// </summary>
+        /// <param name="page">Pdf Page object</param>
+        /// <param name="message">Header message</param>
+        private static void SetPageheader(PdfPage page, string message)
+        {
+            if (!string.IsNullOrEmpty(message))
+            {
+                XFont font = new XFont("Verdana", 8, XFontStyle.Regular);
+                XBrush brush = XBrushes.Black;
+                XStringFormat format = new XStringFormat
+                {
+                    Alignment = XStringAlignment.Center,
+                    LineAlignment = XLineAlignment.Center
+                };
+                using (XGraphics gfx = XGraphics.FromPdfPage(page))
+                {
+                    gfx.DrawString(message, font, brush, new XRect(0, 0, page.Width - 15/*Width*/, font.Height/*Height*/), format);
                 }
             }
         }

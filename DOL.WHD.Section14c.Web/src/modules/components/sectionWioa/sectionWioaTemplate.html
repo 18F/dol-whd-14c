@@ -1,4 +1,3 @@
-<breadcrumb></breadcrumb>
 <div class="dol-form-section-title">
   <h2>WIOA</h2>
 
@@ -112,36 +111,13 @@
             </div>
           </div>
         </fieldset>
-        <table class="usa-table-borderless" ng-show="formData.WIOA.WIOAWorkers.length">
-          <caption class="hide">List of Workers Age 24 or Younger</caption>
-          <thead>
-            <tr>
-              <th scope="col">Name of Worker</th>
-              <th scope="col">Response</th>
-              <th scope="col">Options</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr ng-repeat="worker in formData.WIOA.WIOAWorkers">
-              <th scope="row">
-                <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].fullName') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].fullName')">{{ validate('WIOA.WIOAWorkers[' + $index + '].fullName') }}</span>
-                  {{ worker.fullName }}
-                </div>
-              </th>
-              <td>
-                <div ng-class="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') ? 'usa-input-error' : ''">
-                  <span class="usa-input-error-message" role="alert" ng-show="validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified')">{{ validate('WIOA.WIOAWorkers[' + $index + '].WIOAWorkerVerified') }}</span>
-                  {{ worker.WIOAWorkerVerified.display }}
-                </div>
-              </td>
-              <td class="button-column">
-                <button class="green-button" ng-click="vm.editWorker($index)">Edit</button>
-                <button class="usa-button-secondary" ng-click="vm.deleteWorker($index)">Delete</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="dol-form-question-group">
+          <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
+            <div ng-show="formData.WIOA.WIOAWorkers.length" class="container dol-employees-data-container">
+              <results-table id="Worker" results="formData.WIOA.WIOAWorkers" definitions="vm.wioaColumnDefs" columns="vm.wioaColumns"></results-table>
+            </div>
+          </div>
+        </div>
     </div>
   </fieldset>
 </div>
