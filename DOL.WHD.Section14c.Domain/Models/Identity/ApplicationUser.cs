@@ -27,7 +27,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
             // Add custom user claims here
             foreach (var organization in Organizations)
             {
-                var claim = new Claim("Id", organization.EIN);
+                var claim = new Claim("EIN", organization.EIN);
                 if (organization.ApplicationId != null)
                 {
                     var applicationClaim = new Claim("APPID", organization.ApplicationId);
