@@ -25,9 +25,26 @@ module.exports = function(ngModule) {
     vm.current = $location.$$path.split('/section/')[1];
     vm.collapseMenu = true; //collapse menu by default for small screens
     this.onNavClick = function(event) {
+      function toTitleCase(str) {
+      return str.replace(/\w\S*/g, function (txt) {
+          return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+      }
+
       var id = event.target.dataset.sectionid;
       navService.gotoSection(id);
     };
+
+    if (id === 'app-info') {
+      document.title = 'Application Info | DOL WHD Section 14(c)';
+    } else if (id === 'work-sites') {
+      document.title = 'Work Sites & Employees | DOL WHD Section 14(c)';
+    } else if (id === 'wioa') {
+      document.title = 'WIOA | DOL WHD Section 14(c)';
+    } else {
+      id = id.replace(/-/g, ' ');
+      document.title = toTitleCase(id) + ' | DOL WHD Section 14(c)';
+    }
 
     this.onKeyPress = e => {
       if (e.which === 13) this.onNavClick(e);
