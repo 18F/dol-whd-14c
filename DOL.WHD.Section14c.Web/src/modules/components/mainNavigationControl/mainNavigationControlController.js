@@ -33,7 +33,7 @@ module.exports = function(ngModule) {
 
       var id = event.target.dataset.sectionid;
       navService.gotoSection(id);
-    };
+    
 
     if (id === 'app-info') {
       document.title = 'Application Info | DOL WHD Section 14(c)';
@@ -49,6 +49,6 @@ module.exports = function(ngModule) {
     this.onKeyPress = e => {
       if (e.which === 13) this.onNavClick(e);
     };
-
+  };
   });
 };
