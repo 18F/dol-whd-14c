@@ -94,9 +94,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationId"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("{EIN}/{employerId}/{applicationId}")]
+        [Route("{employerId}/{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult AddSave(string EIN, string employerId, string applicationId)
+        public IHttpActionResult AddSave(string employerId, string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
             account.UserManager = UserManager;
@@ -124,7 +124,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId).ApplicationStatusId = StatusIds.InProgress;
             UserManager.UpdateAsync(user);
 
-            return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
+            return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpPut]
         [Route("UpdateSave")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult UpdateSave(string applicationId, string EIN)
+        public IHttpActionResult UpdateSave(string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
             account.UserManager = UserManager;
@@ -158,8 +158,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest(e.Message);
             }
 
-            _saveService.AddOrUpdate(EIN, applicationId, null, state);
-            return Created($"/api/Save?userId={User.Identity.GetUserId()}&Id={EIN}", new { });
+            _saveService.AddOrUpdate(applicationId, applicationId, null, state);
+            return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
         }
 
         /// <summary>
