@@ -10,14 +10,14 @@
   <p>Your account is now the point of contact for the employer you just registered. </p>
   <p>If you have any quesitons contact us at 14c-help@dol.gov.</p>
 </div>
-<div ng-show="previouslyRegistered">
+<div ng-show="previouslyRegistered.status">
   <div  class="dol-feedback-error">
     <p class="dol-feedback-message">
       <strong>We've run into a problem</strong>
     </p>
   </div>
   <p><strong>This employer already has a registered account.</strong></p>
-  <p>Please contact {{vm.pointOfContact}}, the point of contact for this employer, to request access to the account.</p>
+  <p>Please contact {{previouslyRegistered.name}}, the point of contact for this employer, to request access to the account.</p>
   <p>If you have any questions, you can reach us at 14c-help@dol.gov.</p>
 </div>
 <form ng-hide="registrationSuccess || previouslyRegistered" ng-submit="onSubmitClick()" class="dol-form-page">

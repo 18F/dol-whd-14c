@@ -34,7 +34,8 @@ module.exports = function(ngModule) {
       }).catch(function(error) {
         console.log(error);
          if(error.status === 302) {
-            $scope.previouslyRegistered = true;
+            $scope.previouslyRegistered = {};
+            $scope.previouslyRegistered.status = true;
             $scope.previouslyRegistered.name = error.data;
           }
       });
