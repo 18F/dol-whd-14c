@@ -36,7 +36,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var newData = new ApplicationSave
             {
-                EIN = "30-9876543",
+                Id = "30-9876543",
                 ApplicationId = "CE7F5AA5-6832-43FE-BAE1-80D14CD8F666",
                 ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
             };
@@ -44,7 +44,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new SaveService(_saveRepositoryMock);
 
             // Act
-            service.AddOrUpdate(newData.EIN, newData.ApplicationId, null, newData.ApplicationState);
+            service.AddOrUpdate(newData.Id, newData.ApplicationId, null, newData.ApplicationState);
             var save = service.GetSave(newData.ApplicationId);
 
             // Assert

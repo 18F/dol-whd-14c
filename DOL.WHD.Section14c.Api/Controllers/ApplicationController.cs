@@ -124,7 +124,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             _applicationService.ProcessModel(submission);
 
-            // make sure user has rights to the EIN
+            // make sure user has rights to the Id
             var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
             if (!hasEINClaim)
             {

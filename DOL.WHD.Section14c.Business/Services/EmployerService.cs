@@ -45,7 +45,7 @@ namespace DOL.WHD.Section14c.Business.Services
         }
 
         /// <summary>
-        /// Get Employer By EIN, Employer Name and Employer Address
+        /// Get Employer By Id, Employer Name and Employer Address
         /// </summary>
         /// <param name="employer"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace DOL.WHD.Section14c.Business.Services
             var employers = _employerRepository.Get().Where(x => x.EIN == employer.EIN);
             foreach (var item in employers)
             {
-                // Find employer by EIN,Employer Name and Employer Address
+                // Find employer by Id,Employer Name and Employer Address
                 if (item.LegalName == employer.LegalName &&
                     item.PhysicalAddress.StreetAddress.ToLower() == employer.PhysicalAddress.StreetAddress.ToLower() &&
                     item.PhysicalAddress.City.ToLower() == employer.PhysicalAddress.City.ToLower() &&

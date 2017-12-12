@@ -62,7 +62,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="applicationId">Employer Identification Number</param>
         [HttpGet]
-        [Route("{EIN}")]
+        [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult GetSave(string applicationId)
         {
@@ -117,7 +117,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
-            _saveService.AddOrUpdate(EIN, applicationId, employerId, state);
+            _saveService.AddOrUpdate(applicationId, applicationId, employerId, state);
 
             // Update Organization Status
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
@@ -130,7 +130,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="EIN">EIN</param>
+        /// <param name="EIN">Id</param>
         /// /// <param name="applicationId">Application Id</param>
         /// <returns></returns>
         [HttpPut]
@@ -159,7 +159,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             _saveService.AddOrUpdate(EIN, applicationId, null, state);
-            return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
+            return Created($"/api/Save?userId={User.Identity.GetUserId()}&Id={EIN}", new { });
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationId"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{EIN}")]
+        [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult DeleteSave(string applicationId)
         {

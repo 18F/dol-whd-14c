@@ -21,8 +21,8 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
 
         //[Required]
         //[RegularExpression((@"\d{2}\-\d{7}"))]
-        //[Display(Name = "EIN")]
-        //public string EIN { get; set; }
+        //[Display(Name = "Id")]
+        //public string Id { get; set; }
 
         [Required]
         public Uri EmailVerificationUrl { get; set; }

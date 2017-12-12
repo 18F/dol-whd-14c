@@ -135,7 +135,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
                 .Index(t => t.WorkSiteId)
                 .Index(t => t.WorkSiteTypeId);
             
-            AddColumn("dbo.ApplicationSubmissions", "EIN", c => c.String(nullable: false));
+            AddColumn("dbo.ApplicationSubmissions", "Id", c => c.String(nullable: false));
             DropColumn("dbo.ApplicationSubmissions", "Id");
             DropColumn("dbo.ApplicationSubmissions", "Employer_Id");
             DropColumn("dbo.ApplicationSubmissions", "HourlyWageInfo_Id");
@@ -376,7 +376,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             AddColumn("dbo.ApplicationSubmissions", "HourlyWageInfo_Id", c => c.Int());
             AddColumn("dbo.ApplicationSubmissions", "Employer_Id", c => c.Int(nullable: false));
             AddColumn("dbo.ApplicationSubmissions", "Id", c => c.Int(nullable: false, identity: true));
-            DropColumn("dbo.ApplicationSubmissions", "EIN");
+            DropColumn("dbo.ApplicationSubmissions", "Id");
             AddPrimaryKey("dbo.Employees", "Id");
             AddPrimaryKey("dbo.WorkSites", "Id");
             AddPrimaryKey("dbo.WIOAWorkers", "Id");

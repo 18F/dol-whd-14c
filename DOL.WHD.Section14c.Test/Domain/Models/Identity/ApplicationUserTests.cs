@@ -29,13 +29,13 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
             var user = new ApplicationUser();
             user.Organizations = new List<OrganizationMembership>
             {
-                new OrganizationMembership { EIN = ein, IsAdmin = true}
+                new OrganizationMembership { EIN = ein, IsPointOfContact = true}
             };
 
             // Act
             var result = await user.GenerateUserIdentityAsync(userManagerMock.Object, roleManagerMock.Object, null);
 
-            Assert.AreEqual(ein, result.Claims.Single(x => x.Type == "EIN").Value);
+            Assert.AreEqual(ein, result.Claims.Single(x => x.Type == "Id").Value);
         }
 
         [TestMethod]
