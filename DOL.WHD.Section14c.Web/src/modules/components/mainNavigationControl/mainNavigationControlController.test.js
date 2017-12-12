@@ -32,9 +32,9 @@ describe('mainNavigationControlController', function() {
   it('invoke controller', function() {
     var controller = mainNavigationControlController();
     spyOn(mockNavService, 'gotoSection');
-    var event = { target: { dataset: { sectionid: 1 } } };
+    var event = { target: { dataset: { sectionid: 'wioa' } } };
     controller.onNavClick(event);
 
-    expect(mockNavService.gotoSection).toHaveBeenCalledWith(1);
+    expect(mockNavService.gotoSection).toHaveBeenCalledWith('wioa');
   });
 });
