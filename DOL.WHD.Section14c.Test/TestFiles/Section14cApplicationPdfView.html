@@ -4,40 +4,58 @@
         td {
             page-break-inside: avoid;
         }
+
+        span {
+            page-break-inside: avoid;
+        }
+
+        div.subtextanswer {
+            page-break-inside: avoid;
+        }
+
         span.subtext {
             font-weight: bold
         }
+
         span.title {
             font-weight: bold;
-            margin-top:40px;
+            margin-top: 40px;
         }
+
         span.subtextanswer {
             font-weight: normal;
             margin-bottom: 10px;
         }
-        .row_greyed{
+
+        .row_greyed {
             background-color: #9F9F9F;
         }
+
         table .subtable {
             display: table;
             width: 100%;
             font-size: 14px;
         }
-        table .subtable > div {
-            display: table-cell;
-            padding: 10px 5px;
-            font-weight: 700;
-        }
-        table .subtable > div:not(:last-of-type) {
-            border-right: 1px solid #212121;
-        }
-        table .subtable > div > div {
-            margin-top: 4px;
-            font-weight: 400;
-        }
-        th .subtext{
+
+            table .subtable > div {
+                display: table-cell;
+                padding: 10px 5px;
+                font-weight: 700;
+            }
+
+                table .subtable > div:not(:last-of-type) {
+                    border-right: 1px solid #212121;
+                }
+
+                table .subtable > div > div {
+                    margin-top: 4px;
+                    font-weight: 400;
+                }
+
+        th .subtext {
             font-size: 11px;
         }
+
         .employeeSubTable {
             width: 100%;
             border-bottom: 1px;
@@ -46,11 +64,20 @@
             border-bottom-style: solid;
             margin-top: 20px;
         }
-    </style>
 
+        div.accessibility-text {
+            font-size: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="admin-page">
+        <div class="accessibility-text">ACCESSIBILITY: This PDF is generated based on form data input by the employer as well as any uploaded attachments as part of the online 14c application. Hence this generated PDF might or not be accessibility compliant based on considerations such as whether the employer uploaded attachments are accessible compliant or not.</div>
+        <div class="dol-form-title"><h1>Section 14(c) Certificate Application</h1></div>
+        <div>ER Name: {{ Employer.LegalName }}</div>
+        <div>ER EIN: {{ EIN }}</div>
+        <div>Submission Date: {{ formatDateTime Signature.Date }}</div>
         <div class="dol-form-section-title">
             <h2>Representations and Written Assurances</h2>
         </div>
@@ -72,543 +99,25 @@
             </ol>
         </div>
 
-        <answer-field answer="Signature.Agreement">
+        <p>
             <span class="subtext">I agree to use an electronic signature. By entering my Full Name and Title below, I certify that I am authorized to accept these representations and assurances on behalf of the organization named on this application.</span>
-        </answer-field>
+            <div class="subtextanswer">{{ boolOrString Signature.Agreement }}</div>
+        </p>
 
-        <answer-field answer="Signature.FullName">
+        <p>
             <span class="subtext">Full Name</span>
-        </answer-field>
+            <div class="subtextanswer">{{ boolOrString Signature.FullName }}</div>
+        </p>
 
-        <answer-field answer="Signature.Title">
+        <p>
             <span class="subtext">Title</span>
-        </answer-field>
+            <div class="subtextanswer">{{ boolOrString Signature.Title }}</div>
+        </p>
 
-        <answer-field answer="Signature.Date" datefield="true">
+        <p>
             <span class="subtext">Date</span>
-        </answer-field>
-    </div>
-    <div class="admin-page">
-        <div class="dol-form-section-title">
-            <h2>Application Info</h2>
-        </div>
-        <h3>Application Type</h3>
-        <hr>
-        <answer-field answer="ApplicationType.Display">
-            <span class="subtext">What type of application is this?</span>
-        </answer-field>
-
-        <answer-field answer="HasPreviousApplication">
-            <span class="subtext">Has this employer ever previously applied for a 14(c) certificate?</span>
-        </answer-field>
-
-        <answer-field answer="HasPreviousCertificate">
-            <span class="subtext">Has this employer ever previously held a 14(c) certificate?</span>
-        </answer-field>
-
-        <answer-field answer="PreviousCertificateNumber" ng-show="appData.hasPreviousCertificate">
-            <span class="subtext">What is the most recently held certificate number for the main establishment?</span>
-        </answer-field>
-
-        <answer-field answer="''">
-            <span class="subtext">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</span>
-        </answer-field>
-
-        <ul class="usa-unstyled-list">            
-            <answer-field-list answer="EstablishmentType">
-                <li ng-repeat="establishmentTypeObj in appData.establishmentType">
-                    {{ establishmentTypeObj.establishmentType.display }}
-                </li>
-            </answer-field-list>
-        </ul>
-
-        <h3>Application Contact Person</h3>
-        <hr>
-
-        <answer-field answer="ContactName">
-            <span class="subtext">Full Name</span>
-        </answer-field>
-
-        <answer-field answer="ContactPhone">
-            <span class="subtext">Telephone Number</span>
-        </answer-field>
-
-        <answer-field answer="ContactFax" defaultValue="No Fax Number available">
-            <span class="subtext">Fax Number</span>
-        </answer-field>
-
-        <answer-field answer="ContactEmail">
-            <span class="subtext">Email Address</span>
-        </answer-field>
-    </div>
-    <div class="admin-page">
-        <div class="dol-form-section-title">
-            <h2>Employer</h2>
-        </div>
-
-        <h3>Employer Information</h3>
-        <hr>
-
-        <answer-field answer="Employer.LegalName">
-            <span class="subtext">Legal Name of Employer</span>
-        </answer-field>
-
-        <answer-field answer="Employer.HasTradeName">
-            <span class="subtext">Does the Employer have a Trade Name?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.TradeName" ng-show="appData.Employer.hasTradeName">
-            <span class="subtext">Trade Name</span>
-        </answer-field>
-
-        <answer-field answer="Employer.LegalNameHasChanged">
-            <span class="subtext">Has the Employer’s legal name changed since its last application?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.PriorLegalName" ng-show="appData.Employer.legalNameHasChanged">
-            <span class="subtext">Prior Legal Name of Employer</span>
-        </answer-field>
-
-        <answer-field answer="Employer.PhysicalAddress" address-field="true">
-            <span class="subtext">Physical Address of Employer’s Main Establishment</span>
-        </answer-field>
-
-        <answer-field answer="Employer.HasParentOrg">
-            <span class="subtext">Does the Employer have a Parent Organization?</span>
-        </answer-field>
-
-        <div ng-show="Employer.HasParentOrg">
-            <answer-field answer="Employer.ParentLegalName" ng-show="Employer.ParentLegalName">
-                <span class="subtext">Parent Organization Legal Name</span>
-            </answer-field>
-
-            <answer-field answer="Employer.ParentTradename" ng-show="Employer.ParentTradename">
-                <span class="subtext">Parent Organization Trade Name</span>
-            </answer-field>
-
-            <answer-field answer="Employer.ParentAddress" address-field="true">
-                <span class="subtext">Parent Organization Address</span>
-            </answer-field>
-
-            <answer-field answer="Employer.SendMailToParent">
-                <span class="subtext">Send mail to Parent Organiation address?</span>
-            </answer-field>
-        </div>
-
-        <answer-field answer="Employer.EmployerStatus.Display">
-            <span class="subtext">Employer Status</span>
-        </answer-field>
-        <answer-field answer="Employer.EmployerStatusOther">
-        </answer-field>
-        <answer-field answer="Employer.IsEducationalAgency">
-            <span class="subtext">Is this employer a local or State educational agency?</span>
-        </answer-field>
-
-        <h3>Number of Workers With Disabilities</h3>
-        <hr>
-
-        <answer-field answer="Employer.FiscalQuarterEndDate" datefield="true" defaultValue="NOT PROVIDED">
-            <span class="subtext">When did the Employer’s most recently completed fiscal quarter end?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.NumSubminimalWageWorkers.Total" defaultValue="NOT PROVIDED">
-            <span class="subtext">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</span>
-        </answer-field>
-
-        <answer-field answer="''">
-            <span class="subtext">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</span>
-        </answer-field>
-
-        <answer-field answer="Employer.NumSubminimalWageWorkers.WorkCenter" defaultValue="NOT PROVIDED">
-            <span class="subtext">Community Rehabilitation Program (Work Center)</span>
-        </answer-field>
-
-        <answer-field answer="Employer.NumSubminimalWageWorkers.PatientWorkers" defaultValue="NOT PROVIDED">
-            <span class="subtext">Hospital/Residential Care Facility (Patient Workers)</span>
-        </answer-field>
-
-        <answer-field answer="Employer.NumSubminimalWageWorkers.Swep" defaultValue="NOT PROVIDED">
-            <span class="subtext">School Work Experience Program (SWEP)</span>
-        </answer-field>
-
-        <answer-field answer="Employer.NumSubminimalWageWorkers.BusinessEstablishment" defaultValue="NOT PROVIDED">
-            <span class="subtext">Business Establishment</span>
-        </answer-field>
-
-        <h3>Government Contracts</h3>
-        <hr>
-
-        <answer-field answer="Employer.PCA">
-            <span class="subtext">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.SCA.Display">
-            <span class="subtext">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.SCACount" ng-show="Employer.ScaId === Constants.Responses.Sca.Yes">
-            <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.SCAAttachment" attachment-field="true" ng-show="Employer.ScaId === Constants.Responses.Sca.Yes">
-            <span class="subtext">SCA Wage Determination Attachment</span>
-        </answer-field>
-
-        <answer-field answer="Employer.EO13658.Display">
-            <span class="subtext">Since January 1, 2015, has this Employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-        </answer-field>
-
-        <h3>Additional Questions</h3>
-        <hr>
-
-        <answer-field answer="Employer.RepresentativePayee">
-            <span class="subtext">Was the employer a representative payee Social Security Benefits during the most recently completed fiscal quarter?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.TotalDisabledWorkers" ng-show="Employer.RepresentativePayee">
-            <span class="subtext">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</span>
-        </answer-field>
-
-        <answer-field answer="Employer.TakeCreditForCosts">
-            <span class="subtext">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</span>
-        </answer-field>
-
-        <div ng-show="Employer.TakeCreditForCosts">
-            <answer-field answer="''">
-                <span class="subtext">Which type of deduction(s) did the employer take?</span>
-            </answer-field>
-
-            <ul class="usa-unstyled-list">
-                <answer-field-list answer="Employer.ProvidingFacilitiesDeductionType">
-                    <li ng-repeat="Deduction in Employer.ProvidingFacilitiesDeductionType">
-                        {{ Deduction.ProvidingFacilitiesDeductionType.Display }}
-                    </li>
-                </answer-field-list>
-            </ul>
-        </div>
-
-        <answer-field answer="Employer.TemporaryAuthority">
-            <span class="subtext">Is this a request for Temporary Authority?</span>
-        </answer-field>
-    </div>
-    <div class="admin-page">
-        <div class="dol-form-section-title">
-            <h2>Wage Data</h2>
-        </div>
-        <answer-field answer="PayType.Display" defaultValue="NOT PROVIDED">
-            <span class="subtext">Pay Type</span>
-        </answer-field>
-        <div wage-data-hourly="true"> 
-            <h3>Hourly</h3>
-            <hr>
-            <answer-field answer="HourlyWageInfo.NumWorkers" np-show="PayType.Hourly">
-                <span class="subtext">How many workers with disabilities were paid an hourly subminimum wage during the most recently completed fiscal quarter?</span>
-            </answer-field>
-
-            <answer-field answer="HourlyWageInfo.JobName" np-show="PayType.Hourly">
-                <span class="subtext">What was the job or contract on which the employer employed the largest number of workers at hourly subminimum wage rates during the most recently completed fiscal quarter?</span>
-            </answer-field>
-
-            <answer-field answer="HourlyWageInfo.JobDescription">
-                <span class="subtext">Description of Work Performed</span>
-            </answer-field>
-
-            <answer-field answer="HourlyWageInfo.PrevailingWageMethod.Display">
-                <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
-            </answer-field>
-
-            <answer-field answer="HourlyWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined" ng-show="Data.PrevailingWageMethodId === Constants.Responses.PrevailingWageMethod.Survey">
-                <span class="subtext">Prevailing Wage Determined based on this survey</span>
-            </answer-field>
-
-            <h3 ng-show="MostRecentPrevailingWageSurvey.SourceEmployers.Length">Source Employers</h3>
-
-            <div wage-data-repeat="true" ng-repeat="MostRecentPrevailingWageSurvey.SourceEmployers" ng-show="Data.MostRecentPrevailingWageSurvey.SourceEmployers.Length">
-                <wage-data-answer-repeat-field answer="Employer.EmployerName">
-                    <span class="subtext">Source Employer Name</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.Address" address-field="true">
-                    <span class="subtext">Address</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.Phone">
-                    <span class="subtext">Telephone Number</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactName">
-                    <span class="subtext">Full Name of Individual Contacted</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactTitle">
-                    <span class="subtext">Title of Individual Contacted</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactDate" datefield="true">
-                    <span class="subtext">Date of Contact</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.JobDescription">
-                    <span class="subtext">Brief Description of Job/Task</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ExperiencedWorkerWageProvided">
-                    <span class="subtext">Experienced Worker Wage Provided</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ConclusionWageRateNotBasedOnEntry">
-                    <span class="subtext">Basis for Conclusion Wage Rate is Not Based on Entry Level</span>
-                </wage-data-answer-repeat-field>
-                <hr>
-            </div>
-
-            <answer-field answer="HourlyWageInfo.AlternateWageData.AlternateWorkDescription" ng-show="Data.PrevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Description of Work (include job classification code, if known)</span>
-            </answer-field>
-
-            <answer-field answer="HourlyWageInfo.AlternateWageData.AlternateDataSourceUsed" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Alternate data source used</span>
-            </answer-field>
-
-            <nswer-field answer="HourlyWageInfo.AlternateWageData.PrevailingWageProvidedBySource" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Prevailing wage provided by source</span>
-            </nswer-field>
-
-            <answer-field answer="HourlyWageInfo.AlternateWageData.DataRetrieved" datefield="true" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Date data retrieved</span>
-            </answer-field>
-
-            <nswer-field answer="HourlyWageInfoScaWageDeterminationAttachment" attachment-field="true" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.sca">
-                <span class="subtext">Attach the applicable SCA Wage Determination</span>
-            </nswer-field>
-
-            <answer-field answer="HourlyWageInfo.Attachment" attachment-field="true" ng-show="paytype == constants.responses.payType.hourly">
-                <span class="subtext">Attach a work measurement or time study for ONE currently employed worker with a disability who is paid an hourly subminimum wage for the contract identified above.</span>
-            </answer-field>
-        </div>
-        <div wage-data-piecerate="true">
-            <h3>Piece Rate</h3>
-            <hr>
-            <answer-field answer="PieceRateWageInfo.NumWorkers" np-show="PayType.PieceRate">
-                <span class="subtext">How many workers with disabilities received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
-            </answer-field>
-            <answer-field answer="JPieceRateWageInfo.obName" np-show="PayType.PieceRate">
-                <span class="subtext">What was the job or contract on which the employer employed the largest number of workers who received subminimum wages and were paid piece rates during the most recently completed fiscal quarter?</span>
-            </answer-field>
-            <answer-field answer="PieceRateWageInfo.JobDescription">
-                <span class="subtext">Description of Work Performed</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.PrevailingWageMethod.Display">
-                <span class="subtext">Which method did the employer use to determine the Prevailing Wage for the job or contract identified above?</span>
-            </answer-field>
-            <answer-field answer="PieceRateWageInfo.MostRecentPrevailingWageSurvey.PrevailingWageDetermined" ng-show="Data.PrevailingWageMethodId === Constants.Responses.PrevailingWageMethod.Survey">
-                <span class="subtext">Prevailing Wage Determined based on this survey</span>
-            </answer-field>
-
-            <h3 ng-show="MostRecentPrevailingWageSurvey.SourceEmployers.Length">Source Employers</h3>
-
-            <div wage-data-repeat="true" ng-repeat="MostRecentPrevailingWageSurvey.SourceEmployers" ng-show="Data.MostRecentPrevailingWageSurvey.SourceEmployers.Length">
-                <wage-data-answer-repeat-field answer="Employer.EmployerName">
-                    <span class="subtext">Source Employer Name</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.Address" address-field="true">
-                    <span class="subtext">Address</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.Phone">
-                    <span class="subtext">Telephone Number</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactName">
-                    <span class="subtext">Full Name of Individual Contacted</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactTitle">
-                    <span class="subtext">Title of Individual Contacted</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ContactDate" datefield="true">
-                    <span class="subtext">Date of Contact</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.JobDescription">
-                    <span class="subtext">Brief Description of Job/Task</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ExperiencedWorkerWageProvided">
-                    <span class="subtext">Experienced Worker Wage Provided</span>
-                </wage-data-answer-repeat-field>
-                <wage-data-answer-repeat-field answer="Employer.ConclusionWageRateNotBasedOnEntry">
-                    <span class="subtext">Basis for Conclusion Wage Rate is Not Based on Entry Level</span>
-                </wage-data-answer-repeat-field>
-                <hr>
-            </div>
-            <answer-field answer="PieceRateWageInfo.AlternateWageData.AlternateWorkDescription" ng-show="Data.PrevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Description of Work (include job classification code, if known)</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.AlternateWageData.AlternateDataSourceUsed" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Alternate data source used</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.AlternateWageData.PrevailingWageProvidedBySource" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Prevailing wage provided by source</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.AlternateWageData.DataRetrieved" datefield="true" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.alternate">
-                <span class="subtext">Date data retrieved</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.ScaWageDeterminationAttachment" attachment-field="true" ng-show="Data.prevailingWageMethodId === constants.responses.prevailingWageMethod.sca">
-                <span class="subtext">Attach the applicable SCA Wage Determination</span>
-            </answer-field>
-            <answer-field answer="PieceRateWageInfo.PieceRateWorkDescription" ng-show="paytype == constants.responses.payType.pieceRate">
-                <span class="subtext">Descripton of Work</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.PrevailingWageDeterminedForJob" ng-show="paytype == constants.responses.payType.pieceRate">
-                <span class="subtext">Prevailing Wage Determined for This Job</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.StandardProductivity" ng-show="paytype == constants.responses.payType.pieceRate">
-                <span class="subtext">Standard Productivity</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.PieceRatePaidToWorkers" ng-show="paytype == constants.responses.payType.pieceRate">
-                <span class="subtext">Piece Rate Paid to Workers</span>
-            </answer-field>
-
-            <answer-field answer="PieceRateWageInfo.Attachment" attachment-field="true" ng-show="paytype == constants.responses.payType.pieceRate">
-                <span class="subtext">Attach all documentation of the methods used to determine the standard productivity and the piece rate.</span>
-            </answer-field>
-        </div>
-    </div>
-    <div class="admin-page">
-        <h1>Work Sites & Employees</h1>
-        <hr>
-        <answer-field answer="TotalNumWorkSites">
-            <span class="subtext">What is the total number of establishments and work sites to be covered by this certificate?</span>
-        </answer-field>
-
-        <div class="table-responsive">
-            <div worksites-section="true" answer="WorkSites">
-                <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
-                    <thead>
-                        <tr class="row_greyed">
-                            <th scope="col">Work Site Name</th>
-                            <th scope="col">Number of Workers</th>
-                        </tr>
-                    </thead>
-                    <tbody ng-repeat="WorkSites">
-                        <tr style="text-align:center">
-                            <td scope="row">WorkSites.Name</td>
-                            <td>WorkSites.Employee.Name</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div worksites-content>                    
-                    <div worksites-sub="true" answer="WorkSites">
-                        <p><span class="title">Work Site </span></p>
-                        <hr>
-                        <worksites-sub-field answer="WorkSiteType.Display">
-                            <span class="subtext">What type of establishment is this?</span>
-                        </worksites-sub-field>
-
-                        <worksites-sub-field answer="Name">
-                            <span class="subtext">Name of Establishment / Work Site</span>
-                        </worksites-sub-field>
-
-                        <worksites-sub-field answer="Address" address-field="true">
-                            <span class="subtext">Address of Establishment / Work Site</span>
-                        </worksites-sub-field>
-
-                        <worksites-sub-sub-field answer="SCA">
-                            <span class="subtext">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</span>
-                        </worksites-sub-sub-field>
-
-                        <worksites-sub-field answer="FederalContractWorkPerformed">
-                            <span class="subtext">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-                        </worksites-sub-field>
-
-                        <worksites-sub-field answer="NumEmployees">
-                            <span class="subtext">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</span>
-                        </worksites-sub-field>
-                    </div>
-                    <div employee-sub="true" answer="WorkSites.Employee">
-                        <p><span class="title">Employee</span></p>
-                        <hr>
-                        <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Disability</th>
-                                    <th scope="col">Work Performed</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td employees-sub-field="" answer="Name"><span class="subtext"></span></td>
-                                    <td employees-sub-field="" answer="PrimaryDisability.Display"><span class="subtext"></span></td>
-                                    <td employees-sub-field="" answer="WorkType"><span class="subtext"></span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" style="text-align:center">
-                                        <table cellpadding="0" cellspacing="0" border="0" class="employeeSubTable">
-                                            <thead>
-                                                <tr>
-                                                    <td></td>
-                                                    <th style="font-size:11px">Number of Jobs</th>
-                                                    <th style="font-size:11px">Average Hours per Week</th>
-                                                    <th style="font-size:11px">Average Earnings per Hours</th>
-                                                    <th style="font-size:11px">Prevailing Wage Rate</th>
-                                                    <th style="font-size:11px">Productivity Measure</th>
-                                                    <th style="font-size:11px">Commensurate Wage Rate</th>
-                                                    <th style="font-size:11px">Total Hours Worked</th>
-                                                    <th style="font-size:11px">Work at Other Site?</th>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td employees-sub-field="" answer="NumJobs" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="AvgWeeklyHours" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="AvgHourlyEarnings" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="PrevailingWage" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="ProductivityMeasure" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="CommensurateWageRate" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="TotalHours" style="font-size:11px"><span class="subtext"></span></td>
-                                                    <td employees-sub-field="" answer="WorkAtOtherSite" style="font-size:11px"><span class="subtext"></span></td>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>        
-    </div>
-    <div class="admin-page">
-        <div class="dol-form-section-title">
-            <h2>Workforce Innovation and Opportunity Act (WIOA)</h2>
-        </div>
-
-        <answer-field answer="WIOA.HasVerifiedDocumentation">
-            <span class="subtext">Has the employer reviewed and verified documentation that counseling and referrals have been provided to each worker paid at a subminimum wage, regardless of age, and each has been informed of available training opportunities as required by WIOA?</span>
-        </answer-field>
-
-        <answer-field answer="WIOA.HasWIOAWorkers">
-            <span class="subtext">Were any workers paid a subminimum wage age 24 or younger?</span>
-        </answer-field>
-
-        <div ng-show="WIOA.HasWIOAWorkers">
-            <answer-field answer="''">
-                <span class="subtext">Please list the name of each worker who is age 24 or younger and answer yes/no/not required to the following question for each worker listed.</span>
-                <br><br>
-                <span class="subtext">Did the employer review, verify, and maintain documentation showing that the worker received all services and counseling required by WIOA before paying the worker a subminimum wage?</span>
-            </answer-field>
-            <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
-                <thead>
-                    <tr class="row_greyed">
-                        <th scope="col">Name of Worker</th>
-                        <th scope="col">Response</th>
-                    </tr>
-                </thead>
-                <tbody ng-repeat="WIOA.WIOAWorkers">
-                    <tr style="text-align:center">
-                        <td scope="row">WIOAWorkers.FullName</td>
-                        <td>WIOAWorkers.WIOAWorkerVerified.Display</td>
-                    </tr>                    
-                </tbody>
-            </table>
-        </div>
+            <div class="subtextanswer">{{ boolOrString Signature.Date }}</div>
+        </p>
     </div>
 </body>
 </html>

@@ -1,31 +1,83 @@
-/*
-  misc custom styles needed to reset / override
-  existing ones so that UI components can nicely
-  show up on one page together
-*/
+/* Layout styles for UI Pattern Libary Page */
 
-.float-inherit {
-  float: inherit !important;
+.dol-ui-pattern {
+  margin-bottom: 40px;
 }
-.p0 {
-  padding: 0 !important;
+.dol-ui-pattern:first-of-type {
+  margin-top: 40px;
 }
-.m0 {
-  margin: 0 !important;
+h2.dol-ui-pattern-title {
+  margin: 0;
+  padding: 0 0 2px 0;
+  font-size: 16px;
+  border-bottom: solid #333 1px;
 }
-.ml0 {
-  margin-left: 0 !important;
+.dol-ui-pattern-rendered,
+.dol-ui-pattern-code-snippet {
+  margin: 20px 30px 0px 20px;
 }
-.mb2 {
-  margin-bottom: 2rem !important;
-}
-.mb3 {
-  margin-bottom: 3rem !important;
-}
-.mb5 {
-  margin-bottom: 5rem !important;
+.dol-ui-pattern-notes {
+  margin: 2px 30px 0px 20px;
 }
 
-.mw-300p {
-  max-width: 300px;
+.dol-ui-pattern-rendered {
+  background-color: white;
 }
+.dol-ui-pattern-code-snippet summary,
+.dol-ui-pattern-notes summary {
+  display: block;
+  margin: 0;
+  padding: 6px 20px;
+  background-color: #e8e0e0;
+  font-size: 14px;
+  border-radius: 6px 6px 0 0;
+  font-weight: normal;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+.dol-ui-pattern-code-snippet summary:focus,
+.dol-ui-pattern-notes summary:focus {
+  outline: none;
+}
+.dol-ui-pattern-code-snippet summary span,
+.dol-ui-pattern-notes summary span {
+  font-weight: bold;
+}
+.dol-ui-pattern-code-snippet pre {
+  border: solid #e8e0e0; 
+  border-width: 0 2px 2px 2px;  
+  font-size: 14px;
+  margin: 0;
+  padding: 0 20px 20px 20px;
+  background-color: #fdfafa;
+}
+.dol-ui-pattern-notes summary {
+  background-color: #FFEB6A;
+}
+.dol-ui-pattern-notes summary + div {
+  border: solid #FFEB6A; 
+  border-width: 0 2px 2px 2px;
+  padding: 10px 20px;
+  font-size: 14px;  
+  background-color: #FFF9D9;
+}
+.dol-ui-pattern-notes p {
+  margin: 0;
+}
+.dol-ui-pattern-notes p + p {
+  margin-top: 8px;
+}
+
+/* Override certain styles for easier viewing of certain patterns in Pattern Library */
+
+.form-footer-controls {
+  padding: 0;
+}
+.dol-help-callout {
+  max-width: 60rem;
+}
+.dol-file-upload-ui {
+  margin-top: 6px;
+}
+
+
