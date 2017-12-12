@@ -15,14 +15,14 @@ module.exports = function (app) {
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
-        templateUrl: './pages/changePasswordPageTemplate.html',
+        template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
         parent: '/'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
-        templateUrl: './pages/forgotPasswordPageTemplate.html',
+        template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
         parent: '/'
@@ -34,12 +34,12 @@ module.exports = function (app) {
       })
       .when('/register', {
         controller: 'userRegistrationPageController',
-        templateUrl: './pages/userRegistrationPageTemplate.html',
+        template: require('./pages/userRegistrationPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
-        templateUrl: './pages/accountPageTemplate.html',
+        template: require('./pages/accountPageTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN
       })
       .when('/section/assurances', {
@@ -98,7 +98,7 @@ module.exports = function (app) {
       })
       .when('/admin/users', {
         controller: 'userManagementPageController',
-        templateUrl: './pages/userManagementPageTemplate.html',
+        template: require('./pages/userManagementPageTemplate.html'),
         access: config.access.ROUTE_ADMIN
       })
       .when('/admin/:app_id', {
