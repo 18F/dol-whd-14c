@@ -15,7 +15,7 @@ module.exports = function (app) {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC,
+        access: config.access.ROUTE_LOGGEDIN,
         isLanding: true,
         label: '14c Dashboard'
       })
