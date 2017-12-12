@@ -75,8 +75,11 @@
     </div>
   </div>
 
-  <div class="clearer submit-button">
-    <button class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
+  <div  class="clearer submit-button">
+    <button ng-hide="isSubmitted" class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
+    <button ng-hide="!isSubmitted" class="pull-right" ng-click="">View 14(c) Certificate Application</button>
+ 
+
   </div>
 
   <div>

@@ -18,7 +18,6 @@ module.exports = function(ngModule) {
       ? {}
       : validationService.getValidationErrors();
     $scope.navService = navService;
-
     let vm = this;
 
     this.onSubmit = function() {
@@ -36,6 +35,7 @@ module.exports = function(ngModule) {
           .then(
             function() {
               vm.submissionSuccess = true;
+              $scope.isSubmitted = true;
               stateService.resetFormData();
             },
             function(error) {
