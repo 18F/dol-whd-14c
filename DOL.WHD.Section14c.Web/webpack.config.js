@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 var path = require('path');
 var bourbon = require('node-bourbon').includePaths;
 var helpers = require('./helpers');
@@ -97,5 +98,6 @@ module.exports = {
         drop_console: true
       }
     }),
+    new HardSourceWebpackPlugin()
   ]
 };
