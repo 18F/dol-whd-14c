@@ -9,7 +9,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
         {
             DropPrimaryKey("dbo.ApplicationSaves");
             AddColumn("dbo.ApplicationSaves", "ApplicationId", c => c.Guid(nullable: false));
-            AddPrimaryKey("dbo.ApplicationSaves", "EIN");
+            AddPrimaryKey("dbo.ApplicationSaves", "Id");
             DropColumn("dbo.ApplicationSaves", "UserId");
         }
         
@@ -18,7 +18,7 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
             AddColumn("dbo.ApplicationSaves", "UserId", c => c.String(nullable: false, maxLength: 128));
             DropPrimaryKey("dbo.ApplicationSaves");
             DropColumn("dbo.ApplicationSaves", "ApplicationId");
-            AddPrimaryKey("dbo.ApplicationSaves", new[] { "UserId", "EIN" });
+            AddPrimaryKey("dbo.ApplicationSaves", new[] { "UserId", "Id" });
         }
     }
 }

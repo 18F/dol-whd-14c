@@ -75,7 +75,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var newData = new ApplicationSave
             {
-                EIN = einToTest,
+                Id = einToTest,
                 ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
             };
 

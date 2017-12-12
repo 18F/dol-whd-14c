@@ -27,14 +27,14 @@ namespace DOL.WHD.Section14c.DataAccess.Validators
             {
                 var errors = new List<string>(result.Errors);
 
-                // check EIN (no more than one admin per EIN)
-                var myAdminEINs = item.Organizations.Where(o => o.IsAdmin).Select(o => o.EIN);
+                // check Id (no more than one admin per Id)
+                var myAdminEINs = item.Organizations.Where(o => o.IsPointOfContact).Select(o => o.EIN);
                 var otherUsers = _manager.Users.Where(u => u.Id != item.Id);
-                var match = otherUsers.Any(u => u.Organizations.Where(o => o.IsAdmin).Any(o => myAdminEINs.Contains(o.EIN)));
+                var match = otherUsers.Any(u => u.Organizations.Where(o => o.IsPointOfContact).Any(o => myAdminEINs.Contains(o.EIN)));
 
                 if (match)
                 {
-                    errors.Add("EIN is already registered");
+                    errors.Add("Id is already registered");
                 }
 
                 result = errors.Count <= 0 ? IdentityResult.Success : IdentityResult.Failed(errors.ToArray());

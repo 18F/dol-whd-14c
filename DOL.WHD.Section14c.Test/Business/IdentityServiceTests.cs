@@ -31,7 +31,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var einToTest = "30-1234567";
             var claims = new List<Claim>
             {
-                new Claim("EIN", einToTest)
+                new Claim("Id", einToTest)
             };
             _mockIdentity.Setup(i => i.Claims).Returns(claims);
             _mockUser.Setup(u => u.Identity).Returns(_mockIdentity.Object);
@@ -52,7 +52,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var einToCheck = "30-9876543";
             var claims = new List<Claim>
             {
-                new Claim("EIN", einToTest)
+                new Claim("Id", einToTest)
             };
             _mockIdentity.Setup(i => i.Claims).Returns(claims);
             _mockUser.Setup(u => u.Identity).Returns(_mockIdentity.Object);

@@ -8,11 +8,8 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 namespace DOL.WHD.Section14c.Domain
 {
     public class BaseEntity : IAuditedEntity
-    {
-        public string PriviteId { get; set; }        
-
-        public string CreatedBy_Id { get; set; }        
-
+    {      
+        public string CreatedBy_Id { get; set; }  
 
         [ForeignKey("LastModifiedBy_Id")]
         public ApplicationUser CreatedBy { get; set; }

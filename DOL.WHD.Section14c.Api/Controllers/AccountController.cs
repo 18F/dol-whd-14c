@@ -187,10 +187,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("User/SetEmployer")]
         public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
 
             var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
 

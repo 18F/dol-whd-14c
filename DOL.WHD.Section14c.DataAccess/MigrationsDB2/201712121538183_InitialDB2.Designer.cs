@@ -7,13 +7,13 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class UpdateOrganizationMembership : IMigrationMetadata
+    public sealed partial class InitialDB2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateOrganizationMembership));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialDB2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712101858147_UpdateOrganizationMembership"; }
+            get { return "201712121538183_InitialDB2"; }
         }
         
         string IMigrationMetadata.Source

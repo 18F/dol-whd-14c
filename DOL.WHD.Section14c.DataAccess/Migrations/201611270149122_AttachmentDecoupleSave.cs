@@ -9,14 +9,14 @@ namespace DOL.WHD.Section14c.DataAccess.Migrations
         {
             DropForeignKey("dbo.Attachments", "ApplicationSave_EIN", "dbo.ApplicationSaves");
             DropIndex("dbo.Attachments", new[] { "ApplicationSave_EIN" });
-            RenameColumn("dbo.Attachments", "ApplicationSave_EIN", "EIN");
+            RenameColumn("dbo.Attachments", "ApplicationSave_EIN", "Id");
         }
         
         public override void Down()
         {
-            RenameColumn("dbo.Attachments", "EIN", "ApplicationSave_EIN");
+            RenameColumn("dbo.Attachments", "Id", "ApplicationSave_EIN");
             CreateIndex("dbo.Attachments", "ApplicationSave_EIN");
-            AddForeignKey("dbo.Attachments", "ApplicationSave_EIN", "dbo.ApplicationSaves", "EIN");
+            AddForeignKey("dbo.Attachments", "ApplicationSave_EIN", "dbo.ApplicationSaves", "Id");
         }
     }
 }

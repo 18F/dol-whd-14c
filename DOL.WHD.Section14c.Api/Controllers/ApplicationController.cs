@@ -125,6 +125,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationService.ProcessModel(submission);
 
             // make sure user has rights to the Id
+
             var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
             if (!hasPermission)
             {
