@@ -16,11 +16,13 @@ module.exports = function(ngModule) {
     this.dashboardClick = e => {
       e.preventDefault();
       $location.path('/');
+      document.title = 'DOL WHD Section 14(c)';
     };
 
     this.userClick = e => {
       e.preventDefault();
       $location.path('/changePassword');
+      document.title = 'DOL WHD Section 14(c)';
     };
 
     this.saveClick = e => {
@@ -29,6 +31,7 @@ module.exports = function(ngModule) {
         stateService.logOut();
         $location.path('/');
       });
+      document.title = 'DOL WHD Section 14(c)';
     };
   });
 };
