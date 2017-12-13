@@ -49,7 +49,7 @@ describe('mainTopNavControlController', function() {
     controller.saveClick(e);
 
     expect(mockStateService.logOut).toHaveBeenCalled();
-    expect(mockLocation.path).toHaveBeenCalledWith('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/login');
   });
 
   it('dashboard click', function() {
@@ -58,6 +58,6 @@ describe('mainTopNavControlController', function() {
     spyOn(mockLocation, 'path');
     controller.dashboardClick(e);
 
-    expect(mockLocation.path).toHaveBeenCalledWith('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/dashboard');
   });
 });

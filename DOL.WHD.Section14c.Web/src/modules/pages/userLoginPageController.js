@@ -13,7 +13,7 @@ module.exports = function(ngModule) {
     vm.isEmailVerificationRequest =
       vm.emailVerificationCode !== undefined &&
       vm.emailVerificationCode !== undefined;
-    console.log(vm.isEmailVerificationRequest);
+
     if (vm.isEmailVerificationRequest) {
       $location.search('code', null);
       $location.search('userId', null);
