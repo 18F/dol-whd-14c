@@ -31,7 +31,7 @@ namespace DOL.WHD.Section14c.Business.Services
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
-                EIN = EIN
+                ApplicationId = EIN
             };
 
             fileUpload.RepositoryFilePath = $@"{EIN}\{fileUpload.Id}";
@@ -47,7 +47,7 @@ namespace DOL.WHD.Section14c.Business.Services
         public AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.EIN == EIN)
+                .Where(x => x.ApplicationId == EIN)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
@@ -143,7 +143,7 @@ namespace DOL.WHD.Section14c.Business.Services
         public void DeleteAttachement(string EIN, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.EIN == EIN)
+                .Where(x => x.ApplicationId == EIN)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)

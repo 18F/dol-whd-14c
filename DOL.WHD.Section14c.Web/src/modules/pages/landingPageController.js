@@ -13,7 +13,6 @@ module.exports = function(ngModule) {
 
     apiService.userInfo(stateService.access_token).then(function(result) {
       $scope.organizations = result.data.organizations;
-      console.log($scope.organizations)
     });
 
 
@@ -26,7 +25,6 @@ module.exports = function(ngModule) {
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
-
       if($scope.organizations[index].applicationStatus.name === "New") {
          stateService.saveNewApplication().then(
           function() {
@@ -40,7 +38,11 @@ module.exports = function(ngModule) {
           function() {
           }
         );
-       } else {
+       } 
+       else if($scope.organizations[index].applicationStatus.name === "Submitted"){
+        stateService.downloadApplicationPdf();
+       }
+       else {
         stateService.loadSavedApplication().then(
           function() {
             // start auto-save

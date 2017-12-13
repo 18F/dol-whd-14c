@@ -18,7 +18,7 @@ module.exports = function(ngModule) {
         apiService
           .uploadAttachment(
             stateService.access_token,
-            stateService.ein,
+            stateService.applicationId,
             fileinput.files[0]
           )
           .then(
@@ -37,7 +37,7 @@ module.exports = function(ngModule) {
 
     this.deleteAttachment = function(id) {
       apiService
-        .deleteAttachment(stateService.access_token, stateService.ein, id)
+        .deleteAttachment(stateService.access_token, stateService.applicationId, id)
         .then(
           function() {
             $scope.attachmentId = undefined;

@@ -410,7 +410,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
                         RepositoryFilePath = c.String(nullable: false, maxLength: 255),
                         FileSize = c.Long(nullable: false),
                         MimeType = c.String(nullable: false, maxLength: 255),
-                        EIN = c.String(),
+                        ApplicationId = c.String(),
                         Deleted = c.Boolean(nullable: false),
                         CreatedBy_Id = c.String(),
                         CreatedAt = c.DateTime(nullable: false),
