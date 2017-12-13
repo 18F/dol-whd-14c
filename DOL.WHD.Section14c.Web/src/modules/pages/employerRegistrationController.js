@@ -13,7 +13,7 @@ module.exports = function(ngModule) {
     $scope.stateService = stateService;
 
     $scope.navToLanding = function() {
-      $location.path('/home');
+      $location.path('/dashboard');
     };
 
     $scope.showDetails = false;
@@ -29,10 +29,9 @@ module.exports = function(ngModule) {
     $scope.onSubmitClick = function () {
       $scope.formData.IsPointOfContact = true;
       $scope.formData.employer.ein = $scope.formData.ein;
-      apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function(result) {
+      apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function() {
           $scope.registrationSuccess = true;
       }).catch(function(error) {
-        console.log(error);
          if(error.status === 302) {
             $scope.previouslyRegistered = {};
             $scope.previouslyRegistered.status = true;

@@ -10,10 +10,9 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.stateService = stateService;
-
     // redirect to dashboar (home) if user is logged in
     if (stateService.loggedIn) {
-      $location.path('/login');
+      $location.path('/dashboard');
     }
 
     $scope.navToLanding = function() {

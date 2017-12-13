@@ -9,54 +9,56 @@ module.exports = function (app) {
         reloadOnSearch: false,
         template: require('./pages/systemUseTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
-        label: "Home"
+        label: "14(c) Home"
       })
-      .when('/home', {
+      .when('/dashboard', {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN,
         isLanding: true,
-        label: '14(c) Home'
+        label: 'Dashboard',
+        parent:'/'
+      })
+      .when('/login', {
+        controller: 'userLoginPageController',
+        template: require('./pages/userLoginPageTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: 'Login',
+        parent: "/"
+      })
+      .when('/register', {
+        controller: 'userRegistrationPageController',
+        template: require('./pages/userRegistrationPageTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
       })
       .when('/employerRegistration', {
         controller: 'employerRegistrationController',
         reloadOnSearch: false,
         template: require('./pages/employerRegistrationTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN,
-        label: "Employer Registration"
+        label: "Employer Registration",
+        parent: "/"
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
-        parent: '/home'
+        parent: '/dashboard'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
-        parent: '/home'
-      })
-      .when('/login', {
-        controller: 'userLoginPageController',
-        template: require('./pages/userLoginPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC,
-        parent: '/home'
-      })
-      .when('/register', {
-        controller: 'userRegistrationPageController',
-        template: require('./pages/userRegistrationPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC,
-        parent: '/home'
+        parent: '/dashboard'
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
         template: require('./pages/accountPageTemplate.html'),
         access: config.access.ROUTE_LOGGEDIN,
-        parent: '/home',
+        parent: '/dashboard',
         label: "Account"
       })
       .when('/section/assurances', {
@@ -112,7 +114,7 @@ module.exports = function (app) {
         controller: 'adminDashboardController',
         template: require('./pages/adminDashboardTemplate.html'),
         access: config.access.ROUTE_ADMIN,
-        parent: '/home',
+        parent: '/dashboard',
         label: "Admin Dashboard"
       })
       .when('/admin/users', {

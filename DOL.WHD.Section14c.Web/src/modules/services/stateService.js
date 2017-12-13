@@ -169,7 +169,7 @@ module.exports = function(ngModule) {
 
       // Get Application State for Organization
       apiService.saveApplication(self.access_token, self.ein, self.employerId, self.applicationId, self.formData).then(
-        function(result) {
+        function() {
           // const data = result.data;
           // self.setFormData(JSON.parse(data));
           d.resolve();
