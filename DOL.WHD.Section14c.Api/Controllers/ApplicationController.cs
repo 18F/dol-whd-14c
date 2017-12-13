@@ -44,7 +44,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IOrganizationService _organizationService;
         private readonly IEmployerService _employerService;
         private readonly IResponseService _responseService;
-
         private ApplicationUserManager _userManager;
 
         /// <summary>
@@ -91,9 +90,9 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="employerService">
         /// The employer service this controller should use
         /// </param>
-        ///         /// <param name="responseService">
+        /// <param name="responseService">
         /// The response service this controller should use
-        /// 
+        /// </param>
         public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService, IResponseService responseService)
         {
             _identityService = identityService;
@@ -130,7 +129,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationService.ProcessModel(submission);
 
             // make sure user has rights to the Id
-
             var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
             if (!hasPermission)
             {
@@ -140,7 +138,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             await _applicationService.SubmitApplicationAsync(submission);
 
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
-            user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.InProgress;
+            user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.Submitted;
             await UserManager.UpdateAsync(user);
 
             // remove the associated application save

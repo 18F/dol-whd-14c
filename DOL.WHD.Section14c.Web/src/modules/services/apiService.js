@@ -284,8 +284,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.uploadAttachment = function(access_token, ein, file) {
-      let url = _env.api_url + '/api/attachment/' + ein;
+    this.uploadAttachment = function(access_token, applicationId, file) {
+      let url = _env.api_url + '/api/attachment/' + applicationId;
       let d = $q.defer();
 
       let fd = new FormData();
@@ -311,8 +311,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.deleteAttachment = function(access_token, ein, id) {
-      let url = _env.api_url + '/api/attachment/' + ein + '/' + id;
+    this.deleteAttachment = function(access_token, applicationId, id) {
+      let url = _env.api_url + '/api/attachment/' + applicationId + '/' + id;
       let d = $q.defer();
 
       $http({
@@ -332,6 +332,30 @@ module.exports = function(ngModule) {
 
       return d.promise;
     };
+
+    this.downloadApplicationPdf = function(access_token, applicationId) {
+      let url =  _env.api_url + 'api/application/download?applicationId=' + applicationId;
+      let d = $q.defer();
+
+      $http({
+        method: 'GET',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
 
     this.getAccounts = function(access_token) {
       let url = _env.api_url + '/api/account';

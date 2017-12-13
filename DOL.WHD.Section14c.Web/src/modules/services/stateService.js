@@ -224,6 +224,23 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    this.downloadApplicationPdf = function() {
+      const self = this;
+      const d = $q.defer();
+
+      apiService.downloadApplicationPdf(self.access_token, self.applicationId).then(
+        function(result) {
+          const data = result.data;
+          d.resolve(data);
+        },
+        function(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
     this.loadApplicationList = function() {
       const self = this;
       const d = $q.defer();
