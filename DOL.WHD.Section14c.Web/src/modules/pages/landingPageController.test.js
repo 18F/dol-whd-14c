@@ -18,5 +18,6 @@ describe('landingPageController', function() {
   it('invoke controller', function() {
     var controller = landingPageController();
     expect(controller).toBeDefined();
+    expect(document.title).toBe('DOL WHD Section 14(c)');
   });
 });
