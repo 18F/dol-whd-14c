@@ -47,7 +47,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="EIN">Employer Identification Number</param>
         /// <returns>Http status code</returns>
-        [Route("{Id}")]
+        [Route("{EIN}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string EIN)
         {
@@ -92,7 +92,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{Id}/{fileId}")]
+        [Route("{EIN}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public IHttpActionResult Download(string EIN, Guid fileId)
         {
@@ -139,7 +139,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{Id}/{fileId}")]
+        [Route("{EIN}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult Delete(string EIN, Guid fileId)
         {

@@ -26,7 +26,7 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true,
-                RequireUniqueEINAdmin = true
+                RequireUniqueEINAdmin = false
             };
 
             manager.EmailService = new EmailService();

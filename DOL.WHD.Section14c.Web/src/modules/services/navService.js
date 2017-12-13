@@ -94,7 +94,7 @@ module.exports = function(ngModule) {
     });
 
     this.getSections = function() {
-      if (stateService.isAdmin) {
+      if (stateService.IsPointOfContact) {
         return adminSectionArray;
       } else {
         if (
@@ -195,7 +195,7 @@ module.exports = function(ngModule) {
       this.clearBackQuery();
       this.clearNextQuery();
       state.backStack.length = 0;
-      if (stateService.isAdmin) {
+      if (stateService.IsPointOfContact) {
         if (stateService.appData.id) {
           $location
             .path('/admin/' + stateService.appData.id + '/section/' + section)
