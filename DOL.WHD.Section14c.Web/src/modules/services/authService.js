@@ -59,7 +59,7 @@ module.exports = function(ngModule) {
           } else {
             d.resolve();
           }
-          if (!stateService.isAdmin) {
+          if (!stateService.IsPointOfContact) {
             d.resolve();
             // stateService.loadSavedApplication().then(
             //   function() {

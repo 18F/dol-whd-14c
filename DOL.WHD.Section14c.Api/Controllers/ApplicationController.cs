@@ -125,8 +125,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _applicationService.ProcessModel(submission);
 
             // make sure user has rights to the Id
-            var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
-            if (!hasEINClaim)
+            var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
@@ -138,7 +138,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             await UserManager.UpdateAsync(user);
 
             // remove the associated application save
-            _saveService.Remove(submission.EIN);
+            _saveService.Remove(submission.Id);
 
             var response = await GetApplicationDocument(new Guid(submission.Id));
 
