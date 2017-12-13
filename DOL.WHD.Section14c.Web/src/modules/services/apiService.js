@@ -190,10 +190,9 @@ module.exports = function(ngModule) {
 
 
     this.saveApplication = function(access_token, ein, employerId, applicationId, applicationData) {
-      console.log(access_token, ein, employerId, applicationData);
       let url = _env.api_url + '/api/save/' + employerId + '/' + applicationId;
       let d = $q.defer();
-  
+
       applicationData.saved = moment.utc();
 
       $http({

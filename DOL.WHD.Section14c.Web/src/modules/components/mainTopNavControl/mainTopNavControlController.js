@@ -15,7 +15,7 @@ module.exports = function(ngModule) {
 
     this.dashboardClick = e => {
       e.preventDefault();
-      $location.path('/home');
+      $location.path('/dashboard');
     };
 
     this.userClick = e => {

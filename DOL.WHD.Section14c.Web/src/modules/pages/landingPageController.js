@@ -6,8 +6,7 @@ module.exports = function(ngModule) {
     stateService,
     autoSaveService,
     apiService,
-    $location,
-    $route
+    $location
   ) {
     'ngInject';
     'use strict';
@@ -16,7 +15,7 @@ module.exports = function(ngModule) {
       $scope.organizations = result.data.organizations;
       console.log($scope.organizations)
     });
-    
+
 
     $scope.changePassword = function() {
       $location.path('/changePassword');
@@ -30,36 +29,32 @@ module.exports = function(ngModule) {
 
       if($scope.organizations[index].applicationStatus.name === "New") {
          stateService.saveNewApplication().then(
-          function(result) {
-            console.log('success');
+          function() {
             // start auto-save
             if (stateService.ein) {
               autoSaveService.start();
               $location.path('/section/assurances');
             }
-          
+
           },
-          function(error) {
-            console.log(error);
+          function() {
           }
         );
        } else {
         stateService.loadSavedApplication().then(
-          function(result) {
-            console.log('success');
+          function() {
             // start auto-save
             if (stateService.ein) {
               autoSaveService.start();
               $location.path('/section/assurances');
             }
-          
+
           },
-          function(error) {
-            console.log(error);
+          function() {
           }
         );
        }
-     
+
       $location.path('/section/assurances');
     };
 
