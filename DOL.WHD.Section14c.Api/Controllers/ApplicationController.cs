@@ -135,7 +135,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Unauthorized("Unauthorized");
             }
 
-            //await _applicationService.SubmitApplicationAsync(submission);
+            await _applicationService.SubmitApplicationAsync(submission);
 
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
             user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.Submitted;
