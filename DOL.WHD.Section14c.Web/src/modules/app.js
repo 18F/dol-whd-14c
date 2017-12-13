@@ -121,7 +121,7 @@ app.run(function(
           : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
         if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {
           // user does not have adequate permissions to access the route so redirect
-          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : 'home'));
+          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : 'login'));
         } else if (next.$$route.isLanding && userAccess === routeConfig.access.ROUTE_ADMIN) {
           // redirect admin users to the admin dashboard
           $location.path('/admin');
