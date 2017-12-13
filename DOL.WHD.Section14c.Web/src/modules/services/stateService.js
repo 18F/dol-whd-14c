@@ -70,7 +70,7 @@ module.exports = function(ngModule) {
       }
     });
 
-    Object.defineProperty(this, 'isAdmin', {
+    Object.defineProperty(this, 'IsPointOfContact', {
       get: function() {
         return this.hasClaim(_constants.applicationClaimTypes.viewAdminUI);
       }

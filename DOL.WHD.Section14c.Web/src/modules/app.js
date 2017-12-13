@@ -116,7 +116,7 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
-        let userAccess = stateService.isAdmin
+        let userAccess = stateService.IsPointOfContact
           ? routeConfig.access.ROUTE_ADMIN
           : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
         if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {

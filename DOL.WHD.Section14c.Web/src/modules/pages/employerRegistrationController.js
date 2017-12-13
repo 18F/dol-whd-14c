@@ -27,7 +27,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.onSubmitClick = function () {
-      $scope.formData.isAdmin = true;
+      $scope.formData.IsPointOfContact = true;
       $scope.formData.employer.ein = $scope.formData.ein;
       apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function(result) {
           $scope.registrationSuccess = true;
