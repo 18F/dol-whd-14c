@@ -43,6 +43,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IEmailContentService _emailService;
         private readonly IOrganizationService _organizationService;
         private readonly IEmployerService _employerService;
+        private readonly IResponseService _responseService;
 
         private ApplicationUserManager _userManager;
 
@@ -90,7 +91,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="employerService">
         /// The employer service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService)
+        ///         /// <param name="responseService">
+        /// The response service this controller should use
+        /// 
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService, IResponseService responseService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -102,6 +106,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _emailService = emailService;
             _organizationService = organizationService;
             _employerService = employerService;
+            _responseService = responseService;
         }
 
         /// <summary>
@@ -245,6 +250,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Application GUID
         /// </param>
         /// <returns></returns>
+        /// <summary>
+        /// Get Application Document
+        /// </summary>
+        /// <param name="applicationId">
+        /// Application GUID
+        /// </param>
+        /// <returns></returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
@@ -254,10 +266,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 // Get Application Template
-                var applicationViewTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/Section14cApplicationPdfView.html");
+                var applicationTemplatesPath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/HtmlTemplates");
+                var templatefiles = Directory.GetFiles(applicationTemplatesPath, "*.html").OrderBy(f => new FileInfo(f).Name).ToList();
 
-                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService);
-                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, applicationViewTemplatePath);
+                ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
+                var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
 
                 // Calling Concatenate Web API
                 var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
