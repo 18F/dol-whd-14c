@@ -23,6 +23,7 @@ module.exports = function(ngModule) {
 
     this.onSubmit = function() {
       // clear error
+      vm.submittingApplication = true;
       vm.submissionError = undefined;
 
       // submit the application
@@ -36,9 +37,11 @@ module.exports = function(ngModule) {
           .then(
             function() {
               vm.submissionSuccess = true;
+              vm.submittingApplication = false;
               stateService.resetFormData();
             },
             function(error) {
+              vm.submittingApplication = false;
               vm.submissionError = error;
             }
           );
