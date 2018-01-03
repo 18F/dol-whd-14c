@@ -1,4 +1,3 @@
-<breadcrumb></breadcrumb>
 <div class="dol-form-question-group force-margin" ng-show="paytype">
   <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.numWorkers') ? 'usa-input-error' : ''">
     <div class="dol-form-question-help">
@@ -193,7 +192,7 @@
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactDate') ? 'usa-input-error' : ''">
-            <fieldset class="dol-legend-plain">           
+            <fieldset class="dol-legend-plain">
               <legend>Date of Contact</legend>
               <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
               <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
@@ -302,7 +301,7 @@
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.dataRetrieved') ? 'usa-input-error' : ''">
-          <fieldset class="dol-legend-plain"> 
+          <fieldset class="dol-legend-plain">
             <legend>Date data retrieved</legend>
             <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
             <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>

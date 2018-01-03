@@ -1,4 +1,3 @@
-<breadcrumb></breadcrumb>
 <div class="form-page-full" ng-hide="vm.submissionSuccess">
   <h2>Review & Submit</h2>
   <p>We’ve checked your responses from each section to make sure there were no errors or missing information before submission.</p>
@@ -76,7 +75,10 @@
   </div>
 
   <div class="clearer submit-button">
-    <button class="pull-right" ng-class="isValid ? '' : 'disabled'" ng-click="vm.onSubmit()" ng-disabled="!isValid">Submit 14(c) Certificate Application</button>
+    <button class="pull-right" ng-click="vm.onSubmit()" ng-show="!vm.submittingApplication">Submit 14(c) Certificate Application</button>
+    <button class="pull-right" ng-show="vm.submittingApplication">
+      Loading
+    </button>
   </div>
 
   <div>

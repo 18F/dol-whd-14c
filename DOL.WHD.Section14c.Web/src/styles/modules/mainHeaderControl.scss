@@ -29,7 +29,7 @@
 .crumbs {
   display: inline;
   margin-left: 5px;
-  font-size: 12px;
+  font-size: 11px;
   a:link {
       text-decoration: none;
   }
@@ -49,7 +49,12 @@
 
 .crumbs-container {
     float: left;
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    font-size: 11px;
+}
+
+.crumbsHeader {
+    font-size: 10px;
 }
 
 .breadcrumb {
@@ -64,6 +69,7 @@
   padding: 10px 0 10px 65px;
   background: brown; /* fallback color */
   background: hsla(34,85%,35%,1);
+  font-size: 11px;
   position: relative;
   display: block;
   float: left;
