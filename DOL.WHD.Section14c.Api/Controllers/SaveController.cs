@@ -89,7 +89,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="EIN"></param>
         /// <param name="employerId"></param>
         /// <param name="applicationId"></param>
         /// <returns></returns>
@@ -130,8 +129,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="EIN">Id</param>
-        /// /// <param name="applicationId">Application Id</param>
+        /// <param name="applicationId">Application Id</param>
         /// <returns></returns>
         [HttpPut]
         [Route("UpdateSave")]
