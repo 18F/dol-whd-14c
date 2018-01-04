@@ -3,6 +3,7 @@
 module.exports = function(ngModule) {
   ngModule.controller('changePasswordFormController', function(
     $scope,
+    $location,
     stateService,
     apiService
   ) {
@@ -47,6 +48,13 @@ module.exports = function(ngModule) {
             vm.changePasswordError = true;
           }
         );
+    };
+
+    this.logOut = e => {
+      e.preventDefault();
+      stateService.logOut();
+      $location.path('/');
+      document.title = 'DOL WHD Section 14(c)';
     };
   });
 };
