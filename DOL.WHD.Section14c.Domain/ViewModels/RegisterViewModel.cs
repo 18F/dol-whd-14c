@@ -19,11 +19,6 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        //[Required]
-        //[RegularExpression((@"\d{2}\-\d{7}"))]
-        //[Display(Name = "Id")]
-        //public string Id { get; set; }
-
         [Required]
         public Uri EmailVerificationUrl { get; set; }
 

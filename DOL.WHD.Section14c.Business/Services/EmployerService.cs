@@ -26,25 +26,6 @@ namespace DOL.WHD.Section14c.Business.Services
         }
 
         /// <summary>
-        /// Get Employer By Id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public Employer GetEmployerById(Guid id)
-        {
-            return _employerRepository.Get().FirstOrDefault(x=> x.Id == id.ToString());
-        }
-
-        /// <summary>
-        /// Get all employer
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<Employer> GetAllEmployers()
-        {
-            return _employerRepository.Get().ToList();
-        }
-
-        /// <summary>
         /// Get Employer By Id, Employer Name and Employer Address
         /// </summary>
         /// <param name="employer"></param>

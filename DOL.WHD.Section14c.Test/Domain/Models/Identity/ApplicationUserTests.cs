@@ -18,6 +18,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
         {
             // Arrange
             var ein = "30-1234567";
+            var applicationId = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
             var identity = new ClaimsIdentity();
             var userStoreMock = new Mock<IUserStore<ApplicationUser>>();
             var userManagerMock = new Mock<UserManager<ApplicationUser>>(userStoreMock.Object);
@@ -29,13 +30,13 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
             var user = new ApplicationUser();
             user.Organizations = new List<OrganizationMembership>
             {
-                new OrganizationMembership { EIN = ein, IsPointOfContact = true}
+                new OrganizationMembership { EIN = ein, ApplicationId= applicationId, IsPointOfContact = true}
             };
 
             // Act
             var result = await user.GenerateUserIdentityAsync(userManagerMock.Object, roleManagerMock.Object, null);
 
-            Assert.AreEqual(ein, result.Claims.Single(x => x.Type == "Id").Value);
+            Assert.AreEqual(ein, result.Claims.Single(x => x.Type == "EIN").Value);
         }
 
         [TestMethod]

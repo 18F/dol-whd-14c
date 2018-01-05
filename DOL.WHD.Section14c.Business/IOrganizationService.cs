@@ -14,7 +14,7 @@ namespace DOL.WHD.Section14c.Business
     public interface IOrganizationService
     {
         OrganizationMembership GetOrganizationMembershipByEmployer(Employer employer);        
-        IEnumerable<OrganizationMembership> GetAllOrganizationMemberships();
-        void UpdateOrganizationMembership(OrganizationMembership organizationMembership);
+        //IEnumerable<OrganizationMembership> GetAllOrganizationMemberships();
+       // void UpdateOrganizationMembership(OrganizationMembership organizationMembership);
     }
 }

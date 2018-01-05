@@ -11,7 +11,5 @@ namespace DOL.WHD.Section14c.DataAccess
     public interface IOrganizationRepository : IDisposable
     {
         IEnumerable<OrganizationMembership> Get();
-        void ModifyOrganizationMembership(OrganizationMembership organizationMembership);
-        Task<int> SaveChangesAsync();
     }
 }

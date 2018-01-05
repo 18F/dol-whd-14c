@@ -29,6 +29,12 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
                 RequireUniqueEINAdmin = false
             };
 
+            manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Security Code",
+                BodyFormat = "Your security code is: {0}"
+            });
+
             manager.EmailService = new EmailService();
 
             // Configure validation logic for passwords

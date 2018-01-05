@@ -1,22 +1,20 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Identity;
+﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 
 namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
 {
     [TestClass]
-    public class ApplicationUserRoleTests
+    public class ApplicationUserLoginTests
     {
         [TestMethod]
-        public void ApplicationUserRole_PublicProperties()
+        public void ApplicationUserLogin_PublicProperties()
         {
-            var applicationRole = new ApplicationRole() {Id = "id"};
             var testDate = DateTime.Today;
             var user = new ApplicationUser { Id = "123" };
 
-            var obj = new ApplicationUserRole
+            var obj = new ApplicationUserLogin
             {
-                Role = applicationRole,
                 CreatedAt = testDate,
                 LastModifiedAt = testDate,
                 CreatedBy = user,
@@ -25,18 +23,10 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Identity
                 LastModifiedBy_Id = "123"
             };
 
-            Assert.AreEqual(applicationRole, obj.Role);
             Assert.AreEqual(testDate, obj.CreatedAt);
             Assert.AreEqual(testDate, obj.LastModifiedAt);
             Assert.AreEqual(user.Id, obj.CreatedBy_Id);
             Assert.AreEqual(user.Id, obj.LastModifiedBy_Id);
-        }
-
-        [TestMethod]
-        public void ApplicationUserRole_ConstructorSetRoleID()
-        {
-            var obj = new ApplicationUserRole();
-            Assert.IsNotNull(obj.RoleId);
         }
     }
 }

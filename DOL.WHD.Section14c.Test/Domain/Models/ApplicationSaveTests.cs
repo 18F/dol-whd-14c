@@ -2,6 +2,7 @@
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using DOL.WHD.Section14c.Domain.Models.Submission;
 
 namespace DOL.WHD.Section14c.Test.Domain.Models
 {
@@ -20,17 +21,22 @@ namespace DOL.WHD.Section14c.Test.Domain.Models
                     ""email"" : ""foo@bar.com""
                 }
             ";
+            var employer = new Employer() { Id = "123" };
 
             // Act
             var obj = new ApplicationSave
             {
                 Id = ein,
-                ApplicationState = state
+                ApplicationState = state,
+                Employer = employer,
+                Employer_Id = "123"
             };
 
             // Assert
             Assert.AreEqual(ein, obj.Id);
             Assert.AreEqual(state, obj.ApplicationState);
+            Assert.AreEqual(employer.Id, obj.Employer_Id);
+
         }
     }
 }
