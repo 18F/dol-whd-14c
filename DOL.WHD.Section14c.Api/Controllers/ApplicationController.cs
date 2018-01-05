@@ -173,10 +173,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var employerEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmployerEmailTemplate.txt");
             var employerEmailTemplateString = File.ReadAllText(employerEmailTemplatePath);
             var emailContents = _emailService.PrepareApplicationEmailContents(submission, certificationTeamEmailTemplateString, employerEmailTemplateString, EmailReceiver.Both);
+            var pdfName = string.Format("14c_Application_Submission_{0}_{1}_{2}.pdf", submission.Employer.LegalName, submission.Employer.PhysicalAddress.State, DateTime.Now.Year) ;
             // Call Document Management Web API
             foreach (var content in emailContents)
             {
-                content.Value.Attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
+                content.Value.Attachments = new Dictionary<string, byte[]>() { { pdfName, returnValue } };
                 await httpClientInstance.PostAsJsonAsync<EmailContent>("/api/email/sendemail", content.Value);
             }
 
@@ -247,14 +248,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationId">
         /// Application GUID
         /// </param>
-        /// <returns></returns>
-        /// <summary>
-        /// Get Application Document
-        /// </summary>
-        /// <param name="applicationId">
-        /// Application GUID
-        /// </param>
-        /// <returns></returns>
+        /// <returns>byte array</returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
@@ -322,6 +316,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 var response = await GetApplicationDocument(applicationId);
+                var application = _applicationService.GetApplicationById(applicationId);
+                var pdfName = string.Format("14c_Application_Submission_{0}_{1}_{2}", application.Employer.LegalName, application.Employer.PhysicalAddress.State, application.CreatedAt.Year);
 
                 // Get return value from API call
                 var contentResult = response as OkNegotiatedContentResult<byte[]>;
@@ -332,7 +328,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     InternalServerError("Get concatenate Pdf failed");
                 }
                 // Download PDF File
-                responseMessage = Download(returnValue, responseMessage, "Concatenate");
+                responseMessage = Download(returnValue, responseMessage, pdfName);
             }
             catch (Exception ex)
             {
