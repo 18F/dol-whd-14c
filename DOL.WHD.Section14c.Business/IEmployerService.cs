@@ -10,8 +10,6 @@ namespace DOL.WHD.Section14c.Business
 {
     public interface IEmployerService
     {
-        Employer GetEmployerById(Guid id);
-        IEnumerable<Employer> GetAllEmployers();
         Employer FindExistingEmployer(Employer employer);
     }
 }

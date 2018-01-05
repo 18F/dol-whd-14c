@@ -114,7 +114,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Extensions\ContextSeedRole.cs" />
-    <Compile Include="IAccountRepository.cs" />
+    <Compile Include="IEmployerRepository.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />

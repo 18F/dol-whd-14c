@@ -8,8 +8,6 @@ namespace DOL.WHD.Section14c.Business
     {
         bool UserHasEINClaim(IPrincipal user, string EIN);
 
-        bool UserHasAPPIDClaim(IPrincipal user, string ApplicationId);
-
         bool UserHasFeatureClaim(IPrincipal user, string feature);
 
         bool HasAddPermission(UserInfoViewModel userInfo, string employerId);

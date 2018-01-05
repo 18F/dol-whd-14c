@@ -9,6 +9,8 @@ using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using DOL.WHD.Section14c.Domain.ViewModels;
+using DOL.WHD.Section14c.Domain.Models;
 
 namespace DOL.WHD.Section14c.Test.Business
 {
@@ -105,6 +107,138 @@ namespace DOL.WHD.Section14c.Test.Business
 
             // Assert
             Assert.IsFalse(hasClaim);
+        }
+
+        [TestMethod]
+        public void ValidatesSystemAdminCanCreateNewApplication()
+        {
+            // Arrange
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.SystemAdministrator } }
+            };
+            
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasAddPermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsTrue(hasPermission);
+        }
+
+        [TestMethod]
+        public void ValidatesUserCanCreateNewApplication()
+        {
+            // Arrange
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.Applicant } },
+                Organizations = new List<OrganizationMembership>()
+                        { new OrganizationMembership()
+                            { Employer = new Section14c.Domain.Models.Submission.Employer(){ Id = employerIdToCheck } }
+                        }
+            };
+
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasAddPermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsTrue(hasPermission);
+        }
+
+        [TestMethod]
+        public void ValidatesUser_CanNotCreateNewApplication()
+        {
+            // Arrange
+            var employerIdToTest = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e66";
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.Applicant } },
+                Organizations = new List<OrganizationMembership>()
+                        { new OrganizationMembership()
+                            { Employer = new Section14c.Domain.Models.Submission.Employer(){ Id = employerIdToTest } }
+                        }
+            };
+
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasAddPermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsFalse(hasPermission);
+        }
+
+        [TestMethod]
+        public void ValidatesSystemAdminCanSaveApplication()
+        {
+            // Arrange
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.SystemAdministrator } }
+            };
+
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasSavePermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsTrue(hasPermission);
+        }
+
+        [TestMethod]
+        public void ValidatesUserCanSaveApplication()
+        {
+            // Arrange
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.Applicant } },
+                Organizations = new List<OrganizationMembership>()
+                        { new OrganizationMembership() { ApplicationId = employerIdToCheck } }
+            };
+
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasSavePermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsTrue(hasPermission);
+        }
+
+        [TestMethod]
+        public void ValidatesUser_CanNotSaveApplication()
+        {
+            // Arrange
+            var employerIdToTest = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e66";
+            var employerIdToCheck = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32";
+
+            var obj = new UserInfoViewModel
+            {
+                Roles = new List<RoleViewModel>() { new RoleViewModel() { Name = Roles.Applicant } },
+                Organizations = new List<OrganizationMembership>()
+                         { new OrganizationMembership() { ApplicationId = employerIdToTest } }
+            };
+
+            var service = new IdentityService();
+
+            // Act
+            var hasPermission = service.HasSavePermission(obj, employerIdToCheck);
+
+            // Assert
+            Assert.IsFalse(hasPermission);
         }
     }
 }

@@ -39,19 +39,5 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsPointOfContact == true);
         }
-
-        public void UpdateOrganizationMembership(OrganizationMembership organizationMembership)
-        {
-            _organizationRepository.ModifyOrganizationMembership(organizationMembership);
-        }
-
-        /// <summary>
-        /// Get All Organization Memberships
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<OrganizationMembership> GetAllOrganizationMemberships()
-        {
-            return _organizationRepository.Get();
-        }
     }
 }

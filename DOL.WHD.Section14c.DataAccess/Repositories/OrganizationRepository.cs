@@ -24,28 +24,6 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             return _dbContext.OrganizationMemberships.Include("CreatedBy").AsQueryable();
         }
 
-        public void ModifyOrganizationMembership(OrganizationMembership organizationMembership)
-        {
-            using (var dbContextTransaction = _dbContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    _dbContext.OrganizationMemberships.AddOrUpdate(organizationMembership);
-                    SaveChangesAsync();
-                    dbContextTransaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    dbContextTransaction.Rollback();
-                }
-            }
-        }
-
-        public Task<int> SaveChangesAsync()
-        {
-            return _dbContext.SaveChangesAsync();
-        }
-
         public void Dispose()
         {
             Dispose(true);
