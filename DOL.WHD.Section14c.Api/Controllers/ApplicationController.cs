@@ -247,14 +247,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationId">
         /// Application GUID
         /// </param>
-        /// <returns></returns>
-        /// <summary>
-        /// Get Application Document
-        /// </summary>
-        /// <param name="applicationId">
-        /// Application GUID
-        /// </param>
-        /// <returns></returns>
+        /// <returns>byte array</returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]

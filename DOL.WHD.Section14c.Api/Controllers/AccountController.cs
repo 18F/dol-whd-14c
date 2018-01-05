@@ -95,9 +95,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var now = DateTime.UtcNow;
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
-                // TODO: Move to Another API
-                //user.Organizations.Add(new OrganizationMembership { Id = model.Id, IsPointOfContact = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
-
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
                 {

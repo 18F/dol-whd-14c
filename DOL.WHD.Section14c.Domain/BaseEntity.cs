@@ -8,7 +8,6 @@ using System.Runtime.Serialization;
 
 namespace DOL.WHD.Section14c.Domain
 {
-    [DataContract]
     public class BaseEntity : IAuditedEntity
     {
         public string CreatedBy_Id { get; set; }
@@ -17,7 +16,6 @@ namespace DOL.WHD.Section14c.Domain
         public ApplicationUser CreatedBy { get; set; }
 
         private DateTime? createdAt = null;
-        [DataMember]
         public DateTime CreatedAt
         {
             get
@@ -34,7 +32,6 @@ namespace DOL.WHD.Section14c.Domain
         public ApplicationUser LastModifiedBy { get; set; }
 
         private DateTime? lastModifiedAt = null;
-        [DataMember]
         public DateTime LastModifiedAt
         {
             get
