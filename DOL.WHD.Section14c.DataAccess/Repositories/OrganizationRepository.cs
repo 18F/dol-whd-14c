@@ -24,6 +24,17 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             return _dbContext.OrganizationMemberships.Include("CreatedBy").AsQueryable();
         }
 
+        public async Task<int> ModifyOrganizationMembership(OrganizationMembership organizationMembership)
+        {
+            _dbContext.Entry(organizationMembership).State = EntityState.Modified;
+            return await SaveChangesAsync();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _dbContext.SaveChangesAsync();
+        }
+
         public void Dispose()
         {
             Dispose(true);

@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.Domain.Models.Identity;
+﻿using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -8,7 +9,7 @@ using System.Runtime.Serialization;
 namespace DOL.WHD.Section14c.Domain.Models
 {
     [DataContract]
-    public class OrganizationMembership 
+    public class OrganizationMembership : IAuditedEntity
     {
         public OrganizationMembership()
         {
@@ -43,7 +44,7 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         [DataMember]
         public virtual Status ApplicationStatus { get; set; }
-
+        [DataMember]
         public string CreatedBy_Id { get; set; }
 
         [ForeignKey("LastModifiedBy_Id")]
@@ -64,7 +65,6 @@ namespace DOL.WHD.Section14c.Domain.Models
         public string LastModifiedBy_Id { get; set; }
 
         [ForeignKey("LastModifiedBy_Id")]
-        [DataMember]
         public ApplicationUser LastModifiedBy { get; set; }
 
         private DateTime? lastModifiedAt = null;

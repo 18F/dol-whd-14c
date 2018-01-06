@@ -21,6 +21,7 @@ using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
 using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using DOL.WHD.Section14c.Domain.Models;
 
@@ -117,29 +118,30 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Submit([FromBody]ApplicationSubmission submission)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
-            account.UserManager = UserManager;
-            var userInfo = account.GetUserInfo();
             var results = _applicationSubmissionValidator.Validate(submission);
             if (!results.IsValid)
             {
                 BadRequest(results.Errors.ToString());
             }
+            var account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
 
             _applicationService.ProcessModel(submission);
 
-            // make sure user has rights to the Id
+            // make sure user has permission to submit application
             var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
             if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
-            await _applicationService.SubmitApplicationAsync(submission);
-
             var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
             user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.Submitted;
-            UserManager.UpdateAsync(user);
+            // Update Organization Status
+            await UserManager.UpdateAsync(user);
+
+            await _applicationService.SubmitApplicationAsync(submission);
 
             // remove the associated application save
             _saveService.Remove(submission.Id);

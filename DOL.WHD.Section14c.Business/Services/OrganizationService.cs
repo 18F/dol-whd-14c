@@ -39,5 +39,12 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             return _organizationRepository.Get().SingleOrDefault(x => x.Employer.Id == employer.Id && x.IsPointOfContact == true);
         }
+
+        public async Task<int> ChangeOrganizationMembershipStatus(OrganizationMembership organizationMembership, int newStatusId)
+        {
+            var org = _organizationRepository.Get().SingleOrDefault(x => x.ApplicationId == organizationMembership.ApplicationId);
+            org.ApplicationStatusId = newStatusId;
+            return await _organizationRepository.ModifyOrganizationMembership(org);
+        }
     }
 }

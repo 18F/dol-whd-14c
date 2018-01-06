@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using DOL.WHD.Section14c.DataAccess.MigrationsDB2;
-using DOL.WHD.Section14c.DataAccess.Migrations;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using Microsoft.AspNet.Identity.EntityFramework;
