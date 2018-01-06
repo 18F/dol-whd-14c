@@ -51,6 +51,22 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             return _data.AsQueryable();
         }
 
+        public async Task<int> ModifyOrganizationMembership(OrganizationMembership organizationMembership)
+        {
+            var org = _data.AsQueryable().SingleOrDefault(x => x.ApplicationId == organizationMembership.ApplicationId);
+            org = organizationMembership;
+            return await SaveChangesAsync(); 
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            var value = Task<int>.Run(() => {
+                int num = 1;
+                return num;
+            });
+            return value;
+        }
+
         /// <summary>
         /// Dispose
         /// </summary>

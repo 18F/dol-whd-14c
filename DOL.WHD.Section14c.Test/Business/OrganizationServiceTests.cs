@@ -45,5 +45,22 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsNull(organizationMembershipObj);
         }
+        [TestMethod()]
+        public void ValidatesOrganization_UpdateStatusTest()
+        {
+
+            // Arrange
+            var service = new OrganizationService(_organizationRepository);
+            var oldStatusId = 1;
+            var newStatusId = 2;
+            var employer = new Employer() { Id = "123456" };
+            var organizationMembership = new OrganizationMembership { ApplicationId = "2edbc12f-4fd9-4fed-a848-b8bfff4d4e32", Employer = employer, ApplicationStatusId = oldStatusId , IsPointOfContact = true};
+
+            // Act
+            service.ChangeOrganizationMembershipStatus(organizationMembership, newStatusId);
+            var updatedOrganizationMembership = service.GetOrganizationMembershipByEmployer(employer);
+            // Assert
+            Assert.AreEqual(updatedOrganizationMembership.ApplicationStatusId, newStatusId);
+        }
     }
 }

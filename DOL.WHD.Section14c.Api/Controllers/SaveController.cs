@@ -11,10 +11,7 @@ using DOL.WHD.Section14c.Log.LogHelper;
 using DOL.WHD.Section14c.DataAccess.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Linq;
-using System.Threading.Tasks;
-using DOL.WHD.Section14c.Domain.Models.Submission;
 using DOL.WHD.Section14c.Domain.Models;
-using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -116,13 +113,17 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
+
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId);
             _saveService.AddOrUpdate(applicationId, applicationId, employerId, state);
 
-            // Update Organization Status
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
-            user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId).ApplicationStatusId = StatusIds.InProgress;
-            UserManager.UpdateAsync(user);
-
+            if (org.ApplicationStatusId == StatusIds.New)
+            {
+                // Update Organization Status
+                org.ApplicationStatusId = StatusIds.InProgress;
+                UserManager.UpdateAsync(user);
+            }
             return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
         }
 
