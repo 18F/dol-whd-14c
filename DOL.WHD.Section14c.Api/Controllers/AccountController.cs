@@ -306,7 +306,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("PasswordComplexityCheck")]
         public IHttpActionResult PasswordComplexityCheck()
         {
