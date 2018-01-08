@@ -11,11 +11,6 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
-    apiService.userInfo(stateService.access_token).then(function(result) {
-      $scope.organizations = result.data.organizations;
-    });
-
-
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
@@ -63,6 +58,14 @@ module.exports = function(ngModule) {
     $scope.navToEmployerRegistration = function ()  {
       $location.path('/employerRegistration');
     };
+
+    $scope.init = function () {
+      apiService.userInfo(stateService.access_token).then(function(result) {
+        $scope.organizations = result.data.organizations;
+      })
+    }
+
+    $scope.init();
 
   });
 };
