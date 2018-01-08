@@ -71,13 +71,42 @@ namespace DOL.WHD.Section14c.Business.Helper
 
             Handlebars.RegisterHelper("if_eq", (writer, options, context, parameters) =>
             {
-                if (parameters[0].ToString() == parameters[1].ToString())
+                if (parameters.Length == 5 )
                 {
-                    options.Template(writer, (object)context);
+                    switch (parameters[2].ToString())
+                    {
+                        case "||":
+                            if (parameters[0].ToString() == parameters[1].ToString() || parameters[3].ToString() == parameters[4].ToString())
+                            {
+                                options.Template(writer, (object)context);
+                            }
+                            else
+                            {
+                                options.Inverse(writer, (object)context);
+                            }
+                            break;
+                        case "&&":
+                            if (parameters[0].ToString() == parameters[1].ToString() && parameters[3].ToString() == parameters[4].ToString())
+                            {
+                                options.Template(writer, (object)context);
+                            }
+                            else
+                            {
+                                options.Inverse(writer, (object)context);
+                            }
+                            break;
+                    }
                 }
                 else
                 {
-                    options.Inverse(writer, (object)context);
+                    if (parameters[0].ToString() == parameters[1].ToString())
+                    {
+                        options.Template(writer, (object)context);
+                    }
+                    else
+                    {
+                        options.Inverse(writer, (object)context);
+                    }
                 }
             });
 
