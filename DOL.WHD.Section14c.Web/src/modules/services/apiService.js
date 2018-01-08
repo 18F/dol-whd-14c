@@ -164,6 +164,27 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    this.checkPasswordComplexity = function(value) {
+      let url = _env.api_url + '/api/Account/PasswordComplexityCheck';
+      let d = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: url,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        data: value
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
     this.userInfo = function(access_token) {
       let url = _env.api_url + '/api/Account/UserInfo';
       let d = $q.defer();
