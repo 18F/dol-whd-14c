@@ -31,8 +31,12 @@ module.exports = function(ngModule) {
             }
         },
         buttons: [
-          'copy','csv'
+          { extend: 'copy', text: 'Copy<span class="hide"> table data to clipboard</span>' },
+          { extend: 'csv', text: '<span class="hide">Generate a </span>CSV<span class="hide"> file from the table data</span>' }
          ],
+        'language': {
+          'search': 'Search<span class="hide"> Table Data</span>'
+        },
         columns: $scope.columns,
         select: true,
         autoWidth: false,
