@@ -6,41 +6,8 @@
     <main-top-nav-control></main-top-nav-control>
     <div>
       <span ng-show="!organizations"> You do not have any employers associated with this account. Please click "Register a New Employer" to continue.</span>
-      <table id="Employer" class="employer-table employer-table-bordered" ng-show="organizations">
-          <thead>
-          <tr>
-              <th>
-                  Employer Name
-              </th>
-              <th>
-                  Created At
-              </th>
-              <th>
-                  Last Modified
-              </th>
-              <th>
-              </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="organization in organizations track by $index">
-            <td>
-              {{organization.employer.legalName}}
-            </td>
-            <td>
-                {{organization.employer.createdAt | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
-            </td>
-            <td>
-                {{organization.employer.lastModifiedAt | amUtc | amLocal | amDateFormat:'MM/DD/YYYY, h:mm A'}}
-            </td>
-            <td>
-                <button class="save-button" ng-click="onApplicationClick($index)">
-              <span ng-show="organization.applicationStatus.name === 'New'">Start</span> 
-              <span ng-show="organization.applicationStatus.name === 'InProgress'">Continue</span> 
-              <span ng-show="organization.applicationStatus.name === 'Submitted'">View</span></button>
-            </td>
-          </tr>
-          </tbody>
+      <table id="EmployerTable" class="dol-datatable display responsive nowrap" ng-show="organizations">
+         
       </table>
     </div>
     <button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button>

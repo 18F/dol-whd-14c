@@ -86,13 +86,13 @@ module.exports = function(ngModule) {
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.edit()(row[0][0], $event);
-    } );
+    });
 
     $('#' + $attrs.id).children("table").on('click', 'td.delete-table-entry', function ($event) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.delete()(row[0][0], $event);
-    } );
+    });
   });
 };
