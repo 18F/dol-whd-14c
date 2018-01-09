@@ -148,37 +148,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Get applications for a user
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("User/GetApplications")]
-        public IHttpActionResult GetApplications()
-        {
-            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
-            // Get user organizations
-            var userEmployers = user.Organizations;
-            var applications = new List<UserApplications>();
-
-            foreach (var item in userEmployers)
-            {
-                var placeHolder = new Dictionary<string, string>();
-
-                if (!string.IsNullOrEmpty(item.ApplicationId))
-                {
-                    placeHolder.Add("ApplicationId", item.ApplicationId);
-                }
-                else
-                {
-                    placeHolder.Add("EmployerId", item.Employer.Id);
-                }
-                applications.Add(new UserApplications() { EmployerName = item.Employer?.LegalName, Id = placeHolder });
-            }
-            return Ok(applications);
-        }
-
-        /// <summary>
         /// Set user employer
         /// </summary> 
         /// <param name="organizationMembership">

@@ -115,7 +115,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Download attachment by Id
         /// </summary>
-        /// <param name="ApplicationId">Employer Identification Number</param>
+        /// <param name="ApplicationId">Appication Identification Number</param>
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpGet]

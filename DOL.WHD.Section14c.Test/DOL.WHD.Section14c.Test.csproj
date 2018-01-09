@@ -211,7 +211,6 @@
     <Compile Include="Business\BaseAPIControllerTest.cs" />
     <Compile Include="Helpers\NLoggerTests.cs" />
     <Compile Include="Helpers\ApplicationDocumentHelperTests.cs" />
-    <Compile Include="Helpers\UserApplicationsTests.cs" />
     <Compile Include="RepositoryMocks\ApplicationServiceMock.cs" />
     <Compile Include="PdfHelper\PdfHelperTests.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
