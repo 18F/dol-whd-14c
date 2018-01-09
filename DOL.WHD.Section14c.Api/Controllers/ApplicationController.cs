@@ -20,6 +20,7 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
+using System.Text.RegularExpressions;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -140,7 +141,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var employerEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmployerEmailTemplate.txt");
             var employerEmailTemplateString = File.ReadAllText(employerEmailTemplatePath);
             var emailContents = _emailService.PrepareApplicationEmailContents(submission, certificationTeamEmailTemplateString, employerEmailTemplateString, EmailReceiver.Both);
-            var pdfName = string.Format("14c_Application_Submission_{0}_{1}_{2}.pdf", submission.Employer.LegalName, submission.Employer.PhysicalAddress.State, DateTime.Now.Year);
+            var pdfName = string.Format("14c_Application_{0}_{1}_{2}.pdf", submission.Employer.PhysicalAddress.State, DateTime.Now.ToString("yyyy-MM-dd"), Regex.Replace(submission.Employer.LegalName, @"\s+", "-"));
             // Call Document Management Web API
             foreach (var content in emailContents)
             {
@@ -282,8 +283,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 var response = await GetApplicationDocument(applicationId);
-                var application = _applicationService.GetApplicationById(applicationId);
-                var pdfName = string.Format("14c_Application_Submission_{0}_{1}_{2}", application.Employer.LegalName, application.Employer.PhysicalAddress.State, application.CreatedAt.Year);
+                var application = _applicationService.GetApplicationById(applicationId);                
+                var pdfName = string.Format("14c_Application_{0}_{1}_{2}", application.Employer.PhysicalAddress.State, application.CreatedAt.ToString("yyyy-MM-dd"), Regex.Replace(application.Employer.LegalName, @"\s+", "-"));
 
                 // Get return value from API call
                 var contentResult = response as OkNegotiatedContentResult<byte[]>;
