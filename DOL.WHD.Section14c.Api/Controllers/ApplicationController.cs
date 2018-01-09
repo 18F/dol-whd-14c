@@ -20,6 +20,7 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
+using System.Text.RegularExpressions;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -140,13 +141,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var employerEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmployerEmailTemplate.txt");
             var employerEmailTemplateString = File.ReadAllText(employerEmailTemplatePath);
             var emailContents = _emailService.PrepareApplicationEmailContents(submission, certificationTeamEmailTemplateString, employerEmailTemplateString, EmailReceiver.Both);
+            var pdfName = string.Format("14c_Application_{0}_{1}_{2}.pdf", submission.Employer.PhysicalAddress.State, DateTime.Now.ToString("yyyy-MM-dd"), Regex.Replace(submission.Employer.LegalName, @"\s+", "-"));
             // Call Document Management Web API
             foreach (var content in emailContents)
             {
-                content.Value.Attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
+                content.Value.Attachments = new Dictionary<string, byte[]>() { { pdfName, returnValue } };
                 await httpClientInstance.PostAsJsonAsync<EmailContent>("/api/email/sendemail", content.Value);
             }
-
             return Ok();
         }
 
@@ -282,6 +283,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 var response = await GetApplicationDocument(applicationId);
+                var application = _applicationService.GetApplicationById(applicationId);                
+                var pdfName = string.Format("14c_Application_{0}_{1}_{2}", application.Employer.PhysicalAddress.State, application.CreatedAt.ToString("yyyy-MM-dd"), Regex.Replace(application.Employer.LegalName, @"\s+", "-"));
 
                 // Get return value from API call
                 var contentResult = response as OkNegotiatedContentResult<byte[]>;
@@ -292,7 +295,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     InternalServerError("Get concatenate Pdf failed");
                 }
                 // Download PDF File
-                responseMessage = Download(returnValue, responseMessage, "Concatenate");
+                responseMessage = Download(returnValue, responseMessage, pdfName);
             }
             catch (Exception ex)
             {
