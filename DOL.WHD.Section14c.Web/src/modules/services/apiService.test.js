@@ -178,6 +178,39 @@ describe('apiService', function() {
     expect(result).toEqual('value');
   });
 
+  //Password Complexity
+  it('passwordComplexityCheck error should reject deferred', function() {
+    var isResolved;
+    var result;
+    api.checkPasswordComplexity("12313").then(undefined, function(error) {
+      result = error.data;
+      isResolved = false;
+    });
+
+    $httpBackend
+      .expectPOST(env.api_url + '/api/Account/PasswordComplexityCheck')
+      .respond(417, 'value');
+    $httpBackend.flush();
+    expect(isResolved).toEqual(false);
+    expect(result).toEqual('value');
+  });
+
+  it('userInfo success should resolve deferred', function() {
+    var isResolved;
+    var result;
+    api.checkPasswordComplexity("1105Tunbr!").then(function(data) {
+      result = data.data;
+      isResolved = true;
+    });
+
+    $httpBackend
+      .expectPOST(env.api_url + '/api/Account/PasswordComplexityCheck')
+      .respond(200, 'value');
+    $httpBackend.flush();
+    expect(isResolved).toEqual(true);
+    expect(result).toEqual('value');
+  });
+
   //userInfo
   it('userInfo error should reject deferred', function() {
     var isResolved;

@@ -1,7 +1,6 @@
 'use strict';
 
 import some from 'lodash/some';
-var zxcvbn = require('zxcvbn');
 
 module.exports = function(ngModule) {
   ngModule.controller('userRegistrationFormController', function(
@@ -72,9 +71,8 @@ module.exports = function(ngModule) {
       apiService.checkPasswordComplexity(value).then(function(result){
         if(result.status === 200) {
           $scope.passwordStrength = true;
-          console.log('true!')
         } 
-      }).catch(function(error) {
+      }).catch(function() {
         $scope.passwordStrength = false;
       })
     });
