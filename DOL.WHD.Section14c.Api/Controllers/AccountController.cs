@@ -148,7 +148,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Get Employers by user
+        /// Get applications for a user
         /// </summary>
         /// <returns></returns>
         [HttpGet]
@@ -165,7 +165,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 var placeHolder = new Dictionary<string, string>();
 
-                if (string.IsNullOrEmpty(item.ApplicationId))
+                if (!string.IsNullOrEmpty(item.ApplicationId))
                 {
                     placeHolder.Add("ApplicationId", item.ApplicationId);
                 }
