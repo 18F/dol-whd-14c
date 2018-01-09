@@ -73,7 +73,6 @@
     <Compile Include="Helper\ApplicationDocumentHelper.cs" />
     <Compile Include="Helper\ApplicationEmailReceivers.cs" />
     <Compile Include="Helper\ApplicationFormViewHelper.cs" />
-    <Compile Include="Helper\UserApplications.cs" />
     <Compile Include="IApplicationService.cs" />
     <Compile Include="IAttachmentSupportedFileTypesService.cs" />
     <Compile Include="IEmailContentService.cs" />

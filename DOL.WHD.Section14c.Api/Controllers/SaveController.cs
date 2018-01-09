@@ -42,10 +42,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Constructor to inject services
         /// </summary>
-        /// <param name="saveService"></param>
-        /// <param name="identityService"></param>
-        /// <param name="organizationService"></param>
-        /// <param name="employerService"></param>
+        /// <param name="saveService">The Save service this controller should use </param>
+        /// <param name="identityService">The Identity service this controller should use </param>
+        /// <param name="organizationService">The Organization service this controller should use </param>
+        /// <param name="employerService">The Employer service this controller should use </param>
         public SaveController(ISaveService saveService, IIdentityService identityService, IOrganizationService organizationService, IEmployerService employerService)
         {
             _saveService = saveService;
@@ -57,7 +57,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Returns pre-submission 14c application
         /// </summary>
-        /// <param name="applicationId">Employer Identification Number</param>
+        /// <param name="applicationId">Application Identification Number</param>
         [HttpGet]
         [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
@@ -86,8 +86,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="employerId"></param>
-        /// <param name="applicationId"></param>
+        /// <param name="employerId">Employer Identification Number</param>
+        /// <param name="applicationId">Application Identification Number</param>
         /// <returns></returns>
         [HttpPost]
         [Route("{employerId}/{applicationId}")]
@@ -130,7 +130,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="applicationId">Application Id</param>
+        /// <param name="applicationId">Application Identification Number</param>
         /// <returns></returns>
         [HttpPut]
         [Route("UpdateSave")]
@@ -164,7 +164,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Removes pre-submission 14c application
         /// </summary>
-        /// <param name="applicationId"></param>
+        /// <param name="applicationId">Application Identification Number</param>
         /// <returns></returns>
         [HttpDelete]
         [Route("{applicationId}")]
