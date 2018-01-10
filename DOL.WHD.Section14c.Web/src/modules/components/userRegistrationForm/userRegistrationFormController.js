@@ -1,7 +1,6 @@
 'use strict';
 
 import some from 'lodash/some';
-var zxcvbn = require('zxcvbn');
 
 module.exports = function(ngModule) {
   ngModule.controller('userRegistrationFormController', function(
@@ -51,6 +50,7 @@ module.exports = function(ngModule) {
       vm.passwordLower = false;
       vm.passwordSpecial = false;
       vm.passwordNumber = false;
+
     };
     vm.resetPasswordComplexity();
 
@@ -59,7 +59,6 @@ module.exports = function(ngModule) {
     };
 
     $scope.$watch('formVals.pass', function(value) {
-      $scope.passwordStrength = zxcvbn(value);
       vm.passwordLength = value.length > 7;
       vm.passwordUpper = value.match(new RegExp('^(?=.*[A-Z])')) ? true : false;
       vm.passwordLower = value.match(new RegExp('^(?=.*[a-z])')) ? true : false;
@@ -69,6 +68,13 @@ module.exports = function(ngModule) {
       vm.passwordNumber = value.match(new RegExp('^(?=.*[0-9])'))
         ? true
         : false;
+      apiService.checkPasswordComplexity(value).then(function(result){
+        if(result.status === 200) {
+          $scope.passwordStrength = true;
+        } 
+      }).catch(function() {
+        $scope.passwordStrength = false;
+      })
     });
 
     $scope.inputType = 'password';
