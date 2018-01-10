@@ -165,7 +165,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Delete Attachment by Id
         /// </summary>
-        /// <param name="ApplicationId">Employer Identification Number</param>
+        /// <param name="ApplicationId">Application Identification Number</param>
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpDelete]
