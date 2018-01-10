@@ -10,7 +10,9 @@ require('jquery');
 require('font-awesome/css/font-awesome.css');
 require('angular-data-grid/dist/dataGrid.min.js');
 require('angular-data-grid/dist/pagination.min.js');
-
+import 'datatables.net';
+// import 'datatables.net-responsive-dt'
+import 'datatables.net-dt/css/jquery.datatables.css';
 // Angular
 import angular from 'angular';
 import ngAnimate from 'angular-animate';
