@@ -173,3 +173,24 @@ p.dol-feedback-message {
     }
   }  
 }
+
+// Form Field Error Message Styling
+// ----------------------------------------
+
+.usa-input-error-message {
+  position: relative;
+  padding-left: 27px;
+  margin-bottom: 4px;
+
+  &:before {
+    content: "";
+    top: 2px;
+    left: -2px;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: url('../images/dol-error-red.png') center center;
+    background: url('../images/dol-error-red.svg') center center;
+    background-size: 20px 20px;
+  }  
+}
