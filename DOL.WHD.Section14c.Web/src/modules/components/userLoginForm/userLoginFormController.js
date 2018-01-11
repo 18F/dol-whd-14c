@@ -56,19 +56,16 @@ module.exports = function(ngModule) {
         $location.path('/changePassword');
         $scope.$apply();
       }
-      if (error.status === 400) {        
+      vm.loginError = {
+        status: true
+      }
+      if (error.status === 400) {
         if(error.data.error === 'locked_out'){
           // update error message
-          vm.loginError= {
-            status: true,
-            message: error.data.error_description
-          };
+          vm.loginError.message = error.data.error_description
         }
         else{
-          vm.loginError= {
-            status: true,
-            message: 'The email or password entered does not match our records.'
-          };
+          vm.loginError.message = "The email or password entered does not match our records."
         }
       } else {
         // catch all error, currently possible to get a 500 if the database server is not reachable
