@@ -57,7 +57,11 @@ namespace DOL.WHD.Section14c.Api.Providers
                 {
                     // account locked
                     // use invalid user name or password message to avoid disclosing that a valid username was input
-                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    var message = string.Format(
+                        "Your account has been locked out for {0} minutes due to multiple failed login attempts.",
+                        AppSettings.Get<int>("DefaultAccountLockoutTimeSpan"));
+                    context.SetError("locked_out", message);
+                    return;
                 }
                 if (!user.EmailConfirmed)
                 {
