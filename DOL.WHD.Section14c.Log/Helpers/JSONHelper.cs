@@ -26,7 +26,8 @@ namespace DOL.WHD.Section14c.Log.Helpers
                            new JsonSerializerSettings
                            {
                                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                           });
+                           }
+                         );
             return result;
         }
         #endregion
