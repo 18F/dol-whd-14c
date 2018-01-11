@@ -101,6 +101,11 @@ module.exports = function(ngModule) {
                 display: $.fn.dataTable.Responsive.display.childRow
             }
         },
+        ordering: true,
+        order: [
+          [2, "asc"],
+          [5, "desc"]
+        ],
         columns: [
           {
               "className": 'control',
@@ -109,12 +114,11 @@ module.exports = function(ngModule) {
               "defaultContent": ""
           },
           { data: 'employerId', title: "EIN"},
-          { data: 'applicationId', title: "Application Id"},
           { data: 'employerName', title: "Employer" },
+          { data: 'employerAddress',  title: "Address"},
           { data: 'createdAt', title: "Created At" },
           { data: 'lastModifiedAt',  title: "Last Modified"},
           { data: 'applicationStatus',  title: "Status"},
-          { data: 'employerAddress',  title: "Address"},
           { data: 'action', title: 'Action'}
         ],
         columnDefs: [
