@@ -14,7 +14,10 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
-    vm.loginError = false;
+    vm.loginError= {
+      status: false,
+      message: ''
+    };
 
     $scope.formVals = {
       email: '',
@@ -53,9 +56,20 @@ module.exports = function(ngModule) {
         $location.path('/changePassword');
         $scope.$apply();
       }
-
-      if (error.status === 400) {
-        vm.loginError = true;
+      if (error.status === 400) {        
+        if(error.data.error === 'locked_out'){
+          // update error message
+          vm.loginError= {
+            status: true,
+            message: error.data.error_description
+          };
+        }
+        else{
+          vm.loginError= {
+            status: true,
+            message: 'The email or password entered does not match our records.'
+          };
+        }
       } else {
         // catch all error, currently possible to get a 500 if the database server is not reachable
         vm.unknownError = true;
@@ -63,7 +77,10 @@ module.exports = function(ngModule) {
     };
 
     this.clearError = function() {
-      vm.loginError = false;
+      vm.loginError= {
+        status: false,
+        message: ''
+      };
       vm.unknownError = false;
     };
 
