@@ -24,7 +24,7 @@
       </li>
   </div>
 </div>
-<div ng-show="vm.upload.status == 'Unsuccessful'" class="dol-feedback-error">
+<div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
     <p class="dol-feedback-message">
       <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not updated.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
     </p>

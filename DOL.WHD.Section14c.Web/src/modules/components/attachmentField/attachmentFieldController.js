@@ -30,18 +30,18 @@ module.exports = function(ngModule) {
 
 
         if(allowedFileTypes.indexOf(ext) < 0) {
-          vm.upload.status = 'Unsuccessful';
+          vm.upload.status = 'Invalid';
           vm.upload.message = 'Invalid File Type.';
           $scope.attachmentName = fileinput.files[0].name;
         }
 
         if ((fileinput.files[0].size / 1024) / 1000 > 5) {
-          vm.upload.status = 'Unsuccessful';
+          vm.upload.status = 'Invalid';
           vm.upload.message = 'File Size too large.';
           $scope.attachmentName = fileinput.files[0].name;
 
         }
-        if(vm.upload.status != 'Unsuccessful') {
+        if(vm.upload.status != 'Invalid') {
           apiService
           .uploadAttachment(
             stateService.access_token,
@@ -58,7 +58,7 @@ module.exports = function(ngModule) {
             function(error) {
               //TODO: Display error
               fileinput.value = '';
-              vm.upload.status = 'Unsuccessful';
+              vm.upload.status = 'Invalid';
               vm.upload.message = error.statusMessage;
             }
           );
@@ -77,6 +77,7 @@ module.exports = function(ngModule) {
           },
           function() {
             //TODO: Display error
+            vm.upload.status = 'Failure'
             $scope.attachmentId = undefined;
             $scope.attachmentName = undefined;
           }

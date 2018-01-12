@@ -33,7 +33,7 @@ describe('attachmentFieldController', function() {
     var controller = attachmentFieldController();
     var fileInput = { files: [], value: 1 };
     controller.onAttachmentSelected(fileInput);
-
+    expect(controller.upload.status).toBe('Uploading');
     expect(fileInput.value).toBe(1);
   });
 
@@ -46,6 +46,7 @@ describe('attachmentFieldController', function() {
 
     //TODO assert that error is displayed when code is added
     expect(fileInput.value).toBe('');
+    expect(controller.upload.status).toBe('Invalid')
   });
 
   it('attachment selected files uploaded successful', function() {
@@ -57,6 +58,7 @@ describe('attachmentFieldController', function() {
     expect(scope.attachmentId).toBe(1);
     expect(scope.attachmentName).toBe('name');
     expect(fileInput.value).toBe('');
+    expect(controller.upload.status).toBe('Success');
   });
 
   it('delete attachment successful, clears attachment fields', function() {
@@ -67,7 +69,8 @@ describe('attachmentFieldController', function() {
     deleteAttachment.resolve({});
     scope.$apply();
     expect(scope.attachmentId).toBe(undefined);
-    expect(scope.attachmentName).toBe(undefined);
+    expect(scope.attachmentName).toBe(undefined)
+    expect(controller.upload.status).toBe('NoFile');
   });
 
   it('delete attachment failer, clears attachment fields', function() {
@@ -81,5 +84,6 @@ describe('attachmentFieldController', function() {
     //TODO assert that error is displayed when code is added
     expect(scope.attachmentId).toBe(undefined);
     expect(scope.attachmentName).toBe(undefined);
+    expect(controller.upload.status).toBe('Failure');
   });
 });
