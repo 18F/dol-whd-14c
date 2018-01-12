@@ -50,7 +50,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected files uploaded successful', function() {
     var controller = attachmentFieldController();
-    var fileInput = { files: [{}] };
+    var fileInput = { files: [{name: 'name1.pdf'}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name' }] });
     scope.$apply();
