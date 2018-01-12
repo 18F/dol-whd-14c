@@ -4,22 +4,29 @@
     <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png">
     <div class="dol-file-upload-focus"></div>
   </div>  
-  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG {{vm.uploadError.status}}</p>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG {{upload.status}}</p>
 </div>
 <div ng-if="attachmentId != undefined">
-  <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
-    <span ng-hide="!vm.uploadError.status">{{attachmentName}}</span>
-  </a>
-  <button class="usa-button-secondary" ng-hide="!vm.uploadError.status" ng-click="vm.deleteAttachment(attachmentId)">Delete </button>
-  <div ng-if="!vm.uploadError.status" class="dol-uploaded-files">
+  <div ng-show="upload.status === 'Uploading'" class="dol-feedback-progress">
+      <p class="dol-feedback-message">
+        <strong>Uploading:</strong> {{attachmentName}} <button class="usa-button-secondary"  ng-click="vm.deleteAttachment(attachmentId)">Delete </button>
+      </p>
+  </div>
+ 
+  
+  <div ng-show="upload.status === 'Success'" class="dol-uploaded-files">
       <li>
-        <strong>Uploaded:</strong> FileName.pdf
+        <strong>Uploaded:</strong>
+        <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
+          <span>{{attachmentName}}</span>
+        </a> 
         <button class="red-button" ng-click="vm.deleteAttachment(attachmentId)">Delete<span class="hide"> {{attachmentName}}</span></button>
       </li>
   </div>
 </div>
-<div ng-show="vm.uploadError.status" class="dol-feedback-error">
+<div ng-show="upload.status === 'Unsuccessful'" class="dol-feedback-error">
     <p class="dol-feedback-message">
-      <strong>File size too large.</strong> FileName.pdf was not updated. Files cannot be larger than 5MB.
+      <strong>{{upload.message}}</strong> {{attachmentName}} was not updated. 
     </p>
 </div>
+
