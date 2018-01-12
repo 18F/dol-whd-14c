@@ -19,7 +19,7 @@
     </div>
     <helptext id="numWorkSitesHelp">Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
-    <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="1" ng-model="formData.totalNumWorkSites">
+    <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="any" ng-model="formData.totalNumWorkSites">
   </div>
   <div class="dol-form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
     <div class="dol-form-question-text">We’ll need to collect information about each worksite and its employees.</div>
@@ -140,7 +140,7 @@
       </div>
       <helptext id="worksiteNumEmployeesHelp">Include workers who were employed for less than the full fiscal quarter, <em>i.e.</em> three-month period.</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
-      <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="1" ng-model="vm.activeWorksite.numEmployees">
+      <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="any" ng-model="vm.activeWorksite.numEmployees">
     </div>
   </div>
   <!-- Tab 2 (Add Employees) -->
@@ -314,7 +314,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
-            <input id="workerNumJobs" name="workerNumJobs" type="number" class="wage-rate" min="0" step="1" ng-model="vm.activeWorker.numJobs">
+            <input id="workerNumJobs" name="workerNumJobs" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.numJobs">
           </div>
 
           <div class="dol-plain-label-help">
@@ -326,7 +326,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
-            <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgWeeklyHours">
+            <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgWeeklyHours">
           </div>
 
           <div class="dol-plain-label-help">
@@ -338,7 +338,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
-            <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.avgHourlyEarnings">
+            <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgHourlyEarnings">
           </div>
 
           <div class="dol-plain-label-help">
@@ -350,7 +350,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
-            <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.prevailingWage">
+            <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.prevailingWage">
           </div>
 
           <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
@@ -375,7 +375,7 @@
                 </li>
               </ul>
               <label for="workerProductivity" class="hide">Hourly measure/rating</label>
-              <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.productivityMeasure" ng-disabled="!vm.activeWorker.hasProductivityMeasure">
+              <input id="workerProductivity" name="workerProductivity" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.productivityMeasure" ng-disabled="!vm.activeWorker.hasProductivityMeasure">
             </div>
           </fieldset>
 
@@ -388,7 +388,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
-            <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.commensurateWageRate">
+            <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.commensurateWageRate">
           </div>
 
           <div class="dol-plain-label-help">
@@ -400,7 +400,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
-            <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="0.1" ng-model="vm.activeWorker.totalHours">
+            <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.totalHours">
           </div>
 
           <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
