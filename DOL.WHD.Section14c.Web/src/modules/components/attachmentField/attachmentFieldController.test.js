@@ -39,7 +39,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected files failed upload', function() {
     var controller = attachmentFieldController();
-    var fileInput = { files: [{}] };
+    var fileInput = { files: [{name: 'name1.pdf'}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.reject({});
     scope.$apply();
