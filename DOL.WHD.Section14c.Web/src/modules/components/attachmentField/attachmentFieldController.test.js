@@ -29,6 +29,22 @@ describe('attachmentFieldController', function() {
     })
   );
 
+  it('should only allows specific file types: pdf jpg jpeg png csv PDF', function() {
+    var controller = attachmentFieldController();
+    var fileInput = { files: [{name: 'name1.docx'}] };
+    controller.onAttachmentSelected(fileInput);
+    expect(controller.upload.status).toBe('Invalid');
+    expect(controller.upload.message).toBe('Invalid File Type.');
+    expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
+  });
+
+  it('it should prevent uploads of larger than 5MB', function() {
+    var controller = attachmentFieldController();
+    var fileInput = { files: [{name: 'name1.pdf', size: '10000000000'}] };
+    controller.onAttachmentSelected(fileInput);
+    expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
+  });
+
   it('attachment selected no files, file value should stay the same', function() {
     var controller = attachmentFieldController();
     var fileInput = { files: [], value: 1 };

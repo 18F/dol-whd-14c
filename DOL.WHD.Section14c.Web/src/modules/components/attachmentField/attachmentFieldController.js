@@ -17,6 +17,7 @@ module.exports = function(ngModule) {
       message: 'No file is selected.'
     }
 
+    this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
 
     this.onAttachmentSelected = function(fileinput) {
       vm.upload = {
@@ -26,10 +27,9 @@ module.exports = function(ngModule) {
       $scope.$apply()
       if (fileinput.files.length > 0) {
         var ext = fileinput.files[0].name.split(".")[1];
-        var allowedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'csv', 'PDF'];
 
 
-        if(allowedFileTypes.indexOf(ext) < 0) {
+        if(vm.allowedFileTypes.indexOf(ext) < 0) {
           vm.upload.status = 'Invalid';
           vm.upload.message = 'Invalid File Type.';
           $scope.attachmentName = fileinput.files[0].name;
