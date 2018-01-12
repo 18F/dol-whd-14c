@@ -46,6 +46,7 @@ namespace DOL.WHD.Section14c.Api
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 ExpireTimeSpan = TimeSpan.FromMinutes(AppSettings.Get<double>("AccessTokenExpireTimeSpanMinutes")),
+                CookieDomain = AppSettings.Get<string>("AuthenticationCookieDomain"),
                 Provider = new CookieAuthenticationProvider
                 {
                     OnValidateIdentity = ctx =>
