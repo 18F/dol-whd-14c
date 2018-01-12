@@ -19,7 +19,7 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class LocalizedText {
@@ -66,6 +66,51 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         internal static string InvalidUserNameorPassword {
             get {
                 return ResourceManager.GetString("InvalidUserNameorPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failure.
+        /// </summary>
+        internal static string LoginFailureMessage {
+            get {
+                return ResourceManager.GetString("LoginFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has been locked out for {0} minutes due to multiple failed login attempts..
+        /// </summary>
+        internal static string LoginFailureMessageAccountLockedOut {
+            get {
+                return ResourceManager.GetString("LoginFailureMessageAccountLockedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email not confirmed.
+        /// </summary>
+        internal static string LoginFailureMessageEmailNotConfirmed {
+            get {
+                return ResourceManager.GetString("LoginFailureMessageEmailNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password expired.
+        /// </summary>
+        internal static string LoginFailureMessagePasswordExpired {
+            get {
+                return ResourceManager.GetString("LoginFailureMessagePasswordExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login success.
+        /// </summary>
+        internal static string LoginSuccessMessage {
+            get {
+                return ResourceManager.GetString("LoginSuccessMessage", resourceCulture);
             }
         }
     }

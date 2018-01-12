@@ -15,8 +15,8 @@
   <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="20160">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
   </parameter>
-  <parameter name="EmailVerifyAndPaswordRestTokenExpireHours" defaultValue="6">
-    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVerifyAndPaswordRestTokenExpireHours']/@value" />
+  <parameter name="EmailVerifyAndPaswordResetTokenExpireHours" defaultValue="6">
+    <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='EmailVerifyAndPaswordResetTokenExpireHours']/@value" />
   </parameter>
   <parameter name="AccessTokenExpireTimeSpanMinutes" defaultValue="3">
     <parameterEntry kind="XmlFile" scope="web\.config$" match="/configuration/appSettings/add[@key='AccessTokenExpireTimeSpanMinutes']/@value" />
