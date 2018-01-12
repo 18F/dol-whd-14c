@@ -25,8 +25,6 @@ module.exports = function(ngModule) {
       }
       $scope.$apply()
       if (fileinput.files.length > 0) {
-
-        console.log(vm.upload.status)
         var ext = fileinput.files[0].name.split(".")[1];
         var allowedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'csv', 'PDF'];
 
@@ -44,7 +42,6 @@ module.exports = function(ngModule) {
 
         }
         if(vm.upload.status != 'Unsuccessful') {
-          console.log('here')
           apiService
           .uploadAttachment(
             stateService.access_token,
@@ -63,7 +60,6 @@ module.exports = function(ngModule) {
               fileinput.value = '';
               vm.upload.status = 'Unsuccessful';
               vm.upload.message = error.statusMessage;
-              console.log('in api catch');
             }
           );
         }
