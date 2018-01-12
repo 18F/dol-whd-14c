@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
 namespace DOL.WHD.Section14c.Log.Helpers
@@ -20,8 +22,13 @@ namespace DOL.WHD.Section14c.Log.Helpers
         /// <returns></returns>
         public static string ToJSON(this object obj)
         {
-            var serializer = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }; ;
-            return serializer.Serialize(obj);
+            var result = JsonConvert.SerializeObject(obj, Formatting.Indented,
+                           new JsonSerializerSettings
+                           {
+                               ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                           }
+                         );
+            return result;
         }
         #endregion
     }

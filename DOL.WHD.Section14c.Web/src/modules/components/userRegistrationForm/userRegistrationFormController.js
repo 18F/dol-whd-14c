@@ -68,13 +68,15 @@ module.exports = function(ngModule) {
       vm.passwordNumber = value.match(new RegExp('^(?=.*[0-9])'))
         ? true
         : false;
-      apiService.checkPasswordComplexity(value).then(function(result){
-        if(result.status === 200) {
-          $scope.passwordStrength = true;
-        } 
-      }).catch(function() {
-        $scope.passwordStrength = false;
-      })
+      if(vm.passwordLength && vm.passwordUpper && vm.passwordLower && vm.passwordSpecial) {
+        apiService.checkPasswordComplexity(value).then(function(result){
+          if(result.status === 200) {
+            $scope.passwordStrength = true;
+          }
+        }).catch(function() {
+          $scope.passwordStrength = false;
+        })
+      }
     });
 
     $scope.inputType = 'password';
