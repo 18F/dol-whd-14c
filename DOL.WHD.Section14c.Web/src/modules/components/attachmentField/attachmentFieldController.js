@@ -12,36 +12,40 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
     vm.apiService = apiService;
-    
-    
+    vm.upload = {
+      status: "NoFile",
+      message: 'No file is selected.'
+    }
+
 
     this.onAttachmentSelected = function(fileinput) {
-      $scope.upload = {
-        status: undefined,
-        message: ''
+      vm.upload = {
+        status: "Uploading",
+        message: 'File is uploading.'
       }
+      $scope.$apply()
+      if (fileinput.files.length > 0) {
 
-      var ext = fileinput.files[0].name.split(".")[1];
-      var allowedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'csv', 'PDF'];
+        console.log(vm.upload.status)
+        var ext = fileinput.files[0].name.split(".")[1];
+        var allowedFileTypes = ['pdf', 'jpg', 'jpeg', 'png', 'csv', 'PDF'];
 
 
-      if(allowedFileTypes.indexOf(ext) < 0) {
-        $scope.upload.status = 'Unsuccessful';
-        $scope.upload.message = 'Invalid file type.';
-        $scope.attachmentName = fileinput.files[0].name;
-      } 
-      
-      if ((fileinput.files[0].size / 1024) / 1000 > 5) {
-        $scope.upload.status = 'Unsuccessful';
-        $scope.upload.message = 'Invalid file size.';
-        $scope.attachmentName = fileinput.files[0].name;
-        console.log($scope.upload.status === 'Unsuccessful');
-      }
-      console.log($scope.upload.status);
+        if(allowedFileTypes.indexOf(ext) < 0) {
+          vm.upload.status = 'Unsuccessful';
+          vm.upload.message = 'Invalid File Type.';
+          $scope.attachmentName = fileinput.files[0].name;
+        }
 
-      if (fileinput.files.length > 0 && $scope.upload.status != 'Unsuccessful') {
-        $scope.upload.status = 'Uploading';
-        apiService
+        if ((fileinput.files[0].size / 1024) / 1000 > 5) {
+          vm.upload.status = 'Unsuccessful';
+          vm.upload.message = 'File Size too large.';
+          $scope.attachmentName = fileinput.files[0].name;
+
+        }
+        if(vm.upload.status != 'Unsuccessful') {
+          console.log('here')
+          apiService
           .uploadAttachment(
             stateService.access_token,
             stateService.ein,
@@ -49,7 +53,7 @@ module.exports = function(ngModule) {
           )
           .then(
             function(result) {
-              $scope.upload.status = 'Success';
+              vm.upload.status = 'Success';
               $scope.attachmentId = result.data[0].id;
               $scope.attachmentName = result.data[0].originalFileName;
               fileinput.value = '';
@@ -57,11 +61,12 @@ module.exports = function(ngModule) {
             function(error) {
               //TODO: Display error
               fileinput.value = '';
-              $scope.upload.status = 'Unsuccessful';
-              $scope.upload.message = error.statusMessage;
+              vm.upload.status = 'Unsuccessful';
+              vm.upload.message = error.statusMessage;
               console.log('in api catch');
             }
           );
+        }
       }
     };
 
@@ -70,6 +75,7 @@ module.exports = function(ngModule) {
         .deleteAttachment(stateService.access_token, stateService.ein, id)
         .then(
           function() {
+            vm.upload.status = 'NoFile';
             $scope.attachmentId = undefined;
             $scope.attachmentName = undefined;
           },

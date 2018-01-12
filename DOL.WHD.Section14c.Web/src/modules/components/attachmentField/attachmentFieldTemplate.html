@@ -3,30 +3,29 @@
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
     <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png">
     <div class="dol-file-upload-focus"></div>
-  </div>  
-  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG {{upload.status}}</p>
+  </div>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG {{vm.upload.status}}</p>
 </div>
-<div ng-if="attachmentId != undefined">
-  <div ng-show="upload.status === 'Uploading'" class="dol-feedback-progress">
+<div>
+  <div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
       <p class="dol-feedback-message">
-        <strong>Uploading:</strong> {{attachmentName}} <button class="usa-button-secondary"  ng-click="vm.deleteAttachment(attachmentId)">Delete </button>
+        <strong>Uploading:</strong> {{attachmentName}}
       </p>
   </div>
- 
-  
-  <div ng-show="upload.status === 'Success'" class="dol-uploaded-files">
+
+
+  <div ng-show="vm.upload.status == 'Success'" class="dol-uploaded-files">
       <li>
         <strong>Uploaded:</strong>
         <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
           <span>{{attachmentName}}</span>
-        </a> 
+        </a>
         <button class="red-button" ng-click="vm.deleteAttachment(attachmentId)">Delete<span class="hide"> {{attachmentName}}</span></button>
       </li>
   </div>
 </div>
-<div ng-show="upload.status === 'Unsuccessful'" class="dol-feedback-error">
+<div ng-show="vm.upload.status == 'Unsuccessful'" class="dol-feedback-error">
     <p class="dol-feedback-message">
-      <strong>{{upload.message}}</strong> {{attachmentName}} was not updated. 
+      <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not updated.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
     </p>
 </div>
-
