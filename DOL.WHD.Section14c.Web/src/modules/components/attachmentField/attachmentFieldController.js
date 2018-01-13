@@ -12,36 +12,24 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
     vm.apiService = apiService;
+    $scope.restrictUpload = false;
     vm.upload = {
       status: "NoFile",
       message: 'No file is selected.'
     }
 
-    this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+    this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
 
     this.onAttachmentSelected = function(fileinput) {
       vm.upload = {
         status: "Uploading",
         message: 'File is uploading.'
       }
-      $scope.$apply()
-      if (fileinput.files.length > 0) {
-        var ext = fileinput.files[0].name.split(".")[1];
 
+      if (fileinput.files.length > 0 && vm.validateAttachment(fileinput.files[0], vm.allowedFileTypes)) {
 
-        if(vm.allowedFileTypes.indexOf(ext) < 0) {
-          vm.upload.status = 'Invalid';
-          vm.upload.message = 'Invalid File Type.';
-          $scope.attachmentName = fileinput.files[0].name;
-        }
-
-        if ((fileinput.files[0].size / 1024) / 1000 > 5) {
-          vm.upload.status = 'Invalid';
-          vm.upload.message = 'File Size too large.';
-          $scope.attachmentName = fileinput.files[0].name;
-
-        }
         if(vm.upload.status != 'Invalid') {
+
           apiService
           .uploadAttachment(
             stateService.access_token,
@@ -50,6 +38,7 @@ module.exports = function(ngModule) {
           )
           .then(
             function(result) {
+              $scope.restrictUpload = true;
               vm.upload.status = 'Success';
               $scope.attachmentId = result.data[0].id;
               $scope.attachmentName = result.data[0].originalFileName;
@@ -58,7 +47,7 @@ module.exports = function(ngModule) {
             function(error) {
               //TODO: Display error
               fileinput.value = '';
-              vm.upload.status = 'Invalid';
+              vm.upload.status = 'Server Error';
               vm.upload.message = error.statusMessage;
             }
           );
@@ -66,11 +55,29 @@ module.exports = function(ngModule) {
       }
     };
 
+    this.validateAttachment = function (fileinput, allowedFileTypes) {
+      var ext = fileinput.name.split(".")[1];
+      if(allowedFileTypes.indexOf(ext) < 0) {
+        vm.upload.status = 'Invalid';
+        vm.upload.message = 'Invalid File Type.';
+        return false;
+      }
+
+      if ((fileinput.size / 1024) / 1000 > 5) {
+        vm.upload.status = 'Invalid';
+        vm.upload.message = 'File Size too large.';
+        return false;
+      }
+
+      return true;
+    }
+
     this.deleteAttachment = function(id) {
       apiService
         .deleteAttachment(stateService.access_token, stateService.ein, id)
         .then(
           function() {
+            $scope.restrictUpload = false;
             vm.upload.status = 'NoFile';
             $scope.attachmentId = undefined;
             $scope.attachmentName = undefined;

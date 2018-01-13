@@ -38,6 +38,16 @@ describe('attachmentFieldController', function() {
     expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
   });
 
+  it('prevents multiple files from being uploaded', function() {
+    var controller = attachmentFieldController();
+    var fileInput = { files: [{name: 'name1.pdf', size: 1000}] };
+    controller.onAttachmentSelected(fileInput);
+    uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
+    scope.$apply();
+    expect(scope.restrictUpload).toBe(true);
+    expect(controller.upload.status).toBe('Success');
+  });
+
   it('it should prevent uploads of larger than 5MB', function() {
     var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf', size: '10000000000'}] };
@@ -47,7 +57,7 @@ describe('attachmentFieldController', function() {
 
   it('attachment selected no files, file value should stay the same', function() {
     var controller = attachmentFieldController();
-    var fileInput = { files: [], value: 1 };
+    var fileInput = { files: [{name: 'name1.pdf', size: 1000}], value: 1 };
     controller.onAttachmentSelected(fileInput);
     expect(controller.upload.status).toBe('Uploading');
     expect(fileInput.value).toBe(1);
@@ -62,17 +72,17 @@ describe('attachmentFieldController', function() {
 
     //TODO assert that error is displayed when code is added
     expect(fileInput.value).toBe('');
-    expect(controller.upload.status).toBe('Invalid')
+    expect(controller.upload.status).toBe('Server Error');
   });
 
   it('attachment selected files uploaded successful', function() {
     var controller = attachmentFieldController();
-    var fileInput = { files: [{name: 'name1.pdf'}] };
+    var fileInput = { files: [{name: 'name1.pdf', size: 1000}], value: 1 };
     controller.onAttachmentSelected(fileInput);
-    uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name' }] });
+    uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
     scope.$apply();
     expect(scope.attachmentId).toBe(1);
-    expect(scope.attachmentName).toBe('name');
+    expect(scope.attachmentName).toBe('name1.pdf');
     expect(fileInput.value).toBe('');
     expect(controller.upload.status).toBe('Success');
   });

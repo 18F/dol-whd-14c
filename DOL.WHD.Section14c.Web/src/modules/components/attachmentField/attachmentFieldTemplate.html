@@ -1,4 +1,4 @@
-<div ng-show="attachmentId == undefined">
+<div ng-show="!restrictUpload">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
     <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png">
@@ -27,5 +27,11 @@
 <div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
     <p class="dol-feedback-message">
       <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not updated.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
+    </p>
+</div>
+
+<div ng-show="vm.upload.status == 'Server Error'" class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not updated.
     </p>
 </div>
