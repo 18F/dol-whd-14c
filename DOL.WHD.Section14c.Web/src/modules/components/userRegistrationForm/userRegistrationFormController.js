@@ -50,6 +50,7 @@ module.exports = function(ngModule) {
       vm.passwordLower = false;
       vm.passwordSpecial = false;
       vm.passwordNumber = false;
+      vm.passwordStength = false;
 
     };
     vm.resetPasswordComplexity();
@@ -76,6 +77,8 @@ module.exports = function(ngModule) {
         }).catch(function() {
           $scope.passwordStrength = false;
         })
+      } else {
+        $scope.passwordStrength = false;
       }
     });
 

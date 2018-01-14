@@ -88,14 +88,10 @@
       </span>
       <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
       <div class="dol-password-help">
-        <div class="usa-content">
-          <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
-          <div ng-switch="passwordStrength.score">Password Strength:
-            <span ng-switch-when="0"></span>
-            <span ng-switch-when="1">Weak</span>
-            <span ng-switch-when="2">Fair</span>
-            <span ng-switch-when="3">Good</span>
-            <span ng-switch-when="4">Strong</span>
+        <div ng-if="passwordStrength" class="usa-content">
+          <meter max="4" id="password-strength-meter" value="4"></meter>
+          <div >Password Strength:
+            <span>Good</span>
           </div>
           <div class="showpass">
             <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false">
