@@ -186,6 +186,10 @@ module.exports = function(ngModule) {
               ) {
                 vm.passwordComplexity = true;
               }
+
+              if($scope.registerErrors.length === 0) {
+                vm.generalRegistrationError = true;
+              }
             } else {
               vm.generalRegistrationError = true;
             }
