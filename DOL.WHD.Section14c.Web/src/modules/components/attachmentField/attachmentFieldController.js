@@ -24,7 +24,7 @@ module.exports = function(ngModule) {
         message: 'File was uploaded successfully.'
       }
     }
-    
+
     this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
 
     this.onAttachmentSelected = function(fileinput) {
@@ -56,7 +56,7 @@ module.exports = function(ngModule) {
         vm.upload.message = 'Invalid File Type.';
         return false;
       }
-      if ((fileinput.size / 1024000 > 5) {
+      if (fileinput.size / 1024000 > 5) {
         vm.upload.status = 'Invalid';
         vm.upload.message = 'File Size too large.';
         return false;
