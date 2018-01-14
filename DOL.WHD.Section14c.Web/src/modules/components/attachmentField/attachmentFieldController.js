@@ -13,11 +13,18 @@ module.exports = function(ngModule) {
     vm.stateService = stateService;
     vm.apiService = apiService;
     $scope.restrictUpload = false;
-    vm.upload = {
-      status: "NoFile",
-      message: 'No file is selected.'
+    if(!$scope.attachmentId) {
+       vm.upload = {
+        status: "NoFile",
+        message: 'No file is selected.'
+      }
+    } else {
+      vm.upload = {
+        status: "Success",
+        message: 'File was uploaded successfully.'
+      }
     }
-
+    
     this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
 
     this.onAttachmentSelected = function(fileinput) {
@@ -70,7 +77,7 @@ module.exports = function(ngModule) {
       }
 
       return true;
-    }
+    };
 
     this.deleteAttachment = function(id) {
       apiService
