@@ -28,33 +28,22 @@ module.exports = function(ngModule) {
     this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
 
     this.onAttachmentSelected = function(fileinput) {
-      vm.upload = {
-        status: "Uploading",
-        message: 'File is uploading.'
-      }
+      vm.upload.status = "Uploading";
+      vm.upload.message = 'File is uploading.'
       if (fileinput.files.length > 0 ) {
         vm.validateAttachment(fileinput.files[0], vm.allowedFileTypes);
         if(vm.upload.status != 'Invalid') {
-          apiService
-          .uploadAttachment(
-            stateService.access_token,
-            stateService.ein,
-            fileinput.files[0]
-          )
-          .then(
-            function(result) {
+          apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function(result) {
               $scope.restrictUpload = true;
               vm.upload.status = 'Success';
               $scope.attachmentId = result.data[0].id;
               $scope.attachmentName = result.data[0].originalFileName;
               fileinput.value = '';
-            },
-            function(error) {
+            }).catch(function(error) {
               fileinput.value = '';
               vm.upload.status = 'Server Error';
               vm.upload.message = error.statusMessage;
-            }
-          );
+            });
         }
       }
     };
