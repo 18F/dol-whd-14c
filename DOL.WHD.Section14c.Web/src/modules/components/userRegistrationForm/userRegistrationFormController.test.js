@@ -65,6 +65,15 @@ describe('userRegistrationFormController', function() {
     expect(controller.submittingForm).toBe(false);
   });
 
+  it('general error is displayed', function() {
+    var controller = userRegistrationFormController();
+    scope.onSubmitClick();
+    expect(controller.submittingForm).toBe(true);
+    userRegister.reject({});
+    scope.$apply();
+    expect(controller.generalRegistrationError).toBe(true);
+  });
+
   it('submitting registration has an error, no error data', function() {
     var controller = userRegistrationFormController();
     scope.onSubmitClick();
