@@ -32,11 +32,9 @@ module.exports = function(ngModule) {
         status: "Uploading",
         message: 'File is uploading.'
       }
-
-      if (fileinput.files.length > 0 && vm.validateAttachment(fileinput.files[0], vm.allowedFileTypes)) {
-
+      if (fileinput.files.length > 0 ) {
+        vm.validateAttachment(fileinput.files[0], vm.allowedFileTypes);
         if(vm.upload.status != 'Invalid') {
-
           apiService
           .uploadAttachment(
             stateService.access_token,
@@ -52,7 +50,6 @@ module.exports = function(ngModule) {
               fileinput.value = '';
             },
             function(error) {
-              //TODO: Display error
               fileinput.value = '';
               vm.upload.status = 'Server Error';
               vm.upload.message = error.statusMessage;
@@ -69,13 +66,11 @@ module.exports = function(ngModule) {
         vm.upload.message = 'Invalid File Type.';
         return false;
       }
-
       if ((fileinput.size / 1024) / 1000 > 5) {
         vm.upload.status = 'Invalid';
         vm.upload.message = 'File Size too large.';
         return false;
       }
-
       return true;
     };
 
