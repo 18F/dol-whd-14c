@@ -36,6 +36,7 @@ module.exports = function(ngModule) {
           apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function(result) {
               $scope.restrictUpload = true;
               vm.upload.status = 'Success';
+              vm.upload.message = 'File was uploaded successfully.'
               $scope.attachmentId = result.data[0].id;
               $scope.attachmentName = result.data[0].originalFileName;
               fileinput.value = '';
@@ -55,7 +56,7 @@ module.exports = function(ngModule) {
         vm.upload.message = 'Invalid File Type.';
         return false;
       }
-      if ((fileinput.size / 1024) / 1000 > 5) {
+      if ((fileinput.size / 1024000 > 5) {
         vm.upload.status = 'Invalid';
         vm.upload.message = 'File Size too large.';
         return false;
