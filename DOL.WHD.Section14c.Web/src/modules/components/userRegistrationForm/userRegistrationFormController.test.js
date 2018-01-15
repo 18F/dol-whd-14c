@@ -26,8 +26,13 @@ describe('userRegistrationFormController', function() {
       };
 
       userRegister = $q.defer();
+      checkPasswordComplexity = $q.defer();
       spyOn(mockapiService, 'userRegister').and.returnValue(
         userRegister.promise
+      );
+
+      spyOn(mockapiService, 'checkPasswordComplexity').and.returnValue(
+        checkPasswordComplexity.promise
       );
 
       emailVerification = $q.defer();
@@ -65,6 +70,22 @@ describe('userRegistrationFormController', function() {
     expect(controller.submittingForm).toBe(false);
   });
 
+  it('Password score is set on failure of complexity check', function() {
+    var controller = userRegistrationFormController();
+    checkPasswordComplexity.reject({data: {score: 0} });
+    scope.$apply();
+    expect(scope.passwordStrength.strong).toBe(false);
+    expect(scope.passwordStrength.score).toBe(0);
+  });
+
+  it('Password score is set on success of complexity check', function() {
+    var controller = userRegistrationFormController();
+    checkPasswordComplexity.resolve({data: {score: 4} });
+    scope.$apply();
+    expect(scope.passwordStrength.strong).toBe(true);
+    expect(scope.passwordStrength.score).toBe(4);
+  });
+
   it('general error is displayed', function() {
     var controller = userRegistrationFormController();
     scope.onSubmitClick();
@@ -81,6 +102,7 @@ describe('userRegistrationFormController', function() {
     userRegister.reject({});
     scope.$apply();
     expect(controller.submittingForm).toBe(false);
+    expect(controller.generalRegistrationError).toBe(true);
   });
 
   it('submitting registration has an error, should return message', function() {
