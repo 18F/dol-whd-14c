@@ -75,13 +75,11 @@ module.exports = function(ngModule) {
         : false;
 
         apiService.checkPasswordComplexity(value).then(function(result){
-          console.log(result)
           $scope.passwordStrength = {
             strong: true,
             score: result.data.score
           };
         }).catch(function(error) {
-          console.log(error)
           $scope.passwordStrength = {
             strong: false,
             score: error.data.score
@@ -193,6 +191,10 @@ module.exports = function(ngModule) {
                 ) > -1
               ) {
                 vm.passwordComplexity = true;
+                $scope.passwordStrength = {
+                  strong: false,
+                  score: error.data.score
+                };
               }
 
               if($scope.registerErrors.length === 0) {

@@ -150,28 +150,6 @@ describe('userRegistrationFormController', function() {
     expect(controller.passwordRequired).toBe(true);
   });
 
-  it('submitting registration has an error, The EIN field is required. message is displayed', function() {
-    var controller = userRegistrationFormController();
-    scope.onSubmitClick();
-    userRegister.reject({
-      data: { modelState: { error: ['The EIN field is required.'] } }
-    });
-    scope.$apply();
-
-    expect(controller.einRequired).toBe(true);
-  });
-
-  it('submitting registration has an error, The field EIN must match message is displayed', function() {
-    var controller = userRegistrationFormController();
-    scope.onSubmitClick();
-    userRegister.reject({
-      data: { modelState: { error: ['The field EIN must match'] } }
-    });
-    scope.$apply();
-
-    expect(controller.invalidEin).toBe(true);
-  });
-
   it('submitting registration has an error, The password and confirmation password do not match. message is displayed', function() {
     var controller = userRegistrationFormController();
     scope.onSubmitClick();
@@ -183,7 +161,6 @@ describe('userRegistrationFormController', function() {
       }
     });
     scope.$apply();
-
     expect(controller.passwordsDontMatch).toBe(true);
   });
 
@@ -198,7 +175,6 @@ describe('userRegistrationFormController', function() {
       }
     });
     scope.$apply();
-
     expect(controller.passwordComplexity).toBe(true);
   });
 
@@ -207,7 +183,6 @@ describe('userRegistrationFormController', function() {
     controller.showEinHelp = true;
     controller.toggleEinHelp();
     scope.$apply();
-
     expect(controller.showEinHelp).toBe(false);
   });
 
@@ -298,7 +273,6 @@ describe('userRegistrationFormController', function() {
     var controller = userRegistrationFormController();
     scope.formVals.pass = 'aB1#5678';
     scope.$apply();
-
     expect(controller.passwordLength).toBe(true);
     expect(controller.passwordUpper).toBe(true);
     expect(controller.passwordLower).toBe(true);
