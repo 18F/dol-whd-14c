@@ -26,7 +26,7 @@
     Before you can begin the application, please register an employer for this account.
     <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
-        <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Has this employer ever previously held a 14(c) certificate?</label>
+        <label for="hasTradeName" class="dol-form-question-text" id="hasTradeName">Has this employer ever previously held a 14(c) certificate?</label>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -42,7 +42,7 @@
     </div>
     <div ng-show="formData.employer.hasTradeName" ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
       <label for="certificateNumber">What is the most recently held certificate number for the main establishment?</label>
-      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-99999-9-999" ng-model="formData.employer.certificateNumber" />
+      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" mask="99-99999-9-999" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
