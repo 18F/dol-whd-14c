@@ -7,9 +7,8 @@
       class="nav-button {{ vm.current === section.id ? 'active' : '' }}"
       data-sectionid="{{ section.id }}"
       ng-click="vm.onNavClick($event)"
-      ng-keypress="vm.onKeyPress($event)"
       ng-show="section.id !== 'review' || vm.stateService.inReview"
-      tabindex="0"
+      tabIndex="0"
       aria-label="{{section.ariaLabel}}"
     >
       {{ section.display }}
