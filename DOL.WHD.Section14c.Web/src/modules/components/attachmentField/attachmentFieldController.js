@@ -1,5 +1,5 @@
 'use strict';
-
+/* eslint-disable complexity */
 module.exports = function(ngModule) {
   ngModule.controller('attachmentFieldController', function(
     $scope,
