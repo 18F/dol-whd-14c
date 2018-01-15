@@ -41,6 +41,10 @@ module.exports = function(ngModule) {
       vm.accountCreated = false;
       vm.emailVerified = false;
       vm.emailVerificationError = false;
+      $scope.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     };
     vm.resetErrors();
 
@@ -69,17 +73,21 @@ module.exports = function(ngModule) {
       vm.passwordNumber = value.match(new RegExp('^(?=.*[0-9])'))
         ? true
         : false;
-      if(vm.passwordLength && vm.passwordUpper && vm.passwordLower && vm.passwordSpecial) {
+     
         apiService.checkPasswordComplexity(value).then(function(result){
           if(result.status === 200) {
-            $scope.passwordStrength = true;
+            $scope.passwordStrength = {
+              strong: true,
+              score: result.data.score
+            };
           }
-        }).catch(function() {
-          $scope.passwordStrength = false;
+        }).catch(function(error) {
+          $scope.passwordStrength = {
+            strong: false,
+            score: error.data.score
+          };
+
         })
-      } else {
-        $scope.passwordStrength = false;
-      }
     });
 
     $scope.inputType = 'password';
