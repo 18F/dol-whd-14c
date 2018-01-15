@@ -5,7 +5,7 @@ describe('sectionAssurancesController', function() {
 
   it('should map routes to controllers', function() {
     inject(function($route) {
-      expect($route.routes['/'].controller).toBe('landingPageController');
+      expect($route.routes['/'].controller).toBe('systemUseController');
       expect($route.routes['/changePassword'].controller).toEqual('changePasswordPageController');
       expect($route.routes['/forgotPassword'].controller).toEqual('forgotPasswordPageController');
       expect($route.routes['/login'].controller).toEqual('userLoginPageController');

@@ -143,19 +143,15 @@ describe('authService', function() {
     var isResolved;
     var data = { organizations: [{ ein: '12-1234567' }] };
     var loadSavedApplication = $q.defer();
-    spyOn(stateService, 'loadSavedApplication').and.returnValue(
-      loadSavedApplication.promise
-    );
     authService.authenticateUser().then(undefined, function(error) {
-      result = error;
+      result = 'error';
       isResolved = false;
     });
 
     $httpBackend
       .expectGET(env.api_url + '/api/Account/UserInfo')
-      .respond(200, data);
+      .respond(400, data);
     $httpBackend.flush();
-    loadSavedApplication.reject('error');
     $rootScope.$digest();
     expect(isResolved).toEqual(false);
     expect(result).toEqual('error');
