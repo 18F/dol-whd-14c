@@ -1,4 +1,4 @@
-<form ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest">
+<form name="vm.userRegistrationForm" ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest" novalidate>
   <div class="usa-content">
     <p>We are now accepting Section 14(c) Certificate Applications electronically. This electronic form includes both forms WH-226 and WH-226A.</p>
     <ul>
@@ -18,29 +18,31 @@
   </div>
   <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.generalRegistrationError">
     <div class="usa-alert-body">
-      <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
+      <p class="usa-alert-text">An error occured during registration. Please ensure you have filled out the form correctly. If this error still persists, please try again at another time.</p>
     </div>
   </div>
   <div class="createAcct">
     <h2>Create an Account</h2>
-    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required ? 'usa-input-error' : ''">
       <label for="registerFirstName">First Name</label>
-      <input type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.firstName" />
+      <input placeholder="Enter your first name" type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.firstName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required">This is a required field</span>
     </div>
-    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerLastName.$error.required ? 'usa-input-error' : ''">
       <label for="registerLastName">Last Name</label>
-      <input type="last_name" name="registerLastName" id="registerLastName" ng-model="formVals.lastName" />
+      <input placeholder="Enter your last name" type="first_name" name="registerLastName" id="registerLastName" ng-model="formVals.lastName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerLastName.$error.required">This is a required field</span>
     </div>
-    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
+    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerEmail.$error.required ? 'usa-input-error' : ''">
       <label for="registerEmail">Email Address</label>
       <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressError">
         <p>The email you provided is already registred.</p>
         <p>If you forgot your password, you can <a href>reset it here</a></p>
       </span>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
+      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" placeholder="Enter your email address" required />
+      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required">
         <p>Email address is required.</p>
       </span>
-      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" />
     </div>
     <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp  || vm.passwordComplexity">
       <div class="usa-alert-body">
@@ -67,7 +69,7 @@
           <p>Passwords do not match.</p>
         </div>
       </span>
-      <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Enter a password" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
       <div class="dol-password-help">
         <div class="usa-content">
           <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
@@ -89,10 +91,10 @@
     </div>
     <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
       <label for="confirmPassword">Confirm Password</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="password" name="confirmPassword" placeholder="Confirm your password" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
     <div class="regbtn">
-      <button type="submit" ng-show="!vm.submittingForm">Register</button>
+      <button  type="submit" ng-show="!vm.submittingForm">Register</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading
       </button>

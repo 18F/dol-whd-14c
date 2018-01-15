@@ -18,6 +18,10 @@ module.exports = function(ngModule) {
     vm.stateService = stateService;
 
     vm.restForm = function() {
+      if(vm.userRegistrationForm) {
+       vm.userRegistrationForm.$setPristine(); 
+      }
+      
       $scope.formVals = {
         firstName: '',
         lastName: '',
@@ -25,6 +29,7 @@ module.exports = function(ngModule) {
         pass: '',
         confirmPass: ''
       };
+
     };
     vm.restForm();
 
@@ -104,7 +109,6 @@ module.exports = function(ngModule) {
       vm.resetErrors();
       vm.registerdEmail = '';
       vm.submittingForm = true;
-
       /* eslint-disable complexity */
       apiService
         .userRegister(
@@ -124,8 +128,10 @@ module.exports = function(ngModule) {
             $window.scrollTo(0, 0);
           },
           function(error) {
+            console.log(error)
             if (error && error.data) {
               $scope.registerErrors = apiService.parseErrors(error.data);
+              console.log($scope.registerErrors);
               if (
                 $scope.registerErrors.indexOf('EIN is already registered') > -1
               ) {
@@ -170,19 +176,23 @@ module.exports = function(ngModule) {
               ) {
                 vm.passwordsDontMatch = true;
               }
-              if (
-                $scope.registerErrors.indexOf(
-                  'Password does not meet complexity requirements.'
-                ) > -1
-              ) {
+              if ($scope.registerErrors.indexOf('Password does not meet complexity requirements.') > -1) {
                 vm.passwordComplexity = true;
+              }
+              if ($scope.registerErrors.indexOf('Model State is not valid') > -1) {
+                vm.passwordComplexity = true;
+              }
+              if($scope.registerErrors.length === 0) {
+                vm.generalRegistrationError = true;
               }
             } else {
               vm.generalRegistrationError = true;
             }
 
+            
+
             vm.submittingForm = false;
-            $location.path('/');
+      
           }
         );
       /* eslint-enable complexity */
