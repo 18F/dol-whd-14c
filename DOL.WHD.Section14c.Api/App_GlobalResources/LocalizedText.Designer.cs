@@ -19,7 +19,7 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class LocalizedText {
@@ -66,6 +66,24 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         internal static string InvalidUserNameorPassword {
             get {
                 return ResourceManager.GetString("InvalidUserNameorPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password does not meet complexity requirements..
+        /// </summary>
+        internal static string PasswordComplexityCheckFailedMessage {
+            get {
+                return ResourceManager.GetString("PasswordComplexityCheckFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password meet complexity requirements..
+        /// </summary>
+        internal static string PasswordComplexityCheckSuccessMessage {
+            get {
+                return ResourceManager.GetString("PasswordComplexityCheckSuccessMessage", resourceCulture);
             }
         }
     }
