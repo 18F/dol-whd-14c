@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.controller('attachmentFieldController', function(
     $scope,
     apiService,
+    _env,
     stateService
   ) {
     'ngInject';
@@ -25,19 +26,18 @@ module.exports = function(ngModule) {
       }
     }
 
-    this.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+    $scope.allowedFileTypes = _env.allowedFileTypes;
 
     this.onAttachmentSelected = function(fileinput) {
       vm.upload.status = "Uploading";
       vm.upload.message = 'File is uploading.'
-      if (fileinput.files.length > 0 ) {
-        vm.validateAttachment(fileinput.files[0], vm.allowedFileTypes);
+      if (vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes) {
         vm.uploadAttachment(fileinput);
       }
     };
 
     this.validateAttachment = function (fileinput, allowedFileTypes) {
-      var ext = fileinput.name.split(".")[1];
+      var ext = fileinput.name.split(".").pop();
       if(allowedFileTypes.indexOf(ext) < 0) {
         vm.upload.status = 'Invalid';
         vm.upload.message = 'Invalid File Type.';

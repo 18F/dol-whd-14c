@@ -4,7 +4,7 @@
     <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png">
     <div class="dol-file-upload-focus"></div>
   </div>
-  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG {{vm.upload.status}}</p>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</p>
 </div>
 <div>
   <div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
