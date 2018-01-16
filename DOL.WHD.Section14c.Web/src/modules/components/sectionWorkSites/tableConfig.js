@@ -39,14 +39,7 @@ var employeeColumnDefinitions = [
   { responsivePriority: 1, targets: 0 },
   { responsivePriority: 2, targets: 1 },
   { responsivePriority: 3, targets: 2 },
-  { targets: 11, render: function(data) {
-      if(data) {
-        return "yes"
-      } else {
-        return "no"
-      }
-    }
-  },
+  { targets: 11, render: function(data) { return (data ? "yes" : "no")}},
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -2 }
 ]
@@ -86,14 +79,7 @@ var workSiteColumnDefinitions= [
   { responsivePriority: 1, targets: 0 },
   { responsivePriority: 2, targets: 1 },
   { responsivePriority: 3, targets: 6 },
-  { targets: [3,4], render: function(data) {
-      if(data) {
-        return "yes"
-      } else {
-        return "no"
-      }
-    }
-  },
+  { targets: [3,4], render: function(data) { return (data ? "yes" : "no")}},
   { responsivePriority: 3, width: "10%", targets: workSiteColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: workSiteColumns.length -2 }
 ];
