@@ -1,6 +1,6 @@
 'use strict';
 
-
+import * as tableConfig from './dashboardTableConfig';
 module.exports = function(ngModule) {
   ngModule.controller('landingPageController', function(
     $scope,
@@ -21,7 +21,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.onApplicationClick = function(index) {
-      $scope.loadUserInfo($index);
+      $scope.loadUserInfo(index);
       if($scope.organizations[index].applicationStatus.name === "New") {
          stateService.saveNewApplication().then(
           function() {
@@ -69,6 +69,7 @@ module.exports = function(ngModule) {
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
+      return;
     }
 
     $scope.init = function () {
@@ -112,45 +113,9 @@ module.exports = function(ngModule) {
             }
         },
         ordering: true,
-        order: [
-          [2, "asc"],
-          [5, "desc"]
-        ],
-        columns: [
-          {
-              "className": 'control',
-              "orderable": false,
-              "data":null,
-              "defaultContent": ""
-          },
-          { data: 'employerId', title: "EIN"},
-          { data: 'employerName', title: "Employer" },
-          { data: 'employerAddress',  title: "Address"},
-          { data: 'createdAt', title: "Created At" },
-          { data: 'lastModifiedAt',  title: "Last Modified"},
-          { data: 'applicationStatus',  title: "Status"},
-          { data: 'action', title: 'Action'}
-        ],
-        columnDefs: [
-          {
-              className: 'control',
-              orderable: false,
-              targets:   0
-          },
-          { responsivePriority: 1, targets: 1 },
-          { responsivePriority: 1, targets: 6 },
-          { responsivePriority: 1, targets: 3 },
-          {
-              className: 'action',
-              orderable: false,
-              responsivePriority: 1,
-              targets: -1,
-              render: function (data) {
-                  var button = "<button>" + data + "</button>"
-                  return button;
-              },
-          }
-        ]
+        order: tableConfig.order,
+        columns: tableConfig.employeeColumns,
+        columnDefs: tableConfig.employeeColumnDefinitions,
       });
     }
 

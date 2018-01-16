@@ -12,4 +12,5 @@ module.exports = function(ngModule) {
   require('./userManagementPageController')(ngModule);
   require('./userRegistrationPageController')(ngModule);
   require('./forgotPasswordPageController')(ngModule);
+  require('./dashboardTableConfig');
 };
