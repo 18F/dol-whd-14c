@@ -2,7 +2,7 @@
   <h2>Work Sites & Employees</h2>
   <div class="dol-form-section-help">
     <ul>
-      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a role="button" id="workSitesAndEmployeesShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
     </ul>
   </div>
 </div>
@@ -17,7 +17,7 @@
       <label for="numWorkSites" class="dol-form-question-text" id="numWorkSitesLabel">What is the total number of establishments and work sites to be covered by this certificate?</label>
       <helplink aria-controls="numWorkSitesHelp" aria-describedby="numWorkSitesLabel"></helplink>
     </div>
-    <helptext id="numWorkSitesHelp">Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.</helptext>
+    <helptext category="workSitesAndEmployeesShowAllHelp" id="numWorkSitesHelp">Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.</helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
     <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="any" ng-model="formData.totalNumWorkSites">
   </div>
@@ -118,7 +118,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
           <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
         </div>
-        <helptext id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
+        <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -138,7 +138,7 @@
         <label for="worksiteNumEmployees" class="dol-form-question-text" id="worksiteNumEmployeesLabel">Total number of employees who were employed at this establishment/work site at any time during the most recently completed fiscal quarter and received subminimum wages:</label>
         <helplink aria-controls="worksiteNumEmployeesHelp" aria-describedby="worksiteNumEmployeesLabel"></helplink>
       </div>
-      <helptext id="worksiteNumEmployeesHelp">Include workers who were employed for less than the full fiscal quarter, <em>i.e.</em> three-month period.</helptext>
+      <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteNumEmployeesHelp">Include workers who were employed for less than the full fiscal quarter, <em>i.e.</em> three-month period.</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
       <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="any" ng-model="vm.activeWorksite.numEmployees">
     </div>
@@ -255,13 +255,17 @@
           </div>
           <h3 tabindex="-1" id="addEmployeesHeader">Add New Employee</h3>
         </header>
-
+        <div class="dol-form-section-help">
+          <ul>
+            <li><a role="button" id="addEmployeeShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
+          </ul>
+        </div>
         <div class="dol-form-question-block" ng-class="vm.validateActiveWorkerProperty('name') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
             <label for="workerName" id="workerNameLabel">Name of Worker</label>
             <helplink aria-controls="workerNameHelp" aria-describedby="workerNameLabel"></helplink>
           </div>
-          <helptext id="workerNameHelp">Provide the full name of the worker.</helptext>
+          <helptext category="addEmployeeShowAllHelp" id="workerNameHelp">Provide the full name of the worker.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
           <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
         </div>
@@ -271,7 +275,7 @@
             <label for="workType" id="workTypeLabel">Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</label>
             <helplink aria-controls="workTypeHelp" aria-describedby="workTypeLabel"></helplink>
           </div>
-          <helptext id="workTypeHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workTypeHelp">
               <p>Describe the type of work performed by this worker in the job for which the worker worked the most number of hours at a subminimum wage rate. Examples may include: sewing, janitorial, box assembly, laundry, etc.</p>
               <p>If the worker performed more than one job at this work site at a subminimum wage, provide the following information for the job for which this worker worked the most number of hours in the most recently completed fiscal quarter.</p>
               <p>For example, John Jones performed three jobs over the last quarter: contract for assembling bolts totaling 65 hours, contract for assembling boxes totaling 42 hours, and contract for shredding totaling 25 hours. The employer should provide responses based on Mr. Jones’ bolt assembly job.</p>
@@ -287,7 +291,7 @@
               <span aria-hidden="true">Primary disability that affects productivity for job described above. Pick only one.</span>
               <helplink aria-controls="primaryDisabilityHelp" aria-describedby="primaryDisabilityLabel"></helplink>
             </div>
-            <helptext id="primaryDisabilityHelp">
+            <helptext category="addEmployeeShowAllHelp" id="primaryDisabilityHelp">
                 Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.
             </helptext>
             <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
@@ -309,7 +313,7 @@
             <label for="workerNumJobs" id="workerNumJobsLabel">How many jobs did this worker perform at this work site?</label>
             <helplink aria-controls="workerNumJobsHelp" aria-describedby="workerNumJobsLabel"></helplink>
           </div>
-          <helptext id="workerNumJobsHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerNumJobsHelp">
               If the worker performed more than one job at this work site during the most recently completed fiscal quarter, provide the total number of jobs performed.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
@@ -321,7 +325,7 @@
             <label for="workerAvgHours" id="workerAvgHoursLabel">Average # of hours worked per week on all jobs at this work site</label>
             <helplink aria-controls="workerAvgHoursHelp" aria-describedby="workerAvgHoursLabel"></helplink>
           </div>
-          <helptext id="workerAvgHoursHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerAvgHoursHelp">
               Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter =20 hours per week average.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
@@ -333,7 +337,7 @@
             <label for="workerAvgEarnings" id="workerAvgEarningsLabel">Average earnings per hour for all jobs at this work site</label>
             <helplink aria-controls="workerAvgEarningsHelp" aria-describedby="workerAvgEarningsLabel"></helplink>
           </div>
-          <helptext id="workerAvgEarningsHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerAvgEarningsHelp">
               Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
@@ -345,7 +349,7 @@
             <label for="workerWage" id="workerWageLabel">Prevailing wage rate for job described above</label>
             <helplink aria-controls="workerWageHelp" aria-describedby="workerWageLabel"></helplink>
           </div>
-          <helptext id="workerWageHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerWageHelp">
               Provide the prevailing wage rate for the job identified.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
@@ -359,7 +363,7 @@
               <span class="dol-form-question-text" aria-hidden="true">Productivity measure/rating for job described above</span>
               <helplink aria-controls="workerProductivityHelp" aria-describedby="workerProductivityLabel"></helplink>
             </div>
-            <helptext id="workerProductivityHelp">
+            <helptext category="addEmployeeShowAllHelp" id="workerProductivityHelp">
                 Provide the employee’s most recent productivity rating for the job identified. For work paid hourly, the productivity rating is the employee’s productivity in proportion to the standard-setter’s that was determined by the employee’s time study. For piece rate work, no calculation is required, select “n/a – piece rate”.
             </helptext>
             <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
@@ -383,7 +387,7 @@
             <label for="workerWageRate" id="workerWageRateLabel">Commensurate wage rate/average earnings per hour for job described above</label>
             <helplink aria-controls="workerWageRateHelp" aria-describedby="workerWageRateLabel"></helplink>
           </div>
-          <helptext id="workerWageRateHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerWageRateHelp">
               For work paid hourly, provide the employee’s commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job. For piece rate work, provide the employee’s average earnings per hour for the job identified.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
@@ -395,7 +399,7 @@
             <label for="workerHours" id="workerHoursLabel">Total hours worked for job described above</label>
             <helplink aria-controls="workerHoursHelp" aria-describedby="workerHoursLabel"></helplink>
           </div>
-          <helptext id="workerHoursHelp">
+          <helptext category="addEmployeeShowAllHelp" id="workerHoursHelp">
               Provide the employee’s total hours worked on the job identified over the most recently completed fiscal quarter.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
@@ -409,7 +413,7 @@
               <span aria-hidden="true">Does worker perform work for this employer at any other work site?</span>
               <helplink aria-controls="workerOtherSiteHelp" aria-describedby="workerOtherSiteLabel"></helplink>
             </div>
-            <helptext id="workerOtherSiteHelp">
+            <helptext category="addEmployeeShowAllHelp" id="workerOtherSiteHelp">
                 Answer “yes” if the employee also performed work at another work site included with this application. The worker should be listed at each work site where they performed subminimum wage work.
             </helptext>
             <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
@@ -442,6 +446,7 @@
       <div class="cd-panel-container">
           <div class="cd-panel-content" ng-init="dataExample">
             <header class="cd-panel-header">
+
               <a href="#0" class="cd-panel-close dol-close-button dol-first-focus">Close Example</a>
               <h3 tabindex="-1" id="addEmployeeExampleHeader">Add New Employee</h3>
             </header>
