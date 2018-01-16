@@ -136,10 +136,8 @@ module.exports = function(ngModule) {
             $window.scrollTo(0, 0);
           },
           function(error) {
-            console.log(error)
             if (error && error.data) {
               $scope.registerErrors = apiService.parseErrors(error.data);
-              console.log($scope.registerErrors);
               if (
                 $scope.registerErrors.indexOf('EIN is already registered') > -1
               ) {

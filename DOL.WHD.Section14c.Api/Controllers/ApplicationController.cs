@@ -24,6 +24,7 @@ using DOL.WHD.Section14c.DataAccess.Identity;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using DOL.WHD.Section14c.Domain.Models;
+using System.Text.RegularExpressions;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
