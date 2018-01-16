@@ -21,22 +21,17 @@ module.exports = function(ngModule) {
     };
 
     $scope.onApplicationClick = function(index) {
-      stateService.employerId = $scope.organizations[index].employer.id;
-      stateService.applicationId = $scope.organizations[index].applicationId;
-      stateService.ein = $scope.organizations[index].ein;
+      $scope.loadUserInfo($index);
       if($scope.organizations[index].applicationStatus.name === "New") {
          stateService.saveNewApplication().then(
           function() {
-            // start auto-save
             if (stateService.ein) {
               autoSaveService.start();
               $location.path('/section/assurances');
             }
-
           },
           function(error) {
-            $scope.applicationLoadError.status = true;
-            $scope.applicationLoadError.message = error.data;
+            $scope.handleApplicationLoadError(error.data);
           }
         );
        }
@@ -51,22 +46,30 @@ module.exports = function(ngModule) {
               autoSaveService.start();
               $location.path('/section/assurances');
             }
-
           },
           function(error) {
-            $scope.applicationLoadError.status = true;
-            $scope.applicationLoadError.message = error.data;
+            $scope.handleApplicationLoadError(error.data);
           }
         );
       } else {
-        $scope.applicationLoadError.status = true;
-        $scope.applicationLoadError.message = 'Invalid Application State'
+        $scope.handleError('Invalid Application State');
       }
     };
 
     $scope.navToEmployerRegistration = function ()  {
       $location.path('/employerRegistration');
     };
+
+    $scope.handleApplicationLoadError = function(message) {
+      $scope.applicationLoadError.status = true;
+      $scope.applicationLoadError.message = message;
+    };
+
+    $scope.loadUserInfo = function(index) {
+      stateService.employerId = $scope.organizations[index].employer.id;
+      stateService.applicationId = $scope.organizations[index].applicationId;
+      stateService.ein = $scope.organizations[index].ein;
+    }
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
