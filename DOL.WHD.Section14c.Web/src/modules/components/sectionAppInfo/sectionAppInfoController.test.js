@@ -37,4 +37,18 @@ describe('sectionAppInfoController', function() {
 
     expect(scope.formData.establishmentTypeId.indexOf(1)).toBe(-1);
   });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionAppInfoController();
+    scope.showAllHelp.status = false;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(true)
+  });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionAppInfoController();
+    scope.showAllHelp.status = true;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(false)
+  });
 });

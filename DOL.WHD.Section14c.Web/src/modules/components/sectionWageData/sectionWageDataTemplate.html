@@ -3,7 +3,7 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a role="button" id="wageDataShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
       <li><a href="#0" role="button" class="cd-panel-trigger" aria-controls="helpfulLinksPanel" tabindex="0">Helpful Links</a></li>
     </ul>
   </div>
