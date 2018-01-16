@@ -75,7 +75,7 @@
       </fieldset>
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
-      <label for="priorLegalName" class="dol-form-question-text">Prior Legal Name(s) of Employer</label>
+      <label for="priorLegalName" class="dol-form-question-text">Prior Name(s) of Employer</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
@@ -116,7 +116,7 @@
 
         <div class="usa-input-grid usa-input-grid-large">
           <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
-          <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
+          <label for="hasMailingAddress">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
       </fieldset>
     </div>
