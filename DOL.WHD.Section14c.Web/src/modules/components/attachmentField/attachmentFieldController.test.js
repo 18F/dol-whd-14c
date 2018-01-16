@@ -9,7 +9,6 @@ describe('attachmentFieldController', function() {
       scope = $rootScope.$new();
       $q = _$q_;
       mockApiService = apiService;
-
       attachmentFieldController = function() {
         return $controller('attachmentFieldController', {
           $scope: scope,
@@ -17,6 +16,8 @@ describe('attachmentFieldController', function() {
         });
       };
 
+      controller = attachmentFieldController();
+      scope.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
       uploadAttachment = $q.defer();
       spyOn(mockApiService, 'uploadAttachment').and.returnValue(
         uploadAttachment.promise
@@ -29,17 +30,35 @@ describe('attachmentFieldController', function() {
     })
   );
 
-  it('should only allows specific file types: pdf jpg jpeg png csv PDF', function() {
-    var controller = attachmentFieldController();
-    var fileInput = { files: [{name: 'name1.docx'}] };
-    controller.onAttachmentSelected(fileInput);
-    expect(controller.upload.status).toBe('Invalid');
-    expect(controller.upload.message).toBe('Invalid File Type.');
-    expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
+  ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'].forEach(function(extension) {
+    it('should allow file of type' + extension, function() {
+      var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
+      controller.onAttachmentSelected(fileInput);
+      uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
+      scope.$apply();
+      expect(scope.attachmentName).toBe('name1.pdf');
+      expect(fileInput.value).toBe('');
+      expect(controller.upload.status).toBe('Success');
+      expect(controller.upload.message).toBe('File was uploaded successfully.');
+      expect(mockApiService.uploadAttachment).toHaveBeenCalled();
+    });
+  });
+
+  ['docx', 'gif', 'avi', 'iso'].forEach(function(extension) {
+    it('should allow file of type' + extension, function() {
+      var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
+      controller.onAttachmentSelected(fileInput);
+      uploadAttachment.reject({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
+      scope.$apply();
+      expect(scope.attachmentName).toBe(undefined);
+      expect(fileInput.value).toBe(undefined);
+      expect(controller.upload.status).toBe('Invalid');
+      expect(controller.upload.message).toBe('Invalid File Type.');
+      expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
+    });
   });
 
   it('prevents multiple files from being uploaded', function() {
-    var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf', size: 1000}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
@@ -49,22 +68,21 @@ describe('attachmentFieldController', function() {
   });
 
   it('it should prevent uploads of larger than 5MB', function() {
-    var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf', size: '10000000000'}] };
     controller.onAttachmentSelected(fileInput);
+    expect(controller.upload.status).toBe('Invalid');
+    expect(controller.upload.message).toBe('File Size too large.');
     expect(mockApiService.uploadAttachment).not.toHaveBeenCalled();
   });
 
   it('attachment selected no files, file value should stay the same', function() {
-    var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf', size: 1000}], value: 1 };
-    controller.onAttachmentSelected(fileInput);
+    controller.onAttachmentSelected();
     expect(controller.upload.status).toBe('Uploading');
     expect(fileInput.value).toBe(1);
   });
 
   it('attachment selected files failed upload', function() {
-    var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf'}] };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.reject({});
@@ -76,7 +94,6 @@ describe('attachmentFieldController', function() {
   });
 
   it('attachment selected files uploaded successful', function() {
-    var controller = attachmentFieldController();
     var fileInput = { files: [{name: 'name1.pdf', size: 1000}], value: 1 };
     controller.onAttachmentSelected(fileInput);
     uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
@@ -88,19 +105,17 @@ describe('attachmentFieldController', function() {
   });
 
   it('delete attachment successful, clears attachment fields', function() {
-    var controller = attachmentFieldController();
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
     controller.deleteAttachment(1);
     deleteAttachment.resolve({});
     scope.$apply();
     expect(scope.attachmentId).toBe(undefined);
-    expect(scope.attachmentName).toBe(undefined)
+    expect(scope.attachmentName).toBe(undefined);
     expect(controller.upload.status).toBe('NoFile');
   });
 
   it('delete attachment failer, clears attachment fields', function() {
-    var controller = attachmentFieldController();
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
     controller.deleteAttachment(1);
