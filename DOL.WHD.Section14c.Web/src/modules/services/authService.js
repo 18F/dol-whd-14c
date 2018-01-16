@@ -58,21 +58,11 @@ module.exports = function(ngModule) {
             stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
           } else {
             d.resolve();
+            return;
           }
           if (!stateService.IsPointOfContact) {
             d.resolve();
-            // stateService.loadSavedApplication().then(
-            //   function() {
-            //     // start auto-save
-            //     if (stateService.ein) {
-            //       autoSaveService.start();
-            //     }
-            //     d.resolve();
-            //   },
-            //   function(error) {
-            //     d.reject(error);
-            //   }
-            // );
+            return;
           } else {
             stateService.loadApplicationList().then(
               function() {

@@ -10,9 +10,7 @@ module.exports = function(ngModule) {
 	vm.emailVerificationUrl = $location.absUrl();
     vm.emailVerificationCode = $location.search().code;
     vm.emailVerificationUserId = $location.search().userId;
-    vm.isEmailVerificationRequest =
-      vm.emailVerificationCode !== undefined &&
-      vm.emailVerificationCode !== undefined;
+    vm.isEmailVerificationRequest = vm.emailVerificationCode && vm.emailVerificationUserId;
 
     if (vm.isEmailVerificationRequest) {
       $location.search('code', null);
@@ -34,5 +32,3 @@ module.exports = function(ngModule) {
     }
   });
 };
-
-
