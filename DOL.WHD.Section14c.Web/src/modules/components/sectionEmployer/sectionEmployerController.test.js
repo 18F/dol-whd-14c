@@ -26,6 +26,25 @@ describe('sectionEmployerController', function() {
 
     expect(scope.formData.employer.tradeName).toBe('');
   });
+
+  it('has n/a for county when DC is selected as state', function() {
+    var controller = sectionEmployerController();
+
+    scope.formData.employer.physicalAddress = {};
+    scope.formData.employer.physicalAddress.state = 'DC';
+    scope.$digest();
+    expect(scope.formData.employer.physicalAddress.county).toBe('N/A');
+  });
+
+  it('county is undefined when PA is selected as state', function() {
+    var controller = sectionEmployerController();
+
+    scope.formData.employer.physicalAddress = {};
+    scope.formData.employer.physicalAddress.state = 'PA';
+    scope.$digest();
+    expect(scope.formData.employer.physicalAddress.county).toBe(undefined);
+  });
+
   it('onHasLegalNameChange', function() {
     var controller = sectionEmployerController();
     scope.formData.employer.priorLegalName = 'value';

@@ -18,7 +18,7 @@ module.exports = function(ngModule) {
       status: false,
       category: ''
     }
-
+    $scope.territoriesAndDistricts = ['DC','AS','GU','MP','PR','UM','VI'];
     if (!$scope.formData.employer) {
       $scope.formData.employer = {};
     }
@@ -77,5 +77,22 @@ module.exports = function(ngModule) {
       $scope.showAllHelp.status = !$scope.showAllHelp.status;
       $scope.showAllHelp.category = event.srcElement.id;
     }
+
+    $scope.$watch('formData.employer.mailingAddress.state', function () {
+      if(!$scope.formData.employer.mailingAddress) {
+        $scope.formData.employer.mailingAddress = {};
+      }
+      if($scope.formData.employer.mailingAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.mailingAddress.state) >= 0) {
+        $scope.formData.employer.mailingAddress.county = 'N/A';
+      }
+    });
+    $scope.$watch('formData.employer.physicalAddress.state', function () {
+      if(!$scope.formData.employer.physicalAddress) {
+        $scope.formData.employer.physicalAddress = {};
+      }
+      if($scope.formData.employer.physicalAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {
+        $scope.formData.employer.physicalAddress.county = 'N/A';
+      }
+    });
   });
 };

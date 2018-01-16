@@ -110,7 +110,7 @@
           <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
-        <div ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+        <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
           <label for="county">County</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
           <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
@@ -152,7 +152,7 @@
             <input class="usa-input-medium" id="mailingAddressZipCode" name="mailingAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.mailingAddress.zipCode">
           </div>
 
-          <div ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
+          <div ng-hide="formData.employer.mailingAddress.state === 'DC' || formData.employer.mailingAddress.state === 'AS' || formData.employer.mailingAddress.state === 'GU' || formData.employer.mailingAddress.state === 'MP' || formData.employer.mailingAddress.state === 'PR' || formData.employer.mailingAddress.state === 'UM' || formData.employer.mailingAddress.state === 'VI'" ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
             <label for="mailingAddressCounty">County</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
             <input id="mailingAddressCounty" name="mailingAddressCounty" type="text" ng-model="formData.employer.mailingAddress.county">
