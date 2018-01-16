@@ -306,7 +306,8 @@
           </div>
           <helptext id="numSubminimalWageWorkersWorkCenterHelp">A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
-          <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter">
+          <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter"><span>If no workers, enter "0"</span>
+
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.patientWorkers') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -315,7 +316,7 @@
           </div>
           <helptext id="numSubminimalWageWorkersPatientWorkersHelp">A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
-          <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers">
+          <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers"><span>If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -324,7 +325,7 @@
           </div>
           <helptext id="numSubminimalWageWorkersSWEPHelp">A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
-          <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep">
+          <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep"><span>If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -333,7 +334,7 @@
           </div>
           <helptext id="numSubminimalWageWorkersBusinessHelp">Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
-          <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment">
+          <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment"><span>If no workers, enter "0"</span>
         </div>
       </fieldset>
     </div>
