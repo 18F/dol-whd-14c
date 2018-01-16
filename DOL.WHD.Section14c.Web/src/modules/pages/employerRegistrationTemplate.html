@@ -23,7 +23,12 @@
   <fieldset class="dol-form-sub-section">
     <legend><h3>Register an Employer</h3></legend>
     <hr />
-    Before you can begin the application, please register an employer for this account.
+    <p>
+      Before you can begin the application, please register an employer for this account.
+    </p>
+    <p>
+      All fields are required unless indicated as optional.
+    </p>
     <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
         <label for="hasTradeName" class="dol-form-question-text" id="hasTradeName">Has this employer ever previously held a 14(c) certificate?</label>
@@ -59,11 +64,11 @@
     </div>
 
     <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
-      <label for="EIN">Employer Identification Number (EIN)</label>
+      <label for="EIN">Federal Employer Identification Number (EIN)</label>
       <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
         <div ng-show="vm.einError">
           <p>The EIN you provided is already registered. Please contact the account admin for access.</p>
-          <p>If you do not know the account admin, contact our office at 000-123-4567</p>
+          <p>If you do not know the account admin, contact our office at 00-1234567</p>
         </div>
         <div ng-show="vm.einRequired">
           <p>EIN is required.</p>
@@ -73,7 +78,7 @@
         </div>
       </span>
       <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.ein" />
-      <span class="example">Example: XX-XXXXXXX</span>
+      <span class="example">Example: 00-1234567</span>
     </div>
     <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp">
       <div class="usa-alert-body">

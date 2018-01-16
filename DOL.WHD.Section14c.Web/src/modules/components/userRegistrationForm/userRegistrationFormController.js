@@ -15,12 +15,12 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
-
+    vm.showFacts = false;
     vm.restForm = function() {
       if(vm.userRegistrationForm) {
-       vm.userRegistrationForm.$setPristine(); 
+       vm.userRegistrationForm.$setPristine();
       }
-      
+
       $scope.formVals = {
         firstName: '',
         lastName: '',
@@ -62,6 +62,10 @@ module.exports = function(ngModule) {
 
     vm.toggleEinHelp = function() {
       vm.showEinHelp = !vm.showEinHelp;
+    };
+
+    $scope.toggleFacts = function ()  {
+      vm.showFacts = !vm.showFacts;
     };
 
     $scope.$watch('formVals.pass', function(value) {
@@ -195,10 +199,10 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
-            
+
 
             vm.submittingForm = false;
-      
+
           }
         );
       /* eslint-enable complexity */

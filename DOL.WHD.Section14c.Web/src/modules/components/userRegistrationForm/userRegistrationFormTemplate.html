@@ -1,14 +1,29 @@
 <form name="vm.userRegistrationForm" ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest" novalidate>
   <div class="usa-content">
     <p>We are now accepting Section 14(c) Certificate Applications electronically. This electronic form includes both forms WH-226 and WH-226A.</p>
-    <ul>
-      <li>
-        All Employers, including current Certificate Holders, previous
-        Certificate Holders, and new applicants, will have to create an
-        account in order to submit the form electronically.
-      </li>
-    </ul>
-    <p>Read our <a href="#">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
+    <p>All Employers, including current Certificate Holders, previous
+    Certificate Holders, and new applicants, will have to create an
+    account in order to submit the form electronically.</p>
+
+    <p>Read our <a href="" ng-click="toggleFacts()">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
+  </div>
+  <div ng-show="vm.showFacts" class="usa-content">
+    <p>
+      <h4>What is the purpose of this application?</h4>
+      This application is to be used to apply for a certificate authorizing the payment of subminimum wages to certain workers with disabilities under section 14(c) of the Fair Labor Standards Act (FLSA) and related provisions of the McNamara-O’Hara Service Contract Act (SCA) and the Walsh-Healey Public Contracts Act (PCA). Payment of subminimum wages to workers with disabilities is only permitted under a valid certificate issued by the United States Department of Labor, Wage and Hour Division. State agencies and the Veterans Administration may also request immediate temporary certificate authority by completing this application.
+    </p>
+
+    <p>
+      <h4>Responsibility to comply with other laws</h4>
+      An employer with a section 14(c) certificate must comply with all statutory and regulatory provisions of the FLSA. Employers also must comply with all applicable Federal laws, including Executive Order 13658 (Establishing a Minimum Wage for Contractors), the Americans with Disabilities Act (ADA) as amended, the Supreme Court’s Olmstead v. L.C. decision, and the Rehabilitation Act as amended, as well as applicable state or local requirements. Beginning July 22, 2016, employers also have an affirmative duty to comply with the additional conditions for payment of subminimum wages pursuant to the Rehabilitation Act as amended by the Workforce Innovation and Opportunity Act (WIOA).
+    </p>
+    <p>
+      <h4>Where to file?</h4>
+      The Section 14(c) Online Certification Application allows you to submit your section 14(c) application electronically to the U.S. Department of Labor, Wage and Hour Division.
+    </p>
+    <p>
+      Failure to provide any required information may delay the processing of the application or result in the application being returned or denied. Additional guidance is provided in the regulations at 29 C.F.R. part 525.
+    </p>
   </div>
   <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.accountCreated">
     <div class="usa-alert-body">
