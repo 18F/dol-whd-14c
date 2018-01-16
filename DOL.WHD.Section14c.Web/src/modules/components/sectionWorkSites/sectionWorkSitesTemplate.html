@@ -6,6 +6,9 @@
     </ul>
   </div>
 </div>
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
@@ -17,7 +20,20 @@
       <label for="numWorkSites" class="dol-form-question-text" id="numWorkSitesLabel">What is the total number of establishments and work sites to be covered by this certificate?</label>
       <helplink aria-controls="numWorkSitesHelp" aria-describedby="numWorkSitesLabel"></helplink>
     </div>
-    <helptext category="workSitesAndEmployeesShowAllHelp" id="numWorkSitesHelp">Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.</helptext>
+    <helptext category="workSitesAndEmployeesShowAllHelp" id="numWorkSitesHelp">
+      <p>
+        Count all work sites, including the main establishment and any branch establishments, off-site work locations, and/or SWEP work sites where the employer is seeking approval to employ workers at subminimum wages.
+      </p>
+      <p>
+        Main Establishment: The primary location of the employer that files this application on behalf of all its associated work sites. (There can only be one main establishment.)
+      </p>
+      <p>
+        Branch Establishments: A branch establishment is a physically separate work site that is part of the same organization as the main establishment.
+      </p>
+      <p>
+        Off-Site Work Location: An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities, or a group of workers with disabilities, are placed in work settings along with job coaches (staff of the rehabilitation or work center).
+      </p>
+    </helptext>
     <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
     <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="any" ng-model="formData.totalNumWorkSites">
   </div>
@@ -37,11 +53,11 @@
   <!-- Tab 1 (Add Work Site) -->
   <div class="form-spaced-div" ng-show="vm.addingWorkSite && vm.activeTab === 1">
     <!-- ID for tab panel focus -->
-    <p id="worksitesTabPanel" tabindex="-1">First, we’ll collect information about the Work Site / Establishment.</p>
+    <p id="worksitesTabPanel" tabindex="-1">First, we’ll collect information about the Establishment / Work Site.</p>
 
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
-        <legend class="dol-form-question-text">What type of establishment is this?</legend>
+        <legend class="dol-form-question-text">What type of establishment / work site is this?</legend>
         <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('workSiteTypeId')">{{ vm.validateActiveWorksiteProperty('workSiteTypeId') }}</span>
           <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType">
@@ -172,7 +188,7 @@
           <dd>Provide the full name of the worker.</dd>
         </div>
         <div>
-          <dt>Type of work performed (for employees working more than on job, use job employee worked most hours at subminimum wage)</dt>
+          <dt>Type of work performed (for employees working more than one job, use job employee worked most hours at subminimum wage)</dt>
           <dd>
             <p>Describe the type of work performed by this worker in the job for which the worker worked the most number of hours at a subminimum wage rate. Examples may include: sewing, janitorial, box assembly, laundry, etc.</p>
             <p>If the worker performed more than one job at this work site at a subminimum wage, provide the following information for the job for which this worker worked the most number of hours in the most recently completed fiscal quarter.</p>
@@ -190,13 +206,13 @@
         <div>
           <dt>Average # of hours worked per week on all jobs at this work site</dt>
           <dd>
-            Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter =20 hours per week average.
+            Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter = 20 hours per week average.
           </dd>
         </div>
         <div>
           <dt>Average earnings per hour for all jobs at this work site</dt>
           <dd>
-            Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
+            Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
           </dd>
         </div>
         <div>

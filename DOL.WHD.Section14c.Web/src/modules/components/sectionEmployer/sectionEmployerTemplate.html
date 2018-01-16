@@ -7,7 +7,9 @@
     </ul>
   </div>
 </div>
-
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__employer')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
@@ -75,7 +77,7 @@
       </fieldset>
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
-      <label for="priorLegalName" class="dol-form-question-text">Prior Legal Name(s) of Employer</label>
+      <label for="priorLegalName" class="dol-form-question-text">Prior Name(s) of Employer</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
@@ -116,7 +118,7 @@
 
         <div class="usa-input-grid usa-input-grid-large">
           <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
-          <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
+          <label for="hasMailingAddress">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
       </fieldset>
     </div>
