@@ -25,7 +25,7 @@ module.exports = function(ngModule) {
           angular.element($document[0].getElementById(attr.ariaControls)).toggleClass('show');
         });
         scope.$watch('showAllHelp', function() {
-          scope.expanded = scope.showAllHelp;
+          scope.expanded = scope.showAllHelp.status;
         });
 
       }
@@ -38,16 +38,17 @@ module.exports = function(ngModule) {
     return {
       transclude: true,
       template: `
-        <div ng-show="showAllHelp" class="dol-help-text">
+        <div ng-show="showAllHelp.status" class="dol-help-text">
           <ng-transclude></ng-transclude>
         </div>
       `,
       replace: true,
-      link: function(scope, element) {
-        scope.$watch('showAllHelp', function() {
-          element.toggleClass('show', scope.showAllHelp === true);
+      link: function(scope, element, attrs) {
+        scope.$watch('showAllHelp.status', function() {
+          if(attrs.category && attrs.category === scope.showAllHelp.category) {
+            element.toggleClass('show', scope.showAllHelp.status === true);
+          }
         });
-
       }
     };
   });

@@ -26,8 +26,13 @@ describe('userRegistrationFormController', function() {
       };
 
       userRegister = $q.defer();
+      checkPasswordComplexity = $q.defer();
       spyOn(mockapiService, 'userRegister').and.returnValue(
         userRegister.promise
+      );
+
+      spyOn(mockapiService, 'checkPasswordComplexity').and.returnValue(
+        checkPasswordComplexity.promise
       );
 
       emailVerification = $q.defer();
@@ -65,6 +70,22 @@ describe('userRegistrationFormController', function() {
     expect(controller.submittingForm).toBe(false);
   });
 
+  it('Password score is set on failure of complexity check', function() {
+    var controller = userRegistrationFormController();
+    checkPasswordComplexity.reject({data: {score: 0} });
+    scope.$apply();
+    expect(scope.passwordStrength.strong).toBe(false);
+    expect(scope.passwordStrength.score).toBe(0);
+  });
+
+  it('Password score is set on success of complexity check', function() {
+    var controller = userRegistrationFormController();
+    checkPasswordComplexity.resolve({data: {score: 4} });
+    scope.$apply();
+    expect(scope.passwordStrength.strong).toBe(true);
+    expect(scope.passwordStrength.score).toBe(4);
+  });
+
   it('submitting registration has an error, no error data', function() {
     var controller = userRegistrationFormController();
     scope.onSubmitClick();
@@ -72,6 +93,7 @@ describe('userRegistrationFormController', function() {
     userRegister.reject({});
     scope.$apply();
     expect(controller.submittingForm).toBe(false);
+    expect(controller.generalRegistrationError).toBe(true);
   });
 
   it('submitting registration has an error, should return message', function() {
@@ -128,28 +150,6 @@ describe('userRegistrationFormController', function() {
     expect(controller.passwordRequired).toBe(true);
   });
 
-  it('submitting registration has an error, The EIN field is required. message is displayed', function() {
-    var controller = userRegistrationFormController();
-    scope.onSubmitClick();
-    userRegister.reject({
-      data: { modelState: { error: ['The EIN field is required.'] } }
-    });
-    scope.$apply();
-
-    expect(controller.einRequired).toBe(true);
-  });
-
-  it('submitting registration has an error, The field EIN must match message is displayed', function() {
-    var controller = userRegistrationFormController();
-    scope.onSubmitClick();
-    userRegister.reject({
-      data: { modelState: { error: ['The field EIN must match'] } }
-    });
-    scope.$apply();
-
-    expect(controller.invalidEin).toBe(true);
-  });
-
   it('submitting registration has an error, The password and confirmation password do not match. message is displayed', function() {
     var controller = userRegistrationFormController();
     scope.onSubmitClick();
@@ -161,7 +161,6 @@ describe('userRegistrationFormController', function() {
       }
     });
     scope.$apply();
-
     expect(controller.passwordsDontMatch).toBe(true);
   });
 
@@ -176,7 +175,6 @@ describe('userRegistrationFormController', function() {
       }
     });
     scope.$apply();
-
     expect(controller.passwordComplexity).toBe(true);
   });
 
@@ -185,7 +183,6 @@ describe('userRegistrationFormController', function() {
     controller.showEinHelp = true;
     controller.toggleEinHelp();
     scope.$apply();
-
     expect(controller.showEinHelp).toBe(false);
   });
 
@@ -276,7 +273,6 @@ describe('userRegistrationFormController', function() {
     var controller = userRegistrationFormController();
     scope.formVals.pass = 'aB1#5678';
     scope.$apply();
-
     expect(controller.passwordLength).toBe(true);
     expect(controller.passwordUpper).toBe(true);
     expect(controller.passwordLower).toBe(true);

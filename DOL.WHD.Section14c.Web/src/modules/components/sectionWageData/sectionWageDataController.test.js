@@ -159,15 +159,15 @@ describe('sectionWageDataController', function() {
     });
 
     it('will toggle off if already on', function() {
-      scope.showAllHelp = true;
-      controller.toggleAllHelpText();
-      expect(scope.showAllHelp).toBe(false);
+      scope.showAllHelp.status = true;
+      controller.toggleAllHelpText({srcElement: {id: 'test'}});
+      expect(scope.showAllHelp.status).toBe(false);
     });
 
     it('will toggle on if already off', function() {
-      scope.showAllHelp = false;
-      controller.toggleAllHelpText();
-      expect(scope.showAllHelp).toBe(true);
+      scope.showAllHelp.status = false;
+      controller.toggleAllHelpText({srcElement: {id: 'test'}});
+      expect(scope.showAllHelp.status).toBe(true);
     });
   });
 
