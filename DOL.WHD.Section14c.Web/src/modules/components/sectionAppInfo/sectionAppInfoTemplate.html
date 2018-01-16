@@ -1,11 +1,13 @@
 <div class="dol-form-section-title">
   <h2>Application Info</h2>
-
   <div class="dol-form-section-help">
     <ul>
       <li><a role="button" id="appInfoShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
     </ul>
   </div>
+</div>
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
 </div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__appinfo')">
   <div class="usa-alert-body">
@@ -120,7 +122,7 @@
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
-      <label for="contactFax">Fax Number</label>
+      <label for="contactFax">Fax Number</label><span class="dol-example-text">(Optional)</span>
       <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
       <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
       <span id="exampleContactFax" class="dol-example-text">Example: 123-456-7890</span>
