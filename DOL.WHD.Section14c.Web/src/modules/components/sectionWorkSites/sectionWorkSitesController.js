@@ -21,7 +21,10 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-    $scope.showAllHelp = false;
+    $scope.showAllHelp = {
+      status: false,
+      category:''
+    };
 
     if (!$scope.formData.workSites) {
       $scope.formData.workSites = [];
@@ -278,8 +281,9 @@ module.exports = function(ngModule) {
     }
 
     // Show all help text
-    this.toggleAllHelpText = function() {
-      $scope.showAllHelp = !$scope.showAllHelp;
+    this.toggleAllHelpText = function(event) {
+      $scope.showAllHelp.status = !$scope.showAllHelp.status;
+      $scope.showAllHelp.category = event.srcElement.id;
     }
 
     // Tab panel focus

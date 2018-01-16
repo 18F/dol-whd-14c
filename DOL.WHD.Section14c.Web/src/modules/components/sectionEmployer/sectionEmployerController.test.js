@@ -53,4 +53,18 @@ describe('sectionEmployerController', function() {
       scope.formData.employer.providingFacilitiesDeductionTypeId.indexOf(1)
     ).toBe(-1);
   });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionEmployerController();
+    scope.showAllHelp.status = false;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(true)
+  });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionEmployerController();
+    scope.showAllHelp.status = true;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(false)
+  });
 });
