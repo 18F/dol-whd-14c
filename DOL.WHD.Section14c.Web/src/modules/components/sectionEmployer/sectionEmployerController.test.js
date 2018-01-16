@@ -27,7 +27,7 @@ describe('sectionEmployerController', function() {
     expect(scope.formData.employer.tradeName).toBe('');
   });
 
-  it('has n/a for country when DC is selected as state', function() {
+  it('has n/a for county when DC is selected as state', function() {
     var controller = sectionEmployerController();
 
     scope.formData.employer.physicalAddress = {};
@@ -36,7 +36,7 @@ describe('sectionEmployerController', function() {
     expect(scope.formData.employer.physicalAddress.county).toBe('N/A');
   });
 
-  it('has n/a for country when DC is selected as state', function() {
+  it('county is undefined when PA is selected as state', function() {
     var controller = sectionEmployerController();
 
     scope.formData.employer.physicalAddress = {};
