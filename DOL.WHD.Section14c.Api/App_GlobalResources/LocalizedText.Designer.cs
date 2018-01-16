@@ -70,6 +70,51 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login failure.
+        /// </summary>
+        internal static string LoginFailureMessage {
+            get {
+                return ResourceManager.GetString("LoginFailureMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has been locked out for {0} minutes due to multiple failed login attempts..
+        /// </summary>
+        internal static string LoginFailureMessageAccountLockedOut {
+            get {
+                return ResourceManager.GetString("LoginFailureMessageAccountLockedOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email not confirmed.
+        /// </summary>
+        internal static string LoginFailureMessageEmailNotConfirmed {
+            get {
+                return ResourceManager.GetString("LoginFailureMessageEmailNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password expired.
+        /// </summary>
+        internal static string LoginFailureMessagePasswordExpired {
+            get {
+                return ResourceManager.GetString("LoginFailureMessagePasswordExpired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login success.
+        /// </summary>
+        internal static string LoginSuccessMessage {
+            get {
+                return ResourceManager.GetString("LoginSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password does not meet complexity requirements..
         /// </summary>
         internal static string PasswordComplexityCheckFailedMessage {

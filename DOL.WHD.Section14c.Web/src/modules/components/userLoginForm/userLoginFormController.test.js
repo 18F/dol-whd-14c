@@ -41,7 +41,7 @@ describe('userLoginFormController', function() {
     controller.unknownError = true;
     controller.clearError();
 
-    expect(controller.loginError).toBe(false);
+    expect(controller.loginError.status).toBe(false);
     expect(controller.unknownError).toBe(false);
   });
 
@@ -89,7 +89,7 @@ describe('userLoginFormController', function() {
     userLogin.reject({ status: 400 });
     scope.$apply();
 
-    expect(controller.loginError).toBe(true);
+    expect(controller.loginError.status).toBe(true);
   });
 
   it('on user info success', function() {
