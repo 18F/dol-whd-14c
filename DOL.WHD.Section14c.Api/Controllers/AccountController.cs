@@ -113,7 +113,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 queryString["userId"] = user.Id;
                 queryString["code"] = nounce;
 
-                //TODO: Support Urls with existing querystring
+                // Support Urls with existing querystring
                 var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
 
                 await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
@@ -356,7 +356,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Password Complexity Check
+        /// Get User Accounts
         /// </summary>
         // GET api/Account
         [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
@@ -422,10 +422,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Creates User Account
+        /// Password Complexity Check
         /// </summary>
-        /// <param name="model">UserInfoViewModel</param>
-        /// <returns>Http status code</returns>
         // POST api/Account
         [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
         [HttpPost]
