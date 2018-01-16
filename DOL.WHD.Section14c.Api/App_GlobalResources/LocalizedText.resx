@@ -120,4 +120,10 @@
   <data name="InvalidUserNameorPassword" xml:space="preserve">
     <value>The user name or password is incorrect.</value>
   </data>
+  <data name="PasswordComplexityCheckFailedMessage" xml:space="preserve">
+    <value>Password does not meet complexity requirements.</value>
+  </data>
+  <data name="PasswordComplexityCheckSuccessMessage" xml:space="preserve">
+    <value>Password meet complexity requirements.</value>
+  </data>
 </root>

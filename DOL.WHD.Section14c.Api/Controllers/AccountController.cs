@@ -313,11 +313,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var password = Request.Content.ReadAsStringAsync().Result;
             var passwordComplexityScore = AppSettings.Get<int>("PasswordComplexityScore");
             var zxcvbnResult = Zxcvbn.Zxcvbn.MatchPassword(password);
-            if(zxcvbnResult.Score < passwordComplexityScore)
+            string message = App_GlobalResources.LocalizedText.PasswordComplexityCheckSuccessMessage;
+            // Check poassword Complexity Score
+            if (zxcvbnResult.Score < passwordComplexityScore)
             {
+                // Set Failed status code 
                 responseMessage.StatusCode = HttpStatusCode.ExpectationFailed;
-                responseMessage.Content = new StringContent("Password does not meet complexity requirements.");
+                message = App_GlobalResources.LocalizedText.PasswordComplexityCheckFailedMessage;
             }
+            // set reposnse message
+            responseMessage.Content = new StringContent(string.Format("{{\"score\": \"{0}\", \"message\": \"{1}\" }}", zxcvbnResult.Score.ToString(), message), Encoding.UTF8, "application/json");
 
             return ResponseMessage(responseMessage);
         }
