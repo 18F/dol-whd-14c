@@ -1,10 +1,13 @@
 <div ng-show="!restrictUpload">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
-    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png">
+    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
     <div class="dol-file-upload-focus"></div>
   </div>
-  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</p>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: .pdf, .jpg, .jpeg, .png, .csv</p>
+  <p>
+    Need to convert a Word or Excel file to PDF? <a href="https://support.office.com/en-us/article/Save-or-convert-to-PDF-d85416c5-7d77-4fd6-a216-6f4bf7c7c110" target="blank">Follow these instructions.</a>
+  </p>
 </div>
 <div>
   <div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
