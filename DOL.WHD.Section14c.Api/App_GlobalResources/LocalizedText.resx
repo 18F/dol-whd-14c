@@ -120,6 +120,21 @@
   <data name="InvalidUserNameorPassword" xml:space="preserve">
     <value>The user name or password is incorrect.</value>
   </data>
+  <data name="LoginFailureMessage" xml:space="preserve">
+    <value>Login failure</value>
+  </data>
+  <data name="LoginFailureMessageAccountLockedOut" xml:space="preserve">
+    <value>Your account has been locked out for {0} minutes due to multiple failed login attempts.</value>
+  </data>
+  <data name="LoginFailureMessageEmailNotConfirmed" xml:space="preserve">
+    <value>Email not confirmed</value>
+  </data>
+  <data name="LoginFailureMessagePasswordExpired" xml:space="preserve">
+    <value>Password expired</value>
+  </data>
+  <data name="LoginSuccessMessage" xml:space="preserve">
+    <value>Login success</value>
+  </data>
   <data name="PasswordComplexityCheckFailedMessage" xml:space="preserve">
     <value>Password does not meet complexity requirements.</value>
   </data>

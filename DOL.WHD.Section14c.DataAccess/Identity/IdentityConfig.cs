@@ -53,7 +53,7 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
                 {
                     //Code for email confirmation and reset password life time
-                    TokenLifespan = TimeSpan.FromHours(AppSettings.Get<double>("EmailVeriryAndPaswordRestTokenExpireHours"))
+                    TokenLifespan = TimeSpan.FromHours(AppSettings.Get<double>("EmailVerifyAndPaswordResetTokenExpireHours"))
                 };
             }
             return manager;
