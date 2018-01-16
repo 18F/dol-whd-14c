@@ -16,6 +16,9 @@ module.exports = function(ngModule) {
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
+    $scope.applicationLoadError = {
+      status: false
+    };
 
     $scope.onApplicationClick = function(index) {
       stateService.employerId = $scope.organizations[index].employer.id;
@@ -31,14 +34,16 @@ module.exports = function(ngModule) {
             }
 
           },
-          function() {
+          function(error) {
+            $scope.applicationLoadError.status = true;
+            $scope.applicationLoadError.message = error.data;
           }
         );
-       } 
+       }
        else if($scope.organizations[index].applicationStatus.name === "Submitted"){
         stateService.downloadApplicationPdf();
        }
-       else {
+       else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
         stateService.loadSavedApplication().then(
           function() {
             // start auto-save
@@ -48,12 +53,15 @@ module.exports = function(ngModule) {
             }
 
           },
-          function() {
+          function(error) {
+            $scope.applicationLoadError.status = true;
+            $scope.applicationLoadError.message = error.data;
           }
         );
-       }
-
-      $location.path('/section/assurances');
+      } else {
+        $scope.applicationLoadError.status = true;
+        $scope.applicationLoadError.message = 'Invalid Application State'
+      }
     };
 
     $scope.navToEmployerRegistration = function ()  {
@@ -77,16 +85,15 @@ module.exports = function(ngModule) {
 
           if(element.applicationStatus.name === "New") {
             organization.action = "Start"
-          } 
+          }
           else if (element.applicationStatus.name === "InProgress") {
             organization.action = "Continue"
           } else {
             organization.action = "Download"
           }
-          
+
           $scope.applicationList.push(organization);
         });
-
         $scope.initDatatable();
       })
     }
@@ -149,11 +156,11 @@ module.exports = function(ngModule) {
         $scope.tableWidget.destroy()
         $scope.tableWidget=null
       }
-      
+
       setTimeout(() => $scope.initDatatable(),0)
     }
 
-    
+
     $('#EmployerTable').on('click', '.action', function ($event) {
         $event.preventDefault();
         var tr = $(this).closest('tr');

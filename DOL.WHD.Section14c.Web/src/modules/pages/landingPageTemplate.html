@@ -1,13 +1,22 @@
 <dol-header></dol-header>
 
 <main tabindex="-1" id="mainContent" role="main" class="main-content">
- 
+
   <div>
     <main-top-nav-control></main-top-nav-control>
+    <div ng-show="applicationLoadError.status">
+      <div  class="dol-feedback-error">
+        <p class="dol-feedback-message">
+          <strong>We've run into a problem</strong>
+        </p>
+      </div>
+      <p>{{applicationLoadError.message}}</p>
+    </div>
     <span ng-show="!organizations"> You do not have any employers associated with this account. Please click "Register a New Employer" to continue.</span>
+
     <div class="container dol-employees-data-container">
       <table id="EmployerTable" cclass="dol-datatable display responsive nowrap" cellspacing="0" width="100%" ng-show="organizations">
-         
+
       </table>
     </div>
     <button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button>
