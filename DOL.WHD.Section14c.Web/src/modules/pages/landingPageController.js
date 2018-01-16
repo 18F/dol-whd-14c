@@ -23,34 +23,23 @@ module.exports = function(ngModule) {
     $scope.onApplicationClick = function(index) {
       $scope.loadUserInfo(index);
       if($scope.organizations[index].applicationStatus.name === "New") {
-         stateService.saveNewApplication().then(
-          function() {
-            if (stateService.ein) {
-              autoSaveService.start();
-              $location.path('/section/assurances');
-            }
+         stateService.saveNewApplication().then(function() {
+            $scope.navToApplication();
           },
           function(error) {
             $scope.handleApplicationLoadError(error.data);
-          }
-        );
+          });
        }
        else if($scope.organizations[index].applicationStatus.name === "Submitted"){
         stateService.downloadApplicationPdf();
        }
        else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
-        stateService.loadSavedApplication().then(
-          function() {
-            // start auto-save
-            if (stateService.ein) {
-              autoSaveService.start();
-              $location.path('/section/assurances');
-            }
+        stateService.loadSavedApplication().then(function() {
+            $scope.navToApplication();
           },
           function(error) {
             $scope.handleApplicationLoadError(error.data);
-          }
-        );
+          });
       } else {
         $scope.handleError('Invalid Application State');
       }
@@ -58,6 +47,13 @@ module.exports = function(ngModule) {
 
     $scope.navToEmployerRegistration = function ()  {
       $location.path('/employerRegistration');
+    };
+
+    $scope.navToApplication = function () {
+      if (stateService.ein) {
+        autoSaveService.start();
+        $location.path('/section/assurances');
+      }
     };
 
     $scope.handleApplicationLoadError = function(message) {
