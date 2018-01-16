@@ -25,6 +25,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using DOL.WHD.Section14c.Domain.Models;
 using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -137,11 +138,15 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Unauthorized("Unauthorized");
             }
 
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
-            user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id).ApplicationStatusId = StatusIds.Submitted;
-            // Update Organization Status
-            await UserManager.UpdateAsync(user);
-
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);           
+            var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id);
+            if (org.ApplicationStatusId == StatusIds.InProgress)
+            {
+                // Update Organization Status
+                org.ApplicationStatusId = StatusIds.Submitted;
+                user.Organizations.Select(x => x.Employer).ToList();
+                await UserManager.UpdateAsync(user);
+            }
             await _applicationService.SubmitApplicationAsync(submission);
 
             // remove the associated application save
