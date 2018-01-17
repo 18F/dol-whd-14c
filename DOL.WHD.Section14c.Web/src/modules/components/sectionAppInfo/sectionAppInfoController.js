@@ -12,7 +12,10 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-    $scope.showAllHelp = false;
+    $scope.showAllHelp = {
+      status: false,
+      category:''
+    };
 
     if (!$scope.formData.establishmentTypeId) {
       $scope.formData.establishmentTypeId = [];
@@ -35,8 +38,9 @@ module.exports = function(ngModule) {
       }
     };
 
-    this.toggleAllHelpText = function() {
-      $scope.showAllHelp = !$scope.showAllHelp;
+    this.toggleAllHelpText = function(event) {
+      $scope.showAllHelp.status = !$scope.showAllHelp.status;
+      $scope.showAllHelp.category = event.srcElement.id;
     }
   });
 };

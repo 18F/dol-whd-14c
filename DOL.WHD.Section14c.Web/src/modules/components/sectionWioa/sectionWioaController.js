@@ -13,7 +13,10 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
-    $scope.showAllHelp = false;
+    $scope.showAllHelp = {
+      status: false,
+      category: ''
+    }
 
     // multiple choice responses
     let questionKeys = ['WIOAWorkerVerified'];
@@ -67,8 +70,9 @@ module.exports = function(ngModule) {
       $scope.formData.WIOA.WIOAWorkers.splice(index, 1);
     };
 
-    this.toggleAllHelpText = function() {
-      $scope.showAllHelp = !$scope.showAllHelp;
+    this.toggleAllHelpText = function(event) {
+      $scope.showAllHelp.status = !$scope.showAllHelp.status;
+      $scope.showAllHelp.category = event.srcElement.id;
     }
   });
 };
