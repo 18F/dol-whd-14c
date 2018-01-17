@@ -23,6 +23,7 @@ module.exports = function(ngModule) {
     $scope.onApplicationClick = function(index) {
       $scope.loadUserInfo(index);
       if($scope.organizations[index].applicationStatus.name === "New") {
+
          stateService.saveNewApplication().then(function() {
             $scope.navToApplication();
           },
@@ -31,9 +32,14 @@ module.exports = function(ngModule) {
           });
        }
        else if($scope.organizations[index].applicationStatus.name === "Submitted"){
-        stateService.downloadApplicationPdf();
+        stateService.downloadApplicationPdf().then(function() {
+          },
+          function(error) {
+            $scope.handleApplicationLoadError(error.data);
+          });
        }
        else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
+         console.log('here')
         stateService.loadSavedApplication().then(function() {
             $scope.navToApplication();
           },
@@ -41,7 +47,7 @@ module.exports = function(ngModule) {
             $scope.handleApplicationLoadError(error.data);
           });
       } else {
-        $scope.handleError('Invalid Application State');
+        $scope.handleApplicationLoadError('Invalid Application State');
       }
     };
 
@@ -58,7 +64,9 @@ module.exports = function(ngModule) {
 
     $scope.handleApplicationLoadError = function(message) {
       $scope.applicationLoadError.status = true;
-      $scope.applicationLoadError.message = message;
+      if(message) {
+        $scope.applicationLoadError.message = message;
+      }
     };
 
     $scope.loadUserInfo = function(index) {
