@@ -10,14 +10,10 @@
   </p>
 </div>
 <div ng-repeat="attachment in formData[modelPrefix][inputId]">
-  <div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
-      <p class="dol-feedback-message">
-        <strong>Uploading:</strong> {{attachment.attachmentName}}
-      </p>
-  </div>
 
 
-  <div ng-show="vm.upload.status == 'Success'" class="dol-uploaded-files">
+
+  <div class="dol-uploaded-files">
       <li>
         <strong>Uploaded:</strong>
         <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
@@ -42,15 +38,22 @@
           </div>
 
   </div>
-  <div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
-      <p class="dol-feedback-message">
-        <strong>{{vm.upload.message}}</strong> <span>{{attachment.attachmentName}} was not updated.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
-      </p>
-  </div>
 
-  <div ng-show="vm.upload.status == 'Server Error'" class="dol-feedback-error">
-      <p class="dol-feedback-message">
-        <strong>{{vm.upload.message}}</strong> <span>{{attachment.attachmentName}} was not updated.
-      </p>
-  </div>
+
+
+</div>
+<div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
+    <p class="dol-feedback-message">
+      <strong>Uploading:</strong> {{attachment.attachmentName}}
+    </p>
+</div>
+<div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>{{vm.upload.message}}</strong> <span>{{attachment.attachmentName}} was not updated.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
+    </p>
+</div>
+<div ng-show="vm.upload.status == 'Server Error'" class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>{{vm.upload.message}}</strong> <span>{{attachment.attachmentName}} was not updated.
+    </p>
 </div>
