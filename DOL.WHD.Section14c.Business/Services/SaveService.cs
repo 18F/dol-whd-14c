@@ -20,7 +20,7 @@ namespace DOL.WHD.Section14c.Business.Services
             return _repository.Get().SingleOrDefault(x => x.ApplicationId == applicationId);
         }
 
-        public void AddOrUpdate(string EIN, string applicationId, string employerId, string state)
+        public void AddOrUpdate(string id, string applicationId, string employerId, string state)
         {
             var applicationSave = new ApplicationSave();
 
@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Business.Services
             {
                 applicationSave.Employer_Id = employerId;
             }
-            applicationSave.Id = EIN;
+            applicationSave.Id = id;
             applicationSave.ApplicationId = applicationId;
             applicationSave.ApplicationState = state;
 

@@ -8,7 +8,7 @@ namespace DOL.WHD.Section14c.Business
     {
         ApplicationSave GetSave(string applicationId);
 
-        void AddOrUpdate(string EIN, string applicationId, string employerId, string state);
+        void AddOrUpdate(string id, string applicationId, string employerId, string state);
 
         void Remove(string applicationId);
     }
