@@ -26,8 +26,7 @@ module.exports = function(ngModule) {
 
          stateService.saveNewApplication().then(function() {
             $scope.navToApplication();
-          },
-          function(error) {
+          }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
        }
@@ -39,11 +38,9 @@ module.exports = function(ngModule) {
           });
        }
        else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
-         console.log('here')
         stateService.loadSavedApplication().then(function() {
             $scope.navToApplication();
-          },
-          function(error) {
+          }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
       } else {
