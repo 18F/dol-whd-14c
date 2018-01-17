@@ -17,7 +17,7 @@ module.exports = function(ngModule) {
 
     $scope.navToApplication = function() {
       $location.path('/section/assurances');
-      document.title = 'Assurances | DOL WHD Section 14(c)';
+      document.title = "Assurances | DOL WHD Section 14(c)";
     };
 
   });
