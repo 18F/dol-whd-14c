@@ -9,7 +9,7 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
-    var vm = this;
+
     $scope.showAllHelp = false
     $scope.stateService = stateService;
     $scope.registrationSuccess = false;
