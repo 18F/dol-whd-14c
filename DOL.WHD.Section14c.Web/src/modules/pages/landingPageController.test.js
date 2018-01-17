@@ -118,6 +118,8 @@ describe('landingPageController', function() {
         downloadApplicationPdf.promise
       );
 
+      spyOn(scope, 'initDatatable');
+
       userInfo = $q.defer();
       spyOn(mockApiService, 'userInfo').and.returnValue(
         userInfo.promise
@@ -193,6 +195,7 @@ describe('landingPageController', function() {
       userInfo.resolve({data:{organizations: scope.organizations}});
       scope.$apply();
       expect(scope.applicationList.length).toEqual(4);
+      expect(scope.initDatatable).toHaveBeenCalled();
     });
 
     it('user info reject does not import applications into list', function() {
