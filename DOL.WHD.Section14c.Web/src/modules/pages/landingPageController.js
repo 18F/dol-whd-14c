@@ -100,7 +100,7 @@ module.exports = function(ngModule) {
           $scope.applicationList.push(organization);
         });
         $scope.initDatatable();
-      })
+      });
     }
 
     $scope.initDatatable = function () {

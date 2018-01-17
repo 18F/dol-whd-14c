@@ -1,27 +1,40 @@
 describe('landingPageController', function() {
-  var scope, landingPageController, organizations, mockStateService, $q, location;
+  var scope, landingPageController, organizations, mockApiService, mockStateService, $q, location;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, stateService, _$q_, $location) {
+    inject(function($rootScope, $controller, apiService, stateService, _$q_, $location) {
       scope = $rootScope.$new();
       mockStateService = stateService;
+      mockApiService = apiService;
       $q = _$q_;
       location = $location
 
       landingPageController = function() {
         return $controller('landingPageController', {
           $scope: scope,
-          stateService: mockStateService
+          stateService: mockStateService,
+          apiService: mockApiService
         });
       };
+
       controller = landingPageController();
       scope.organizations = [
         {
           employer: {
-            id: '1234'
+            id: '1234',
+            legalName: 'Test Employer',
+            ein: '2',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
           },
+          createdAt:'',
+          lastModifiedAt:'',
           applicationStatus: {
             name: "New"
           },
@@ -30,8 +43,18 @@ describe('landingPageController', function() {
         },
         {
           employer: {
-            id: '12313'
+            id: '12313',
+            legalName: 'Test Employer',
+            ein: '2',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
           },
+          createdAt:'',
+          lastModifiedAt:'',
           applicationStatus: {
             name: "InProgress"
           },
@@ -40,8 +63,18 @@ describe('landingPageController', function() {
         },
         {
           employer: {
-            id: '1234'
+            id: '1234',
+            legalName: 'Test Employer',
+            ein: '2',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
           },
+          createdAt:'',
+          lastModifiedAt:'',
           applicationStatus: {
             name: "Submitted"
           },
@@ -50,8 +83,18 @@ describe('landingPageController', function() {
         },
         {
           employer: {
-            id: '3333'
+            id: '3333',
+            legalName: 'Test Employer',
+            ein: '2',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
           },
+          createdAt:'',
+          lastModifiedAt:'',
           applicationStatus: {
             name: "Invalid"
           },
@@ -74,65 +117,91 @@ describe('landingPageController', function() {
       spyOn(mockStateService, 'downloadApplicationPdf').and.returnValue(
         downloadApplicationPdf.promise
       );
+
+      userInfo = $q.defer();
+      spyOn(mockApiService, 'userInfo').and.returnValue(
+        userInfo.promise
+      );
     })
   );
 
-  it('invoke controller', function() {
-    expect(controller).toBeDefined();
-    expect(document.title).toBe('DOL WHD Section 14(c)');
-  });
+  describe('application navigation', function () {
+    it('invoke controller', function() {
+      expect(controller).toBeDefined();
+      expect(document.title).toBe('DOL WHD Section 14(c)');
+    });
 
-  it('invalid application status causes error', function() {
-    scope.onApplicationClick(3);
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(true);
-    expect(mockStateService.employerId).toEqual('3333');
-    expect(mockStateService.applicationId).toEqual('1231541515');
-    expect(mockStateService.ein).toEqual('12-123345');
-  });
+    it('invalid application status causes error', function() {
+      scope.onApplicationClick(3);
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(true);
+      expect(mockStateService.employerId).toEqual('3333');
+      expect(mockStateService.applicationId).toEqual('1231541515');
+      expect(mockStateService.ein).toEqual('12-123345');
+    });
 
-  it('saves new application with New status name', function() {
-    scope.onApplicationClick(0);
-    saveNewApplication.resolve();
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(false);
-  });
+    it('saves new application with New status name', function() {
+      scope.onApplicationClick(0);
+      saveNewApplication.resolve();
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(false);
+    });
 
-  it('saveNewApplication reject causes error', function() {
-    scope.onApplicationClick(0);
-    saveNewApplication.reject({data: 'error'});
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(true);
-    expect(scope.applicationLoadError.message).toBe('error');
-  });
+    it('saveNewApplication reject causes error', function() {
+      scope.onApplicationClick(0);
+      saveNewApplication.reject({data: 'error'});
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(true);
+      expect(scope.applicationLoadError.message).toBe('error');
+    });
 
-  it('loads new application with InProgress status name', function() {
-    scope.onApplicationClick(1);
-    loadSavedApplication.resolve();
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(false);
-  });
+    it('loads new application with InProgress status name', function() {
+      scope.onApplicationClick(1);
+      loadSavedApplication.resolve();
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(false);
+    });
 
-  it('loadSavedApplication reject causes error', function() {
-    scope.onApplicationClick(1);
-    loadSavedApplication.reject({data: 'error'});
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(true);
-    expect(scope.applicationLoadError.message).toBe('error');  
-  });
+    it('loadSavedApplication reject causes error', function() {
+      scope.onApplicationClick(1);
+      loadSavedApplication.reject({data: 'error'});
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(true);
+      expect(scope.applicationLoadError.message).toBe('error');
+    });
 
-  it('loads new application with Submitted status name', function() {
-    scope.onApplicationClick(2);
-    downloadApplicationPdf.resolve();
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(false);
-  });
+    it('loads new application with Submitted status name', function() {
+      scope.onApplicationClick(2);
+      downloadApplicationPdf.resolve();
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(false);
+    });
 
-  it('downloadApplicationPdf reject causes error', function() {
-    scope.onApplicationClick(2);
-    downloadApplicationPdf.reject({data: 'error'});
-    scope.$apply();
-    expect(scope.applicationLoadError.status).toBe(true);
-  });
+    it('downloadApplicationPdf reject causes error', function() {
+      scope.onApplicationClick(2);
+      downloadApplicationPdf.reject({data: 'error'});
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(true);
+    });
+  })
+
+  describe('controller initialization', function(){
+
+    it('loads user info', function() {
+      scope.init();
+
+      userInfo.resolve({data:{organizations: scope.organizations}});
+      scope.$apply();
+      expect(scope.applicationList.length).toEqual(4);
+    });
+
+    it('user info reject does not import applications into list', function() {
+      scope.$digest();
+      scope.init();
+      userInfo.reject({data:{organizations:scope.organizations}});
+      scope.$apply();
+      expect(scope.applicationList).toBe(undefined);
+    });
+  })
 
 });
