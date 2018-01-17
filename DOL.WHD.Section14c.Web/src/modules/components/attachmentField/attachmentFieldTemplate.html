@@ -1,7 +1,7 @@
 <div ng-show="!restrictUpload">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
-    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
+    <input class="dol-file-upload-input" id="{{inputId}}" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
     <div class="dol-file-upload-focus"></div>
   </div>
   <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: .pdf, .jpg, .jpeg, .png, .csv</p>
@@ -23,21 +23,24 @@
         <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
           <span>{{attachmentName}}</span>
         </a>
-        <button class="red-button " ng-click="vm.showModal()">Delete<span class="hide"> {{attachmentName}}</span></button>
+        <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal()">Delete<span class="hide"> {{attachmentName}}</span></button>
       </li>
-      <div class="modal">
-        <input id="modal" type="checkbox" name="modal" tabindex="1">
 
-        <div class="modal__overlay">
-          <div class="modal__box">
-            <a href="#0" ng-click="vm.hideModal()" class="cd-panel-close dol-close-button dol-first-focus">Close<span class="hide"></span> the Add Employee Panel</span></a>
-            <h2>Are  you Sure You want to delete this file?</h2>
-            <p>{{attachmentName}}</p>
-            <button>No, Keep File</button><button class="red-button">Yes, Delete File</button>
+
+          <div class="modal">
+            <header class="cd-panel-header">
+              <a ng-click="vm.hideModal()" class="modal-close dol-close-button"></a>
+            </header>
+            <p>
+              <h4>Are you sure you want to delete this file?</h4>
+            </p>
+            <p>
+              {{attachmentName}}
+            </p>
+            <button ng-click="vm.hideModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete Files</button>
+
           </div>
-        </div>
-      </div>
-  </div>
+
 </div>
 <div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
     <p class="dol-feedback-message">

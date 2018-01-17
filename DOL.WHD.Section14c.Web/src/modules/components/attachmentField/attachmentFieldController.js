@@ -72,8 +72,7 @@ module.exports = function(ngModule) {
       }
     }
 
-    this.showModal = function (attachmentId) {
-      console.log('here')
+    this.showModal = function () {
       $('.modal').addClass('is-visible');
     };
 
@@ -95,5 +94,16 @@ module.exports = function(ngModule) {
         $scope.attachmentName = undefined;
       });
     };
+
+    // $('.modal-trigger').on('click', function(event){
+    //   panelTrigger = $(this);
+    //   var target = $(this).attr('aria-controls');
+    //   $(`#${target}`).addClass('is-visible');
+    //   $(`#${target} .modal-header h3`).focus();
+    //   vm.clearActiveWorker();
+    //   $('body').addClass('modal-open');
+    //   event.preventDefault();
+    // });
+
   });
 };
