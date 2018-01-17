@@ -19,6 +19,7 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
 using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
+using System.Text;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
