@@ -72,6 +72,16 @@ module.exports = function(ngModule) {
       }
     }
 
+    this.showModal = function (attachmentId) {
+      console.log('here')
+      $('.modal').addClass('is-visible');
+    };
+
+    this.hideModal = function() {
+      $('.modal').removeClass('is-visible');
+
+    }
+
     this.deleteAttachment = function(id) {
       apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function() {
         $scope.restrictUpload = false;

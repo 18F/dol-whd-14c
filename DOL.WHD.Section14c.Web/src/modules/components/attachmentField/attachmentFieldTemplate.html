@@ -23,8 +23,20 @@
         <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
           <span>{{attachmentName}}</span>
         </a>
-        <button class="red-button" ng-click="vm.deleteAttachment(attachmentId)">Delete<span class="hide"> {{attachmentName}}</span></button>
+        <button class="red-button " ng-click="vm.showModal()">Delete<span class="hide"> {{attachmentName}}</span></button>
       </li>
+      <div class="modal">
+        <input id="modal" type="checkbox" name="modal" tabindex="1">
+
+        <div class="modal__overlay">
+          <div class="modal__box">
+            <a href="#0" ng-click="vm.hideModal()" class="cd-panel-close dol-close-button dol-first-focus">Close<span class="hide"></span> the Add Employee Panel</span></a>
+            <h2>Are  you Sure You want to delete this file?</h2>
+            <p>{{attachmentName}}</p>
+            <button>No, Keep File</button><button class="red-button">Yes, Delete File</button>
+          </div>
+        </div>
+      </div>
   </div>
 </div>
 <div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
