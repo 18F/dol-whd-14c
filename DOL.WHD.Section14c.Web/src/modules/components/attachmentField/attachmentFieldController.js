@@ -18,23 +18,16 @@ module.exports = function(ngModule) {
       stateService.formData[$scope.modelPrefix][$scope.inputId] = [];
     }
     $scope.restrictUpload = false;
-    if(!$scope.attachmentId) {
-       vm.upload = {
-        status: "NoFile",
-        message: 'No file is selected.'
-      }
-    } else {
-      vm.upload = {
-        status: "Success",
-        message: 'File was uploaded successfully.'
-      }
+    $scope.upload = {
+      status: "NoFile",
+      message: 'No file is selected.'
     }
 
     $scope.allowedFileTypes = _env.allowedFileTypes;
 
     this.onAttachmentSelected = function(fileinput) {
-      vm.upload.status = "Uploading";
-      vm.upload.message = 'File is uploading.'
+      $scope.upload.status = "Uploading";
+      $scope.upload.message = 'File is uploading.'
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
       }
@@ -43,14 +36,14 @@ module.exports = function(ngModule) {
     this.validateAttachment = function (fileinput, allowedFileTypes) {
       var ext = fileinput.name.split(".").pop();
       if(allowedFileTypes.indexOf(ext) < 0) {
-        vm.upload.status = 'Invalid';
-        vm.upload.message = 'Invalid File Type.';
+        $scope.upload.status = 'Invalid';
+        $scope.upload.message = 'Invalid File Type.';
         fileinput.value = '';
         return false;
       }
       if (fileinput.size / 1024000 > 5) {
-        vm.upload.status = 'Invalid';
-        vm.upload.message = 'File Size too large.';
+        $scope.upload.status = 'Invalid';
+        $scope.upload.message = 'File Size too large.';
         fileinput.value = '';
         return false;
       }
@@ -58,29 +51,32 @@ module.exports = function(ngModule) {
     };
 
     this.uploadAttachment = function (fileinput) {
-      if(vm.upload.status != 'Invalid') {
+      if($scope.upload.status != 'Invalid') {
         apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function(result) {
-          $scope.restrictUpload = true;
-          vm.upload.status = 'Success';
-          vm.upload.message = 'File was uploaded successfully.'
+          $scope.upload.status = 'Success';
+          $scope.upload.message = 'File was uploaded successfully.'
           $scope.attachmentId = result.data[0].id;
           $scope.attachmentName = result.data[0].originalFileName;
           var attachment = {};
           attachment.attachmentId = result.data[0].id;
           attachment.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
-          if($scope.inputId === "prScaWageDeterminationAttachments" || $scope.inputId === "hScaWageDeterminationAttachments") {
+          if($scope.allowMultiUpload) {
             $scope.formData[$scope.modelPrefix][$scope.inputId].push(attachment);
           } else {
-            if($scope.formData[$scope.modelPrefix][$scope.inputId][0]) {
-              vm.deleteAttachment($scope.formData[$scope.modelPrefix][$scope.inputId][0].attachmentId);
-            }
-            $scope.formData[$scope.modelPrefix][$scope.inputId][0] = attachment;
+              if($scope.formData[$scope.modelPrefix][$scope.inputId][0]) {
+                vm.deleteAttachment($scope.formData[$scope.modelPrefix][$scope.inputId][0].attachmentId);
+              }
+              $scope.formData[$scope.modelPrefix][$scope.inputId][0] = attachment;
+          }
+
+          if(!$scope.allowMultiUpload) {
+            $scope.restrictUpload = true;
           }
         }).catch(function(error) {
           fileinput.value = '';
-          vm.upload.status = 'Server Error';
-          vm.upload.message = error.statusMessage;
+          $scope.upload.status = 'Server Error';
+          $scope.upload.message = error.statusMessage;
           $scope.attachmentId = undefined;
           $scope.attachmentName = undefined;
         });
@@ -99,12 +95,19 @@ module.exports = function(ngModule) {
     this.deleteAttachment = function(id) {
       apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function() {
         $scope.restrictUpload = false;
-        vm.upload.status = 'NoFile';
+        $scope.upload.status = 'NoFile';
         $scope.attachmentId = undefined;
         $scope.attachmentName = undefined;
-      }).catch(function() {
+        $scope.formData[$scope.modelPrefix][$scope.inputId].forEach(function(element, index) {
+          if (element.attachmentId === id) {
+            $scope.formData[$scope.modelPrefix][$scope.inputId].splice(index, 1);
+          }
+        });
+        vm.hideModal();
+      }).catch(function(error) {
         //TODO: Display error
-        vm.upload.status = 'Failure'
+        console.log(error)
+        $scope.upload.status = 'Failure'
         $scope.attachmentId = undefined;
         $scope.attachmentName = undefined;
       });
