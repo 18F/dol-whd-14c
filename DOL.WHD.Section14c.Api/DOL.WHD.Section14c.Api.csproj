@@ -281,6 +281,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\AccountLockedOutEmailTemplate.txt" />
     <Content Include="App_Data\CertificationTeamEmailTemplate.txt" />
     <Content Include="App_Data\EmployerEmailTemplate.txt" />
     <Content Include="App_Data\HtmlTemplates\0-ApplicationCoverPage.html" />

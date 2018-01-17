@@ -3,11 +3,13 @@
 
   <div class="dol-form-section-help">
     <ul>
-      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a role="button" id="employerShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
     </ul>
   </div>
 </div>
-
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
+</div>
 <div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__employer')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
@@ -23,7 +25,7 @@
         <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Legal Name of Employer</label>
         <helplink aria-controls="legalNameHelp" aria-describedby="legalNameLabel"></helplink>
       </div>
-      <helptext id="legalNameHelp">Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
+      <helptext category="employerShowAllHelp" id="legalNameHelp">Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
       <input id="legalName" name="legalName" aria-describedby="legalNameHelp" type="text" ng-model="formData.employer.legalName">
     </div>
@@ -34,7 +36,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Does the Employer have a Trade Name?</span>
           <helplink aria-controls="hasTradeNameHelp" aria-describedby="hasTradeNameLabel"></helplink>
         </div>
-        <helptext id="hasTradeNameHelp">Provide the trade name of the employer, if applicable.</helptext>
+        <helptext category="employerShowAllHelp" id="hasTradeNameHelp">Provide the trade name of the employer, if applicable.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -60,7 +62,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Has the Employer’s name(s) changed since its last application?</span>
           <helplink aria-controls="legalNameHasChangedHelp" aria-describedby="legalNameHasChangedLabel"></helplink>
         </div>
-        <helptext id="legalNameHasChangedHelp">Provide the previous name(s) of the employer, if applicable.</helptext>
+        <helptext category="employerShowAllHelp"  id="legalNameHasChangedHelp">Provide the previous name(s) of the employer, if applicable.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -75,7 +77,7 @@
       </fieldset>
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
-      <label for="priorLegalName" class="dol-form-question-text">Prior Legal Name(s) of Employer</label>
+      <label for="priorLegalName" class="dol-form-question-text">Prior Name(s) of Employer</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
@@ -108,7 +110,7 @@
           <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
-        <div ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+        <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
           <label for="county">County</label>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
           <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
@@ -116,7 +118,7 @@
 
         <div class="usa-input-grid usa-input-grid-large">
           <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
-          <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
+          <label for="hasMailingAddress">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
       </fieldset>
     </div>
@@ -150,7 +152,7 @@
             <input class="usa-input-medium" id="mailingAddressZipCode" name="mailingAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.mailingAddress.zipCode">
           </div>
 
-          <div ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
+          <div ng-hide="formData.employer.mailingAddress.state === 'DC' || formData.employer.mailingAddress.state === 'AS' || formData.employer.mailingAddress.state === 'GU' || formData.employer.mailingAddress.state === 'MP' || formData.employer.mailingAddress.state === 'PR' || formData.employer.mailingAddress.state === 'UM' || formData.employer.mailingAddress.state === 'VI'" ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
             <label for="mailingAddressCounty">County</label>
             <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
             <input id="mailingAddressCounty" name="mailingAddressCounty" type="text" ng-model="formData.employer.mailingAddress.county">
@@ -165,7 +167,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Does the Employer have a Parent Organization?</span>
           <helplink aria-controls="hasParentOrgHelp" aria-describedby="hasParentOrgLabel"></helplink>
         </div>
-        <helptext id="hasParentOrgHelp">If applying as a SWEP, select “Yes” and enter the school district’s information.</helptext>
+        <helptext category="employerShowAllHelp" id="hasParentOrgHelp">If applying as a SWEP, select “Yes” and enter the school district’s information.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -237,7 +239,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Employer Status</span>
           <helplink aria-controls="employerStatusHelp" aria-describedby="employerStatusLabel"></helplink>
         </div>
-        <helptext id="employerStatusHelp">Select the option that describes the employer’s status. For example, a SWEP operated by a public school system should select “Public.”</helptext>
+        <helptext category="employerShowAllHelp" id="employerStatusHelp">Select the option that describes the employer’s status. For example, a SWEP operated by a public school system should select “Public.”</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.EmployerStatus">
@@ -257,7 +259,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Is this employer a local or State educational agency?</span>
           <helplink aria-controls="isEducationalAgencyHelp" aria-describedby="isEducationalAgencyLabel"></helplink>
         </div>
-        <helptext id="isEducationalAgencyHelp">The term “local educational agency” means a public board of education or other public authority legally constituted within a State for either administrative control or direction of, or to perform a service function for, public elementary schools or secondary schools in a city, county, township, school district, or other political subdivision of a State, or of or for a combination of school districts or counties that is recognized in a State as an administrative agency for its public elementary schools or secondary schools. The term “State educational agency” means the agency primarily responsible for the State supervision of public elementary schools and secondary schools. See <a target="_blank" href="https://www.gpo.gov/fdsys/pkg/USCODE-2011-title20/html/USCODE-2011-title20-chap70-subchapIX-partA-sec7801.htm">20 U.S.C. 7801</a>, the Elementary and Secondary Education Act of 1965.</helptext>
+        <helptext category="employerShowAllHelp" id="isEducationalAgencyHelp">The term “local educational agency” means a public board of education or other public authority legally constituted within a State for either administrative control or direction of, or to perform a service function for, public elementary schools or secondary schools in a city, county, township, school district, or other political subdivision of a State, or of or for a combination of school districts or counties that is recognized in a State as an administrative agency for its public elementary schools or secondary schools. The term “State educational agency” means the agency primarily responsible for the State supervision of public elementary schools and secondary schools. See <a target="_blank" href="https://www.gpo.gov/fdsys/pkg/USCODE-2011-title20/html/USCODE-2011-title20-chap70-subchapIX-partA-sec7801.htm">20 U.S.C. 7801</a>, the Elementary and Secondary Education Act of 1965.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -282,7 +284,7 @@
           <span class="dol-form-question-text" aria-hidden="true">When did the Employer’s most recently completed fiscal quarter end?</span>
           <helplink aria-controls="fiscalQuarterEndDateHelp" aria-describedby="fiscalQuarterEndDateLabel"></helplink>
         </div>
-        <helptext id="fiscalQuarterEndDateHelp">Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
+        <helptext category="employerShowAllHelp" id="fiscalQuarterEndDateHelp">Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
         <date-field date-val="formData.employer.fiscalQuarterEndDate"></date-field>
       </fieldset>
@@ -292,7 +294,7 @@
         <label for="numSubminimalWageWorkersTotal" class="dol-form-question-text" id="numSubminimalWageWorkersTotalLabel">What is the total number of workers with disabilities employed at subminimum wages during the most recently completed fiscal quarter at all establishments and work sites?</label>
         <helplink aria-controls="numSubminimalWageWorkersTotalHelp" aria-describedby="numSubminimalWageWorkersTotalLabel"></helplink>
       </div>
-      <helptext id="numSubminimalWageWorkersTotalHelp">Include workers who were employed for less than the full fiscal quarter, <i>i.e.</i> three-month period.</helptext>
+      <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersTotalHelp">Include workers who were employed for less than the full fiscal quarter, <i>i.e.</i> three-month period.</helptext>
       <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
       <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" aria-describedby="numSubminimalWageWorkersTotalHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
     </div>
@@ -304,7 +306,7 @@
             <label for="numSubminimalWageWorkersWorkCenter" id="numSubminimalWageWorkersWorkCenterLabel">Community Rehabilitation Program (Work Center)</label>
             <helplink aria-controls="numSubminimalWageWorkersWorkCenterHelp" aria-describedby="numSubminimalWageWorkersWorkCenterLabel"></helplink>
           </div>
-          <helptext id="numSubminimalWageWorkersWorkCenterHelp">A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</helptext>
+          <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersWorkCenterHelp">A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
           <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter"><span>If no workers, enter "0"</span>
 
@@ -314,7 +316,7 @@
             <label for="numSubminimalWageWorkersPatientWorkers" id="numSubminimalWageWorkersPatientWorkersLabel">Hospital/Residential Care Facility (Patient Workers)</label>
             <helplink aria-controls="numSubminimalWageWorkersPatientWorkersHelp" aria-describedby="numSubminimalWageWorkersPatientWorkersLabel"></helplink>
           </div>
-          <helptext id="numSubminimalWageWorkersPatientWorkersHelp">A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.</helptext>
+          <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersPatientWorkersHelp">A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
           <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers"><span>If no workers, enter "0"</span>
         </div>
@@ -323,7 +325,7 @@
             <label for="numSubminimalWageWorkersSWEP" id="numSubminimalWageWorkersSWEPLabel">School Work Experience Program (SWEP)</label>
             <helplink aria-controls="numSubminimalWageWorkersSWEPHelp" aria-describedby="numSubminimalWageWorkersSWEPLabel"></helplink>
           </div>
-          <helptext id="numSubminimalWageWorkersSWEPHelp">A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</helptext>
+          <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersSWEPHelp">A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
           <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep"><span>If no workers, enter "0"</span>
         </div>
@@ -332,7 +334,7 @@
             <label for="numSubminimalWageWorkersBusinessEstablishment" id="numSubminimalWageWorkersBusinessLabel">Business Establishment</label>
             <helplink aria-controls="numSubminimalWageWorkersBusinessHelp" aria-describedby="numSubminimalWageWorkersBusinessLabel"></helplink>
           </div>
-          <helptext id="numSubminimalWageWorkersBusinessHelp">Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</helptext>
+          <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersBusinessHelp">Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</helptext>
           <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
           <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment"><span>If no workers, enter "0"</span>
         </div>
@@ -349,7 +351,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Does this employer manufacture items for the Federal Government under the Walsh-Healey Public Contracts Act (PCA)?</span>
           <helplink aria-controls="PCAHelp" aria-describedby="PCALabel"></helplink>
         </div>
-        <helptext id="PCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Walsh-Healey Public Contracts Act (PCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        <helptext category="employerShowAllHelp" id="PCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Walsh-Healey Public Contracts Act (PCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -370,7 +372,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</span>
           <helplink aria-controls="SCAHelp" aria-describedby="SCALabel"></helplink>
         </div>
-        <helptext id="SCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the McNamara-O’Hara Service Contract Act (SCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        <helptext category="employerShowAllHelp" id="SCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the McNamara-O’Hara Service Contract Act (SCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.SCA">
@@ -401,7 +403,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Since January 1, 2015, has this employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
           <helplink aria-controls="EO13658Help" aria-describedby="EO13658Label"></helplink>
         </div>
-        <helptext id="EO13658Help">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Executive Order 13658, Establishing a Minimum Wage for Contractors.  Section 14(c) workers performing on or in connection with a contract covered by Executive Order 13658 are generally entitled to be paid at least the Executive Order minimum wage. Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
+        <helptext category="employerShowAllHelp" id="EO13658Help">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Executive Order 13658, Establishing a Minimum Wage for Contractors.  Section 14(c) workers performing on or in connection with a contract covered by Executive Order 13658 are generally entitled to be paid at least the Executive Order minimum wage. Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.EO13658">
@@ -422,7 +424,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span>
           <helplink aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
         </div>
-        <helptext id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
+        <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -448,7 +450,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Did the employer take credit for the cost of providing facilities, such as board, lodging, and transportation, toward meeting the minimum wage or subminimum wage obligations during the most recently completed fiscal quarter?</span>
           <helplink aria-controls="takeCreditForCostsHelp" aria-describedby="takeCreditForCostsLabel"></helplink>
         </div>
-        <helptext id="takeCreditForCostsHelp">Indicate if the employer provided facilities such as lodging, board, and transportation to any employee, and took credit for those costs toward meeting the minimum wage or subminimum wage obligations to employees with disabilities during the most recently completed fiscal quarter. See <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.21&amp;idno=29">29 C.F.R. § 531</a> and <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.13&amp;idno=29">29 C.F.R. § 516</a>.</helptext>
+        <helptext category="employerShowAllHelp" id="takeCreditForCostsHelp">Indicate if the employer provided facilities such as lodging, board, and transportation to any employee, and took credit for those costs toward meeting the minimum wage or subminimum wage obligations to employees with disabilities during the most recently completed fiscal quarter. See <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.21&amp;idno=29">29 C.F.R. § 531</a> and <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.13&amp;idno=29">29 C.F.R. § 516</a>.</helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -481,7 +483,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Is this a request for Temporary Authority by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration?</span>
           <helplink aria-controls="temporaryAuthorityHelp" aria-describedby="temporaryAuthorityLabel"></helplink>
         </div>
-        <helptext id="temporaryAuthorityHelp">Select “Yes” only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. <a target="_blank" href="https://www.ecfr.gov/cgi-bin/retrieveECFR?gp=&SID=2c2c1e5e4f61356b4516a55834d00bfd&r=PART&n=29y3.1.1.1.17#se29.3.525_18">See 29 C.F.R. § 525.8.</a></helptext>
+        <helptext category="employerShowAllHelp" id="temporaryAuthorityHelp">Select “Yes” only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. <a target="_blank" href="https://www.ecfr.gov/cgi-bin/retrieveECFR?gp=&SID=2c2c1e5e4f61356b4516a55834d00bfd&r=PART&n=29y3.1.1.1.17#se29.3.525_18">See 29 C.F.R. § 525.8.</a></helptext>
         <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <ul class="usa-unstyled-list">
           <li>
