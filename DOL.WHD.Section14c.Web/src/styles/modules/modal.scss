@@ -27,16 +27,16 @@ Primary style
   -webkit-transition: visibility 0s 0.2s;
   -moz-transition: visibility 0s 0.2s;
   transition: visibility 0s 0.2s;
-  position: absolute;
+  position: fixed;
   margin: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  width: 500px;
-  height: 400px;
-  background-color: #ccc;
+  width: 400px;
+  height: 200px;
   border-radius: 3px;
+  background-color: white;
 }
 
 .modal.is-visible {
@@ -45,14 +45,22 @@ Primary style
   -moz-transition: visibility 0s 0s;
   transition: visibility 0s 0s;
   z-index:1000;
+  color: black;
+  text-align: center;
 
 }
-.modal.is-visible::after {
+
+.modal-backdrop {
   background: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   -webkit-transition: background 0.3s 0s;
   -moz-transition: background 0.3s 0s;
   transition: background 0.3s 0s;
-  z-index:1000;
+  z-index: 999;
 }
 
 @-webkit-keyframes cd-close-1 {

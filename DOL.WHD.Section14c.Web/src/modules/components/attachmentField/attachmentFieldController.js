@@ -72,13 +72,16 @@ module.exports = function(ngModule) {
       }
     }
 
+    $scope.modalIsVisible = false;
+
     this.showModal = function () {
-      $('.modal').addClass('is-visible');
+      //$('.modal').addClass('is-visible');
+      $scope.modalIsVisible = true;
     };
 
     this.hideModal = function() {
-      $('.modal').removeClass('is-visible');
-
+     // $('.modal').removeClass('is-visible');
+      $scope.modalIsVisible = false;
     }
 
     this.deleteAttachment = function(id) {

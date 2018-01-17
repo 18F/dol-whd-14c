@@ -27,7 +27,7 @@
       </li>
 
 
-          <div class="modal">
+          <div ng-class="{'is-visible': modalIsVisible}" class="modal">
             <header class="cd-panel-header">
               <a ng-click="vm.hideModal()" class="modal-close dol-close-button"></a>
             </header>
@@ -38,8 +38,8 @@
               {{attachmentName}}
             </p>
             <button ng-click="vm.hideModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete Files</button>
-
           </div>
+          <div ng-if="modalIsVisible" class="modal-backdrop"></div>
 
 </div>
 <div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
