@@ -163,3 +163,25 @@ meter[value='4']::-moz-meter-bar {
     vertical-align: middle;
   }
 }
+
+.system-use {
+  background-color: $color-gray-light;
+  margin: 0 auto;
+  width: 413px;
+  margin-bottom: 290px;
+  margin-top: 69px;
+  padding: 45px;
+
+  h2 {
+    color: $color-secondary;
+    font-family: Arial;
+    font-size: 28px;
+    color: #990000;
+    font-weight: 700;
+    text-decoration: none solid rgb(153, 0, 0);
+  }
+
+  p {
+    margin: auto;
+  }
+}

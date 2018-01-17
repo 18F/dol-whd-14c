@@ -5,8 +5,10 @@ describe('apiService', function() {
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($injector, _$httpBackend_, apiService, _env) {
+    inject(function($injector, _$httpBackend_, apiService, moment, submissionService, _env) {
       api = apiService;
+      submissionService = submissionService;
+      moment = moment;
       $httpBackend = _$httpBackend_;
       env = _env;
     })
@@ -249,16 +251,18 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
+    var employerId = '1231415';
+    var applicationId = '1293138132931-13';
     var applicationData = {};
     api
-      .saveApplication('access_token', ein, applicationData)
+      .saveApplication('access_token', ein, employerId, applicationId, applicationData)
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
       });
 
     $httpBackend
-      .expectPOST(env.api_url + '/api/save/' + ein)
+      .expectPOST(env.api_url + '/api/save/' + employerId + "/" + applicationId)
       .respond(400, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(false);
@@ -270,16 +274,18 @@ describe('apiService', function() {
     var isResolved;
     var result;
     var ein = '12-1234567';
+    var employerId = '1231415';
+    var applicationId = '1293138132931-13'
     var applicationData = {};
     api
-      .saveApplication('access_token', ein, applicationData)
+      .saveApplication('access_token', ein, employerId, applicationId, applicationData)
       .then(function(data) {
         result = data.data;
         isResolved = true;
       });
 
     $httpBackend
-      .expectPOST(env.api_url + '/api/save/' + ein)
+      .expectPOST(env.api_url + '/api/save/' + employerId + "/" + applicationId)
       .respond(200, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(true);
@@ -573,9 +579,10 @@ describe('apiService', function() {
   it('submitApplication error should reject deferred', function() {
     var isResolved;
     var result;
+    var applicationId = '1212313131-12';
     var ein = '30-1234567';
     api
-      .submitApplication('access_token', ein, {})
+      .submitApplication('access_token', ein, applicationId, {})
       .then(undefined, function(error) {
         result = error.data;
         isResolved = false;
@@ -592,8 +599,9 @@ describe('apiService', function() {
   it('submitApplication success should resolve deferred', function() {
     var isResolved;
     var result;
+    var applicationId = '1212313131-12';
     var ein = '30-1234567';
-    api.submitApplication('access_token', ein, {}).then(function(data) {
+    api.submitApplication('access_token', ein, applicationId, {}).then(function(data) {
       result = data.data;
       isResolved = true;
     });

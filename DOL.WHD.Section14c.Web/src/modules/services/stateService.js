@@ -43,6 +43,24 @@ module.exports = function(ngModule) {
       }
     });
 
+    Object.defineProperty(this, 'employerId', {
+      get: function() {
+        return state.activeEmployerId;
+      },
+      set: function(value) {
+        state.activeEmployerId = value;
+      }
+    });
+
+    Object.defineProperty(this, 'applicationId', {
+      get: function() {
+        return state.activeApplicationId;
+      },
+      set: function(value) {
+        state.activeApplicationId = value;
+      }
+    });
+
     Object.defineProperty(this, 'loggedIn', {
       get: function() {
         return state.loggedIn;
@@ -52,7 +70,7 @@ module.exports = function(ngModule) {
       }
     });
 
-    Object.defineProperty(this, 'isAdmin', {
+    Object.defineProperty(this, 'IsPointOfContact', {
       get: function() {
         return this.hasClaim(_constants.applicationClaimTypes.viewAdminUI);
       }
@@ -131,11 +149,30 @@ module.exports = function(ngModule) {
       const d = $q.defer();
 
       // Get Application State for Organization
-      apiService.getApplication(self.access_token, self.ein).then(
+      apiService.getApplication(self.access_token, self.applicationId).then(
         function(result) {
           const data = result.data;
           self.setFormData(JSON.parse(data));
           d.resolve(data);
+        },
+        function(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
+    this.saveNewApplication = function() {
+      const self = this;
+      const d = $q.defer();
+
+      // Get Application State for Organization
+      apiService.saveApplication(self.access_token, self.ein, self.employerId, self.applicationId, self.formData).then(
+        function() {
+          // const data = result.data;
+          // self.setFormData(JSON.parse(data));
+          d.resolve();
         },
         function(error) {
           d.reject(error);
@@ -151,6 +188,8 @@ module.exports = function(ngModule) {
         app_data: {},
         app_list: [],
         activeEIN: undefined,
+        activeEmployerId: undefined,
+        activeApplicationId: undefined,
         user: {
           email: '',
           claims: []
@@ -175,6 +214,23 @@ module.exports = function(ngModule) {
         function(result) {
           const data = result.data;
           self.setAppData(data);
+          d.resolve(data);
+        },
+        function(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
+    this.downloadApplicationPdf = function() {
+      const self = this;
+      const d = $q.defer();
+
+      apiService.downloadApplicationPdf(self.access_token, self.applicationId).then(
+        function(result) {
+          const data = result.data;
           d.resolve(data);
         },
         function(error) {

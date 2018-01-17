@@ -108,7 +108,8 @@ module.exports = function(ngModule) {
     };
 
     this.userRegister = function(
-      ein,
+      firstName,
+      lastName,
       email,
       password,
       confirmPassword,
@@ -122,7 +123,8 @@ module.exports = function(ngModule) {
         url: url,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: $.param({
-          EIN: ein,
+          FirstName: firstName,
+          LastName: lastName,
           Email: email,
           Password: password,
           ConfirmPassword: confirmPassword,
@@ -207,8 +209,9 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.saveApplication = function(access_token, ein, applicationData) {
-      let url = _env.api_url + '/api/save/' + ein;
+
+    this.saveApplication = function(access_token, ein, employerId, applicationId, applicationData) {
+      let url = _env.api_url + '/api/save/' + employerId + '/' + applicationId;
       let d = $q.defer();
 
       applicationData.saved = moment.utc();
@@ -235,8 +238,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.getApplication = function(access_token, ein) {
-      let url = _env.api_url + '/api/save/' + ein;
+    this.getApplication = function(access_token, applicationId) {
+      let url = _env.api_url + '/api/save/' + applicationId;
       let d = $q.defer();
 
       $http({
@@ -302,8 +305,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.uploadAttachment = function(access_token, ein, file) {
-      let url = _env.api_url + '/api/attachment/' + ein;
+    this.uploadAttachment = function(access_token, applicationId, file) {
+      let url = _env.api_url + '/api/attachment/' + applicationId;
       let d = $q.defer();
 
       let fd = new FormData();
@@ -329,8 +332,8 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.deleteAttachment = function(access_token, ein, id) {
-      let url = _env.api_url + '/api/attachment/' + ein + '/' + id;
+    this.deleteAttachment = function(access_token, applicationId, id) {
+      let url = _env.api_url + '/api/attachment/' + applicationId + '/' + id;
       let d = $q.defer();
 
       $http({
@@ -350,6 +353,30 @@ module.exports = function(ngModule) {
 
       return d.promise;
     };
+
+    this.downloadApplicationPdf = function(access_token, applicationId) {
+      let url =  _env.api_url + 'api/application/download?applicationId=' + applicationId;
+      let d = $q.defer();
+
+      $http({
+        method: 'GET',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
 
     this.getAccounts = function(access_token) {
       let url = _env.api_url + '/api/account';
@@ -408,6 +435,30 @@ module.exports = function(ngModule) {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
         }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
+    this.setEmployer = function (access_token, data) {
+      let url = _env.api_url + '/api/Account/User/setEmployer'
+      let d = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: $.param(data)
       }).then(
         function successCallback(data) {
           d.resolve(data);
@@ -482,7 +533,8 @@ module.exports = function(ngModule) {
       return errors;
     };
 
-    this.submitApplication = function(access_token, ein, vm) {
+    this.submitApplication = function(access_token, ein, applicationId, vm) {
+      vm.id = applicationId;
       const url = _env.api_url + '/api/application/submit';
       const d = $q.defer();
       const submissionVm = submissionService.getSubmissionVM(ein, vm);

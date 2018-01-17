@@ -160,6 +160,7 @@
     <Compile Include="Business\ResponseServiceTests.cs" />
     <Compile Include="Business\ActivityLogsControllerTest.cs" />
     <Compile Include="Business\ErrorLogsControllerTest.cs" />
+    <Compile Include="Business\OrganizationServiceTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorNoCountyTests.cs" />
     <Compile Include="Business\Validators\AddressValidatorTests.cs" />
     <Compile Include="Business\Validators\AlternateWageDataValidatorTests.cs" />
@@ -185,6 +186,9 @@
     <Compile Include="Domain\Models\Identity\ApplicationUserRoleTests.cs" />
     <Compile Include="Domain\Models\Identity\ApplicationUserTests.cs" />
     <Compile Include="Domain\Models\Identity\RoleFeatureTests.cs" />
+    <Compile Include="Domain\Models\Identity\ApplicationUserClaimTests.cs" />
+    <Compile Include="Domain\Models\Identity\ApplicationUserLoginTests.cs" />
+    <Compile Include="Domain\Models\Identity\ApplicationRoleTests.cs" />
     <Compile Include="Domain\Models\Submission\ApplicationSubmissionEstablishmentTypeTests.cs" />
     <Compile Include="Domain\Models\Submission\ApplicationSubmissionTests.cs" />
     <Compile Include="Domain\Models\Submission\EmployeeTests.cs" />
@@ -215,13 +219,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="RepositoryMocks\AttachmentRepositoryMock.cs" />
+    <Compile Include="RepositoryMocks\EmployerRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\FileRepositoryMock.cs" />
+    <Compile Include="RepositoryMocks\OrganizationRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\StatusRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ResponseRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\SaveRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ActivityLogRepositoryMock.cs" />
     <Compile Include="RepositoryMocks\ErrorLogRepositoryMock.cs" />
     <Compile Include="Business\Services\EmailContentServiceTests.cs" />
+    <Compile Include="Business\EmployerServiceTests.cs" />
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>

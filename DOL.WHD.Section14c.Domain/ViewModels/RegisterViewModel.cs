@@ -20,12 +20,12 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         public string ConfirmPassword { get; set; }
 
         [Required]
-        [RegularExpression((@"\d{2}\-\d{7}"))]
-        [Display(Name = "EIN")]
-        public string EIN { get; set; }
+        public Uri EmailVerificationUrl { get; set; }
 
         [Required]
-        public Uri EmailVerificationUrl { get; set; }       
+        public string FirstName { get; set; }
 
+        [Required]
+        public string LastName { get; set; }
     }
 }

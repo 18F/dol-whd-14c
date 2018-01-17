@@ -15,14 +15,20 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
-
+    vm.showFacts = false;
     vm.restForm = function() {
+      if(vm.userRegistrationForm) {
+       vm.userRegistrationForm.$setPristine();
+      }
+
       $scope.formVals = {
-        ein: '',
+        firstName: '',
+        lastName: '',
         email: '',
         pass: '',
         confirmPass: ''
       };
+
     };
     vm.restForm();
 
@@ -61,6 +67,10 @@ module.exports = function(ngModule) {
 
     vm.toggleEinHelp = function() {
       vm.showEinHelp = !vm.showEinHelp;
+    };
+
+    $scope.toggleFacts = function ()  {
+      vm.showFacts = !vm.showFacts;
     };
 
     $scope.$watch('formVals.pass', function(value) {
@@ -120,11 +130,11 @@ module.exports = function(ngModule) {
       vm.resetErrors();
       vm.registerdEmail = '';
       vm.submittingForm = true;
-
       /* eslint-disable complexity */
       apiService
         .userRegister(
-          $scope.formVals.ein,
+          $scope.formVals.firstName,
+          $scope.formVals.lastName,
           $scope.formVals.email,
           $scope.formVals.pass,
           $scope.formVals.confirmPass,
@@ -185,11 +195,10 @@ module.exports = function(ngModule) {
               ) {
                 vm.passwordsDontMatch = true;
               }
-              if (
-                $scope.registerErrors.indexOf(
-                  'Password does not meet complexity requirements.'
-                ) > -1
-              ) {
+              if ($scope.registerErrors.indexOf('Password does not meet complexity requirements.') > -1) {
+                vm.passwordComplexity = true;
+              }
+              if ($scope.registerErrors.indexOf('Model State is not valid') > -1) {
                 vm.passwordComplexity = true;
                 $scope.passwordStrength = {
                   strong: false,
@@ -200,12 +209,17 @@ module.exports = function(ngModule) {
               if($scope.registerErrors.length === 0) {
                 vm.generalRegistrationError = true;
               }
+              if($scope.registerErrors.length === 0) {
+                vm.generalRegistrationError = true;
+              }
             } else {
               vm.generalRegistrationError = true;
             }
 
+
+
             vm.submittingForm = false;
-            $location.path('/');
+
           }
         );
       /* eslint-enable complexity */

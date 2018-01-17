@@ -75,7 +75,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Arrange
             var newData = new ApplicationSave
             {
-                EIN = einToTest,
+                Id = einToTest,
                 ApplicationState = "{ \"name\": \"Joe Biden\", \"email:\" \"vice.president@whitehouse.gov\" }"
             };
 
@@ -122,7 +122,7 @@ namespace DOL.WHD.Section14c.Test.Business
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
             var upload = service.UploadAttachment(einToTest, data, fileName, "text/plain");
 
-            var existingObj = _attachmentRepositoryMock.Get().FirstOrDefault(x => x.EIN == einToTest);
+            var existingObj = _attachmentRepositoryMock.Get().FirstOrDefault(x => x.ApplicationId == einToTest);
             existingObj.RepositoryFilePath = "invalidPath";
             _attachmentRepositoryMock.SaveChanges();
 

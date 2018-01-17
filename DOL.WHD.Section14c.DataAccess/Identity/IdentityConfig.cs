@@ -26,8 +26,14 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true,
-                RequireUniqueEINAdmin = true
+                RequireUniqueEINAdmin = false
             };
+
+            manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Security Code: Department of Labor Section 14(c) Online Certificate Application",
+                BodyFormat = "Your security code is: {0}"
+            });
 
             manager.EmailService = new EmailService();
 

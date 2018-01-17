@@ -10,7 +10,13 @@ require('jquery');
 require('font-awesome/css/font-awesome.css');
 require('angular-data-grid/dist/dataGrid.min.js');
 require('angular-data-grid/dist/pagination.min.js');
-
+import 'datatables.net'
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-responsive';
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
+import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 // Angular
 import angular from 'angular';
 import ngAnimate from 'angular-animate';
@@ -86,6 +92,7 @@ app.run(function(
   authService,
   $q
 ) {
+
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
@@ -115,12 +122,12 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
-        let userAccess = stateService.isAdmin
+        let userAccess = stateService.IsPointOfContact
           ? routeConfig.access.ROUTE_ADMIN
           : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
         if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {
           // user does not have adequate permissions to access the route so redirect
-          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : ''));
+          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : 'login'));
         } else if (next.$$route.isLanding && userAccess === routeConfig.access.ROUTE_ADMIN) {
           // redirect admin users to the admin dashboard
           $location.path('/admin');

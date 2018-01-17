@@ -9,6 +9,7 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 namespace DOL.WHD.Section14c.Test.DataAccess.Validators
 {
@@ -21,6 +22,28 @@ namespace DOL.WHD.Section14c.Test.DataAccess.Validators
         {
             var userStore = new ApplicationUserStore(new Mock<ApplicationDbContext>().Object);
             _applicationUserManagerMock = new Mock<ApplicationUserManager>(userStore);
+        }
+
+        [TestMethod]
+        public void Validate_PublicProperties()
+        {
+            var testDate = DateTime.Today;
+            var user = new ApplicationUser { Id = "123" };
+
+            var obj = new OrganizationMembership
+            {
+                CreatedAt = testDate,
+                LastModifiedAt = testDate,
+                CreatedBy = user,
+                CreatedBy_Id = "123",
+                LastModifiedBy = user,
+                LastModifiedBy_Id = "123"
+            };
+
+            Assert.AreEqual(testDate, obj.CreatedAt);
+            Assert.AreEqual(testDate, obj.LastModifiedAt);
+            Assert.AreEqual(user.Id, obj.CreatedBy_Id);
+            Assert.AreEqual(user.Id, obj.LastModifiedBy_Id);
         }
 
         [TestMethod]
@@ -70,19 +93,19 @@ namespace DOL.WHD.Section14c.Test.DataAccess.Validators
             var newEmailToTest = "paul.allen@microsoft.com";
             var einToTest = "12-3456789";
             var existingUser = new ApplicationUser { UserName = existingEmailToTest, Email = existingEmailToTest };
-            existingUser.Organizations.Add(new OrganizationMembership { EIN = einToTest, IsAdmin = true });
+            existingUser.Organizations.Add(new OrganizationMembership { EIN = einToTest, IsPointOfContact = true });
             _applicationUserManagerMock.Setup(x => x.Users).Returns(new List<ApplicationUser> { existingUser }.AsQueryable());
 
 
             var newUser = new ApplicationUser { UserName = newEmailToTest, Email = newEmailToTest };
-            newUser.Organizations.Add(new OrganizationMembership { EIN = einToTest, IsAdmin = true });
+            newUser.Organizations.Add(new OrganizationMembership { EIN = einToTest, IsPointOfContact = true });
             var validator = new Section14cUserValidator<ApplicationUser>(_applicationUserManagerMock.Object) { RequireUniqueEINAdmin = true };
 
             // Act
             var validatorResult = await validator.ValidateAsync(newUser);
 
             // Assert
-            Assert.IsTrue(validatorResult.Errors.Contains("EIN is already registered"));
+            Assert.IsTrue(validatorResult.Errors.Contains("Id is already registered"));
         }
 
         [TestMethod]
@@ -94,12 +117,12 @@ namespace DOL.WHD.Section14c.Test.DataAccess.Validators
             var existingEINToTest = "12-3456789";
             var newEINToTest = "98-7654321";
             var existingUser = new ApplicationUser { UserName = existingEmailToTest, Email = existingEmailToTest };
-            existingUser.Organizations.Add(new OrganizationMembership { EIN = existingEINToTest, IsAdmin = true });
+            existingUser.Organizations.Add(new OrganizationMembership { EIN = existingEINToTest, IsPointOfContact = true });
             _applicationUserManagerMock.Setup(x => x.Users).Returns(new List<ApplicationUser> { existingUser }.AsQueryable());
 
 
             var newUser = new ApplicationUser { UserName = newEmailToTest, Email = newEmailToTest };
-            newUser.Organizations.Add(new OrganizationMembership { EIN = newEINToTest, IsAdmin = true });
+            newUser.Organizations.Add(new OrganizationMembership { EIN = newEINToTest, IsPointOfContact = true });
             var validator = new Section14cUserValidator<ApplicationUser>(_applicationUserManagerMock.Object) { RequireUniqueEINAdmin = true };
 
             // Act
@@ -115,7 +138,7 @@ namespace DOL.WHD.Section14c.Test.DataAccess.Validators
             // Arrange
             var ein = "12-3456789";
             var existingUser = new ApplicationUser { UserName = "steve.jobs@apple.com", Email = "steve.jobs@apple.com" };
-            existingUser.Organizations.Add(new OrganizationMembership { EIN = ein, IsAdmin = true });
+            existingUser.Organizations.Add(new OrganizationMembership { EIN = ein, IsPointOfContact = true });
             _applicationUserManagerMock.Setup(x => x.Users).Returns(new List<ApplicationUser> { existingUser }.AsQueryable());
             var validator = new Section14cUserValidator<ApplicationUser>(_applicationUserManagerMock.Object) { RequireUniqueEINAdmin = true };
 

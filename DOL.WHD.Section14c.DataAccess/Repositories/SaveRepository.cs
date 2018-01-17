@@ -37,9 +37,9 @@ namespace DOL.WHD.Section14c.DataAccess.Repositories
             }
         }
 
-        public void Remove(string EIN)
+        public void Remove(string applicationId)
         {
-            var save = _dbContext.ApplicationSaves.SingleOrDefault(x => x.EIN == EIN);
+            var save = _dbContext.ApplicationSaves.SingleOrDefault(x => x.ApplicationId == applicationId);
             if (save != null)
             {
                 _dbContext.ApplicationSaves.Remove(save);

@@ -2,45 +2,64 @@
 var config = require('./routes.config');
 
 module.exports = function (app) {
-
   app.config(function($routeProvider) {
     $routeProvider
       .when('/', {
+        controller: 'systemUseController',
+        reloadOnSearch: false,
+        template: require('./pages/systemUseTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: "14(c) Home"
+      })
+      .when('/dashboard', {
         controller: 'landingPageController',
         reloadOnSearch: false,
         template: require('./pages/landingPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC,
+        access: config.access.ROUTE_LOGGEDIN,
         isLanding: true,
-        label: '14(c) Home'
+        label: 'Dashboard',
+        parent:'/'
+      })
+      .when('/login', {
+        controller: 'userLoginPageController',
+        template: require('./pages/userLoginPageTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: 'Login',
+        parent: "/"
+      })
+      .when('/register', {
+        controller: 'userRegistrationPageController',
+        template: require('./pages/userRegistrationPageTemplate.html'),
+        access: config.access.ROUTE_PUBLIC,
+      })
+      .when('/employerRegistration', {
+        controller: 'employerRegistrationController',
+        reloadOnSearch: false,
+        template: require('./pages/employerRegistrationTemplate.html'),
+        access: config.access.ROUTE_LOGGEDIN,
+        label: "Employer Registration",
+        parent: "/"
       })
       .when('/changePassword', {
         controller: 'changePasswordPageController',
         template: require('./pages/changePasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Change Password',
-        parent: '/'
+        parent: '/dashboard'
       })
       .when('/forgotPassword', {
         controller: 'forgotPasswordPageController',
         template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
-        parent: '/'
-      })
-      .when('/login', {
-        controller: 'userLoginPageController',
-        templateUrl: './pages/userLoginPageTemplate.html',
-        access: config.access.ROUTE_PUBLIC
-      })
-      .when('/register', {
-        controller: 'userRegistrationPageController',
-        template: require('./pages/userRegistrationPageTemplate.html'),
-        access: config.access.ROUTE_PUBLIC
+        parent: '/dashboard'
       })
       .when('/account/:userId', {
         controller: 'accountPageController',
         template: require('./pages/accountPageTemplate.html'),
-        access: config.access.ROUTE_LOGGEDIN
+        access: config.access.ROUTE_LOGGEDIN,
+        parent: '/dashboard',
+        label: "Account"
       })
       .when('/section/assurances', {
         template: '<form-section><section-assurances></section-assurances></form-section>',
@@ -93,8 +112,10 @@ module.exports = function (app) {
       })
       .when('/admin', {
         controller: 'adminDashboardController',
-        templateUrl: './pages/adminDashboardTemplate.html',
-        access: config.access.ROUTE_ADMIN
+        template: require('./pages/adminDashboardTemplate.html'),
+        access: config.access.ROUTE_ADMIN,
+        parent: '/dashboard',
+        label: "Admin Dashboard"
       })
       .when('/admin/users', {
         controller: 'userManagementPageController',

@@ -31,16 +31,17 @@ module.exports = function(ngModule) {
       stateService.user.loginEmail = $scope.formVals.email;
 
       vm.clearError();
-
       //  Call Token Service
       authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
         function() {
           vm.submittingForm = false;
-
-          if ($location.path() === '/') {
+          if(stateService.user.organizations.length) {
+            $location.path("/dashboard");
+          }
+          else if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
-            $location.path('/');
+            $location.path("/employerRegistration");
           }
         },
         function(error) {

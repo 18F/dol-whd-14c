@@ -103,7 +103,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             var adminUserName = "14c-admin@dol.gov";
             if (!context.Users.Any(x => x.UserName == adminUserName))
             {
-                context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, LockoutEnabled = true, EmailConfirmed = true });
+                context.Users.AddOrUpdate(new ApplicationUser { Id = System.Guid.Empty.ToString(), Email = adminUserName, UserName = adminUserName, FirstName="14c", LastName="admin", LockoutEnabled = true, EmailConfirmed = true });
                 context.SaveChanges();
 
                 // Seed Password, defaults to expired and must be changed at first login.
@@ -134,6 +134,10 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Denied, Name = "Denied", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Revoked, Name = "Revoked", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Expired, Name = "Expired", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.New, Name = "New", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.InProgress, Name = "InProgress", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Completed, Name = "Completed", IsActive = true });
+            context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Submitted, Name = "Submitted", IsActive = true });
 
 
             // Commit changes so that roles/features can be assigned

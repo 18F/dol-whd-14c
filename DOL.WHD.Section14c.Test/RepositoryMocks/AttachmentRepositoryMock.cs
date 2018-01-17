@@ -17,7 +17,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
             _data = new Dictionary<string, Attachment>();
             Add(new Attachment
             {
-                EIN = "30-1234567"
+                ApplicationId = "30-1234567"
             });
         }
 
@@ -28,7 +28,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
 
         public void Add(Attachment attachment)
         {
-            _data.Add(attachment.EIN, attachment);
+            _data.Add(attachment.ApplicationId, attachment);
         }
 
         public int SaveChanges()
