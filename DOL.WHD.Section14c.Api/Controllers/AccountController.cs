@@ -426,7 +426,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Password Complexity Check
         /// </summary>
         // POST api/Account
-        [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
+        [AllowAnonymous]
         [HttpPost]
         [Route("PasswordComplexityCheck")]
         public IHttpActionResult PasswordComplexityCheck()
