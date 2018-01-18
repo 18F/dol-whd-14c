@@ -23,10 +23,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
-
-            // Enable Two Factor Auth
-            await manager.SetTwoFactorEnabledAsync(this.Id, true);
-
+            
             // Add custom user claims here
             foreach (var organization in Organizations)
             {

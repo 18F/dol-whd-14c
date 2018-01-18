@@ -92,7 +92,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Add User
                 var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
