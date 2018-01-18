@@ -1,26 +1,46 @@
 describe('attachmentFieldController', function() {
   var scope, $q, mockApiService, attachmentFieldController;
-  var uploadAttachment, deleteAttachment;
+  var uploadAttachment, deleteAttachment, mockStateService;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, _$q_, apiService) {
+    inject(function($rootScope, $controller, _$q_, apiService, stateService) {
       scope = $rootScope.$new();
+      mockStateService = stateService;
+      scope.formData = {
+        modelPrefix: {
+          inputId: [{attachmentId: '12345'}]
+        }
+      };
       $q = _$q_;
       mockApiService = apiService;
       attachmentFieldController = function() {
+        scope.formData = {
+          modelPrefix: {
+            inputId: [{attachmentId: '12345'}]
+          }
+        };
         return $controller('attachmentFieldController', {
           $scope: scope,
           apiService: mockApiService
         });
       };
-
       controller = attachmentFieldController();
-      scope.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+
+      scope.allowMultiUpload = false;
+      scope.modelPrefix = "modelPrefix";
+      scope.inputId = "inputId";
+
       uploadAttachment = $q.defer();
       spyOn(mockApiService, 'uploadAttachment').and.returnValue(
         uploadAttachment.promise
+      );
+
+      spyOn(mockStateService, 'formData').and.returnValue(
+        {
+          modelPrefix: "test"
+        }
       );
 
       deleteAttachment = $q.defer();
@@ -31,10 +51,12 @@ describe('attachmentFieldController', function() {
   );
 
   ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'].forEach(function(extension) {
-    it('should allow file of type' + extension, function() {
+    it('should allow file of type ' + extension, function() {
       var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
+      console.log(mockStateService.formData["modelPrefix"]);
       controller.onAttachmentSelected(fileInput);
       uploadAttachment.resolve({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });
+
       scope.$apply();
       expect(scope.attachmentName).toBe('name1.pdf');
       expect(fileInput.value).toBe('');
@@ -45,7 +67,7 @@ describe('attachmentFieldController', function() {
   });
 
   ['docx', 'gif', 'avi', 'iso'].forEach(function(extension) {
-    it('should allow file of type' + extension, function() {
+    it('should allow file of type ' + extension, function() {
       var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
       controller.onAttachmentSelected(fileInput);
       uploadAttachment.reject({ data: [{ id: 1, originalFileName: 'name1.pdf' }] });

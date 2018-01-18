@@ -14,6 +14,7 @@ module.exports = function(ngModule) {
     vm.stateService = stateService;
     vm.apiService = apiService;
     $scope.formData = stateService.formData;
+
     if(!$scope.formData[$scope.modelPrefix][$scope.inputId]) {
       stateService.formData[$scope.modelPrefix][$scope.inputId] = [];
     }
@@ -29,10 +30,11 @@ module.exports = function(ngModule) {
       $scope.upload.status = "Uploading";
       $scope.upload.message = 'File is uploading.'
       $scope.attachmentName = fileinput.files[0].name;
-      
+
+
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
-      } 
+      }
 
       $scope.$apply();
     };
