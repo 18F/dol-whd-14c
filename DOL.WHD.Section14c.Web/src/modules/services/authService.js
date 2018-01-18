@@ -11,7 +11,7 @@ module.exports = function(ngModule) {
   ) {
     'use strict';
 
-    this.userLogin = function(email, password) {
+    this.userLogin = function(email, password, code) {
       const self = this;
       const url = _env.api_url + '/Token';
       const d = $q.defer();
@@ -23,7 +23,8 @@ module.exports = function(ngModule) {
         data: $.param({
           grant_type: 'password',
           userName: email,
-          password: password
+          password: password,
+          code: code
         })
       }).then(
         function successCallback(result) {

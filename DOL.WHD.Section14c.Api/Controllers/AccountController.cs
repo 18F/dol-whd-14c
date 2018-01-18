@@ -449,6 +449,26 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return ResponseMessage(responseMessage);
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("SendCode")]
+        public async Task<IHttpActionResult> SendCode()
+        {
+            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
+            if (!ModelState.IsValid)
+            {
+                BadRequest("Unable to reset password.");
+            }
+
+            // Generate the token and send it
+            var code = await UserManager.GenerateTwoFactorTokenAsync(userId, "EmailCode");
+            if (!string.IsNullOrEmpty(code))
+            {
+                await UserManager.NotifyTwoFactorTokenAsync(userId, "EmailCode", code);
+            }
+            return Ok();
+        }
+
         /// <summary>
         /// OPTIONS endpoint for CORS
         /// </summary>

@@ -1,6 +1,6 @@
 <form ng-submit="onSubmitClick()">
   <div class="dol-panel-login">
-    <h2>Log in</h2>
+    <h2>{{vm.formTitle}}</h2>
 
     <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.unknownError">
       <div class="usa-alert-body">
@@ -13,11 +13,11 @@
         <p class="usa-alert-text">{{ vm.loginError.message }} </p>
       </div>
     </div>    
-    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''">
+    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-hide="vm.twoFAStatus">
       <label for="userName">Email</label>
       <input name="userName" id="userName" type="email" ng-model="formVals.email" />
     </div>
-    <div ng-class="(vm.loginError.status ? 'usa-input-error' : '') + ' ' + 'password-wrap'">
+    <div ng-class="(vm.loginError.status ? 'usa-input-error' : '') + ' ' + 'password-wrap'" ng-hide="vm.twoFAStatus">
       <label for="password">Password</label>
       <input name="password" id="password" type="{{inputType}}" ng-model="formVals.pass" />
       <div class="showpass">
@@ -27,8 +27,15 @@
         </a>
       </div>
     </div>
+
+    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-show="vm.twoFAStatus">
+      <label for="code">Authentication code </label>
+      <input name="code" id="code" type="text" ng-model="formVals.code" />
+      <div>Login to you email {{ formVals.email }} to view your authentication code and verify your identity. </div>
+    </div>
+
     <div class="loginbtn">
-      <button type="submit" ng-show="!vm.submittingForm">Log in</button>
+      <button type="submit" ng-show="!vm.submittingForm">{{ vm.submittButtonName }}</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
     </div>
