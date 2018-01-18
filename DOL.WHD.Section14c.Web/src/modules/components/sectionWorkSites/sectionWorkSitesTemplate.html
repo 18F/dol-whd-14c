@@ -9,7 +9,7 @@
 <div class="dol-form-section-sub-title">
   All fields are required unless indicated as optional.
 </div>
-<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__worksites')">
+<div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="validate('__worksites')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
   </div>
@@ -34,12 +34,12 @@
         Off-Site Work Location: An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities, or a group of workers with disabilities, are placed in work settings along with job coaches (staff of the rehabilitation or work center).
       </p>
     </helptext>
-    <span class="usa-input-error-message" role="alert" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('totalNumWorkSites')">{{ validate('totalNumWorkSites') }}</span>
     <input id="numWorkSites" name="numWorkSites" type="number" class="numeric7" min="0" step="any" ng-model="formData.totalNumWorkSites">
   </div>
   <div class="dol-form-question-block" ng-class="validate('workSites') ? 'usa-input-error' : ''">
     <div class="dol-form-question-text">We’ll need to collect information about each worksite and its employees.</div>
-    <span class="usa-input-error-message" role="alert" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('workSites')">{{ validate('workSites') }}</span>
     <button ng-click="vm.addWorkSite()" ng-hide="vm.addingWorkSite">Add Work Site & Employee(s)</button>
   </div>
   <div id="worksite_tab_box" class="form-tabbed-section" ng-show="vm.notInitialApp() && vm.addingWorkSite">
@@ -58,7 +58,7 @@
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">What type of establishment / work site is this?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('workSiteTypeId')">{{ vm.validateActiveWorksiteProperty('workSiteTypeId') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('workSiteTypeId')">{{ vm.validateActiveWorksiteProperty('workSiteTypeId') }}</span>
           <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType">
               <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType_{{ response.id }}" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
@@ -74,7 +74,7 @@
 
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('name') ? 'usa-input-error' : ''">
       <div class="dol-form-question-text">Name of Establishment / Work Site</div>
-      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('name')">{{ vm.validateActiveWorksiteProperty('name') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('name')">{{ vm.validateActiveWorksiteProperty('name') }}</span>
       <label for="worksiteName" class="hide">Name of Establishment / Work Site</label>
       <input id="worksiteName" name="worksiteName" type="text" ng-model="vm.activeWorksite.name">
     </div>
@@ -85,25 +85,25 @@
         <div class="usa-form-large">
             <div ng-class="vm.validateActiveWorksiteProperty('address.streetAddress') ? 'usa-input-error' : ''">
               <label for="worksiteAddress1">Street address</label>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.streetAddress')">{{ vm.validateActiveWorksiteProperty('address.streetAddress') }}</span>
               <input id="worksiteAddress1" name="worksiteAddress1" type="text" ng-model="vm.activeWorksite.address.streetAddress">
             </div>
             <div class="clearer" ng-class="vm.validateActiveWorksiteProperty('address.city') || vm.validateActiveWorksiteProperty('address.state') ? 'usa-input-error' : ''">
               <div class="usa-input-grid usa-input-grid-medium">
                 <label for="workAddressCity">City</label>
-                <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')">{{ vm.validateActiveWorksiteProperty('address.city') }}</span>
+                <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.city')">{{ vm.validateActiveWorksiteProperty('address.city') }}</span>
                 <input id="workAddressCity" name="workAddressCity" type="text" ng-model="vm.activeWorksite.address.city">
               </div>
 
               <div class="usa-input-grid usa-input-grid-small">
                 <label for="workAddressState">State</label>
-                <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.state')">{{ vm.validateActiveWorksiteProperty('address.state') }}</span>
+                <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.state')">{{ vm.validateActiveWorksiteProperty('address.state') }}</span>
                 <state-field name="workAddressState" selected-state="vm.activeWorksite.address.state"></state-field>
               </div>
             </div>
             <div ng-class="vm.validateActiveWorksiteProperty('address.zipCode') ? 'usa-input-error' : ''">
               <label for="workAddressZip">Zip Code</label>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.zipCode')">{{ vm.validateActiveWorksiteProperty('address.zipCode') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.zipCode')">{{ vm.validateActiveWorksiteProperty('address.zipCode') }}</span>
               <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeWorksite.address.zipCode">
             </div>
         </div>
@@ -113,7 +113,7 @@
     <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('sca') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('sca')">{{ vm.validateActiveWorksiteProperty('sca') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="worksiteScaYes" type="radio" name="worksiteSca" ng-value="true" ng-model="vm.activeWorksite.sca">
@@ -135,7 +135,7 @@
           <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
         </div>
         <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="worksiteFederalYes" type="radio" name="worksiteFederal" ng-value="true" ng-model="vm.activeWorksite.federalContractWorkPerformed">
@@ -155,7 +155,7 @@
         <helplink aria-controls="worksiteNumEmployeesHelp" aria-describedby="worksiteNumEmployeesLabel"></helplink>
       </div>
       <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteNumEmployeesHelp">Include workers who were employed for less than the full fiscal quarter, <em>i.e.</em> three-month period.</helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('numEmployees')">{{ vm.validateActiveWorksiteProperty('numEmployees') }}</span>
       <input id="worksiteNumEmployees" name="worksiteNumEmployees" type="number" class="numeric7" min="0" step="any" ng-model="vm.activeWorksite.numEmployees">
     </div>
   </div>
@@ -241,7 +241,7 @@
         </div>
       </dl>
     </div>
-    <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('employee_count')">{{ vm.validateActiveWorksiteProperty('employee_count') }}</span>
     <button ng-click="vm.addingEmployee = true" class="cd-panel-trigger" aria-controls="addEmployeesSlidePanel">Add Employee</button>
     <a href="" class="cd-panel-trigger" aria-controls="addEmployeeExampleSlidePanel">Show Me an Example</a>
   </div>
@@ -282,7 +282,7 @@
             <helplink aria-controls="workerNameHelp" aria-describedby="workerNameLabel"></helplink>
           </div>
           <helptext category="addEmployeeShowAllHelp" id="workerNameHelp">Provide the full name of the worker.</helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('name')">{{ vm.validateActiveWorkerProperty('name') }}</span>
           <input id="workerName" name="workerName" type="text" ng-model="vm.activeWorker.name">
         </div>
 
@@ -296,7 +296,7 @@
               <p>If the worker performed more than one job at this work site at a subminimum wage, provide the following information for the job for which this worker worked the most number of hours in the most recently completed fiscal quarter.</p>
               <p>For example, John Jones performed three jobs over the last quarter: contract for assembling bolts totaling 65 hours, contract for assembling boxes totaling 42 hours, and contract for shredding totaling 25 hours. The employer should provide responses based on Mr. Jones’ bolt assembly job.</p>
           </helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('workType')">{{ vm.validateActiveWorkerProperty('workType') }}</span>
           <input id="workType" name="workType" type="text" ng-model="vm.activeWorker.workType">
         </div>
 
@@ -310,7 +310,7 @@
             <helptext category="addEmployeeShowAllHelp" id="primaryDisabilityHelp">
                 Identify the primary disability that affects the worker’s productivity for the job identified using the categories provided.
             </helptext>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('primaryDisabilityId')">{{ vm.validateActiveWorkerProperty('primaryDisabilityId') }}</span>
             <ul class="usa-unstyled-list">
               <li ng-repeat="response in responses.PrimaryDisability">
                 <input id="primaryDisability_{{ response.id }}" type="radio" name="primaryDisability" ng-value="{{ response.id }}" ng-model="vm.activeWorker.primaryDisabilityId">
@@ -333,7 +333,7 @@
               If the worker performed more than one job at this work site during the most recently completed fiscal quarter, provide the total number of jobs performed.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('numJobs') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('numJobs')">{{ vm.validateActiveWorkerProperty('numJobs') }}</span>
             <input id="workerNumJobs" name="workerNumJobs" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.numJobs">
           </div>
 
@@ -345,7 +345,7 @@
               Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter =20 hours per week average.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
             <input id="workerAvgHours" name="workerAvgHours" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgWeeklyHours">
           </div>
 
@@ -357,7 +357,7 @@
               Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
             <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgHourlyEarnings">
           </div>
 
@@ -369,21 +369,21 @@
               Provide the prevailing wage rate for the job identified.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
             <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.prevailingWage">
           </div>
 
           <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
             <legend class="hide"><span id="workerProductivityLabel">Productivity measure/rating for job described above</span></legend>
             <div class="dol-legend-help">
-              <span class="dol-form-question-text" aria-hidden="true">Productivity measure/rating for job described above</span>
+              <span aria-hidden="true">Productivity measure/rating for job described above</span>
               <helplink aria-controls="workerProductivityHelp" aria-describedby="workerProductivityLabel"></helplink>
             </div>
             <helptext category="addEmployeeShowAllHelp" id="workerProductivityHelp">
                 Provide the employee’s most recent productivity rating for the job identified. For work paid hourly, the productivity rating is the employee’s productivity in proportion to the standard-setter’s that was determined by the employee’s time study. For piece rate work, no calculation is required, select “n/a – piece rate”.
             </helptext>
             <div ng-class="vm.validateActiveWorkerProperty('productivityMeasure') ? 'usa-input-error' : ''">
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('productivityMeasure')">{{ vm.validateActiveWorkerProperty('productivityMeasure') }}</span>
               <ul class="usa-unstyled-list">
                 <li>
                   <input id="workerProductivityNA" type="radio" name="workerProductivityToggle" ng-value="undefined" ng-model="vm.activeWorker.hasProductivityMeasure" ng-change="vm.workerProductivityChanged()">
@@ -407,7 +407,7 @@
               For work paid hourly, provide the employee’s commensurate wage rate per hour for the job identified. This should be the wage rate actually paid to the worker for this job. For piece rate work, provide the employee’s average earnings per hour for the job identified.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
             <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.commensurateWageRate">
           </div>
 
@@ -419,7 +419,7 @@
               Provide the employee’s total hours worked on the job identified over the most recently completed fiscal quarter.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('totalHours') ? 'usa-input-error' : ''">
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('totalHours')">{{ vm.validateActiveWorkerProperty('totalHours') }}</span>
             <input id="workerHours" name="workerHours" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.totalHours">
           </div>
 
@@ -433,7 +433,7 @@
                 Answer “yes” if the employee also performed work at another work site included with this application. The worker should be listed at each work site where they performed subminimum wage work.
             </helptext>
             <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveWorkerProperty('workAtOtherSite')">{{ vm.validateActiveWorkerProperty('workAtOtherSite') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('workAtOtherSite')">{{ vm.validateActiveWorkerProperty('workAtOtherSite') }}</span>
               <ul class="usa-unstyled-list">
                 <li>
                   <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" ng-value="true" ng-model="vm.activeWorker.workAtOtherSite">

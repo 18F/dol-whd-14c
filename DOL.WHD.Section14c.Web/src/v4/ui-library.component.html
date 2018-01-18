@@ -164,7 +164,7 @@
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block"&gt;
 &lt;label for="thisInput" class="dol-form-question-text"&gt;Employer's Trade Name&lt;/label&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 &lt;/div&gt;
 </code></pre>
@@ -188,7 +188,7 @@
       <div class="dol-help-text" style="display: block" id="legalNameHelp">
           Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.
         </div>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <input id="legalName" name="legalName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
     </div>
   </div>
@@ -201,7 +201,7 @@
   &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
 &lt;/div&gt;
 &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 &lt;/div&gt;
 </code></pre>
@@ -255,7 +255,7 @@
   &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
 &lt;/div&gt;
 &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 </code></pre>
   </details>
@@ -273,7 +273,7 @@
     <div class="dol-form-question-block">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</legend>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="worksiteScaYes" type="radio" name="worksiteSca" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
@@ -293,7 +293,7 @@
 &lt;div class="dol-form-question-block" class="form-question-block"&gt;
   &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
     &lt;legend class="dol-form-question-text"&gt;Is Service Contract Act (SCA)-covered work performed at this establishment / work site?&lt;/legend&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;ul class="usa-unstyled-list"&gt;
       &lt;li&gt;
         &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
@@ -329,7 +329,7 @@
         <div style="display: block" class="dol-help-text" id="hasTradeNameHelp">
           Provide the trade name of the employer, if applicable.
         </div>
-        <span class="usa-input-error-message ng-binding" role="alert"></span>
+        <span class="usa-input-error-message ng-binding" role="alert" class="hide" tabindex="0"></span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="true">
@@ -354,7 +354,7 @@
       &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
     &lt;/div&gt;
     &lt;helptext id="thisInputHelp"&gt;Provide the trade name of the employer, if applicable.&lt;/helptext&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;ul class="usa-unstyled-list"&gt;
       &lt;li&gt;
         &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
@@ -391,7 +391,7 @@
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">What type of establishment is this?</legend>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('type')"></span>
           <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType" class="ng-scope">
               <input id="establishmentType_27" type="radio" name="establishmentType_27" ng-value="27" ng-model="vm.activeWorksite.workSiteTypeId" class="ng-pristine ng-untouched ng-valid ng-empty" value="27">
@@ -419,7 +419,7 @@
 &lt;div class="dol-form-question-block"&gt;
   &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
     &lt;legend class="dol-form-question-text"&gt;What type of establishment is this?&lt;/legend&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
       &lt;ul class="usa-unstyled-list dol-list-help"&gt;
         &lt;li ng-repeat=""&gt;
           &lt;input id="thisInput" type="radio" name="thisInput" ng-value="" ng-model=""&gt;
@@ -457,7 +457,7 @@
             Answer “yes” if the employee also performed work at another work site included with this application. The worker should be listed at each work site where they performed subminimum wage work.
         </div>
         <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
-          <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+          <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
           <ul class="usa-unstyled-list dol-list-help">
             <li>
               <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
@@ -486,7 +486,7 @@
           [HELP TEXT GOES HERE]
       &lt;/helptext&gt;
       &lt;div&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
         &lt;ul class="usa-unstyled-list"&gt;
           &lt;li&gt;
             &lt;input id="thisInputYes" type="radio" name="thisInput" ng-value="true"&gt;
@@ -524,7 +524,7 @@
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block">
       <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held certificate number for the main establishment?</label>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno ng-pristine ng-untouched ng-valid ng-not-empty" mask="99-99999-A-999" aria-describedby="examplePrevCertNumber">
       <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
     </div>
@@ -534,7 +534,7 @@
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block"&gt;
   &lt;label for="thisInput" class="dol-form-question-text"&gt;What is the most recently held certificate number for the main establishment?&lt;/label&gt;
-  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
   &lt;input id="thisInput" name="thisInput" type="text" aria-describedby="thisInputExample" class="dol-side-example"&gt;
   &lt;span id="thisInputExample" class="dol-example-text"&gt;Example: 12-34567-H-890&lt;/span&gt;
 &lt;/div&gt;
@@ -563,7 +563,7 @@
             the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June
             30, September 30, or December 31).
         </div>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
         <div>
           <div class="usa-date-of-birth dol-side-example">
             <div class="usa-form-group usa-form-group-month">
@@ -602,7 +602,7 @@
       &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
     &lt;/div&gt;
     &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;date-field date-val=""&gt;&lt;/date-field&gt;
   &lt;/fieldset&gt;
 &lt;/div&gt;
@@ -629,7 +629,7 @@
   <div class="dol-ui-pattern-rendered">
     <fieldset class="dol-legend-plain">
       <legend>Date of Contact</legend>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <div>
         <div class="usa-date-of-birth dol-side-example">
           <div class="usa-form-group usa-form-group-month">
@@ -662,7 +662,7 @@
 <pre rel="HTML"><code>
 &lt;fieldset class="dol-legend-plain"&gt;
   &lt;legend&gt;Date of Contact&lt;/legend&gt;
-  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
   &lt;date-field date-val=""&gt;&lt;/date-field&gt;
 &lt;/fieldset&gt;
 </code></pre>
@@ -684,18 +684,18 @@
         <div class="usa-form-large">
           <div ng-class="">
             <label for="worksiteAddress1">Street address</label>
-            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
             <input id="worksiteAddress1" name="worksiteAddress1" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
           </div>
           <div class="clearer">
             <div class="usa-input-grid usa-input-grid-medium">
               <label for="workAddressCity">City</label>
-              <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')"></span>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.city')"></span>
               <input style="margin-bottom: 0" id="workAddressCity" name="workAddressCity" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
             </div>
             <div class="usa-input-grid usa-input-grid-small">
               <label for="workAddressState">State</label>
-              <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
               <label for="workAddressState" class="hide">State</label>
               <select style="margin-bottom: 0" id="workAddressState" class="ng-pristine ng-untouched ng-valid ng-empty"
                   name="workAddressState">
@@ -707,7 +707,7 @@
           </div>
           <div ng-class="">
             <label for="workAddressZip">Zip Code</label>
-            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
             <input class="usa-input-medium ng-pristine ng-untouched ng-valid ng-empty ng-valid-pattern" id="workAddressZip" name="workAddressZip"
               type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace=""
               ng-model="vm.activeWorksite.address.zipCode">
@@ -725,24 +725,24 @@
     &lt;div class="usa-form-large"&gt;
       &lt;div ng-class=""&gt;
         &lt;label for="thisInputAddress1"&gt;Street address&lt;/label&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
         &lt;input id="thisInputAddress1" name="thisInputAddress1" type="text"&gt;
       &lt;/div&gt;
       &lt;div class="clearer" ng-class=""&gt;
         &lt;div class="usa-input-grid usa-input-grid-medium"&gt;
           &lt;label for="thisInputCity"&gt;City&lt;/label&gt;
-          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
           &lt;input id="thisInputCity" name="thisInputCity" type="text"&gt;
         &lt;/div&gt;
         &lt;div class="usa-input-grid usa-input-grid-small"&gt;
           &lt;label for="thisInputState"&gt;State&lt;/label&gt;
-          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
           &lt;state-field name="thisInputState" selected-state=""&gt;&lt;/state-field&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div ng-class=""&gt;
         &lt;label for="thisInputZip"&gt;Zip Code&lt;/label&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
         &lt;input class="usa-input-medium" id="thisInputZip" name="thisInputZip" type="text" mask="99999-?9?9?9?9?" pattern=""
           data-grouplength="5,4" data-delimiter="-" data-politespace&gt;
       &lt;/div&gt;
@@ -765,7 +765,7 @@
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block" ng-class="">
       <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <div class="dol-file-upload-ui">
         <div aria-hidden="true" class="usa-button-primary">Browse</div>
         <input class="dol-file-upload-input" id="fileUploadSCA" type="file" aria-describedby="fileUploadDesc_111">
@@ -779,7 +779,7 @@
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block" ng-class=""&gt;
   &lt;label for="thisFileUpload"&gt;Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.&lt;/label&gt;
-  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
   &lt;attachment-field input-id="thisFileUpload" attachment-id="" attachment-name="" /&gt;
 &lt;/div&gt;
 </code></pre>
