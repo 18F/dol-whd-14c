@@ -32,7 +32,9 @@ module.exports = function(ngModule) {
       
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
-      }
+      } 
+
+      $scope.$apply();
     };
 
     this.validateAttachment = function (fileinput, allowedFileTypes) {
@@ -116,24 +118,12 @@ module.exports = function(ngModule) {
           }
         });
         vm.hideModal();
-      }).catch(function(error) {
+      }).catch(function() {
         //TODO: Display error
-        console.log(error)
         $scope.upload.status = 'Failure'
         $scope.attachmentId = undefined;
         $scope.attachmentName = undefined;
       });
     };
-
-    // $('.modal-trigger').on('click', function(event){
-    //   panelTrigger = $(this);
-    //   var target = $(this).attr('aria-controls');
-    //   $(`#${target}`).addClass('is-visible');
-    //   $(`#${target} .modal-header h3`).focus();
-    //   vm.clearActiveWorker();
-    //   $('body').addClass('modal-open');
-    //   event.preventDefault();
-    // });
-
   });
 };
