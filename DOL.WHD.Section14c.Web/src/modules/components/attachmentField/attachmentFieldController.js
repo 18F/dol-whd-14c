@@ -28,6 +28,8 @@ module.exports = function(ngModule) {
     this.onAttachmentSelected = function(fileinput) {
       $scope.upload.status = "Uploading";
       $scope.upload.message = 'File is uploading.'
+      $scope.attachmentName = fileinput.files[0].name;
+      
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
       }
@@ -83,16 +85,26 @@ module.exports = function(ngModule) {
       }
     }
 
-    this.showModal = function () {
-      $('.modal').addClass('is-visible');
+    $scope.modalIsVisible = false;
+
+    this.showModal = function (id, attachmentName) {
+      //$('.modal').addClass('is-visible');
+      $scope.attachmentName = attachmentName;
+      $scope.attachmentId = id;
+      $scope.modalIsVisible = true;
+      $scope.upload.status = "Deleting"
+      $scope.upload.message = "Deleting attachment."
     };
 
     this.hideModal = function() {
-      $('.modal').removeClass('is-visible');
-
+     // $('.modal').removeClass('is-visible');
+      $scope.modalIsVisible = false;
+      $scope.upload.status = "NoFile"
+      $scope.upload.message = "No file Selected."
     }
 
     this.deleteAttachment = function(id) {
+
       apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function() {
         $scope.restrictUpload = false;
         $scope.upload.status = 'NoFile';
