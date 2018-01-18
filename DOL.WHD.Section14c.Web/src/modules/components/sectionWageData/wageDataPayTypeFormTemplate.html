@@ -10,7 +10,7 @@
       <em>{{ paytype === 'hourly' ? 'hourly' : 'piece rate'}}</em>
       {{ paytype === 'hourly' ? ' subminimum wage rate' : ' basis that resulted in a subminimum wage'}}
       at any time during the most recently completed fiscal quarter.</helptext>
-    <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.numWorkers')">{{ validate(modelPrefix() + '.numWorkers') }}</span>
     <input id="{{ valuePrefix() }}NumWorkers" name="{{ valuePrefix() }}NumWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData[modelPrefix()].numWorkers">
   </div>
 
@@ -22,13 +22,13 @@
           <helplink aria-controls="{{ valuePrefix() }}JobNameHelp" aria-describedby="{{ valuePrefix() }}JobNameLabel"></helplink>
       </div>
       <helptext id="{{ valuePrefix() }}JobNameHelp">Identify the job or contract and provide a brief description of the work performed by workers paid subminimum wages {{ paytype === 'hourly' ? '(e.g., Name: Kitchen cleaning, Description: sink, counters, stove, refrigerator, microwave cleaning duties, or Name: Contract No. 123-456 with Sheets Inc., Description: Laundry Service).' : '(e.g., Gadget disassembly, or Contract No. 000-111 with Widgets Inc.—Hand Assembly of Boxes (28” x 12”)).'}}</helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.jobName')">{{ validate(modelPrefix() + '.jobName') }}</span>
       <label for="{{ valuePrefix() }}JobName">Name of Job or Contract</label>
       <input id="{{ valuePrefix() }}JobName" name="{{ valuePrefix() }}JobName" type="text" ng-model="formData[modelPrefix()].jobName">
     </div>
 
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.jobDescription') ? 'usa-input-error' : ''">
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.jobDescription')">{{ validate(modelPrefix() + '.jobDescription') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.jobDescription')">{{ validate(modelPrefix() + '.jobDescription') }}</span>
       <label for="{{ valuePrefix() }}JobDescription">Description of Work Performed</label>
       <textarea id="{{ valuePrefix() }}JobDescription" name="{{ valuePrefix() }}JobDescription" ng-model="formData[modelPrefix()].jobDescription"></textarea>
     </div>
@@ -44,7 +44,7 @@
       <helptext id="{{ valuePrefix() }}WageMethodHelp">
         For information on Prevailing Wages, see <a href='https://www.dol.gov/whd/regs/compliance/whdfs39b.pdf' target='_blank'>Fact Sheet #39B: Prevailing Wages and Commensurate Wages under Section 14(c) of the FLSA</a>.
       </helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.prevailingWageMethod')">{{ validate(modelPrefix() + '.prevailingWageMethod') }}</span>
       <ul class="usa-unstyled-list">
         <li ng-repeat="response in responses.PrevailingWageMethod">
           <input id="{{ valuePrefix() }}Wagemethod_{{ response.id }}" type="radio" name="wage-method" ng-value="response.id" ng-model="formData[modelPrefix()].prevailingWageMethodId">
@@ -64,7 +64,7 @@
           <helplink aria-controls="{{ valuePrefix() }}PrevailingWageDeterminedHelp" aria-describedby="{{ valuePrefix() }}PrevailingWageDeterminedLabel"></helplink>
         </div>
         <helptext id="{{ valuePrefix() }}PrevailingWageDeterminedHelp">The prevailing wage rate determined from the surveys may be calculated by using a weighted or straight average, but the same method should be used to calculate all of the employer’s prevailing wage rates.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined')">{{ validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined')">{{ validate(modelPrefix() + '.mostRecentPrevailingWageSurvey.prevailingWageDetermined') }}</span>
         <input id="{{ valuePrefix() }}PrevailingWageDetermined" name="{{ valuePrefix() }}PrevailingWageDetermined" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].mostRecentPrevailingWageSurvey.prevailingWageDetermined">
       </div>
       <p><span id="{{ valuePrefix() }}ProvideSourceEmployerLabel">You must provide <strong>3</strong> Source Employers for the survey</span>
@@ -79,7 +79,7 @@
           <legend class="dol-form-question-text no-margin">Add a Source Employer</legend>
           <div ng-class="vm.validateActiveSourceEmployerProperty('employerName') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}SourceEmployerName">Source Employer Name</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('employerName')">{{ vm.validateActiveSourceEmployerProperty('employerName') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('employerName')">{{ vm.validateActiveSourceEmployerProperty('employerName') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerName" name="{{ valuePrefix() }}SourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
           </div>
 
@@ -88,20 +88,20 @@
               <legend class="hide">Active source employer location</legend>
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.streetAddress') ? 'usa-input-error' : ''">
                 <label for="{{ valuePrefix() }}Mailing-address-1">Street address</label>
-                <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.streetAddress')">{{ vm.validateActiveSourceEmployerProperty('address.streetAddress') }}</span>
+                <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('address.streetAddress')">{{ vm.validateActiveSourceEmployerProperty('address.streetAddress') }}</span>
                 <input id="{{ valuePrefix() }}Mailing-address-1" name="{{ valuePrefix() }}Mailing-address-1" type="text" ng-model="vm.activeSourceEmployer.address.streetAddress">
               </div>
 
               <div class="clearer" ng-class="vm.validateActiveSourceEmployerProperty('address.city') || vm.validateActiveSourceEmployerProperty('address.state') ? 'usa-input-error' : ''">
                 <div class="usa-input-grid usa-input-grid-medium">
                   <label for="{{ valuePrefix() }}City">City</label>
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.city')">{{ vm.validateActiveSourceEmployerProperty('address.city') }}</span>
+                  <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('address.city')">{{ vm.validateActiveSourceEmployerProperty('address.city') }}</span>
                   <input id="{{ valuePrefix() }}City" name="{{ valuePrefix() }}City" type="text" ng-model="vm.activeSourceEmployer.address.city">
                 </div>
 
                 <div class="usa-input-grid usa-input-grid-small">
                   <label for="{{ valuePrefix() }}State">State</label>
-                  <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.state')">{{ vm.validateActiveSourceEmployerProperty('address.state') }}</span>
+                  <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('address.state')">{{ vm.validateActiveSourceEmployerProperty('address.state') }}</span>
                   <select id="{{ valuePrefix() }}State" name="{{ valuePrefix() }}State" ng-model="vm.activeSourceEmployer.address.state">
                     <option value></option>
                     <option value="AL">Alabama</option>
@@ -167,7 +167,7 @@
 
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.zipCode') ? 'usa-input-error' : ''">
                 <label for="{{ valuePrefix() }}Zip">ZIP</label>
-                <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('address.zipCode')">{{ vm.validateActiveSourceEmployerProperty('address.zipCode') }}</span>
+                <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('address.zipCode')">{{ vm.validateActiveSourceEmployerProperty('address.zipCode') }}</span>
                 <input class="usa-input-medium" id="{{ valuePrefix() }}Zip" name="{{ valuePrefix() }}Zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
               </div>
             </fieldset>
@@ -175,26 +175,26 @@
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('phone') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}SourceEmployerPhone">Telephone Number</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('phone')">{{ vm.validateActiveSourceEmployerProperty('phone') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('phone')">{{ vm.validateActiveSourceEmployerProperty('phone') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerPhone" name="{{ valuePrefix() }}SourceEmployerPhone" type="text" mask="999-999-9999" class="phoneno" ng-model="vm.activeSourceEmployer.phone">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactName') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}SourceEmployerContactName">Full Name of Individual Contacted</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactName')">{{ vm.validateActiveSourceEmployerProperty('contactName') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactName')">{{ vm.validateActiveSourceEmployerProperty('contactName') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerContactName" name="{{ valuePrefix() }}SourceEmployerContactName" type="text" ng-model="vm.activeSourceEmployer.contactName">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactTitle') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}SourceEmployerContactTitle">Title of Individual Contacted</label>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactTitle')">{{ vm.validateActiveSourceEmployerProperty('contactTitle') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactTitle')">{{ vm.validateActiveSourceEmployerProperty('contactTitle') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerContactTitle" name="{{ valuePrefix() }}SourceEmployerContactTitle" type="text" ng-model="vm.activeSourceEmployer.contactTitle">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactDate') ? 'usa-input-error' : ''">
             <fieldset class="dol-legend-plain">
               <legend>Date of Contact</legend>
-              <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactDate')">{{ vm.validateActiveSourceEmployerProperty('contactDate') }}</span>
               <date-field date-val="vm.activeSourceEmployer.contactDate"></date-field>
             </fieldset>
           </div>
@@ -205,7 +205,7 @@
               <helplink aria-controls="{{ valuePrefix() }}SourceEmployerJobDescriptionHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerJobDescriptionLabel"></helplink>
             </div>
             <helptext id="{{ valuePrefix() }}SourceEmployerJobDescriptionHelp">For example, “Hand assembly of cardboard shipping boxes.”</helptext>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('jobDescription')">{{ vm.validateActiveSourceEmployerProperty('jobDescription') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('jobDescription')">{{ vm.validateActiveSourceEmployerProperty('jobDescription') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerJobDescription" name="{{ valuePrefix() }}SourceEmployerJobDescription" type="text" ng-model="vm.activeSourceEmployer.jobDescription">
           </div>
 
@@ -215,7 +215,7 @@
               <helplink aria-controls="{{ valuePrefix() }}SourceEmployerWageHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerWageLabel"></helplink>
             </div>
             <helptext id="{{ valuePrefix() }}SourceEmployerWageHelp">The wage rate collected from each source should be the hourly rate paid to <em>experienced</em> (not entry level) workers who do not have disabilities that affect productive capacity. An experienced worker is a worker who has learned the basic requirements of the work to be performed, ordinarily by completion of a probationary or training period. Typically, an experienced worker will have received at least one pay raise after successful completion of the probationary or training period.</helptext>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided')">{{ vm.validateActiveSourceEmployerProperty('experiencedWorkerWageProvided') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerWage" name="{{ valuePrefix() }}SourceEmployerWage" type="number" class="wage-rate" min="0" step="0.01" ng-model="vm.activeSourceEmployer.experiencedWorkerWageProvided">
           </div>
 
@@ -225,7 +225,7 @@
               <helplink aria-controls="{{ valuePrefix() }}SourceEmployerBasisHelp" aria-describedby="{{ valuePrefix() }}SourceEmployerBasisLabel"></helplink>
             </div>
             <helptext id="{{ valuePrefix() }}SourceEmployerBasisHelp">For example, “Entry rate = $10,” “Entry rate = $9.50; raise given after probationary period,” or “Contact confirmed rate was for experienced workers.”</helptext>
-            <span class="usa-input-error-message" role="alert" ng-show="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry')">{{ vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry')">{{ vm.validateActiveSourceEmployerProperty('conclusionWageRateNotBasedOnEntry') }}</span>
             <input id="{{ valuePrefix() }}SourceEmployerBasis" name="{{ valuePrefix() }}SourceEmployerBasis" type="text" ng-model="vm.activeSourceEmployer.conclusionWageRateNotBasedOnEntry">
           </div>
         </fieldset>
@@ -238,7 +238,7 @@
         </div>
       </div>
       <div ng-class="validate(modelPrefix() + '.sourceEmployers_count') ? 'usa-input-error' : ''">
-        <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.sourceEmployers_count')">{{ validate(modelPrefix() + '.sourceEmployers_count') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.sourceEmployers_count')">{{ validate(modelPrefix() + '.sourceEmployers_count') }}</span>
         <button ng-click="vm.addingEmployer = true" ng-hide="vm.addingEmployer">Add a Source Employer</button>
       </div>
       <table class="usa-table-borderless" ng-show="formData[modelPrefix()].mostRecentPrevailingWageSurvey.sourceEmployers.length">
@@ -254,7 +254,7 @@
           <tr ng-repeat="employer in formData[modelPrefix()].mostRecentPrevailingWageSurvey.sourceEmployers">
             <th scope="row">
               <div ng-class="vm.validateSourceEmployer($index) ? 'usa-input-error' : ''">
-                <span class="usa-input-error-message" role="alert" ng-show="vm.validateSourceEmployer($index)">Please review this employer</span>
+                <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateSourceEmployer($index)">Please review this employer</span>
                 {{ employer.employerName }}
               </div>
             </th>
@@ -284,26 +284,26 @@
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') ? 'usa-input-error' : ''">
           <label for="{{ valuePrefix() }}AlternateWorkDescription">Description of Work (include job classification code, if known)</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription')">{{ validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.alternateWageData.alternateWorkDescription')">{{ validate(modelPrefix() + '.alternateWageData.alternateWorkDescription') }}</span>
           <textarea id="{{ valuePrefix() }}AlternateWorkDescription" name="{{ valuePrefix() }}AlternateWorkDescription" ng-model="formData[modelPrefix()].alternateWageData.alternateWorkDescription"></textarea>
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') ? 'usa-input-error' : ''">
           <label for="{{ valuePrefix() }}AlternateDataSourceUsed">Alternate data source used </label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed')">{{ validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed')">{{ validate(modelPrefix() + '.alternateWageData.alternateDataSourceUsed') }}</span>
           <input id="{{ valuePrefix() }}AlternateDataSourceUsed" name="{{ valuePrefix() }}AlternateDataSourceUsed" type="text" ng-model="formData[modelPrefix()].alternateWageData.alternateDataSourceUsed">
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource') ? 'usa-input-error' : ''">
           <label for="{{ valuePrefix() }}PrevailingWageProvidedBySource">Prevailing wage provided by source</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource')">{{ validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource')">{{ validate(modelPrefix() + '.alternateWageData.prevailingWageProvidedBySource') }}</span>
           <input id="{{ valuePrefix() }}PrevailingWageProvidedBySource" name="{{ valuePrefix() }}PrevailingWageProvidedBySource" type="number" class="wage-rate" min="0" step="0.01" ng-model="formData[modelPrefix()].alternateWageData.prevailingWageProvidedBySource">
         </div>
 
         <div ng-class="validate(modelPrefix() + '.alternateWageData.dataRetrieved') ? 'usa-input-error' : ''">
           <fieldset class="dol-legend-plain">
             <legend>Date data retrieved</legend>
-            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.alternateWageData.dataRetrieved')">{{ validate(modelPrefix() + '.alternateWageData.dataRetrieved') }}</span>
             <date-field date-val="formData[modelPrefix()].alternateWageData.dataRetrieved"></date-field>
           </fieldset>
         </div>
@@ -315,7 +315,7 @@
   <div class="dol-form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 26">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
       <label for="{{ valuePrefix() }}ScaWageDeterminationAttachment" class="dol-form-question-text">Attach the applicable SCA Wage Determination</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
       <attachment-field input-id="{{ valuePrefix() }}ScaWageDeterminationAttachment" attachment-id="formData[modelPrefix()].scaWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].scaWageDeterminationAttachmentName" />
     </div>
   </div>
@@ -323,7 +323,7 @@
   <div class="dol-form-question-group" ng-show="paytype === 'hourly'">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.workMeasurementFrequency') ? 'usa-input-error' : ''">
       <label for="{{ valuePrefix() }}WorkMeasurementFrequency" class="dol-form-question-text">How frequently does the employer conduct work measurements or time studies of each worker with a disability who is paid an hourly subminimum wage?</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.workMeasurementFrequency')">{{ validate(modelPrefix() + '.workMeasurementFrequency') }}</span>
       <input id="{{ valuePrefix() }}WorkMeasurementFrequency" name="{{ valuePrefix() }}WorkMeasurementFrequency" type="text" ng-model="formData[modelPrefix()].workMeasurementFrequency">
     </div>
 
@@ -340,7 +340,7 @@
           <li>determination of the worker’s individual productivity.</li>
         </ul>
       </helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
       <attachment-field input-id="{{ valuePrefix() }}WorkMeasurementAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
@@ -356,24 +356,24 @@
           <helptext id="{{ valuePrefix() }}PieceRateWorkDescriptionHelp">Provide a current piece rate work measurement or time study for the job/contract reflected in the prevailing wage survey above.</helptext>
           <div ng-class="validate(modelPrefix() + '.pieceRateWorkDescription') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}PieceRateWorkDescription">Descripton of Work</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.pieceRateWorkDescription')">{{ validate(modelPrefix() + '.pieceRateWorkDescription') }}</span>
             <input id="{{ valuePrefix() }}PieceRateWorkDescription" name="{{ valuePrefix() }}PieceRateWorkDescription" type="text" ng-model="formData[modelPrefix()].pieceRateWorkDescription">
           </div>
           <div ng-class="validate(modelPrefix() + '.prevailingWageDeterminedForJob') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}PrevailingWageDeterminedForJob">Prevailing Wage Determined for This Job</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.prevailingWageDeterminedForJob')">{{ validate(modelPrefix() + '.prevailingWageDeterminedForJob') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.prevailingWageDeterminedForJob')">{{ validate(modelPrefix() + '.prevailingWageDeterminedForJob') }}</span>
             <input id="{{ valuePrefix() }}PrevailingWageDeterminedForJob" name="{{ valuePrefix() }}PrevailingWageDeterminedForJob" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].prevailingWageDeterminedForJob" aria-describedby="{{ valuePrefix() }}PrevailingWageDesc">
             <span id="{{ valuePrefix() }}PrevailingWageDesc">rate per hour</span>
           </div>
           <div ng-class="validate(modelPrefix() + '.standardProductivity') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}StandardProductivity">Standard Productivity</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.standardProductivity')">{{ validate(modelPrefix() + '.standardProductivity') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.standardProductivity')">{{ validate(modelPrefix() + '.standardProductivity') }}</span>
             <input id="{{ valuePrefix() }}StandardProductivity" name="{{ valuePrefix() }}StandardProductivity" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].standardProductivity" aria-describedby="{{ valuePrefix() }}StandardProductivityDesc">
             <span id="{{ valuePrefix() }}StandardProductivityDesc">units per hour</span>
           </div>
           <div ng-class="validate(modelPrefix() + '.pieceRatePaidToWorkers') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}PieceRatePaidToWorkers">Piece Rate Paid to Workers</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.pieceRatePaidToWorkers')">{{ validate(modelPrefix() + '.pieceRatePaidToWorkers') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.pieceRatePaidToWorkers')">{{ validate(modelPrefix() + '.pieceRatePaidToWorkers') }}</span>
             <input id="{{ valuePrefix() }}PieceRatePaidToWorkers" name="{{ valuePrefix() }}PieceRatePaidToWorkers" type="number" class="wage-rate sidelabeled" min="0" step="0.01" ng-model="formData[modelPrefix()].pieceRatePaidToWorkers" aria-describedby="{{ valuePrefix() }}PieceRatePaidToWorkersDesc">
             <span id="{{ valuePrefix() }}PieceRatePaidToWorkersDesc">rate per unit</span>
           </div>
@@ -391,7 +391,7 @@
           <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
         </ul>
       </helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
       <attachment-field input-id="{{ valuePrefix() }}StandardProductivityAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
