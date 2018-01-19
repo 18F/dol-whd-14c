@@ -11,7 +11,7 @@
 <div class="dol-form-section-sub-title">
   All fields are required unless indicated as optional.
 </div>
-<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__wagedata')">
+<div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="validate('__wagedata')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
   </div>
@@ -20,7 +20,7 @@
   <div class="dol-form-question-block" ng-class="validate('payType') ? 'usa-input-error' : ''">
     <fieldset class="usa-fieldset-inputs form-question-answer">
       <legend class="dol-form-question-text">How did the employer pay subminimum wage rates to workers with disabilities in the most recent fiscal quarter?</legend>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('payType')">{{ validate('payType') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('payType')">{{ validate('payType') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.PayType">
             <input id="paytype_{{ response.id }}" type="radio" name="pay-type" ng-value="response.id" ng-model="formData.payTypeId">
