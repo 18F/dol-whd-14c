@@ -12,7 +12,6 @@ module.exports = function(ngModule) {
 
     var vm = this;
     $scope.formData = stateService.formData;
-    console.log($scope.formData)
     if(!$scope.formData[$scope.modelPrefix]) {
       stateService.formData[$scope.modelPrefix]= {}
       stateService.formData[$scope.modelPrefix][$scope.inputId] = [];
