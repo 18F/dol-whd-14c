@@ -23,12 +23,8 @@ namespace DOL.WHD.Section14c.Domain.Models
             get { return this._city; }
             set { this._city = value.TrimAndToLowerCase(); }
         }
-
-        private string _state;
-        public string State {
-            get { return this._state; }
-            set { this._state = value.TrimAndToLowerCase(); }
-        }
+        
+        public string State { get; set; }
 
         private string _zipCode;
         public string ZipCode {
