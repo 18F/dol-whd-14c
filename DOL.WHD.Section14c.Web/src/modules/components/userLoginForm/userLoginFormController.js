@@ -77,7 +77,7 @@ module.exports = function(ngModule) {
             vm.loginError.message =  error.data.error_description;
             vm.twoFAStatus = true;
             vm.submittButtonName ='Verify';
-            vm.formTitle ="Two-factor authentication";
+            vm.formTitle ="Enter code";
             vm.clearError();
           }
           else{

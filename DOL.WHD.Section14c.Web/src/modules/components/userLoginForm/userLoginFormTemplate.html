@@ -29,9 +29,10 @@
     </div>
 
     <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-show="vm.twoFAStatus">
+      <div>We sent an email to {{ formVals.email }} with an authentication code to verify your identity.</div><br/>
+      <div>Please enter the code below to log in. </div>
       <label for="code">Authentication code </label>
-      <input name="code" id="code" type="text" ng-model="formVals.code" />
-      <div>Login to you email {{ formVals.email }} to view your authentication code and verify your identity. </div>
+      <input name="code" id="code" type="text" ng-model="formVals.code" />      
     </div>
 
     <div class="loginbtn">
