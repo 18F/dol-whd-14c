@@ -315,8 +315,8 @@
   <div class="dol-form-question-group em-block" ng-show="formData[modelPrefix()].prevailingWageMethodId === 26">
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
       <label for="{{ valuePrefix() }}ScaWageDeterminationAttachment" class="dol-form-question-text">Attach the applicable SCA Wage Determination</label>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
-      <attachment-field input-id="{{ valuePrefix() }}ScaWageDeterminationAttachment" attachment-id="formData[modelPrefix()].scaWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].scaWageDeterminationAttachmentName" />
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
+      <attachment-field allow-multi-upload="true" input-id="{{ valuePrefix() }}ScaWageDeterminationAttachments" model-prefix="{{modelPrefix()}}" attachments="formData[modelPrefix()][valuePrefix() + 'ScaWageDeterminationAttachment']"/>
     </div>
   </div>
 
@@ -340,8 +340,8 @@
           <li>determination of the worker’s individual productivity.</li>
         </ul>
       </helptext>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
-      <attachment-field input-id="{{ valuePrefix() }}WorkMeasurementAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
+      <attachment-field allow-multi-upload="false" input-id="{{ valuePrefix() }}WorkMeasurementAttachment" model-prefix="{{modelPrefix()}}" attachments="formData[modelPrefix()][valuePrefix() + 'WorkMeasurementAttachment']" />
     </div>
   </div>
 
@@ -391,8 +391,8 @@
           <li>productivity of an experienced worker who is not disabled for the work performing the same job (i.e., “standard setter”).</li>
         </ul>
       </helptext>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
-      <attachment-field input-id="{{ valuePrefix() }}StandardProductivityAttachment" attachment-id="formData[modelPrefix()].attachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
+      <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.attachmentId')">{{ validate(modelPrefix() + '.attachmentId') }}</span>
+      <attachment-field allow-multi-upload="false" input-id="{{ valuePrefix() }}StandardProductivityAttachment" model-prefix="{{modelPrefix()}}" attachments="formData[modelPrefix()][valuePrefix() + 'StandardProductivityAttachment']" />
     </div>
   </div>
 </div>

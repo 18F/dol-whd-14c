@@ -4,6 +4,7 @@
   Object.assign(window.__env, {
     api_url: 'https://localhost:44399',
     requireHttps: true,
-    tokenCookieDurationMinutes: 20160
+    tokenCookieDurationMinutes: 20160,
+    allowedFileTypes: ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF']
   });
 })(this);
