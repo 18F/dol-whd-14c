@@ -63,9 +63,7 @@ module.exports = function(ngModule) {
         $location.path('/changePassword');
         $scope.$apply();
       }
-      vm.loginError = {
-        status: true
-      }
+      vm.loginError = { status: true }
       
       if (error.status === 400) {
         if(error.data.error === 'locked_out'){
@@ -74,7 +72,6 @@ module.exports = function(ngModule) {
         }
         else{
           if(error.data.error === 'need_code'){
-            vm.loginError.message =  error.data.error_description;
             vm.twoFAStatus = true;
             vm.submittButtonName ='Verify';
             vm.formTitle ="Enter code";
@@ -103,7 +100,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.resendAuthCode = function() {
-
+      
       apiService.sendAuthenticationCode(stateService.access_token, $scope.formVals.email).then(function(){
         vm.resendAuthCodeTitle ="New authentication code send";
       }).catch(function(error) { handleError(error) });
