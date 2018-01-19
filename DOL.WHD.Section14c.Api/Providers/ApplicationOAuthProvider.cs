@@ -9,6 +9,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using DOL.WHD.Section14c.Common;
+using DOL.WHD.Section14c.Common.Extensions;
 using System.IO;
 using NLog;
 
@@ -50,7 +51,8 @@ namespace DOL.WHD.Section14c.Api.Providers
                 eventInfo.Properties["CorrelationId"] = Guid.NewGuid().ToString();
                 eventInfo.LoggerName = "LoginAttempts";                
                 eventInfo.Properties["IsServiceSideLog"] = 1;
-                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName == context.UserName);
+                var userName = context.UserName.TrimAndToLowerCase();
+                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName == userName);
                 if (user != null)
                 {
                     eventInfo.Properties["UserId"] = user.Id;
