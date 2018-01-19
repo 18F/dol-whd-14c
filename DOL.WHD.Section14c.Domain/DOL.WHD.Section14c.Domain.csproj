@@ -117,7 +117,12 @@
     <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
     <Compile Include="ViewModels\VerifyResetPasswordViewModel.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
+      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
+      <Name>DOL.WHD.Section14c.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
