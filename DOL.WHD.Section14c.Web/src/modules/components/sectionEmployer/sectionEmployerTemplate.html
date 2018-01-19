@@ -81,6 +81,29 @@
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
+    <div class="dol-form-question-block" ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
+      <label class="dol-form-question-text" for="EIN">Federal Employer Identification Number (EIN)</label>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
+        <div ng-show="vm.einError">
+          <p>The EIN you provided is already registered. Please contact the account admin for access.</p>
+          <p>If you do not know the account admin, contact our office at 00-1234567</p>
+        </div>
+        <div ng-show="vm.einRequired">
+          <p>EIN is required.</p>
+        </div>
+        <div ng-show="vm.invalidEin">
+          <p>Invalid EIN format. Example XX-XXXXXXX</p>
+        </div>
+      </span>
+      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.ein" />
+      <span class="example">Example: 00-1234567</span>
+    </div>
+    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp" role="alert" tabindex="0">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>
+        <p>Additional users can be added once the Employer is registered.</p>
+      </div>
+    </div>
     <div class="dol-form-question-block">
       <fieldset class="usa-form-large">
         <legend class="dol-form-question-text">Physical Address of Employer’s Main Establishment</legend>

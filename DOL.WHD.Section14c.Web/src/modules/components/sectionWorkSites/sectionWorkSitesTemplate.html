@@ -64,7 +64,7 @@
               <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType_{{ response.id }}" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
               <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
               <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
-              <helptext id="establishmentType_{{ response.id }}Help">
+              <helptext category="workSitesAndEmployeesShowAllHelp" id="establishmentType_{{ response.id }}Help">
                   {{ response.subDisplay }}
               </helptext>
             </li>
@@ -134,7 +134,7 @@
           <span class="dol-form-question-text" aria-hidden="true">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
           <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
         </div>
-        <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
+        <helptext category="workSitesAndEmployeesShowAllHelp" category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -342,7 +342,7 @@
             <helplink aria-controls="workerAvgHoursHelp" aria-describedby="workerAvgHoursLabel"></helplink>
           </div>
           <helptext category="addEmployeeShowAllHelp" id="workerAvgHoursHelp">
-              Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter =20 hours per week average.
+              Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ~ 13 weeks per quarter =20 hours per week average.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>

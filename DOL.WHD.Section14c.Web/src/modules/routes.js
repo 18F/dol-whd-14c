@@ -54,6 +54,13 @@ module.exports = function (app) {
         label: 'Forgot Password',
         parent: '/dashboard'
       })
+      .when('/help', {
+        controller: 'helpPageController',
+        template: require('./pages/helpPage.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: 'Help',
+        parent: '/help'
+      })
       .when('/account/:userId', {
         controller: 'accountPageController',
         template: require('./pages/accountPageTemplate.html'),
