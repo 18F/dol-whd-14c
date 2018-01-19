@@ -75,7 +75,6 @@ namespace DOL.WHD.Section14c.Api.Providers
                         await userManager.SendEmailAsync(user.Id, AppSettings.Get<string>("AccountLockedoutEmailSubject"), accountLockedOutEmailTemplateString);
                         throw new UnauthorizedAccessException(string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, message));
                     }
-
                     if (!user.EmailConfirmed)
                     {
                         // email not confirmed
@@ -109,7 +108,7 @@ namespace DOL.WHD.Section14c.Api.Providers
 
                     var data = await context.Request.ReadFormAsync();
                     var code = data.Get("code");
-
+                    // Send authentication code if code is empty
                     if (await userManager.GetTwoFactorEnabledAsync(user.Id) && string.IsNullOrEmpty(code))
                     {
                         await userManager.UpdateSecurityStampAsync(user.Id);
@@ -121,7 +120,7 @@ namespace DOL.WHD.Section14c.Api.Providers
                         eventInfo.Message = message;
                         return;
                     }
-
+                    // Verify authentication code
                     if (await userManager.GetTwoFactorEnabledAsync(user.Id) && !await userManager.VerifyTwoFactorTokenAsync(user.Id, "EmailCode", code))
                     {
                         context.SetError("invalid_code", App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);

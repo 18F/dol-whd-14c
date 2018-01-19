@@ -39,8 +39,11 @@
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
     </div>
-    <div class="forgotpass">
-      <a href="" ng-click="forgotPassword()">Forgot Your Password?</a>
+    <div class="forgotpass" ng-hide="vm.twoFAStatus">
+      <a href="" ng-click="forgotPassword()" >Forgot Your Password?</a>
+    </div>
+    <div class="resendAuthCode" ng-show="vm.twoFAStatus">
+      <a href="" ng-click="resendAuthCode()" >{{vm.resendAuthCodeTitle}}</a>
     </div>
   </div>
   <div class="dol-panel-info">

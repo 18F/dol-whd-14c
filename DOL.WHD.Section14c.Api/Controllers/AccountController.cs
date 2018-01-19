@@ -449,22 +449,36 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return ResponseMessage(responseMessage);
         }
 
+        /// <summary>
+        /// Resend authentication code
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [Route("SendCode")]
-        public async Task<IHttpActionResult> SendCode()
+        public async Task<IHttpActionResult> SendAuthenticationCode(string email)
         {
-            var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            if (!ModelState.IsValid)
+            try
             {
-                BadRequest("Unable to reset password.");
-            }
+                if (!ModelState.IsValid)
+                {
+                    BadRequest("Unable to send code.");
+                }
 
-            // Generate the token and send it
-            var code = await UserManager.GenerateTwoFactorTokenAsync(userId, "EmailCode");
-            if (!string.IsNullOrEmpty(code))
+                var user = UserManager.FindByEmail(email);
+                if (user == null)
+                {
+                    BadRequest("UUser not found.");
+                }
+
+                // Generate the token and send it
+                var code = await UserManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                await UserManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", code);
+            }
+            catch (Exception e)
             {
-                await UserManager.NotifyTwoFactorTokenAsync(userId, "EmailCode", code);
+                // Log Error message to database
+                BadRequest(e.Message);
             }
             return Ok();
         }

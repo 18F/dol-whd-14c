@@ -7,7 +7,8 @@ module.exports = function(ngModule) {
     $location,
     $route,
     stateService,
-    authService
+    authService,
+    apiService
   ) {
     'ngInject';
     'use strict';
@@ -20,6 +21,7 @@ module.exports = function(ngModule) {
     };
     vm.formTitle ='Log in';
     vm.submittButtonName ='Log in';
+    vm.resendAuthCodeTitle = 'Resend authentication code'
     vm.twoFAStatus = false;
 
     $scope.formVals = {
@@ -98,6 +100,13 @@ module.exports = function(ngModule) {
 
     $scope.forgotPassword = function() {
       $location.path('/forgotPassword');
+    };
+
+    $scope.resendAuthCode = function() {
+
+      apiService.sendAuthenticationCode(stateService.access_token, $scope.formVals.email).then(function(){
+        vm.resendAuthCodeTitle ="New authentication code send";
+      }).catch(function(error) { handleError(error) });
     };
 
     $scope.hideShowPassword = function() {
