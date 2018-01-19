@@ -6,6 +6,8 @@ describe('attachmentField', function() {
     element = angular.element('<attachment-field/>');
     inject(function($rootScope, $compile) {
       rootScope = $rootScope;
+      rootScope.inputId = "inputId";
+      rootScope.modelPrefix = "modelPrefix";
       $compile(element)(rootScope);
     });
   });

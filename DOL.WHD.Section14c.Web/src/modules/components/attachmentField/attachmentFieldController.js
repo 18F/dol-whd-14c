@@ -11,13 +11,13 @@ module.exports = function(ngModule) {
     'use strict';
 
     var vm = this;
-    vm.stateService = stateService;
-    vm.apiService = apiService;
     $scope.formData = stateService.formData;
-
-    if(!$scope.formData[$scope.modelPrefix][$scope.inputId]) {
+    console.log($scope.formData)
+    if(!$scope.formData[$scope.modelPrefix]) {
+      stateService.formData[$scope.modelPrefix]= {}
       stateService.formData[$scope.modelPrefix][$scope.inputId] = [];
     }
+
     $scope.restrictUpload = false;
     $scope.upload = {
       status: "NoFile",
@@ -27,15 +27,21 @@ module.exports = function(ngModule) {
     $scope.allowedFileTypes = _env.allowedFileTypes;
 
     this.onAttachmentSelected = function(fileinput) {
+      if(fileinput) {
+        $scope.attachmentName = fileinput.files[0].name
+      } else {
+        $scope.attachmentName = '';
+        $scope.upload.status = 'NoFile';
+        $scope.upload.message = 'No file is selected.' ;
+        return;
+      }
       $scope.upload.status = "Uploading";
-      $scope.upload.message = 'File is uploading.'
-      $scope.attachmentName = fileinput.files[0].name;
-
+      $scope.upload.message = 'File is uploading.';
 
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
       }
-
+      fileinput.value = '';
       $scope.$apply();
     };
 
