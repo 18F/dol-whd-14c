@@ -70,6 +70,11 @@ namespace DOL.WHD.Section14c.Api
                 }
             });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+            // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
+            app.UseTwoFactorSignInCookie(DefaultAuthenticationTypes.TwoFactorCookie, TimeSpan.FromMinutes(10));
+
+            // Enables the application to remember the second login verification factor 
+            app.UseTwoFactorRememberBrowserCookie(DefaultAuthenticationTypes.TwoFactorRememberBrowserCookie);
 
             // Configure the application for OAuth based flow
             PublicClientId = "self";
