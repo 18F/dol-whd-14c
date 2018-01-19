@@ -12,11 +12,10 @@ module.exports = function(ngModule) {
 
     var vm = this;
     $scope.formData = stateService.formData;
-    if(!$scope.formData[$scope.modelPrefix]) {
-      stateService.formData[$scope.modelPrefix]= {}
-      stateService.formData[$scope.modelPrefix][$scope.inputId] = [];
+    if(!$scope.attachments) {
+      $scope.attachments = [];
     }
-
+    console.log($scope.attachments)
     $scope.restrictUpload = false;
     $scope.upload = {
       status: "NoFile",
@@ -63,7 +62,8 @@ module.exports = function(ngModule) {
 
     this.uploadAttachment = function (fileinput) {
       if($scope.upload.status != 'Invalid') {
-        apiService.uploadAttachment(stateService.access_token, stateService.ein, fileinput.files[0]).then(function(result) {
+
+        apiService.uploadAttachment(stateService.access_token, stateService.applicationId, fileinput.files[0]).then(function(result) {
           $scope.upload.status = 'Success';
           $scope.upload.message = 'File was uploaded successfully.'
           $scope.attachmentId = result.data[0].id;
@@ -72,19 +72,26 @@ module.exports = function(ngModule) {
           attachment.attachmentId = result.data[0].id;
           attachment.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
+          console.log($scope.allowMultiUpload)
           if($scope.allowMultiUpload) {
-            $scope.formData[$scope.modelPrefix][$scope.inputId].push(attachment);
+            $scope.attachments.push(attachment);
           } else {
-              if($scope.formData[$scope.modelPrefix][$scope.inputId][0]) {
-                vm.deleteAttachment($scope.formData[$scope.modelPrefix][$scope.inputId][0].attachmentId);
+              if($scope.attachments[0]) {
+                console.log('here')
+                vm.deleteAttachment($scope.attachments[0].attachmentId).then(function(result) {
+                  console.log(result)
+                }).catch(function(error){
+                  console.log(error)
+                });
               }
-              $scope.formData[$scope.modelPrefix][$scope.inputId][0] = attachment;
+              console.log($scope.formData, $scope.inputId)
+              $scope.attachments = attachment;
           }
-
           if(!$scope.allowMultiUpload) {
             $scope.restrictUpload = true;
           }
         }).catch(function(error) {
+          console.log('here')
           fileinput.value = '';
           $scope.upload.status = 'Server Error';
           $scope.upload.message = error.statusMessage;
@@ -113,17 +120,12 @@ module.exports = function(ngModule) {
     }
 
     this.deleteAttachment = function(id) {
-
-      apiService.deleteAttachment(stateService.access_token, stateService.ein, id).then(function() {
+      console.log('here')
+      apiService.deleteAttachment(stateService.access_token, stateService.applicationId, id).then(function() {
         $scope.restrictUpload = false;
         $scope.upload.status = 'NoFile';
         $scope.attachmentId = undefined;
         $scope.attachmentName = undefined;
-        $scope.formData[$scope.modelPrefix][$scope.inputId].forEach(function(element, index) {
-          if (element.attachmentId === id) {
-            $scope.formData[$scope.modelPrefix][$scope.inputId].splice(index, 1);
-          }
-        });
         vm.hideModal();
       }).catch(function() {
         //TODO: Display error

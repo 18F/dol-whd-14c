@@ -67,9 +67,9 @@ module.exports = function(ngModule) {
     };
 
     $scope.loadUserInfo = function(index) {
-      stateService.employerId = $scope.organizations[index].employer.id;
-      stateService.applicationId = $scope.organizations[index].applicationId;
-      stateService.ein = $scope.organizations[index].ein;
+      stateService.setEmployerId($scope.organizations[index].employer.id);
+      stateService.setApplicationId($scope.organizations[index].applicationId);
+      stateService.setEIN($scope.organizations[index].ein)
       return;
     }
 

@@ -306,6 +306,7 @@ module.exports = function(ngModule) {
     };
 
     this.uploadAttachment = function(access_token, applicationId, file) {
+      console.log(access_token, applicationId)
       let url = _env.api_url + '/api/attachment/' + applicationId;
       let d = $q.defer();
 
@@ -335,7 +336,7 @@ module.exports = function(ngModule) {
     this.deleteAttachment = function(access_token, applicationId, id) {
       let url = _env.api_url + '/api/attachment/' + applicationId + '/' + id;
       let d = $q.defer();
-
+      console.log('here')
       $http({
         method: 'DELETE',
         url: url,

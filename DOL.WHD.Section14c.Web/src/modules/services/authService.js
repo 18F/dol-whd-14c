@@ -55,7 +55,7 @@ module.exports = function(ngModule) {
           stateService.loggedIn = true;
           stateService.user = data;
           if (data.organizations.length > 0) {
-            stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
+            //stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
           } else {
             d.resolve();
             return;

@@ -11,8 +11,8 @@
 </div>
 <div >
   <ul class="dol-uploaded-files">
-    <li ng-repeat="attachment in formData[modelPrefix][inputId]">
-      <strong>Uploaded:</strong><a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachment.attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attatchment.attachmentId}}"><span>{{attachment.attachmentName}}</span></a>
+    <li ng-repeat="attachment in attachments">
+      <strong>Uploaded:</strong><a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.applicationId}}/{{attachment.attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attatchment.attachmentId}}"><span>{{attachment.attachmentName}}</span></a>
       <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal(attachment.attachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
     </li>
   </ul>

@@ -59,7 +59,7 @@ module.exports = function (app) {
         template: require('./pages/helpPage.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Help',
-        parent: '/help'
+        parent: '/dashboard'
       })
       .when('/account/:userId', {
         controller: 'accountPageController',

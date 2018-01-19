@@ -36,28 +36,28 @@ module.exports = function(ngModule) {
 
     Object.defineProperty(this, 'ein', {
       get: function() {
-        return state.activeEIN;
+        return state.ein;
       },
       set: function(value) {
-        state.activeEIN = value;
+        state.ein = value;
       }
     });
 
     Object.defineProperty(this, 'employerId', {
       get: function() {
-        return state.activeEmployerId;
+        return state.employerId;
       },
       set: function(value) {
-        state.activeEmployerId = value;
+        state.employerId = value;
       }
     });
 
     Object.defineProperty(this, 'applicationId', {
       get: function() {
-        return state.activeApplicationId;
+        return state.applicationId;
       },
       set: function(value) {
-        state.activeApplicationId = value;
+        state.applicationId = value;
       }
     });
 
@@ -137,6 +137,18 @@ module.exports = function(ngModule) {
       state.app_list = value;
     };
 
+    this.setEIN = function(value) {
+      state.ein = value;
+    };
+
+    this.setEmployerId = function(value) {
+      state.employerId = value;
+    };
+    
+    this.setApplicationId = function(value) {
+      state.applicationId = value;
+    };
+
     this.logOut = function() {
       // remove access_token cookie
       $cookies.remove(accessTokenCookieName);
@@ -187,9 +199,9 @@ module.exports = function(ngModule) {
         form_data: {},
         app_data: {},
         app_list: [],
-        activeEIN: undefined,
-        activeEmployerId: undefined,
-        activeApplicationId: undefined,
+        ein: undefined,
+        employerId: undefined,
+        applicationId: undefined,
         user: {
           email: '',
           claims: []
