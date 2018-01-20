@@ -579,5 +579,28 @@ module.exports = function(ngModule) {
 
       return d.promise;
     };
+
+
+    this.sendAuthenticationCode = function(access_token, userEmail) {
+      let url = _env.api_url + '/api/Account/SendCode?email='+ userEmail;
+      let d = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token
+        }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
   });
 };

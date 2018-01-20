@@ -7,7 +7,8 @@ module.exports = function(ngModule) {
     $location,
     $route,
     stateService,
-    authService
+    authService,
+    apiService
   ) {
     'ngInject';
     'use strict';
@@ -18,10 +19,15 @@ module.exports = function(ngModule) {
       status: false,
       message: ''
     };
+    vm.formTitle ='Log in';
+    vm.submittButtonName ='Log in';
+    vm.resendAuthCodeTitle = 'Resend authentication code'
+    vm.twoFAStatus = false;
 
     $scope.formVals = {
       email: '',
-      pass: ''
+      pass: '',
+      code: ''
     };
 
     $scope.inputType = 'password';
@@ -32,7 +38,7 @@ module.exports = function(ngModule) {
 
       vm.clearError();
       //  Call Token Service
-      authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
+      authService.userLogin($scope.formVals.email, $scope.formVals.pass, $scope.formVals.code).then(
         function() {
           vm.submittingForm = false;
           if(stateService.user.organizations.length) {
@@ -57,16 +63,23 @@ module.exports = function(ngModule) {
         $location.path('/changePassword');
         $scope.$apply();
       }
-      vm.loginError = {
-        status: true
-      }
+      vm.loginError = { status: true }
+      
       if (error.status === 400) {
         if(error.data.error === 'locked_out'){
           // update error message
           vm.loginError.message = error.data.error_description
         }
         else{
-          vm.loginError.message = "The email or password entered does not match our records."
+          if(error.data.error === 'need_code'){
+            vm.twoFAStatus = true;
+            vm.submittButtonName ='Verify';
+            vm.formTitle ="Enter code";
+            vm.clearError();
+          }
+          else{
+            vm.loginError.message =  error.data.error_description
+          }
         }
       } else {
         // catch all error, currently possible to get a 500 if the database server is not reachable
@@ -84,6 +97,13 @@ module.exports = function(ngModule) {
 
     $scope.forgotPassword = function() {
       $location.path('/forgotPassword');
+    };
+
+    $scope.resendAuthCode = function() {
+      
+      apiService.sendAuthenticationCode(stateService.access_token, $scope.formVals.email).then(function(){
+        vm.resendAuthCodeTitle ="New authentication code send";
+      }).catch(function(error) { handleError(error) });
     };
 
     $scope.hideShowPassword = function() {

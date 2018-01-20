@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidUserNameorPassword" xml:space="preserve">
-    <value>The user name or password is incorrect.</value>
+    <value>The email or password entered does not match our records.</value>
+  </data>
+  <data name="LoginFailureEmailCodeIncorrect" xml:space="preserve">
+    <value>The authentication code entered does not match our records.</value>
   </data>
   <data name="LoginFailureMessage" xml:space="preserve">
     <value>Login failure</value>
@@ -134,6 +137,9 @@
   </data>
   <data name="LoginSuccessMessage" xml:space="preserve">
     <value>Login success</value>
+  </data>
+  <data name="MissingUser2FACode" xml:space="preserve">
+    <value>Code from email is not included</value>
   </data>
   <data name="PasswordComplexityCheckFailedMessage" xml:space="preserve">
     <value>Password does not meet complexity requirements.</value>
