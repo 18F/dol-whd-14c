@@ -52,6 +52,15 @@ module.exports = function(ngModule) {
       }
     });
 
+    Object.defineProperty(this, 'employerName', {
+      get: function() {
+        return state.employerName;
+      },
+      set: function(value) {
+        state.employerName = value;
+      }
+    });
+
     Object.defineProperty(this, 'applicationId', {
       get: function() {
         return state.applicationId;
@@ -144,7 +153,7 @@ module.exports = function(ngModule) {
     this.setEmployerId = function(value) {
       state.employerId = value;
     };
-    
+
     this.setApplicationId = function(value) {
       state.applicationId = value;
     };
@@ -201,6 +210,7 @@ module.exports = function(ngModule) {
         app_list: [],
         ein: undefined,
         employerId: undefined,
+        employerName: undefined,
         applicationId: undefined,
         user: {
           email: '',

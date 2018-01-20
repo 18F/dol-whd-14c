@@ -11,7 +11,7 @@
   </div>
 
   <div class="dol-applicant-ein" ng-show="!admin">
-    <span>{{ vm.stateService.ein ? vm.organization.employer.legalName : "XX-XXXXXXX" }}</span>
+    <span>{{ vm.stateService.ein ? vm.stateService.employerName : "XX-XXXXXXX" }}</span>
   </div>
   <div class="dol-applicant-ein" ng-show="admin">
     {{ appData.employer.legalName }}

@@ -12,11 +12,6 @@ describe('attachmentFieldController', function() {
       scope.modelPrefix = "modelPrefix";
       scope.inputId = "inputId";
 
-      scope.upload = {
-        status: "NoFile",
-        message: 'No file is selected.'
-      };
-
       $q = _$q_;
       mockApiService = apiService;
 
@@ -58,7 +53,14 @@ describe('attachmentFieldController', function() {
 
   ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'].forEach(function(extension) {
     it('should allow file of type ' + extension, function() {
-
+      scope.modelPrefix = "modelPrefix";
+      scope.inputId = "inputId";
+      mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+      mockStateService.formData = {
+        modelPrefix: {
+          inputId: [{attachmentId: '12345'}]
+        }
+      };
       var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
       controller = attachmentFieldController({
         scope: scope,
@@ -87,6 +89,9 @@ describe('attachmentFieldController', function() {
           inputId: [{attachmentId: '12345'}]
         }
       };
+      scope.modelPrefix = "modelPrefix";
+      scope.inputId = "inputId";
+
       var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
       controller = attachmentFieldController({
         scope: scope,
@@ -175,16 +180,16 @@ describe('attachmentFieldController', function() {
     expect(scope.upload.status).toBe('NoFile');
   });
 
-  it('delete attachment failer, clears attachment fields', function() {
+  it('delete attachment failer, does not reset attachment fields', function() {
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
-    controller.deleteAttachment(1);
+    controller.deleteAttachment(scope.attachmentId, scope.attachmentName);
     deleteAttachment.reject({});
     scope.$apply();
 
     //TODO assert that error is displayed when code is added
-    expect(scope.attachmentId).toBe(undefined);
-    expect(scope.attachmentName).toBe(undefined);
+    expect(scope.attachmentId).toBe(1);
+    expect(scope.attachmentName).toBe('name');
     expect(scope.upload.status).toBe('Failure');
   });
 });

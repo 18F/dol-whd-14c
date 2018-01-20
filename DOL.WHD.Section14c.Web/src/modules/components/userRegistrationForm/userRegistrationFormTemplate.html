@@ -28,7 +28,7 @@
   <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="vm.accountCreated">
     <div class="usa-alert-body">
       <h2 class="usa-alert-heading">Account Created</h2>
-      <p class="usa-alert-text">Your account was created. Please verify that your email address is <strong>{{vm.registerdEmail}}</strong> by visiting the link in the email.</p>
+      <p class="usa-alert-text">Your account was created. Please verify that your email address is <strong>{{vm.registeredEmail}}</strong> by visiting the link in the email.</p>
     </div>
   </div>
   <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.generalRegistrationError">
@@ -38,24 +38,24 @@
   </div>
   <div class="createAcct">
     <h2>Create an Account</h2>
-    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required ? 'usa-input-error' : ''">
+    <div ng-class="vm.firstNameRequired ? 'usa-input-error' : ''">
       <label for="registerFirstName">First Name</label>
-      <input placeholder="Enter your first name" type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.firstName" required/>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required">This is a required field</span>
+      <input type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.firstName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.firstNameRequired">This is a required field</span>
     </div>
-    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerLastName.$error.required ? 'usa-input-error' : ''">
+    <div ng-class="vm.lastNameRequired ? 'usa-input-error' : ''">
       <label for="registerLastName">Last Name</label>
-      <input placeholder="Enter your last name" type="first_name" name="registerLastName" id="registerLastName" ng-model="formVals.lastName" required/>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerLastName.$error.required">This is a required field</span>
+      <input type="first_name" name="registerLastName" id="registerLastName" ng-model="formVals.lastName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.lastNameRequired">This is a required field</span>
     </div>
-    <div ng-class="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerEmail.$error.required ? 'usa-input-error' : ''">
+    <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
       <label for="registerEmail">Email Address</label>
       <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressError">
         <p>The email you provided is already registred.</p>
         <p>If you forgot your password, you can <a href>reset it here</a></p>
       </span>
-      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" placeholder="Enter your email address" required />
-      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.userRegistrationForm.$dirty && vm.userRegistrationForm.registerFirstName.$error.required">
+      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" required />
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressRequired">
         <p>Email address is required.</p>
       </span>
     </div>
@@ -69,7 +69,7 @@
             <li><span class="checkmark" ng-class="vm.passwordLower ? 'checked' : ''"></span>Contain at least 1 lowercase leter.</li>
             <li><span class="checkmark" ng-class="vm.passwordSpecial ? 'checked' : ''"></span>Contain at least 1 special character.</li>
             <li><span class="checkmark" ng-class="vm.passwordNumber ? 'checked' : ''"></span>Contain at least 1 number.</li>
-            <li><span class="checkmark" ng-class="passwordStrength.strong ? 'checked' : ''"></span>Meets “Good” password strength</li>
+            <li><span class="checkmark" ng-class="vm.passwordStrength.score >= 3 ? 'checked' : ''"></span>Meets “Good” password strength</li>
           </ul>
         </p>
       </div>
@@ -84,12 +84,12 @@
           <p>Passwords do not match.</p>
         </div>
       </span>
-      <input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Enter a password" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
       <div class="dol-password-help">
         <div class="usa-content">
-          <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
-          <div ng-switch="passwordStrength.score">Password Strength:
-            <span ng-switch-when="0"></span>
+          <meter max="4" id="password-strength-meter" value="{{vm.passwordStrength.score}}"></meter>
+          <div ng-switch="vm.passwordStrength.score">Password Strength:
+            <span ng-switch-when="0">Poor</span>
             <span ng-switch-when="1">Weak</span>
             <span ng-switch-when="2">Fair</span>
             <span ng-switch-when="3">Good</span>
@@ -106,7 +106,7 @@
     </div>
     <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
       <label for="confirmPassword">Confirm Password</label>
-      <input type="password" name="confirmPassword" placeholder="Confirm your password" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
     <div class="regbtn">
       <button  type="submit" ng-show="!vm.submittingForm">Register</button>

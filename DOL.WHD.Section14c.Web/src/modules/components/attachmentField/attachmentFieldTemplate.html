@@ -12,7 +12,7 @@
 <div >
   <ul class="dol-uploaded-files">
     <li ng-repeat="attachment in attachments">
-      <strong>Uploaded:</strong><a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.applicationId}}/{{attachment.attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attatchment.attachmentId}}"><span>{{attachment.attachmentName}}</span></a>
+      <strong>Uploaded: </strong><a ng-click="vm.downloadAttachment(attachment.attachmentId)" ng-href="" id="{{attatchment.attachmentId}}"><span>{{attachment.attachmentName}}</span></a>
       <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal(attachment.attachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
     </li>
   </ul>
@@ -37,7 +37,7 @@
       <p>
         {{attachmentName}}
       </p>
-      <button ng-click="vm.hideModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete Files</button>
+      <button ng-click="vm.hideModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete File</button>
       <div ng-show="upload.status == 'Failure'" class="dol-feedback-error">
           <p class="dol-feedback-message">
             <strong>{{upload.message}}</strong> <span>{{attachmentName}} could not be deleted.

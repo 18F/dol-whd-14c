@@ -20,7 +20,7 @@ $help-em-color: #d0e2fb;
 a {
   // Modified from USWDS for DOL
   color: $color-link;
-
+  cursor:pointer;
   &:hover,
   &:active {
     color: $color-hover;

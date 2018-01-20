@@ -108,10 +108,15 @@
     </div>
     <helptext category="appInfoShowAllHelp" id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
     <hr />
-    <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
-      <label for="contactName">Full Name</label>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
-      <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
+    <div class="dol-form-question-block" ng-class="validate('contactFirstName') ? 'usa-input-error' : ''">
+      <label for="contactFirstName">First Name</label>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactFirstName')">{{ validate('contactFirstName') }}</span>
+      <input id="contactFirstName" name="contactFirstName" type="text" ng-model="formData.contactFirstName"></input>
+    </div>
+    <div class="dol-form-question-block" ng-class="validate('contactLastName') ? 'usa-input-error' : ''">
+      <label for="contactLastName">Last Name</label>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactLastName')">{{ validate('contactLastName') }}</span>
+      <input id="contactLastName" name="contactLastName" type="text" ng-model="formData.contactLastName"></input>
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
@@ -122,7 +127,7 @@
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
-      <label for="contactFax">Fax Number</label><span class="dol-example-text">(Optional)</span>
+      <label for="contactFax">Fax Number <span class="dol-example-text">(Optional)</span></label>
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
       <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
       <span id="exampleContactFax" class="dol-example-text">Example: 123-456-7890</span>

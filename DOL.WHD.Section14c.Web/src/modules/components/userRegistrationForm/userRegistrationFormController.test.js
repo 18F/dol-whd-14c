@@ -1,5 +1,5 @@
 describe('userRegistrationFormController', function() {
-  var $q, scope, mockapiService, mockLocation;
+  var $q, scope, mockapiService, mockLocation, formVals;
   var userRegistrationFormController, userRegister, emailVerification;
 
   beforeEach(module('14c'));
@@ -16,7 +16,11 @@ describe('userRegistrationFormController', function() {
       scope = $rootScope.$new();
       mockapiService = apiService;
       mockLocation = $location;
-
+      formVals = {
+        email: "test@tst.com",
+        firstName: "A",
+        lastName: "B"
+      }
       userRegistrationFormController = function() {
         return $controller('userRegistrationFormController', {
           $scope: scope,
@@ -26,11 +30,11 @@ describe('userRegistrationFormController', function() {
       };
 
       userRegister = $q.defer();
-      checkPasswordComplexity = $q.defer();
       spyOn(mockapiService, 'userRegister').and.returnValue(
         userRegister.promise
       );
 
+      checkPasswordComplexity = $q.defer();
       spyOn(mockapiService, 'checkPasswordComplexity').and.returnValue(
         checkPasswordComplexity.promise
       );
@@ -62,63 +66,93 @@ describe('userRegistrationFormController', function() {
   });
 
   it('submitting registration is successful, email is set as registered and created, windows scrolls to top', function() {
+
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+    expect(scope.formVals.firstName).toBe('');
+    scope.formVals = {};
+    scope.formVals.email = "test@test.com";
+    scope.formVals.firstName = "A";
+    scope.formVals.lastName = "B"
     scope.onSubmitClick();
     expect(controller.submittingForm).toBe(true);
-    userRegister.resolve();
+    userRegister.resolve({});
     scope.$apply();
     expect(controller.submittingForm).toBe(false);
+    expect(scope.formVals.firstName).toBe('');
+    expect(scope.formVals.lastName).toBe('');
+    expect(scope.formVals.email).toBe('');
+    expect(controller.accountCreated).toBe(true);
   });
 
   it('Password score is set on failure of complexity check', function() {
     var controller = userRegistrationFormController();
     checkPasswordComplexity.reject({data: {score: 0} });
     scope.$apply();
-    expect(scope.passwordStrength.strong).toBe(false);
-    expect(scope.passwordStrength.score).toBe(0);
+    expect(controller.passwordStrength.strong).toBe(false);
+    expect(controller.passwordStrength.score).toBe(0);
   });
 
   it('Password score is set on success of complexity check', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
     checkPasswordComplexity.resolve({data: {score: 4} });
     scope.$apply();
-    expect(scope.passwordStrength.strong).toBe(true);
-    expect(scope.passwordStrength.score).toBe(4);
+
+    expect(controller.passwordStrength.strong).toBe(true);
+    expect(controller.passwordStrength.score).toBe(4);
   });
 
   it('submitting registration has an error, no error data', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 1
+    };
     scope.onSubmitClick();
-    expect(controller.submittingForm).toBe(true);
+    expect(controller.submittingForm).toBe(false);
     userRegister.reject({});
     scope.$apply();
     expect(controller.submittingForm).toBe(false);
-    expect(controller.generalRegistrationError).toBe(true);
+    expect(controller.passwordComplexity).toBe(true);
+    expect(controller.firstNameRequired).toBe(true);
+    expect(controller.lastNameRequired).toBe(true);
+    expect(controller.emailAddressRequired).toBe(true);
+
   });
 
   it('submitting registration has an error, should return message', function() {
-    userRegistrationFormController();
+    var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     scope.onSubmitClick();
+
     userRegister.reject({ data: { modelState: { error: ['message'] } } });
     scope.$apply();
 
+
     expect(scope.registerErrors[0]).toBe('message');
-  });
-
-  it('submitting registration has an error, EIN is already registered message is displayed', function() {
-    var controller = userRegistrationFormController();
-    scope.onSubmitClick();
-    userRegister.reject({
-      data: { modelState: { error: ['EIN is already registered'] } }
-    });
-    scope.$apply();
-
-    expect(controller.einError).toBe(true);
   });
 
 
   it('submitting registration has an error, Username already taken message is displayed', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     scope.onSubmitClick();
     userRegister.reject({
       data: { modelState: { error: ['is already taken'] } }
@@ -130,6 +164,12 @@ describe('userRegistrationFormController', function() {
 
   it('submitting registration has an error, The Email field is required message is displayed', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     scope.onSubmitClick();
     userRegister.reject({
       data: { modelState: { error: ['The Email field is required.'] } }
@@ -141,6 +181,12 @@ describe('userRegistrationFormController', function() {
 
   it('submitting registration has an error, The Password field is required. message is displayed', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     scope.onSubmitClick();
     userRegister.reject({
       data: { modelState: { error: ['The Password field is required.'] } }
@@ -152,6 +198,13 @@ describe('userRegistrationFormController', function() {
 
   it('submitting registration has an error, The password and confirmation password do not match. message is displayed', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
+
     scope.onSubmitClick();
     userRegister.reject({
       data: {
@@ -166,6 +219,12 @@ describe('userRegistrationFormController', function() {
 
   it('submitting registration has an error, Password does not meet complexity requirements. message is displayed', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     scope.onSubmitClick();
     userRegister.reject({
       data: {
@@ -180,6 +239,12 @@ describe('userRegistrationFormController', function() {
 
   it('toggleEinHelp, on should turn off', function() {
     var controller = userRegistrationFormController();
+    controller.passwordStrength = {
+      strong: false,
+      score: 4
+    };
+
+    scope.formVals = formVals;
     controller.showEinHelp = true;
     controller.toggleEinHelp();
     scope.$apply();
@@ -188,6 +253,7 @@ describe('userRegistrationFormController', function() {
 
   it('toggleEinHelp, off should turn on', function() {
     var controller = userRegistrationFormController();
+
     controller.showEinHelp = false;
     controller.toggleEinHelp();
     scope.$apply();
