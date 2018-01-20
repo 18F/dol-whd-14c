@@ -2,13 +2,13 @@
   <div class="dol-panel-login">
     <h2>{{vm.formTitle}}</h2>
 
-    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.unknownError">
+    <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.unknownError">
       <div class="usa-alert-body">
         <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
       </div>
     </div>
  
-    <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loginError.status">
+    <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.loginError.status">
       <div class="usa-alert-body">
         <p class="usa-alert-text">{{ vm.loginError.message }} </p>
       </div>

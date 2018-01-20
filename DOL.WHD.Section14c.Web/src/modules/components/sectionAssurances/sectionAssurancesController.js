@@ -13,5 +13,9 @@ module.exports = function(ngModule) {
     $scope.validate = validationService.getValidationErrors;
 
     $scope.vm = this;
+    $scope.showAllHelp = {
+      status: false,
+      category:''
+    };
   });
 };

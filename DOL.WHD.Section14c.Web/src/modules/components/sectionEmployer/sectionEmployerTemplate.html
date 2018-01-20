@@ -10,7 +10,7 @@
 <div class="dol-form-section-sub-title">
   All fields are required unless indicated as optional.
 </div>
-<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__employer')">
+<div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="validate('__employer')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
   </div>
@@ -26,7 +26,7 @@
         <helplink aria-controls="legalNameHelp" aria-describedby="legalNameLabel"></helplink>
       </div>
       <helptext category="employerShowAllHelp" id="legalNameHelp">Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.</helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
       <input id="legalName" name="legalName" aria-describedby="legalNameHelp" type="text" ng-model="formData.employer.legalName">
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.hasTradeName') ? 'usa-input-error' : ''">
@@ -37,7 +37,7 @@
           <helplink aria-controls="hasTradeNameHelp" aria-describedby="hasTradeNameLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="hasTradeNameHelp">Provide the trade name of the employer, if applicable.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" ng-value="true" ng-model="formData.employer.hasTradeName">
@@ -52,7 +52,7 @@
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.hasTradeName === true" ng-class="validate('employer.tradeName') ? 'usa-input-error' : ''">
       <label for="tradeName" class="dol-form-question-text">Employer's Trade Name</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.tradeName')">{{ validate('employer.tradeName') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.tradeName')">{{ validate('employer.tradeName') }}</span>
       <input id="tradeName" name="tradeName" type="text" ng-model="formData.employer.tradeName">
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.legalNameHasChanged') ? 'usa-input-error' : ''">
@@ -63,7 +63,7 @@
           <helplink aria-controls="legalNameHasChangedHelp" aria-describedby="legalNameHasChangedLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp"  id="legalNameHasChangedHelp">Provide the previous name(s) of the employer, if applicable.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.legalNameHasChanged')">{{ validate('employer.legalNameHasChanged') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="legalNameHasChanged_1" type="radio" name="legalNameHasChanged" ng-value="true" ng-model="formData.employer.legalNameHasChanged">
@@ -78,7 +78,7 @@
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.legalNameHasChanged === true" ng-class="validate('employer.priorLegalName') ? 'usa-input-error' : ''">
       <label for="priorLegalName" class="dol-form-question-text">Prior Name(s) of Employer</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
     <div class="dol-form-question-block">
@@ -86,33 +86,33 @@
         <legend class="dol-form-question-text">Physical Address of Employer’s Main Establishment</legend>
         <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
           <label for="mailing-address-1">Street Address</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
           <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="formData.employer.physicalAddress.streetAddress">
         </div>
 
         <div class="clearer" ng-class="validate(['employer.physicalAddress.city', 'employer.physicalAddress.state']) ? 'usa-input-error' : ''">
           <div class="usa-input-grid usa-input-grid-medium">
             <label for="city">City</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.city')">{{ validate('employer.physicalAddress.city') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.city')">{{ validate('employer.physicalAddress.city') }}</span>
             <input id="city" name="city" type="text" ng-model="formData.employer.physicalAddress.city">
           </div>
 
           <div class="usa-input-grid usa-input-grid-small">
             <label for="state">State</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.state')">{{ validate('employer.physicalAddress.state') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.state')">{{ validate('employer.physicalAddress.state') }}</span>
             <state-field name="state" selected-state="formData.employer.physicalAddress.state"></state-field>
           </div>
         </div>
 
         <div ng-class="validate('employer.physicalAddress.zipCode') ? 'usa-input-error' : ''">
           <label for="zip">Zip Code</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
           <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
         <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
           <label for="county">County</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
           <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
         </div>
 
@@ -128,33 +128,33 @@
         <div class="usa-form-large">
           <div ng-class="validate('employer.mailingAddress.streetAddress') ? 'usa-input-error' : ''">
             <label for="mailingAddressStreet">Street Address</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.streetAddress')">{{ validate('employer.mailingAddress.streetAddress') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.mailingAddress.streetAddress')">{{ validate('employer.mailingAddress.streetAddress') }}</span>
             <input id="mailingAddressStreet" name="mailingAddressStreet" type="text" ng-model="formData.employer.mailingAddress.streetAddress">
           </div>
 
           <div class="clearer" ng-class="validate(['employer.mailingAddress.city', 'employer.mailingAddress.state']) ? 'usa-input-error' : ''">
             <div class="usa-input-grid usa-input-grid-medium">
               <label for="mailingAddressCity">City</label>
-              <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.city')">{{ validate('employer.mailingAddress.city') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.mailingAddress.city')">{{ validate('employer.mailingAddress.city') }}</span>
               <input id="mailingAddressCity" name="mailingAddressCity" type="text" ng-model="formData.employer.mailingAddress.city">
             </div>
 
             <div class="usa-input-grid usa-input-grid-small">
               <label for="mailingAddressState">State</label>
-              <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.state')">{{ validate('employer.mailingAddress.state') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.mailingAddress.state')">{{ validate('employer.mailingAddress.state') }}</span>
               <state-field name="mailingAddressState" selected-state="formData.employer.mailingAddress.state"></state-field>
             </div>
           </div>
 
           <div ng-class="validate('employer.mailingAddress.zipCode') ? 'usa-input-error' : ''">
             <label for="mailingAddressZipCode">Zip Code</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.zipCode')">{{ validate('employer.mailingAddress.zipCode') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.mailingAddress.zipCode')">{{ validate('employer.mailingAddress.zipCode') }}</span>
             <input class="usa-input-medium" id="mailingAddressZipCode" name="mailingAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.mailingAddress.zipCode">
           </div>
 
           <div ng-hide="formData.employer.mailingAddress.state === 'DC' || formData.employer.mailingAddress.state === 'AS' || formData.employer.mailingAddress.state === 'GU' || formData.employer.mailingAddress.state === 'MP' || formData.employer.mailingAddress.state === 'PR' || formData.employer.mailingAddress.state === 'UM' || formData.employer.mailingAddress.state === 'VI'" ng-class="validate('employer.mailingAddress.county') ? 'usa-input-error' : ''">
             <label for="mailingAddressCounty">County</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.mailingAddress.county')">{{ validate('employer.mailingAddress.county') }}</span>
             <input id="mailingAddressCounty" name="mailingAddressCounty" type="text" ng-model="formData.employer.mailingAddress.county">
           </div>
         </div>
@@ -168,7 +168,7 @@
           <helplink aria-controls="hasParentOrgHelp" aria-describedby="hasParentOrgLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="hasParentOrgHelp">If applying as a SWEP, select “Yes” and enter the school district’s information.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.hasParentOrg')">{{ validate('employer.hasParentOrg') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasParentOrg_1" type="radio" name="hasParentOrg" aria-describedby="hasParentOrgHelp" ng-value="true" ng-model="formData.employer.hasParentOrg">
@@ -186,7 +186,7 @@
         <legend class="dol-form-question-text">Parent Organization Information</legend>
         <div ng-class="validate('employer.parentLegalName') ? 'usa-input-error' : ''">
           <label for="parentLegalName">Legal Name</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentLegalName')">{{ validate('employer.parentLegalName') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentLegalName')">{{ validate('employer.parentLegalName') }}</span>
           <input id="parentLegalName" name="parentLegalName" type="text" ng-model="formData.employer.parentLegalName">
         </div>
 
@@ -196,33 +196,33 @@
         <div class="usa-form-large">
           <div ng-class="validate('employer.parentAddress.streetAddress') ? 'usa-input-error' : ''">
             <label for="parentAddressStreet">Street Address</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.streetAddress')">{{ validate('employer.parentAddress.streetAddress') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.streetAddress')">{{ validate('employer.parentAddress.streetAddress') }}</span>
             <input id="parentAddressStreet" name="parentAddressStreet" type="text" ng-model="formData.employer.parentAddress.streetAddress">
           </div>
 
           <div class="clearer" ng-class="validate(['employer.parentAddress.city', 'employer.parentAddress.state']) ? 'usa-input-error' : ''">
             <div class="usa-input-grid usa-input-grid-medium">
               <label for="parentAddressCity">City</label>
-              <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.city')">{{ validate('employer.parentAddress.city') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.city')">{{ validate('employer.parentAddress.city') }}</span>
               <input id="parentAddressCity" name="parentAddressCity" type="text" ng-model="formData.employer.parentAddress.city">
             </div>
 
             <div class="usa-input-grid usa-input-grid-small">
               <label for="parentAddressState">State</label>
-              <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.state')">{{ validate('employer.parentAddress.state') }}</span>
+              <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.state')">{{ validate('employer.parentAddress.state') }}</span>
               <state-field name="parentAddressState" selected-state="formData.employer.parentAddress.state"></state-field>
             </div>
           </div>
 
           <div ng-class="validate('employer.parentAddress.zipCode') ? 'usa-input-error' : ''">
             <label for="parentAddressZipCode">Zip Code</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.zipCode')">{{ validate('employer.parentAddress.zipCode') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.zipCode')">{{ validate('employer.parentAddress.zipCode') }}</span>
             <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.parentAddress.zipCode">
           </div>
 
           <div ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
             <label for="parentAddressCounty">County</label>
-            <span class="usa-input-error-message" role="alert" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
             <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
           </div>
 
@@ -240,14 +240,14 @@
           <helplink aria-controls="employerStatusHelp" aria-describedby="employerStatusLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="employerStatusHelp">Select the option that describes the employer’s status. For example, a SWEP operated by a public school system should select “Public.”</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.employerStatusId')">{{ validate('employer.employerStatusId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.EmployerStatus">
             <input id="paytype_{{ response.id }}" type="radio" name="employerStatus" aria-describedby="employerStatusHelp" ng-value="response.id" ng-model="formData.employer.employerStatusId">
             <label for="paytype_{{ response.id }}">{{ response.display }}</label>
           </li>
         </ul>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.employerStatusOther')">{{ validate('employer.employerStatusOther') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.employerStatusOther')">{{ validate('employer.employerStatusOther') }}</span>
         <label for="employerStatusOther" class="hide">Employer status other</label>
         <input id="employerStatusOther" name="employerStatusOther" type="text" ng-model="formData.employer.employerStatusOther">
       </fieldset>
@@ -260,7 +260,7 @@
           <helplink aria-controls="isEducationalAgencyHelp" aria-describedby="isEducationalAgencyLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="isEducationalAgencyHelp">The term “local educational agency” means a public board of education or other public authority legally constituted within a State for either administrative control or direction of, or to perform a service function for, public elementary schools or secondary schools in a city, county, township, school district, or other political subdivision of a State, or of or for a combination of school districts or counties that is recognized in a State as an administrative agency for its public elementary schools or secondary schools. The term “State educational agency” means the agency primarily responsible for the State supervision of public elementary schools and secondary schools. See <a target="_blank" href="https://www.gpo.gov/fdsys/pkg/USCODE-2011-title20/html/USCODE-2011-title20-chap70-subchapIX-partA-sec7801.htm">20 U.S.C. 7801</a>, the Elementary and Secondary Education Act of 1965.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.isEducationalAgency')">{{ validate('employer.isEducationalAgency') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="isEducationalAgency_1" type="radio" name="isEducationalAgency" aria-describedby="isEducationalAgencyHelp" ng-value="true" ng-model="formData.employer.isEducationalAgency">
@@ -285,7 +285,7 @@
           <helplink aria-controls="fiscalQuarterEndDateHelp" aria-describedby="fiscalQuarterEndDateLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="fiscalQuarterEndDateHelp">Provide the ending date of the employer’s most recently completed three-month fiscal quarter. For example, if the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June 30, September 30, or December 31).</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.fiscalQuarterEndDate')">{{ validate('employer.fiscalQuarterEndDate') }}</span>
         <date-field date-val="formData.employer.fiscalQuarterEndDate"></date-field>
       </fieldset>
     </div>
@@ -295,7 +295,7 @@
         <helplink aria-controls="numSubminimalWageWorkersTotalHelp" aria-describedby="numSubminimalWageWorkersTotalLabel"></helplink>
       </div>
       <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersTotalHelp">Include workers who were employed for less than the full fiscal quarter, <i>i.e.</i> three-month period.</helptext>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.total')">{{ validate('employer.numSubminimalWageWorkers.total') }}</span>
       <input id="numSubminimalWageWorkersTotal" name="numSubminimalWageWorkersTotal" aria-describedby="numSubminimalWageWorkersTotalHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.total">
     </div>
     <div class="dol-form-question-block">
@@ -307,7 +307,7 @@
             <helplink aria-controls="numSubminimalWageWorkersWorkCenterHelp" aria-describedby="numSubminimalWageWorkersWorkCenterLabel"></helplink>
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersWorkCenterHelp">A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
           <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter"><span>If no workers, enter "0"</span>
 
         </div>
@@ -317,7 +317,7 @@
             <helplink aria-controls="numSubminimalWageWorkersPatientWorkersHelp" aria-describedby="numSubminimalWageWorkersPatientWorkersLabel"></helplink>
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersPatientWorkersHelp">A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.</helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
           <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers"><span>If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
@@ -326,7 +326,7 @@
             <helplink aria-controls="numSubminimalWageWorkersSWEPHelp" aria-describedby="numSubminimalWageWorkersSWEPLabel"></helplink>
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersSWEPHelp">A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
           <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep"><span>If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
@@ -335,7 +335,7 @@
             <helplink aria-controls="numSubminimalWageWorkersBusinessHelp" aria-describedby="numSubminimalWageWorkersBusinessLabel"></helplink>
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersBusinessHelp">Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</helptext>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
           <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment"><span>If no workers, enter "0"</span>
         </div>
       </fieldset>
@@ -352,7 +352,7 @@
           <helplink aria-controls="PCAHelp" aria-describedby="PCALabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="PCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Walsh-Healey Public Contracts Act (PCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.pca')">{{ validate('employer.pca') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="PCA_1" type="radio" name="PCA" aria-describedby="PCAHelp" ng-value="true" ng-model="formData.employer.pca">
@@ -373,7 +373,7 @@
           <helplink aria-controls="SCAHelp" aria-describedby="SCALabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="SCAHelp">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the McNamara-O’Hara Service Contract Act (SCA). Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.scaId')">{{ validate('employer.scaId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.SCA">
             <input id="SCA_{{ response.id }}" type="radio" name="SCA" aria-describedby="SCAHelp" ng-value="response.id" ng-model="formData.employer.scaId">
@@ -384,14 +384,14 @@
       <div ng-show="formData.employer.scaId == 11">
         <div ng-class="validate('employer.scaCount') ? 'usa-input-error' : ''">
           <label for="scaCount">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaCount')">{{ validate('employer.scaCount') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.scaCount')">{{ validate('employer.scaCount') }}</span>
           <div class="form-question-answer">
             <input id="scaCount" name="scaCount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.scaCount">
           </div>
         </div>
         <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
           <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
           <attachment-field input-id="fileUploadSCA" attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
         </div>
       </div>
@@ -404,7 +404,7 @@
           <helplink aria-controls="EO13658Help" aria-describedby="EO13658Label"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="EO13658Help">Make the appropriate selection if the employer has, or intends to receive, any contracts with the Federal Government subject to the Executive Order 13658, Establishing a Minimum Wage for Contractors.  Section 14(c) workers performing on or in connection with a contract covered by Executive Order 13658 are generally entitled to be paid at least the Executive Order minimum wage. Additional information about contracts with the Federal Government can be found at <a target="_blank" href="http://www.dol.gov/whd/govcontracts/">www.dol.gov/whd/govcontracts/</a>.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.eo13658Id')">{{ validate('employer.eo13658Id') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.EO13658">
             <input id="EO13658_{{ response.id }}" type="radio" name="EO13658" aria-describedby="EO13658Help" ng-value="response.id" ng-model="formData.employer.eo13658Id">
@@ -425,7 +425,7 @@
           <helplink aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="representativePayee_1" type="radio" name="representativePayee" aria-describedby="representativePayeeHelp" ng-value="true" ng-model="formData.employer.representativePayee">
@@ -440,7 +440,7 @@
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.representativePayee === true" ng-class="validate('employer.totalDisabledWorkers') ? 'usa-input-error' : ''">
       <label for="totalDisabledWorkers" class="dol-form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
       <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employer.totalDisabledWorkers">
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.takeCreditForCosts') ? 'usa-input-error' : ''">
@@ -451,7 +451,7 @@
           <helplink aria-controls="takeCreditForCostsHelp" aria-describedby="takeCreditForCostsLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="takeCreditForCostsHelp">Indicate if the employer provided facilities such as lodging, board, and transportation to any employee, and took credit for those costs toward meeting the minimum wage or subminimum wage obligations to employees with disabilities during the most recently completed fiscal quarter. See <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.21&amp;idno=29">29 C.F.R. § 531</a> and <a target="_blank" href="https://www.ecfr.gov/cgi-bin/text-idx?c=ecfr&amp;sid=48d6ee3b99d3b3a97b1bf189e1757786&amp;rgn=div5&amp;view=text&amp;node=29:3.1.1.1.13&amp;idno=29">29 C.F.R. § 516</a>.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.takeCreditForCosts')">{{ validate('employer.takeCreditForCosts') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="takeCreditForCosts_1" type="radio" name="takeCreditForCosts" aria-describedby="takeCreditForCostsHelp" ng-value="true" ng-model="formData.employer.takeCreditForCosts">
@@ -467,7 +467,7 @@
     <div class="dol-form-question-block" ng-show="formData.employer.takeCreditForCosts === true" ng-class="validate(['employer.providingFacilitiesDeductionTypeId', 'employer.providingFacilitiesDeductionTypeOther']) ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">Which type of deduction(s) did the employer take?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.providingFacilitiesDeductionTypeId')">{{ validate('employer.providingFacilitiesDeductionTypeId') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.providingFacilitiesDeductionTypeId')">{{ validate('employer.providingFacilitiesDeductionTypeId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.ProvidingFacilitiesDeductionType">
             <input id="deductionType_{{ response.id }}" type="checkbox" name="deductionType" ng-value="response.id" ng-checked="formData.employer.providingFacilitiesDeductionTypeId.indexOf(response.id) > -1" ng-click="vm.toggleDeductionType(response.id)">
@@ -484,7 +484,7 @@
           <helplink aria-controls="temporaryAuthorityHelp" aria-describedby="temporaryAuthorityLabel"></helplink>
         </div>
         <helptext category="employerShowAllHelp" id="temporaryAuthorityHelp">Select “Yes” only if the application is being filed by a vocational rehabilitation program administered by a State agency or the U.S. Veterans Administration. <a target="_blank" href="https://www.ecfr.gov/cgi-bin/retrieveECFR?gp=&SID=2c2c1e5e4f61356b4516a55834d00bfd&r=PART&n=29y3.1.1.1.17#se29.3.525_18">See 29 C.F.R. § 525.8.</a></helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.temporaryAuthority')">{{ validate('employer.temporaryAuthority') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="temporaryAuthority_1" type="radio" name="temporaryAuthority" aria-describedby="temporaryAuthorityHelp" ng-value="true" ng-model="formData.employer.temporaryAuthority">
