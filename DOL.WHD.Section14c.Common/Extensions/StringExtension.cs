@@ -8,7 +8,8 @@ namespace DOL.WHD.Section14c.Common.Extensions
     public static class StringExtension
     {
         /// <summary>
-        /// Trim string and convert to lower case
+        /// Trim string and convert to lower case and 
+        /// convert string whitespaces to single spaces
         /// </summary>
         /// <param name="value">String to convert</param>
         /// <returns>Convert value</returns>
