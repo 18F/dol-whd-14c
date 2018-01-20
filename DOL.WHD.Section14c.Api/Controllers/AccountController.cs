@@ -468,7 +468,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var user = UserManager.FindByEmail(email);
                 if (user == null)
                 {
-                    BadRequest("UUser not found.");
+                    BadRequest("User not found.");
                 }
 
                 // Generate the token and send it
