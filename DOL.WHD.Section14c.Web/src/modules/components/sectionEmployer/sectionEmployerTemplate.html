@@ -250,7 +250,7 @@
           </div>
 
           <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
-          <label for="sendMailToParent">Check if mail should be sent here</label>
+          <label for="sendMailToParent">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
 
       </fieldset>
@@ -445,9 +445,7 @@
         <legend class="hide"><span id="representativePayeeLabel">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span></legend>
         <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span>
-          <helplink aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
         </div>
-        <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -462,8 +460,12 @@
       </fieldset>
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.representativePayee === true" ng-class="validate('employer.totalDisabledWorkers') ? 'usa-input-error' : ''">
-      <label for="totalDisabledWorkers" class="dol-form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</label>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+      <div class="dol-legend-help">
+        <label for="totalDisabledWorkers" class="dol-form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</label>
+        <helplink class="dol-help-link" aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+        <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
+      </div>
       <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employer.totalDisabledWorkers">
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.takeCreditForCosts') ? 'usa-input-error' : ''">
