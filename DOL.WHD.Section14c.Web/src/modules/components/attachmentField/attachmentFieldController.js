@@ -66,6 +66,7 @@ module.exports = function(ngModule) {
           $scope.restrictUpload = true;
           vm.upload.status = 'Success';
           vm.upload.message = 'File was uploaded successfully.'
+          $scope.restrictUpload = true;
           $scope.attachmentId = result.data[0].id;
           $scope.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
