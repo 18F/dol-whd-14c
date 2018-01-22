@@ -115,7 +115,7 @@ describe('attachmentFieldController', function() {
     expect(controller.upload.status).toBe('NoFile');
   });
 
-  it('delete attachment failer, clears attachment fields', function() {
+  it('delete attachment failer, does not clear attachment fields', function() {
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
     controller.deleteAttachment(1);
@@ -123,8 +123,8 @@ describe('attachmentFieldController', function() {
     scope.$apply();
 
     //TODO assert that error is displayed when code is added
-    expect(scope.attachmentId).toBe(undefined);
-    expect(scope.attachmentName).toBe(undefined);
+    expect(scope.attachmentId).toBe(1);
+    expect(scope.attachmentName).toBe('name');
     expect(controller.upload.status).toBe('Failure');
   });
 });

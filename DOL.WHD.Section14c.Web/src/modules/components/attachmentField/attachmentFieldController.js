@@ -29,11 +29,16 @@ module.exports = function(ngModule) {
     $scope.allowedFileTypes = _env.allowedFileTypes;
 
     this.onAttachmentSelected = function(fileinput) {
-      $scope.attachmentName = fileinput.files[0].name;
+      if(fileinput) {
+        $scope.attachmentName = fileinput.files[0].name;
+      }
       vm.upload.status = "Uploading";
       vm.upload.message = 'File is uploading.'
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
+      } else {
+        $scope.attachmentId = undefined;
+        $scope.attachmentName = undefined;
       }
     };
 
@@ -43,6 +48,7 @@ module.exports = function(ngModule) {
         vm.upload.status = 'Invalid';
         vm.upload.message = 'Invalid File Type.';
         fileinput.value = '';
+
         return false;
       }
       if (fileinput.size / 1024000 > 5) {
