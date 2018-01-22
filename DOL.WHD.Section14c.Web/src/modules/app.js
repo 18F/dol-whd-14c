@@ -19,6 +19,7 @@ import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
 import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 // Angular
 import angular from 'angular';
+import ngIdle from 'ng-idle';
 import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
@@ -42,6 +43,7 @@ let app = angular.module('14c', [
   ngAnimate,
   ngResource,
   ngRoute,
+  ngIdle,
   ngSanitize,
   toastr,
   require('angular-crumble'),
