@@ -55,23 +55,18 @@ module.exports = function(ngModule) {
           const data = result.data;
           stateService.loggedIn = true;
           stateService.user = data;
-          var organization = data.organizations.reduce(function(a,b){
-            if(a.applicationStatus.name === 'InProgress') {
-              return a;
-            } else {
-              return b;
-            }
-          });
-          stateService.ein = organization.ein;
-          stateService.employerId = organization.employer.id;
-          stateService.applicationId = organization.applicationId;
-          stateService.employerName = organization.employer.legalName;
-          if (!stateService.ein) {
-            //$location.path("/dashboard");
-            //stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-          } else {
-            d.resolve();
-            return;
+          if(result.data.organizations.length > 0) {
+            var organization = data.organizations.reduce(function(a,b){
+              if(a.applicationStatus.name === 'InProgress') {
+                return a;
+              } else {
+                return b;
+              }
+            });
+            stateService.ein = organization.ein;
+            stateService.employerId = organization.employer.id;
+            stateService.applicationId = organization.applicationId;
+            stateService.employerName = organization.employer.legalName;
           }
           if (!stateService.IsPointOfContact) {
             d.resolve();

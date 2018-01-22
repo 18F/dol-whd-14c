@@ -288,52 +288,6 @@ describe('userRegistrationFormController', function() {
     expect(scope.inputType).toBe('password');
   });
 
-  it('call email verification when code and userId are present', function() {
-    spyOn(mockLocation, 'search').and.returnValue({
-      code: 'code',
-      userId: 'userId'
-    });
-    var controller = userRegistrationFormController();
-    scope.$apply();
-
-    expect(controller.isEmailVerificationRequest).toBe(true);
-  });
-
-  it('email verification success should show email verified message', function() {
-    spyOn(mockLocation, 'search').and.returnValue({
-      code: 'code',
-      userId: 'userId'
-    });
-    var controller = userRegistrationFormController();
-    emailVerification.resolve();
-    scope.$apply();
-
-    expect(controller.emailVerified).toBe(true);
-  });
-
-  it('email verification error should show error message', function() {
-    spyOn(mockLocation, 'search').and.returnValue({
-      code: 'code',
-      userId: 'userId'
-    });
-    var controller = userRegistrationFormController();
-    emailVerification.reject({});
-    scope.$apply();
-
-    expect(controller.emailVerificationError).toBe(true);
-  });
-
-  it('email verification error should show error message, log details', function() {
-    spyOn(mockLocation, 'search').and.returnValue({
-      code: 'code',
-      userId: 'userId'
-    });
-    var controller = userRegistrationFormController();
-    emailVerification.reject({ data: { error: 'test' } });
-    scope.$apply();
-
-    expect(controller.emailVerificationError).toBe(true);
-  });
 
   it('valid password validation', function() {
     var controller = userRegistrationFormController();

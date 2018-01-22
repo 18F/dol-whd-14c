@@ -92,7 +92,7 @@ describe('authService', function() {
 
   it('authenticateUser success should resolve deferred non admin', function() {
     var isResolved;
-    var data = { organizations: [{ ein: '12-1234567' }] };
+    var data = { organizations: [{ ein: '12-1234567', employer: {legalName: 'legalName'}, applicationId: '123' }]};
     var loadSavedApplication = $q.defer();
     spyOn(stateService, 'loadSavedApplication').and.returnValue(
       loadSavedApplication.promise
@@ -111,12 +111,14 @@ describe('authService', function() {
     expect(stateService.loggedIn).toEqual(true);
     expect(stateService.user).toEqual(data);
     expect(stateService.ein).toEqual('12-1234567');
+    expect(stateService.employerName).toEqual('legalName');
+    expect(stateService.applicationId).toEqual('123');
   });
 
   it('authenticateUser success should resolve deferred admin', function() {
     var isResolved;
     var data = {
-      organizations: [{ ein: '12-1234567' }],
+      organizations: [{ ein: '12-1234567', employer: {legalName: 'legalName'}, applicationId: '123' }],
       applicationClaims: ['DOL.WHD.Section14c.Application.ViewAdminUI']
     };
     var loadApplicationList = $q.defer();
@@ -141,7 +143,7 @@ describe('authService', function() {
   it('authenticateUser error should reject deferred non admin', function() {
     var result;
     var isResolved;
-    var data = { organizations: [{ ein: '12-1234567' }] };
+    var data = { organizations: [{ ein: '12-1234567', employer: {legalName: 'legalName'}, applicationId: '123' }]};
     var loadSavedApplication = $q.defer();
     authService.authenticateUser().then(undefined, function(error) {
       result = 'error';
@@ -161,7 +163,7 @@ describe('authService', function() {
     var result;
     var isResolved;
     var data = {
-      organizations: [{ ein: '12-1234567' }],
+      organizations: [{ ein: '12-1234567', employer: {legalName: 'legalName'}, applicationId: '123' }],
       applicationClaims: ['DOL.WHD.Section14c.Application.ViewAdminUI']
     };
     var loadApplicationList = $q.defer();

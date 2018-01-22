@@ -43,6 +43,8 @@ module.exports = function(ngModule) {
       vm.einRequired = false;
       vm.emailAddressError = false;
       vm.emailAddressRequired = false;
+      vm.lastNameRequired = false;
+      vm.firstNameRequired = false;
       vm.showPasswordHelp = false;
       vm.passwordRequired = false;
       vm.invalidEin = false;
@@ -106,9 +108,30 @@ module.exports = function(ngModule) {
     vm.emailVerificationUrl = $location.absUrl();
 
     $scope.onSubmitClick = function() {
+
+      vm.submittingForm = true;
+
+      if(!$scope.formVals.firstName) {
+        vm.firstNameRequired = true;
+      }
+
+      if(!$scope.formVals.lastName) {
+        vm.lastNameRequired = true;
+      }
+      if(!$scope.formVals.email) {
+        vm.emailAddressRequired = true;
+      }
+      if(vm.passwordStrength.score < 3) {
+        vm.passwordComplexity = true;
+      }
+
+      if(vm.firstNameRequired || vm.lastNameRequired || vm.emailAddressRequired || vm.passwordComplexity) {
+        vm.submittingForm = false;
+        return
+      }
       vm.resetErrors();
       vm.registeredEmail = '';
-      vm.submittingForm = true;
+
       /* eslint-disable complexity */
       apiService
         .userRegister(
