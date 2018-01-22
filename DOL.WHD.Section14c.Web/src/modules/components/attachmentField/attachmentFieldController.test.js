@@ -122,6 +122,7 @@ describe('attachmentFieldController', function() {
     expect(scope.upload.status).toBe('Success');
   });
 
+
   it('it allows multiple files to be uploaded', function() {
     scope.allowMultiUpload = true;
     var fileInput = { files: [{name: 'name1.pdf', size: 1000}] };
@@ -172,15 +173,20 @@ describe('attachmentFieldController', function() {
   it('delete attachment successful, clears attachment fields', function() {
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
-    controller.deleteAttachment(1);
+    scope.attachments = [{attachmentId: scope.attachmentId , attachmentName: scope.attachmentName}];
+    controller.deleteAttachment(scope.attachmentId, scope.attachmentName);
     deleteAttachment.resolve({});
     scope.$apply();
     expect(scope.attachmentId).toBe(undefined);
     expect(scope.attachmentName).toBe(undefined);
     expect(scope.upload.status).toBe('NoFile');
+    expect(scope.attachments.length).toEqual(0);
+    expect(scope.restrictUpload).toEqual(false);
+    expect(scope.modalIsVisible).toEqual(false);
   });
 
   it('delete attachment failer, does not reset attachment fields', function() {
+    scope.modalIsVisible = true;
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
     controller.deleteAttachment(scope.attachmentId, scope.attachmentName);
@@ -191,5 +197,6 @@ describe('attachmentFieldController', function() {
     expect(scope.attachmentId).toBe(1);
     expect(scope.attachmentName).toBe('name');
     expect(scope.upload.status).toBe('Failure');
+    expect(scope.modalIsVisible).toEqual(true);
   });
 });
