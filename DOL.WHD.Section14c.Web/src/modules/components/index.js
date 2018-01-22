@@ -6,6 +6,7 @@ module.exports = function(ngModule) {
   require('./answerField')(ngModule);
   require('./anchorLink')(ngModule);
   require('./attachmentField')(ngModule);
+  require('./attachmentsField')(ngModule);
   require('./breadcrumb')(ngModule);
   require('./changePasswordForm')(ngModule);
   require('./dateField')(ngModule);

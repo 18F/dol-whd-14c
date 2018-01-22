@@ -130,11 +130,6 @@
     <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="hide"><span id="worksiteFederalLabel">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, and may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span></legend>
-        <div class="dol-legend-help">
-          <span class="dol-form-question-text" aria-hidden="true">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-          <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
-        </div>
-        <helptext category="workSitesAndEmployeesShowAllHelp" category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -497,7 +492,6 @@
                 <span ng-show="vm.exampleView === '2'">Intellectual/Developmental Disability (IDD)</span>
               </dd>
             </dl>
-            <p class="dol-form-question-text">Wage Data</p>
             <dl class="dol-employee-example-data">
                 <dt>
                     How many jobs did this worker perform at this work site?

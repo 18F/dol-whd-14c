@@ -5,68 +5,49 @@ module.exports = function(ngModule) {
     $scope,
     apiService,
     _env,
-    autoSaveService,
-    stateService,
-    $window
+    stateService
   ) {
     'ngInject';
     'use strict';
 
     var vm = this;
-    $scope.formData = stateService.formData;
-    if(!$scope.attachments) {
-      $scope.attachments = [];
-    }
-
-
+    vm.stateService = stateService;
+    vm.apiService = apiService;
     $scope.restrictUpload = false;
-    $scope.upload = {
-      status: "NoFile",
-      message: 'No file is selected.'
-    };
+    if(!$scope.attachmentId) {
+       vm.upload = {
+        status: "NoFile",
+        message: 'No file is selected.'
+      }
+    } else {
+      vm.upload = {
+        status: "Success",
+        message: 'File was uploaded successfully.'
+      }
+    }
 
     $scope.allowedFileTypes = _env.allowedFileTypes;
 
-    this.setActiveAttachment = function(id, name) {
-      $scope.attachmentId = id;
-      $scope.attachmentName = name;
-    };
-
-    this.setUploadStatus = function (status, message) {
-      $scope.upload.status = status;
-      $scope.upload.message = message;
-    };
-
-    this.downloadAttachment = function(id) {
-        var downloadURL = _env.api_url + '/api/attachment/' + stateService.applicationId + '/' + id + '?access_token=' + stateService.access_token;
-        $window.location.href = downloadURL;
-    };
-
     this.onAttachmentSelected = function(fileinput) {
-      if(fileinput) {
-        vm.setActiveAttachment(null, fileinput.files[0].name);
-      } else {
-        vm.setActiveAttachment();
-        vm.setUploadStatus('NoFile', 'No file is selected.');
-        return;
-      }
-      vm.setUploadStatus("Uploading", "File is uploading.");
+      $scope.attachmentName = fileinput.files[0].name;
+      vm.upload.status = "Uploading";
+      vm.upload.message = 'File is uploading.'
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
       }
-      fileinput.value = '';
-      $scope.$apply();
     };
 
     this.validateAttachment = function (fileinput, allowedFileTypes) {
       var ext = fileinput.name.split(".").pop();
       if(allowedFileTypes.indexOf(ext) < 0) {
-        vm.setUploadStatus("Invalid", "Invalid File Type.");
+        vm.upload.status = 'Invalid';
+        vm.upload.message = 'Invalid File Type.';
         fileinput.value = '';
         return false;
       }
       if (fileinput.size / 1024000 > 5) {
-        vm.setUploadStatus("Invalid", "File Size too large.");
+        vm.upload.status = 'Invalid';
+        vm.upload.message = 'File Size too large.';
         fileinput.value = '';
         return false;
       }
@@ -74,74 +55,60 @@ module.exports = function(ngModule) {
     };
 
     this.uploadAttachment = function (fileinput) {
-      if($scope.upload.status != 'Invalid') {
-
+      if(vm.upload.status != 'Invalid') {
         apiService.uploadAttachment(stateService.access_token, stateService.applicationId, fileinput.files[0]).then(function(result) {
-          vm.setUploadStatus("Success", "File was uploaded successfully.");
-          vm.setActiveAttachment(result.data[0].id, result.data[0].originalFileName);
-          var attachment = {};
-          attachment.attachmentId = result.data[0].id;
-          attachment.attachmentName = result.data[0].originalFileName;
+          $scope.restrictUpload = true;
+          vm.upload.status = 'Success';
+          vm.upload.message = 'File was uploaded successfully.'
+          $scope.attachmentId = result.data[0].id;
+          $scope.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
-          if($scope.allowMultiUpload) {
-            $scope.attachments.push(attachment);
-          } else {
-              if($scope.attachments[0]) {
-                vm.deleteAttachment($scope.attachments[0].attachmentId);
-              }
-              $scope.attachments[0] = attachment;
-          }
-          if(!$scope.allowMultiUpload) {
-            $scope.restrictUpload = true;
-          }
         }).catch(function(error) {
           fileinput.value = '';
-          vm.setUploadStatus("Server Error", error.statusMessage);
-          vm.setActiveAttachment();
+          vm.upload.status = 'Server Error';
+          vm.upload.message = error.statusMessage;
+          $scope.attachmentId = undefined;
+          $scope.attachmentName = undefined;
         });
       }
-
-      autoSaveService.save()
     }
 
     $scope.modalIsVisible = false;
 
-    this.showModal = function (id, attachmentName) {
+    this.showModal = function () {
       //$('.modal').addClass('is-visible');
-      $scope.attachmentName = attachmentName;
-      $scope.attachmentId = id;
       $scope.modalIsVisible = true;
-      vm.setUploadStatus('Deleting', 'Attempting to delete file.');
     };
 
     this.hideModal = function() {
      // $('.modal').removeClass('is-visible');
       $scope.modalIsVisible = false;
-      vm.setUploadStatus('NoFile', 'No file is selected.');
+      vm.upload.status = 'NoFile';
+      $scope.attachmentId = undefined;
+      $scope.attachmentName = undefined;
     }
 
-    this.deleteAttachment = function(id, name) {
-      $scope.attachmentName = name;
+    this.deleteAttachment = function(id) {
       apiService.deleteAttachment(stateService.access_token, stateService.applicationId, id).then(function() {
         $scope.restrictUpload = false;
-        vm.setUploadStatus('NoFile', 'No file is selected.');
-        vm.setActiveAttachment();
-        var index = 0;
-        $scope.attachments.forEach(function(element, $index) {
-          if(element.attachmentId === id) {
-            index = $index;
-          }
-        });
-
-        $scope.attachments.splice(index, 1);
-        vm.hideModal();
+        vm.upload.status = 'NoFile';
+        $scope.attachmentId = undefined;
+        $scope.attachmentName = undefined;
       }).catch(function() {
         //TODO: Display error
-        vm.setUploadStatus('Failure', 'Failed to delete file');
-
+        vm.upload.status = 'Failure';
       });
-
-      autoSaveService.save()
     };
+
+    // $('.modal-trigger').on('click', function(event){
+    //   panelTrigger = $(this);
+    //   var target = $(this).attr('aria-controls');
+    //   $(`#${target}`).addClass('is-visible');
+    //   $(`#${target} .modal-header h3`).focus();
+    //   vm.clearActiveWorker();
+    //   $('body').addClass('modal-open');
+    //   event.preventDefault();
+    // });
+
   });
 };

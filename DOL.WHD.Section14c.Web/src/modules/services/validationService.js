@@ -690,10 +690,9 @@ module.exports = function(ngModule) {
           prefix + '.workMeasurementFrequency',
           'Please indicate how frequently the employer conducts work measurements or time studies'
         );
-        this.checkRequiredValueArray(
-          prefix + '.' + value + 'WorkMeasurementAttachments',
-          'Please upload a work measurement or time study',
-          false
+        this.checkRequiredValue(
+          prefix + '.attachmentId',
+          'Please upload at one piece of documentation'
         );
       }
 
@@ -725,10 +724,9 @@ module.exports = function(ngModule) {
           'Please provide the piece rate paid to workers',
           0
         );
-        this.checkRequiredValueArray(
-          prefix + '.' + value + 'WorkMeasurementAttachments',
-          'Please upload at least one piece of documentation',
-          false
+        this.checkRequiredValue(
+          prefix + '.attachmentId',
+          'Please upload one piece of documentation'
         );
       }
 

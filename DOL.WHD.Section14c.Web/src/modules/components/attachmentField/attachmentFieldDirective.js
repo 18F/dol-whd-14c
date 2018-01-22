@@ -9,9 +9,8 @@ module.exports = function(ngModule) {
       template: require('./attachmentFieldTemplate.html'),
       controller: 'attachmentFieldController',
       scope: {
-        allowMultiUpload: '=',
-        attachments:"=",
-        modelPrefix: '@',
+        attachmentId: '=',
+        attachmentName: '=',
         inputId: '@'
       },
       controllerAs: 'vm'
