@@ -486,7 +486,7 @@ module.exports = function(ngModule) {
 
         //TODO: validate number of uploads with scaCount ???
         this.checkRequiredValue(
-          'employer.fileUploadSCA',
+          'employer.scaAttachmentIds',
           'Please upload the required SCA Wage Determinations'
         );
       }
