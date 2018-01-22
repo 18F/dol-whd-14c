@@ -16,6 +16,10 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
     vm.showFacts = false;
+     vm.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     vm.restForm = function() {
       if(vm.userRegistrationForm) {
        vm.userRegistrationForm.$setPristine();
@@ -47,7 +51,7 @@ module.exports = function(ngModule) {
       vm.accountCreated = false;
       vm.emailVerified = false;
       vm.emailVerificationError = false;
-      $scope.passwordStrength = {
+      vm.passwordStrength = {
         strong: false,
         score: 0
       };
@@ -85,12 +89,12 @@ module.exports = function(ngModule) {
         : false;
 
         apiService.checkPasswordComplexity(value).then(function(result){
-          $scope.passwordStrength = {
+          vm.passwordStrength = {
             strong: true,
             score: result.data.score
           };
         }).catch(function(error) {
-          $scope.passwordStrength = {
+          vm.passwordStrength = {
             strong: false,
             score: error.data.score
           };
@@ -100,35 +104,10 @@ module.exports = function(ngModule) {
 
     $scope.inputType = 'password';
     vm.emailVerificationUrl = $location.absUrl();
-    vm.emailVerificationCode = $location.search().code;
-    vm.emailVerificationUserId = $location.search().userId;
-    vm.isEmailVerificationRequest =
-      vm.emailVerificationCode !== undefined &&
-      vm.emailVerificationCode !== undefined;
-
-    if (vm.isEmailVerificationRequest) {
-      $location.search('code', null);
-      $location.search('userId', null);
-      vm.resetErrors();
-      apiService
-        .emailVerification(
-          vm.emailVerificationUserId,
-          vm.emailVerificationCode,
-          $scope.verifyResponse
-        )
-        .then(
-          function() {
-            vm.emailVerified = true;
-          },
-          function() {
-            vm.emailVerificationError = true;
-          }
-        );
-    }
 
     $scope.onSubmitClick = function() {
       vm.resetErrors();
-      vm.registerdEmail = '';
+      vm.registeredEmail = '';
       vm.submittingForm = true;
       /* eslint-disable complexity */
       apiService
@@ -142,7 +121,7 @@ module.exports = function(ngModule) {
         )
         .then(
           function() {
-            vm.registerdEmail = $scope.formVals.email;
+            vm.registeredEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
             vm.submittingForm = false;
@@ -200,7 +179,7 @@ module.exports = function(ngModule) {
               }
               if ($scope.registerErrors.indexOf('Model State is not valid') > -1) {
                 vm.passwordComplexity = true;
-                $scope.passwordStrength = {
+                vm.passwordStrength = {
                   strong: false,
                   score: error.data.score
                 };

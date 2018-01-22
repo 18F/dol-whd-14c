@@ -16,7 +16,7 @@ module.exports = function(ngModule) {
     $scope.formData = stateService.formData;
     if(!$scope.attachments) {
       $scope.attachments = [];
-    };
+    }
 
 
     $scope.restrictUpload = false;

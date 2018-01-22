@@ -24,6 +24,7 @@ module.exports = function (app) {
         controller: 'userLoginPageController',
         template: require('./pages/userLoginPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
+        reloadOnSearch: false,
         label: 'Login',
         parent: "/"
       })
