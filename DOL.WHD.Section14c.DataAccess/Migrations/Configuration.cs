@@ -77,12 +77,12 @@
 
 //            // PrevailingWageMethod
 //            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, QuestionKey = "PrevailingWageMethod", Display = "Prevailing Wage Survey", IsActive = true });
-//            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrevailingWageMethod.AlternateWageData, QuestionKey = "PrevailingWageMethod", Display = "Alternate Wage Data", IsActive = true });
+//            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrevailingWageMethod.AlternateWageData, QuestionKey = "PrevailingWageMethod", Display = "Alternate Wage Data Source", IsActive = true });
 //            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.PrevailingWageMethod.SCAWageDetermination, QuestionKey = "PrevailingWageMethod", Display = "SCA Wage Determination", IsActive = true });
 
 //            // WorkSiteType
 //            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WorkSiteType.MainEstablishment, QuestionKey = "WorkSiteType", Display = "Main Establishment (ME)", SubDisplay = "The primary location of the employer that files this application on behalf of all its associated work sites. Note: there can only be one Main Establishment", IsActive = true });
-//            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WorkSiteType.BranchEstablishment, QuestionKey = "WorkSiteType", Display = "Branch establishment (BE)", SubDisplay = "A branch establishment is a physically separate work site that is part of the same organization as the main establishment", IsActive = true });
+//            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WorkSiteType.BranchEstablishment, QuestionKey = "WorkSiteType", Display = "Branch Establishment (BR)", SubDisplay = "A branch establishment is a physically separate work site that is part of the same organization as the main establishment", IsActive = true });
 //            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WorkSiteType.OffSiteWorkLocation, QuestionKey = "WorkSiteType", Display = "Off-site Work Location (OL)", SubDisplay = "An off-site work location is a work site typically on the premises of a separate establishment, where workers with disabilities...", IsActive = true });
 //            context.Responses.AddOrUpdate(new Response { Id = ResponseIds.WorkSiteType.SWEP, QuestionKey = "WorkSiteType", Display = "School Work Experience Program (SWEP)", SubDisplay = "A school-operated program in which students with disabilities may be placed in jobs with private industry within the community...", IsActive = true });
 

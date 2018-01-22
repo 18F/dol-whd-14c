@@ -159,7 +159,7 @@
             {{/each}}
             {{/if_eq}}
 
-            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data Source' }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
@@ -251,7 +251,7 @@
             {{/each}}
             {{/if_eq}}
 
-            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data Source' }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
