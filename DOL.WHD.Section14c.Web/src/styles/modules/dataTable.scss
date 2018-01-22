@@ -13,6 +13,25 @@ div.dt-buttons {
     padding-top: 8px;
 }
 
+// Datatable show number of entries
+.dataTables_wrapper {
+    .dataTables_length {
+        label {
+            display: inline-block;
+            margin-top: 0;
+            max-width: none;
+        }
+        select {
+            display: inline-block;
+            width: 80px;
+            //padding: 1rem 2em 1rem .7em;
+            margin: .2em;
+        }
+    }
+
+}
+
+
 // Datatable search field
 .dataTables_wrapper {
     .dataTables_filter {
@@ -32,7 +51,6 @@ div.dt-buttons {
 }
 
 // Datatable toggle buttons
-
 table.dataTable.dtr-column > tbody > tr > td.control:before, 
 table.dataTable.dtr-column > tbody > tr > th.control:before {
     position: relative !important;
@@ -161,78 +179,4 @@ button.dt-button, div.dt-button, a.dt-button {
         color: $text-color !important;
         background-image: none !important;
     }    
-}
-
-
-.employer-table {
-    /* Remove spacing between table cells (from Normalize.css) */
-    border-collapse: collapse;
-    border-spacing: 0;
-    empty-cells: show;
-    border: 1px solid #cbcbcb;
-}
-
-.employer-table caption {
-    color: #000;
-    font: italic 85%/1 arial, sans-serif;
-    padding: 1em 0;
-    text-align: center;
-}
-
-.employer-table td,
-.employer-table th {
-    border-left: 1px solid #cbcbcb;/*  inner column border */
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible; /*to make ths where the title is really long work*/
-    padding: 0.5em 1em; /* cell padding */
-}
-
-/* Consider removing this next declaration block, as it causes problems when
-there's a rowspan on the first cell. Case added to the tests. issue#432 */
-.employer-table td:first-child,
-.employer-table th:first-child {
-    border-left-width: 0;
-}
-
-.employer-table thead {
-    background-color: #e0e0e0;
-    color: #000;
-    text-align: left;
-    vertical-align: bottom;
-}
-
-/*
-striping:
-   even - #fff (white)
-   odd  - #f2f2f2 (light gray)
-*/
-.employer-table td {
-    background-color: transparent;
-}
-.employer-table-odd td {
-    background-color: #f2f2f2;
-}
-
-/* nth-child selector for modern browsers */
-.employer-table-striped tr:nth-child(2n-1) td {
-    background-color: #f2f2f2;
-}
-
-/* BORDERED TABLES */
-.employer-table-bordered td {
-    border-bottom: 1px solid #cbcbcb;
-}
-.employer-table-bordered tbody > tr:last-child > td {
-    border-bottom-width: 0;
-}
-
-.employer-table-horizontal td,
-.employer-table-horizontal th {
-    border-width: 0 0 1px 0;
-    border-bottom: 1px solid #cbcbcb;
-}
-.employer-table-horizontal tbody > tr:last-child > td {
-    border-bottom-width: 0;
 }
