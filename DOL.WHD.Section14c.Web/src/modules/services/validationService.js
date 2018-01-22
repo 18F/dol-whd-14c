@@ -486,7 +486,7 @@ module.exports = function(ngModule) {
 
         //TODO: validate number of uploads with scaCount ???
         this.checkRequiredValue(
-          'employer.scaAttachmentId',
+          'employer.fileUploadSCA',
           'Please upload the required SCA Wage Determinations'
         );
       }
@@ -527,7 +527,7 @@ module.exports = function(ngModule) {
       section = undefined;
     };
 
-    this.validateWageDataPayType = function(prefix) {
+    this.validateWageDataPayType = function(prefix, value) {
       this.checkRequiredNumber(prefix + '.numWorkers', undefined, 0);
       this.checkRequiredString(
         prefix + '.jobName',
@@ -658,9 +658,10 @@ module.exports = function(ngModule) {
       } else if (
         prevailingWageMethod === _constants.responses.prevailingWageMethod.sca
       ) {
-        this.checkRequiredValue(
-          prefix + '.scaWageDeterminationAttachmentId',
-          'Please provide the SCA Wage Determination survey'
+        this.checkRequiredValueArray(
+          prefix + '.' + value + 'ScaWageDeterminationAttachments',
+          'Please provide the SCA Wage Determination survey',
+          false
         );
       }
     };
@@ -678,8 +679,8 @@ module.exports = function(ngModule) {
 
       if (isHourly) {
         let prefix = 'hourlyWageInfo';
-
-        this.validateWageDataPayType(prefix);
+        let value = 'h';
+        this.validateWageDataPayType(prefix, value);
 
         this.checkRequiredString(
           prefix + '.jobDescription',
@@ -689,16 +690,17 @@ module.exports = function(ngModule) {
           prefix + '.workMeasurementFrequency',
           'Please indicate how frequently the employer conducts work measurements or time studies'
         );
-        this.checkRequiredValue(
-          prefix + '.attachmentId',
-          'Please upload a work measurement or time study'
+        this.checkRequiredValueArray(
+          prefix + '.' + value + 'WorkMeasurementAttachments',
+          'Please upload a work measurement or time study',
+          false
         );
       }
 
       if (isPieceRate) {
         let prefix = 'pieceRateWageInfo';
-
-        this.validateWageDataPayType(prefix);
+        let value = 'pr';
+        this.validateWageDataPayType(prefix, value);
 
         this.checkRequiredString(
           prefix + '.jobDescription',
@@ -723,9 +725,10 @@ module.exports = function(ngModule) {
           'Please provide the piece rate paid to workers',
           0
         );
-        this.checkRequiredValue(
-          prefix + '.attachmentId',
-          'Please upload at least one piece of documentation'
+        this.checkRequiredValueArray(
+          prefix + '.' + value + 'WorkMeasurementAttachments',
+          'Please upload at least one piece of documentation',
+          false
         );
       }
 
