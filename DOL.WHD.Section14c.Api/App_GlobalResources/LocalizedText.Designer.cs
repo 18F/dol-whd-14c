@@ -61,11 +61,20 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The user name or password is incorrect..
+        ///   Looks up a localized string similar to The email or password entered does not match our records..
         /// </summary>
         internal static string InvalidUserNameorPassword {
             get {
                 return ResourceManager.GetString("InvalidUserNameorPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The authentication code entered does not match our records..
+        /// </summary>
+        internal static string LoginFailureEmailCodeIncorrect {
+            get {
+                return ResourceManager.GetString("LoginFailureEmailCodeIncorrect", resourceCulture);
             }
         }
         
@@ -111,6 +120,15 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         internal static string LoginSuccessMessage {
             get {
                 return ResourceManager.GetString("LoginSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Code from email is not included.
+        /// </summary>
+        internal static string MissingUser2FACode {
+            get {
+                return ResourceManager.GetString("MissingUser2FACode", resourceCulture);
             }
         }
         
