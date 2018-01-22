@@ -17,7 +17,7 @@ module.exports = function(ngModule) {
     if(!$scope.attachments) {
       $scope.attachments = [];
     }
-
+    console.log(stateService.user)
 
     $scope.restrictUpload = false;
     $scope.upload = {
@@ -81,7 +81,7 @@ module.exports = function(ngModule) {
           vm.setActiveAttachment(result.data[0].id, result.data[0].originalFileName);
           var attachment = {};
           attachment.attachmentId = result.data[0].id;
-          attachment.attachmentName = result.data[0].originalFileName;
+          attachment.employerInfoId = result.data[0].originalFileName;
           fileinput.value = '';
           if($scope.allowMultiUpload) {
             $scope.attachments.push(attachment);
