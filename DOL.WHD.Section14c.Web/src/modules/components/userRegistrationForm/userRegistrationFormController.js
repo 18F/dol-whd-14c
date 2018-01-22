@@ -31,17 +31,12 @@ module.exports = function(ngModule) {
 
     };
     vm.restForm();
-    vm.passwordStength = {
-      strong: false,
-      score: 0
-    };
+
     vm.resetErrors = function() {
       vm.generalRegistrationError = false;
       vm.showEinHelp = false;
       vm.einError = false;
       vm.einRequired = false;
-      vm.firstNameRequired = false;
-      vm.lastNameRequired = false;
       vm.emailAddressError = false;
       vm.emailAddressRequired = false;
       vm.showPasswordHelp = false;
@@ -52,6 +47,10 @@ module.exports = function(ngModule) {
       vm.accountCreated = false;
       vm.emailVerified = false;
       vm.emailVerificationError = false;
+      $scope.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     };
     vm.resetErrors();
 
@@ -61,10 +60,7 @@ module.exports = function(ngModule) {
       vm.passwordLower = false;
       vm.passwordSpecial = false;
       vm.passwordNumber = false;
-      vm.passwordStength = {
-        strong: false,
-        score: 0
-      };
+      vm.passwordStength = false;
 
     };
     vm.resetPasswordComplexity();
@@ -89,12 +85,12 @@ module.exports = function(ngModule) {
         : false;
 
         apiService.checkPasswordComplexity(value).then(function(result){
-          vm.passwordStrength = {
+          $scope.passwordStrength = {
             strong: true,
             score: result.data.score
           };
         }).catch(function(error) {
-          vm.passwordStrength = {
+          $scope.passwordStrength = {
             strong: false,
             score: error.data.score
           };
@@ -132,26 +128,8 @@ module.exports = function(ngModule) {
 
     $scope.onSubmitClick = function() {
       vm.resetErrors();
-      vm.registeredEmail = '';
+      vm.registerdEmail = '';
       vm.submittingForm = true;
-      if(!$scope.formVals.firstName) {
-        vm.firstNameRequired = true;
-      }
-      if(!$scope.formVals.lastName) {
-        vm.lastNameRequired = true;
-      }
-      if(!$scope.formVals.email) {
-        vm.emailAddressRequired = true;
-      }
-      if(vm.passwordStrength.score < 3) {
-        vm.passwordComplexity = true;
-      }
-
-      if(vm.lastNameRequired || vm.lastNameRequired || vm.emailAddressRequired || vm.passwordComplexity) {
-
-        vm.submittingForm = false;
-        return;
-      }
       /* eslint-disable complexity */
       apiService
         .userRegister(
@@ -164,14 +142,13 @@ module.exports = function(ngModule) {
         )
         .then(
           function() {
-            vm.registeredEmail = $scope.formVals.email;
+            vm.registerdEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
             vm.submittingForm = false;
             $window.scrollTo(0, 0);
           },
           function(error) {
-            console.log(error)
             if (error && error.data) {
               $scope.registerErrors = apiService.parseErrors(error.data);
               if (
@@ -239,7 +216,10 @@ module.exports = function(ngModule) {
               vm.generalRegistrationError = true;
             }
 
+
+
             vm.submittingForm = false;
+
           }
         );
       /* eslint-enable complexity */
