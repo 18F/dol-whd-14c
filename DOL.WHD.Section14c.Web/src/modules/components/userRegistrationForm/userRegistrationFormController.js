@@ -38,16 +38,12 @@ module.exports = function(ngModule) {
 
     vm.resetErrors = function() {
       vm.generalRegistrationError = false;
-      vm.showEinHelp = false;
-      vm.einError = false;
-      vm.einRequired = false;
       vm.emailAddressError = false;
       vm.emailAddressRequired = false;
       vm.lastNameRequired = false;
       vm.firstNameRequired = false;
       vm.showPasswordHelp = false;
       vm.passwordRequired = false;
-      vm.invalidEin = false;
       vm.passwordsDontMatch = false;
       vm.passwordComplexity = false;
       vm.accountCreated = false;
@@ -106,7 +102,6 @@ module.exports = function(ngModule) {
 
     $scope.inputType = 'password';
     vm.emailVerificationUrl = $location.absUrl();
-
     $scope.onSubmitClick = function() {
 
       vm.submittingForm = true;
@@ -154,11 +149,6 @@ module.exports = function(ngModule) {
             if (error && error.data) {
               $scope.registerErrors = apiService.parseErrors(error.data);
               if (
-                $scope.registerErrors.indexOf('EIN is already registered') > -1
-              ) {
-                vm.einError = true;
-              }
-              if (
                 some($scope.registerErrors, function(error) {
                   return error.indexOf('is already taken') > -1;
                 })
@@ -177,18 +167,6 @@ module.exports = function(ngModule) {
                 ) > -1
               ) {
                 vm.passwordRequired = true;
-              }
-              if (
-                $scope.registerErrors.indexOf('The EIN field is required.') > -1
-              ) {
-                vm.einRequired = true;
-              }
-              if (
-                some($scope.registerErrors, function(error) {
-                  return error.indexOf('The field EIN must match') > -1;
-                })
-              ) {
-                vm.invalidEin = true;
               }
               if (
                 $scope.registerErrors.indexOf(
@@ -217,8 +195,6 @@ module.exports = function(ngModule) {
             } else {
               vm.generalRegistrationError = true;
             }
-
-
 
             vm.submittingForm = false;
 
