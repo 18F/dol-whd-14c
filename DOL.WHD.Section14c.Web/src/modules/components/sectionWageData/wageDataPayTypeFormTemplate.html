@@ -179,16 +179,10 @@
             <input id="{{ valuePrefix() }}SourceEmployerPhone" name="{{ valuePrefix() }}SourceEmployerPhone" type="text" mask="999-999-9999" class="phoneno" ng-model="vm.activeSourceEmployer.phone">
           </div>
 
-          <div ng-class="vm.validateActiveSourceEmployerProperty('contactFirstName') ? 'usa-input-error' : ''">
-            <label for="{{ valuePrefix() }}SourceEmployerFirstName">First Name of Individual Contacted</label>
-            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactFirstName')">{{ vm.validateActiveSourceEmployerProperty('contactFirstName') }}</span>
-            <input id="{{ valuePrefix() }}SourceEmployerFirstName" name="{{ valuePrefix() }}SourceEmployerFirstName" type="text" ng-model="vm.activeSourceEmployer.contactFirstName">
-          </div>
-
-          <div ng-class="vm.validateActiveSourceEmployerProperty('contactLastName') ? 'usa-input-error' : ''">
-            <label for="{{ valuePrefix() }}SourceEmployerLastName">Last Name of Individual Contacted</label>
-            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactLastName')">{{ vm.validateActiveSourceEmployerProperty('contactLastName') }}</span>
-            <input id="{{ valuePrefix() }}SourceEmployerLastName" name="{{ valuePrefix() }}SourceEmployerLastName" type="text" ng-model="vm.activeSourceEmployer.contactLastName">
+          <div ng-class="vm.validateActiveSourceEmployerProperty('contactName') ? 'usa-input-error' : ''">
+            <label for="{{ valuePrefix() }}SourceEmployerContactName">Full Name of Individual Contacted</label>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('contactName')">{{ vm.validateActiveSourceEmployerProperty('contactName') }}</span>
+            <input id="{{ valuePrefix() }}SourceEmployerContactName" name="{{ valuePrefix() }}SourceEmployerContactName" type="text" ng-model="vm.activeSourceEmployer.contactName">
           </div>
 
           <div ng-class="vm.validateActiveSourceEmployerProperty('contactTitle') ? 'usa-input-error' : ''">

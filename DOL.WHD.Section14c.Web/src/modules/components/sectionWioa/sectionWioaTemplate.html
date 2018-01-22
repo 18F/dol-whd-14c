@@ -102,24 +102,23 @@
           <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
           <div class="dol-form-question-block em-block" ng-show="vm.addingWorker">
             <div class="usa-content">
-                  <div class="usa-input-grid usa-input-grid-small">
-                    <label for="firstName">First Name of Worker</label>
-                    <input id="firstName" name="firstName" type="text" ng-model="vm.activeWorker.firstName">
-                  </div>
-                  <div class="use-input-grid usa-input-grid-small">
-                    <label for="lastName">Last Name of Worker</label>
-                    <input id="fullName" name="lastName" type="text" ng-model="vm.activeWorker.lastName">
+
+
+                  <div class="usa-input-grid usa-input-grid-medium">
+                    <label for="fullName">Full Name of Worker</label>
+                    <input id="fullName" name="fullName" type="text" ng-model="vm.activeWorker.fullName">
                   </div>
                   <div class="usa-input-grid usa-input-grid-small">
                     <label for="WIOAWorkerVerified">Yes/No/Not Required</label>
                     <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
                   </div>
-            </div>
-            <div class="">
-              <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button>
-              <span class="pull-right">
-                <button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button>
-              </span>
+
+                <div class="form-spaced-div">
+                    <button class="grey-button" ng-click="vm.cancelAddWorker()">Cancel</button>
+                    <span class="pull-right">
+                      <button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button>
+                    </span>
+                </div>
             </div>
           </div>
         </fieldset>
