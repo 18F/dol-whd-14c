@@ -12,5 +12,18 @@
       UNITED STATES<br>DEPARTMENT OF LABOR
     </div>
   </a>
+
+  <div ng-class="{'is-visible': modalIsVisible}" class="modal">
+    <header class="cd-panel-header">
+      <a ng-click="hideModal()" class="modal-close dol-close-button"></a>
+    </header>
+    <p>
+      <h4>Your session will end soon due to inactivity.</h4>
+    </p>
+    <p>
+      <button clasee="button-green" ng-click="hideModal()">Continue Working</button>
+    </p>
+  </div>
+  <div ng-if="modalIsVisible" class="modal-backdrop"></div>
 </header>
 <breadcrumb></breadcrumb>

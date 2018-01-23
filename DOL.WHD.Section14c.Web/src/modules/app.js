@@ -71,7 +71,6 @@ let env = {};
 if (window && window.__env) {
   Object.assign(env, window.__env);
 }
-
 app.constant('_env', env);
 
 // Load Application Components
@@ -81,11 +80,18 @@ require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
 
+app.config(function(IdleProvider, KeepaliveProvider) {
+  // configure Idle settings
+  IdleProvider.idle(10); // in seconds
+  IdleProvider.timeout(10); // in seconds
+  KeepaliveProvider.interval(2); // in seconds
+})
 let routeConfig = require('./routes.config');
 require('./routes')(app);
 /* eslint-disable complexity */
 app.run(function(
   $rootScope,
+  Idle,
   $location,
   $log,
   crumble,
@@ -94,7 +100,6 @@ app.run(function(
   authService,
   $q
 ) {
-
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);

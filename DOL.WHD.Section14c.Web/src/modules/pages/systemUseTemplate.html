@@ -1,7 +1,14 @@
 <dol-header></dol-header>
   <div class="usa-grid">
     <h1>Section 14(c) Certificate Application</h1>
-    <div id="system-use" class="system-use">
+    <div class="usa-alert usa-alert-warning" role="alert" tabindex="0" ng-show="sessionTimeout">
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Session Expired</h3>
+        <p class="usa-alert-text">You have been logged out of the Section 14(c) Certificate Application due to inactivity. To continue working, please log in again.</p>
+        <button>Log In</button>
+      </div>
+    </div>
+    <div id="system-use" class="system-use" ng-show="!sessionTimeout">
       <h2>
         Warning
       </h2>

@@ -11,6 +11,7 @@ module.exports = function(ngModule) {
     moment,
     apiService,
     $q,
+    Idle,
     _env,
     $rootScope,
     _constants
@@ -161,7 +162,7 @@ module.exports = function(ngModule) {
     this.logOut = function() {
       // remove access_token cookie
       $cookies.remove(accessTokenCookieName);
-
+      Idle.unwatch();
       setInitialState();
     };
 

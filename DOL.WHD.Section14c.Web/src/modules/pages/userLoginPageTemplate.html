@@ -1,7 +1,7 @@
 <dol-header></dol-header>
 
 <main tabindex="-1" id="mainContent" role="main" class="main-content">
-  <div>
+  <div ng-show="!sessionTimeout">
     <div ng-show="!isEmailVerificationRequest" class="dol-landing-public">
       <h1>Section 14(c) Certificate Application</h1>
 
@@ -11,6 +11,13 @@
       <div class="dol-width-one-half">
         <user-registration-form></user-registration-form>
       </div>
+    </div>
+  </div>
+  <div class="usa-alert usa-alert-warning" role="alert" tabindex="0" ng-show="sessionTimeout && !isEmailVerificationRequest">
+    <div class="usa-alert-body">
+      <h3 class="usa-alert-heading">Session Expired</h3>
+      <p class="usa-alert-text">You have been logged out of the Section 14(c) Certificate Application due to inactivity. To continue working, please log in again.</p>
+      <button ng-click="refresh()">Log In</button>
     </div>
   </div>
   <div ng-show="isEmailVerificationRequest">
