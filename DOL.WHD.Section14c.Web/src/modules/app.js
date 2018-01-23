@@ -19,6 +19,7 @@ import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
 import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 // Angular
 import angular from 'angular';
+import ngIdle from 'ng-idle';
 import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
@@ -42,6 +43,7 @@ let app = angular.module('14c', [
   ngAnimate,
   ngResource,
   ngRoute,
+  ngIdle,
   ngSanitize,
   toastr,
   require('angular-crumble'),
@@ -78,14 +80,21 @@ require('./components')(app);
 require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
-
+app.config(function(IdleProvider, KeepaliveProvider) {
+  // configure Idle settings
+  IdleProvider.idle(120); // in seconds
+  IdleProvider.timeout(900); // in seconds
+  KeepaliveProvider.interval(2); // in seconds
+})
 let routeConfig = require('./routes.config');
 require('./routes')(app);
 /* eslint-disable complexity */
 app.run(function(
   $rootScope,
   $location,
+  Idle,
   $log,
+  _env,
   crumble,
   stateService,
   autoSaveService,
@@ -102,6 +111,11 @@ app.run(function(
   // check cookie to see if we're logged in
   const accessToken = stateService.access_token;
   let authenticatedPromise;
+
+  if(!Idle.running() && accessToken){
+    Idle.watch();
+  }
+
   if (accessToken) {
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();

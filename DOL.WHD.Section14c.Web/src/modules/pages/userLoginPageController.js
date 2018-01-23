@@ -1,32 +1,33 @@
 'use strict';
 
 module.exports = function(ngModule) {
-  ngModule.controller('userLoginPageController', function($scope, $location, apiService) {
+  ngModule.controller('userLoginPageController', function($scope, $location, apiService, $route) {
     'ngInject';
     'use strict';
-
-    var vm = this;
-
-	vm.emailVerificationUrl = $location.absUrl();
-    vm.emailVerificationCode = $location.search().code;
-    vm.emailVerificationUserId = $location.search().userId;
-    vm.isEmailVerificationRequest = vm.emailVerificationCode && vm.emailVerificationUserId;
-
-    if (vm.isEmailVerificationRequest) {
+     $scope.refresh = function() {
+       $location.search('timeout', null);
+      $route.reload();
+    }
+    $scope.isEmailVerificationRequest = false
+    $scope.emailVerificationUrl = $location.absUrl();
+    $scope.emailVerificationCode = $location.search().code;
+    $scope.sessionTimeout = $location.search().timeout;
+    $scope.emailVerificationUserId = $location.search().userId;
+    $scope.isEmailVerificationRequest = $scope.emailVerificationCode && $scope.emailVerificationUserId ? true: false;
+    if ($scope.isEmailVerificationRequest) {
       $location.search('code', null);
       $location.search('userId', null);
       apiService
         .emailVerification(
-          vm.emailVerificationUserId,
-          vm.emailVerificationCode,
-          $scope.verifyResponse
+          $scope.emailVerificationUserId,
+          $scope.emailVerificationCode
         )
         .then(
           function() {
-            vm.emailVerified = true;
+            $scope.emailVerified = true;
           },
           function() {
-            vm.emailVerificationError = true;
+            $scope.emailVerificationError = true;
           }
         );
     }
