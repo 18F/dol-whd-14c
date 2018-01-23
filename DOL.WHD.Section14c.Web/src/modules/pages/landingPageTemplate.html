@@ -18,12 +18,23 @@
     </div>
     <button class="save-button" ng-click="navToEmployerRegistration()">Start a new application</button>
   </div>
+
   <div ng-show="!organizations">
     <p>You do not have any employers associated with this account. Please click "Register a New Employer" to continue.</p>
-    <p><button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button></p>
+    <p><button ng-click="navToEmployerRegistration()">Register a New Employer</button></p>
   </div>
-  <div class="container dol-employees-data-container">
-    <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%" ng-show="organizations">
+
+  <div>
+    <div class="dol-application-start"> <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
+      <button>Start New Application</button>
+    </div>
+    <div class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
+      <p><button>Continue Current Application</button> Last Modified: February 20, 2018</p>
+      <p><a href="">Clear Application & Continue</a></p>  
+    </div>   
+    <hr>
+    <h3 class="dol-table-header">Submitted Applications</h3>
+    <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%">
       <caption class="hide">All previously submitted applications for this account, listed by employer and date submitted. Includes access to a
         downloadable PDF of the submitted application.</caption>
     </table>
