@@ -84,7 +84,7 @@ module.exports = function(ngModule) {
           attachment.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
           if($scope.allowMultiUpload) {
-            $scope.attachments.push(attachment);
+            $scope.attachments.push(attachment.attachment.id);
           } else {
               if($scope.attachments[0]) {
                 vm.deleteAttachment($scope.attachments[0].attachmentId);
