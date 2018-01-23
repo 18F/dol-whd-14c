@@ -10,6 +10,7 @@ module.exports = function(ngModule) {
       controller: 'attachmentsFieldController',
       scope: {
         allowMultiUpload: '=',
+        attachmentIds: '=',
         attachments:"=",
         modelPrefix: '@',
         inputId: '@'

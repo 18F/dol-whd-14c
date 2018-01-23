@@ -85,6 +85,7 @@ module.exports = function(ngModule) {
           fileinput.value = '';
           if($scope.allowMultiUpload) {
             $scope.attachments.push(attachment.attachment.id);
+            console.log(stateService.formData);
           } else {
               if($scope.attachments[0]) {
                 vm.deleteAttachment($scope.attachments[0].attachmentId);
