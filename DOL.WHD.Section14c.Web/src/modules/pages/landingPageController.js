@@ -114,11 +114,13 @@ module.exports = function(ngModule) {
             }
         },
         ordering: true,
+        //autoWidth: false,
         order: tableConfig.order,
         columns: tableConfig.employeeColumns,
         columnDefs: tableConfig.employeeColumnDefinitions,
       });
     }
+
 
     $scope.refreshTable = function () {
       if ($scope.tableWidget) {

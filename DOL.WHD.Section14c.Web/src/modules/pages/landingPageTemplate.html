@@ -2,25 +2,26 @@
 
 <main tabindex="-1" id="mainContent" role="main" class="main-content">
 
-  <div>
-    <main-top-nav-control></main-top-nav-control>
-    <div ng-show="applicationLoadError.status" role="alert" tabindex="0">
-      <div  class="dol-feedback-error">
-        <p class="dol-feedback-message">
-          <strong>We've run into a problem</strong>
-        </p>
-      </div>
-      <p>{{applicationLoadError.message}}</p>
+  <main-top-nav-control></main-top-nav-control>
+  <div ng-show="applicationLoadError.status" role="alert" tabindex="0">
+    <div class="dol-feedback-error">
+      <p class="dol-feedback-message">
+        <strong>We've run into a problem</strong>
+      </p>
     </div>
-    <span ng-show="!organizations"> You do not have any employers associated with this account. Please click "Register a New Employer" to continue.</span>
-
-    <div class="container dol-employees-data-container">
-      <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%" ng-show="organizations">
-
-      </table>
-    </div>
-    <button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button>
+    <p>{{applicationLoadError.message}}</p>
   </div>
+  <div ng-show="!organizations">
+    <p>You do not have any employers associated with this account. Please click "Register a New Employer" to continue.</p>
+    <p><button class="save-button" ng-click="navToEmployerRegistration()">Register a New Employer</button></p>
+  </div>
+  <div class="container dol-employees-data-container">
+    <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%" ng-show="organizations">
+      <caption class="hide">All previously submitted applications for this account, listed by employer and date submitted. Includes access to a
+        downloadable PDF of the submitted application.</caption>
+    </table>
+  </div>
+
 
   <div ng-if="stateService.user.email">
     <a href ng-click="changePassword()" name="Change Password">Change Password</a>

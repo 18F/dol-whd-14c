@@ -5,13 +5,13 @@ var employeeColumns = [
       "data":null,
       "defaultContent": ""
   },
-  { data: 'employerId', title: "EIN"},
   { data: 'employerName', title: "Employer" },
+  { data: 'employerId', title: "EIN"},
   { data: 'employerAddress',  title: "Address"},
   { data: 'createdAt', title: "Created At" },
-  { data: 'lastModifiedAt',  title: "Last Modified"},
+  { data: 'lastModifiedAt',  title: "Date Submitted"},
   { data: 'applicationStatus',  title: "Status"},
-  { data: 'action', title: 'Action'}
+  { data: 'action', title: 'PDF Version'}
 ];
 
 var employeeColumnDefinitions = [
@@ -21,12 +21,11 @@ var employeeColumnDefinitions = [
       targets:   0
   },
   { responsivePriority: 1, targets: 1 },
-  { responsivePriority: 1, targets: 6 },
-  { responsivePriority: 1, targets: 3 },
+  { responsivePriority: 2, targets: -3 },
   {
       className: 'action',
       orderable: false,
-      responsivePriority: 1,
+      responsivePriority: 3,
       targets: -1,
       render: function (data) {
           var button = "<button>" + data + "</button>"
