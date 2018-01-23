@@ -17,13 +17,13 @@
     <p><button ng-click="navToEmployerRegistration()">Register a New Employer</button></p>
   </div>
 
-  <div>
+  <div ng-show="organizations">
     <div class="dol-application-start"> <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
       <button>Start New Application</button>
     </div>
     <div class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
-      <p><button>Continue Current Application</button> Last Modified: February 20, 2018</p>
-      <p><a href="">Clear Application & Continue</a></p>  
+      <p><button>Continue Current Application</button> <span class="dol-modified-date">Last Modified: February 20, 2018</span></p>
+      <p>Need a fresh start? <a href="">Clear all responses from the current application.</a></p>  
     </div>   
     <hr>
     <h3 class="dol-table-header">Submitted Applications</h3>
