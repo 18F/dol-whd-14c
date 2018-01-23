@@ -108,6 +108,9 @@ app.run(function(
 
   // check cookie to see if we're logged in
   const accessToken = stateService.access_token;
+  if(!Idle.running() && accessToken){
+    Idle.watch();
+  }
   let authenticatedPromise;
   if (accessToken) {
     // authenticate the user based on token

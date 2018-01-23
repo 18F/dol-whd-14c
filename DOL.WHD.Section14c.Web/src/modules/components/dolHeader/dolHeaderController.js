@@ -4,10 +4,9 @@ module.exports = function(ngModule) {
   ngModule.controller('dolHeaderController', function($scope, Idle, stateService, $location) {
     'ngInject';
     'use strict';
-
-    $scope.events=[];
+    
     $scope.modalIsVisible=false;
-    console.log($scope)
+
     $scope.$on('IdleWarn',function(){
       $scope.showModal();
     });
@@ -19,7 +18,6 @@ module.exports = function(ngModule) {
     });
 
     $scope.showModal=function(){
-
       $scope.modalIsVisible=true;
     };
 
