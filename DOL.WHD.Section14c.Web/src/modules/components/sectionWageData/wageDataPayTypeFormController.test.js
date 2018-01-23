@@ -20,14 +20,15 @@ describe('wageDataPayTypeFormController', function() {
   // test add/edit/validate/remove a source employer
   it('should add/edit/validate/delete a source employer', function() {
     var controller = wageDataPayTypeFormController();
-
+    controller.showAddEmployer();
+    expect(controller.addEmployerFormStatus).toEqual('visible');
     controller.activeSourceEmployer = { employerName: 'Employer 1' };
     controller.addSourceEmployer();
     expect(
       scope.formData[scope.modelPrefix()].mostRecentPrevailingWageSurvey
         .sourceEmployers.length
     ).toBe(1);
-
+    expect(controller.addEmployerFormStatus).toEqual('hidden');
     controller.editSourceEmployer(0);
     controller.addSourceEmployer();
     expect(
@@ -42,7 +43,7 @@ describe('wageDataPayTypeFormController', function() {
       scope.formData[scope.modelPrefix()].mostRecentPrevailingWageSurvey
         .sourceEmployers.length
     ).toBe(0);
-
+    expect(controller.addEmployerFormStatus).toEqual('deleted');
     controller.cancelAddSourceEmployer();
   });
 });

@@ -15,7 +15,8 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
-    vm.addingEmployer = false;
+
+    vm.addEmployerFormStatus = 'init';
     vm.activeSourceEmployer = {};
     vm.activeSourceEmployerIndex = -1;
 
@@ -57,6 +58,9 @@ module.exports = function(ngModule) {
       $scope.responses = responses;
     });
 
+    this.showAddEmployer = function () {
+      vm.addEmployerFormStatus = 'visible';
+    }
     this.addSourceEmployer = function() {
       //vm.activeSourceEmployer.contactDate = moment(vm.activeSourceEmployer.contactDate.year + '-' + vm.activeSourceEmployer.contactDate.month + '-' + vm.activeSourceEmployer.contactDate.day).format();
       if (vm.activeSourceEmployerIndex > -1) {
@@ -80,7 +84,7 @@ module.exports = function(ngModule) {
     this.cancelAddSourceEmployer = function() {
       vm.activeSourceEmployer = {};
       vm.activeSourceEmployerIndex = -1;
-      vm.addingEmployer = false;
+      vm.addEmployerFormStatus = 'hidden';
     };
 
     this.editSourceEmployer = function(index) {
@@ -90,13 +94,14 @@ module.exports = function(ngModule) {
         $scope.formData[$scope.modelPrefix()].mostRecentPrevailingWageSurvey
           .sourceEmployers[index]
       );
-      vm.addingEmployer = true;
+      vm.addEmployerFormStatus = 'visible';
     };
 
     this.deleteSourceEmployer = function(index) {
       $scope.formData[
         $scope.modelPrefix()
       ].mostRecentPrevailingWageSurvey.sourceEmployers.splice(index, 1);
+      vm.addEmployerFormStatus = 'deleted';
     };
 
     this.validateSourceEmployer = function(index) {

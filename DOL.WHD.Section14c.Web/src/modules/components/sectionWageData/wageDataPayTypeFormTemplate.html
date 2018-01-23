@@ -73,14 +73,18 @@
       <helptext id="{{ valuePrefix() }}ProvideSourceEmployerHelp">
         If the employer used more than three sources, provide the information obtained from all sources. The source employers surveyed should be located in the geographic area from which the labor force of the applicant is drawn. The sources for the jobs surveyed should use similar methods and equipment as the job for which this rate will apply.
       </helptext>
-      <div ng-show="vm.addingEmployer">
+      <div ng-class="validate(modelPrefix() + '.sourceEmployers_count') ? 'usa-input-error' : ''">
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.sourceEmployers_count')">{{ validate(modelPrefix() + '.sourceEmployers_count') }}</span>
+        <button focus-on="vm.addEmployerFormStatus" id="addSourceEmployerButton" ng-click="vm.showAddEmployer()" ng-hide="vm.addEmployerFormStatus === 'visible'">Add a Source Employer</button>
+      </div>
+      <div ng-show="vm.addEmployerFormStatus === 'visible'">
         <hr>
         <fieldset>
           <legend class="dol-form-question-text no-margin">Add a Source Employer</legend>
           <div ng-class="vm.validateActiveSourceEmployerProperty('employerName') ? 'usa-input-error' : ''">
             <label for="{{ valuePrefix() }}SourceEmployerName">Source Employer Name</label>
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('employerName')">{{ vm.validateActiveSourceEmployerProperty('employerName') }}</span>
-            <input id="{{ valuePrefix() }}SourceEmployerName" name="{{ valuePrefix() }}SourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
+            <input focus-on="vm.addEmployerFormStatus === 'visible'" id="{{ valuePrefix() }}SourceEmployerName" name="{{ valuePrefix() }}SourceEmployerName" type="text" ng-model="vm.activeSourceEmployer.employerName">
           </div>
 
           <div class="usa-form-large">
@@ -230,16 +234,12 @@
           </div>
         </fieldset>
 
-        <div class="form-spaced-div" ng-show="vm.addingEmployer">
+        <div class="form-spaced-div" ng-show="vm.addEmployerFormStatus">
           <button class="grey-button" ng-click="vm.cancelAddSourceEmployer()">Cancel</button>
           <span class="pull-right">
             <button class="green-button" ng-click="vm.addSourceEmployer()">Save Source Employer</button>
           </span>
         </div>
-      </div>
-      <div ng-class="validate(modelPrefix() + '.sourceEmployers_count') ? 'usa-input-error' : ''">
-        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate(modelPrefix() + '.sourceEmployers_count')">{{ validate(modelPrefix() + '.sourceEmployers_count') }}</span>
-        <button ng-click="vm.addingEmployer = true" ng-hide="vm.addingEmployer">Add a Source Employer</button>
       </div>
       <table class="usa-table-borderless" ng-show="formData[modelPrefix()].mostRecentPrevailingWageSurvey.sourceEmployers.length">
         <caption class="hide">List of Source Employers</caption>
