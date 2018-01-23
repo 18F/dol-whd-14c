@@ -20,7 +20,7 @@ module.exports = function(ngModule) {
       message: ''
     };
     vm.formTitle ='Log in';
-    vm.submittButtonName ='Log in';
+    vm.submitButtonName ='Log in';
     vm.resendAuthCodeTitle = 'Resend authentication code'
     vm.twoFAStatus = false;
 
