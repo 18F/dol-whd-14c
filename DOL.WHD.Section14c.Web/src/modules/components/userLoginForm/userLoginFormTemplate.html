@@ -7,12 +7,12 @@
         <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
       </div>
     </div>
- 
+
     <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.loginError.status">
       <div class="usa-alert-body">
         <p class="usa-alert-text">{{ vm.loginError.message }} </p>
       </div>
-    </div>    
+    </div>
     <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-hide="vm.twoFAStatus">
       <label for="userName">Email</label>
       <input name="userName" id="userName" type="email" ng-model="formVals.email" />
@@ -32,11 +32,11 @@
       <div>We sent an email to {{ formVals.email }} with an authentication code to verify your identity.</div><br/>
       <div>Please enter the code below to log in. </div>
       <label for="code">Authentication code </label>
-      <input name="code" id="code" type="text" ng-model="formVals.code" />      
+      <input name="code" id="code" type="text" ng-model="formVals.code" />
     </div>
 
     <div class="loginbtn">
-      <button type="submit" ng-show="!vm.submittingForm">{{ vm.submittButtonName }}</button>
+      <button type="submit" ng-show="!vm.submittingForm">{{ vm.submitButtonName }}</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
     </div>
