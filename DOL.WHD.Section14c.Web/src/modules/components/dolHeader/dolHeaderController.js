@@ -7,25 +7,21 @@ module.exports = function(ngModule) {
     $scope.modalIsVisible=false;
 
     $scope.$on('IdleWarn',function(){
-      $scope.showModal();
+      $scope.showIdleWarning();
     });
 
     $scope.$on('IdleTimeout',function(){
-      $scope.hideModal();
+      $scope.hideIdleWarning();
       stateService.logOut();
       $location.path('/login').search({timeout:true});
     });
 
-    $scope.showModal=function(){
+    $scope.showIdleWarning=function(){
       $scope.modalIsVisible=true;
     };
 
-    $scope.resume = function(){
+    $scope.hideIdleWarning  = function(){
       Idle.watch();
-      $scope.hideModal();
-    };
-
-    $scope.hideModal  = function(){
       $scope.modalIsVisible=false;
     }
   });

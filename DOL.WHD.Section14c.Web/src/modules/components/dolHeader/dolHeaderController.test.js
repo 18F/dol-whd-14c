@@ -35,7 +35,7 @@ describe('dolHeaderController', function() {
 
   it('starts idle watch on resume', function() {
     var controller = dolHeaderController();
-    scope.resume();
+    scope.hideIdleWarning();
     scope.$apply();
     expect(mockIdleService.watch).toHaveBeenCalled();
     expect(scope.modalIsVisible).toEqual(false);
@@ -43,14 +43,14 @@ describe('dolHeaderController', function() {
 
   it('closes idle modal', function() {
     var controller = dolHeaderController();
-    scope.hideModal();
+    scope.hideIdleWarning();
     scope.$apply();
     expect(scope.modalIsVisible).toEqual(false);
   });
 
   it('shows idle modal', function() {
     var controller = dolHeaderController();
-    scope.showModal();
+    scope.showIdleWarning();
     scope.$apply();
     expect(scope.modalIsVisible).toEqual(true);
   });
