@@ -110,7 +110,7 @@ module.exports = function(ngModule) {
       $scope.formData[
         $scope.modelPrefix()
       ].mostRecentPrevailingWageSurvey.sourceEmployers.splice(index, 1);
-      vm.focusAddSourceEmployerButton = 1;
+      vm.focusAddSourceEmployerButton = 1; // trigger watch
       vm.showAddSourceEmployer = false;
     };
 
