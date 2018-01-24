@@ -13,6 +13,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         [TestMethod]
         public void EmployerInfo_PublicProperties()
         {
+            var id = Guid.NewGuid().ToString();
             var legalName = "Employer Legal Name";
             var hasTradeName = true;
             var tradeName = "Employer Trade Name";
@@ -45,6 +46,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
 
             var model = new EmployerInfo
             {
+                Id= id,
                 LegalName = legalName,
                 HasTradeName = hasTradeName,
                 TradeName = tradeName,
@@ -66,7 +68,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 SCAId = scaId,
                 SCA = sca,
                 SCACount = scaCount,
-                SCAAttachment = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { SCAAttachment = scaAttaachment } },
+                SCAAttachment = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { EmployerInfoId = id, SCAAttachment = scaAttaachment, AttachmentName ="test.pdf" } },
                 EO13658Id = eo13658Id,
                 EO13658 = eo13658,
                 RepresentativePayee = representativePayee,

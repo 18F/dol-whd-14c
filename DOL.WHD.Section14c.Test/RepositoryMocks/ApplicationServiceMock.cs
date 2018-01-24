@@ -91,7 +91,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 {
                     AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
-                    //SCAWageDeterminationAttachmentId = "1234567890",
+                    SCAAttachmentId = new List<string>() { "1234567890" },
                     SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };

@@ -12,6 +12,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         [TestMethod]
         public void HourlyWageInfo_PublicProperties()
         {
+            var id = Guid.NewGuid().ToString();
             var workMeasurementFrequency = "workMeasurementFrequency";
             var numWorkers = 5;
             var jobName = "Job Name";
@@ -21,12 +22,13 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var mostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo();
             var alternateWageData = new AlternateWageData();
             var scaWageDeterminationId = Guid.NewGuid().ToString();
-            var scaWageDetermination = new WageTypeInfoSCAAttachment { WageTypeInfoId = scaWageDeterminationId, SCAAttachment = new Attachment { Id = scaWageDeterminationId.ToString() } };
+            var scaWageDetermination = new WageTypeInfoSCAAttachment { WageTypeInfoId = id, SCAAttachment = new Attachment { Id = scaWageDeterminationId.ToString() }, AttachmentName = "test.pdf" };
             var attachmentId = Guid.NewGuid().ToString();
             var attachment = new Attachment {Id = attachmentId.ToString() };
 
             var model = new HourlyWageInfo
             {
+                Id=id,
                 WorkMeasurementFrequency = workMeasurementFrequency,
                 NumWorkers = numWorkers,
                 JobName = jobName,
