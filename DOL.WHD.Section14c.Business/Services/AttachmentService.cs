@@ -118,7 +118,7 @@ namespace DOL.WHD.Section14c.Business.Services
                     foreach (var item in application.Employer.SCAAttachment)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
-                        attachments.Add("SCA Wage Determination Attachment " + (count++) , attachment);
+                        attachments.Add(string.Format("SCA Wage Determination Attachment {0}", (count++) ), attachment);
                     }
                 }
 
@@ -128,7 +128,7 @@ namespace DOL.WHD.Section14c.Business.Services
                     foreach (var item in application.PieceRateWageInfo.SCAAttachment)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
-                        attachments.Add("Piece Rate Wage Info ScaWage Determination Attachment " + (count++), attachment);
+                        attachments.Add(string.Format("Piece Rate Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
                     }
                 }
 
@@ -143,7 +143,7 @@ namespace DOL.WHD.Section14c.Business.Services
                     foreach (var item in application.HourlyWageInfo.SCAAttachment)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
-                        attachments.Add("Hourly Wage Info ScaWage Determination Attachment " + (count++), attachment);
+                        attachments.Add(string.Format("Hourly Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
                     }
                 }
 

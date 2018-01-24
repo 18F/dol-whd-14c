@@ -58,11 +58,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         public virtual Response SCA { get; set; }
 
         public int? SCACount { get; set; }
-
-        //SCA Wage Determinations upload
-        //public Guid? SCAAttachmentId { get; set; }
-        //public string SCAAttachmentId { get; set; }
-        //public virtual Attachment SCAAttachment { get; set; }
+        
         public IEnumerable<string> SCAAttachmentId
         {
             set
