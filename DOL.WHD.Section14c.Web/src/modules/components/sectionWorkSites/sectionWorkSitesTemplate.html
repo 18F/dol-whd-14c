@@ -104,7 +104,7 @@
             <div ng-class="vm.validateActiveWorksiteProperty('address.zipCode') ? 'usa-input-error' : ''">
               <label for="workAddressZip">Zip Code</label>
               <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.zipCode')">{{ vm.validateActiveWorksiteProperty('address.zipCode') }}</span>
-              <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeWorksite.address.zipCode">
+              <input class="usa-input-medium" id="workAddressZip" name="workAddressZip" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="vm.activeWorksite.address.zipCode">
             </div>
         </div>
       </fieldset>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DOL.WHD.Section14c.Common.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         }
 
         public string Id { get; set; }
-
+        
         public string LegalName { get; set; }
 
         public bool? HasTradeName { get; set; }

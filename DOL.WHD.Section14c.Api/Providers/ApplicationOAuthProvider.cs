@@ -9,8 +9,10 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using DOL.WHD.Section14c.Common;
+using DOL.WHD.Section14c.Common.Extensions;
 using System.IO;
 using NLog;
+using System.Linq;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
@@ -50,7 +52,10 @@ namespace DOL.WHD.Section14c.Api.Providers
                 eventInfo.Properties["CorrelationId"] = Guid.NewGuid().ToString();
                 eventInfo.LoggerName = "LoginAttempts";                
                 eventInfo.Properties["IsServiceSideLog"] = 1;
-                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName == context.UserName);
+                // Ensure User Email is not case sensitive
+                var userName = context.UserName.TrimAndToLowerCase();
+                // Handle LINQ to Entities TrimAndToLowerCase() method cannot be translated into a store expression byr using ToLower() and Trim() directly
+                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName.ToLower().Trim() == userName);
                 if (user != null)
                 {
                     eventInfo.Properties["UserId"] = user.Id;

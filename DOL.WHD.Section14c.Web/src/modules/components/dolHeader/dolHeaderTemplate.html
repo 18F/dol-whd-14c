@@ -12,5 +12,16 @@
       UNITED STATES<br>DEPARTMENT OF LABOR
     </div>
   </a>
+  <div role="alert" tabindex="0" ng-class="{'is-visible': modalIsVisible}" class="usa-alert usa-alert-warning modal-inactivity">
+    <div>
+      <header class="cd-panel-header">
+        <a ng-click="hideIdleWarning()" class="modal-close dol-close-button"></a>
+      </header>
+      <br />
+      <h3 class="usa-alert-heading">Your session will end soon due to inactivity.</h3>
+      <button class="green-button" ng-click="hideIdleWarning()">Continue Working</button>
+    </div>
+  </div>
+  <div ng-if="modalIsVisible" class="modal-backdrop"></div>
 </header>
 <breadcrumb></breadcrumb>

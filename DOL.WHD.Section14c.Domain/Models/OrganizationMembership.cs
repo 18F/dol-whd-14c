@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.DataAccess;
+﻿using DOL.WHD.Section14c.Common.Extensions;
+using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using System;
@@ -19,7 +20,7 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         [Key]
         public string MembershipId { get; set; }
-
+        
         [Required]
         [DataMember]
         public string EIN { get; set; }

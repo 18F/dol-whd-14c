@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.service('authService', function(
     stateService,
     apiService,
+    Idle,
     autoSaveService,
     $q,
     $location,
@@ -31,6 +32,7 @@ module.exports = function(ngModule) {
         function successCallback(result) {
           const data = result.data;
           stateService.access_token = data.access_token;
+          Idle.watch();
           self.authenticateUser().then(
             function() {
               d.resolve();
