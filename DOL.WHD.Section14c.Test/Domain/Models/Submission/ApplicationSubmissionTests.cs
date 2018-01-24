@@ -20,7 +20,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var hasPreviousCertificate = true;
             var previousCertificateNumber = "xxxxxxx";
             var establishmentTypeId = new List<int> {7, 8, 9};
-            var contactName = "Test Name";
+            var contactFirstName = "Test First Name";
+            var contactLastName = "Test Last Name";
             var contactPhone = "123-456-7890";
             var contactFax = "123-456-7890";
             var contactEmail = "foo@bar.com";
@@ -48,7 +49,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 HasPreviousCertificate = hasPreviousCertificate,
                 PreviousCertificateNumber = previousCertificateNumber,
                 EstablishmentTypeId = establishmentTypeId,
-                ContactName = contactName,
+                ContactFirstName = contactFirstName,
+                ContactLastName = contactLastName,
                 ContactPhone = contactPhone,
                 ContactFax = contactFax,
                 ContactEmail = contactEmail,
@@ -76,7 +78,8 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(establishmentTypeId[0], model.EstablishmentType.ElementAt(0).EstablishmentTypeId);
             Assert.AreEqual(establishmentTypeId[1], model.EstablishmentType.ElementAt(1).EstablishmentTypeId);
             Assert.AreEqual(establishmentTypeId[2], model.EstablishmentType.ElementAt(2).EstablishmentTypeId);
-            Assert.AreEqual(contactName, model.ContactName);
+            Assert.AreEqual(contactFirstName, model.ContactFirstName);
+            Assert.AreEqual(contactLastName, model.ContactLastName);
             Assert.AreEqual(contactPhone, model.ContactPhone);
             Assert.AreEqual(contactFax, model.ContactFax);
             Assert.AreEqual(contactEmail, model.ContactEmail);

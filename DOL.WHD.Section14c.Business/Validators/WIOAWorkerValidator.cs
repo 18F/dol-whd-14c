@@ -8,7 +8,8 @@ namespace DOL.WHD.Section14c.Business.Validators
     {
         public WIOAWorkerValidator()
         {
-            RuleFor(w => w.FullName).NotEmpty();
+            RuleFor(w => w.FirstName).NotEmpty();
+            RuleFor(w => w.LastName).NotEmpty();
             RuleFor(w => w.WIOAWorkerVerifiedId).NotNull().InclusiveBetween(ResponseIds.WIOAWorkerVerified.Yes, ResponseIds.WIOAWorkerVerified.NotRequired);
         }
     }

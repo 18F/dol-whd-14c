@@ -25,8 +25,10 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_FullName()
         {
-            _signatureValidator.ShouldHaveValidationErrorFor(x => x.FullName, "");
-            _signatureValidator.ShouldNotHaveValidationErrorFor(x => x.FullName, "Full Name");
+            _signatureValidator.ShouldHaveValidationErrorFor(x => x.FirstName, "");
+            _signatureValidator.ShouldNotHaveValidationErrorFor(x => x.FirstName, "First Name");
+            _signatureValidator.ShouldHaveValidationErrorFor(x => x.LastName, "");
+            _signatureValidator.ShouldNotHaveValidationErrorFor(x => x.LastName, "Last Name");
         }
 
         [TestMethod]

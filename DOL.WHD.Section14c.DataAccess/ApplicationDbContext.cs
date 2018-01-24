@@ -64,7 +64,8 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ApplicationTypeId).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousApplication).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousCertificate).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactName).IsRequired();
+            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactFirstName).IsRequired();
+            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactLastName).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactPhone).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactEmail).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.TotalNumWorkSites).IsRequired();
@@ -126,13 +127,15 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Response>().Property(a => a.IsActive).IsRequired();
             // Signature
             modelBuilder.Entity<Signature>().Property(a => a.Agreement).IsRequired();
-            modelBuilder.Entity<Signature>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.FirstName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<Signature>().Property(a => a.Title).IsRequired();
             modelBuilder.Entity<Signature>().Property(a => a.Date).IsRequired();
             // SourceEmployer
             modelBuilder.Entity<SourceEmployer>().Property(a => a.EmployerName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.Phone).IsRequired();
-            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactName).IsRequired();
+            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactFirstName).IsRequired();
+            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactLastName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactTitle).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactDate).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.JobDescription).IsRequired();
@@ -146,7 +149,8 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
             // WIOAWorker
-            modelBuilder.Entity<WIOAWorker>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<WIOAWorker>().Property(a => a.FirstName).IsRequired();
+            modelBuilder.Entity<WIOAWorker>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<WIOAWorker>().Property(a => a.WIOAWorkerVerifiedId).IsRequired();
             // WorkerCountInfo
             modelBuilder.Entity<WorkerCountInfo>().Property(a => a.Total).IsRequired();

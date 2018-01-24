@@ -62,8 +62,10 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_ContactName()
         {
-            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ContactName, "");
-            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ContactName, "Contact Name");
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ContactFirstName, "");
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ContactFirstName, "Contact First Name");
+            ApplicationSubmissionValidator.ShouldHaveValidationErrorFor(x => x.ContactLastName, "");
+            ApplicationSubmissionValidator.ShouldNotHaveValidationErrorFor(x => x.ContactLastName, "Contact Last Name");
         }
 
         [TestMethod]

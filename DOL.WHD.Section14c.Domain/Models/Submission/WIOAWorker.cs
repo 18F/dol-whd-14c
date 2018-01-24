@@ -9,11 +9,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
             if (string.IsNullOrEmpty(Id))
                 Id = Guid.NewGuid().ToString();
         }
-
         public string Id { get; set; }
-
-        public string FullName { get; set; }
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public int? WIOAWorkerVerifiedId { get; set; }
         public virtual Response WIOAWorkerVerified { get; set; }
     }
