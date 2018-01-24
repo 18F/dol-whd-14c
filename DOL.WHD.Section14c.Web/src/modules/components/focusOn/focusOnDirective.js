@@ -1,5 +1,7 @@
 'use strict';
-
+// This attribute directive gives focus to its parent element based on an expression.
+// If that expression evaluates to a falsey value, the element is blurred.
+// If the same expression evaluates to a truthy value, the element is focused
 module.exports = function(ngModule) {
   ngModule.directive('focusOn', function($timeout) {
     'use strict';
