@@ -215,8 +215,12 @@ module.exports = function(ngModule) {
         'An electronic signature must be provided in order to submit this application'
       );
       this.checkRequiredString(
-        'signature.fullName',
-        'Please provide the full name of the authorized representative'
+        'signature.firstName',
+        'Please provide the first name of the authorized representative'
+      );
+      this.checkRequiredString(
+        'signature.lastName',
+        'Please provide the last name of the authorized representative'
       );
       this.checkRequiredString(
         'signature.title',
@@ -261,8 +265,12 @@ module.exports = function(ngModule) {
       );
 
       this.checkRequiredString(
-        'contactName',
-        'Please provide the full name of the Applicant Contact person'
+        'contactFirstName',
+        'Please provide the first name of the Applicant Contact person'
+      );
+      this.checkRequiredString(
+        'contactLastName',
+        'Please provide the last name of the Applicant Contact person'
       );
 
       if (!this.validateTelephoneNumber(this.getFormValue('contactPhone'))) {
@@ -601,8 +609,12 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredString(
-              subprefix + '.contactName',
-              'Please provide the name of the Source Employer contact'
+              subprefix + '.contactFirstName',
+              'Please provide the first name of the Source Employer contact'
+            );
+            this.checkRequiredString(
+              subprefix + '.contactLastName',
+              'Please provide the last name of the Source Employer contact'
             );
             this.checkRequiredString(
               subprefix + '.contactTitle',
@@ -940,8 +952,12 @@ module.exports = function(ngModule) {
         if (workers) {
           for (let i = 0; i < workers.length; i++) {
             this.checkRequiredString(
-              'WIOA.WIOAWorkers[' + i + '].fullName',
-              'Please provide the full name of the worker'
+              'WIOA.WIOAWorkers[' + i + '].lastName',
+              'Please provide the last name of the worker'
+            );
+            this.checkRequiredString(
+              'WIOA.WIOAWorkers[' + i + '].firstName',
+              'Please provide the first name of the worker'
             );
             this.checkRequiredMultipleChoice(
               'WIOA.WIOAWorkers[' + i + '].WIOAWorkerVerified',
