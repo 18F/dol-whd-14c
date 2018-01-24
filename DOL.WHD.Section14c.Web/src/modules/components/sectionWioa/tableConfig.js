@@ -5,7 +5,8 @@ var wioaColumns = [
       "data":null,
       "defaultContent": ""
   },
-  { title: 'Name of Worker', model: 'fullName' },
+  { title: 'First Name of Worker', model: 'firstName' },
+  { title: 'Last Name of Worker', model: 'lastName' },
   { title: 'Response', model: 'WIOAWorkerVerified'  },
   {
       "className": 'edit-table-entry',
@@ -30,6 +31,7 @@ var wioaColumnDefinitions = [
   { responsivePriority: 1, targets: 0 },
   { responsivePriority: 2, targets: 1 },
   { responsivePriority: 3, targets: 2 },
+  { responsivePriority: 3, width: "10%", targets: wioaColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: wioaColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: wioaColumns.length -2 }
 ]
