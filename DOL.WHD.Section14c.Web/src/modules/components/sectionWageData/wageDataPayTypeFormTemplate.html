@@ -172,7 +172,7 @@
               <div ng-class="vm.validateActiveSourceEmployerProperty('address.zipCode') ? 'usa-input-error' : ''">
                 <label for="{{ valuePrefix() }}Zip">ZIP</label>
                 <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveSourceEmployerProperty('address.zipCode')">{{ vm.validateActiveSourceEmployerProperty('address.zipCode') }}</span>
-                <input class="usa-input-medium" id="{{ valuePrefix() }}Zip" name="{{ valuePrefix() }}Zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
+                <input class="usa-input-medium" id="{{ valuePrefix() }}Zip" name="{{ valuePrefix() }}Zip" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="vm.activeSourceEmployer.address.zipCode">
               </div>
             </fieldset>
           </div>

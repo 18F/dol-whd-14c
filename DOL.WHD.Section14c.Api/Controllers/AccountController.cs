@@ -17,9 +17,9 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
-using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using System.Text;
+using DOL.WHD.Section14c.Common.Extensions;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -212,7 +212,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByNameAsync(model.Email.TrimAndToLowerCase());
                 if (user == null)
                 {
                     // Don't reveal that the user does not exist
@@ -248,14 +248,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("VerifyResetPassword")]
         public async Task<IHttpActionResult> VerifyResetPassword(VerifyResetPasswordViewModel model)
         {
-            var result = await UserManager.ResetPasswordAsync(model.UserId, model.Nounce, model.NewPassword);
+            var result = await UserManager.ResetPasswordAsync(model.UserId.TrimAndToLowerCase(), model.Nounce, model.NewPassword);
             if (!result.Succeeded)
             {
                 BadRequest("Unable to reset password.");
             }
 
             // Check if user is Confirmed, if not confirm them through password reset email verification
-            var user = await UserManager.FindByIdAsync(model.UserId);
+            var user = await UserManager.FindByIdAsync(model.UserId.TrimAndToLowerCase());
             if (!user.EmailConfirmed)
             {
                 user.EmailConfirmed = true;
@@ -293,7 +293,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             else
             {
-                user = await UserManager.FindByEmailAsync(model.Email);
+                user = await UserManager.FindByEmailAsync(model.Email.TrimAndToLowerCase());
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
                     BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
@@ -333,7 +333,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("VerifyEmail")]
         public async Task<IHttpActionResult> VerifyEmail(VerifyEmailViewModel model)
         {
-            var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
+            var result = await UserManager.ConfirmEmailAsync(model.UserId.TrimAndToLowerCase(), model.Nounce);
             if (!result.Succeeded)
             {
                 BadRequest("Unable to verify email");
@@ -386,7 +386,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("{userId}")]
         public IHttpActionResult GetSingleAccount(string userId)
         {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.TrimAndToLowerCase() == userId.TrimAndToLowerCase());
             if (user == null)
             {
                 BadRequest("User not found.");

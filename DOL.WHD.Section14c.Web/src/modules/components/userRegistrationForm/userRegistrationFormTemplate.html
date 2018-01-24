@@ -85,7 +85,7 @@
         </div>
       </span>
       <input type="{{inputType}}" name="registerPassword" id="registerPassword" placeholder="Enter a password" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
-      <div class="dol-password-help">
+      <div class="dol-password-help" ng-show="vm.showPasswordHelp  || vm.passwordComplexity">
         <div class="usa-content">
           <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
           <div ng-switch="passwordStrength.score">Password Strength:

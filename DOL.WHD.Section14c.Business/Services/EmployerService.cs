@@ -1,4 +1,5 @@
-﻿using DOL.WHD.Section14c.DataAccess;
+﻿using DOL.WHD.Section14c.Common.Extensions;
+using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using System;
@@ -33,16 +34,16 @@ namespace DOL.WHD.Section14c.Business.Services
         public Employer FindExistingEmployer(Employer employer)
         {
             // GEt all existing employers by EID
-            var employers = _employerRepository.Get().Where(x => x.EIN == employer.EIN);
+            var employers = _employerRepository.Get().Where(x => x.EIN.TrimAndToLowerCase() == employer.EIN.TrimAndToLowerCase());
             foreach (var item in employers)
             {
                 // Find employer by Id,Employer Name and Employer Address
-                if (item.LegalName == employer.LegalName &&
-                    item.PhysicalAddress.StreetAddress.ToLower() == employer.PhysicalAddress.StreetAddress.ToLower() &&
-                    item.PhysicalAddress.City.ToLower() == employer.PhysicalAddress.City.ToLower() &&
-                    item.PhysicalAddress.State.ToLower() == employer.PhysicalAddress.State.ToLower() &&
-                    item.PhysicalAddress.ZipCode.ToLower() == employer.PhysicalAddress.ZipCode.ToLower() &&
-                    item.PhysicalAddress.County.ToLower() == employer.PhysicalAddress.County.ToLower()
+                if (item.LegalName.TrimAndToLowerCase() == employer.LegalName.TrimAndToLowerCase() &&
+                    item.PhysicalAddress.StreetAddress.TrimAndToLowerCase() == employer.PhysicalAddress.StreetAddress.TrimAndToLowerCase() &&
+                    item.PhysicalAddress.City.TrimAndToLowerCase() == employer.PhysicalAddress.City.TrimAndToLowerCase() &&
+                    item.PhysicalAddress.State.TrimAndToLowerCase() == employer.PhysicalAddress.State.TrimAndToLowerCase() &&
+                    item.PhysicalAddress.ZipCode.TrimAndToLowerCase() == employer.PhysicalAddress.ZipCode.TrimAndToLowerCase() &&
+                    item.PhysicalAddress.County.TrimAndToLowerCase() == employer.PhysicalAddress.County.TrimAndToLowerCase()
                     )
                 {
                     return item;

@@ -112,7 +112,7 @@
         <div ng-class="validate('employer.physicalAddress.zipCode') ? 'usa-input-error' : ''">
           <label for="zip">Zip Code</label>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
-          <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
+          <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
         <div ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
