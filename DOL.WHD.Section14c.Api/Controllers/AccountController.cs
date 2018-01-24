@@ -92,7 +92,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Add User
                 var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email.TrimAndToLowerCase(), Email = model.Email.TrimAndToLowerCase(), EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
@@ -386,7 +386,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("{userId}")]
         public IHttpActionResult GetSingleAccount(string userId)
         {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId.TrimAndToLowerCase());
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.TrimAndToLowerCase() == userId.TrimAndToLowerCase());
             if (user == null)
             {
                 BadRequest("User not found.");
