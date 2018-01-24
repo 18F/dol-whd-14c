@@ -1,23 +1,23 @@
 <form ng-submit="onSubmitClick()">
   <div class="dol-panel-login">
-    <h2>Log in</h2>
+    <h2>{{vm.formTitle}}</h2>
 
     <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.unknownError">
       <div class="usa-alert-body">
         <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
       </div>
     </div>
- 
+
     <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.loginError.status">
       <div class="usa-alert-body">
         <p class="usa-alert-text">{{ vm.loginError.message }} </p>
       </div>
-    </div>    
-    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''">
+    </div>
+    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-hide="vm.twoFAStatus">
       <label for="userName">Email</label>
       <input name="userName" id="userName" type="email" ng-model="formVals.email" />
     </div>
-    <div ng-class="(vm.loginError.status ? 'usa-input-error' : '') + ' ' + 'password-wrap'">
+    <div ng-class="(vm.loginError.status ? 'usa-input-error' : '') + ' ' + 'password-wrap'" ng-hide="vm.twoFAStatus">
       <label for="password">Password</label>
       <input name="password" id="password" type="{{inputType}}" ng-model="formVals.pass" />
       <div class="showpass">
@@ -27,13 +27,24 @@
         </a>
       </div>
     </div>
+
+    <div ng-class="vm.loginError.status ? 'usa-input-error' : ''" ng-show="vm.twoFAStatus">
+      <div>We sent an email to {{ formVals.email }} with an authentication code to verify your identity.</div><br/>
+      <div>Please enter the code below to log in. </div>
+      <label for="code">Authentication code </label>
+      <input name="code" id="code" type="text" ng-model="formVals.code" />
+    </div>
+
     <div class="loginbtn">
-      <button type="submit" ng-show="!vm.submittingForm">Log in</button>
+      <button type="submit" ng-show="!vm.submittingForm">{{ vm.submitButtonName }}</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading</button>
     </div>
-    <div class="forgotpass">
-      <a href="" ng-click="forgotPassword()">Forgot Your Password?</a>
+    <div class="forgotpass" ng-hide="vm.twoFAStatus">
+      <a href="" ng-click="forgotPassword()" >Forgot Your Password?</a>
+    </div>
+    <div class="resendAuthCode" ng-show="vm.twoFAStatus">
+      <a href="" ng-click="resendAuthCode()" >{{vm.resendAuthCodeTitle}}</a>
     </div>
   </div>
   <div class="dol-panel-info">

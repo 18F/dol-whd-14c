@@ -92,7 +92,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Add User
                 var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
@@ -447,6 +447,40 @@ namespace DOL.WHD.Section14c.Api.Controllers
             responseMessage.Content = new StringContent(string.Format("{{\"score\": \"{0}\", \"message\": \"{1}\" }}", zxcvbnResult.Score.ToString(), message), Encoding.UTF8, "application/json");
 
             return ResponseMessage(responseMessage);
+        }
+
+        /// <summary>
+        /// Resend authentication code
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("SendCode")]
+        public async Task<IHttpActionResult> SendAuthenticationCode(string email)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    BadRequest("Unable to send code.");
+                }
+
+                var user = UserManager.FindByEmail(email);
+                if (user == null)
+                {
+                    BadRequest("User not found.");
+                }
+
+                // Generate the token and send it
+                var code = await UserManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                await UserManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", code);
+            }
+            catch (Exception e)
+            {
+                // Log Error message to database
+                BadRequest(e.Message);
+            }
+            return Ok();
         }
 
         /// <summary>

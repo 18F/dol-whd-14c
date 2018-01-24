@@ -78,7 +78,6 @@ namespace DOL.WHD.Section14c.Api.Providers
                         var accountLockedOutEmailTemplateString = File.ReadAllText(accountLockedOutEmailTemplatePath);
                         //Send Account Lock Out Email
                         await userManager.SendEmailAsync(user.Id, AppSettings.Get<string>("AccountLockedoutEmailSubject"), accountLockedOutEmailTemplateString);
-                        await userManager.AddLoginAsync(user.Id, new Microsoft.AspNet.Identity.UserLoginInfo(Guid.NewGuid().ToString(), user.Email));
                         throw new UnauthorizedAccessException(string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, message));
                     }
                     if (!user.EmailConfirmed)
@@ -90,7 +89,7 @@ namespace DOL.WHD.Section14c.Api.Providers
                         eventInfo.Message = message;
                         throw new UnauthorizedAccessException(message);
                     }
-                    else if (validCredentials == null)
+                    if (validCredentials == null)
                     {
                         // invalid credentials
                         // increment failed login count
@@ -101,17 +100,38 @@ namespace DOL.WHD.Section14c.Api.Providers
                             await userManager.AccessFailedAsync(user.Id);                            
                         }
                         context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
-                        //Update AspNetUserLogins Table
-                        await userManager.AddLoginAsync(user.Id, new Microsoft.AspNet.Identity.UserLoginInfo(Guid.NewGuid().ToString(), user.Email));
                         throw new UnauthorizedAccessException(string.Format("{0}: {1} Login Attempted: {2}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.InvalidUserNameorPassword, loginAttempted +1));
                     }
-                    else if (passwordExpired)
+                    if (passwordExpired)
                     {
                         // password expired
                         context.SetError("invalid_grant", App_GlobalResources.LocalizedText.LoginFailureMessagePasswordExpired);
                         var message = string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.LoginFailureMessagePasswordExpired);
                         eventInfo.Message = message;
                         throw new UnauthorizedAccessException(message);
+                    }
+
+                    var data = await context.Request.ReadFormAsync();
+                    var code = data.Get("code");
+                    // Send authentication code if code is empty
+                    if (await userManager.GetTwoFactorEnabledAsync(user.Id) && string.IsNullOrEmpty(code))
+                    {
+                        await userManager.UpdateSecurityStampAsync(user.Id);
+                        var token = await userManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                        await userManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", token);
+                        context.SetError("need_code", App_GlobalResources.LocalizedText.MissingUser2FACode);
+                        var message = string.Format("{0}: {1}", "Send 2FA Code", App_GlobalResources.LocalizedText.MissingUser2FACode);
+                        eventInfo.Level = LogLevel.Info;
+                        eventInfo.Message = message;
+                        return;
+                    }
+                    // Verify authentication code
+                    if (await userManager.GetTwoFactorEnabledAsync(user.Id) && !await userManager.VerifyTwoFactorTokenAsync(user.Id, "EmailCode", code))
+                    {
+                        context.SetError("invalid_code", App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
+                        var message = string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
+                        eventInfo.Message = message;
+                        throw new UnauthorizedAccessException(App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
                     }
                     else
                     {
@@ -130,9 +150,7 @@ namespace DOL.WHD.Section14c.Api.Providers
 
                         // reset failed attempts count
                         await userManager.ResetAccessFailedCountAsync(user.Id);
-
-                        //Update AspNetUserLogins Table
-                        await userManager.AddLoginAsync(user.Id, new Microsoft.AspNet.Identity.UserLoginInfo(Guid.NewGuid().ToString(), user.Email));
+                        
                         // logging of successful attempts
                         eventInfo.Level = LogLevel.Info;
                         eventInfo.Message = App_GlobalResources.LocalizedText.LoginSuccessMessage;
