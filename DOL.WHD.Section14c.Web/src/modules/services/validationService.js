@@ -536,7 +536,7 @@ module.exports = function(ngModule) {
       section = undefined;
     };
 
-    this.validateWageDataPayType = function(prefix, value) {
+    this.validateWageDataPayType = function(prefix) {
       this.checkRequiredNumber(prefix + '.numWorkers', undefined, 0);
       this.checkRequiredString(
         prefix + '.jobName',

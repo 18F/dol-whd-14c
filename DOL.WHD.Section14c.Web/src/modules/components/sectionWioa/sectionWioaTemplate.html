@@ -101,16 +101,15 @@
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('WIOA.WIOAWorkers')">{{ validate('WIOA.WIOAWorkers') }}</span>
           <button ng-click="vm.addingWorker = true" ng-hide="vm.addingWorker">Add Worker</button>
           <div class="dol-form-question-block em-block" ng-show="vm.addingWorker">
-            <div class="usa-content">
-              <div class="usa-input-grid usa-input-grid-small">
+              <div class="usa-input-grid wioa-input">
                 <label for="firstName">First Name of Worker</label>
                 <input id="firstName" name="firstName" type="text" ng-model="vm.activeWorker.firstName">
               </div>
-              <div class="usa-input-grid usa-input-grid-small">
+              <div class="usa-input-grid wioa-input">
                 <label for="lastName">Last Name of Worker</label>
                 <input id="lastName" name="lastName" type="text" ng-model="vm.activeWorker.lastName">
               </div>
-              <div class="usa-input-grid usa-input-grid-small">
+              <div class="usa-input-grid wioa-input">
                 <label for="WIOAWorkerVerified">Yes/No/Not Required</label>
                 <select id="WIOAWorkerVerified" name="WIOAWorkerVerified" ng-model="vm.activeWorker.WIOAWorkerVerified" ng-options="response.display for response in responses.WIOAWorkerVerified"></select>
               </div>
@@ -120,13 +119,12 @@
                     <button class="green-button" ng-click="vm.addWorker()">{{ vm.activeWorkerIndex > -1 ? "Update Worker" : "Add Worker" }}</button>
                   </span>
               </div>
-            </div>
           </div>
         </fieldset>
         <div class="dol-form-question-group">
           <div ng-class="vm.validateActiveWorksiteProperty('employee_count') ? 'usa-input-error' : ''">
             <div ng-show="formData.WIOA.WIOAWorkers.length" class="container dol-employees-data-container">
-              <results-table id="Worker" results="formData.WIOA.WIOAWorkers" definitions="vm.wioaColumnDefs" columns="vm.wioaColumns"></results-table>
+              <results-table id="Worker" results="formData.WIOA.WIOAWorkers" definitions="vm.wioaColumnDefs" columns="vm.wioaColumns" edit="vm.editWorker" delete="vm.deleteWorker"></results-table>
             </div>
           </div>
         </div>
