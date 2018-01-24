@@ -114,12 +114,12 @@ namespace DOL.WHD.Section14c.Business.Services
             if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.PrevailingWageSurvey)
             {
                 wageTypeInfo.AlternateWageData = null;
-                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
+                wageTypeInfo.SCAAttachment = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.AlternateWageData)
             {
                 wageTypeInfo.MostRecentPrevailingWageSurvey = null;
-                wageTypeInfo.SCAWageDeterminationAttachmentId = null;
+                wageTypeInfo.SCAAttachment = null;
             }
             else if (prevailingWageMethod == ResponseIds.PrevailingWageMethod.SCAWageDetermination)
             {

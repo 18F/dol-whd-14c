@@ -244,7 +244,14 @@
 
         <p>
             <span class="subtext">SCA Wage Determination Attachment</span>
-            <div class="subtextanswer">File name(s): {{ formatAttachment Employer.SCAAttachment }}</div>
+            <div class="subtextanswer">
+                File name(s): 
+                <ul class="usa-unstyled-list">
+                    {{#each Employer.SCAAttachment}}
+                    <li>{{ boolOrString this.AttachmentName }}</li>
+                    {{/each}}
+                </ul>
+            </div>
             <p>Attachments are included at the end of the PDF.</p>
         </p>
         {{/if_eq}}
