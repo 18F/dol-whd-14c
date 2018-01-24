@@ -16,9 +16,11 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
 
-    vm.addEmployerFormStatus = 'init';
     vm.activeSourceEmployer = {};
     vm.activeSourceEmployerIndex = -1;
+    vm.focusAddSourceEmployerButton = false;
+    vm.focusAddSourceEmployerForm = false;
+    vm.showAddSourceEmployer = false;
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
@@ -59,7 +61,9 @@ module.exports = function(ngModule) {
     });
 
     this.showAddEmployer = function () {
-      vm.addEmployerFormStatus = 'visible';
+      vm.focusAddSourceEmployerForm = true;
+      vm.focusAddSourceEmployerButton = false;
+      vm.showAddSourceEmployer = true;
     }
     this.addSourceEmployer = function() {
       //vm.activeSourceEmployer.contactDate = moment(vm.activeSourceEmployer.contactDate.year + '-' + vm.activeSourceEmployer.contactDate.month + '-' + vm.activeSourceEmployer.contactDate.day).format();
@@ -77,14 +81,17 @@ module.exports = function(ngModule) {
           vm.activeSourceEmployer
         );
       }
-
+      vm.focusAddSourceEmployerButton = true;
+      vm.focusAddSourceEmployerForm = false;
       vm.cancelAddSourceEmployer();
     };
 
     this.cancelAddSourceEmployer = function() {
       vm.activeSourceEmployer = {};
       vm.activeSourceEmployerIndex = -1;
-      vm.addEmployerFormStatus = 'hidden';
+      vm.focusAddSourceEmployerButton = true;
+      vm.focusAddSourceEmployerForm = false;
+      vm.showAddSourceEmployer = false;
     };
 
     this.editSourceEmployer = function(index) {
@@ -94,14 +101,17 @@ module.exports = function(ngModule) {
         $scope.formData[$scope.modelPrefix()].mostRecentPrevailingWageSurvey
           .sourceEmployers[index]
       );
-      vm.addEmployerFormStatus = 'visible';
+      vm.focusAddSourceEmployerForm = true;
+      vm.focusAddSourceEmployerButton = false;
+      vm.showAddSourceEmployer = true;
     };
 
     this.deleteSourceEmployer = function(index) {
       $scope.formData[
         $scope.modelPrefix()
       ].mostRecentPrevailingWageSurvey.sourceEmployers.splice(index, 1);
-      vm.addEmployerFormStatus = 'deleted';
+      vm.focusAddSourceEmployerButton = 1;
+      vm.showAddSourceEmployer = false;
     };
 
     this.validateSourceEmployer = function(index) {
