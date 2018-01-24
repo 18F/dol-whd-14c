@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class WageTypeInfoSCAAttachment
+    public class WageTypeInfoSCAAttachment : BaseEntity
     {
         public string WageTypeInfoId { get; set; }
         public WageTypeInfo WageTypeInfo { get; set; }

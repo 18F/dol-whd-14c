@@ -2,7 +2,7 @@
 
 namespace DOL.WHD.Section14c.Domain.Models.Submission
 {
-    public class EmployerInfoSCAAttachment
+    public class EmployerInfoSCAAttachment : BaseEntity
     {
         public string EmployerInfoId { get; set; }
         public EmployerInfo EmployerInfo { get; set; }

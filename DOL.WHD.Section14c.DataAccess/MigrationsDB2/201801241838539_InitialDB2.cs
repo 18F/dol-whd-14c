@@ -406,12 +406,18 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
                         EmployerInfoId = c.String(nullable: false, maxLength: 128),
                         SCAAttachmentId = c.String(nullable: false, maxLength: 128),
                         AttachmentName = c.String(),
+                        CreatedBy_Id = c.String(),
+                        CreatedAt = c.DateTime(nullable: false),
+                        LastModifiedBy_Id = c.String(maxLength: 128),
+                        LastModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => new { t.EmployerInfoId, t.SCAAttachmentId })
+                .ForeignKey("dbo.Users", t => t.LastModifiedBy_Id)
                 .ForeignKey("dbo.EmployerInfoes", t => t.EmployerInfoId, cascadeDelete: true)
                 .ForeignKey("dbo.Attachments", t => t.SCAAttachmentId, cascadeDelete: true)
                 .Index(t => t.EmployerInfoId)
-                .Index(t => t.SCAAttachmentId);
+                .Index(t => t.SCAAttachmentId)
+                .Index(t => t.LastModifiedBy_Id);
             
             CreateTable(
                 "dbo.Attachments",
@@ -553,12 +559,18 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
                         WageTypeInfoId = c.String(nullable: false, maxLength: 128),
                         SCAAttachmentId = c.String(nullable: false, maxLength: 128),
                         AttachmentName = c.String(),
+                        CreatedBy_Id = c.String(),
+                        CreatedAt = c.DateTime(nullable: false),
+                        LastModifiedBy_Id = c.String(maxLength: 128),
+                        LastModifiedAt = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => new { t.WageTypeInfoId, t.SCAAttachmentId })
+                .ForeignKey("dbo.Users", t => t.LastModifiedBy_Id)
                 .ForeignKey("dbo.Attachments", t => t.SCAAttachmentId, cascadeDelete: true)
                 .ForeignKey("dbo.WageTypeInfoes", t => t.WageTypeInfoId, cascadeDelete: true)
                 .Index(t => t.WageTypeInfoId)
-                .Index(t => t.SCAAttachmentId);
+                .Index(t => t.SCAAttachmentId)
+                .Index(t => t.LastModifiedBy_Id);
             
             CreateTable(
                 "dbo.Signatures",
@@ -704,6 +716,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropForeignKey("dbo.WageTypeInfoes", "AttachmentId", "dbo.Attachments");
             DropForeignKey("dbo.WageTypeInfoes", "AlternateWageData_Id", "dbo.AlternateWageDatas");
             DropForeignKey("dbo.WageTypeInfoSCAAttachment", "SCAAttachmentId", "dbo.Attachments");
+            DropForeignKey("dbo.WageTypeInfoSCAAttachment", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.SourceEmployers", "PrevailingWageSurveyInfo_Id", "dbo.PrevailingWageSurveyInfoes");
             DropForeignKey("dbo.SourceEmployers", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.SourceEmployers", "Address_Id", "dbo.Addresses");
@@ -716,6 +729,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropForeignKey("dbo.EmployerInfoSCAAttachment", "SCAAttachmentId", "dbo.Attachments");
             DropForeignKey("dbo.Attachments", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.EmployerInfoSCAAttachment", "EmployerInfoId", "dbo.EmployerInfoes");
+            DropForeignKey("dbo.EmployerInfoSCAAttachment", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.EmployerInfoes", "SCAId", "dbo.Responses");
             DropForeignKey("dbo.EmployerInfoFacilitiesDeductionType", "ProvidingFacilitiesDeductionTypeId", "dbo.Responses");
             DropForeignKey("dbo.EmployerInfoFacilitiesDeductionType", "EmployerInfoId", "dbo.EmployerInfoes");
@@ -768,6 +782,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropIndex("dbo.WIOAWorkers", new[] { "WIOAWorkerVerifiedId" });
             DropIndex("dbo.WIOAs", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.Signatures", new[] { "LastModifiedBy_Id" });
+            DropIndex("dbo.WageTypeInfoSCAAttachment", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.WageTypeInfoSCAAttachment", new[] { "SCAAttachmentId" });
             DropIndex("dbo.WageTypeInfoSCAAttachment", new[] { "WageTypeInfoId" });
             DropIndex("dbo.SourceEmployers", new[] { "PrevailingWageSurveyInfo_Id" });
@@ -784,6 +799,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropIndex("dbo.AppSubmissionEstablishmentType", new[] { "EstablishmentTypeId" });
             DropIndex("dbo.AppSubmissionEstablishmentType", new[] { "ApplicationSubmissionId" });
             DropIndex("dbo.Attachments", new[] { "LastModifiedBy_Id" });
+            DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "SCAAttachmentId" });
             DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "EmployerInfoId" });
             DropIndex("dbo.EmployerInfoFacilitiesDeductionType", new[] { "ProvidingFacilitiesDeductionTypeId" });

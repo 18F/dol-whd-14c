@@ -112,14 +112,16 @@
             <table cellpadding="0" cellspacing="0" border="1" style="width:100%">
                 <thead>
                     <tr class="row_greyed">
-                        <th scope="col">Name of Worker</th>
+                        <th scope="col">First Name of Worker</th>
+                        <th scope="col">Last Name of Worker</th>
                         <th scope="col">Response</th>
                     </tr>
                 </thead>
                 <tbody>
                     {{#each WIOA.WIOAWorkers}}
                     <tr style="text-align:center">
-                        <td scope="row">{{ FullName }}</td>
+                        <td scope="row">{{ FirstName }}</td>
+                        <td scope="row">{{ LastName }}</td>
                         <td>{{ WIOAWorkerVerified.Display }}</td>
                     </tr>
                     {{/each}}
