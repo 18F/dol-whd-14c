@@ -4,6 +4,7 @@ using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace DOL.WHD.Section14c.Test.Business.Validators
 {
@@ -84,12 +85,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_SCAWageDeterminationId()
         {
-            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAWageDeterminationAttachmentId = null };
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = null };
-            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = Guid.NewGuid().ToString() };
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
+            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAAttachment = null };
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment = null };
+            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAAttachment, model);
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment= new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } } };
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
         }
 
         [TestMethod]

@@ -12,14 +12,14 @@
 <div >
   <ul class="dol-uploaded-files">
     <li ng-repeat="attachment in attachments">
-      <strong>Uploaded: </strong><a ng-click="vm.downloadAttachment(attachment.attachmentId)" ng-href="" id="{{attatchment.attachmentId}}"><span>{{attachment.attachmentName}}</span></a>
-      <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal(attachment.attachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
+      <strong>Uploaded: </strong><a ng-click="vm.downloadAttachment(attachment.scaAttachmentId)" ng-href="" id="{{attatchment.scaAttachmentId}}"><span>{{attachment.attachmentName}}</span></a>
+      <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal(attachment.scaAttachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
     </li>
   </ul>
   <div>
     <div ng-show="upload.status == 'Uploading'" class="dol-feedback-progress">
         <p class="dol-feedback-message">
-          <strong>Uploading:</strong> {{attachmentName}}
+          <strong>Uploading:</strong> {{attachment}}
         </p>
     </div>
     <div ng-show="upload.status == 'Invalid'" class="dol-feedback-error">

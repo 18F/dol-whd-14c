@@ -537,7 +537,6 @@ module.exports = function(ngModule) {
       const url = _env.api_url + '/api/application/submit';
       const d = $q.defer();
       const submissionVm = submissionService.getSubmissionVM(ein, vm);
-      console.log(submissionVm)
       $http({
         method: 'POST',
         url: url,

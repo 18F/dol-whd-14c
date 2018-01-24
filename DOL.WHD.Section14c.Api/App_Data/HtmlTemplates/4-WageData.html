@@ -184,7 +184,13 @@
             {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: 
+                    <ul class="usa-unstyled-list">
+                        {{#each HourlyWageInfo.SCAAttachment}}
+                        <li>{{ boolOrString this.AttachmentName }}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}
@@ -276,7 +282,13 @@
             {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: 
+                    <ul class="usa-unstyled-list">
+                        {{#each PieceRateWageInfo.SCAAttachment}}
+                        <li>{{ boolOrString this.AttachmentName }}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}

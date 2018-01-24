@@ -16,11 +16,11 @@ module.exports = function(ngModule) {
           object[key + 'Id'] = value.id;
           delete object[key];
         }
-        if(_.has(value, 'scaAttachmentsIds')) {
-          object['scaAttachmentIds'].map(function(element){
-            return element.attachmentId;
-          })
-        }
+        // if(_.has(value, 'scaAttachmentId')) {
+        //   object['scaAttachmentId'].map(function(element){
+        //      return element.attachmentId;
+        //    })
+        //  }
       });
 
       // add in EIN

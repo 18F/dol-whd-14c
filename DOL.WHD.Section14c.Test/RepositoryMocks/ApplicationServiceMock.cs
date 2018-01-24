@@ -72,8 +72,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
                 EmployerInfo employer = new EmployerInfo
                 {
-                    SCAAttachmentId ="1234567890",
-                    SCAAttachment = sCAAttachment,
+                    SCAAttachmentId = new List<string>() { "1234567890" },
+                    SCAAttachment = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { SCAAttachment = sCAAttachment } },
                     PhysicalAddress = address,
                     TemporaryAuthority = true,
                     HasTradeName = false,
@@ -91,8 +91,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 {
                     AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
-                    SCAWageDeterminationAttachmentId = "1234567890",
-                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
+                    //SCAWageDeterminationAttachmentId = "1234567890",
+                    SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };
                 HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
@@ -100,7 +100,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     AttachmentId = "1234567890",
                     Attachment = hourlyWageInfoAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
-                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment
+                    SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } },
                 };
                 Response res = new Response
                 {
