@@ -12,6 +12,7 @@ module.exports = function(ngModule) {
   require('./dateField')(ngModule);
   require('./dolHeader')(ngModule);
   require('./formFooterControls')(ngModule);
+  require('./focusOn')(ngModule);
   require('./formSection')(ngModule);
   require('./mainHeaderControl')(ngModule);
   require('./mainNavigationControl')(ngModule);
