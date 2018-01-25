@@ -13,6 +13,7 @@ module.exports = function(ngModule) {
     $q,
     _env,
     $rootScope,
+    $window,
     _constants
   ) {
     'use strict';
@@ -248,19 +249,8 @@ module.exports = function(ngModule) {
 
     this.downloadApplicationPdf = function() {
       const self = this;
-      const d = $q.defer();
-
-      apiService.downloadApplicationPdf(self.access_token, self.applicationId).then(
-        function(result) {
-          const data = result.data;
-          d.resolve(data);
-        },
-        function(error) {
-          d.reject(error);
-        }
-      );
-
-      return d.promise;
+      var downloadURL = _env.api_url + '/api/application/download?applicationId=' + self.applicationId + '&access_token=' + self.access_token;
+      $window.open(downloadURL, '_blank');
     };
 
     this.loadApplicationList = function() {

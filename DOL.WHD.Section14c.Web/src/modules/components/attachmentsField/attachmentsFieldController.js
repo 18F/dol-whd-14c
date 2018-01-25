@@ -38,7 +38,7 @@ module.exports = function(ngModule) {
 
     this.downloadAttachment = function(id) {
         var downloadURL = _env.api_url + '/api/attachment/' + stateService.applicationId + '/' + id + '?access_token=' + stateService.access_token;
-        $window.location.href = downloadURL;
+        $window.open(downloadURL, '_blank');
     };
 
     this.onAttachmentSelected = function(fileinput) {

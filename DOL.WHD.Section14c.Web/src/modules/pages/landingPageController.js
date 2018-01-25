@@ -31,11 +31,7 @@ module.exports = function(ngModule) {
           });
        }
        else if($scope.organizations[index].applicationStatus.name === "Submitted"){
-        stateService.downloadApplicationPdf().then(function() {
-          },
-          function(error) {
-            $scope.handleApplicationLoadError(error.data);
-          });
+          stateService.downloadApplicationPdf();
        }
        else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
         stateService.loadSavedApplication().then(function() {

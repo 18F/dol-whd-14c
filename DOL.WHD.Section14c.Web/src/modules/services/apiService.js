@@ -354,9 +354,8 @@ module.exports = function(ngModule) {
     };
 
     this.downloadApplicationPdf = function(access_token, applicationId) {
-      let url =  _env.api_url + 'api/application/download?applicationId=' + applicationId;
+      let url =  _env.api_url + '/api/application/download?applicationId=' + applicationId;
       let d = $q.defer();
-
       $http({
         method: 'GET',
         url: url,
