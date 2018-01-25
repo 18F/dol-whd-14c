@@ -70,6 +70,13 @@ module.exports = function(ngModule) {
             stateService.employerId = organization.employer.id;
             stateService.applicationId = organization.applicationId;
             stateService.employerName = organization.employer.legalName;
+            if(stateService.applicationId) {
+              stateService.loadSavedApplication().then(function(result) {
+                d.resolve(result);
+              }).catch(function(error) {
+                d.reject(error);
+              });
+            }
           }
           if (!stateService.IsPointOfContact) {
             d.resolve();

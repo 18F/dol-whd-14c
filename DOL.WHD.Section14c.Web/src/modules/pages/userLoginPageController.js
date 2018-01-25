@@ -6,6 +6,8 @@ module.exports = function(ngModule) {
     'use strict';
      $scope.refresh = function() {
        $location.search('timeout', null);
+       $location.search('code', null);
+       $location.search('userId', null);
        $route.reload();
     }
     $scope.isEmailVerificationRequest = false;
@@ -15,8 +17,7 @@ module.exports = function(ngModule) {
     $scope.emailVerificationUserId = $location.search().userId;
     $scope.isEmailVerificationRequest = $scope.emailVerificationCode && $scope.emailVerificationUserId ? true: false;
     if ($scope.isEmailVerificationRequest) {
-      $location.search('code', null);
-      $location.search('userId', null);
+      
       apiService
         .emailVerification(
           $scope.emailVerificationUserId,
