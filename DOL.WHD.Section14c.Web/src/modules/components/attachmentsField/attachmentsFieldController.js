@@ -17,7 +17,7 @@ module.exports = function(ngModule) {
     if(!$scope.attachments) {
       $scope.attachments = [];
     }
-
+    $scope.modalIsVisible = false;
     $scope.restrictUpload = false;
     $scope.upload = {
       status: "NoFile",
@@ -42,13 +42,13 @@ module.exports = function(ngModule) {
     };
 
     this.onAttachmentSelected = function(fileinput) {
-      if(fileinput) {
-        vm.setActiveAttachment(null, fileinput.files[0].name);
-      } else {
+      if(!fileinput) {
         vm.setActiveAttachment();
         vm.setUploadStatus('NoFile', 'No file is selected.');
         return;
+
       }
+      vm.setActiveAttachment(null, fileinput.files[0].name);
       vm.setUploadStatus("Uploading", "File is uploading.");
       if (fileinput && vm.validateAttachment(fileinput.files[0], $scope.allowedFileTypes)) {
         vm.uploadAttachment(fileinput);
@@ -103,9 +103,9 @@ module.exports = function(ngModule) {
       autoSaveService.save()
     }
 
-    $scope.modalIsVisible = false;
 
-    this.showModal = function (id, attachmentName) {
+
+    this.showDeleteFileConfirmationModal = function (id, attachmentName) {
       //$('.modal').addClass('is-visible');
       $scope.attachmentName = attachmentName;
       $scope.attachmentId = id;
@@ -113,7 +113,7 @@ module.exports = function(ngModule) {
       vm.setUploadStatus('Deleting', 'Attempting to delete file.');
     };
 
-    this.hideModal = function() {
+    this.hideDeleteFileConfirmationModal = function() {
      // $('.modal').removeClass('is-visible');
       $scope.modalIsVisible = false;
       vm.setUploadStatus('NoFile', 'No file is selected.');
@@ -133,7 +133,7 @@ module.exports = function(ngModule) {
         });
 
         $scope.attachments.splice(index, 1);
-        vm.hideModal();
+        vm.hideDeleteFileConfirmationModal();
       }).catch(function() {
         //TODO: Display error
         vm.setUploadStatus('Failure', 'Failed to delete file');

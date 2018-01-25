@@ -3,6 +3,7 @@
   Object.assign(window.__env, {
     api_url: '<api_url_for_jenkins>',
     requireHttps: true,
-    tokenCookieDurationMinutes: 20160
+    tokenCookieDurationMinutes: 20160,
+    allowedFileTypes: '<allowed_file_types>'
   });
 })(this);
