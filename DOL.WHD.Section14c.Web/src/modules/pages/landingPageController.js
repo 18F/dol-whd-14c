@@ -70,6 +70,7 @@ module.exports = function(ngModule) {
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
+      stateService.employerName = $scope.organizations[index].employer.legalName;
       return;
     }
 
