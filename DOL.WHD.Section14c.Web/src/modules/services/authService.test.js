@@ -157,6 +157,11 @@ describe('authService', function() {
     spyOn(stateService, 'loadApplicationList').and.returnValue(
       loadApplicationList.promise
     );
+
+    var loadSavedApplication = $q.defer();
+    spyOn(stateService, 'loadSavedApplication').and.returnValue(
+      loadSavedApplication.promise
+    );
     authService.authenticateUser().then(function() {
       isResolved = true;
     });
@@ -202,6 +207,12 @@ describe('authService', function() {
     spyOn(stateService, 'loadApplicationList').and.returnValue(
       loadApplicationList.promise
     );
+
+    var loadSavedApplication = $q.defer();
+    spyOn(stateService, 'loadSavedApplication').and.returnValue(
+      loadSavedApplication.promise
+    );
+
     authService.authenticateUser().then(undefined, function(error) {
       result = error;
       isResolved = false;
