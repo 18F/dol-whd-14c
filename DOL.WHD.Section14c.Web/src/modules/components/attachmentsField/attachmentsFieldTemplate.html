@@ -13,7 +13,7 @@
   <ul class="dol-uploaded-files">
     <li ng-repeat="attachment in attachments">
       <strong>Uploaded: </strong><a ng-click="vm.downloadAttachment(attachment.scaAttachmentId)" ng-href="" id="{{attatchment.scaAttachmentId}}"><span>{{attachment.attachmentName}}</span></a>
-      <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showModal(attachment.scaAttachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
+      <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showDeleteFileConfirmationModal(attachment.scaAttachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
     </li>
   </ul>
   <div>
@@ -24,12 +24,12 @@
     </div>
     <div ng-show="upload.status == 'Invalid'" class="dol-feedback-error">
         <p class="dol-feedback-message">
-          <strong>{{upload.message}}</strong> <span>{{attachmentName}} was not updated.</span><span ng-show="upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="upload.message === 'Invalid File Type.'"> Accepted file types are: PDF, Word, Excel, JPG, PNG</span>
+          <strong>{{upload.message}}</strong> <span>{{attachmentName}} was not uploaded.</span><span ng-show="upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="upload.message === 'Invalid File Type.'"> File types accepted: .pdf, .jpg, .jpeg, .png, and .csv</span>
         </p>
     </div>
     <div ng-class="{'is-visible': modalIsVisible}" class="modal">
       <header class="cd-panel-header">
-        <a ng-click="vm.hideModal()" class="modal-close dol-close-button"></a>
+        <a ng-click="vm.hideDeleteFileConfirmationModal()" class="modal-close dol-close-button"></a>
       </header>
       <p>
         <h4>Are you sure you want to delete this file?</h4>
@@ -37,7 +37,7 @@
       <p>
         {{attachmentName}}
       </p>
-      <button ng-click="vm.hideModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete File</button>
+      <button ng-click="vm.hideDeleteFileConfirmationModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete File</button>
       <div ng-show="upload.status == 'Failure'" class="dol-feedback-error">
           <p class="dol-feedback-message">
             <strong>{{upload.message}}</strong> <span>{{attachmentName}} could not be deleted.

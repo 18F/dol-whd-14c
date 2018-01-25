@@ -18,7 +18,7 @@ describe('attachmentsFieldController', function() {
       mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
       mockStateService.formData = {
         modelPrefix: {
-          inputId: [{attachmentId: '12345'}]
+          inputId: [{scaAttachmentId: '12345'}]
         }
       };
 
@@ -58,7 +58,7 @@ describe('attachmentsFieldController', function() {
       mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
       mockStateService.formData = {
         modelPrefix: {
-          inputId: [{attachmentId: '12345'}]
+          inputId: [{scaAttachmentId: '12345'}]
         }
       };
       var fileInput = { files: [{name: 'file.' + extension, size: 1000}] };
@@ -86,7 +86,7 @@ describe('attachmentsFieldController', function() {
       mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
       mockStateService.formData = {
         modelPrefix: {
-          inputId: [{attachmentId: '12345'}]
+          inputId: [{scaAttachmentId: '12345'}]
         }
       };
       scope.modelPrefix = "modelPrefix";
@@ -173,7 +173,7 @@ describe('attachmentsFieldController', function() {
   it('delete attachment successful, clears attachment fields', function() {
     scope.attachmentId = 1;
     scope.attachmentName = 'name';
-    scope.attachments = [{attachmentId: scope.attachmentId , attachmentName: scope.attachmentName}];
+    scope.attachments = [{scaAttachmentId: scope.attachmentId , attachmentName: scope.attachmentName}];
     controller.deleteAttachment(scope.attachmentId, scope.attachmentName);
     deleteAttachment.resolve({});
     scope.$apply();

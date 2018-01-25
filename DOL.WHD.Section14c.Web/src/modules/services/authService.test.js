@@ -115,6 +115,38 @@ describe('authService', function() {
     expect(stateService.applicationId).toEqual('123');
   });
 
+  it('authenticateUser success should set application info to application that is in progress', function() {
+    var isResolved;
+    var data = { organizations: [
+      { ein: '12-1234567', employer: {legalName: 'legalName1'}, applicationId: '123', applicationStatus: {name: 'InProgress'} },
+      { ein: '12-1212313', employer: {legalName: 'legalName2'}, applicationId: '1234', applicationStatus: {name: 'Submitted'} },
+      { ein: '12-1231314', employer: {legalName: 'legalName3'}, applicationId: '12345', applicationStatus: {name: 'Submitted'} },
+
+    ]};
+    var loadSavedApplication = $q.defer();
+    spyOn(stateService, 'loadSavedApplication').and.returnValue(
+      loadSavedApplication.promise
+    );
+    authService.authenticateUser().then(function() {
+      isResolved = true;
+    });
+
+    $httpBackend
+      .expectGET(env.api_url + '/api/Account/UserInfo')
+      .respond(200, data);
+    $httpBackend.flush();
+    loadSavedApplication.resolve();
+    $rootScope.$digest();
+    expect(isResolved).toEqual(true);
+    expect(stateService.loggedIn).toEqual(true);
+    expect(stateService.user).toEqual(data);
+    expect(stateService.ein).toEqual('12-1234567');
+    expect(stateService.employerName).toEqual('legalName1');
+    expect(stateService.applicationId).toEqual('123');
+    expect(stateService.applicationId).toEqual('123');
+    expect()
+  });
+
   it('authenticateUser success should resolve deferred admin', function() {
     var isResolved;
     var data = {

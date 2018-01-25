@@ -82,12 +82,12 @@ module.exports = function(ngModule) {
 
     $scope.modalIsVisible = false;
 
-    this.showModal = function () {
+    this.showDeleteFileConfirmationModal = function () {
       //$('.modal').addClass('is-visible');
       $scope.modalIsVisible = true;
     };
 
-    this.hideModal = function() {
+    this.hideDeleteFileConfirmationModal = function() {
      // $('.modal').removeClass('is-visible');
       $scope.modalIsVisible = false;
       vm.upload.status = 'NoFile';
