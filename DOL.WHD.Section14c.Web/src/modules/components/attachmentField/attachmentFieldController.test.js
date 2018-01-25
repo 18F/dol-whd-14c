@@ -1,23 +1,25 @@
 describe('attachmentFieldController', function() {
   var scope, $q, mockApiService, attachmentFieldController;
-  var uploadAttachment, deleteAttachment;
+  var uploadAttachment, deleteAttachment, mockEnv;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, _$q_, apiService) {
+    inject(function($rootScope, $controller, _$q_, apiService, _env) {
       scope = $rootScope.$new();
       $q = _$q_;
+      mockEnv = _env;
       mockApiService = apiService;
+      mockEnv.allowedFileTypes = '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "csv", "CSV", "PDF"]';
       attachmentFieldController = function() {
         return $controller('attachmentFieldController', {
           $scope: scope,
+          env: mockEnv,
           apiService: mockApiService
         });
       };
 
       controller = attachmentFieldController();
-      scope.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
       uploadAttachment = $q.defer();
       spyOn(mockApiService, 'uploadAttachment').and.returnValue(
         uploadAttachment.promise

@@ -23,8 +23,8 @@ module.exports = function(ngModule) {
       status: "NoFile",
       message: 'No file is selected.'
     };
-
-    $scope.allowedFileTypes = _env.allowedFileTypes;
+    console.log(_env.allowedFileTypes)
+    $scope.allowedFileTypes = JSON.parse(_env.allowedFileTypes);
 
     this.setActiveAttachment = function(id, name) {
       $scope.attachmentId = id;

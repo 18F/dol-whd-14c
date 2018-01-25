@@ -15,7 +15,7 @@ describe('attachmentsFieldController', function() {
       $q = _$q_;
       mockApiService = apiService;
 
-      mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+      mockEnv.allowedFileTypes = '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "csv", "CSV", "PDF"]';
       mockStateService.formData = {
         modelPrefix: {
           inputId: [{scaAttachmentId: '12345'}]
@@ -55,7 +55,7 @@ describe('attachmentsFieldController', function() {
     it('should allow file of type ' + extension, function() {
       scope.modelPrefix = "modelPrefix";
       scope.inputId = "inputId";
-      mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+      mockEnv.allowedFileTypes = '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "csv", "CSV", "PDF"]';
       mockStateService.formData = {
         modelPrefix: {
           inputId: [{scaAttachmentId: '12345'}]
@@ -83,7 +83,7 @@ describe('attachmentsFieldController', function() {
 
   ['docx', 'gif', 'avi', 'iso'].forEach(function(extension) {
     it('should not allow file of type ' + extension, function() {
-      mockEnv.allowedFileTypes = ['pdf', 'jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG', 'csv', 'CSV', 'PDF'];
+      mockEnv.allowedFileTypes = '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "csv", "CSV", "PDF"]';
       mockStateService.formData = {
         modelPrefix: {
           inputId: [{scaAttachmentId: '12345'}]

@@ -26,7 +26,7 @@ module.exports = function(ngModule) {
       }
     }
 
-    $scope.allowedFileTypes = _env.allowedFileTypes;
+    $scope.allowedFileTypes = JSON.parse(_env.allowedFileTypes);
 
     this.onAttachmentSelected = function(fileinput) {
       if(fileinput) {

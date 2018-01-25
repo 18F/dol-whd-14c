@@ -86,7 +86,7 @@ describe('userLoginFormController', function() {
     var controller = userLoginFormController();
 
     scope.onSubmitClick();
-    userLogin.reject({ status: 400 });
+    userLogin.reject({ status: 400, data: {error: "locked_out" } });
     scope.$apply();
 
     expect(controller.loginError.status).toBe(true);
