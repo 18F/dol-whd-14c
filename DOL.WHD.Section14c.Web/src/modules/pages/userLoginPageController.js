@@ -8,7 +8,7 @@ module.exports = function(ngModule) {
        $location.search('timeout', null);
        $route.reload();
     }
-    $scope.isEmailVerificationRequest = false
+    $scope.isEmailVerificationRequest = false;
     $scope.emailVerificationUrl = $location.absUrl();
     $scope.emailVerificationCode = $location.search().code;
     $scope.sessionTimeout = $location.search().timeout;
