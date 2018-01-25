@@ -249,8 +249,10 @@ module.exports = function(ngModule) {
 
     this.downloadApplicationPdf = function() {
       const self = this;
+      const d = $q.defer();
       var downloadURL = _env.api_url + '/api/application/download?applicationId=' + self.applicationId + '&access_token=' + self.access_token;
       $window.open(downloadURL, '_blank');
+      return d.promise;
     };
 
     this.loadApplicationList = function() {
