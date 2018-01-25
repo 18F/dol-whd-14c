@@ -72,8 +72,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
                 EmployerInfo employer = new EmployerInfo
                 {
-                    SCAAttachmentId = new List<string>() { "1234567890" },
-                    SCAAttachment = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { SCAAttachment = sCAAttachment } },
+                    SCAAttachmentIds = new List<string>() { "1234567890" },
+                    SCAAttachments = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { SCAAttachment = sCAAttachment } },
                     PhysicalAddress = address,
                     TemporaryAuthority = true,
                     HasTradeName = false,
@@ -91,8 +91,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 {
                     AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
-                    SCAAttachmentId = new List<string>() { "1234567890" },
-                    SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
+                    SCAAttachmentIds = new List<string>() { "1234567890" },
+                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };
                 HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
@@ -100,7 +100,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     AttachmentId = "1234567890",
                     Attachment = hourlyWageInfoAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
-                    SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } },
+                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } },
                 };
                 Response res = new Response
                 {

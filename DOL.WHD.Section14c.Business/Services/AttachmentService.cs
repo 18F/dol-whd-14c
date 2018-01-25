@@ -113,19 +113,19 @@ namespace DOL.WHD.Section14c.Business.Services
             if (application != null)
             {
                 var count = 1;
-                if (application.Employer?.SCAAttachment != null)
+                if (application.Employer?.SCAAttachments != null)
                 {
-                    foreach (var item in application.Employer.SCAAttachment)
+                    foreach (var item in application.Employer.SCAAttachments)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
                         attachments.Add(string.Format("SCA Wage Determination Attachment {0}", (count++) ), attachment);
                     }
                 }
 
-                if (application.PieceRateWageInfo?.SCAAttachment != null)
+                if (application.PieceRateWageInfo?.SCAAttachments != null)
                 {
                     count = 1;
-                    foreach (var item in application.PieceRateWageInfo.SCAAttachment)
+                    foreach (var item in application.PieceRateWageInfo.SCAAttachments)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
                         attachments.Add(string.Format("Piece Rate Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
@@ -137,10 +137,10 @@ namespace DOL.WHD.Section14c.Business.Services
                     attachments.Add("Piece Rate Wage Info Attachment", application.PieceRateWageInfo.Attachment);
                 }
 
-                if (application.HourlyWageInfo?.SCAAttachment != null)
+                if (application.HourlyWageInfo?.SCAAttachments != null)
                 {
                     count = 1;
-                    foreach (var item in application.HourlyWageInfo.SCAAttachment)
+                    foreach (var item in application.HourlyWageInfo.SCAAttachments)
                     {
                         var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
                         attachments.Add(string.Format("Hourly Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);

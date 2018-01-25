@@ -27,13 +27,13 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public virtual AlternateWageData AlternateWageData { get; set; }
 
-        public IEnumerable<string> SCAAttachmentId
+        public IEnumerable<string> SCAAttachmentIds
         {
             set
             {
                 if (value != null)
                 {
-                    SCAAttachment = value.Select(
+                    SCAAttachments = value.Select(
                         x =>
                             new WageTypeInfoSCAAttachment
                             {
@@ -43,7 +43,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
                 }
             }
         }
-        public virtual ICollection<WageTypeInfoSCAAttachment> SCAAttachment { get; set; }
+        public virtual ICollection<WageTypeInfoSCAAttachment> SCAAttachments { get; set; }
 
         // Documentation
         public string AttachmentId { get; set; }

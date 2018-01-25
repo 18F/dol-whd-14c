@@ -412,10 +412,10 @@
             <input id="scaCount" name="scaCount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.scaCount">
           </div>
         </div>
-        <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
+        <div ng-class="validate('employer.SCAAttachments') ? 'usa-input-error' : ''">
           <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wages.</label>
-          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.scaAttachment')">{{ validate('employer.SCAAttachment') }}</span>
-          <attachments-field allow-multi-upload="true" input-id="fileUploadSCA" model-prefix="employer" attachments="formData.employer.scaAttachment"  />
+          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.SCAAttachments')">{{ validate('employer.SCAAttachments') }}</span>
+          <attachments-field allow-multi-upload="true" input-id="fileUploadSCA" model-prefix="employer" attachments="formData.employer.SCAAttachments"  />
         </div>
       </div>
     </div>

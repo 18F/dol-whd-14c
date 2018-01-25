@@ -106,12 +106,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_SCAWageDeterminationId()
         {
-            var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAAttachment = null };
-            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment = null };
-            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAAttachment, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } } };
-            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
+            var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAAttachments = null };
+            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachments, model);
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachments = null };
+            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAAttachments, model);
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } } };
+            PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachments, model);
         }
 
         [TestMethod]

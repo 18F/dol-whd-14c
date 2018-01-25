@@ -187,7 +187,7 @@
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
                 <div class="subtextanswer">File(s) name: 
                     <ul class="usa-unstyled-list">
-                        {{#each HourlyWageInfo.SCAAttachment}}
+                        {{#each HourlyWageInfo.SCAAttachments}}
                         <li>{{ boolOrString this.AttachmentName }}</li>
                         {{/each}}
                     </ul>
@@ -286,7 +286,7 @@
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
                 <div class="subtextanswer">File(s) name: 
                     <ul class="usa-unstyled-list">
-                        {{#each PieceRateWageInfo.SCAAttachment}}
+                        {{#each PieceRateWageInfo.SCAAttachments}}
                         <li>{{ boolOrString this.AttachmentName }}</li>
                         {{/each}}
                     </ul>

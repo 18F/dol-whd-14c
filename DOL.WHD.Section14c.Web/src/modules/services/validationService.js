@@ -494,7 +494,7 @@ module.exports = function(ngModule) {
 
         //TODO: validate number of uploads with scaCount ???
         this.checkRequiredValueArray(
-          'employer.scaAttachment',
+          'employer.SCAAttachments',
           'Please upload the required SCA Wage Determinations',
           false
         );
@@ -672,7 +672,7 @@ module.exports = function(ngModule) {
         prevailingWageMethod === _constants.responses.prevailingWageMethod.sca
       ) {
         this.checkRequiredValueArray(
-          prefix + '.' + 'scaAttachment',
+          prefix + '.' + 'SCAAttachments',
           'Please provide the SCA Wage Determination survey',
           false
         );

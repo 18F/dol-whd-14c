@@ -85,12 +85,12 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_SCAWageDeterminationId()
         {
-            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAAttachment = null };
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment = null };
-            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAAttachment, model);
-            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachment= new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } } };
-            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachment, model);
+            var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAAttachments = null };
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachments, model);
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachments = null };
+            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAAttachments, model);
+            model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAAttachments= new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } } };
+            HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAAttachments, model);
         }
 
         [TestMethod]

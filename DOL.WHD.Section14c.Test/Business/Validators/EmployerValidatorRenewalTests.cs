@@ -266,11 +266,11 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_SCAAttachment()
         {
-            var model = new EmployerInfo { SCAId = ResponseIds.SCA.No, SCAAttachment = null };
-            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachment, model);
+            var model = new EmployerInfo { SCAId = ResponseIds.SCA.No, SCAAttachments = null };
+            EmployerValidator.ShouldNotHaveValidationErrorFor(e => e.SCAAttachments, model);
 
-            model = new EmployerInfo { SCAId = ResponseIds.SCA.Yes, SCAAttachment = null };
-            EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachment, model);
+            model = new EmployerInfo { SCAId = ResponseIds.SCA.Yes, SCAAttachments = null };
+            EmployerValidator.ShouldHaveValidationErrorFor(e => e.SCAAttachments, model);
         }
 
         [TestMethod]

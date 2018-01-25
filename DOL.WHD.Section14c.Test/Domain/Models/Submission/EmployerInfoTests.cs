@@ -68,7 +68,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 SCAId = scaId,
                 SCA = sca,
                 SCACount = scaCount,
-                SCAAttachment = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { EmployerInfoId = id, SCAAttachment = scaAttaachment, AttachmentName ="test.pdf" } },
+                SCAAttachments = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { EmployerInfoId = id, SCAAttachment = scaAttaachment, AttachmentName ="test.pdf" } },
                 EO13658Id = eo13658Id,
                 EO13658 = eo13658,
                 RepresentativePayee = representativePayee,
@@ -98,7 +98,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(scaId, model.SCAId);
             Assert.AreEqual(sca, model.SCA);
             Assert.AreEqual(scaCount, model.SCACount);
-            Assert.AreEqual(scaAttaachment, model.SCAAttachment.FirstOrDefault().SCAAttachment);
+            Assert.AreEqual(scaAttaachment, model.SCAAttachments.FirstOrDefault().SCAAttachment);
             Assert.AreEqual(eo13658Id, model.EO13658Id);
             Assert.AreEqual(eo13658, model.EO13658);
             Assert.AreEqual(representativePayee, model.RepresentativePayee);

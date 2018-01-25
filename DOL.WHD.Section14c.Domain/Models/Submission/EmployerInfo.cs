@@ -60,13 +60,13 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
 
         public int? SCACount { get; set; }
         
-        public IEnumerable<string> SCAAttachmentId
+        public IEnumerable<string> SCAAttachmentIds
         {
             set
             {
                 if (value != null)
                 {
-                    SCAAttachment = value.Select(
+                    SCAAttachments = value.Select(
                         x =>
                             new EmployerInfoSCAAttachment
                             {
@@ -76,7 +76,7 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
                 }
             }
         }
-        public virtual ICollection<EmployerInfoSCAAttachment> SCAAttachment { get; set; }
+        public virtual ICollection<EmployerInfoSCAAttachment> SCAAttachments { get; set; }
 
         public int? EO13658Id { get; set; }
         public virtual Response EO13658 { get; set; }
