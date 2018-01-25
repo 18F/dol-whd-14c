@@ -112,12 +112,7 @@ describe('landingPageController', function() {
       spyOn(mockStateService, 'loadSavedApplication').and.returnValue(
         loadSavedApplication.promise
       );
-
-      downloadApplicationPdf = $q.defer();
-      spyOn(mockStateService, 'downloadApplicationPdf').and.returnValue(
-        downloadApplicationPdf.promise
-      );
-
+      
       spyOn(scope, 'initDatatable');
 
       userInfo = $q.defer();
