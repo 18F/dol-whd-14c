@@ -13,8 +13,10 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_FullName()
         {
-            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.FullName, "");
-            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.FullName, "Full Name");
+            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.FirstName, "");
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.FirstName, "First Name");
+            WIOAWorkerValidator.ShouldHaveValidationErrorFor(x => x.LastName, "");
+            WIOAWorkerValidator.ShouldNotHaveValidationErrorFor(x => x.LastName, "Last Name");
         }
 
         [TestMethod]

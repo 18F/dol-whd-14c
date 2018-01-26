@@ -147,7 +147,8 @@
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Source Employer Name</span></th><td>{{ EmployerName }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Address</span></th><td>{{ formatAddress Address }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Telephone Number.</span></th><td>{{ Phone }}</td></tr>
-                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Full Name of Individual Contacted</span></th><td>{{ ContactName }}</td></tr>
+                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">First Name of Individual Contacted</span></th><td>{{ ContactFirstName }}</td></tr>
+                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Last Name of Individual Contacted</span></th><td>{{ ContactLastName }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Title of Individual Contacted</span></th><td>{{ ContactTitle }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Date of Contact</span></th><td>{{ formatDateTime ContactDate }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Brief Description of Job/Task</span></th><td>{{ JobDescription }}</td></tr>
@@ -159,7 +160,7 @@
             {{/each}}
             {{/if_eq}}
 
-            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data Source' }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString HourlyWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
@@ -184,7 +185,13 @@
             {{#if_eq HourlyWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File(s) name: {{ formatAttachment HourlyWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: 
+                    <ul class="usa-unstyled-list">
+                        {{#each HourlyWageInfo.SCAAttachments}}
+                        <li>{{ boolOrString this.AttachmentName }}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}
@@ -239,7 +246,8 @@
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Source Employer Name</span></th><td>{{ EmployerName }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Address</span></th><td>{{ formatAddress Address }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Telephone Number.</span></th><td>{{ Phone }}</td></tr>
-                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Full Name of Individual Contacted</span></th><td>{{ ContactName }}</td></tr>
+                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">First Name of Individual Contacted</span></th><td>{{ ContactFirstName }}</td></tr>
+                        <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Last Name of Individual Contacted</span></th><td>{{ ContactLastName }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Title of Individual Contacted</span></th><td>{{ ContactTitle }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Date of Contact</span></th><td>{{ formatDateTime ContactDate }}</td></tr>
                         <tr><th scope="col" valign="top" style="width: 200px"><span valign="top">Brief Description of Job/Task</span></th><td>{{ JobDescription }}</td></tr>
@@ -251,7 +259,7 @@
             {{/each}}
             {{/if_eq}}
 
-            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data' }}
+            {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'Alternate Wage Data Source' }}
             <p>
                 <span class="subtext">Description of Work (include job classification code, if known)</span>
                 <div class="subtextanswer">{{ boolOrString PieceRateWageInfo.AlternateWageData.AlternateWorkDescription }}</div>
@@ -276,7 +284,13 @@
             {{#if_eq PieceRateWageInfo.PrevailingWageMethod.Display 'SCA Wage Determination' }}
             <p>
                 <span class="subtext">Attach the applicable SCA Wage Determination</span>
-                <div class="subtextanswer">File(s) name: {{ formatAttachment PieceRateWageInfo.ScaWageDeterminationAttachment }}</div>
+                <div class="subtextanswer">File(s) name: 
+                    <ul class="usa-unstyled-list">
+                        {{#each PieceRateWageInfo.SCAAttachments}}
+                        <li>{{ boolOrString this.AttachmentName }}</li>
+                        {{/each}}
+                    </ul>
+                </div>
                 <p>Attachments are included at the end of the PDF.</p>
             </p>
             {{/if_eq}}

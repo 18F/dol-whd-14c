@@ -7,6 +7,7 @@ module.exports = function(ngModule) {
     Idle,
     autoSaveService,
     $q,
+    $location,
     _env,
     $http
   ) {
@@ -57,11 +58,25 @@ module.exports = function(ngModule) {
           const data = result.data;
           stateService.loggedIn = true;
           stateService.user = data;
-          if (data.organizations.length > 0) {
-            stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-          } else {
-            d.resolve();
-            return;
+          if(result.data.organizations.length > 0) {
+            var organization = data.organizations.reduce(function(a,b){
+              if(a.applicationStatus.name === 'InProgress') {
+                return a;
+              } else {
+                return b;
+              }
+            });
+            stateService.ein = organization.ein;
+            stateService.employerId = organization.employer.id;
+            stateService.applicationId = organization.applicationId;
+            stateService.employerName = organization.employer.legalName;
+            if(stateService.applicationId) {
+              stateService.loadSavedApplication().then(function(result) {
+                d.resolve(result);
+              }).catch(function(error) {
+                d.reject(error);
+              });
+            }
           }
           if (!stateService.IsPointOfContact) {
             d.resolve();

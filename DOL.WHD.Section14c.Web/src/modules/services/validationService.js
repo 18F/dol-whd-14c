@@ -215,8 +215,12 @@ module.exports = function(ngModule) {
         'An electronic signature must be provided in order to submit this application'
       );
       this.checkRequiredString(
-        'signature.fullName',
-        'Please provide the full name of the authorized representative'
+        'signature.firstName',
+        'Please provide the first name of the authorized representative'
+      );
+      this.checkRequiredString(
+        'signature.lastName',
+        'Please provide the last name of the authorized representative'
       );
       this.checkRequiredString(
         'signature.title',
@@ -261,8 +265,12 @@ module.exports = function(ngModule) {
       );
 
       this.checkRequiredString(
-        'contactName',
-        'Please provide the full name of the Applicant Contact person'
+        'contactFirstName',
+        'Please provide the first name of the Applicant Contact person'
+      );
+      this.checkRequiredString(
+        'contactLastName',
+        'Please provide the last name of the Applicant Contact person'
       );
 
       if (!this.validateTelephoneNumber(this.getFormValue('contactPhone'))) {
@@ -485,9 +493,10 @@ module.exports = function(ngModule) {
         );
 
         //TODO: validate number of uploads with scaCount ???
-        this.checkRequiredValue(
-          'employer.scaAttachmentId',
-          'Please upload the required SCA Wage Determinations'
+        this.checkRequiredValueArray(
+          'employer.SCAAttachments',
+          'Please upload the required SCA Wage Determinations',
+          false
         );
       }
 
@@ -600,8 +609,12 @@ module.exports = function(ngModule) {
             }
 
             this.checkRequiredString(
-              subprefix + '.contactName',
-              'Please provide the name of the Source Employer contact'
+              subprefix + '.contactFirstName',
+              'Please provide the first name of the Source Employer contact'
+            );
+            this.checkRequiredString(
+              subprefix + '.contactLastName',
+              'Please provide the last name of the Source Employer contact'
             );
             this.checkRequiredString(
               subprefix + '.contactTitle',
@@ -658,9 +671,10 @@ module.exports = function(ngModule) {
       } else if (
         prevailingWageMethod === _constants.responses.prevailingWageMethod.sca
       ) {
-        this.checkRequiredValue(
-          prefix + '.scaWageDeterminationAttachmentId',
-          'Please provide the SCA Wage Determination survey'
+        this.checkRequiredValueArray(
+          prefix + '.' + 'SCAAttachments',
+          'Please provide the SCA Wage Determination survey',
+          false
         );
       }
     };
@@ -678,8 +692,8 @@ module.exports = function(ngModule) {
 
       if (isHourly) {
         let prefix = 'hourlyWageInfo';
-
-        this.validateWageDataPayType(prefix);
+        let value = 'h';
+        this.validateWageDataPayType(prefix, value);
 
         this.checkRequiredString(
           prefix + '.jobDescription',
@@ -691,14 +705,14 @@ module.exports = function(ngModule) {
         );
         this.checkRequiredValue(
           prefix + '.attachmentId',
-          'Please upload a work measurement or time study'
+          'Please upload at one piece of documentation'
         );
       }
 
       if (isPieceRate) {
         let prefix = 'pieceRateWageInfo';
-
-        this.validateWageDataPayType(prefix);
+        let value = 'pr';
+        this.validateWageDataPayType(prefix, value);
 
         this.checkRequiredString(
           prefix + '.jobDescription',
@@ -725,7 +739,7 @@ module.exports = function(ngModule) {
         );
         this.checkRequiredValue(
           prefix + '.attachmentId',
-          'Please upload at least one piece of documentation'
+          'Please upload one piece of documentation'
         );
       }
 
@@ -938,8 +952,12 @@ module.exports = function(ngModule) {
         if (workers) {
           for (let i = 0; i < workers.length; i++) {
             this.checkRequiredString(
-              'WIOA.WIOAWorkers[' + i + '].fullName',
-              'Please provide the full name of the worker'
+              'WIOA.WIOAWorkers[' + i + '].lastName',
+              'Please provide the last name of the worker'
+            );
+            this.checkRequiredString(
+              'WIOA.WIOAWorkers[' + i + '].firstName',
+              'Please provide the first name of the worker'
             );
             this.checkRequiredMultipleChoice(
               'WIOA.WIOAWorkers[' + i + '].WIOAWorkerVerified',

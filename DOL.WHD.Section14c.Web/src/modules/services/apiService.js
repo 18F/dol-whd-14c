@@ -335,7 +335,6 @@ module.exports = function(ngModule) {
     this.deleteAttachment = function(access_token, applicationId, id) {
       let url = _env.api_url + '/api/attachment/' + applicationId + '/' + id;
       let d = $q.defer();
-
       $http({
         method: 'DELETE',
         url: url,
@@ -355,9 +354,8 @@ module.exports = function(ngModule) {
     };
 
     this.downloadApplicationPdf = function(access_token, applicationId) {
-      let url =  _env.api_url + 'api/application/download?applicationId=' + applicationId;
+      let url =  _env.api_url + '/api/application/download?applicationId=' + applicationId;
       let d = $q.defer();
-
       $http({
         method: 'GET',
         url: url,
@@ -538,7 +536,6 @@ module.exports = function(ngModule) {
       const url = _env.api_url + '/api/application/submit';
       const d = $q.defer();
       const submissionVm = submissionService.getSubmissionVM(ein, vm);
-
       $http({
         method: 'POST',
         url: url,

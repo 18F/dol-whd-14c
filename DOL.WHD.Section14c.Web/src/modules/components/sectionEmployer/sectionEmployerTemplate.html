@@ -81,6 +81,29 @@
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.priorLegalName')">{{ validate('employer.priorLegalName') }}</span>
       <input id="priorLegalName" name="priorLegalName" type="text" ng-model="formData.employer.priorLegalName">
     </div>
+    <div class="dol-form-question-block" ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
+      <label class="dol-form-question-text" for="EIN">Federal Employer Identification Number (EIN)</label>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
+        <div ng-show="vm.einError">
+          <p>The EIN you provided is already registered. Please contact the account admin for access.</p>
+          <p>If you do not know the account admin, contact our office at 00-1234567</p>
+        </div>
+        <div ng-show="vm.einRequired">
+          <p>EIN is required.</p>
+        </div>
+        <div ng-show="vm.invalidEin">
+          <p>Invalid EIN format. Example XX-XXXXXXX</p>
+        </div>
+      </span>
+      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.ein" />
+      <span class="example">Example: 00-1234567</span>
+    </div>
+    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp" role="alert" tabindex="0">
+      <div class="usa-alert-body">
+        <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>
+        <p>Additional users can be added once the Employer is registered.</p>
+      </div>
+    </div>
     <div class="dol-form-question-block">
       <fieldset class="usa-form-large">
         <legend class="dol-form-question-text">Physical Address of Employer’s Main Establishment</legend>
@@ -227,7 +250,7 @@
           </div>
 
           <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
-          <label for="sendMailToParent">Check if mail should be sent here</label>
+          <label for="sendMailToParent">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
 
       </fieldset>
@@ -308,7 +331,7 @@
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersWorkCenterHelp">A facility that primarily provides vocational rehabilitation services and employment for people with disabilities.</helptext>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.workCenter')">{{ validate('employer.numSubminimalWageWorkers.workCenter') }}</span>
-          <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter"><span>If no workers, enter "0"</span>
+          <input id="numSubminimalWageWorkersWorkCenter" name="numSubminimalWageWorkersWorkCenter" aria-describedby="numSubminimalWageWorkersWorkCenterHelp" type="number" class="numeric7 sidelabeled" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.workCenter"><span class="example">If no workers, enter "0"</span>
 
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.patientWorkers') ? 'usa-input-error' : ''">
@@ -318,7 +341,7 @@
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersPatientWorkersHelp">A facility (public or private, non-profit or for-profit) that primarily provides residential care for individuals with disabilities, including but not limited to nursing homes, intermediate care facilities, assisted living facilities, halfway houses, and residential substance abuse treatment facilities. “Primarily” means that more than 50 percent of the facility’s income is attributable to this residential care. A patient worker is a worker with a disability who is employed by a hospital or residential care facility (as defined above) where the patient worker receives inpatient or outpatient treatment or care.</helptext>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.patientWorkers')">{{ validate('employer.numSubminimalWageWorkers.patientWorkers') }}</span>
-          <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers"><span>If no workers, enter "0"</span>
+          <input id="numSubminimalWageWorkersPatientWorkers" name="numSubminimalWageWorkersPatientWorkers" type="number" class="numeric7 sidelabeled" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.patientWorkers"><span class="example">If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.swep') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -327,7 +350,7 @@
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersSWEPHelp">A school-operated program in which students with disabilities may be placed in jobs with private industry within the community. School employers are responsible for compliance with all applicable child labor laws, minimum wage standards, and certificate and recordkeeping requirements. The school may submit a group application which covers all students with disabilities and all of the business locations at which the students will be placed.</helptext>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.swep')">{{ validate('employer.numSubminimalWageWorkers.swep') }}</span>
-          <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep"><span>If no workers, enter "0"</span>
+          <input id="numSubminimalWageWorkersSWEP" name="numSubminimalWageWorkersSWEP" type="number" class="numeric7 sidelabeled" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.swep" class="sidelabeled"><span class="example">If no workers, enter "0"</span>
         </div>
         <div ng-class="validate('employer.numSubminimalWageWorkers.businessEstablishment') ? 'usa-input-error' : ''">
           <div class="dol-plain-label-help">
@@ -336,7 +359,7 @@
           </div>
           <helptext category="employerShowAllHelp" id="numSubminimalWageWorkersBusinessHelp">Any employer other than a community rehabilitation program, hospital/residential care facility, or SWEP.</helptext>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.numSubminimalWageWorkers.businessEstablishment')">{{ validate('employer.numSubminimalWageWorkers.businessEstablishment') }}</span>
-          <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment"><span>If no workers, enter "0"</span>
+          <input id="numSubminimalWageWorkersBusinessEstablishment" name="numSubminimalWageWorkersBusinessEstablishment" type="number" class="numeric7 sidelabeled" min="0" step="1" ng-model="formData.employer.numSubminimalWageWorkers.businessEstablishment" class="sidelabeled"><span class="example">If no workers, enter "0"</span>
         </div>
       </fieldset>
     </div>
@@ -389,10 +412,10 @@
             <input id="scaCount" name="scaCount" type="number" class="numeric7" min="0" step="1" ng-model="formData.employer.scaCount">
           </div>
         </div>
-        <div ng-class="validate('employer.SCAAttachment') ? 'usa-input-error' : ''">
-          <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.scaAttachmentId')">{{ validate('employer.SCAAttachment') }}</span>
-          <attachment-field input-id="fileUploadSCA" attachment-id="formData.employer.scaAttachmentId" attachment-name="formData.employer.scaAttachmentName" />
+        <div ng-class="validate('employer.SCAAttachments') ? 'usa-input-error' : ''">
+          <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wages.</label>
+          <span class="usa-input-error-message" role="alert" ng-show="validate('employer.SCAAttachments')">{{ validate('employer.SCAAttachments') }}</span>
+          <attachments-field allow-multi-upload="true" input-id="fileUploadSCA" model-prefix="employer" attachments="formData.employer.SCAAttachments"  />
         </div>
       </div>
     </div>
@@ -422,9 +445,7 @@
         <legend class="hide"><span id="representativePayeeLabel">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span></legend>
         <div class="dol-legend-help">
           <span class="dol-form-question-text" aria-hidden="true">Was the employer a representative payee for any worker with disabilities and, as such, received Social Security Benefits such as Supplemental Security Income (SSI) or Social Security Disability Insurance (SSDI) on behalf of that employee during the most recently completed fiscal quarter?</span>
-          <helplink aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
         </div>
-        <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.representativePayee')">{{ validate('employer.representativePayee') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -439,8 +460,12 @@
       </fieldset>
     </div>
     <div class="dol-form-question-block" ng-show="formData.employer.representativePayee === true" ng-class="validate('employer.totalDisabledWorkers') ? 'usa-input-error' : ''">
-      <label for="totalDisabledWorkers" class="dol-form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</label>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+      <div class="dol-legend-help">
+        <label for="totalDisabledWorkers" class="dol-form-question-text">Total number of workers with disabilities for whom the facility was a representative payee during the most recently completed fiscal quarter?</label>
+        <helplink class="dol-help-link" aria-controls="representativePayeeHelp" aria-describedby="representativePayeeLabel"></helplink>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.totalDisabledWorkers')">{{ validate('employer.totalDisabledWorkers') }}</span>
+        <helptext category="employerShowAllHelp" id="representativePayeeHelp">If the employer was a representative payee for any worker with disabilities who received Social Security benefits during the most recently completed fiscal quarter, provide the total number of employees for whom the employer was the representative payee.</helptext>
+      </div>
       <input id="totalDisabledWorkers" name="totalDisabledWorkers" type="number" class="numeric3" min="0" step="1" ng-model="formData.employer.totalDisabledWorkers">
     </div>
     <div class="dol-form-question-block" ng-class="validate('employer.takeCreditForCosts') ? 'usa-input-error' : ''">

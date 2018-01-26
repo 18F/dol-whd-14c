@@ -35,10 +35,15 @@
       </li>
     </ul>
   </div>
-  <div class="dol-form-question-block" ng-class="validate('signature.fullName') ? 'usa-input-error margintop' : 'margintop'">
-    <label for="fullName" class="dol-form-question-text">Full Name</label>
-    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.fullName')">{{ validate('signature.fullName') }}</span>
-    <input id="fullName" name="fullName" type="text" ng-model="formData.signature.fullName" />
+  <div class="dol-form-question-block" ng-class="validate('signature.firstName') ? 'usa-input-error margintop' : 'margintop'">
+    <label for="firstName" class="dol-form-question-text">First Name</label>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.firstName')">{{ validate('signature.firstName') }}</span>
+    <input id="firstName" name="firstName" type="text" ng-model="formData.signature.firstName" />
+  </div>
+  <div class="dol-form-question-block" ng-class="validate('signature.lastName') ? 'usa-input-error margintop' : 'margintop'">
+    <label for="lastName" class="dol-form-question-text">Last Name</label>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.lastName')">{{ validate('signature.lastName') }}</span>
+    <input id="lastName" name="lastName" type="text" ng-model="formData.signature.lastName" />
   </div>
   <div class="dol-form-question-block" ng-class="validate('signature.title') ? 'usa-input-error margintop' : 'margintop'">
     <label for="title" class="dol-form-question-text">Title</label>

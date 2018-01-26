@@ -24,6 +24,12 @@ module.exports = function(ngModule) {
       document.title = 'DOL WHD Section 14(c)';
     };
 
+    this.helpClick = e => {
+      e.preventDefault();
+      $location.path('/help');
+      document.title = 'DOL WHD Section 14(c)';
+    };
+
     this.saveClick = e => {
       e.preventDefault();
       autoSaveService.save(() => {

@@ -24,6 +24,7 @@ module.exports = function (app) {
         controller: 'userLoginPageController',
         template: require('./pages/userLoginPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
+        reloadOnSearch: false,
         label: 'Login',
         parent: "/"
       })
@@ -52,6 +53,13 @@ module.exports = function (app) {
         template: require('./pages/forgotPasswordPageTemplate.html'),
         access: config.access.ROUTE_PUBLIC,
         label: 'Forgot Password',
+        parent: '/dashboard'
+      })
+      .when('/help', {
+        controller: 'helpPageController',
+        template: require('./pages/helpPage.html'),
+        access: config.access.ROUTE_PUBLIC,
+        label: 'Help',
         parent: '/dashboard'
       })
       .when('/account/:userId', {

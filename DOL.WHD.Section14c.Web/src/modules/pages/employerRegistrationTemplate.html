@@ -7,7 +7,7 @@
     </p>
   </div>
   <p>Your account is now the point of contact for the employer you just registered. </p>
-  <p>If you have any questions contact us at 14c-help@dol.gov.</p>
+  <p>If you have any questions contact us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov.</a></p>
 </div>
 <div ng-show="previouslyRegistered.status" role="alert" tabindex="0">
   <div  class="dol-feedback-error">
@@ -17,7 +17,7 @@
   </div>
   <p><strong>This employer already has a registered account.</strong></p>
   <p>Please contact {{previouslyRegistered.name}}, the point of contact for this employer, to request access to the account.</p>
-  <p>If you have any questions, you can reach us at 14c-help@dol.gov.</p>
+  <p>If you have any questions, you can reach us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.</p>
 </div>
 <form ng-hide="registrationSuccess || previouslyRegistered" ng-submit="onSubmitClick()" class="dol-form-page">
   <fieldset class="dol-form-sub-section">
@@ -115,7 +115,7 @@
           <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
-        <div ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+        <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
           <label for="county">County</label>
           <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
           <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">

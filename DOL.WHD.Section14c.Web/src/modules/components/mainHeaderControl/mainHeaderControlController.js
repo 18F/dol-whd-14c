@@ -4,6 +4,7 @@ module.exports = function(ngModule) {
   ngModule.controller('mainHeaderControlController', function(
     $scope,
     assetService,
+    $location,
     stateService
   ) {
     'ngInject';

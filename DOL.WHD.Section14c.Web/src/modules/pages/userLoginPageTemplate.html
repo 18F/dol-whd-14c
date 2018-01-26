@@ -1,7 +1,7 @@
 <dol-header></dol-header>
 
 <main tabindex="-1" id="mainContent" role="main" class="main-content">
-  <div ng-show="!sessionTimeout">
+  <div ng-show="!sessionTimeout && !emailVerified">
     <div class="dol-landing-public">
       <h1>Section 14(c) Certificate Application</h1>
 
@@ -20,18 +20,18 @@
       <button ng-click="refresh()">Log In</button>
     </div>
   </div>
-  <div ng-show="vm.isEmailVerificationRequest">
-    <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.emailVerificationError">
+  <div ng-show="isEmailVerificationRequest">
+    <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="emailVerificationError">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Error</h3>
         <p class="usa-alert-text">An error occurred while verifying email address. Please try again later if the error persists.</p>
       </div>
     </div>
 
-    <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="vm.emailVerified">
+    <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="emailVerified">
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Email Verified</h3>
-        <p class="usa-alert-text">Your email address has been verified. You can now log in using the email address and password you chose for your account.</a>.</p>
+        <p class="usa-alert-text">Your email address has been verified. You can now <a href="" ng-click="refresh()">log in </a>.</p>
       </div>
     </div>
   </div>

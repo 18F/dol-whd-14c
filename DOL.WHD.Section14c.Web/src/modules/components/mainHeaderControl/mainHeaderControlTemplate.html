@@ -11,10 +11,10 @@
   </div>
 
   <div class="dol-applicant-ein" ng-show="!admin">
-    Applicant EIN: <span>{{ vm.stateService.ein ? vm.stateService.ein : "XX-XXXXXXX" }}</span>
+    <span>{{ vm.stateService.ein ? vm.stateService.employerName : "XX-XXXXXXX" }}</span>
   </div>
   <div class="dol-applicant-ein" ng-show="admin">
-    {{ appData.employer.legalName }}
+    {{ stateService.employerName }}
   </div>
 </div>
 <div class="dol-form-meta">

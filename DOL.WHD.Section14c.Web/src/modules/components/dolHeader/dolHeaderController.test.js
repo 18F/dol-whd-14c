@@ -22,6 +22,7 @@ describe('dolHeaderController', function() {
       };
 
       spyOn(mockIdleService, 'watch');
+      spyOn(mockIdleService, 'unwatch');
       spyOn(mockStateService, 'logOut');
     })
   );
@@ -61,6 +62,7 @@ describe('dolHeaderController', function() {
     scope.$apply();
     expect(mockStateService.logOut).toHaveBeenCalled();
     expect(scope.modalIsVisible).toEqual(false);
+    expect(mockIdleService.unwatch).toHaveBeenCalled();
   });
 
   it('shows modal for inactivity warning', function() {

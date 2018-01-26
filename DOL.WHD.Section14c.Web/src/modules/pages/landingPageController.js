@@ -31,9 +31,9 @@ module.exports = function(ngModule) {
           });
        }
        else if($scope.organizations[index].applicationStatus.name === "Submitted"){
-        stateService.downloadApplicationPdf().then(function() {
-          },
-          function(error) {
+          stateService.downloadApplicationPdf().then(function() {
+            return;
+          }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
        }
@@ -70,6 +70,7 @@ module.exports = function(ngModule) {
       stateService.employerId = $scope.organizations[index].employer.id;
       stateService.applicationId = $scope.organizations[index].applicationId;
       stateService.ein = $scope.organizations[index].ein;
+      stateService.employerName = $scope.organizations[index].employer.legalName;
       return;
     }
 

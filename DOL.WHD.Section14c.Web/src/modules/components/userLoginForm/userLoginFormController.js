@@ -63,10 +63,11 @@ module.exports = function(ngModule) {
         $location.path('/changePassword');
         $scope.$apply();
       }
-      vm.loginError = { status: true }
+
 
       if (error.status === 400) {
         if(error.data.error === 'locked_out'){
+          vm.loginError.status = true;
           // update error message
           vm.loginError.message = error.data.error_description
         }

@@ -12,6 +12,7 @@ module.exports = function(ngModule) {
 
     $scope.$on('IdleTimeout',function(){
       $scope.hideIdleWarning();
+      Idle.unwatch();
       stateService.logOut();
       $location.path('/login').search({timeout:true});
     });

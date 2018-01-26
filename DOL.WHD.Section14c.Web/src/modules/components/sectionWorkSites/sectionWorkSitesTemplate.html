@@ -64,7 +64,7 @@
               <input id="establishmentType_{{ response.id }}" type="radio" name="establishmentType_{{ response.id }}" ng-value="{{ response.id }}" ng-model="vm.activeWorksite.workSiteTypeId">
               <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
               <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
-              <helptext id="establishmentType_{{ response.id }}Help">
+              <helptext category="workSitesAndEmployeesShowAllHelp" id="establishmentType_{{ response.id }}Help">
                   {{ response.subDisplay }}
               </helptext>
             </li>
@@ -129,12 +129,7 @@
 
     <div class="dol-form-question-block" class="form-question-block" ng-class="vm.validateActiveWorksiteProperty('federalContractWorkPerformed') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
-        <legend class="hide"><span id="worksiteFederalLabel">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span></legend>
-        <div class="dol-legend-help">
-          <span class="dol-form-question-text" aria-hidden="true">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>
-          <helplink aria-controls="worksiteFederalHelp" aria-describedby="worksiteFederalLabel"></helplink>
-        </div>
-        <helptext category="workSitesAndEmployeesShowAllHelp" id="worksiteFederalHelp">Mark “yes” if the employer has a contract with the Federal Government for services or concessions that was entered into on or after January 1, 2015, which indicates that the contract may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors).</helptext>
+        <legend class="dol-form-question-text"><span id="worksiteFederalLabel">Is work performed at this establishment / work site pursuant to a Federal contract for services or concessions that was entered into on or after January 1, 2015, and may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span></legend>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('federalContractWorkPerformed')">{{ vm.validateActiveWorksiteProperty('federalContractWorkPerformed') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -342,7 +337,7 @@
             <helplink aria-controls="workerAvgHoursHelp" aria-describedby="workerAvgHoursLabel"></helplink>
           </div>
           <helptext category="addEmployeeShowAllHelp" id="workerAvgHoursHelp">
-              Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ÷ 13 weeks per quarter =20 hours per week average.
+              Provide the average (mean) number of hours per week the employee worked on all jobs at this work site during the most recently completed fiscal quarter. Calculate this by taking the total number of hours the employee worked during the most recently completed three-month fiscal quarter and dividing by the number of weeks in the quarter (13 weeks). For example: 260 hours worked in the quarter ~ 13 weeks per quarter =20 hours per week average.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgWeeklyHours') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgWeeklyHours')">{{ vm.validateActiveWorkerProperty('avgWeeklyHours') }}</span>
@@ -354,7 +349,7 @@
             <helplink aria-controls="workerAvgEarningsHelp" aria-describedby="workerAvgEarningsLabel"></helplink>
           </div>
           <helptext category="addEmployeeShowAllHelp" id="workerAvgEarningsHelp">
-              Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
+              Average earnings are computed by dividing the total earnings of the individual worker by the total number of hours worked during the most recently completed fiscal quarter. Note: The total number of hours worked should only include the compensable work time (for example, generally would not include time spent in rehabilitation, therapy, etc.). For example, John Jones earned $900 during the fiscal quarter and he worked 300 hours. $900 ÷ 300 hours = $3.00 per hour, therefore, Mr. Jones’s average earnings per hour are $3.00.
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
@@ -497,10 +492,9 @@
                 <span ng-show="vm.exampleView === '2'">Intellectual/Developmental Disability (IDD)</span>
               </dd>
             </dl>
-            <p class="dol-form-question-text">Wage Data</p>
             <dl class="dol-employee-example-data">
                 <dt>
-                    How many jobs did this worker perform at this job site?
+                    How many jobs did this worker perform at this work site?
                 </dt>
                 <dd>
                   <span ng-show="vm.exampleView === '1'">3</span>

@@ -72,8 +72,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     new List<EmployerInfoProvidingFacilitiesDeductionType> { employerInfoProvidingFacilitiesDeductionType };
                 EmployerInfo employer = new EmployerInfo
                 {
-                    SCAAttachmentId ="1234567890",
-                    SCAAttachment = sCAAttachment,
+                    SCAAttachmentIds = new List<string>() { "1234567890" },
+                    SCAAttachments = new List<EmployerInfoSCAAttachment>() { new EmployerInfoSCAAttachment { SCAAttachment = sCAAttachment } },
                     PhysicalAddress = address,
                     TemporaryAuthority = true,
                     HasTradeName = false,
@@ -91,8 +91,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 {
                     AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
-                    SCAWageDeterminationAttachmentId = "1234567890",
-                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
+                    SCAAttachmentIds = new List<string>() { "1234567890" },
+                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };
                 HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
@@ -100,7 +100,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     AttachmentId = "1234567890",
                     Attachment = hourlyWageInfoAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
-                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment
+                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } },
                 };
                 Response res = new Response
                 {
@@ -109,7 +109,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 };
                 WIOAWorker worker1 = new WIOAWorker
                 {
-                    FullName = "Test 1",
+                    FirstName = "first name",
+                    LastName = "last name",
                     WIOAWorkerVerified = res,
                 };
                 ICollection<WIOAWorker> wIOAWorkerCol = null;
@@ -154,7 +155,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     EIN = "11-1111111",
                     Id = "CE7F5AA5-6832-43FE-BAE1-80D14CD8F666",
                     TotalNumWorkSites = 1,
-                    ContactName = "Tester",
+                    ContactFirstName = "Tester",
+                    ContactLastName = "Tester",
                     ContactPhone = "123=345-1234",
                     ContactEmail ="test@test.com"
                 };
