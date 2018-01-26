@@ -71,19 +71,18 @@ module.exports = function(ngModule) {
           // update error message
           vm.loginError.message = error.data.error_description
         }
-        else{
-          if(error.data.error === 'need_code'){
-            vm.twoFAStatus = true;
-            vm.submitButtonName ='Verify';
-            vm.formTitle ="Enter code";
-            vm.clearError();
-          }
-          else{
-            vm.loginError.message =  error.data.error_description
-          }
+        else if (error.data.error === 'need_code') {
+          vm.twoFAStatus = true;
+          vm.submitButtonName ='Verify';
+          vm.formTitle ="Enter code";
+          vm.clearError();
+        } else {
+          vm.loginError.status = true
+          vm.loginError.message =  error.data.error_description
         }
       } else {
         // catch all error, currently possible to get a 500 if the database server is not reachable
+        vm.loginError.status = true
         vm.unknownError = true;
       }
     };
