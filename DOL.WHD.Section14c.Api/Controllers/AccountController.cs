@@ -164,6 +164,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return BadRequest(ModelState);
             }
 
+            if(!_employerService.ValidateEmployer(organizationMembership.Employer))
+            {
+                BadRequest("Employer is not validate.");
+            }
+
             var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
 
             // determine the uniqueness of the employer  

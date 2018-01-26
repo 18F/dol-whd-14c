@@ -27,6 +27,22 @@ namespace DOL.WHD.Section14c.Business.Services
         }
 
         /// <summary>
+        /// Validate employer data
+        /// </summary>
+        /// <param name="employer"></param>
+        /// <returns></returns>
+        public bool ValidateEmployer(Employer employer)
+        {
+            bool validated = true;
+            if (string.IsNullOrEmpty(employer.EIN) || string.IsNullOrEmpty(employer.LegalName) || employer.PhysicalAddress == null ||
+                string.IsNullOrEmpty(employer.PhysicalAddress.StreetAddress) || string.IsNullOrEmpty(employer.PhysicalAddress.City) ||
+                string.IsNullOrEmpty(employer.PhysicalAddress.State) || string.IsNullOrEmpty(employer.PhysicalAddress.ZipCode) ||
+                string.IsNullOrEmpty(employer.PhysicalAddress.County))
+                validated = false;
+            return validated;
+        }
+
+        /// <summary>
         /// Get Employer By Id, Employer Name and Employer Address
         /// </summary>
         /// <param name="employer"></param>
