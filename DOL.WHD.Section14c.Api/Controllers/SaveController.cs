@@ -8,6 +8,10 @@ using DOL.WHD.Section14c.Domain.Models.Identity;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Linq;
+using DOL.WHD.Section14c.Domain.Models;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -20,58 +24,82 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private readonly ISaveService _saveService;
         private readonly IIdentityService _identityService;
+        private readonly IOrganizationService _organizationService;
+        private readonly IEmployerService _employerService;
+        private ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
         /// <summary>
         /// Constructor to inject services
         /// </summary>
-        /// <param name="saveService"></param>
-        /// <param name="identityService"></param>
-        public SaveController(ISaveService saveService, IIdentityService identityService)
+        /// <param name="saveService">The Save service this controller should use </param>
+        /// <param name="identityService">The Identity service this controller should use </param>
+        /// <param name="organizationService">The Organization service this controller should use </param>
+        /// <param name="employerService">The Employer service this controller should use </param>
+        public SaveController(ISaveService saveService, IIdentityService identityService, IOrganizationService organizationService, IEmployerService employerService)
         {
             _saveService = saveService;
             _identityService = identityService;
+            _organizationService = organizationService;
+            _employerService = employerService;
         }
 
         /// <summary>
         /// Returns pre-submission 14c application
         /// </summary>
-        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="applicationId">Application Identification Number</param>
         [HttpGet]
-        [Route("{EIN}")]
+        [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult GetSave(string EIN)
+        public IHttpActionResult GetSave(string applicationId)
         {
-            // make sure user has rights to the EIN
-
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Applicaion
+            var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
-            var applicationSave = _saveService.GetSave(EIN);
+            var applicationSave = _saveService.GetSave(applicationId);
             if (applicationSave == null)
             {
                 NotFound("Application Not found");
             }
 
             return Ok(applicationSave.ApplicationState);
-            
+
         }
 
         /// <summary>
         /// Creates or updates pre-submission 14c application
         /// </summary>
-        /// <param name="EIN"></param>
+        /// <param name="employerId">Employer Identification Number</param>
+        /// <param name="applicationId">Application Identification Number</param>
         /// <returns></returns>
         [HttpPost]
-        [Route("{EIN}")]
+        [Route("{employerId}/{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult AddSave(string EIN)
+        public IHttpActionResult AddSave(string employerId, string applicationId)
         {
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Applicaion
+            var hasPermission = _identityService.HasAddPermission(userInfo, employerId);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
@@ -86,31 +114,77 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest(e.Message);
             }
 
-            _saveService.AddOrUpdate(EIN, state);
-            return Created($"/api/Save?userId={User.Identity.GetUserId()}&EIN={EIN}", new { });
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId);
+            _saveService.AddOrUpdate(applicationId, applicationId, employerId, state);
+
+            if (org.ApplicationStatusId == StatusIds.New)
+            {
+                // Update Organization Status
+                org.ApplicationStatusId = StatusIds.InProgress;
+                UserManager.UpdateAsync(user);
+            }
+            return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
+        }
+
+        /// <summary>
+        /// Creates or updates pre-submission 14c application
+        /// </summary>
+        /// <param name="applicationId">Application Identification Number</param>
+        /// <returns></returns>
+        [HttpPut]
+        [Route("UpdateSave")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
+        public IHttpActionResult UpdateSave(string applicationId)
+        {
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Applicaion
+            var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
+            if (!hasPermission)
+            {
+                Unauthorized("Unauthorized");
+            }
+
+            var state = Request.Content.ReadAsStringAsync().Result;
+            try
+            {
+                JToken.Parse(state);
+            }
+            catch (Exception e)
+            {
+                BadRequest(e.Message);
+            }
+
+            _saveService.AddOrUpdate(applicationId, applicationId, null, state);
+            return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
         }
 
         /// <summary>
         /// Removes pre-submission 14c application
         /// </summary>
-        /// <param name="EIN"></param>
+        /// <param name="applicationId">Application Identification Number</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{EIN}")]
+        [Route("{applicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult DeleteSave(string EIN)
+        public IHttpActionResult DeleteSave(string applicationId)
         {
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Applicaion
+            var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
-            _saveService.Remove(EIN);
+            _saveService.Remove(applicationId);
             return Ok();
         }
-        
+
         /// <summary>
         /// OPTIONS endpoint for CORS
         /// </summary>

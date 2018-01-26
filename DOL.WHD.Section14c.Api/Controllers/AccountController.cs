@@ -6,20 +6,20 @@ using System.Web;
 using System.Web.Http;
 using DOL.WHD.Section14c.Api.Filters;
 using DOL.WHD.Section14c.Business;
-using DOL.WHD.Section14c.Business.Services;
 using DOL.WHD.Section14c.DataAccess.Identity;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using RestSharp;
 using System.Security.Claims;
 using System.Linq;
 using System.Collections.Generic;
 using System.Data.Entity;
-using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.Common;
+using System.Text;
+using DOL.WHD.Section14c.Common.Extensions;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -32,6 +32,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private ApplicationUserManager _userManager;
         private ApplicationRoleManager _roleManager;
+        private readonly IEmployerService _employerService;
+        private readonly IOrganizationService _organizationService;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -42,6 +44,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
+            set { _userManager = value; }
         }
 
         /// <summary>
@@ -56,6 +59,21 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="employerService">
+        /// The Employer service this controller should use 
+        /// </param>
+        /// <param name="organizationService">
+        /// The organization service this controller should use
+        /// </param>
+        public AccountController(IEmployerService employerService, IOrganizationService organizationService)
+        {
+            _employerService = employerService;
+            _organizationService = organizationService;
+        }
+
+        /// <summary>
         /// Creates a User Account
         /// </summary>
         /// <param name="model"></param>
@@ -63,7 +81,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
         // POST api/Account/Register
         [AllowAnonymous]
         [Route("Register")]
-        [DOL.WHD.Section14c.Log.ActionFilters.LoggingFilter]
         public async Task<IHttpActionResult> Register(RegisterViewModel model)
         {
             try
@@ -75,8 +92,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Add User
                 var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false };
-                user.Organizations.Add(new OrganizationMembership { EIN = model.EIN, IsAdmin = true, CreatedAt = now, LastModifiedAt = now, CreatedBy_Id = user.Id, LastModifiedBy_Id = user.Id });
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
@@ -98,12 +114,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 queryString["userId"] = user.Id;
                 queryString["code"] = nounce;
 
-                //TODO: Support Urls with existing querystring
+                // Support Urls with existing querystring
                 var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
 
                 await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for Department of Labor Section 14(c) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 // Log Error message to database
                 BadRequest(e.Message);
@@ -126,11 +142,58 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 UserId = user.Id,
                 Email = user.Email,
                 Organizations = user.Organizations,
-                Roles = user.Roles.Select(r => new RoleViewModel {Id = r.RoleId, Name = r.Role.Name}),
+                Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
                     .Select(i => i.Feature.Key)
             };
+        }
+
+        /// <summary>
+        /// Set user employer
+        /// </summary> 
+        /// <param name="organizationMembership">
+        /// Organization Membership
+        /// </param>
+        /// <returns>HTTP status code and message</returns>
+        [Route("User/SetEmployer")]
+        public async Task<IHttpActionResult> SetUserEmployer(OrganizationMembership organizationMembership)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+            // determine the uniqueness of the employer  
+            var employer = _employerService.FindExistingEmployer(organizationMembership.Employer);
+            if (employer == null)
+            {
+                var userIdentity = ((ClaimsIdentity)User.Identity);
+                var userId = userIdentity.GetUserId();
+                var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
+                organizationMembership.ApplicationStatusId = StatusIds.New;
+                // set user organization
+                user.Organizations.Add(organizationMembership);
+
+                IdentityResult result = await UserManager.UpdateAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+            else
+            {
+                // Employer exists
+                var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
+                responseMessage.StatusCode = HttpStatusCode.Found;
+                responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
+            }
+
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>
@@ -149,7 +212,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByNameAsync(model.Email.TrimAndToLowerCase());
                 if (user == null)
                 {
                     // Don't reveal that the user does not exist
@@ -185,14 +248,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("VerifyResetPassword")]
         public async Task<IHttpActionResult> VerifyResetPassword(VerifyResetPasswordViewModel model)
         {
-            var result = await UserManager.ResetPasswordAsync(model.UserId, model.Nounce, model.NewPassword);
+            var result = await UserManager.ResetPasswordAsync(model.UserId.TrimAndToLowerCase(), model.Nounce, model.NewPassword);
             if (!result.Succeeded)
             {
                 BadRequest("Unable to reset password.");
             }
 
             // Check if user is Confirmed, if not confirm them through password reset email verification
-            var user = await UserManager.FindByIdAsync(model.UserId);
+            var user = await UserManager.FindByIdAsync(model.UserId.TrimAndToLowerCase());
             if (!user.EmailConfirmed)
             {
                 user.EmailConfirmed = true;
@@ -230,7 +293,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
             else
             {
-                user = await UserManager.FindByEmailAsync(model.Email);
+                user = await UserManager.FindByEmailAsync(model.Email.TrimAndToLowerCase());
                 if (await UserManager.IsLockedOutAsync(user.Id))
                 {
                     BadRequest(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
@@ -270,18 +333,12 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("VerifyEmail")]
         public async Task<IHttpActionResult> VerifyEmail(VerifyEmailViewModel model)
         {
-            try { 
-                var result = await UserManager.ConfirmEmailAsync(model.UserId, model.Nounce);
-                if (!result.Succeeded)
-                {
-                    BadRequest("Unable to verify email");
-                }
-            }
-            catch (Exception e)
+            var result = await UserManager.ConfirmEmailAsync(model.UserId.TrimAndToLowerCase(), model.Nounce);
+            if (!result.Succeeded)
             {
-                // Log Error message to database
-                BadRequest(e.Message);
+                BadRequest("Unable to verify email");
             }
+
             return Ok();
         }
 
@@ -299,10 +356,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             return Ok();
         }
 
-        #region Account Management
-
         /// <summary>
-        /// Returns collection of user accounts
+        /// Get User Accounts
         /// </summary>
         // GET api/Account
         [AuthorizeClaims(ApplicationClaimTypes.GetAccounts)]
@@ -331,7 +386,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("{userId}")]
         public IHttpActionResult GetSingleAccount(string userId)
         {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.TrimAndToLowerCase() == userId.TrimAndToLowerCase());
             if (user == null)
             {
                 BadRequest("User not found.");
@@ -347,7 +402,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)});
+                    .Select(i => i.Feature.Key)
+            });
         }
 
         /// <summary>
@@ -367,108 +423,65 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
-        /// Creates User Account
+        /// Password Complexity Check
         /// </summary>
-        /// <param name="model">UserInfoViewModel</param>
-        /// <returns>Http status code</returns>
         // POST api/Account
-        [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<IHttpActionResult> CreateAccount(UserInfoViewModel model)
+        [Route("PasswordComplexityCheck")]
+        public IHttpActionResult PasswordComplexityCheck()
         {
-            if (!ModelState.IsValid)
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            var password = Request.Content.ReadAsStringAsync().Result;
+            var passwordComplexityScore = AppSettings.Get<int>("PasswordComplexityScore");
+            var zxcvbnResult = Zxcvbn.Zxcvbn.MatchPassword(password);
+            string message = App_GlobalResources.LocalizedText.PasswordComplexityCheckSuccessMessage;
+            // Check poassword Complexity Score
+            if (zxcvbnResult.Score < passwordComplexityScore)
             {
-                BadRequest("Model state is not valid");
+                // Set Failed status code 
+                responseMessage.StatusCode = HttpStatusCode.ExpectationFailed;
+                message = App_GlobalResources.LocalizedText.PasswordComplexityCheckFailedMessage;
             }
+            // set reposnse message
+            responseMessage.Content = new StringContent(string.Format("{{\"score\": \"{0}\", \"message\": \"{1}\" }}", zxcvbnResult.Score.ToString(), message), Encoding.UTF8, "application/json");
 
-            // Add User
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
-
-            IdentityResult result = await UserManager.CreateAsync(user);
-            if (!result.Succeeded)
-            {
-                return GetErrorResult(result);
-            }
-
-            // Add to Roles
-            foreach (var role in model.Roles)
-            {
-                var newUser = UserManager.FindByNameAsync(model.Email);
-                var addResult = await UserManager.AddToRoleAsync(newUser.Result.Id, role.Name);
-                if (!addResult.Succeeded)
-                {
-                    return GetErrorResult(result);
-                }
-            }
-
-            return Ok(result);
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>
-        /// Updates User Account
+        /// Resend authentication code
         /// </summary>
-        /// <param name="userId">User Id</param>
-        /// <param name="model">UserInfoViewModel</param>
-        /// <returns>Http status code</returns>
-        // POST api/Account/{userId}
-        [AuthorizeClaims(ApplicationClaimTypes.ModifyAccount)]
+        /// <returns></returns>
         [HttpPost]
-        [Route("{userId}")]
-        public IHttpActionResult ModifyAccount(string userId, UserInfoViewModel model)
+        [AllowAnonymous]
+        [Route("SendCode")]
+        public async Task<IHttpActionResult> SendAuthenticationCode(string email)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                BadRequest("Model state is not valid");
-            }
-
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                BadRequest("User not found.");
-            }
-
-            // Modify User
-            if (user.Email != model.Email || user.UserName != model.Email)
-            {
-                user.Email = model.Email;
-                user.UserName = model.Email;
-                var userUpdated = UserManager.Update(user);
-
-                if (!userUpdated.Succeeded)
+                if (!ModelState.IsValid)
                 {
-                    return GetErrorResult(userUpdated);
+                    BadRequest("Unable to send code.");
                 }
-            }
 
-            // Add Roles
-            foreach (var role in model.Roles)
-            {
-                if (user.Roles.All(x => x.Role.Name != role.Name))
+                var user = UserManager.FindByEmail(email);
+                if (user == null)
                 {
-                    var addResult = UserManager.AddToRole(user.Id, role.Name);
-                    if (!addResult.Succeeded)
-                    {
-                        return GetErrorResult(addResult);
-                    }
+                    BadRequest("User not found.");
                 }
-            }
 
-            // Remove
-            foreach (var role in user.Roles.ToList())
+                // Generate the token and send it
+                var code = await UserManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                await UserManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", code);
+            }
+            catch (Exception e)
             {
-                if (model.Roles.All(x => x.Name != role.Role.Name))
-                {
-                    var removeResult = UserManager.RemoveFromRole(user.Id, role.Role.Name);
-                    if (!removeResult.Succeeded)
-                    {
-                        return GetErrorResult(removeResult);
-                    }
-                }
+                // Log Error message to database
+                BadRequest(e.Message);
             }
-
             return Ok();
         }
-        #endregion
 
         /// <summary>
         /// OPTIONS endpoint for CORS

@@ -9,6 +9,10 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using DOL.WHD.Section14c.Common;
+using DOL.WHD.Section14c.Common.Extensions;
+using System.IO;
+using NLog;
+using System.Linq;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
@@ -18,7 +22,7 @@ namespace DOL.WHD.Section14c.Api.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
         /// <summary>
         /// 
         /// </summary>
@@ -40,73 +44,139 @@ namespace DOL.WHD.Section14c.Api.Providers
         /// <returns></returns>
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
-            var roleManager = context.OwinContext.Get<ApplicationRoleManager>();
-
-            var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName == context.UserName);
-            if (user != null)
+            LogEventInfo eventInfo = new LogEventInfo();
+            try
             {
-                var passwordExpired = false;
-                var passwordExpirationDays = AppSettings.Get<int>("PasswordExpirationDays");
-                if (passwordExpirationDays > 0)
+                var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
+                var roleManager = context.OwinContext.Get<ApplicationRoleManager>();
+                eventInfo.Properties["CorrelationId"] = Guid.NewGuid().ToString();
+                eventInfo.LoggerName = "LoginAttempts";                
+                eventInfo.Properties["IsServiceSideLog"] = 1;
+                // Ensure User Email is not case sensitive
+                var userName = context.UserName.TrimAndToLowerCase();
+                // Handle LINQ to Entities TrimAndToLowerCase() method cannot be translated into a store expression byr using ToLower() and Trim() directly
+                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName.ToLower().Trim() == userName);
+                if (user != null)
                 {
-                    passwordExpired = user.LastPasswordChangedDate.AddDays(passwordExpirationDays) < DateTime.Now;
-                } 
-                var validCredentials = await userManager.FindAsync(context.UserName, context.Password);
-                if (await userManager.IsLockedOutAsync(user.Id))
-                {
-                    // account locked
-                    // use invalid user name or password message to avoid disclosing that a valid username was input
-                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
-                }
-                if (!user.EmailConfirmed)
-                {
-                    // email not confirmed
-                    // use invalid user name or password message to avoid disclosing that a valid username was input
-                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
-                }
-                else if (validCredentials == null)
-                {
-                    // invalid credentials
-                    // increment failed login count
-                    if (await userManager.GetLockoutEnabledAsync(user.Id))
+                    eventInfo.Properties["UserId"] = user.Id;
+                    eventInfo.Properties["UserName"] = user.UserName;
+                    var passwordExpired = false;
+                    var passwordExpirationDays = AppSettings.Get<int>("PasswordExpirationDays");
+                    if (passwordExpirationDays > 0)
                     {
-                        await userManager.AccessFailedAsync(user.Id);
+                        passwordExpired = user.LastPasswordChangedDate.AddDays(passwordExpirationDays) < DateTime.Now;
+                    }
+                    var validCredentials = await userManager.FindAsync(context.UserName, context.Password);
+                    if (await userManager.IsLockedOutAsync(user.Id))
+                    {
+                        // account locked
+                        // use invalid user name or password message to avoid disclosing that a valid username was input
+                        var message = string.Format(App_GlobalResources.LocalizedText.LoginFailureMessageAccountLockedOut, AppSettings.Get<int>("DefaultAccountLockoutTimeSpan"));
+                        context.SetError("locked_out", message);
+                        // Get locked out email template
+                        var accountLockedOutEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/AccountLockedOutEmailTemplate.txt");
+                        var accountLockedOutEmailTemplateString = File.ReadAllText(accountLockedOutEmailTemplatePath);
+                        //Send Account Lock Out Email
+                        await userManager.SendEmailAsync(user.Id, AppSettings.Get<string>("AccountLockedoutEmailSubject"), accountLockedOutEmailTemplateString);
+                        throw new UnauthorizedAccessException(string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, message));
+                    }
+                    if (!user.EmailConfirmed)
+                    {
+                        // email not confirmed
+                        // use invalid user name or password message to avoid disclosing that a valid username was input
+                        context.SetError("invalid_grant", App_GlobalResources.LocalizedText.LoginFailureMessageEmailNotConfirmed);
+                        var message = string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.LoginFailureMessageEmailNotConfirmed);
+                        eventInfo.Message = message;
+                        throw new UnauthorizedAccessException(message);
+                    }
+                    if (validCredentials == null)
+                    {
+                        // invalid credentials
+                        // increment failed login count
+                        int loginAttempted = 0;
+                        if (await userManager.GetLockoutEnabledAsync(user.Id))
+                        {
+                            loginAttempted = await userManager.GetAccessFailedCountAsync(user.Id);
+                            await userManager.AccessFailedAsync(user.Id);                            
+                        }
+                        context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                        throw new UnauthorizedAccessException(string.Format("{0}: {1} Login Attempted: {2}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.InvalidUserNameorPassword, loginAttempted +1));
+                    }
+                    if (passwordExpired)
+                    {
+                        // password expired
+                        context.SetError("invalid_grant", App_GlobalResources.LocalizedText.LoginFailureMessagePasswordExpired);
+                        var message = string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.LoginFailureMessagePasswordExpired);
+                        eventInfo.Message = message;
+                        throw new UnauthorizedAccessException(message);
                     }
 
-                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
-                }
-                else if (passwordExpired)
-                {
-                    // password expired
-                    context.SetError("invalid_grant", "Password expired");
+                    var data = await context.Request.ReadFormAsync();
+                    var code = data.Get("code");
+                    // Send authentication code if code is empty
+                    if (await userManager.GetTwoFactorEnabledAsync(user.Id) && string.IsNullOrEmpty(code))
+                    {
+                        await userManager.UpdateSecurityStampAsync(user.Id);
+                        var token = await userManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                        await userManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", token);
+                        context.SetError("need_code", App_GlobalResources.LocalizedText.MissingUser2FACode);
+                        var message = string.Format("{0}: {1}", "Send 2FA Code", App_GlobalResources.LocalizedText.MissingUser2FACode);
+                        eventInfo.Level = LogLevel.Info;
+                        eventInfo.Message = message;
+                        return;
+                    }
+                    // Verify authentication code
+                    if (await userManager.GetTwoFactorEnabledAsync(user.Id) && !await userManager.VerifyTwoFactorTokenAsync(user.Id, "EmailCode", code))
+                    {
+                        context.SetError("invalid_code", App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
+                        var message = string.Format("{0}: {1}", App_GlobalResources.LocalizedText.LoginFailureMessage, App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
+                        eventInfo.Message = message;
+                        throw new UnauthorizedAccessException(App_GlobalResources.LocalizedText.LoginFailureEmailCodeIncorrect);
+                    }
+                    else
+                    {
+                        // successful login
+                        ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
+                            OAuthDefaults.AuthenticationType);
+
+                        ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
+                            CookieAuthenticationDefaults.AuthenticationType);
+
+                        AuthenticationProperties properties = CreateProperties(user.Email);
+
+                        AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
+                        context.Validated(ticket);
+                        context.Request.Context.Authentication.SignIn(cookiesIdentity);
+
+                        // reset failed attempts count
+                        await userManager.ResetAccessFailedCountAsync(user.Id);
+                        
+                        // logging of successful attempts
+                        eventInfo.Level = LogLevel.Info;
+                        eventInfo.Message = App_GlobalResources.LocalizedText.LoginSuccessMessage;
+                    }
                 }
                 else
                 {
-                    // successful login
-                    ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
-                        OAuthDefaults.AuthenticationType);
-
-                    ClaimsIdentity cookiesIdentity = await user.GenerateUserIdentityAsync(userManager, roleManager,
-                        CookieAuthenticationDefaults.AuthenticationType);
-
-                    AuthenticationProperties properties = CreateProperties(user.Email);
-
-                    AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
-                    context.Validated(ticket);
-                    context.Request.Context.Authentication.SignIn(cookiesIdentity);
-
-                    // reset failed attempts count
-                    await userManager.ResetAccessFailedCountAsync(user.Id);
+                    // invalid username
+                    context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                    throw new UnauthorizedAccessException(App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
                 }
             }
-            else
+            catch(Exception ex)
             {
-                // invalid username
-                context.SetError("invalid_grant", App_GlobalResources.LocalizedText.InvalidUserNameorPassword);
+                // logging of unsuccessful attempts
+                eventInfo.Message = ex.Message;
+                eventInfo.Exception = ex;
+                eventInfo.Level = LogLevel.Error;
+            }
+            finally
+            {
+                // Write log to database
+                _logger.Log(eventInfo);
             }
         }
-
+        
         /// <summary>
         /// 
         /// </summary>

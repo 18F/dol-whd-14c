@@ -46,7 +46,7 @@
 
   .form-spaced-div {
     margin-top: 40px;
-  }  
+  }
 
 }
 
@@ -63,6 +63,12 @@
   + .dol-help-text {
     margin-top: 10px;
   }
+}
+
+.wioa-input {
+  width: 33.33%;
+  float: left;
+  margin-bottom: 20px;
 }
 
 .dol-form-section-help {
@@ -99,6 +105,15 @@
     }
   }
 }
+
+dol-form-section-sub-title {
+  @include clearfix();
+  float:left;
+  margin-top: 4rem;
+  display: block;
+}
+
+
 
 @media (min-width: 50em) {
   .dol-form-section-title {
@@ -258,11 +273,11 @@ fieldset > div:first-of-type {
 
 // Legend that looks like a plain label (instead of form question)
 fieldset.dol-legend-plain {
-  margin-top: 3rem;  
+  margin-top: 3rem;
 
   legend {
     font-size: 1.7rem;
-    font-weight: normal;   
+    font-weight: normal;
     margin-bottom: 10px;
   }
 }
@@ -449,7 +464,7 @@ h4#helpfulLinksHeader {
     font-size: 2.4rem;
     font-weight: normal;
     margin: 0;
-  }  
+  }
 
   h3 {
     margin: 0 0 10px 0;
@@ -470,7 +485,7 @@ h4#helpfulLinksHeader {
   }
   .dol-left-column {
     margin-bottom: 20px;
-  }  
+  }
 }
 
 @media (min-width: 940px) {
@@ -482,7 +497,7 @@ h4#helpfulLinksHeader {
     }
     .dol-help-callout {
       float: right;
-      width: 48%;    
+      width: 48%;
     }
   }
 }
@@ -521,8 +536,8 @@ h4#helpfulLinksHeader {
         }
         &:first-of-type {
           margin-top: 0;
-        }        
-      }      
+        }
+      }
 
       &:first-of-type {
         padding-top: 0;
@@ -536,7 +551,7 @@ h4#helpfulLinksHeader {
   }
 }
 
-@media (min-width: 37.5em) { 
+@media (min-width: 37.5em) {
 
   .dol-help-employee-info {
     dl {
@@ -555,7 +570,7 @@ h4#helpfulLinksHeader {
 
         dt {
           min-width: 20rem;
-          display: table-cell;          
+          display: table-cell;
         }
 
         &:first-of-type {
@@ -585,7 +600,7 @@ dl.dol-employee-example-data {
   list-style: none;
 
   dt {
-    margin: 0 0 8px 0;    
+    margin: 0 0 8px 0;
     font-weight: normal;
   }
   dd {
@@ -600,7 +615,7 @@ dl.dol-employee-example-data {
 }
 
 // ----- BEGIN LEGACY CSS RULES -----------------------------------------------------------
-// There may be duplicates with the new styles above, 
+// There may be duplicates with the new styles above,
 // but some of these legacy styles are still in use.
 
 .form-content,
@@ -760,7 +775,7 @@ dl.dol-employee-example-data {
       max-width: none;
     }
 
-   
+
 
     .wage-data-table li > input[type='radio'] {
       width: auto;

@@ -8,7 +8,8 @@ namespace DOL.WHD.Section14c.Business.Validators
         public SignatureValidator()
         {
             RuleFor(s => s.Agreement).Equal(true);
-            RuleFor(s => s.FullName).NotEmpty();
+            RuleFor(s => s.FirstName).NotEmpty();
+            RuleFor(s => s.LastName).NotEmpty();
             RuleFor(s => s.Title).NotEmpty();
             RuleFor(s => s.Date).NotEmpty();
         }

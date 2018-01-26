@@ -13,6 +13,7 @@ module.exports = function(ngModule) {
     $q,
     _env,
     $rootScope,
+    $window,
     _constants
   ) {
     'use strict';
@@ -36,10 +37,37 @@ module.exports = function(ngModule) {
 
     Object.defineProperty(this, 'ein', {
       get: function() {
-        return state.activeEIN;
+        return state.ein;
       },
       set: function(value) {
-        state.activeEIN = value;
+        state.ein = value;
+      }
+    });
+
+    Object.defineProperty(this, 'employerId', {
+      get: function() {
+        return state.employerId;
+      },
+      set: function(value) {
+        state.employerId = value;
+      }
+    });
+
+    Object.defineProperty(this, 'employerName', {
+      get: function() {
+        return state.employerName;
+      },
+      set: function(value) {
+        state.employerName = value;
+      }
+    });
+
+    Object.defineProperty(this, 'applicationId', {
+      get: function() {
+        return state.applicationId;
+      },
+      set: function(value) {
+        state.applicationId = value;
       }
     });
 
@@ -52,7 +80,7 @@ module.exports = function(ngModule) {
       }
     });
 
-    Object.defineProperty(this, 'isAdmin', {
+    Object.defineProperty(this, 'IsPointOfContact', {
       get: function() {
         return this.hasClaim(_constants.applicationClaimTypes.viewAdminUI);
       }
@@ -119,6 +147,18 @@ module.exports = function(ngModule) {
       state.app_list = value;
     };
 
+    this.setEIN = function(value) {
+      state.ein = value;
+    };
+
+    this.setEmployerId = function(value) {
+      state.employerId = value;
+    };
+
+    this.setApplicationId = function(value) {
+      state.applicationId = value;
+    };
+
     this.logOut = function() {
       // remove access_token cookie
       $cookies.remove(accessTokenCookieName);
@@ -131,11 +171,30 @@ module.exports = function(ngModule) {
       const d = $q.defer();
 
       // Get Application State for Organization
-      apiService.getApplication(self.access_token, self.ein).then(
+      apiService.getApplication(self.access_token, self.applicationId).then(
         function(result) {
           const data = result.data;
           self.setFormData(JSON.parse(data));
           d.resolve(data);
+        },
+        function(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
+    this.saveNewApplication = function() {
+      const self = this;
+      const d = $q.defer();
+
+      // Get Application State for Organization
+      apiService.saveApplication(self.access_token, self.ein, self.employerId, self.applicationId, self.formData).then(
+        function() {
+          // const data = result.data;
+          // self.setFormData(JSON.parse(data));
+          d.resolve();
         },
         function(error) {
           d.reject(error);
@@ -150,7 +209,10 @@ module.exports = function(ngModule) {
         form_data: {},
         app_data: {},
         app_list: [],
-        activeEIN: undefined,
+        ein: undefined,
+        employerId: undefined,
+        employerName: undefined,
+        applicationId: undefined,
         user: {
           email: '',
           claims: []
@@ -183,6 +245,12 @@ module.exports = function(ngModule) {
       );
 
       return d.promise;
+    };
+
+    this.downloadApplicationPdf = function() {
+      const self = this;
+      var downloadURL = _env.api_url + '/api/application/download?applicationId=' + self.applicationId + '&access_token=' + self.access_token;
+      $window.open(downloadURL, '_blank');
     };
 
     this.loadApplicationList = function() {

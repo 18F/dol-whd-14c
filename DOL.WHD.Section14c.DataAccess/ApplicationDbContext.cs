@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using DOL.WHD.Section14c.DataAccess.MigrationsDB2;
-using DOL.WHD.Section14c.DataAccess.Migrations;
 using DOL.WHD.Section14c.Domain.Models;
 using DOL.WHD.Section14c.Domain.Models.Submission;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -9,6 +8,7 @@ using System;
 using System.Linq;
 using System.Web;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.DataAccess
 {
@@ -39,7 +39,11 @@ namespace DOL.WHD.Section14c.DataAccess
         public DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }
 
         public DbSet<Status> ApplicationStatuses { get; set; }
-        
+
+        public DbSet<Employer> Employers { get; set; }
+
+        public DbSet<OrganizationMembership> OrganizationMemberships { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -60,7 +64,8 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ApplicationTypeId).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousApplication).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.HasPreviousCertificate).IsRequired();
-            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactName).IsRequired();
+            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactFirstName).IsRequired();
+            modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactLastName).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactPhone).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.ContactEmail).IsRequired();
             modelBuilder.Entity<ApplicationSubmission>().Property(a => a.TotalNumWorkSites).IsRequired();
@@ -122,13 +127,15 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<Response>().Property(a => a.IsActive).IsRequired();
             // Signature
             modelBuilder.Entity<Signature>().Property(a => a.Agreement).IsRequired();
-            modelBuilder.Entity<Signature>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.FirstName).IsRequired();
+            modelBuilder.Entity<Signature>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<Signature>().Property(a => a.Title).IsRequired();
             modelBuilder.Entity<Signature>().Property(a => a.Date).IsRequired();
             // SourceEmployer
             modelBuilder.Entity<SourceEmployer>().Property(a => a.EmployerName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.Phone).IsRequired();
-            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactName).IsRequired();
+            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactFirstName).IsRequired();
+            modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactLastName).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactTitle).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.ContactDate).IsRequired();
             modelBuilder.Entity<SourceEmployer>().Property(a => a.JobDescription).IsRequired();
@@ -142,7 +149,8 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<WIOA>().Property(a => a.HasVerifiedDocumentation).IsRequired();
             modelBuilder.Entity<WIOA>().Property(a => a.HasWIOAWorkers).IsRequired();
             // WIOAWorker
-            modelBuilder.Entity<WIOAWorker>().Property(a => a.FullName).IsRequired();
+            modelBuilder.Entity<WIOAWorker>().Property(a => a.FirstName).IsRequired();
+            modelBuilder.Entity<WIOAWorker>().Property(a => a.LastName).IsRequired();
             modelBuilder.Entity<WIOAWorker>().Property(a => a.WIOAWorkerVerifiedId).IsRequired();
             // WorkerCountInfo
             modelBuilder.Entity<WorkerCountInfo>().Property(a => a.Total).IsRequired();
@@ -166,6 +174,16 @@ namespace DOL.WHD.Section14c.DataAccess
                 .ToTable("EmployerInfoFacilitiesDeductionType")
                 .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
 
+            modelBuilder.Entity<WageTypeInfoSCAAttachment>()
+               .ToTable("WageTypeInfoSCAAttachment")
+               .HasKey(k => new { k.WageTypeInfoId, k.SCAAttachmentId });
+
+            modelBuilder.Entity<EmployerInfoSCAAttachment>()
+               .ToTable("EmployerInfoSCAAttachment")
+               .HasKey(k => new { k.EmployerInfoId, k.SCAAttachmentId });
+
+            modelBuilder.Entity<ApplicationUser>().HasOptional(x => x.CreatedBy).WithMany();
+            modelBuilder.Entity<ApplicationUser>().HasOptional(x => x.LastModifiedBy).WithMany();
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
@@ -216,6 +234,51 @@ namespace DOL.WHD.Section14c.DataAccess
             return base.SaveChanges();
         }
 
+        public override async Task<int> SaveChangesAsync()
+        {
+            var addedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
+                .Where(p => p.State == EntityState.Added)
+                .Select(p => p.Entity);
 
+            var modifiedAuditedEntities = ChangeTracker.Entries<IAuditedEntity>()
+                .Where(p => p.State == EntityState.Modified)
+                .Select(p => p.Entity);
+
+            var now = DateTime.UtcNow;
+            var zeroTime = new DateTime();
+
+            var userId = Guid.Empty.ToString();
+
+            if (HttpContext.Current != null && HttpContext.Current.User != null)
+            {
+                userId = HttpContext.Current.User.Identity.GetUserId();
+            }
+
+            foreach (var added in addedAuditedEntities)
+            {
+                if (added.CreatedAt == zeroTime) { added.CreatedAt = now; }
+                added.LastModifiedAt = now;
+                if (userId != Guid.Empty.ToString())
+                {
+                    added.CreatedBy_Id = userId;
+                    added.LastModifiedBy_Id = userId;
+                }
+            }
+
+            foreach (var modified in modifiedAuditedEntities)
+            {
+                if (modified.CreatedAt == zeroTime)
+                {
+                    modified.CreatedAt = now;
+                    if (userId != Guid.Empty.ToString())
+                        modified.CreatedBy_Id = userId;
+                }
+                modified.LastModifiedAt = now;
+                if (userId != Guid.Empty.ToString())
+                    modified.LastModifiedBy_Id = userId;
+            }
+
+            return await base.SaveChangesAsync();
+        }
     }
 }

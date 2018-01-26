@@ -118,6 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidUserNameorPassword" xml:space="preserve">
-    <value>The user name or password is incorrect.</value>
+    <value>The email or password entered does not match our records.</value>
+  </data>
+  <data name="LoginFailureEmailCodeIncorrect" xml:space="preserve">
+    <value>The authentication code entered does not match our records.</value>
+  </data>
+  <data name="LoginFailureMessage" xml:space="preserve">
+    <value>Login failure</value>
+  </data>
+  <data name="LoginFailureMessageAccountLockedOut" xml:space="preserve">
+    <value>Your account has been locked out for {0} minutes due to multiple failed login attempts.</value>
+  </data>
+  <data name="LoginFailureMessageEmailNotConfirmed" xml:space="preserve">
+    <value>Email not confirmed</value>
+  </data>
+  <data name="LoginFailureMessagePasswordExpired" xml:space="preserve">
+    <value>Password expired</value>
+  </data>
+  <data name="LoginSuccessMessage" xml:space="preserve">
+    <value>Login success</value>
+  </data>
+  <data name="MissingUser2FACode" xml:space="preserve">
+    <value>Code from email is not included</value>
+  </data>
+  <data name="PasswordComplexityCheckFailedMessage" xml:space="preserve">
+    <value>Password does not meet complexity requirements.</value>
+  </data>
+  <data name="PasswordComplexityCheckSuccessMessage" xml:space="preserve">
+    <value>Password meet complexity requirements.</value>
   </data>
 </root>

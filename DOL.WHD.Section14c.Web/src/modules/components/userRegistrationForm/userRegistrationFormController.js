@@ -1,7 +1,6 @@
 'use strict';
 
 import some from 'lodash/some';
-var zxcvbn = require('zxcvbn');
 
 module.exports = function(ngModule) {
   ngModule.controller('userRegistrationFormController', function(
@@ -16,32 +15,44 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
-
+    vm.showFacts = false;
+     vm.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     vm.restForm = function() {
+      if(vm.userRegistrationForm) {
+       vm.userRegistrationForm.$setPristine();
+      }
+
       $scope.formVals = {
-        ein: '',
+        firstName: '',
+        lastName: '',
         email: '',
         pass: '',
         confirmPass: ''
       };
+
     };
     vm.restForm();
 
     vm.resetErrors = function() {
       vm.generalRegistrationError = false;
-      vm.showEinHelp = false;
-      vm.einError = false;
-      vm.einRequired = false;
       vm.emailAddressError = false;
       vm.emailAddressRequired = false;
+      vm.lastNameRequired = false;
+      vm.firstNameRequired = false;
       vm.showPasswordHelp = false;
       vm.passwordRequired = false;
-      vm.invalidEin = false;
       vm.passwordsDontMatch = false;
       vm.passwordComplexity = false;
       vm.accountCreated = false;
       vm.emailVerified = false;
       vm.emailVerificationError = false;
+      vm.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     };
     vm.resetErrors();
 
@@ -51,6 +62,8 @@ module.exports = function(ngModule) {
       vm.passwordLower = false;
       vm.passwordSpecial = false;
       vm.passwordNumber = false;
+      vm.passwordStength = false;
+
     };
     vm.resetPasswordComplexity();
 
@@ -58,8 +71,11 @@ module.exports = function(ngModule) {
       vm.showEinHelp = !vm.showEinHelp;
     };
 
+    $scope.toggleFacts = function ()  {
+      vm.showFacts = !vm.showFacts;
+    };
+
     $scope.$watch('formVals.pass', function(value) {
-      $scope.passwordStrength = zxcvbn(value);
       vm.passwordLength = value.length > 7;
       vm.passwordUpper = value.match(new RegExp('^(?=.*[A-Z])')) ? true : false;
       vm.passwordLower = value.match(new RegExp('^(?=.*[a-z])')) ? true : false;
@@ -69,45 +85,53 @@ module.exports = function(ngModule) {
       vm.passwordNumber = value.match(new RegExp('^(?=.*[0-9])'))
         ? true
         : false;
+
+        apiService.checkPasswordComplexity(value).then(function(result){
+          vm.passwordStrength = {
+            strong: true,
+            score: result.data.score
+          };
+        }).catch(function(error) {
+          vm.passwordStrength = {
+            strong: false,
+            score: error.data.score
+          };
+
+        })
     });
 
     $scope.inputType = 'password';
     vm.emailVerificationUrl = $location.absUrl();
-    vm.emailVerificationCode = $location.search().code;
-    vm.emailVerificationUserId = $location.search().userId;
-    vm.isEmailVerificationRequest =
-      vm.emailVerificationCode !== undefined &&
-      vm.emailVerificationCode !== undefined;
-
-    if (vm.isEmailVerificationRequest) {
-      $location.search('code', null);
-      $location.search('userId', null);
-      vm.resetErrors();
-      apiService
-        .emailVerification(
-          vm.emailVerificationUserId,
-          vm.emailVerificationCode,
-          $scope.verifyResponse
-        )
-        .then(
-          function() {
-            vm.emailVerified = true;
-          },
-          function() {
-            vm.emailVerificationError = true;
-          }
-        );
-    }
-
     $scope.onSubmitClick = function() {
-      vm.resetErrors();
-      vm.registerdEmail = '';
+
       vm.submittingForm = true;
+
+      if(!$scope.formVals.firstName) {
+        vm.firstNameRequired = true;
+      }
+
+      if(!$scope.formVals.lastName) {
+        vm.lastNameRequired = true;
+      }
+      if(!$scope.formVals.email) {
+        vm.emailAddressRequired = true;
+      }
+      if(vm.passwordStrength.score < 3) {
+        vm.passwordComplexity = true;
+      }
+
+      if(vm.firstNameRequired || vm.lastNameRequired || vm.emailAddressRequired || vm.passwordComplexity) {
+        vm.submittingForm = false;
+        return
+      }
+      vm.resetErrors();
+      vm.registeredEmail = '';
 
       /* eslint-disable complexity */
       apiService
         .userRegister(
-          $scope.formVals.ein,
+          $scope.formVals.firstName,
+          $scope.formVals.lastName,
           $scope.formVals.email,
           $scope.formVals.pass,
           $scope.formVals.confirmPass,
@@ -115,7 +139,7 @@ module.exports = function(ngModule) {
         )
         .then(
           function() {
-            vm.registerdEmail = $scope.formVals.email;
+            vm.registeredEmail = $scope.formVals.email;
             vm.restForm();
             vm.accountCreated = true;
             vm.submittingForm = false;
@@ -124,11 +148,6 @@ module.exports = function(ngModule) {
           function(error) {
             if (error && error.data) {
               $scope.registerErrors = apiService.parseErrors(error.data);
-              if (
-                $scope.registerErrors.indexOf('EIN is already registered') > -1
-              ) {
-                vm.einError = true;
-              }
               if (
                 some($scope.registerErrors, function(error) {
                   return error.indexOf('is already taken') > -1;
@@ -150,37 +169,35 @@ module.exports = function(ngModule) {
                 vm.passwordRequired = true;
               }
               if (
-                $scope.registerErrors.indexOf('The EIN field is required.') > -1
-              ) {
-                vm.einRequired = true;
-              }
-              if (
-                some($scope.registerErrors, function(error) {
-                  return error.indexOf('The field EIN must match') > -1;
-                })
-              ) {
-                vm.invalidEin = true;
-              }
-              if (
                 $scope.registerErrors.indexOf(
                   'The password and confirmation password do not match.'
                 ) > -1
               ) {
                 vm.passwordsDontMatch = true;
               }
-              if (
-                $scope.registerErrors.indexOf(
-                  'Password does not meet complexity requirements.'
-                ) > -1
-              ) {
+              if ($scope.registerErrors.indexOf('Password does not meet complexity requirements.') > -1) {
                 vm.passwordComplexity = true;
+              }
+              if ($scope.registerErrors.indexOf('Model State is not valid') > -1) {
+                vm.passwordComplexity = true;
+                vm.passwordStrength = {
+                  strong: false,
+                  score: error.data.score
+                };
+              }
+
+              if($scope.registerErrors.length === 0) {
+                vm.generalRegistrationError = true;
+              }
+              if($scope.registerErrors.length === 0) {
+                vm.generalRegistrationError = true;
               }
             } else {
               vm.generalRegistrationError = true;
             }
 
             vm.submittingForm = false;
-            $location.path('/');
+
           }
         );
       /* eslint-enable complexity */

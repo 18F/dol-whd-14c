@@ -10,9 +10,16 @@ require('jquery');
 require('font-awesome/css/font-awesome.css');
 require('angular-data-grid/dist/dataGrid.min.js');
 require('angular-data-grid/dist/pagination.min.js');
-
+import 'datatables.net'
+import 'datatables.net-buttons';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-responsive';
+import 'datatables.net-dt/css/jquery.dataTables.css';
+import 'datatables.net-buttons-dt/css/buttons.dataTables.css';
+import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 // Angular
 import angular from 'angular';
+import ngIdle from 'ng-idle';
 import ngAnimate from 'angular-animate';
 import ngResource from 'angular-resource';
 import ngRoute from 'angular-route';
@@ -36,6 +43,7 @@ let app = angular.module('14c', [
   ngAnimate,
   ngResource,
   ngRoute,
+  ngIdle,
   ngSanitize,
   toastr,
   require('angular-crumble'),
@@ -72,20 +80,28 @@ require('./components')(app);
 require('./filters')(app);
 require('./pages')(app);
 require('./services')(app);
-
+app.config(function(IdleProvider, KeepaliveProvider) {
+  // configure Idle settings
+  IdleProvider.idle(200); // in seconds
+  IdleProvider.timeout(900); // in seconds
+  KeepaliveProvider.interval(2); // in seconds
+})
 let routeConfig = require('./routes.config');
 require('./routes')(app);
 /* eslint-disable complexity */
 app.run(function(
   $rootScope,
   $location,
+  Idle,
   $log,
+  _env,
   crumble,
   stateService,
   autoSaveService,
   authService,
   $q
 ) {
+
   var getParent = crumble.getParent;
   crumble.getParent = function (path) {
     var route = crumble.getRoute(path);
@@ -95,6 +111,11 @@ app.run(function(
   // check cookie to see if we're logged in
   const accessToken = stateService.access_token;
   let authenticatedPromise;
+
+  if(!Idle.running() && accessToken){
+    Idle.watch();
+  }
+
   if (accessToken) {
     // authenticate the user based on token
     authenticatedPromise = authService.authenticateUser();
@@ -115,12 +136,12 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
-        let userAccess = stateService.isAdmin
+        let userAccess = stateService.IsPointOfContact
           ? routeConfig.access.ROUTE_ADMIN
           : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
         if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {
           // user does not have adequate permissions to access the route so redirect
-          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : ''));
+          $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : 'login'));
         } else if (next.$$route.isLanding && userAccess === routeConfig.access.ROUTE_ADMIN) {
           // redirect admin users to the admin dashboard
           $location.path('/admin');

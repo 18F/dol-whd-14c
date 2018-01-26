@@ -50,8 +50,19 @@ describe('mainTopNavControlController', function() {
     controller.saveClick(e);
 
     expect(mockStateService.logOut).toHaveBeenCalled();
-    expect(mockLocation.path).toHaveBeenCalledWith('/');
+
     expect(document.title).toBe('DOL WHD Section 14(c)');
+    expect(mockLocation.path).toHaveBeenCalledWith('/login');
+  });
+
+  it('help click', function() {
+    var controller = mainTopNavControlController();
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
+    spyOn(mockLocation, 'path');
+    controller.helpClick(e);
+
+    expect(document.title).toBe('DOL WHD Section 14(c)');
+    expect(mockLocation.path).toHaveBeenCalledWith('/help');
   });
 
   it('dashboard click', function() {
@@ -60,7 +71,7 @@ describe('mainTopNavControlController', function() {
     spyOn(mockLocation, 'path');
     controller.dashboardClick(e);
 
-    expect(mockLocation.path).toHaveBeenCalledWith('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/dashboard');
     expect(document.title).toBe('DOL WHD Section 14(c)');
   });
 });

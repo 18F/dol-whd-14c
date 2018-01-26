@@ -1,14 +1,55 @@
-<div ng-show="attachmentId == undefined">
+<div ng-show="!restrictUpload">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
-    <input class="dol-file-upload-input" id="{{inputId}}" class="upload-file-input" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".doc,.docx,.xls,.xlsx,.pdf,.jpg,.jpeg,.png">
+    <input class="dol-file-upload-input" id="{{inputId}}" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
     <div class="dol-file-upload-focus"></div>
-  </div>  
-  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: PDF, Word, Excel, JPG, PNG</p>
+  </div>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: .pdf, .jpg, .jpeg, .png, .csv</p>
+  <p>
+    Need to convert a Word or Excel file to PDF? <a href="https://www.dol.gov/cgi-bin/leave-dol.asp?exiturl=https://support.office.com/en-us/article/Save-or-convert-to-PDF-d85416c5-7d77-4fd6-a216-6f4bf7c7c110&exitTitle=Follow_these_instructions&fedpage=no%22" target="blank">Follow these instructions.</a>
+  </p>
 </div>
-<div ng-if="attachmentId != undefined">
-  <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
-    <span>{{attachmentName}}</span>
-  </a>
-  <button class="usa-button-secondary" ng-click="vm.deleteAttachment(attachmentId)">Delete</button>
+<div>
+  <div ng-show="vm.upload.status == 'Uploading'" class="dol-feedback-progress">
+      <p class="dol-feedback-message">
+        <strong>Uploading:</strong> {{attachmentName}}
+      </p>
+  </div>
+
+
+  <div ng-show="vm.upload.status == 'Success'" class="dol-uploaded-files">
+      <li>
+        <strong>Uploaded:</strong>
+        <a ng-href="{{vm.apiService.attachmentApiURL}}{{vm.stateService.ein}}/{{attachmentId}}?access_token={{vm.stateService.access_token}}" id="{{attachmentId}}">
+          <span>{{attachmentName}}</span>
+        </a>
+        <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showDeleteFileConfirmationModal()">Delete<span class="hide"> {{attachmentName}}</span></button>
+      </li>
+
+
+          <div ng-class="{'is-visible': modalIsVisible}" class="modal">
+            <header class="cd-panel-header">
+              <a ng-click="vm.hideDeleteFileConfirmationModal()" class="modal-close dol-close-button"></a>
+            </header>
+            <p>
+              <h4>Are you sure you want to delete this file?</h4>
+            </p>
+            <p>
+              {{attachmentName}}
+            </p>
+            <button ng-click="vm.hideDeleteFileConfirmationModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete Files</button>
+          </div>
+          <div ng-if="modalIsVisible" class="modal-backdrop"></div>
+
+</div>
+<div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not uploaded.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> File types accepted: .pdf, .jpg, .jpeg, .png, and .csv</span>
+    </p>
+</div>
+
+<div ng-show="vm.upload.status == 'Server Error'" class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not uploaded.
+    </p>
 </div>

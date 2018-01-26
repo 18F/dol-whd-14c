@@ -9,18 +9,21 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         [TestMethod]
         public void WIOAWorker_PublicProperties()
         {
-            var fullName = "Full Worker Name";
+            var firstName = "First Worker Name";
+            var lastName = "Last Worker Name";
             var wioaWorkerVerifiedId = 55;
             var wioaWorkerVerified = new Response {Id = wioaWorkerVerifiedId};
 
             var model = new WIOAWorker
             {
-                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
                 WIOAWorkerVerifiedId = wioaWorkerVerifiedId,
                 WIOAWorkerVerified = wioaWorkerVerified
             };
 
-            Assert.AreEqual(fullName, model.FullName);
+            Assert.AreEqual(firstName, model.FirstName);
+            Assert.AreEqual(lastName, model.LastName);
             Assert.AreEqual(wioaWorkerVerifiedId, model.WIOAWorkerVerifiedId);
             Assert.AreEqual(wioaWorkerVerified, model.WIOAWorkerVerified);
         }

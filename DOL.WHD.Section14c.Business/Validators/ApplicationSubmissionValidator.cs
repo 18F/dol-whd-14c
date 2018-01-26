@@ -18,7 +18,8 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(a => a.HasPreviousApplication).NotNull();
             RuleFor(a => a.HasPreviousCertificate).NotNull();
             RuleFor(a => a.EstablishmentType).NotNull().Must(et => et.Any() && !et.Any(x => x.EstablishmentTypeId < ResponseIds.EstablishmentType.WorkCenter) && !et.Any(x => x.EstablishmentTypeId > ResponseIds.EstablishmentType.BusinessEstablishment));
-            RuleFor(a => a.ContactName).NotEmpty();
+            RuleFor(a => a.ContactFirstName).NotEmpty();
+            RuleFor(a => a.ContactLastName).NotEmpty();
             RuleFor(a => a.ContactPhone).NotEmpty();
             RuleFor(a => a.ContactEmail).NotEmpty();
             RuleFor(a => a.PayTypeId).NotEmpty().InclusiveBetween(ResponseIds.PayType.Hourly, ResponseIds.PayType.Both).When(a => a.ApplicationTypeId == ResponseIds.ApplicationType.Renewal);

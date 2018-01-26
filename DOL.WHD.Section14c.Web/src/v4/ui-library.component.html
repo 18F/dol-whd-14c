@@ -9,7 +9,7 @@
   <details class="dol-ui-pattern-code-snippet">
     <summary><span>CODE SNIPPET:</span> Link</summary>
 <pre rel="HTML"><code>
-&lt;a href="http://www.dol.gov"&gt;This is a link.&lt;/a&gt;   
+&lt;a href="http://www.dol.gov"&gt;This is a link.&lt;/a&gt;
 </code></pre>
   </details>
 </div>
@@ -25,14 +25,14 @@
       <button class="red-button">Delete</button>
     </p>
     <p>Form Footer Buttons:</p>
-    <div class="form-footer-controls">    
+    <div class="form-footer-controls">
       <div class="button-group">
         <button class="back-button">Back</button>
         <div class="pull-right">
           <button class="next-button">Next</button>
         </div>
-      </div> 
-    </div>   
+      </div>
+    </div>
   </div>
   <details class="dol-ui-pattern-code-snippet">
     <summary><span>CODE SNIPPET:</span> Buttons</summary>
@@ -43,7 +43,7 @@
 &lt;button class="green-button"&gt;Action&lt;/button&gt;
 &lt;button class="red-button"&gt;Delete&lt;/button&gt;
 
-&lt;!-- Form Footer Buttons --&gt;    
+&lt;!-- Form Footer Buttons --&gt;
 &lt;div class="form-footer-controls"&gt;
   &lt;div class="button-group"&gt;
     &lt;button class="back-button"&gt;Back&lt;/button&gt;
@@ -51,7 +51,7 @@
       &lt;button class="next-button"&gt;Next&lt;/button&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/div&gt;         
+&lt;/div&gt;
 </code></pre>
   </details>
 </div>
@@ -95,7 +95,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Form Subsection Heading</summary>
     <div>
-      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;. The &lt;h3&gt; heading is inside the &lt;legend&gt; of the fieldset.</p>    
+      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;. The &lt;h3&gt; heading is inside the &lt;legend&gt; of the fieldset.</p>
     </div>
   </details>
 </div>
@@ -138,15 +138,15 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Form Subsection Heading with Help Text</summary>
     <div>
-      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;.</p>    
-      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+      <p>Each form subsection should be enclosed in a &lt;fieldset&gt;.</p>
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
       <p>Further explanation of the complexity of this pattern:</p>
       <ul>
         <li>The visual design dictates that the help link (?) icon should flow inline with the Heading text.</li>
         <li>Screen reader accessibility dictates that the Heading text should be the &lt;legend&gt; for the fieldset. However, &lt;legend&gt; and &lt;h3&gt; are inherently block elements, therefore cannot flow inline with the help link.</li>
         <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;h3&gt; text (such as when identifying the group elements below). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
         <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
-      </ul>    
+      </ul>
     </div>
   </details>
 </div>
@@ -164,7 +164,7 @@
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block"&gt;
 &lt;label for="thisInput" class="dol-form-question-text"&gt;Employer's Trade Name&lt;/label&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 &lt;/div&gt;
 </code></pre>
@@ -172,7 +172,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question - Text Input</summary>
     <div>
-        <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>     
+        <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>
     </div>
   </details>
 </div>
@@ -188,7 +188,7 @@
       <div class="dol-help-text" style="display: block" id="legalNameHelp">
           Provide the full legal name of the employer. SWEPs should enter the identifying information for the school that is applying for the certificate.
         </div>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <input id="legalName" name="legalName" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
     </div>
   </div>
@@ -201,7 +201,7 @@
   &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
 &lt;/div&gt;
 &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 &lt;/div&gt;
 </code></pre>
@@ -209,7 +209,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Secondary Form Field - Text Input with Help Text</summary>
     <div>
-        <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+        <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
     </div>
   </details>
 </div>
@@ -224,13 +224,13 @@
     <summary><span>CODE SNIPPET:</span> Secondary Form Field - Text Input</summary>
 <pre rel="HTML"><code>
 &lt;label for="thisInput"&gt;Name of Job or Contract&lt;/label&gt;
-&lt;input id="thisInput" name="thisInput" type="text"&gt; 
+&lt;input id="thisInput" name="thisInput" type="text"&gt;
 </code></pre>
   </details>
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Secondary Form Field - Text Input</summary>
     <div>
-      <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>        
+      <p>The &lt;label <em>for</em>&gt; value should match the &lt;input <em>id</em>&gt; and &lt;input <em>name</em>&gt; values.</p>
     </div>
   </details>
 </div>
@@ -255,17 +255,17 @@
   &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
 &lt;/div&gt;
 &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-&lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+&lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
 &lt;input id="thisInput" name="thisInput" type="text"&gt;
 </code></pre>
   </details>
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Secondary Form Field - Text Input with Help Text</summary>
     <div>
-      <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+      <p>The &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
     </div>
   </details>
-</div>  
+</div>
 
 <div class="dol-ui-pattern">
   <h2 class="dol-ui-pattern-title">Main Form Question - Radio Buttons</h2>
@@ -273,7 +273,7 @@
     <div class="dol-form-question-block">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">Is Service Contract Act (SCA)-covered work performed at this establishment / work site?</legend>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="worksiteScaYes" type="radio" name="worksiteSca" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
@@ -293,7 +293,7 @@
 &lt;div class="dol-form-question-block" class="form-question-block"&gt;
   &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
     &lt;legend class="dol-form-question-text"&gt;Is Service Contract Act (SCA)-covered work performed at this establishment / work site?&lt;/legend&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;ul class="usa-unstyled-list"&gt;
       &lt;li&gt;
         &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
@@ -311,7 +311,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question - Radio Buttons</summary>
     <div>
-      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>
     </div>
   </details>
 </div>
@@ -329,7 +329,7 @@
         <div style="display: block" class="dol-help-text" id="hasTradeNameHelp">
           Provide the trade name of the employer, if applicable.
         </div>
-        <span class="usa-input-error-message ng-binding" role="alert"></span>
+        <span class="usa-input-error-message ng-binding" role="alert" class="hide" tabindex="0"></span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" class="ng-pristine ng-untouched ng-valid ng-not-empty" value="true">
@@ -341,7 +341,7 @@
           </li>
         </ul>
       </fieldset>
-    </div>      
+    </div>
   </div>
   <details class="dol-ui-pattern-code-snippet">
     <summary><span>CODE SNIPPET:</span> Main Form Question  - Radio Buttons with Single Help Text</summary>
@@ -354,7 +354,7 @@
       &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
     &lt;/div&gt;
     &lt;helptext id="thisInputHelp"&gt;Provide the trade name of the employer, if applicable.&lt;/helptext&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;ul class="usa-unstyled-list"&gt;
       &lt;li&gt;
         &lt;input id="thisInputYes" type="radio" name="thisInput"&gt;
@@ -372,8 +372,8 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question  - Radio Buttons with Single Help Text</summary>
     <div>
-      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
-      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
       <p>Further explanation of the complexity of this pattern:</p>
       <ul>
         <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
@@ -391,7 +391,7 @@
     <div class="dol-form-question-block" ng-class="vm.validateActiveWorksiteProperty('type') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
         <legend class="dol-form-question-text">What type of establishment is this?</legend>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('type')"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('type')"></span>
           <ul class="usa-unstyled-list dol-list-help">
             <li ng-repeat="response in responses.WorkSiteType" class="ng-scope">
               <input id="establishmentType_27" type="radio" name="establishmentType_27" ng-value="27" ng-model="vm.activeWorksite.workSiteTypeId" class="ng-pristine ng-untouched ng-valid ng-empty" value="27">
@@ -419,7 +419,7 @@
 &lt;div class="dol-form-question-block"&gt;
   &lt;fieldset class="usa-fieldset-inputs usa-sans"&gt;
     &lt;legend class="dol-form-question-text"&gt;What type of establishment is this?&lt;/legend&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
       &lt;ul class="usa-unstyled-list dol-list-help"&gt;
         &lt;li ng-repeat=""&gt;
           &lt;input id="thisInput" type="radio" name="thisInput" ng-value="" ng-model=""&gt;
@@ -437,8 +437,8 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question  - Radio Buttons with Individual Help Text</summary>
     <div>
-      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
-      <p>For each radio button, the &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>    
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>
+      <p>For each radio button, the &lt;label <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
     </div>
   </details>
 </div>
@@ -457,7 +457,7 @@
             Answer “yes” if the employee also performed work at another work site included with this application. The worker should be listed at each work site where they performed subminimum wage work.
         </div>
         <div ng-class="vm.validateActiveWorkerProperty('workAtOtherSite') ? 'usa-input-error' : ''">
-          <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+          <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
           <ul class="usa-unstyled-list dol-list-help">
             <li>
               <input id="workerOtherSiteYes" type="radio" name="workerOtherSite" class="ng-pristine ng-untouched ng-valid ng-empty" value="true">
@@ -469,8 +469,8 @@
             </li>
           </ul>
         </div>
-      </fieldset>  
-    </div>           
+      </fieldset>
+    </div>
   </div>
   <details class="dol-ui-pattern-code-snippet">
     <summary><span>CODE SNIPPET:</span> Secondary Form Field - Radio Buttons with Single Help Text</summary>
@@ -486,7 +486,7 @@
           [HELP TEXT GOES HERE]
       &lt;/helptext&gt;
       &lt;div&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
         &lt;ul class="usa-unstyled-list"&gt;
           &lt;li&gt;
             &lt;input id="thisInputYes" type="radio" name="thisInput" ng-value="true"&gt;
@@ -506,8 +506,8 @@
     <summary><span>NOTES:</span> Secondary Form Field - Radio Buttons with Single Help Text</summary>
     <div>
       <p>Use &lt;fieldset <em>class="dol-legend-plain"</em>&gt; for Secondary fieldsets.</p>
-      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>    
-      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>
+      <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
       <p>Further explanation of the complexity of this pattern:</p>
       <ul>
         <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
@@ -524,7 +524,7 @@
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block">
       <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held certificate number for the main establishment?</label>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno ng-pristine ng-untouched ng-valid ng-not-empty" mask="99-99999-A-999" aria-describedby="examplePrevCertNumber">
       <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
     </div>
@@ -534,7 +534,7 @@
 <pre rel="HTML"><code>
 &lt;div class="dol-form-question-block"&gt;
   &lt;label for="thisInput" class="dol-form-question-text"&gt;What is the most recently held certificate number for the main establishment?&lt;/label&gt;
-  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
   &lt;input id="thisInput" name="thisInput" type="text" aria-describedby="thisInputExample" class="dol-side-example"&gt;
   &lt;span id="thisInputExample" class="dol-example-text"&gt;Example: 12-34567-H-890&lt;/span&gt;
 &lt;/div&gt;
@@ -543,7 +543,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question - Text Input with Example</summary>
     <div>
-      <p>The &lt;input <em>aria-describedby</em>&gt; value should match the example text &lt;span <em>id</em>&gt; value.</p>    
+      <p>The &lt;input <em>aria-describedby</em>&gt; value should match the example text &lt;span <em>id</em>&gt; value.</p>
     </div>
   </details>
 </div>
@@ -563,7 +563,7 @@
             the fiscal year begins on January 1, provide the date of the most recently completed quarter (March 31, June
             30, September 30, or December 31).
         </div>
-        <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+        <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
         <div>
           <div class="usa-date-of-birth dol-side-example">
             <div class="usa-form-group usa-form-group-month">
@@ -602,7 +602,7 @@
       &lt;helplink aria-controls="thisInputHelp" aria-describedby="thisInputLabel"&gt;&lt;/helplink&gt;
     &lt;/div&gt;
     &lt;helptext id="thisInputHelp"&gt;[HELP TEXT GOES HERE]&lt;/helptext&gt;
-    &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+    &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
     &lt;date-field date-val=""&gt;&lt;/date-field&gt;
   &lt;/fieldset&gt;
 &lt;/div&gt;
@@ -611,15 +611,15 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Main Form Question - Date Fieldset with Help Text</summary>
     <div>
-        <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>  
-        <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>      
+        <p>The form question itself is the &lt;legend&gt; of the fieldset. Each radio &lt;input&gt; has an associated &lt;label&gt;.</p>
+        <p>The &lt;legend&gt; &lt;span <em>id</em>&gt; value should match the &lt;helplink <em>aria-describedby</em>&gt; value. The &lt;helplink <em>aria-controls</em>&gt; value should match the &lt;helptext <em>id</em>&gt; value.</p>
         <p>Further explanation of the complexity of this pattern:</p>
         <ul>
           <li>The visual design dictates that the help link (?) icon should flow inline with the Form Question text.</li>
           <li>Screen reader accessibility dictates that the Form Question text should be the &lt;legend&gt; for the fieldset. The &lt;legend&gt; is inherently a block element, therefore cannot flow inline with the help link.</li>
           <li>Screen reader accessibility dictates that the help link may not be <em>inside</em> the &lt;legend&gt; tag, because if it is inside &lt;legend&gt;, the screen reader will add the words "Learn More" every time it reads the &lt;legend&gt; text (such as when identifying the group title for the radio buttons). The words "Learn More" should be associated with the help link only, since the help link provides the action for learning more.</li>
           <li>The solution is to have the &lt;legend&gt; be hidden from visual users (screen reader only), to preserve the semantics and accessiblity. A duplicated version of this text is shown to visual users, inline with the help link, to satisfy the visual design requirements. The visual text is hidden from screen readers with <em>aria-hidden="true"</em>.</li>
-        </ul>   
+        </ul>
     </div>
   </details>
 </div>
@@ -629,7 +629,7 @@
   <div class="dol-ui-pattern-rendered">
     <fieldset class="dol-legend-plain">
       <legend>Date of Contact</legend>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <div>
         <div class="usa-date-of-birth dol-side-example">
           <div class="usa-form-group usa-form-group-month">
@@ -662,7 +662,7 @@
 <pre rel="HTML"><code>
 &lt;fieldset class="dol-legend-plain"&gt;
   &lt;legend&gt;Date of Contact&lt;/legend&gt;
-  &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+  &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
   &lt;date-field date-val=""&gt;&lt;/date-field&gt;
 &lt;/fieldset&gt;
 </code></pre>
@@ -670,7 +670,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Secondary Form Field - Date Fieldset</summary>
     <div>
-      <p>Use &lt;fieldset <em>class="dol-legend-plain"</em>&gt; for Secondary fieldsets.</p>    
+      <p>Use &lt;fieldset <em>class="dol-legend-plain"</em>&gt; for Secondary fieldsets.</p>
     </div>
   </details>
 </div>
@@ -684,18 +684,18 @@
         <div class="usa-form-large">
           <div ng-class="">
             <label for="worksiteAddress1">Street address</label>
-            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
             <input id="worksiteAddress1" name="worksiteAddress1" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
           </div>
           <div class="clearer">
             <div class="usa-input-grid usa-input-grid-medium">
               <label for="workAddressCity">City</label>
-              <span class="usa-input-error-message ng-binding ng-hide" role="alert" ng-show="vm.validateActiveWorksiteProperty('address.city')"></span>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0" ng-show="vm.validateActiveWorksiteProperty('address.city')"></span>
               <input style="margin-bottom: 0" id="workAddressCity" name="workAddressCity" type="text" class="ng-pristine ng-untouched ng-valid ng-empty">
             </div>
             <div class="usa-input-grid usa-input-grid-small">
               <label for="workAddressState">State</label>
-              <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+              <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
               <label for="workAddressState" class="hide">State</label>
               <select style="margin-bottom: 0" id="workAddressState" class="ng-pristine ng-untouched ng-valid ng-empty"
                   name="workAddressState">
@@ -707,9 +707,9 @@
           </div>
           <div ng-class="">
             <label for="workAddressZip">Zip Code</label>
-            <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+            <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
             <input class="usa-input-medium ng-pristine ng-untouched ng-valid ng-empty ng-valid-pattern" id="workAddressZip" name="workAddressZip"
-              type="text" mask="99999-?9?9?9?9?" pattern="[\d]{5}(-[\d]{4})?" data-grouplength="5,4" data-delimiter="-" data-politespace=""
+              type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace=""
               ng-model="vm.activeWorksite.address.zipCode">
           </div>
         </div>
@@ -725,26 +725,26 @@
     &lt;div class="usa-form-large"&gt;
       &lt;div ng-class=""&gt;
         &lt;label for="thisInputAddress1"&gt;Street address&lt;/label&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
         &lt;input id="thisInputAddress1" name="thisInputAddress1" type="text"&gt;
       &lt;/div&gt;
       &lt;div class="clearer" ng-class=""&gt;
         &lt;div class="usa-input-grid usa-input-grid-medium"&gt;
           &lt;label for="thisInputCity"&gt;City&lt;/label&gt;
-          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
           &lt;input id="thisInputCity" name="thisInputCity" type="text"&gt;
         &lt;/div&gt;
         &lt;div class="usa-input-grid usa-input-grid-small"&gt;
           &lt;label for="thisInputState"&gt;State&lt;/label&gt;
-          &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
+          &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
           &lt;state-field name="thisInputState" selected-state=""&gt;&lt;/state-field&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div ng-class=""&gt;
         &lt;label for="thisInputZip"&gt;Zip Code&lt;/label&gt;
-        &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
-        &lt;input class="usa-input-medium" id="thisInputZip" name="thisInputZip" type="text" mask="99999-?9?9?9?9?" pattern=""
-          data-grouplength="5,4" data-delimiter="-" data-politespace&gt;
+        &lt;span class="usa-input-error-message" role="alert" tabindex="0"&gt;&lt;/span&gt;
+        &lt;input class="usa-input-medium" id="thisInputZip" name="thisInputZip" type="text" mask="99999" pattern=""
+          data-grouplength="5" data-delimiter="" data-politespace&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/fieldset&gt;
@@ -754,8 +754,8 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Address Fieldset</summary>
     <div>
-      <p>Use &lt;legend class="dol-form-question-text <em>no-margin</em>"&gt; for proper styling.</p> 
-      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each &lt;input&gt; has an associated &lt;label&gt;.</p>    
+      <p>Use &lt;legend class="dol-form-question-text <em>no-margin</em>"&gt; for proper styling.</p>
+      <p>The form question itself is the &lt;legend&gt; of the fieldset. Each &lt;input&gt; has an associated &lt;label&gt;.</p>
     </div>
   </details>
 </div>
@@ -765,7 +765,7 @@
   <div class="dol-ui-pattern-rendered">
     <div class="dol-form-question-block" ng-class="">
       <label for="fileUploadSCA">Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.</label>
-      <span class="usa-input-error-message ng-binding ng-hide" role="alert"></span>
+      <span class="usa-input-error-message ng-binding ng-hide" role="alert" tabindex="0"></span>
       <div class="dol-file-upload-ui">
         <div aria-hidden="true" class="usa-button-primary">Browse</div>
         <input class="dol-file-upload-input" id="fileUploadSCA" type="file" aria-describedby="fileUploadDesc_111">
@@ -780,14 +780,14 @@
 &lt;div class="dol-form-question-block" ng-class=""&gt;
   &lt;label for="thisFileUpload"&gt;Attach copies of all current SCA Wage Determinations for those contracts on which workers with disabilities are employed and earning subminimum wage.&lt;/label&gt;
   &lt;span class="usa-input-error-message" role="alert"&gt;&lt;/span&gt;
-  &lt;attachment-field input-id="thisFileUpload" attachment-id="" attachment-name="" /&gt;
+  &lt;attachment-field input-id="thisFileUpload" model-prefix="formDataModel" attachments="[]" /&gt;
 &lt;/div&gt;
 </code></pre>
   </details>
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> File Upload</summary>
     <div>
-      <p>The &lt;label <em>for</em>&gt; value should match the &lt;attachment-field <em>input-id</em>&gt; value.</p>    
+      <p>The &lt;label <em>for</em>&gt; value should match the &lt;attachment-field <em>input-id</em>&gt; value.</p>
     </div>
   </details>
 </div>
@@ -795,7 +795,7 @@
 <div class="dol-ui-pattern">
   <h2 class="dol-ui-pattern-title">Tabs</h2>
   <div class="dol-ui-pattern-rendered">
-    <p>Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>    
+    <p>Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>
     <div id="worksite_tab_box" class="form-tabbed-section">
       <a href="" class="form-tab active" ng-click="" aria-selected="true" ng-keyup="">
         <div class="circle">1</div> <span>Add</span> Work Site
@@ -821,7 +821,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Tabs</summary>
     <div>
-      <p>Angular code is required for the tabs to function. Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>    
+      <p>Angular code is required for the tabs to function. Please see <b>/section/wage-data</b> or <b>/section/work-sites</b> for working tab examples.</p>
     </div>
   </details>
 </div>
@@ -863,7 +863,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> Review and Submit</summary>
     <div>
-      <p>Each "Edit Responses" button includes additional identifying text for screen readers only.</p>    
+      <p>Each "Edit Responses" button includes additional identifying text for screen readers only.</p>
     </div>
   </details>
 </div>
@@ -883,7 +883,7 @@
   <details class="dol-ui-pattern-notes">
     <summary><span>NOTES:</span> </summary>
     <div>
-      <p> </p>    
+      <p> </p>
     </div>
   </details>
 </div>

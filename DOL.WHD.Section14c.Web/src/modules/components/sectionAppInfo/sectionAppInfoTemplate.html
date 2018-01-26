@@ -1,13 +1,15 @@
 <div class="dol-form-section-title">
   <h2>Application Info</h2>
-
   <div class="dol-form-section-help">
     <ul>
-      <li><a role="button" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText()" tabindex="0">Show Help for All Items</a></li>
+      <li><a role="button" id="appInfoShowAllHelp" ng-keyup="$event.keyCode === 13 ? vm.toggleAllHelpText() : null" ng-click="vm.toggleAllHelpText($event)" tabindex="0">Show Help for All Items</a></li>
     </ul>
   </div>
 </div>
-<div class="usa-alert usa-alert-error" role="alert" ng-show="validate('__appinfo')">
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
+</div>
+<div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="validate('__appinfo')">
   <div class="usa-alert-body">
     <p class="usa-alert-text">Please review this page. There are errors or missing information that we need to collect before you can submit the form.</p>
   </div>
@@ -24,8 +26,8 @@
           <span class="dol-form-question-text" aria-hidden="true">What type of application is this?</span>
           <helplink aria-controls="applicationTypeIdHelp" aria-describedby="applicationTypeLabel"></helplink>
         </div>
-        <helptext id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14(c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
+        <helptext category="appInfoShowAllHelp" id="applicationTypeIdHelp">Initial applicants are those who do not currently hold a valid section 14(c) certificate. Renewal applicants are employers who currently hold a valid certificate.</helptext>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('applicationTypeId')">{{ validate('applicationTypeId') }}</span>
         <ul class="usa-unstyled-list">
           <li ng-repeat="response in responses.ApplicationType">
             <input id="applicationType_{{ response.id }}" type="radio" name="applicationTypeId" ng-value="response.id" ng-model="formData.applicationTypeId">
@@ -38,7 +40,7 @@
     <div class="dol-form-question-block" ng-class="validate('hasPreviousApplication') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">Has this employer ever previously applied for a 14(c) certificate?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('hasPreviousApplication')">{{ validate('hasPreviousApplication') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasPreviousApplication_1" type="radio" name="hasPreviousApplication" ng-value="true" ng-model="formData.hasPreviousApplication">
@@ -55,7 +57,7 @@
     <div class="dol-form-question-block" ng-class="validate('hasPreviousCertificate') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">Has this employer ever previously held a 14(c) certificate?</legend>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('hasPreviousCertificate')">{{ validate('hasPreviousCertificate') }}</span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasPreviousCertificate_1" type="radio" name="hasPreviousCertificate" ng-value="true" ng-model="formData.hasPreviousCertificate">
@@ -71,7 +73,7 @@
 
     <div class="dol-form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
       <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held certificate number for the main establishment?</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
       <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber" aria-describedby="examplePrevCertNumber">
       <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
     </div>
@@ -80,13 +82,13 @@
       <fieldset class="usa-fieldset-inputs">
         <legend class="dol-form-question-text">What type of establishment(s) are covered by this request for authority to employ workers with disabilities for?</legend>
         <p class="dol-form-question-subtext">Select all that apply</p>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('establishmentTypeId')">{{ validate('establishmentTypeId') }}</span>
         <ul class="usa-unstyled-list dol-list-help">
           <li ng-repeat="response in responses.EstablishmentType">
             <input id="establishmentType_{{ response.id }}" type="checkbox" name="establishmentTypeId" ng-value="response.id" ng-checked="formData.establishmentTypeId.indexOf(response.id) > -1" ng-click="vm.toggleEstablishmentType(response.id)">
             <label id="establishmentType_{{ response.id }}Label" for="establishmentType_{{ response.id }}">{{ response.display }}</label>
             <helplink aria-controls="establishmentType_{{ response.id }}Help" aria-describedby="establishmentType_{{ response.id }}Label"></helplink>
-            <helptext id="establishmentType_{{ response.id }}Help">
+            <helptext category="appInfoShowAllHelp" id="establishmentType_{{ response.id }}Help">
                 {{ response.subDisplay }}
             </helptext>
           </li>
@@ -104,31 +106,35 @@
       <h3 aria-hidden="true">Application Contact Person</span></h3>
       <helplink aria-controls="applicationContactPersonHelp" aria-describedby="applicationContactLabel"></helplink>
     </div>
-    <helptext id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
+    <helptext category="appInfoShowAllHelp" id="applicationContactPersonHelp">This should be a person who can best answer questions concerning information contained on this application.</helptext>
     <hr />
-    <div class="dol-form-question-block" ng-class="validate('contactName') ? 'usa-input-error' : ''">
-      <label for="contactName">Full Name</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('contactName')">{{ validate('contactName') }}</span>
-      <input id="contactName" name="contactName" type="text" ng-model="formData.contactName"></input>
+    <div class="dol-form-question-block" ng-class="validate('contactFirstName') ? 'usa-input-error' : ''">
+      <label for="contactFirstName">First Name</label>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactFirstName')">{{ validate('contactFirstName') }}</span>
+      <input id="contactFirstName" name="contactFirstName" type="text" ng-model="formData.contactFirstName"></input>
     </div>
-
+    <div class="dol-form-question-block" ng-class="validate('contactLastName') ? 'usa-input-error' : ''">
+      <label for="contactLastName">Last Name</label>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactLastName')">{{ validate('contactLastName') }}</span>
+      <input id="contactLastName" name="contactLastName" type="text" ng-model="formData.contactLastName"></input>
+    </div>
     <div class="dol-form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
       <label for="contactPhone">Telephone Number</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
       <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="dol-side-example phoneno" aria-describedby="exampleContactPhone"></input>
       <span id="exampleContactPhone" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
-      <label for="contactFax">Fax Number</label>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
+      <label for="contactFax">Fax Number <span class="dol-example-text">(Optional)</span></label>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
       <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
       <span id="exampleContactFax" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactEmail') ? 'usa-input-error' : ''">
         <label for="contactEmail">Email Address</label>
-        <span class="usa-input-error-message" role="alert" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactEmail')">{{ validate('contactEmail') }}</span>
         <input id="contactEmail" name="contactEmail" type="email" ng-model="formData.contactEmail" class="dol-side-example email" aria-describedby="exampleContactEmail"></input>
         <span id="exampleContactEmail" class="dol-example-text">Example: contact.name@company.com</span>
     </div>

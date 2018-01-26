@@ -14,6 +14,10 @@ module.exports = function(ngModule) {
 
     var vm = this;
     vm.stateService = stateService;
+    vm.passwordStrength = {
+      strong: false,
+      score: 0
+    };
 
     vm.resetErrors = function() {
       vm.forgotPasswordError = false;
@@ -21,6 +25,10 @@ module.exports = function(ngModule) {
       vm.resetPasswordError = false;
       vm.resetPasswordSuccess = false;
       vm.showPasswordHelp = false;
+      vm.passwordStrength = {
+        strong: false,
+        score: 0
+      };
     };
 
     vm.resetErrors();
@@ -53,6 +61,18 @@ module.exports = function(ngModule) {
       vm.passwordNumber = value.match(new RegExp('^(?=.*[0-9])'))
         ? true
         : false;
+
+      apiService.checkPasswordComplexity(value).then(function(result){
+        vm.passwordStrength = {
+          strong: true,
+          score: result.data.score
+        };
+      }).catch(function(error) {
+        vm.passwordStrength = {
+          strong: false,
+          score: error.data.score
+        };
+      });
     });
 
     $scope.formVals = {

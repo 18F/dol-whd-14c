@@ -15,8 +15,7 @@ module.exports = function(ngModule) {
 
     this.dashboardClick = e => {
       e.preventDefault();
-      $location.path('/');
-      document.title = 'DOL WHD Section 14(c)';
+      $location.path('/dashboard');
     };
 
     this.userClick = e => {
@@ -25,11 +24,17 @@ module.exports = function(ngModule) {
       document.title = 'DOL WHD Section 14(c)';
     };
 
+    this.helpClick = e => {
+      e.preventDefault();
+      $location.path('/help');
+      document.title = 'DOL WHD Section 14(c)';
+    };
+
     this.saveClick = e => {
       e.preventDefault();
       autoSaveService.save(() => {
         stateService.logOut();
-        $location.path('/');
+        $location.path('/login');
       });
       document.title = 'DOL WHD Section 14(c)';
     };

@@ -4,19 +4,17 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using System.Runtime.Serialization;
 
 namespace DOL.WHD.Section14c.Domain
 {
     public class BaseEntity : IAuditedEntity
     {
-        public string PriviteId { get; set; }        
-
-        public string CreatedBy_Id { get; set; }        
-
+        public string CreatedBy_Id { get; set; }
 
         [ForeignKey("LastModifiedBy_Id")]
         public ApplicationUser CreatedBy { get; set; }
-        
+
         private DateTime? createdAt = null;
         public DateTime CreatedAt
         {
@@ -34,7 +32,6 @@ namespace DOL.WHD.Section14c.Domain
         public ApplicationUser LastModifiedBy { get; set; }
 
         private DateTime? lastModifiedAt = null;
-
         public DateTime LastModifiedAt
         {
             get
@@ -43,6 +40,6 @@ namespace DOL.WHD.Section14c.Domain
             }
 
             set { this.lastModifiedAt = value; }
-        }        
+        }
     }
 }

@@ -106,23 +106,24 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="zxcvbn-core, Version=1.1.10.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\zxcvbn-core.1.1.10\lib\net451\zxcvbn-core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="zxcvbn-core, Version=1.1.17.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\zxcvbn-core.1.1.17\lib\net451\zxcvbn-core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Extensions\ContextSeedRole.cs" />
+    <Compile Include="IEmployerRepository.cs" />
     <Compile Include="Identity\EmailService.cs" />
     <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="IFileRepository.cs" />
+    <Compile Include="IOrganizationRepository.cs" />
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="IStatusRepository.cs" />
-    <Compile Include="MigrationsDB2\201710181418022_InitialDB2.cs" />
-    <Compile Include="MigrationsDB2\201710181418022_InitialDB2.Designer.cs">
-      <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
+    <Compile Include="MigrationsDB2\201801251422248_InitialDB2.cs" />
+    <Compile Include="MigrationsDB2\201801251422248_InitialDB2.Designer.cs">
+      <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -294,9 +295,11 @@
     </Compile>
     <Compile Include="Repositories\ApplicationRepository.cs" />
     <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\EmployerRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="IAttachmentRepository.cs" />
+    <Compile Include="Repositories\OrganizationRepository.cs" />
     <Compile Include="Repositories\ResponseRepository.cs" />
     <Compile Include="Repositories\SaveRepository.cs" />
     <Compile Include="Repositories\StatusRepository.cs" />
@@ -304,6 +307,7 @@
     <Compile Include="Validators\Section14cUserValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -317,8 +321,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MigrationsDB2\201710181418022_InitialDB2.resx">
-      <DependentUpon>201710181418022_InitialDB2.cs</DependentUpon>
+    <EmbeddedResource Include="MigrationsDB2\201801251422248_InitialDB2.resx">
+      <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

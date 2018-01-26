@@ -1,65 +1,63 @@
-<form ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest">
+<form name="vm.userRegistrationForm" ng-submit="onSubmitClick()" ng-show="!vm.isEmailVerificationRequest" novalidate>
   <div class="usa-content">
-    <p>We are now accepting Section 14(c) Certificate Applications electronically.</p>
-    <ul>
-      <li>
-        All Employers, including current Certificate Holders, previous
-        Certificate Holders, and new applicants, will have to create an
-        account in order to submit the form electronically.
-      </li>
-      <li>The Employer’s EIN is required to create an account.</li>
-      <li>Once the Employer’s account is created, additional users can be added.</li>
-      <li>This electronic form includes both forms WH-226 and WH-226A.</li>
-    </ul>
-    <p>Read our <a href="#">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
+    <p>We are now accepting Section 14(c) Certificate Applications electronically. This electronic form includes both forms WH-226 and WH-226A.</p>
+    <p>All Employers, including current Certificate Holders, previous
+    Certificate Holders, and new applicants, will have to create an
+    account in order to submit the form electronically.</p>
+
+    <p>Read our <a href="" ng-click="toggleFacts()">FAQs for Electronic Section 14(c) Certificate Application</a>.</p>
   </div>
-  <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.accountCreated">
+  <div ng-show="vm.showFacts" class="usa-content">
+    <p>
+      <h4>What is the purpose of this application?</h4>
+      This application is to be used to apply for a certificate authorizing the payment of subminimum wages to certain workers with disabilities under section 14(c) of the Fair Labor Standards Act (FLSA) and related provisions of the McNamara-O’Hara Service Contract Act (SCA) and the Walsh-Healey Public Contracts Act (PCA). Payment of subminimum wages to workers with disabilities is only permitted under a valid certificate issued by the United States Department of Labor, Wage and Hour Division. State agencies and the Veterans Administration may also request immediate temporary certificate authority by completing this application.
+    </p>
+
+    <p>
+      <h4>Responsibility to comply with other laws</h4>
+      An employer with a section 14(c) certificate must comply with all statutory and regulatory provisions of the FLSA. Employers also must comply with all applicable Federal laws, including Executive Order 13658 (Establishing a Minimum Wage for Contractors), the Americans with Disabilities Act (ADA) as amended, the Supreme Court’s Olmstead v. L.C. decision, and the Rehabilitation Act as amended, as well as applicable state or local requirements. Beginning July 22, 2016, employers also have an affirmative duty to comply with the additional conditions for payment of subminimum wages pursuant to the Rehabilitation Act as amended by the Workforce Innovation and Opportunity Act (WIOA).
+    </p>
+    <p>
+      <h4>Where to file?</h4>
+      The Section 14(c) Online Certification Application allows you to submit your section 14(c) application electronically to the U.S. Department of Labor, Wage and Hour Division.
+    </p>
+    <p>
+      Failure to provide any required information may delay the processing of the application or result in the application being returned or denied. Additional guidance is provided in the regulations at 29 C.F.R. part 525.
+    </p>
+  </div>
+  <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="vm.accountCreated">
     <div class="usa-alert-body">
       <h2 class="usa-alert-heading">Account Created</h2>
-      <p class="usa-alert-text">Your account was created. Please verify that your email address is <strong>{{vm.registerdEmail}}</strong> by visiting the link in the email.</p>
+      <p class="usa-alert-text">Your account was created. Please verify that your email address is <strong>{{vm.registeredEmail}}</strong> by visiting the link in the email.</p>
     </div>
   </div>
-  <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.generalRegistrationError">
+  <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.generalRegistrationError">
     <div class="usa-alert-body">
-      <p class="usa-alert-text">An error occurred while connecting to the server. Please try again later if the error persists.</p>
+      <p class="usa-alert-text">An error occured during registration. Please ensure you have filled out the form correctly. If this error still persists, please try again at another time.</p>
     </div>
   </div>
   <div class="createAcct">
     <h2>Create an Account</h2>
-    <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
-      <label for="EIN">Employer Identification Number (EIN)</label>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
-        <div ng-show="vm.einError">
-          <p>The EIN you provided is already registerd. Please contact the account admin for access.</p>
-          <p>If you do not know the account admin, contact our office at 000-123-4567</p>
-        </div>
-        <div ng-show="vm.einRequired">
-          <p>EIN is required.</p>
-        </div>
-        <div ng-show="vm.invalidEin">
-          <p>Invalid EIN format. Example XX-XXXXXXX</p>
-        </div>
-      </span>
-      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formVals.ein" />
-      <span class="example">Example: XX-XXXXXXX</span>
-      <a class="dol-additional-info" href ng-click="vm.toggleEinHelp()">Why do you need an EIN to create an account?</a>
+    <div ng-class="vm.firstNameRequired ? 'usa-input-error' : ''">
+      <label for="registerFirstName">First Name</label>
+      <input type="first_name" name="registerFirstName" id="registerFirstName" ng-model="formVals.firstName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.firstNameRequired">This is a required field</span>
     </div>
-    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp">
-      <div class="usa-alert-body">
-        <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>
-        <p>Additional users can be added once the Employer is registered.</p>
-      </div>
+    <div ng-class="vm.lastNameRequired ? 'usa-input-error' : ''">
+      <label for="registerLastName">Last Name</label>
+      <input type="first_name" name="registerLastName" id="registerLastName" ng-model="formVals.lastName" required/>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.lastNameRequired">This is a required field</span>
     </div>
     <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
       <label for="registerEmail">Email Address</label>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressError">
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressError">
         <p>The email you provided is already registred.</p>
         <p>If you forgot your password, you can <a href>reset it here</a></p>
       </span>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.emailAddressRequired">
+      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" required />
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressRequired">
         <p>Email address is required.</p>
       </span>
-      <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" />
     </div>
     <div class="usa-alert" ng-class="vm.passwordComplexity ? 'usa-alert-error' : 'usa-alert-info'" ng-show="vm.showPasswordHelp  || vm.passwordComplexity">
       <div class="usa-alert-body">
@@ -71,14 +69,14 @@
             <li><span class="checkmark" ng-class="vm.passwordLower ? 'checked' : ''"></span>Contain at least 1 lowercase leter.</li>
             <li><span class="checkmark" ng-class="vm.passwordSpecial ? 'checked' : ''"></span>Contain at least 1 special character.</li>
             <li><span class="checkmark" ng-class="vm.passwordNumber ? 'checked' : ''"></span>Contain at least 1 number.</li>
-            <li><span class="checkmark" ng-class="passwordStrength.score > 2 ? 'checked' : ''"></span>Meets “Good” password strength</li>
+            <li><span class="checkmark" ng-class="vm.passwordStrength.score >= 3 ? 'checked' : ''"></span>Meets “Good” password strength</li>
           </ul>
         </p>
       </div>
     </div>
     <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
       <label for="registerPassword">Password</label>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" ng-show="vm.passwordRequired || vm.passwordsDontMatch">
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.passwordRequired || vm.passwordsDontMatch">
         <div ng-show="vm.passwordRequired">
           <p>Password is required.</p>
         </div>
@@ -89,9 +87,9 @@
       <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
       <div class="dol-password-help">
         <div class="usa-content">
-          <meter max="4" id="password-strength-meter" value="{{passwordStrength.score}}"></meter>
-          <div ng-switch="passwordStrength.score">Password Strength:
-            <span ng-switch-when="0"></span>
+          <meter max="4" id="password-strength-meter" value="{{vm.passwordStrength.score}}"></meter>
+          <div ng-switch="vm.passwordStrength.score">Password Strength:
+            <span ng-switch-when="0">Poor</span>
             <span ng-switch-when="1">Weak</span>
             <span ng-switch-when="2">Fair</span>
             <span ng-switch-when="3">Good</span>
@@ -111,26 +109,10 @@
       <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
     <div class="regbtn">
-      <button type="submit" ng-show="!vm.submittingForm">Register</button>
+      <button  type="submit" ng-show="!vm.submittingForm">Register</button>
       <button type="button" ng-show="vm.submittingForm" class='usa-button-active'>
         <span class="loading-blue" ng-show="vm.submittingForm"></span>Loading
       </button>
     </div>
   </div>
 </form>
-
-<div ng-show="vm.isEmailVerificationRequest">
-  <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.emailVerificationError">
-    <div class="usa-alert-body">
-      <h3 class="usa-alert-heading">Error</h3>
-      <p class="usa-alert-text">An error occurred while verifying email address. Please try again later if the error persists.</p>
-    </div>
-  </div>
-
-  <div class="usa-alert usa-alert-success" role="alert" ng-show="vm.emailVerified">
-    <div class="usa-alert-body">
-      <h3 class="usa-alert-heading">Email Verified</h3>
-      <p class="usa-alert-text">Your email address has been verified. You can now log in using the email address and password you chose for your account.</a>.</p>
-    </div>
-  </div>
-</div>

@@ -31,8 +31,12 @@ module.exports = function(ngModule) {
             }
         },
         buttons: [
-          'copy','csv'
+          { extend: 'copy', text: 'Copy<span class="hide"> table data to clipboard</span>' },
+          { extend: 'csv', text: '<span class="hide">Generate a </span>CSV<span class="hide"> file from the table data</span>' }
          ],
+        'language': {
+          'search': 'Search<span class="hide"> Table Data</span>'
+        },
         columns: $scope.columns,
         select: true,
         autoWidth: false,
@@ -86,13 +90,13 @@ module.exports = function(ngModule) {
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.edit()(row[0][0], $event);
-    } );
+    });
 
     $('#' + $attrs.id).children("table").on('click', 'td.delete-table-entry', function ($event) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
         $scope.delete()(row[0][0], $event);
-    } );
+    });
   });
 };

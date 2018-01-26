@@ -11,6 +11,13 @@ module.exports = function(ngModule) {
       scope: {
         admin: '='
       },
+      link: function(scope, elem) {
+        elem.on('keydown', function(e) {
+          if(e.keyCode && e.keyCode === 13) {
+            scope.vm.onNavClick(e);
+          }
+        })
+      },
       controllerAs: 'vm'
     };
   });

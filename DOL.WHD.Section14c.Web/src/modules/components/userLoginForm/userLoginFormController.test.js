@@ -41,7 +41,7 @@ describe('userLoginFormController', function() {
     controller.unknownError = true;
     controller.clearError();
 
-    expect(controller.loginError).toBe(false);
+    expect(controller.loginError.status).toBe(false);
     expect(controller.unknownError).toBe(false);
   });
 
@@ -86,10 +86,45 @@ describe('userLoginFormController', function() {
     var controller = userLoginFormController();
 
     scope.onSubmitClick();
-    userLogin.reject({ status: 400 });
+    userLogin.reject({ status: 400, data: {error: "locked_out" } });
     scope.$apply();
 
-    expect(controller.loginError).toBe(true);
+    expect(controller.loginError.status).toBe(true);
+  });
+
+  it('on login fails with 400 and locked_out message', function() {
+    var controller = userLoginFormController();
+
+    scope.onSubmitClick();
+    userLogin.reject({ status: 400, data: { error: 'locked_out', error_description: 'error'} });
+    scope.$apply();
+
+    expect(controller.loginError.status).toBe(true);
+    expect(controller.loginError.message).toEqual('error');
+  });
+
+  it('on login fails with no status error code', function() {
+    var controller = userLoginFormController();
+
+    scope.onSubmitClick();
+    userLogin.reject({});
+    scope.$apply();
+
+    expect(controller.unknownError).toBe(true);
+    expect(controller.submittingForm).toBe(false);
+  });
+
+  it('on login fails for 2FA but does not create login error', function() {
+    var controller = userLoginFormController();
+
+    scope.onSubmitClick();
+    userLogin.reject({ status: 400, data: { error: 'need_code'} });
+    scope.$apply();
+    expect(controller.loginError.status).toBe(false);
+    expect(controller.loginError.message).toEqual('');
+    expect(controller.twoFAStatus).toBe(true);
+    expect(controller.submitButtonName).toEqual('Verify');
+    expect(controller.formTitle).toBe('Enter code');
   });
 
   it('on user info success', function() {

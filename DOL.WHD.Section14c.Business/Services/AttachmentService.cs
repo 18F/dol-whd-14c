@@ -31,7 +31,7 @@ namespace DOL.WHD.Section14c.Business.Services
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
-                EIN = EIN
+                ApplicationId = EIN
             };
 
             fileUpload.RepositoryFilePath = $@"{EIN}\{fileUpload.Id}";
@@ -47,7 +47,7 @@ namespace DOL.WHD.Section14c.Business.Services
         public AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.EIN == EIN)
+                .Where(x => x.ApplicationId == EIN)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
@@ -112,19 +112,39 @@ namespace DOL.WHD.Section14c.Business.Services
             var applicationSubmission = application;
             if (application != null)
             {
-                if (application.Employer?.SCAAttachmentId != null)
+                var count = 1;
+                if (application.Employer?.SCAAttachments != null)
                 {
-                    attachments.Add("SCA Wage Determination Attachment", application.Employer.SCAAttachment);
+                    foreach (var item in application.Employer.SCAAttachments)
+                    {
+                        var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
+                        attachments.Add(string.Format("SCA Wage Determination Attachment {0}", (count++) ), attachment);
+                    }
                 }
 
-                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
+                if (application.PieceRateWageInfo?.SCAAttachments != null)
                 {
-                    attachments.Add("Piece Rate Wage Info ScaWage Determination Attachment", application.PieceRateWageInfo.SCAWageDeterminationAttachment);
+                    count = 1;
+                    foreach (var item in application.PieceRateWageInfo.SCAAttachments)
+                    {
+                        var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
+                        attachments.Add(string.Format("Piece Rate Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
+                    }
                 }
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
                 {
                     attachments.Add("Piece Rate Wage Info Attachment", application.PieceRateWageInfo.Attachment);
+                }
+
+                if (application.HourlyWageInfo?.SCAAttachments != null)
+                {
+                    count = 1;
+                    foreach (var item in application.HourlyWageInfo.SCAAttachments)
+                    {
+                        var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
+                        attachments.Add(string.Format("Hourly Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
+                    }
                 }
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
@@ -143,7 +163,7 @@ namespace DOL.WHD.Section14c.Business.Services
         public void DeleteAttachement(string EIN, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.EIN == EIN)
+                .Where(x => x.ApplicationId == EIN)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)

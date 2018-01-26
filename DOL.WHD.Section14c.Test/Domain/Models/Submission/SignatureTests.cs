@@ -11,20 +11,23 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
         public void Signature_PublicProperties()
         {
             var agreement = true;
-            var fullName = "Full Name";
+            var firstName = "First Name";
+            var lastName = "Last Name";
             var title = "Title";
             var date = DateTime.Now;
 
             var model = new Signature
             {
                 Agreement = agreement,
-                FullName = fullName,
+                FirstName = firstName,
+                LastName = lastName,
                 Title = title,
                 Date = date
             };
 
             Assert.AreEqual(agreement, model.Agreement);
-            Assert.AreEqual(fullName, model.FullName);
+            Assert.AreEqual(firstName, model.FirstName);
+            Assert.AreEqual(lastName, model.LastName);
             Assert.AreEqual(title, model.Title);
             Assert.AreEqual(date, model.Date);
         }

@@ -7,18 +7,27 @@ module.exports = function(ngModule) {
     $location,
     $route,
     stateService,
-    authService
+    authService,
+    apiService
   ) {
     'ngInject';
     'use strict';
 
     var vm = this;
     vm.stateService = stateService;
-    vm.loginError = false;
+    vm.loginError= {
+      status: false,
+      message: ''
+    };
+    vm.formTitle ='Log in';
+    vm.submitButtonName ='Log in';
+    vm.resendAuthCodeTitle = 'Resend authentication code'
+    vm.twoFAStatus = false;
 
     $scope.formVals = {
       email: '',
-      pass: ''
+      pass: '',
+      code: ''
     };
 
     $scope.inputType = 'password';
@@ -28,16 +37,17 @@ module.exports = function(ngModule) {
       stateService.user.loginEmail = $scope.formVals.email;
 
       vm.clearError();
-
       //  Call Token Service
-      authService.userLogin($scope.formVals.email, $scope.formVals.pass).then(
+      authService.userLogin($scope.formVals.email, $scope.formVals.pass, $scope.formVals.code).then(
         function() {
           vm.submittingForm = false;
-
-          if ($location.path() === '/') {
+          if(stateService.user.organizations.length) {
+            $location.path("/dashboard");
+          }
+          else if ($location.path() === '/employerRegistration') {
             $route.reload();
           } else {
-            $location.path('/');
+            $location.path("/employerRegistration");
           }
         },
         function(error) {
@@ -54,8 +64,24 @@ module.exports = function(ngModule) {
         $scope.$apply();
       }
 
+
       if (error.status === 400) {
-        vm.loginError = true;
+        if(error.data.error === 'locked_out'){
+          vm.loginError.status = true;
+          // update error message
+          vm.loginError.message = error.data.error_description
+        }
+        else{
+          if(error.data.error === 'need_code'){
+            vm.twoFAStatus = true;
+            vm.submitButtonName ='Verify';
+            vm.formTitle ="Enter code";
+            vm.clearError();
+          }
+          else{
+            vm.loginError.message =  error.data.error_description
+          }
+        }
       } else {
         // catch all error, currently possible to get a 500 if the database server is not reachable
         vm.unknownError = true;
@@ -63,12 +89,22 @@ module.exports = function(ngModule) {
     };
 
     this.clearError = function() {
-      vm.loginError = false;
+      vm.loginError= {
+        status: false,
+        message: ''
+      };
       vm.unknownError = false;
     };
 
     $scope.forgotPassword = function() {
       $location.path('/forgotPassword');
+    };
+
+    $scope.resendAuthCode = function() {
+
+      apiService.sendAuthenticationCode(stateService.access_token, $scope.formVals.email).then(function(){
+        vm.resendAuthCodeTitle ="New authentication code send";
+      }).catch(function(error) { handleError(error) });
     };
 
     $scope.hideShowPassword = function() {

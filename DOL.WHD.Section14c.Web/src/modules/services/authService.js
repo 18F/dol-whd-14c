@@ -4,14 +4,16 @@ module.exports = function(ngModule) {
   ngModule.service('authService', function(
     stateService,
     apiService,
+    Idle,
     autoSaveService,
     $q,
+    $location,
     _env,
     $http
   ) {
     'use strict';
 
-    this.userLogin = function(email, password) {
+    this.userLogin = function(email, password, code) {
       const self = this;
       const url = _env.api_url + '/Token';
       const d = $q.defer();
@@ -23,12 +25,14 @@ module.exports = function(ngModule) {
         data: $.param({
           grant_type: 'password',
           userName: email,
-          password: password
+          password: password,
+          code: code
         })
       }).then(
         function successCallback(result) {
           const data = result.data;
           stateService.access_token = data.access_token;
+          Idle.watch();
           self.authenticateUser().then(
             function() {
               d.resolve();
@@ -54,22 +58,29 @@ module.exports = function(ngModule) {
           const data = result.data;
           stateService.loggedIn = true;
           stateService.user = data;
-          if (data.organizations.length > 0) {
-            stateService.ein = data.organizations[0].ein; //TODO: Add EIN selection?
-          }
-          if (!stateService.isAdmin) {
-            stateService.loadSavedApplication().then(
-              function() {
-                // start auto-save
-                if (stateService.ein) {
-                  autoSaveService.start();
-                }
-                d.resolve();
-              },
-              function(error) {
-                d.reject(error);
+          if(result.data.organizations.length > 0) {
+            var organization = data.organizations.reduce(function(a,b){
+              if(a.applicationStatus.name === 'InProgress') {
+                return a;
+              } else {
+                return b;
               }
-            );
+            });
+            stateService.ein = organization.ein;
+            stateService.employerId = organization.employer.id;
+            stateService.applicationId = organization.applicationId;
+            stateService.employerName = organization.employer.legalName;
+            if(stateService.applicationId) {
+              stateService.loadSavedApplication().then(function(result) {
+                d.resolve(result);
+              }).catch(function(error) {
+                d.reject(error);
+              });
+            }
+          }
+          if (!stateService.IsPointOfContact) {
+            d.resolve();
+            return;
           } else {
             stateService.loadApplicationList().then(
               function() {

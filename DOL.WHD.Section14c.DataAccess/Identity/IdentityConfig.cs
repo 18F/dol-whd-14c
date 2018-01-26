@@ -26,8 +26,14 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true,
-                RequireUniqueEINAdmin = true
+                RequireUniqueEINAdmin = false
             };
+
+            manager.RegisterTwoFactorProvider("EmailCode", new EmailTokenProvider<ApplicationUser>
+            {
+                Subject = "Authentication Code: Department of Labor Section 14(c) Online Certificate Application",
+                BodyFormat = "Your security code is: {0}"
+            });
 
             manager.EmailService = new EmailService();
 
@@ -53,7 +59,7 @@ namespace DOL.WHD.Section14c.DataAccess.Identity
                 manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"))
                 {
                     //Code for email confirmation and reset password life time
-                    TokenLifespan = TimeSpan.FromHours(AppSettings.Get<double>("EmailVeriryAndPaswordRestTokenExpireHours"))
+                    TokenLifespan = TimeSpan.FromHours(AppSettings.Get<double>("EmailVerifyAndPaswordResetTokenExpireHours"))
                 };
             }
             return manager;

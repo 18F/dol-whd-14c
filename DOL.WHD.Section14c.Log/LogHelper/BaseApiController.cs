@@ -107,7 +107,7 @@ namespace DOL.WHD.Section14c.Log.LogHelper
                     response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
                     response.Content.Headers.ContentLength = contentLength;
                     ContentDispositionHeaderValue contentDisposition = null;
-                    if (ContentDispositionHeaderValue.TryParse("inline; filename=" + fileName + ".pdf", out contentDisposition))
+                    if (ContentDispositionHeaderValue.TryParse("attachment; filename=" + fileName + ".pdf", out contentDisposition))
                     {
                         response.Content.Headers.ContentDisposition = contentDisposition;
                     }

@@ -16,7 +16,10 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-    $scope.showAllHelp = false;
+    $scope.showAllHelp = {
+      status: false,
+      category: ''
+    }
 
     // the Wage Data section should not be completed for Initial applications,
     // so redirect if necessary.
@@ -79,8 +82,9 @@ module.exports = function(ngModule) {
       }
     });
 
-    this.toggleAllHelpText = function() {
-      $scope.showAllHelp = !$scope.showAllHelp;
+    this.toggleAllHelpText = function(event) {
+      $scope.showAllHelp.status = !$scope.showAllHelp.status;
+      $scope.showAllHelp.category = event.srcElement.id;
     }
 
     // Sliding Panel
@@ -100,7 +104,7 @@ module.exports = function(ngModule) {
     function closeSlidingPanel() {
       $('.cd-panel').removeClass('is-visible');
       panelTrigger.focus();
-      $('body').removeClass('cd-panel-open');      
+      $('body').removeClass('cd-panel-open');
     }
     $(document).keydown(function(event) {
         // escape key

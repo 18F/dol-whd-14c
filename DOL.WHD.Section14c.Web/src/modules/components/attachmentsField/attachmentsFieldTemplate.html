@@ -1,0 +1,49 @@
+<div ng-show="!restrictUpload">
+  <div class="dol-file-upload-ui">
+    <div aria-hidden="true" class="usa-button-primary">Browse</div>
+    <input class="dol-file-upload-input" id="{{inputId}}" type="file" aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
+    <div class="dol-file-upload-focus"></div>
+  </div>
+  <p class="underlabel" id="fileUploadDesc_{{::$id}}">File types accepted: .pdf, .jpg, .jpeg, .png, .csv</p>
+  <p>
+    Need to convert a Word or Excel file to PDF? <a href="https://www.dol.gov/cgi-bin/leave-dol.asp?exiturl=https://support.office.com/en-us/article/Save-or-convert-to-PDF-d85416c5-7d77-4fd6-a216-6f4bf7c7c110&exitTitle=Follow_these_instructions&fedpage=no%22" target="blank">Follow these instructions.</a>
+  </p>
+</div>
+<div >
+  <ul class="dol-uploaded-files">
+    <li ng-repeat="attachment in attachments">
+      <strong>Uploaded: </strong><a ng-click="vm.downloadAttachment(attachment.scaAttachmentId)" ng-href="" id="{{attatchment.scaAttachmentId}}"><span>{{attachment.attachmentName}}</span></a>
+      <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showDeleteFileConfirmationModal(attachment.scaAttachmentId, attachment.attachmentName)">Delete<span class="hide"> {{attachment.attachmentName}}</span></button>
+    </li>
+  </ul>
+  <div>
+    <div ng-show="upload.status == 'Uploading'" class="dol-feedback-progress">
+        <p class="dol-feedback-message">
+          <strong>Uploading:</strong> {{attachmentName}}
+        </p>
+    </div>
+    <div ng-show="upload.status == 'Invalid'" class="dol-feedback-error">
+        <p class="dol-feedback-message">
+          <strong>{{upload.message}}</strong> <span>{{attachmentName}} was not uploaded.</span><span ng-show="upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="upload.message === 'Invalid File Type.'"> File types accepted: .pdf, .jpg, .jpeg, .png, and .csv</span>
+        </p>
+    </div>
+    <div ng-class="{'is-visible': modalIsVisible}" class="modal">
+      <header class="cd-panel-header">
+        <a ng-click="vm.hideDeleteFileConfirmationModal()" class="modal-close dol-close-button"></a>
+      </header>
+      <p>
+        <h4>Are you sure you want to delete this file?</h4>
+      </p>
+      <p>
+        {{attachmentName}}
+      </p>
+      <button ng-click="vm.hideDeleteFileConfirmationModal()" class="grey-button">No, Keep File</button> <button ng-click="vm.deleteAttachment(attachmentId)" class="red-button">Yes, Delete File</button>
+      <div ng-show="upload.status == 'Failure'" class="dol-feedback-error">
+          <p class="dol-feedback-message">
+            <strong>{{upload.message}}</strong> <span>{{attachmentName}} could not be deleted.
+          </p>
+      </div>
+    </div>
+    <div ng-if="modalIsVisible" class="modal-backdrop"></div>
+  </div>
+</div>

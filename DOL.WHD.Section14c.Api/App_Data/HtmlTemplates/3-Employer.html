@@ -198,10 +198,8 @@
             <div class="subtextanswer">{{ boolOrString Employer.NumSubminimalWageWorkers.Total }}</div>
         </p>
 
-        <!-- NOTE THAT THIS IS EMPTY -->
         <p>
             <span class="subtext">Provide the number of workers with disabilities employed at subminimum wages for the most recently completed fiscal quarter in each of the following categories:</span>
-            <div class="subtextanswer">{{ boolOrString '' }}</div>
         </p>
 
         <p>
@@ -235,10 +233,10 @@
 
         <p>
             <span class="subtext">Does this employer currently hold any contracts covered by the McNamara-O’Hara Service Contract Act (SCA)?</span>
-            <div class="subtextanswer">{{ boolOrString Employer.SCA.Display }}</div>
+            <div class="subtextanswer">{{ Employer.SCA.Display }}</div>
         </p>
 
-        {{#if Employer.SCA }}
+        {{#if_eq Employer.SCA.Display 'Yes' }}
         <p>
             <span class="subtext">What is the total number of current SCA-covered contracts under which workers with disabilities are employed and earning subminimum wages?</span>
             <div class="subtextanswer">{{ boolOrString Employer.SCACount }}</div>
@@ -246,10 +244,17 @@
 
         <p>
             <span class="subtext">SCA Wage Determination Attachment</span>
-            <div class="subtextanswer">File name(s): {{ formatAttachment Employer.SCAAttachment }}</div>
+            <div class="subtextanswer">
+                File name(s): 
+                <ul class="usa-unstyled-list">
+                    {{#each Employer.SCAAttachments}}
+                    <li>{{ boolOrString this.AttachmentName }}</li>
+                    {{/each}}
+                </ul>
+            </div>
             <p>Attachments are included at the end of the PDF.</p>
         </p>
-        {{/if}}
+        {{/if_eq}}
 
         <p>
             <span class="subtext">Since January 1, 2015, has this Employer entered into a contract for services or concessions with the Federal Government that may be subject to Executive Order 13658 (Establishing a Minimum Wage for Contractors)?</span>

@@ -20,6 +20,12 @@ using DOL.WHD.Section14c.Business.Helper;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.EmailApi.Helper;
 using System.Web.Http.Results;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using DOL.WHD.Section14c.Domain.Models;
+using System.Text.RegularExpressions;
+using System.Data.Entity;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -38,7 +44,22 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly ISaveService _saveService;
         private readonly IAttachmentService _attachmentService;
         private readonly IEmailContentService _emailService;
+        private readonly IOrganizationService _organizationService;
+        private readonly IEmployerService _employerService;
         private readonly IResponseService _responseService;
+        private ApplicationUserManager _userManager;
+
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
+
         /// <summary>
         /// Default constructor for injecting dependent services
         /// </summary>
@@ -66,10 +87,16 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="emailService">
         /// The email service this controller should use
         /// </param>
+        ///  /// <param name="organizationService">
+        /// The organization service this controller should use
+        /// </param>
+        /// <param name="employerService">
+        /// The employer service this controller should use
+        /// </param>
         /// <param name="responseService">
         /// The response service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IResponseService responseService)
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService, IResponseService responseService)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -79,6 +106,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _saveService = saveService;
             _attachmentService = attachmentService;
             _emailService = emailService;
+            _organizationService = organizationService;
+            _employerService = employerService;
             _responseService = responseService;
         }
 
@@ -96,20 +125,32 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(results.Errors.ToString());
             }
+            var account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
 
             _applicationService.ProcessModel(submission);
 
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, submission.EIN);
-            if (!hasEINClaim)
+            // make sure user has permission to submit application
+            var hasPermission = _identityService.HasSavePermission(userInfo, submission.Id);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);           
+            var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id);
+            if (org.ApplicationStatusId == StatusIds.InProgress)
+            {
+                // Update Organization Status
+                org.ApplicationStatusId = StatusIds.Submitted;
+                user.Organizations.Select(x => x.Employer).ToList();
+                await UserManager.UpdateAsync(user);
+            }
             await _applicationService.SubmitApplicationAsync(submission);
 
             // remove the associated application save
-            _saveService.Remove(submission.EIN);
+            _saveService.Remove(submission.Id);
 
             var response = await GetApplicationDocument(new Guid(submission.Id));
 
@@ -140,13 +181,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var employerEmailTemplatePath = System.Web.Hosting.HostingEnvironment.MapPath(@"~/App_Data/EmployerEmailTemplate.txt");
             var employerEmailTemplateString = File.ReadAllText(employerEmailTemplatePath);
             var emailContents = _emailService.PrepareApplicationEmailContents(submission, certificationTeamEmailTemplateString, employerEmailTemplateString, EmailReceiver.Both);
+            var pdfName = string.Format("14c_Application_{0}_{1}_{2}.pdf", submission.Employer.PhysicalAddress.State, DateTime.Now.ToString("yyyy-MM-dd"), Regex.Replace(submission.Employer.LegalName, @"\s+", "-"));
             // Call Document Management Web API
             foreach (var content in emailContents)
             {
-                content.Value.Attachments = new Dictionary<string, byte[]>() { { "Concatenate.pdf", returnValue } };
+                content.Value.Attachments = new Dictionary<string, byte[]>() { { pdfName, returnValue } };
                 await httpClientInstance.PostAsJsonAsync<EmailContent>("/api/email/sendemail", content.Value);
             }
-
             return Ok();
         }
 
@@ -214,7 +255,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="applicationId">
         /// Application GUID
         /// </param>
-        /// <returns></returns>
+        /// <returns>byte array</returns>
         [HttpGet]
         [Route("applicationdocument")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
@@ -282,6 +323,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
             try
             {
                 var response = await GetApplicationDocument(applicationId);
+                var application = _applicationService.GetApplicationById(applicationId);                
+                var pdfName = string.Format("14c_Application_{0}_{1}_{2}", application.Employer.PhysicalAddress.State, application.CreatedAt.ToString("yyyy-MM-dd"), Regex.Replace(application.Employer.LegalName, @"\s+", "-"));
 
                 // Get return value from API call
                 var contentResult = response as OkNegotiatedContentResult<byte[]>;
@@ -292,7 +335,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     InternalServerError("Get concatenate Pdf failed");
                 }
                 // Download PDF File
-                responseMessage = Download(returnValue, responseMessage, "Concatenate");
+                responseMessage = Download(returnValue, responseMessage, pdfName);
             }
             catch (Exception ex)
             {

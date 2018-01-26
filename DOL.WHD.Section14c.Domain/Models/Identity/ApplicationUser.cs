@@ -5,11 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations.Schema;
+using DOL.WHD.Section14c.DataAccess;
 
 namespace DOL.WHD.Section14c.Domain.Models.Identity
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser<string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
+    public class ApplicationUser : IdentityUser<string, ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>, IAuditedEntity
     {
         public ApplicationUser()
         {
@@ -21,11 +23,17 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, authenticationType);
+            
             // Add custom user claims here
             foreach (var organization in Organizations)
             {
                 var claim = new Claim("EIN", organization.EIN);
-                userIdentity.AddClaim(claim);
+                if (organization.ApplicationId != null)
+                {
+                    var applicationClaim = new Claim("APPID", organization.ApplicationId);
+                    userIdentity.AddClaim(applicationClaim);
+                }
+                userIdentity.AddClaim(claim);                
             }
 
             var userRoles = Roles.Select(x => x.RoleId).ToList();
@@ -51,10 +59,26 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
             return userIdentity;
         }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public DateTime LastPasswordChangedDate { get; set; }
 
         public ICollection<OrganizationMembership> Organizations { get; set; }
 
-    }
+        public DateTime LastModifiedAt { get; set; }
 
+        public DateTime CreatedAt { get; set; }
+
+        public string CreatedBy_Id { get; set; }
+
+        [ForeignKey("CreatedBy_Id")]
+        public ApplicationUser CreatedBy { get; set; }
+
+        public string LastModifiedBy_Id { get; set; }
+
+        [ForeignKey("LastModifiedBy_Id")]
+        public ApplicationUser LastModifiedBy { get; set; }
+    }
 }

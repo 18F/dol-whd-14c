@@ -10,7 +10,8 @@ namespace DOL.WHD.Section14c.Business.Validators
             RuleFor(s => s.EmployerName).NotEmpty();
             RuleFor(s => s.Address).NotNull().SetValidator(addressValidatorNoCounty);
             RuleFor(s => s.Phone).NotEmpty();
-            RuleFor(s => s.ContactName).NotEmpty();
+            RuleFor(s => s.ContactFirstName).NotEmpty();
+            RuleFor(s => s.ContactLastName).NotEmpty();
             RuleFor(s => s.ContactTitle).NotEmpty();
             RuleFor(s => s.ContactDate).NotEmpty();
             RuleFor(s => s.JobDescription).NotEmpty();

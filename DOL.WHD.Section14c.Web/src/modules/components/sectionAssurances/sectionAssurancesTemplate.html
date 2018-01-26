@@ -4,11 +4,14 @@
     <helplink aria-controls="assurancesHelp" aria-describedby="assurancesHeading"></helplink>
   </h2>
 </div>
+<div class="dol-form-section-sub-title">
+  All fields are required unless indicated as optional.
+</div>
 <helptext  id="assurancesHelp">An authorized representative of the employer must provide an electronic signature certifying to the information included in this section.  SWEP applications must be signed by the school counselor or coordinating official.</helptext>
 <div class="dol-form-page">
   <div class="usa-content">
     <p>
-      I certify that I have read this form and to the best of my knowledge and belief, all answers and information given in the application and attachments are true; that the representations set forth in support of this application to obtain or continue the authorization to pay workers with disabilities at subminimum wage rates are true; and I acknowledge that the authorization, if issued or continued, is subject to revocation in accordance with the provisions of 29 C.F.R. part 525. I represent that as set forth in the regulations governing the employment of workers with disabilities, the following conditions exist and will continue to exist:
+      I certify that I have read this application and to the best of my knowledge and belief, all answers and information given in the application and attachments are true; that the representations set forth in support of this application to obtain or continue the authorization to pay workers with disabilities at subminimum wage rates are true; and I acknowledge that the authorization, if issued or continued, is subject to revocation in accordance with the provisions of 29 C.F.R. part 525. I represent that as set forth in the regulations governing the employment of workers with disabilities, the following conditions exist and will continue to exist:
     </p>
     <ol type="1">
       <li>Workers employed under the authority in 29 C.F.R. part 525 have disabilities for the work to be performed;</li>
@@ -24,7 +27,7 @@
     </ol>
   </div>
   <div class="dol-form-question-block" ng-class="validate('signature.agreement') ? 'usa-input-error margintop' : 'margintop'">
-    <span class="usa-input-error-message" role="alert" ng-show="validate('signature.agreement')">{{ validate('signature.agreement') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.agreement')">{{ validate('signature.agreement') }}</span>
     <ul class="usa-unstyled-list">
       <li>
         <input id="agreement" type="checkbox" name="agreement" ng-value="true" ng-model="formData.signature.agreement"></input>
@@ -32,20 +35,25 @@
       </li>
     </ul>
   </div>
-  <div class="dol-form-question-block" ng-class="validate('signature.fullName') ? 'usa-input-error margintop' : 'margintop'">
-    <label for="fullName" class="dol-form-question-text">Full Name</label>
-    <span class="usa-input-error-message" role="alert" ng-show="validate('signature.fullName')">{{ validate('signature.fullName') }}</span>
-    <input id="fullName" name="fullName" type="text" ng-model="formData.signature.fullName" />
+  <div class="dol-form-question-block" ng-class="validate('signature.firstName') ? 'usa-input-error margintop' : 'margintop'">
+    <label for="firstName" class="dol-form-question-text">First Name</label>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.firstName')">{{ validate('signature.firstName') }}</span>
+    <input id="firstName" name="firstName" type="text" ng-model="formData.signature.firstName" />
+  </div>
+  <div class="dol-form-question-block" ng-class="validate('signature.lastName') ? 'usa-input-error margintop' : 'margintop'">
+    <label for="lastName" class="dol-form-question-text">Last Name</label>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.lastName')">{{ validate('signature.lastName') }}</span>
+    <input id="lastName" name="lastName" type="text" ng-model="formData.signature.lastName" />
   </div>
   <div class="dol-form-question-block" ng-class="validate('signature.title') ? 'usa-input-error margintop' : 'margintop'">
     <label for="title" class="dol-form-question-text">Title</label>
-    <span class="usa-input-error-message" role="alert" ng-show="validate('signature.title')">{{ validate('signature.title') }}</span>
+    <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.title')">{{ validate('signature.title') }}</span>
     <input id="title" name="title" type="text" ng-model="formData.signature.title" />
   </div>
   <div class="dol-form-question-block" ng-class="validate('signature.date') ? 'usa-input-error margintop' : 'margintop'">
     <fieldset>
       <legend class="dol-form-question-text">Date</legend>
-      <span class="usa-input-error-message" role="alert" ng-show="validate('signature.date')">{{ validate('signature.date') }}</span>
+      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('signature.date')">{{ validate('signature.date') }}</span>
       <date-field date-val="formData.signature.date"></date-field>
     </fieldset>
   </div>

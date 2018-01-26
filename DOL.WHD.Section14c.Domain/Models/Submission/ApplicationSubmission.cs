@@ -52,7 +52,9 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         }
         public virtual ICollection<ApplicationSubmissionEstablishmentType> EstablishmentType { get; set; }
 
-        public string ContactName { get; set; }
+        public string ContactFirstName { get; set; }
+
+        public string ContactLastName { get; set; }
 
         public string ContactPhone { get; set; }
 

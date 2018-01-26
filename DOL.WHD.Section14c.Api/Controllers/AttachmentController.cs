@@ -13,6 +13,8 @@ using DOL.WHD.Section14c.Business;
 using DOL.WHD.Section14c.Domain.Models.Identity;
 using DOL.WHD.Section14c.Common;
 using DOL.WHD.Section14c.Log.LogHelper;
+using DOL.WHD.Section14c.DataAccess.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -26,6 +28,20 @@ namespace DOL.WHD.Section14c.Api.Controllers
     {
         private readonly IAttachmentService _attachmentService;
         private readonly IIdentityService _identityService;
+        private ApplicationUserManager _userManager;
+        private readonly IOrganizationService _organizationService;
+        private readonly IEmployerService _employerService;
+
+        /// <summary>
+        /// Gets the user manager for the controller
+        /// </summary>
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? Request.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+        }
 
         /// <summary>
         /// Constructor
@@ -36,29 +52,40 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="identityService">
         /// The identity service this controller should use
         /// </param>
-        public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService)
+        ///  /// <param name="organizationService">
+        /// The organization service this controller should use
+        /// </param>
+        /// <param name="employerService">
+        /// The employer service this controller should use
+        /// </param>
+        public AttachmentController(IAttachmentService attachmentService, IIdentityService identityService, IOrganizationService organizationService, IEmployerService employerService)
         {
             _attachmentService = attachmentService;
             _identityService = identityService;
+            _organizationService = organizationService;
+            _employerService = employerService;
         }
 
         /// <summary>
         /// Upload Attachment        
         /// </summary>
-        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="ApplicationId">Application Identification Number</param>
         /// <returns>Http status code</returns>
-        [Route("{EIN}")]
+        [Route("{ApplicationId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public async Task<IHttpActionResult> Post(string EIN)
+        public async Task<IHttpActionResult> Post(string ApplicationId)
         {
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
             if (!Request.Content.IsMimeMultipartContent())
             {
                 return StatusCode(HttpStatusCode.UnsupportedMediaType);
             }
 
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            // make sure user has rights to the Id
+            var hasPermission = _identityService.HasSavePermission(userInfo, ApplicationId);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
@@ -79,7 +106,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 }
                 var fileName = stream.Headers.ContentDisposition.FileName.Replace("\"", "");
                 var fileType = stream.Headers.ContentType.MediaType.Replace("\"", "");
-                var fileUpload = _attachmentService.UploadAttachment(EIN, bytes, fileName, fileType);
+                var fileUpload = _attachmentService.UploadAttachment(ApplicationId, bytes, fileName, fileType);
                 files.Add(fileUpload);
             }
             return Ok(files);
@@ -88,20 +115,23 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Download attachment by Id
         /// </summary>
-        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="ApplicationId">Appication Identification Number</param>
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpGet]
-        [Route("{EIN}/{fileId}")]
+        [Route("{ApplicationId}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
-        public IHttpActionResult Download(string EIN, Guid fileId)
+        public IHttpActionResult Download(string ApplicationId, Guid fileId)
         {
-            // make sure user has rights to the EIN or has View All Application rights
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Id
+            var hasPermission = _identityService.HasSavePermission(userInfo, ApplicationId);
             var hasViewAllFeature = _identityService.UserHasFeatureClaim(User, ApplicationClaimTypes.ViewAllApplications);
-            if (!hasEINClaim && !hasViewAllFeature)
+            if (!hasPermission && !hasViewAllFeature)
             {
-                Unauthorized("User doesn't have rights to download attachments from this EIN");
+                Unauthorized("User doesn't have rights to download attachments from this Id");
             }
 
             var result = new HttpResponseMessage(HttpStatusCode.OK);
@@ -109,7 +139,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 var memoryStream = new MemoryStream();  // Disponsed by Framework
 
-                var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, EIN, fileId);
+                var attachmentDownload = _attachmentService.DownloadAttachment(memoryStream, ApplicationId, fileId);
 
                 result.Content = new StreamContent(attachmentDownload.MemoryStream); // Disponsed by Framework
 
@@ -135,24 +165,27 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <summary>
         /// Delete Attachment by Id
         /// </summary>
-        /// <param name="EIN">Employer Identification Number</param>
+        /// <param name="ApplicationId">Application Identification Number</param>
         /// <param name="fileId">File Id</param>
         /// <returns></returns>
         [HttpDelete]
-        [Route("{EIN}/{fileId}")]
+        [Route("{ApplicationId}/{fileId}")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public IHttpActionResult Delete(string EIN, Guid fileId)
+        public IHttpActionResult Delete(string ApplicationId, Guid fileId)
         {
-            // make sure user has rights to the EIN
-            var hasEINClaim = _identityService.UserHasEINClaim(User, EIN);
-            if (!hasEINClaim)
+            AccountController account = new AccountController(_employerService, _organizationService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Id
+            var hasPermission = _identityService.HasSavePermission(userInfo, ApplicationId);
+            if (!hasPermission)
             {
                 Unauthorized("Unauthorized");
             }
 
             try
             {
-                _attachmentService.DeleteAttachement(EIN, fileId);
+                _attachmentService.DeleteAttachement(ApplicationId, fileId);
             }
             catch (ObjectNotFoundException)
             {

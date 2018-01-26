@@ -77,7 +77,7 @@ namespace DOL.WHD.Section14c.Test.Business
             Assert.AreEqual(resp.StatusCode, HttpStatusCode.OK);
             Assert.AreEqual("application/pdf", resp.Content.Headers.ContentType.MediaType);
             Assert.AreEqual(data.Length, resp.Content.Headers.ContentLength);
-            Assert.AreEqual("inline", resp.Content.Headers.ContentDisposition.DispositionType);
+            Assert.AreEqual("attachment", resp.Content.Headers.ContentDisposition.DispositionType);
             Assert.AreEqual($"{fileName}.pdf", resp.Content.Headers.ContentDisposition.FileName);
         }
 

@@ -49,4 +49,18 @@ describe('sectionWioaController', function() {
 
     controller.cancelAddWorker();
   });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionWioaController();
+    scope.showAllHelp.status = false;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(true)
+  });
+
+  it('toggle all help text will toggle on', function() {
+    var controller = sectionWioaController();
+    scope.showAllHelp.status = true;
+    controller.toggleAllHelpText({srcElement: {id: 'test'}});
+    expect(scope.showAllHelp.status).toBe(false)
+  });
 });

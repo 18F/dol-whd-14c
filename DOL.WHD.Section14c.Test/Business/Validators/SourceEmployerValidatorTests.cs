@@ -36,8 +36,10 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         [TestMethod]
         public void Should_Require_ContactName()
         {
-            SourceEmployerValidator.ShouldHaveValidationErrorFor(x => x.ContactName, "");
-            SourceEmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ContactName, "Contact Name");
+            SourceEmployerValidator.ShouldHaveValidationErrorFor(x => x.ContactFirstName, "");
+            SourceEmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ContactFirstName, "Contact First Name");
+            SourceEmployerValidator.ShouldHaveValidationErrorFor(x => x.ContactLastName, "");
+            SourceEmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ContactLastName, "Contact Last Name");
         }
 
         [TestMethod]
