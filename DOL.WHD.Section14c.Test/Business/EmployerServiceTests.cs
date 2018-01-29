@@ -55,5 +55,32 @@ namespace DOL.WHD.Section14c.Business.Services.Tests
             // Assert
             Assert.IsNull(employerObj);
         }
+
+        [TestMethod()]
+        public void ValidatesEmployerTest()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsTrue(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.City = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
     }
 }

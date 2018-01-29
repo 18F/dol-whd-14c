@@ -10,11 +10,11 @@ namespace DOL.WHD.Section14c.Business
 {
     public interface IAttachmentService : IDisposable
     {
-        Attachment UploadAttachment(string EIN, byte[] bytes, string fileName, string fileType);
+        Attachment UploadAttachment(string applicationId, byte[] bytes, string fileName, string fileType);
         AttachementDownload DownloadAttachment(MemoryStream memoryStream, string EIN, Guid fileId);
         Dictionary<string, Attachment> GetApplicationAttachments(ref ApplicationSubmission application);
         List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(Dictionary<string, Attachment> attachments, List<string> applicationFormData);
-        void DeleteAttachement(string EIN, Guid fileId);
+        void DeleteAttachement(string applicationId, Guid fileId);
         string GetApplicationFormViewContent(ApplicationSubmission application, string templateString);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using DOL.WHD.Section14c.DataAccess;
 using DOL.WHD.Section14c.Domain.Models.Submission;
+using DOL.WHD.Section14c.Domain.ViewModels;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using System;
 using System.Collections.Generic;
@@ -146,6 +147,41 @@ namespace DOL.WHD.Section14c.Business.Helper
                 }
             }
             return employeeList;
-        } 
+        }
+
+        /// <summary>
+        /// Find attachments that are not in the file system based on the application Id
+        /// </summary>
+        /// <param name="application">Application Object</param>
+        /// <returns>List of attachments not exist in the file system</returns>
+        public List<VerifyAttachmentViewModel> FindAllApplicationAttachmentsNotExistInFileSystem(ApplicationSubmission application)
+        {
+            List<VerifyAttachmentViewModel> attachmentNotExists = new List<VerifyAttachmentViewModel>();
+            var allAttachments =_attachmentService.GetApplicationAttachments(ref application);
+            foreach(var attachment in allAttachments)
+            {
+                if (attachment.Value != null )
+                {
+                    // Remove attachment Id from the DB
+                    // Notify aplication attachment does not exist
+                    using (var outMemoryStream = new MemoryStream())
+                    {
+                        try
+                        {
+                            // Check if the attachment exist in the file system
+                            _attachmentService.DownloadAttachment(outMemoryStream, application.Id, new Guid(attachment.Value.Id));
+                        }
+                        catch
+                        {
+                            // Attachment does not exist in the file system
+                            attachmentNotExists.Add(new VerifyAttachmentViewModel() {AttachmentId = attachment.Value.Id, AttachmentName = attachment.Value.OriginalFileName });
+                            // Remove attachment from datadase
+                            _attachmentService.DeleteAttachement(application.Id, new Guid( attachment.Value.Id));
+                        }
+                    }                   
+                }
+            }
+            return attachmentNotExists;
+        }
     }
 }
