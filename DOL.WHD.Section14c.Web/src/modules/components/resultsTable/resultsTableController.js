@@ -44,6 +44,7 @@ module.exports = function(ngModule) {
         columnDefs: $scope.definitions
       });
       $.fn.dataTable.ext.errMode = 'none';
+
     }
 
     this.refreshTable = function (data, columns, id) {
