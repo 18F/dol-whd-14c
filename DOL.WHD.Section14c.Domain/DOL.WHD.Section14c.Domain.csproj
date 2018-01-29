@@ -116,6 +116,7 @@
     <Compile Include="Models\Identity\ApplicationUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FileDownload.cs" />
+    <Compile Include="ViewModels\VerifyAttachmentViewModel.cs" />
     <Compile Include="ViewModels\VerifyEmailViewModel.cs" />
     <Compile Include="ViewModels\VerifyResetPasswordViewModel.cs" />
   </ItemGroup>

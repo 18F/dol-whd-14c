@@ -26,6 +26,7 @@ using Microsoft.AspNet.Identity.Owin;
 using DOL.WHD.Section14c.Domain.Models;
 using System.Text.RegularExpressions;
 using System.Data.Entity;
+using DOL.WHD.Section14c.Domain.ViewModels;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -138,7 +139,19 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Unauthorized("Unauthorized");
             }
 
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);           
+            // Find all the attachments that are not in the file system
+            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
+            var getMissingAttachment = applicationDocumentHelper.FindAllApplicationAttachmentsNotExistInFileSystem(submission);
+            if (getMissingAttachment != null && getMissingAttachment.Count>0)
+            {
+                // Create file not found message
+                // Alert user that one or more attachments are not exist in the file system
+                var responseMessage = Request.CreateResponse(HttpStatusCode.NotFound);
+                responseMessage.Content = new ObjectContent<List<VerifyAttachmentViewModel>>(getMissingAttachment, GlobalConfiguration.Configuration.Formatters.JsonFormatter);
+                return ResponseMessage(responseMessage);
+            }
+
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
             var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id);
             if (org.ApplicationStatusId == StatusIds.InProgress)
             {

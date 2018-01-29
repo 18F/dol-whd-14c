@@ -23,7 +23,7 @@ namespace DOL.WHD.Section14c.Business.Services
             _attachmentRepository = attachmentRepository;
         }
 
-        public Attachment UploadAttachment(string EIN, byte[] bytes, string fileName, string fileType)
+        public Attachment UploadAttachment(string applicationId, byte[] bytes, string fileName, string fileType)
         {
             var fileUpload = new Attachment()
             {
@@ -31,10 +31,10 @@ namespace DOL.WHD.Section14c.Business.Services
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
-                ApplicationId = EIN
+                ApplicationId = applicationId
             };
 
-            fileUpload.RepositoryFilePath = $@"{EIN}\{fileUpload.Id}";
+            fileUpload.RepositoryFilePath = $@"{applicationId}\{fileUpload.Id}";
 
             _fileRepository.Upload(bytes, fileUpload.RepositoryFilePath);
 
@@ -148,7 +148,9 @@ namespace DOL.WHD.Section14c.Business.Services
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
                 {
-                    attachments.Add("Piece Rate Wage Info Attachment", application.PieceRateWageInfo.Attachment);
+                    var attachmentId = application.PieceRateWageInfo.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Piece Rate Wage Info Attachment", attachment);
                 }
 
                 if (application.HourlyWageInfo?.SCAAttachments != null)
@@ -163,21 +165,25 @@ namespace DOL.WHD.Section14c.Business.Services
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
                 {
-                    attachments.Add("Hourly Wage Info SCA Wage Determination Attachment", application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+                    var attachmentId = application.HourlyWageInfo.MostRecentPrevailingWageSurvey.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Hourly Wage Info SCA Wage Determination Attachment", attachment);
                 }
 
                 if (application.HourlyWageInfo?.AttachmentId != null)
                 {
-                    attachments.Add("Hourly Wage Info Attachmen", application.HourlyWageInfo.Attachment);
+                    var attachmentId = application.HourlyWageInfo.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Hourly Wage Info Attachmen", attachment);
                 }
             }
             return attachments;
         }
 
-        public void DeleteAttachement(string EIN, Guid fileId)
+        public void DeleteAttachement(string applicationId, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.ApplicationId == EIN)
+                .Where(x => x.ApplicationId == applicationId)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
