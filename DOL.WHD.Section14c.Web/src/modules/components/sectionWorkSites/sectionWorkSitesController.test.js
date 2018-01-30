@@ -60,6 +60,20 @@ describe('sectionWorkSitesController', function() {
     expect(controller.activeWorkerIndex).toBe(-1);
   });
 
+  it('cancel and close pane clears the active worker', function() {
+    var e = jasmine.createSpyObj('e', ['preventDefault']);
+
+    var controller = sectionWorkSitesController();
+    spyOn(controller, 'clearActiveWorker');
+    spyOn(controller, 'addEmployee');
+    controller.cancelAndClosePanel(e);
+
+    expect(controller.activeWorker).toEqual({});
+    expect(controller.activeWorkerIndex).toBe(-1);
+    expect(controller.clearActiveWorker).toHaveBeenCalled();
+    expect(controller.addEmployee).not.toHaveBeenCalled();
+  });
+
   describe('addEmployee', function() {
     var controller;
 

@@ -101,6 +101,13 @@ module.exports = function(ngModule) {
       vm.addingEmployee = false;
     };
 
+    this.cancelAndClosePanel = function($event) {
+      vm.clearActiveWorker();
+      closeSlidingPanel();
+      $event.preventDefault();
+      vm.addingEmployee = false;
+    };
+
     this.editEmployee = function(index, $event) {
       vm.addingEmployee = true;
       vm.clearSaveStatus();
