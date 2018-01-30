@@ -106,6 +106,15 @@
   }
 }
 
+.dol-omb-header {
+  display: block;
+  font-size: 1rem;
+  p {
+    display: inline-block;
+    margin: 0 1rem 0 0;
+  }
+}
+
 .dol-applicant-meta {
   position: relative;
   background-color: $color-gray-darker;

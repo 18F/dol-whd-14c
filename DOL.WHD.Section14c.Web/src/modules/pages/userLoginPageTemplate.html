@@ -1,7 +1,7 @@
 <dol-header></dol-header>
 
 <main tabindex="-1" id="mainContent" role="main" class="main-content">
-  <div ng-show="!sessionTimeout && !emailVerified">
+  <div ng-show="!sessionTimeout && !emailVerified && !accountCreated">
     <div class="dol-landing-public">
       <h1>Section 14(c) Certificate Application</h1>
 
@@ -32,6 +32,16 @@
       <div class="usa-alert-body">
         <h3 class="usa-alert-heading">Email Verified</h3>
         <p class="usa-alert-text">Your email address has been verified. You can now <a href="" ng-click="refresh()">log in </a>.</p>
+      </div>
+    </div>
+
+    <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="accountCreated">
+      <div class="usa-alert-body">
+        <h2 class="usa-alert-heading">Account Created</h2>
+        <p class="usa-alert-text">We've sent a confirmation email to <strong>{{accountCreated}}</strong>.  Please check the email and follow the instructions to verify your account.</p>
+        <p>
+          If you have any quesitons or do not receive the confirmation email, contact us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.
+        </p>
       </div>
     </div>
   </div>

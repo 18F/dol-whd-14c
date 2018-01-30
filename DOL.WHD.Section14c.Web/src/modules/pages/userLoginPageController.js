@@ -14,10 +14,11 @@ module.exports = function(ngModule) {
     $scope.emailVerificationUrl = $location.absUrl();
     $scope.emailVerificationCode = $location.search().code;
     $scope.sessionTimeout = $location.search().timeout;
+    $scope.accountCreated = $location.search().registeredEmail;
     $scope.emailVerificationUserId = $location.search().userId;
     $scope.isEmailVerificationRequest = $scope.emailVerificationCode && $scope.emailVerificationUserId ? true: false;
     if ($scope.isEmailVerificationRequest) {
-      
+
       apiService
         .emailVerification(
           $scope.emailVerificationUserId,
