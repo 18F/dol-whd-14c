@@ -61,3 +61,15 @@ a.dol-skip-to-main {
     padding-right: 1.5em;
   }
 }
+
+.dol-application-start,
+.dol-application-continue {
+  margin-bottom: 2em;
+}
+.dol-application-continue {
+  .dol-modified-date {
+    font-size: 14px;
+    color: #666;
+  }
+}
+

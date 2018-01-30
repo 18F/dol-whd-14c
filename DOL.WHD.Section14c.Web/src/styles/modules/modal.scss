@@ -46,9 +46,10 @@ Primary style
   transition: visibility 0s 0.2s;
   position: fixed;
   margin: auto;
-  top: 0;
   right: 0;
-  bottom: 0;
+  height: auto;
+  top: auto;
+  bottom: auto;
   left: 0;
   border-radius: 3px;
   background-color: rgb(255, 241, 210);
@@ -56,6 +57,15 @@ Primary style
   border-color: rgb(253, 184, 30);
   width: 402px;
   height: 188px;
+}
+
+.modal, .modal-inactivity {
+    .usa-alert-body {
+        padding-right: 5rem;
+    }
+    .green-button {
+        margin-left: 0;
+    }
 }
 
 .modal.is-visible {

@@ -13,6 +13,8 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
+    $scope.currentApplication = undefined;
+
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
@@ -77,7 +79,7 @@ module.exports = function(ngModule) {
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
         $scope.organizations = result.data.organizations;
-        $scope.applicationList = [];
+        $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
           var organization = {
             applicationId: element.applicationId,
@@ -89,16 +91,12 @@ module.exports = function(ngModule) {
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
 
-          if(element.applicationStatus.name === "New") {
-            organization.action = "Start"
-          }
-          else if (element.applicationStatus.name === "InProgress") {
-            organization.action = "Continue"
+          if(element.applicationStatus.name === "Submitted") {
+            organization.action = "Download";
+            $scope.submittedApplications.push(organization);
           } else {
-            organization.action = "Download"
+            $scope.currentApplication = organization;
           }
-
-          $scope.applicationList.push(organization);
         });
         $scope.initDatatable();
       });
@@ -106,7 +104,10 @@ module.exports = function(ngModule) {
 
     $scope.initDatatable = function () {
       $scope.tableWidget = $('#EmployerTable').DataTable({
-        data: $scope.applicationList,
+        data: $scope.submittedApplications,
+        language: {
+          emptyTable: "You do not have any submitted applications. Once you submit an application, you can download the application PDF here."
+        },
         responsive: {
             details: {
                 type: "column",
@@ -115,21 +116,23 @@ module.exports = function(ngModule) {
             }
         },
         ordering: true,
+        autoWidth: false,
         order: tableConfig.order,
         columns: tableConfig.employeeColumns,
         columnDefs: tableConfig.employeeColumnDefinitions,
       });
+
+      setTimeout(() => $scope.tableWidget.columns.adjust().draw(), 0 );
     }
+
 
     $scope.refreshTable = function () {
       if ($scope.tableWidget) {
         $scope.tableWidget.destroy()
         $scope.tableWidget=null
       }
-
       setTimeout(() => $scope.initDatatable(),0)
     }
-
 
     $('#EmployerTable').on('click', '.action', function ($event) {
         $event.preventDefault();

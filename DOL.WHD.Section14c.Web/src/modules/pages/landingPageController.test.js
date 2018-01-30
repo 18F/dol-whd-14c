@@ -10,16 +10,6 @@ describe('landingPageController', function() {
       mockApiService = apiService;
       $q = _$q_;
       location = $location
-
-      landingPageController = function() {
-        return $controller('landingPageController', {
-          $scope: scope,
-          stateService: mockStateService,
-          apiService: mockApiService
-        });
-      };
-
-      controller = landingPageController();
       scope.organizations = [
         {
           employer: {
@@ -102,6 +92,16 @@ describe('landingPageController', function() {
           ein: "12-123345"
         }
       ];
+
+      landingPageController = function() {
+        return $controller('landingPageController', {
+          $scope: scope,
+          stateService: mockStateService,
+          apiService: mockApiService
+        });
+      };
+
+      controller = landingPageController();
 
       saveNewApplication = $q.defer();
       spyOn(mockStateService, 'saveNewApplication').and.returnValue(
@@ -191,11 +191,73 @@ describe('landingPageController', function() {
 
     it('loads user info', function() {
       scope.init();
-
+      scope.organizations = [
+        {
+          employer: {
+            id: '1234',
+            legalName: 'Test Employer',
+            ein: '12-123345',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
+          },
+          createdAt:'',
+          lastModifiedAt:'',
+          applicationStatus: {
+            name: "New"
+          },
+          applicationId: '1231841515',
+          ein: "12-123345"
+        },
+        {
+          employer: {
+            id: '1234',
+            legalName: 'Test Employer2',
+            ein: '12-128345',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
+          },
+          createdAt:'',
+          lastModifiedAt:'',
+          applicationStatus: {
+            name: "Submitted"
+          },
+          applicationId: '1231511515',
+          ein: "12-128345"
+        },
+        {
+          employer: {
+            id: '1234',
+            legalName: 'Test Employer3',
+            ein: '12-125345',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
+          },
+          createdAt:'',
+          lastModifiedAt:'',
+          applicationStatus: {
+            name: "Submitted"
+          },
+          applicationId: '1231561515',
+          ein: "12-125345"
+        }
+      ];
       userInfo.resolve({data:{organizations: scope.organizations}});
       scope.$apply();
-      expect(scope.applicationList.length).toEqual(4);
+      expect(scope.submittedApplications.length).toEqual(2);
       expect(scope.initDatatable).toHaveBeenCalled();
+      expect(scope.currentApplication.employerId).toEqual('12-123345');
     });
 
     it('user info reject does not import applications into list', function() {

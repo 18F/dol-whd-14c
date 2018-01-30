@@ -4,7 +4,7 @@
     <img
       class="brand--img"
       src="/images/dol-logo.png"
-      alt="United States Department of Labor"
+      alt=""
       width="70"
       height="70"
     />
@@ -18,7 +18,9 @@
         <a ng-click="hideIdleWarning()" class="modal-close dol-close-button"></a>
       </header>
       <br />
-      <h3 class="usa-alert-heading">Your session will end soon due to inactivity.</h3>
+      <div class="usa-alert-body">
+        <h3 class="usa-alert-heading">Your session will end soon due to inactivity.</h3>
+      </div>
       <button class="green-button" ng-click="hideIdleWarning()">Continue Working</button>
     </div>
   </div>

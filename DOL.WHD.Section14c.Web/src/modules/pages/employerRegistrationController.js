@@ -5,6 +5,7 @@ module.exports = function(ngModule) {
     $scope,
     stateService,
     $location,
+    autoSaveService,
     apiService
   ) {
     'ngInject';
@@ -33,6 +34,18 @@ module.exports = function(ngModule) {
         $scope.formData.employer.ein = $scope.formData.ein;
         apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function() {
           $scope.registrationSuccess = true;
+
+          apiService.userInfo(stateService.access_token).then(function(result) {
+
+            $scope.application = result.data.organizations.filter(function(element) {
+              return element.applicationStatus.name === "New"
+            })[0];
+
+            stateService.employerId = $scope.application.employer.ein;
+            stateService.applicationId = $scope.application.applicationId;
+            stateService.ein = $scope.application.ein;
+            stateService.employerName = $scope.application.employer.legalName;
+          });
         }).catch(function(error) {
           if(error.status === 302) {
             $scope.previouslyRegistered = {};
