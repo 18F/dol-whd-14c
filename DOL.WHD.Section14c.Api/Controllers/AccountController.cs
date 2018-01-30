@@ -34,6 +34,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private ApplicationRoleManager _roleManager;
         private readonly IEmployerService _employerService;
         private readonly IOrganizationService _organizationService;
+        private readonly IIdentityService _identityService;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -67,10 +68,15 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="organizationService">
         /// The organization service this controller should use
         /// </param>
-        public AccountController(IEmployerService employerService, IOrganizationService organizationService)
+        /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="identityService">
+        public AccountController(IEmployerService employerService, IOrganizationService organizationService, IIdentityService identityService)
         {
             _employerService = employerService;
             _organizationService = organizationService;
+            _identityService = identityService;
         }
 
         /// <summary>
@@ -173,11 +179,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var userIdentity = ((ClaimsIdentity)User.Identity);
                 var userId = userIdentity.GetUserId();
                 var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
-                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
-                organizationMembership.ApplicationStatusId = StatusIds.New;
                 // set user organization
                 user.Organizations.Add(organizationMembership);
-
                 IdentityResult result = await UserManager.UpdateAsync(user);
 
                 if (!result.Succeeded)
@@ -192,6 +195,61 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 responseMessage.StatusCode = HttpStatusCode.Found;
                 responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
             }
+
+            return ResponseMessage(responseMessage);
+        }
+
+        /// <summary>
+        /// Create or update Employer Application
+        /// </summary>
+        /// <param name="employerId">Employer Id</param>
+        /// <returns>Application Id and Status</returns>
+        [Route("User/createEmployerApplication")]
+        public async Task<IHttpActionResult> CreateOrUpdateEmployerApplication(string employerId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Check user user permission
+            var userInfo = GetUserInfo();
+            var hasPermission = _identityService.HasAddPermission(userInfo, employerId);
+            if (!hasPermission)
+            {
+                Unauthorized("Unauthorized");
+            }
+
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+            var userIdentity = ((ClaimsIdentity)User.Identity);
+            var userId = userIdentity.GetUserId();
+            var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
+
+            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && x.ApplicationId == string.Empty);
+            var applcationId = Guid.NewGuid().ToString();
+            if (organization != null)
+            {               
+                organization.ApplicationId = applcationId;
+                organization.ApplicationStatusId = StatusIds.InProgress;
+                responseMessage.Content = new StringContent(string.Format("ApplicationId:{0}, ApplicationStatus:{1}", applcationId, StatusIds.InProgress));
+            }
+            else
+            {
+                var org = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId);
+                var newOrganization = new OrganizationMembership() {
+                    EIN = org.EIN,
+                    Employer_Id = org.Employer_Id,
+                    IsPointOfContact = org.IsPointOfContact,
+                    ApplicationId = applcationId,
+                    ApplicationStatusId = StatusIds.InProgress
+                };
+               
+                user.Organizations.Add(newOrganization);
+                responseMessage.Content = new StringContent(string.Format("ApplicationId:{0}, ApplicationStatus:{1}", newOrganization.ApplicationId, StatusIds.InProgress));
+            }
+
+            IdentityResult result = await UserManager.UpdateAsync(user);
 
             return ResponseMessage(responseMessage);
         }
