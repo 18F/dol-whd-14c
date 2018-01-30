@@ -8,6 +8,8 @@ using DOL.WHD.Section14c.Domain.ViewModels;
 using System.Collections.Generic;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using DOL.WHD.Section14c.Business.Helper;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
@@ -16,6 +18,7 @@ namespace DOL.WHD.Section14c.Business.Services
         private readonly IFileRepository _fileRepository;
         private readonly IAttachmentRepository _attachmentRepository;
         private bool Disposed = false;
+        private readonly string FileEncryptKey = "@WSX3edc$RFV5tgb^YHN7ujm";
 
         public AttachmentService(IFileRepository fileRepository, IAttachmentRepository attachmentRepository)
         {
@@ -36,7 +39,12 @@ namespace DOL.WHD.Section14c.Business.Services
 
             fileUpload.RepositoryFilePath = $@"{applicationId}\{fileUpload.Id}";
 
-            _fileRepository.Upload(bytes, fileUpload.RepositoryFilePath);
+            // Encrypt file         
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+            // Hash the password with SHA256
+            keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+            byte[] bytesEncrypted = AES_Encrypt(bytes, keyInBytes);
+            _fileRepository.Upload(bytesEncrypted, fileUpload.RepositoryFilePath);
 
             _attachmentRepository.Add(fileUpload);
             _attachmentRepository.SaveChanges();
@@ -54,6 +62,13 @@ namespace DOL.WHD.Section14c.Business.Services
                 throw new ObjectNotFoundException();
 
             var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
+
+            // Decrypt file 
+            byte[] bytesToBeDecrypted = stream.ToArray();
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+            keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+            byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
+            stream = new MemoryStream(bytesDecrypted);
 
             return new AttachementDownload()
             {
@@ -166,6 +181,11 @@ namespace DOL.WHD.Section14c.Business.Services
             return attachments;
         }
 
+        /// <summary>
+        /// Delete Attachment
+        /// </summary>
+        /// <param name="applicationId">Application Id</param>
+        /// <param name="fileId">File Id</param>
         public void DeleteAttachement(string applicationId, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
@@ -198,6 +218,84 @@ namespace DOL.WHD.Section14c.Business.Services
             string tempString = string.Empty;
             tempString = ApplicationFormViewHelper.PopulateHtmlTemplateWithApplicationData(application, templateString);
             return tempString;
+        }
+
+        /// <summary>
+        /// AES encryption
+        /// </summary>
+        /// <param name="bytesToBeEncrypted">Byte array </param>
+        /// <param name="encryptKey">encryption key</param>
+        /// <returns>Byte Array</returns>
+        private byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] encryptKey)
+        {
+            byte[] encryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(encryptKey, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                        cs.Close();
+                    }
+                    encryptedBytes = ms.ToArray();
+                }
+            }
+
+            return encryptedBytes;
+        }
+
+        /// <summary>
+        /// AES decryption
+        /// </summary>
+        /// <param name="bytesToBeDecrypted">Byte Array</param>
+        /// <param name="encryptKey">Encryption key</param>
+        /// <returns>Byte Array</returns>
+        private byte[] AES_Decrypt(byte[] bytesToBeDecrypted, byte[] encryptKey)
+        {
+            byte[] decryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(encryptKey, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                        cs.Close();
+                    }
+                    decryptedBytes = ms.ToArray();
+                }
+            }
+
+            return decryptedBytes;
         }
 
         public void Dispose()
