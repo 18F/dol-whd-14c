@@ -92,12 +92,11 @@ module.exports = function(ngModule) {
           }
 
           if(element.applicationStatus.name === "Submitted") {
-            organization.action = "Download"
+            organization.action = "Download";
             $scope.submittedApplications.push(organization);
           } else {
             $scope.currentApplication = organization;
           }
-
         });
         $scope.initDatatable();
       });
@@ -132,10 +131,8 @@ module.exports = function(ngModule) {
         $scope.tableWidget.destroy()
         $scope.tableWidget=null
       }
-
       setTimeout(() => $scope.initDatatable(),0)
     }
-
 
     $('#EmployerTable').on('click', '.action', function ($event) {
         $event.preventDefault();

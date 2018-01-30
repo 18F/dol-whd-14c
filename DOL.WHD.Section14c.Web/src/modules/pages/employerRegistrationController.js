@@ -39,17 +39,13 @@ module.exports = function(ngModule) {
 
             $scope.application = result.data.organizations.filter(function(element) {
               return element.applicationStatus.name === "New"
-            });
+            })[0];
 
             stateService.employerId = $scope.application.employer.ein;
             stateService.applicationId = $scope.application.applicationId;
             stateService.ein = $scope.application.ein;
             stateService.employerName = $scope.application.employer.legalName;
           });
-
-
-
-
         }).catch(function(error) {
           if(error.status === 302) {
             $scope.previouslyRegistered = {};
@@ -58,10 +54,6 @@ module.exports = function(ngModule) {
           }
         });
       }
-    }
-
-    $scope.navToDashboard = function ()  {
-      $location.path('/dashboard');
     }
   });
 };
