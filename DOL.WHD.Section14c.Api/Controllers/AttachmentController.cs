@@ -75,7 +75,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public async Task<IHttpActionResult> Post(string ApplicationId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             if (!Request.Content.IsMimeMultipartContent())
@@ -123,7 +123,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
         public IHttpActionResult Download(string ApplicationId, Guid fileId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Id
@@ -173,7 +173,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult Delete(string ApplicationId, Guid fileId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Id
