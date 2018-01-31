@@ -23,10 +23,13 @@
       Failure to provide any required information may delay the processing of the application or result in the application being returned or denied. Additional guidance is provided in the regulations at 29 C.F.R. part 525.
     </p>
   </div>
-  <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="vm.accountCreated">
+  <div class="usa-alert usa-alert-success" role="alert" tabindex="0" ng-show="accountCreated">
     <div class="usa-alert-body">
       <h2 class="usa-alert-heading">Account Created</h2>
-      <p class="usa-alert-text">Your account was created. Please verify that your email address is <strong>{{vm.registeredEmail}}</strong> by visiting the link in the email.</p>
+      <p class="usa-alert-text">We've sent a confirmation email to <strong>{{accountCreated}}</strong>.  Please check the email and follow the instructions to verify your account.</p>
+      <p>
+        If you have any quesitons or do not receive the confirmation email, contact us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.
+      </p>
     </div>
   </div>
   <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.generalRegistrationError">
@@ -49,8 +52,8 @@
     <div ng-class="vm.emailAddressError || vm.emailAddressRequired ? 'usa-input-error' : ''">
       <label for="registerEmail">Email Address</label>
       <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressError">
-        <p>The email you provided is already registred.</p>
-        <p>If you forgot your password, you can <a href>reset it here</a></p>
+        <p>There is already an account for the email address you provided.</p>
+        <p>Do you need to <a href="/#!/forgotPassword">reset your password?</a></p>
       </span>
       <input type="email" name="registerEmail" id="registerEmail" ng-model="formVals.email" required />
       <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.emailAddressRequired">
