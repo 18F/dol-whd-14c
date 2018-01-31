@@ -5,7 +5,7 @@ var employeeColumns = [
       "data":null,
       "defaultContent": ""
   },
-  { data: 'employerId', title: "EIN"},
+  { data: 'ein', title: "EIN"},
   { data: 'employerName', title: "Employer" },
   { data: 'employerAddress',  title: "Address"},
   { data: 'createdAt', title: "Created At" },

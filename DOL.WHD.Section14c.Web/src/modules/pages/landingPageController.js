@@ -117,6 +117,7 @@ module.exports = function(ngModule) {
           $scope.currentApplication = organization;
           stateService.ein = $scope.currentApplication.ein;
           stateService.employerId = $scope.currentApplication.employerId;
+          stateService.employerName = $scope.currentApplication.employerName;
         });
         $scope.initDatatable();
       });
