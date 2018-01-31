@@ -229,7 +229,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
 
             // Updated existing Application Id and Status
-            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && x.ApplicationId == null);
+            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && string.IsNullOrEmpty(x.ApplicationId));
             var applcationId = Guid.NewGuid().ToString();
             if (organization != null)
             {
@@ -261,6 +261,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     user.Organizations.Add(newOrganization);
                     responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", newOrganization.ApplicationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
                     IdentityResult result = await UserManager.UpdateAsync(user);
+                }
+                else
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                    responseMessage.Content = new StringContent("Can not create new application");
                 }
             }
 

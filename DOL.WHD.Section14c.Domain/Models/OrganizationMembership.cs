@@ -53,15 +53,7 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         private DateTime? createdAt = null;
         [DataMember]
-        public DateTime CreatedAt
-        {
-            get
-            {
-                return createdAt ?? DateTime.Now;
-            }
-
-            set { this.createdAt = value; }
-        }
+        public DateTime CreatedAt { get; set; }
         [DataMember]
         public string LastModifiedBy_Id { get; set; }
 
@@ -70,14 +62,6 @@ namespace DOL.WHD.Section14c.Domain.Models
 
         private DateTime? lastModifiedAt = null;
         [DataMember]
-        public DateTime LastModifiedAt
-        {
-            get
-            {
-                return lastModifiedAt ?? DateTime.Now;
-            }
-
-            set { this.lastModifiedAt = value; }
-        }
+        public DateTime LastModifiedAt { get; set; }
     }
 }
