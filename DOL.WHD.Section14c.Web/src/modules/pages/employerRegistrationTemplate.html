@@ -22,6 +22,16 @@
   <p>Please contact {{previouslyRegistered.name}}, the point of contact for this employer, to request access to the account.</p>
   <p>If you have any questions, you can reach us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.</p>
 </div>
+<div ng-show="registrationError" role="alert" tabindex="0">
+  <div  class="dol-feedback-error">
+    <p class="dol-feedback-message">
+      <strong>We've run into a problem</strong>
+    </p>
+  </div>
+  <p><strong>There was a problem with registering your employer, please try again.</strong></p>
+  <p>If you are still experiencing issues, you can reach us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.</p>
+</div>
+
 <form ng-hide="registrationSuccess || previouslyRegistered" ng-submit="onSubmitClick()" class="dol-form-page">
   <fieldset class="dol-form-sub-section">
     <legend><h3>Register an Employer</h3></legend>

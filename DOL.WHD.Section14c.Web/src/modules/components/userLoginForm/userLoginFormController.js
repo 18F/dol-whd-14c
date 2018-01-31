@@ -75,6 +75,7 @@ module.exports = function(ngModule) {
           vm.twoFAStatus = true;
           vm.submitButtonName ='Verify';
           vm.formTitle ="Enter code";
+          vm.loginError.status = false;
           vm.clearError();
         } else {
           vm.loginError.status = true

@@ -13,6 +13,8 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
+    $scope.currentApplication = undefined;
+
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
@@ -59,6 +61,21 @@ module.exports = function(ngModule) {
       }
     };
 
+    $scope.startNewApplication = function () {
+      if (stateService.ein) {
+        stateService.saveNewApplication().then(function(result) {
+          console.log(result);
+            stateService.applicationId = result.data.ApplicationId;
+            console.log('here')
+            $location.path('/section/assurances');
+            autoSaveService.start();
+            console.log('aklsjdf')
+          }).catch(function(error) {
+            $scope.handleApplicationLoadError(error.data);
+          }); 
+      }
+    };
+
     $scope.handleApplicationLoadError = function(message) {
       $scope.applicationLoadError.status = true;
       if(message) {
@@ -77,28 +94,29 @@ module.exports = function(ngModule) {
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
         $scope.organizations = result.data.organizations;
-        $scope.applicationList = [];
+        $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
           var organization = {
-            applicationId: element.applicationId,
-            employerId: element.employer.ein,
+            ein: element.employer.ein,
+            employerId: element.employer.id,
             employerName: element.employer.legalName,
             createdAt: dateFilter(element.createdAt) + " at " + new Date(element.createdAt).toLocaleTimeString(),
             lastModifiedAt: dateFilter(element.lastModifiedAt) + " at " + new Date(element.lastModifiedAt).toLocaleTimeString(),
-            applicationStatus: element.applicationStatus.name,
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
 
-          if(element.applicationStatus.name === "New") {
-            organization.action = "Start"
-          }
-          else if (element.applicationStatus.name === "InProgress") {
-            organization.action = "Continue"
-          } else {
-            organization.action = "Download"
-          }
-
-          $scope.applicationList.push(organization);
+          if(element.applicationId && element.applicationStatus) {
+            organization.applicationId = element.applicationId;
+            organization.applicationStatus = element.applicationStatus.name;
+             if(element.applicationStatus.name === "Submitted") {
+              organization.action = "Download";
+              $scope.submittedApplications.push(organization);
+            } 
+          } 
+          
+          $scope.currentApplication = organization;
+          stateService.ein = $scope.currentApplication.ein;
+          stateService.employerId = $scope.currentApplication.employerId;
         });
         $scope.initDatatable();
       });
@@ -106,7 +124,10 @@ module.exports = function(ngModule) {
 
     $scope.initDatatable = function () {
       $scope.tableWidget = $('#EmployerTable').DataTable({
-        data: $scope.applicationList,
+        data: $scope.submittedApplications,
+        language: {
+          emptyTable: "You do not have any submitted applications. Once you submit an application, you can download the application PDF here."
+        },
         responsive: {
             details: {
                 type: "column",
@@ -115,21 +136,23 @@ module.exports = function(ngModule) {
             }
         },
         ordering: true,
+        autoWidth: false,
         order: tableConfig.order,
         columns: tableConfig.employeeColumns,
         columnDefs: tableConfig.employeeColumnDefinitions,
       });
+
+      setTimeout(() => $scope.tableWidget.columns.adjust().draw(), 0 );
     }
+
 
     $scope.refreshTable = function () {
       if ($scope.tableWidget) {
         $scope.tableWidget.destroy()
         $scope.tableWidget=null
       }
-
       setTimeout(() => $scope.initDatatable(),0)
     }
-
 
     $('#EmployerTable').on('click', '.action', function ($event) {
         $event.preventDefault();
