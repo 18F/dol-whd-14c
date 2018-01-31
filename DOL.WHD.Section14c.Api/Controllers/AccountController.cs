@@ -228,30 +228,41 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var userId = userIdentity.GetUserId();
             var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
 
+            // Updated existing Application Id and Status
             var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && x.ApplicationId == null);
             var applcationId = Guid.NewGuid().ToString();
             if (organization != null)
-            {               
+            {
                 organization.ApplicationId = applcationId;
                 organization.ApplicationStatusId = StatusIds.InProgress;
                 responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", applcationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
+                IdentityResult result = await UserManager.UpdateAsync(user);
             }
             else
             {
-                var org = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId);
-                var newOrganization = new OrganizationMembership() {
-                    EIN = org.EIN,
-                    Employer_Id = org.Employer_Id,
-                    IsPointOfContact = org.IsPointOfContact,
-                    ApplicationId = applcationId,
-                    ApplicationStatusId = StatusIds.InProgress
-                };
-               
-                user.Organizations.Add(newOrganization);
-                responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", newOrganization.ApplicationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
-            }
+                // Create new Application if no application is in progress.
+                // Application is considered to be in progress if today's date is in the same "calendar" year as the date
+                // application was created and hasn't been submitted yet.
+                // In other words, New application can be created for this employer if there is no application in
+                // progress with the same year for application creation date & today's date
+                var notSubmittedApplication = user.Organizations.LastOrDefault(x => x.Employer_Id == employerId && x.ApplicationStatusId != StatusIds.Submitted);
+                if (notSubmittedApplication == null || notSubmittedApplication.CreatedAt.Year < DateTime.Now.Year)
+                {
+                    var org = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId);
+                    var newOrganization = new OrganizationMembership()
+                    {
+                        EIN = org.EIN,
+                        Employer_Id = org.Employer_Id,
+                        IsPointOfContact = org.IsPointOfContact,
+                        ApplicationId = applcationId,
+                        ApplicationStatusId = StatusIds.InProgress
+                    };
 
-            IdentityResult result = await UserManager.UpdateAsync(user);
+                    user.Organizations.Add(newOrganization);
+                    responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", newOrganization.ApplicationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
+                    IdentityResult result = await UserManager.UpdateAsync(user);
+                }
+            }
 
             return ResponseMessage(responseMessage);
         }
