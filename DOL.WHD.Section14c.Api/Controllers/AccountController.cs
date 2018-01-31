@@ -204,7 +204,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="employerId">Employer Id</param>
         /// <returns>Application Id and Status</returns>
-        /// 
+        /// GET api/Account/User/createEmployerApplication
         [HttpGet]
         [Route("User/createEmployerApplication")]
         public async Task<IHttpActionResult> CreateOrUpdateEmployerApplication(string employerId)
@@ -234,7 +234,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {               
                 organization.ApplicationId = applcationId;
                 organization.ApplicationStatusId = StatusIds.InProgress;
-                responseMessage.Content = new StringContent(string.Format("ApplicationId:{0}, ApplicationStatus:{1}", applcationId, StatusIds.InProgress));
+                responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", applcationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
             }
             else
             {
@@ -248,7 +248,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 };
                
                 user.Organizations.Add(newOrganization);
-                responseMessage.Content = new StringContent(string.Format("ApplicationId:{0}, ApplicationStatus:{1}", newOrganization.ApplicationId, StatusIds.InProgress));
+                responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", newOrganization.ApplicationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
             }
 
             IdentityResult result = await UserManager.UpdateAsync(user);
