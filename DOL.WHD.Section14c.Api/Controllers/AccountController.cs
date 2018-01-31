@@ -204,6 +204,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="employerId">Employer Id</param>
         /// <returns>Application Id and Status</returns>
+        /// 
+        [HttpGet]
         [Route("User/createEmployerApplication")]
         public async Task<IHttpActionResult> CreateOrUpdateEmployerApplication(string employerId)
         {
@@ -226,7 +228,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var userId = userIdentity.GetUserId();
             var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
 
-            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && x.ApplicationId == string.Empty);
+            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && x.ApplicationId == null);
             var applcationId = Guid.NewGuid().ToString();
             if (organization != null)
             {               
