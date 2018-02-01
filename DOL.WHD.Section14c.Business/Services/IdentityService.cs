@@ -51,7 +51,7 @@ namespace DOL.WHD.Section14c.Business.Services
             }
             else
             {
-                var organization = userInfo.Organizations.SingleOrDefault(x => x.Employer.Id == employerId);
+                var organization = userInfo.Organizations.FirstOrDefault(x => x.Employer.Id == employerId);
                 if (organization != null)
                 {
                     userHasRight = true;
@@ -76,7 +76,7 @@ namespace DOL.WHD.Section14c.Business.Services
             }
             else
             {
-                var organization = userInfo.Organizations.SingleOrDefault(x => x.ApplicationId == applicationId);
+                var organization = userInfo.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId);
                 if (organization != null)
                 {
                     userHasRight = true;
