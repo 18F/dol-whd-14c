@@ -4,12 +4,12 @@
 
   <main-top-nav-control></main-top-nav-control>
 
-  <div ng-show="organizations">
-    <div class="dol-application-start"> <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
-      <button ng-hide="currentApplication.applicationId" ng-click="startNewApplication()">Start New Application</button>
+  <div>
+    <div ng-hide="currentApplication.applicationId" class="dol-application-start"> <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
+      <button ng-click="startNewApplication()">Start New Application</button>
     </div>
-    <div class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
-      <p><button ng-click="navToApplication()" ng-hide="!currentApplication.applicationId">Continue Current Application</button> <span class="dol-modified-date">Last Modified: {{currentApplication.lastModifiedAt}}</span></p>
+    <div ng-hide="!currentApplication.applicationId" class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
+      <p><button ng-click="navToApplication()" >Continue Current Application</button> <span class="dol-modified-date">Last Modified: {{currentApplication.lastModifiedAt}}</span></p>
       <p>Need a fresh start? <a href="">Clear all responses from the current application.</a></p>
     </div>
     <hr>
