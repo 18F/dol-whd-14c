@@ -5,6 +5,6 @@
     api_url: 'https://localhost:44399',
     requireHttps: true,
     tokenCookieDurationMinutes: 20160,
-    allowedFileTypes: '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "csv", "CSV", "PDF"]'
+    allowedFileTypes: '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "PDF"]'
   });
 })(this);

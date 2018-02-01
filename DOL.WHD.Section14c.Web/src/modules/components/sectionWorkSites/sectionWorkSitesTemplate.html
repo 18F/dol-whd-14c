@@ -318,7 +318,6 @@
         </div>
 
         <fieldset class="dol-form-question-block">
-          <legend class="dol-form-question-text no-margin">Wage Data</legend>
 
           <div class="dol-plain-label-help">
             <label for="workerNumJobs" id="workerNumJobsLabel">How many jobs did this worker perform at this work site?</label>
@@ -445,7 +444,7 @@
         </fieldset>
 
         <div class="clearer dol-add-employee-footer">
-          <button class="no-margin" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button>
+          <button class="no-margin" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button><a role="button" href ng-click="vm.cancelAndClosePanel($event)" class="pull-right">Cancel & Close Panel</a>
           <hr>
           <button class="green-button dol-last-focus no-margin" ng-click="vm.doneAddingEmployees($event)">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
         </div>

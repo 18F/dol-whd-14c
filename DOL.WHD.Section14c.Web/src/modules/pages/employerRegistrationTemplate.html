@@ -7,6 +7,9 @@
     </p>
   </div>
   <p>Your account is now the point of contact for the employer you just registered. </p>
+  <p>
+    "Continue to your <a href="/#!/dashboard">Dashboard</a> to begin a section 14(c) application.
+  </p>
   <p>If you have any questions contact us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov.</a></p>
 </div>
 <div ng-show="previouslyRegistered.status" role="alert" tabindex="0">
@@ -31,7 +34,7 @@
     </p>
     <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
-        <legend class="dol-form-question-text">Has this employer ever previously held a 14(c) certificate?</legend>
+        <legend class="dol-form-question-text">Has this employer ever previously held a Section 14(c) certificate?</legend>
         <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
         <ul class="usa-unstyled-list">
           <li>
@@ -46,7 +49,7 @@
       </fieldset>
     </div>
     <div ng-show="formData.employer.hasTradeName" ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
-      <label for="certificateNumber">What is the most recently held certificate number for the main establishment?</label>
+      <label for="certificateNumber">What is the most recently held main establishment certificate?</label>
       <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" mask="99-99999-9-999" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
@@ -59,7 +62,7 @@
      <span><a role="button" ng-keyup="$event.keyCode === 13 ? toggleAllHelpText() : null" ng-click="toggleAllHelpText()" tabindex="0">What if the Employer's legal name changed since its last application?</a></span><helplink aria-controls="legalNameHelp" aria-describedby="legalNameLabel"></helplink>
       <helptext id="legalNameHelp">
         <p>Use the Employer's legal name as it appeared on the last application.</p>
-        <p>You will have an opportunity to update the Employer's legal name when completing a new application.</p>
+        <p>You will have an opportunity to update the Employer's legal name when completing your application.</p>
       </helptext>
     </div>
 
