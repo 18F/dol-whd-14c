@@ -17,7 +17,7 @@ module.exports = function(ngModule) {
     $scope.emailVerificationUserId = $location.search().userId;
     $scope.isEmailVerificationRequest = $scope.emailVerificationCode && $scope.emailVerificationUserId ? true: false;
     if ($scope.isEmailVerificationRequest) {
-      
+
       apiService
         .emailVerification(
           $scope.emailVerificationUserId,

@@ -104,6 +104,19 @@
     display: inline-block;
     margin: 0 1rem 0 0;
   }
+
+  nav {
+    float: right;
+  }
+}
+
+.dol-login-header {
+  display: block;
+  font-size: 1.5rem;
+  p {
+    display: inline-block;
+    margin: 0 1rem 0 0;
+  }
 }
 
 .dol-applicant-meta {
