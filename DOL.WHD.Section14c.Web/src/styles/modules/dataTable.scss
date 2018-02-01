@@ -8,10 +8,33 @@ table.dataTable.no-footer {
     border-bottom-width: 0 !important;
 }
 
+h3.dol-table-header {
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
 // Datatable utility buttons
 div.dt-buttons {
     padding-top: 8px;
 }
+
+// Datatable show number of entries
+.dataTables_wrapper {
+    .dataTables_length {
+        label {
+            display: inline-block;
+            margin-top: 0;
+            max-width: none;
+        }
+        select {
+            display: inline-block;
+            width: 80px;
+            margin: .2em;
+        }
+    }
+
+}
+
 
 // Datatable search field
 .dataTables_wrapper {
@@ -19,21 +42,20 @@ div.dt-buttons {
         white-space: nowrap;
         text-align: left;
         margin-bottom: 6px;
-        
-        label, input { 
+
+        label, input {
             display: inline-block;
             width: auto;
         }
         label {
             margin: 0;
             max-width: none;
-        }    
+        }
     }
 }
 
 // Datatable toggle buttons
-
-table.dataTable.dtr-column > tbody > tr > td.control:before, 
+table.dataTable.dtr-column > tbody > tr > td.control:before,
 table.dataTable.dtr-column > tbody > tr > th.control:before {
     position: relative !important;
     top: 0 !important;
@@ -54,7 +76,7 @@ table.dataTable.dtr-column > tbody > tr > th.control:before {
     background: transparent url('../images/dol-toggle-open.svg') center center no-repeat !important;
 }
 
-table.dataTable.dtr-column > tbody > tr.parent td.control:before, 
+table.dataTable.dtr-column > tbody > tr.parent td.control:before,
 table.dataTable.dtr-column > tbody > tr.parent th.control:before {
     content: 'Toggle Close' !important;
     background: transparent url('../images/dol-toggle-close.png') center center no-repeat !important;
@@ -107,28 +129,28 @@ table.dataTable thead .sorting_desc_disabled {
     margin-left: 0 !important;
     border: solid #ccc !important;
     border-width: 1px 1px 1px 0 !important;
-    border-radius: 0 !important;    
+    border-radius: 0 !important;
 }
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.previous {
-    border-width: 1px !important;    
+    border-width: 1px !important;
 }
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button:hover {
     background: none !important;
-    background-color: #f3f3f3 !important;  
-    color: #666666 !important; 
+    background-color: #f3f3f3 !important;
+    color: #666666 !important;
 }
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.current,
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.current:hover {
     background: none !important;
     background-color: $color-primary !important;
-    color: #fff !important;  
-    border-color: $color-primary !important; 
+    color: #fff !important;
+    border-color: $color-primary !important;
 }
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.disabled,
 .dataTables_wrapper .dol-datatable ~ .dataTables_paginate .paginate_button.disabled:hover {
     background: none !important;
     background-color: transparent !important;
-    color: #999 !important;  
+    color: #999 !important;
 }
 
 // Datatable buttons
@@ -149,90 +171,16 @@ button.dt-button, div.dt-button, a.dt-button {
     -webkit-font-smoothing: antialiased;
     background-image: none !important;
     filter: none;
-    
+
     &:hover {
         background-color: $color-gray-medium !important;
         color: $text-color !important;
         background-image: none !important;
     }
-    
+
     &:active {
         background-color: $color-gray !important;
         color: $text-color !important;
         background-image: none !important;
-    }    
-}
-
-
-.employer-table {
-    /* Remove spacing between table cells (from Normalize.css) */
-    border-collapse: collapse;
-    border-spacing: 0;
-    empty-cells: show;
-    border: 1px solid #cbcbcb;
-}
-
-.employer-table caption {
-    color: #000;
-    font: italic 85%/1 arial, sans-serif;
-    padding: 1em 0;
-    text-align: center;
-}
-
-.employer-table td,
-.employer-table th {
-    border-left: 1px solid #cbcbcb;/*  inner column border */
-    border-width: 0 0 0 1px;
-    font-size: inherit;
-    margin: 0;
-    overflow: visible; /*to make ths where the title is really long work*/
-    padding: 0.5em 1em; /* cell padding */
-}
-
-/* Consider removing this next declaration block, as it causes problems when
-there's a rowspan on the first cell. Case added to the tests. issue#432 */
-.employer-table td:first-child,
-.employer-table th:first-child {
-    border-left-width: 0;
-}
-
-.employer-table thead {
-    background-color: #e0e0e0;
-    color: #000;
-    text-align: left;
-    vertical-align: bottom;
-}
-
-/*
-striping:
-   even - #fff (white)
-   odd  - #f2f2f2 (light gray)
-*/
-.employer-table td {
-    background-color: transparent;
-}
-.employer-table-odd td {
-    background-color: #f2f2f2;
-}
-
-/* nth-child selector for modern browsers */
-.employer-table-striped tr:nth-child(2n-1) td {
-    background-color: #f2f2f2;
-}
-
-/* BORDERED TABLES */
-.employer-table-bordered td {
-    border-bottom: 1px solid #cbcbcb;
-}
-.employer-table-bordered tbody > tr:last-child > td {
-    border-bottom-width: 0;
-}
-
-.employer-table-horizontal td,
-.employer-table-horizontal th {
-    border-width: 0 0 1px 0;
-    border-bottom: 1px solid #cbcbcb;
-}
-.employer-table-horizontal tbody > tr:last-child > td {
-    border-bottom-width: 0;
+    }
 }

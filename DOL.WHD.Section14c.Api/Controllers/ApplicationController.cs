@@ -125,7 +125,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(results.Errors.ToString());
             }
-            var account = new AccountController(_employerService, _organizationService);
+            var account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
 

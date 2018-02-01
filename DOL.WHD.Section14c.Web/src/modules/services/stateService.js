@@ -190,11 +190,11 @@ module.exports = function(ngModule) {
       const d = $q.defer();
 
       // Get Application State for Organization
-      apiService.saveApplication(self.access_token, self.ein, self.employerId, self.applicationId, self.formData).then(
-        function() {
+      apiService.startApplication(self.access_token, self.ein, self.employerId, self.formData).then(
+        function(result) {
           // const data = result.data;
           // self.setFormData(JSON.parse(data));
-          d.resolve();
+          d.resolve(result);
         },
         function(error) {
           d.reject(error);
@@ -247,10 +247,13 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
-    this.downloadApplicationPdf = function() {
+    this.downloadApplicationPdf = function(applicationId) {
       const self = this;
-      var downloadURL = _env.api_url + '/api/application/download?applicationId=' + self.applicationId + '&access_token=' + self.access_token;
+      const d = $q.defer();
+      var downloadURL = _env.api_url + '/api/application/download?applicationId=' + applicationId + '&access_token=' + self.access_token;
       $window.open(downloadURL, '_blank');
+      d.resolve();
+      return d.promise;
     };
 
     this.loadApplicationList = function() {
