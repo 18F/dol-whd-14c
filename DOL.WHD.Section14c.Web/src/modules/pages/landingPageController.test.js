@@ -194,7 +194,7 @@ describe('landingPageController', function() {
 
       userInfo.resolve({data:{organizations: scope.organizations}});
       scope.$apply();
-      expect(scope.applicationList.length).toEqual(4);
+      expect(scope.submittedApplications.length).toEqual(1);
       expect(scope.initDatatable).toHaveBeenCalled();
     });
 
