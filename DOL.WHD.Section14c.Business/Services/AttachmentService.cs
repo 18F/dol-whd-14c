@@ -109,6 +109,12 @@ namespace DOL.WHD.Section14c.Business.Services
                         // File name format: attachment type - original file name 
                         var fileName = string.Format("{0} - {1}", attachment.Key,  attachment.Value.OriginalFileName);
                         var stream = _fileRepository.Download(memoryStream, attachment.Value.RepositoryFilePath);
+                        // Decrypt file 
+                        byte[] bytesToBeDecrypted = stream.ToArray();
+                        byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+                        keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+                        byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
+                        stream = new MemoryStream(bytesDecrypted);
                         applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.Value.MimeType, FileName = fileName });
                     }
                 }
