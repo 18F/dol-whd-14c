@@ -64,15 +64,12 @@ module.exports = function(ngModule) {
     $scope.startNewApplication = function () {
       if (stateService.ein) {
         stateService.saveNewApplication().then(function(result) {
-          console.log(result);
             stateService.applicationId = result.data.ApplicationId;
-            console.log('here')
             $location.path('/section/assurances');
             autoSaveService.start();
-            console.log('aklsjdf')
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
-          }); 
+          });
       }
     };
 
@@ -111,9 +108,9 @@ module.exports = function(ngModule) {
              if(element.applicationStatus.name === "Submitted") {
               organization.action = "Download";
               $scope.submittedApplications.push(organization);
-            } 
-          } 
-          
+            }
+          }
+
           $scope.currentApplication = organization;
           stateService.ein = $scope.currentApplication.ein;
           stateService.employerId = $scope.currentApplication.employerId;
