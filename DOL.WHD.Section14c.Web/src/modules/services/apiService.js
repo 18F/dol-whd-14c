@@ -253,7 +253,6 @@ module.exports = function(ngModule) {
         }
       }).then(
         function successCallback(data) {
-          console.log(data)
           applicationData.lastSaved = moment.utc();
           d.resolve(data);
         },
