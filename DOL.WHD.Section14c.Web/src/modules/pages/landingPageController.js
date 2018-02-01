@@ -24,7 +24,7 @@ module.exports = function(ngModule) {
 
     $scope.onApplicationClick = function(index) {
       $scope.loadUserInfo(index);
-      if($scope.organizations[index].applicationStatus.name === "New") {
+      if($scope.submittedApplications[index].applicationStatus.name === "New") {
 
          stateService.saveNewApplication().then(function() {
             $scope.navToApplication();
@@ -32,14 +32,14 @@ module.exports = function(ngModule) {
             $scope.handleApplicationLoadError(error.data);
           });
        }
-       else if($scope.organizations[index].applicationStatus.name === "Submitted"){
+       else if($scope.submittedApplications[index].applicationStatus.name === "Submitted"){
           stateService.downloadApplicationPdf().then(function() {
             return;
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
        }
-       else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
+       else if ($scope.submittedApplications[index].applicationStatus.name === "InProgress") {
         stateService.loadSavedApplication().then(function() {
             $scope.navToApplication();
           }).catch(function(error) {
@@ -64,12 +64,9 @@ module.exports = function(ngModule) {
     $scope.startNewApplication = function () {
       if (stateService.ein) {
         stateService.saveNewApplication().then(function(result) {
-          console.log(result);
             stateService.applicationId = result.data.ApplicationId;
-            console.log('here')
             $location.path('/section/assurances');
             autoSaveService.start();
-            console.log('aklsjdf')
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
@@ -84,19 +81,17 @@ module.exports = function(ngModule) {
     };
 
     $scope.loadUserInfo = function(index) {
-      stateService.employerId = $scope.organizations[index].employer.id;
-      stateService.applicationId = $scope.organizations[index].applicationId;
-      stateService.ein = $scope.organizations[index].ein;
-      stateService.employerName = $scope.organizations[index].employer.legalName;
+      stateService.employerId = $scope.submittedApplications[index].employer.id;
+      stateService.applicationId = $scope.submittedApplications[index].applicationId;
+      stateService.ein = $scope.submittedApplications[index].ein;
+      stateService.employerName = $scope.submittedApplications[index].employer.legalName;
       return;
     }
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
-        $scope.organizations = result.data.organizations;
         $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
-          console.log(element)
           stateService.ein = element.employer.ein;
           stateService.employerId = element.employer.id;
           stateService.employerName = element.employer.legalName;

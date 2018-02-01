@@ -20,7 +20,7 @@ describe('landingPageController', function() {
       };
 
       controller = landingPageController();
-      scope.organizations = [
+      scope.submittedApplications = [
         {
           employer: {
             id: '1234',
@@ -192,7 +192,7 @@ describe('landingPageController', function() {
     it('loads user info', function() {
       scope.init();
 
-      userInfo.resolve({data:{organizations: scope.organizations}});
+      userInfo.resolve({data:{organizations: scope.submittedApplications}});
       scope.$apply();
       expect(scope.submittedApplications.length).toEqual(1);
       expect(scope.initDatatable).toHaveBeenCalled();
@@ -201,7 +201,7 @@ describe('landingPageController', function() {
     it('user info reject does not import applications into list', function() {
       scope.$digest();
       scope.init();
-      userInfo.reject({data:{organizations:scope.organizations}});
+      userInfo.reject({data:{organizations:scope.submittedApplications}});
       scope.$apply();
       expect(scope.applicationList).toBe(undefined);
     });
