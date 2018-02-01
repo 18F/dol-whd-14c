@@ -144,7 +144,6 @@ describe('landingPageController', function() {
       scope.$apply();
       expect(scope.applicationLoadError.status).toBe(false);
       expect(scope.submittedApplications.length).toEqual(1);
-      expect(scope.initDatatable).toHaveBeenCalled();
       expect(mockStateService.ein).toEqual('12-123345')
       expect(mockStateService.applicationId).toBe(undefined);
       expect(scope.currentApplication.applicationId).toEqual('1231541515');
@@ -210,6 +209,24 @@ describe('landingPageController', function() {
       scope.$apply();
       expect(mockAutoSaveService.start).toHaveBeenCalled();
       expect(mockLocation.path).toHaveBeenCalledWith('/section/assurances');
+    });
+  });
+
+  describe('error handler', function(){
+    it('handles error', function() {
+      scope.handleApplicationLoadError('test');
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toEqual(true);
+      expect(scope.applicationLoadError.message).toEqual('test');
+    });
+  });
+
+  describe('data table', function(){
+    it('initializes datatable', function() {
+      scope.init();
+      userInfo.resolve({data:{organizations: scope.orgMemberships}});
+      scope.$apply();
+      expect(scope.initDatatable).toHaveBeenCalled();
     });
   });
 });
