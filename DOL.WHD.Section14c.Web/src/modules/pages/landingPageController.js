@@ -14,6 +14,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.currentApplication = undefined;
+    $scope.submittedApplications = [];
 
     $scope.changePassword = function() {
       $location.path('/changePassword');
@@ -90,12 +91,10 @@ module.exports = function(ngModule) {
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
-        $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
           stateService.ein = element.employer.ein;
           stateService.employerId = element.employer.id;
           stateService.employerName = element.employer.legalName;
-
           var organization = {
             ein: element.employer.ein,
             employerId: element.employer.id,
@@ -104,7 +103,6 @@ module.exports = function(ngModule) {
             lastModifiedAt: dateFilter(element.lastModifiedAt) + " at " + new Date(element.lastModifiedAt).toLocaleTimeString(),
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
-
           if(element.applicationId && element.applicationStatus) {
             organization.applicationId = element.applicationId;
             organization.applicationStatus = element.applicationStatus.name;
@@ -115,9 +113,8 @@ module.exports = function(ngModule) {
               $scope.currentApplication = organization;
             }
           } else {
-              $scope.currentApplication = organization;
+            $scope.currentApplication = organization;
           }
-
         });
         $scope.initDatatable();
       });
