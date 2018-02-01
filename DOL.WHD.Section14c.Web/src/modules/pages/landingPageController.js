@@ -86,10 +86,9 @@ module.exports = function(ngModule) {
              if(element.applicationStatus.name === "Submitted") {
               organization.action = "Download";
               $scope.submittedApplications.push(organization);
-            } else {
-              $scope.currentApplication = organization;
             }
-          } else {
+          }
+          if(organization.action != "Download") {
             $scope.currentApplication = organization;
           }
         });
