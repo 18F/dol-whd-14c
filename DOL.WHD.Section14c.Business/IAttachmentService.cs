@@ -15,6 +15,7 @@ namespace DOL.WHD.Section14c.Business
         Dictionary<string, Attachment> GetApplicationAttachments(ref ApplicationSubmission application);
         List<PDFContentData> PrepareApplicationContentsForPdfConcatenation(Dictionary<string, Attachment> attachments, List<string> applicationFormData);
         void DeleteAttachement(string EIN, Guid fileId);
+        void DeleteApplicationAttachements(string applicationId);
         string GetApplicationFormViewContent(ApplicationSubmission application, string templateString);
     }
 }
