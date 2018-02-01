@@ -15,44 +15,24 @@ module.exports = function(ngModule) {
 
     $scope.currentApplication = undefined;
     $scope.submittedApplications = [];
-
-    $scope.changePassword = function() {
-      $location.path('/changePassword');
-    };
     $scope.applicationLoadError = {
       status: false
     };
 
-    $scope.onApplicationClick = function(index) {
-      $scope.loadUserInfo(index);
-      if($scope.submittedApplications[index].applicationStatus.name === "New") {
+    $scope.changePassword = function() {
+      $location.path('/changePassword');
+    };
 
-         stateService.saveNewApplication().then(function() {
-            $scope.navToApplication();
-          }).catch(function(error) {
-            $scope.handleApplicationLoadError(error.data);
-          });
-       }
-       else if($scope.submittedApplications[index].applicationStatus.name === "Submitted"){
-          stateService.downloadApplicationPdf().then(function() {
+    $scope.downloadApplication = function(index) {
+       if($scope.submittedApplications[index].action === "Download"){
+          stateService.downloadApplicationPdf($scope.submittedApplications[index].applicationId).then(function() {
             return;
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
+       } else {
+         $scope.handleApplicationLoadError('Invalid Status for Download');
        }
-       else if ($scope.submittedApplications[index].applicationStatus.name === "InProgress") {
-        stateService.loadSavedApplication().then(function() {
-            $scope.navToApplication();
-          }).catch(function(error) {
-            $scope.handleApplicationLoadError(error.data);
-          });
-      } else {
-        $scope.handleApplicationLoadError('Invalid Application State');
-      }
-    };
-
-    $scope.navToEmployerRegistration = function ()  {
-      $location.path('/employerRegistration');
     };
 
     $scope.navToApplication = function () {
@@ -81,20 +61,17 @@ module.exports = function(ngModule) {
       }
     };
 
-    $scope.loadUserInfo = function(index) {
-      stateService.employerId = $scope.submittedApplications[index].employer.id;
-      stateService.applicationId = $scope.submittedApplications[index].applicationId;
-      stateService.ein = $scope.submittedApplications[index].ein;
-      stateService.employerName = $scope.submittedApplications[index].employer.legalName;
+    $scope.loadUserInfo = function(employerId, ein, employerName) {
+      stateService.employerId = employerId;
+      stateService.ein = ein;
+      stateService.employerName = employerName;
       return;
     }
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
         result.data.organizations.forEach(function(element) {
-          stateService.ein = element.employer.ein;
-          stateService.employerId = element.employer.id;
-          stateService.employerName = element.employer.legalName;
+          $scope.loadUserInfo(element.employer.id, element.employer.ein, element.employer.legalName);
           var organization = {
             ein: element.employer.ein,
             employerId: element.employer.id,
@@ -156,7 +133,7 @@ module.exports = function(ngModule) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.onApplicationClick(row[0][0]);
+        $scope.downloadApplication(row[0][0]);
     });
 
     $scope.init();

@@ -1,12 +1,14 @@
 describe('landingPageController', function() {
-  var scope, landingPageController, organizations, mockApiService, mockStateService, $q, location;
+  var scope, landingPageController, mockAutoSaveService, mockLocation, organizations, mockApiService, mockStateService, $q, location;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, apiService, stateService, _$q_, $location) {
+    inject(function($rootScope, $controller, apiService, autoSaveService, $location, stateService, _$q_, $location) {
       scope = $rootScope.$new();
       mockStateService = stateService;
+      mockLocation = $location;
+      mockAutoSaveService = autoSaveService;
       mockApiService = apiService;
       $q = _$q_;
       location = $location
@@ -15,37 +17,19 @@ describe('landingPageController', function() {
         return $controller('landingPageController', {
           $scope: scope,
           stateService: mockStateService,
+          $location: mockLocation,
+          autoSaveService: mockAutoSaveService,
           apiService: mockApiService
         });
       };
 
       controller = landingPageController();
-      scope.submittedApplications = [
-        {
-          employer: {
-            id: '1234',
-            legalName: 'Test Employer',
-            ein: '2',
-            physicalAddress: {
-              streetAddress: 'Test',
-              city:'Mechanicsburg',
-              state: 'PA',
-              zipCode: '17050',
-            }
-          },
-          createdAt:'',
-          lastModifiedAt:'',
-          applicationStatus: {
-            name: "New"
-          },
-          applicationId: '1231541515',
-          ein: "12-123345"
-        },
+      scope.orgMemberships = [
         {
           employer: {
             id: '12313',
             legalName: 'Test Employer',
-            ein: '2',
+            ein: '12-123345',
             physicalAddress: {
               streetAddress: 'Test',
               city:'Mechanicsburg',
@@ -65,7 +49,7 @@ describe('landingPageController', function() {
           employer: {
             id: '1234',
             legalName: 'Test Employer',
-            ein: '2',
+            ein: '12-123345',
             physicalAddress: {
               streetAddress: 'Test',
               city:'Mechanicsburg',
@@ -85,7 +69,7 @@ describe('landingPageController', function() {
           employer: {
             id: '3333',
             legalName: 'Test Employer',
-            ein: '2',
+            ein: '12-123345',
             physicalAddress: {
               streetAddress: 'Test',
               city:'Mechanicsburg',
@@ -97,6 +81,30 @@ describe('landingPageController', function() {
           lastModifiedAt:'',
           applicationStatus: {
             name: "Invalid"
+          },
+          applicationId: '1231541515',
+          ein: "12-123345"
+        }
+      ];
+
+      scope.mockSubmittedApplications = [
+        {
+          employer: {
+            id: '1234',
+            legalName: 'Test Employer',
+            ein: '12-123345',
+            physicalAddress: {
+              streetAddress: 'Test',
+              city:'Mechanicsburg',
+              state: 'PA',
+              zipCode: '17050',
+            }
+          },
+          action: "Download",
+          createdAt:'',
+          lastModifiedAt:'',
+          applicationStatus: {
+            name: "Submitted"
           },
           applicationId: '1231541515',
           ein: "12-123345"
@@ -127,84 +135,81 @@ describe('landingPageController', function() {
     })
   );
 
-  describe('application navigation', function () {
-    it('invoke controller', function() {
-      expect(controller).toBeDefined();
-      expect(document.title).toBe('DOL WHD Section 14(c)');
-    });
-
-    it('invalid application status causes error', function() {
-      scope.onApplicationClick(3);
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(true);
-      expect(mockStateService.employerId).toEqual('3333');
-      expect(mockStateService.applicationId).toEqual('1231541515');
-      expect(mockStateService.ein).toEqual('12-123345');
-    });
-
-    it('saves new application with New status name', function() {
-      scope.onApplicationClick(0);
-      saveNewApplication.resolve();
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(false);
-    });
-
-    it('saveNewApplication reject causes error', function() {
-      scope.onApplicationClick(0);
-      saveNewApplication.reject({data: 'error'});
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(true);
-      expect(scope.applicationLoadError.message).toBe('error');
-    });
-
-    it('loads new application with InProgress status name', function() {
-      scope.onApplicationClick(1);
-      loadSavedApplication.resolve();
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(false);
-    });
-
-    it('loadSavedApplication reject causes error', function() {
-      scope.onApplicationClick(1);
-      loadSavedApplication.reject({data: 'error'});
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(true);
-      expect(scope.applicationLoadError.message).toBe('error');
-    });
-
-    it('loads new application with Submitted status name', function() {
-      scope.onApplicationClick(2);
-      downloadApplicationPdf.resolve();
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(false);
-    });
-
-    it('downloadApplicationPdf reject causes error', function() {
-      scope.onApplicationClick(2);
-      downloadApplicationPdf.reject({data: 'error'});
-      scope.$apply();
-      expect(scope.applicationLoadError.status).toBe(true);
-    });
-  })
-
   describe('controller initialization', function(){
 
-    it('loads user info', function() {
+    it('loads in progress application', function() {
       scope.init();
-
-      userInfo.resolve({data:{organizations: scope.submittedApplications}});
+      expect(scope.currentApplication).toBe(undefined);
+      userInfo.resolve({data:{organizations: scope.orgMemberships}});
       scope.$apply();
+      expect(scope.applicationLoadError.status).toBe(false);
       expect(scope.submittedApplications.length).toEqual(1);
       expect(scope.initDatatable).toHaveBeenCalled();
+      expect(mockStateService.ein).toEqual('12-123345')
+      expect(mockStateService.applicationId).toBe(undefined);
+      expect(scope.currentApplication.applicationId).toEqual('1231541515');
     });
 
-    it('user info reject does not import applications into list', function() {
+    it('user info reject does not import applications into submitted list', function() {
+      var orgs = scope.submittedApplications;
+      scope.submittedApplications = [];
       scope.$digest();
       scope.init();
-      userInfo.reject({data:{organizations:scope.submittedApplications}});
+      userInfo.reject({data:{organizations: orgs}});
       scope.$apply();
-      expect(scope.applicationList).toBe(undefined);
+      expect(scope.submittedApplications.length).toEqual(0);
     });
-  })
+  });
 
+  describe('application download', function(){
+    it('user cannot download application with action other than Download', function() {
+      scope.submittedApplications = scope.mockSubmittedApplications;
+      scope.submittedApplications[0].action = "Invalid";
+      scope.downloadApplication(0);
+      expect(scope.applicationLoadError.status).toEqual(true);
+      expect(scope.applicationLoadError.message).toEqual('Invalid Status for Download');
+    });
+
+    it('user can download application with Submitted status', function() {
+      scope.submittedApplications = scope.mockSubmittedApplications;
+      scope.downloadApplication(0);
+      downloadApplicationPdf.resolve();
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toEqual(false);
+    });
+
+    it('download pdf rejection causes error', function() {
+      scope.submittedApplications = scope.mockSubmittedApplications;
+      scope.downloadApplication(0);
+      downloadApplicationPdf.reject({data: 'error'})
+      scope.$apply();
+      expect(scope.applicationLoadError.status).toEqual(true);
+      expect(scope.applicationLoadError.message).toEqual('error');
+    });
+  });
+
+  describe('application navigation', function(){
+    it('user can start a new application', function() {
+      mockStateService.ein = '1234';
+      spyOn(mockAutoSaveService, 'start');
+      spyOn(mockLocation, 'path');
+      scope.startNewApplication();
+      saveNewApplication.resolve({data: {ApplicationId: '1234'}});
+      scope.$apply();
+      expect(mockAutoSaveService.start).toHaveBeenCalled();
+      expect(mockLocation.path).toHaveBeenCalledWith('/section/assurances');
+      expect(mockStateService.applicationId).toEqual('1234');
+      expect(scope.applicationLoadError.status).toEqual(false);
+    });
+
+    it('user can navigate to in progress application', function() {
+      mockStateService.ein = '1234';
+      spyOn(mockAutoSaveService, 'start');
+      spyOn(mockLocation, 'path');
+      scope.navToApplication();
+      scope.$apply();
+      expect(mockAutoSaveService.start).toHaveBeenCalled();
+      expect(mockLocation.path).toHaveBeenCalledWith('/section/assurances');
+    });
+  });
 });
