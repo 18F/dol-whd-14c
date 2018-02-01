@@ -64,9 +64,12 @@ module.exports = function(ngModule) {
     $scope.startNewApplication = function () {
       if (stateService.ein) {
         stateService.saveNewApplication().then(function(result) {
+          console.log(result);
             stateService.applicationId = result.data.ApplicationId;
+            console.log('here')
             $location.path('/section/assurances');
             autoSaveService.start();
+            console.log('aklsjdf')
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
@@ -93,6 +96,11 @@ module.exports = function(ngModule) {
         $scope.organizations = result.data.organizations;
         $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
+          console.log(element)
+          stateService.ein = element.employer.ein;
+          stateService.employerId = element.employer.id;
+          stateService.employerName = element.employer.legalName;
+
           var organization = {
             ein: element.employer.ein,
             employerId: element.employer.id,
@@ -108,13 +116,13 @@ module.exports = function(ngModule) {
              if(element.applicationStatus.name === "Submitted") {
               organization.action = "Download";
               $scope.submittedApplications.push(organization);
+            } else {
+              $scope.currentApplication = organization;
             }
+          } else {
+              $scope.currentApplication = organization;
           }
 
-          $scope.currentApplication = organization;
-          stateService.ein = $scope.currentApplication.ein;
-          stateService.employerId = $scope.currentApplication.employerId;
-          stateService.employerName = $scope.currentApplication.employerName;
         });
         $scope.initDatatable();
       });
