@@ -90,6 +90,7 @@ module.exports = function(ngModule) {
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
+        console.log(result)
         $scope.submittedApplications = [];
         result.data.organizations.forEach(function(element) {
           stateService.ein = element.employer.ein;
