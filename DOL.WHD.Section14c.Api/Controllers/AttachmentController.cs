@@ -88,11 +88,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // make sure user has rights to the Id
             var hasPermission = _identityService.HasSavePermission(userInfo, ApplicationId);
-            var org = userInfo.Organizations.FirstOrDefault(x => x.ApplicationId == ApplicationId);
-            if (!hasPermission || org.ApplicationStatusId == StatusIds.Submitted)
+            var applicationIsSubmitted = userInfo.Organizations.FirstOrDefault(x => x.ApplicationId == ApplicationId && x.ApplicationStatusId == StatusIds.Submitted);
+            if (!hasPermission || applicationIsSubmitted != null)
             {
-                Unauthorized("Unauthorized");            }
-
+                Unauthorized("Unauthorized");
+            }
 
             var filesReadToProvider = await Request.Content.ReadAsMultipartAsync(new RestrictedMultipartMemoryStreamProvider());
 
