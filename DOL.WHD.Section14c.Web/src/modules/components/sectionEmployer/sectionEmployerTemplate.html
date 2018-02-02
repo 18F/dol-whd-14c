@@ -141,7 +141,7 @@
 
         <div class="usa-input-grid usa-input-grid-large">
           <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
-          <label for="hasMailingAddress">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
+          <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
         </div>
       </fieldset>
     </div>
@@ -243,13 +243,13 @@
             <input class="usa-input-medium" id="parentAddressZipCode" name="parentAddressZipCode" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="formData.employer.parentAddress.zipCode">
           </div>
 
-          <div ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
+          <div ng-hide="formData.employer.parentAddress.state === 'DC' || formData.employer.parentAddress.state === 'AS' || formData.employer.parentAddress.state === 'GU' || formData.employer.parentAddress.state === 'MP' || formData.employer.parentAddress.state === 'PR' || formData.employer.parentAddress.state === 'UM' || formData.employer.parentAddress.state === 'VI'" ng-class="validate('employer.parentAddress.county') ? 'usa-input-error' : ''">
             <label for="parentAddressCounty">County</label>
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.parentAddress.county')">{{ validate('employer.parentAddress.county') }}</span>
             <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
           </div>
 
-          <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
+          <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="false" ng-model="formData.employer.sendMailToParent">
           <label for="sendMailToParent">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
 

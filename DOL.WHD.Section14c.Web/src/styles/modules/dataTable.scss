@@ -8,11 +8,6 @@ table.dataTable.no-footer {
     border-bottom-width: 0 !important;
 }
 
-h3.dol-table-header {
-    margin-top: 1em;
-    margin-bottom: 1.5em;
-}
-
 // Datatable utility buttons
 div.dt-buttons {
     padding-top: 8px;
@@ -29,6 +24,7 @@ div.dt-buttons {
         select {
             display: inline-block;
             width: 80px;
+            //padding: 1rem 2em 1rem .7em;
             margin: .2em;
         }
     }
