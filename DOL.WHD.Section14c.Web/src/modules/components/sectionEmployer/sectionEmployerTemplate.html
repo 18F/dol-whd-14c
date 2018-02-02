@@ -141,7 +141,7 @@
 
         <div class="usa-input-grid usa-input-grid-large">
           <input id="hasMailingAddress" type="checkbox" name="hasMailingAddress" value="true" ng-model="formData.employer.hasMailingAddress">
-          <label for="hasMailingAddress">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
+          <label for="hasMailingAddress">Mailing Address is different from Physical Address</label>
         </div>
       </fieldset>
     </div>
@@ -249,7 +249,7 @@
             <input id="parentAddressCounty" name="parentAddressCounty" type="text" ng-model="formData.employer.parentAddress.county">
           </div>
 
-          <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="true" ng-model="formData.employer.sendMailToParent">
+          <input id="sendMailToParent" type="checkbox" name="sendMailToParent" value="false" ng-model="formData.employer.sendMailToParent">
           <label for="sendMailToParent">Check here if mail is to be sent to parent organization instead of the employer's address.</label>
         </div>
 

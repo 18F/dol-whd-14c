@@ -173,11 +173,12 @@ meter[value='4']::-moz-meter-bar {
   background-color: $color-gray-light;
   margin: 0 auto;
   width: 413px;
-  margin-bottom: 290px;
-  margin-top: 69px;
-  padding: 45px;
+  padding: 4.5rem;
+  margin-top: 7rem;
+  margin-bottom: 14rem;
 
   h2 {
+    margin-top: 0;
     color: $color-secondary;
     font-family: Arial;
     font-size: 28px;
@@ -188,5 +189,14 @@ meter[value='4']::-moz-meter-bar {
 
   p {
     margin: auto;
+
+    &:last-of-type {
+      text-align: center;
+
+      button {
+        margin-top: 3rem;
+        margin-bottom: 0;
+      }
+    }
   }
 }
