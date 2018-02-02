@@ -54,11 +54,13 @@
 }
 
 .crumbsHeader {
-    font-size: 10px;
+  font-size: 12px;
+  margin-bottom: .5rem;
 }
 
-.breadcrumb {
-
+breadcrumb {
+  display: block;
+  margin-top: 1rem;
 }
 .breadcrumb li {
   float: left;
