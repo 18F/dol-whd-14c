@@ -13,49 +13,44 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
 
-    $scope.changePassword = function() {
-      $location.path('/changePassword');
-    };
+    $scope.currentApplication = undefined;
+    $scope.submittedApplications = [];
     $scope.applicationLoadError = {
       status: false
     };
 
-    $scope.onApplicationClick = function(index) {
-      $scope.loadUserInfo(index);
-      if($scope.organizations[index].applicationStatus.name === "New") {
+    $scope.changePassword = function() {
+      $location.path('/changePassword');
+    };
 
-         stateService.saveNewApplication().then(function() {
-            $scope.navToApplication();
-          }).catch(function(error) {
-            $scope.handleApplicationLoadError(error.data);
-          });
-       }
-       else if($scope.organizations[index].applicationStatus.name === "Submitted"){
-          stateService.downloadApplicationPdf().then(function() {
+    $scope.downloadApplication = function(index) {
+       if($scope.submittedApplications[index].action === "Download"){
+          stateService.downloadApplicationPdf($scope.submittedApplications[index].applicationId).then(function() {
             return;
           }).catch(function(error) {
             $scope.handleApplicationLoadError(error.data);
           });
+       } else {
+         $scope.handleApplicationLoadError('Invalid Status for Download');
        }
-       else if ($scope.organizations[index].applicationStatus.name === "InProgress") {
-        stateService.loadSavedApplication().then(function() {
-            $scope.navToApplication();
-          }).catch(function(error) {
-            $scope.handleApplicationLoadError(error.data);
-          });
-      } else {
-        $scope.handleApplicationLoadError('Invalid Application State');
-      }
-    };
-
-    $scope.navToEmployerRegistration = function ()  {
-      $location.path('/employerRegistration');
     };
 
     $scope.navToApplication = function () {
       if (stateService.ein) {
         autoSaveService.start();
         $location.path('/section/assurances');
+      }
+    };
+
+    $scope.startNewApplication = function () {
+      if (stateService.ein) {
+        stateService.saveNewApplication().then(function(result) {
+            stateService.applicationId = result.data.ApplicationId;
+            $location.path('/section/assurances');
+            autoSaveService.start();
+          }).catch(function(error) {
+            $scope.handleApplicationLoadError(error.data);
+          });
       }
     };
 
@@ -66,39 +61,38 @@ module.exports = function(ngModule) {
       }
     };
 
-    $scope.loadUserInfo = function(index) {
-      stateService.employerId = $scope.organizations[index].employer.id;
-      stateService.applicationId = $scope.organizations[index].applicationId;
-      stateService.ein = $scope.organizations[index].ein;
-      stateService.employerName = $scope.organizations[index].employer.legalName;
+    $scope.loadUserInfo = function(employerId, ein, employerName) {
+      stateService.employerId = employerId;
+      stateService.ein = ein;
+      stateService.employerName = employerName;
       return;
     }
 
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
-        $scope.organizations = result.data.organizations;
-        $scope.applicationList = [];
         result.data.organizations.forEach(function(element) {
+          // Milestone 1: User can only have one employer (id, ein, and legalName will be consistent for every memeber)
+          $scope.loadUserInfo(element.employer.id, element.employer.ein, element.employer.legalName);
           var organization = {
-            applicationId: element.applicationId,
-            employerId: element.employer.ein,
+            ein: element.employer.ein,
+            employerId: element.employer.id,
             employerName: element.employer.legalName,
             createdAt: dateFilter(element.createdAt) + " at " + new Date(element.createdAt).toLocaleTimeString(),
             lastModifiedAt: dateFilter(element.lastModifiedAt) + " at " + new Date(element.lastModifiedAt).toLocaleTimeString(),
-            applicationStatus: element.applicationStatus.name,
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
-
-          if(element.applicationStatus.name === "New") {
-            organization.action = "Start"
+          if(element.applicationId && element.applicationStatus) {
+            organization.applicationId = element.applicationId;
+            organization.applicationStatus = element.applicationStatus.name;
+             if(element.applicationStatus.name === "Submitted") {
+              organization.action = "Download";
+              $scope.submittedApplications.push(organization);
+            }
           }
-          else if (element.applicationStatus.name === "InProgress") {
-            organization.action = "Continue"
-          } else {
-            organization.action = "Download"
+          if(organization.action != "Download") {
+            // Milestone 1: User can only have one in progress application at a given time
+            $scope.currentApplication = organization;
           }
-
-          $scope.applicationList.push(organization);
         });
         $scope.initDatatable();
       });
@@ -106,7 +100,10 @@ module.exports = function(ngModule) {
 
     $scope.initDatatable = function () {
       $scope.tableWidget = $('#EmployerTable').DataTable({
-        data: $scope.applicationList,
+        data: $scope.submittedApplications,
+        language: {
+          emptyTable: "You do not have any submitted applications. Once you submit an application, you can download the application PDF here."
+        },
         responsive: {
             details: {
                 type: "column",
@@ -115,27 +112,29 @@ module.exports = function(ngModule) {
             }
         },
         ordering: true,
+        autoWidth: false,
         order: tableConfig.order,
         columns: tableConfig.employeeColumns,
         columnDefs: tableConfig.employeeColumnDefinitions,
       });
+
+      setTimeout(() => $scope.tableWidget.columns.adjust().draw(), 0 );
     }
+
 
     $scope.refreshTable = function () {
       if ($scope.tableWidget) {
         $scope.tableWidget.destroy()
         $scope.tableWidget=null
       }
-
       setTimeout(() => $scope.initDatatable(),0)
     }
-
 
     $('#EmployerTable').on('click', '.action', function ($event) {
         $event.preventDefault();
         var tr = $(this).closest('tr');
         var row = $scope.tableWidget.row( tr );
-        $scope.onApplicationClick(row[0][0]);
+        $scope.downloadApplication(row[0][0]);
     });
 
     $scope.init();

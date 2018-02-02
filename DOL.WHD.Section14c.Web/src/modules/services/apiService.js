@@ -238,6 +238,33 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    this.startApplication = function(access_token, ein, employerId, applicationData) {
+      let url = _env.api_url + '/api/Account/User/createEmployerApplication?employerId=' + employerId;
+      let d = $q.defer();
+
+      applicationData.saved = moment.utc();
+
+      $http({
+        method: 'GET',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+        function successCallback(data) {
+          applicationData.lastSaved = moment.utc();
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          applicationData.lastSaved = 0;
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
     this.getApplication = function(access_token, applicationId) {
       let url = _env.api_url + '/api/save/' + applicationId;
       let d = $q.defer();
