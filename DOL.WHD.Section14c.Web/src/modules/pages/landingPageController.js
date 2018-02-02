@@ -71,6 +71,7 @@ module.exports = function(ngModule) {
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
         result.data.organizations.forEach(function(element) {
+          // Milestone 1: User can only have one employer (id, ein, and legalName will be consistent for every memeber)
           $scope.loadUserInfo(element.employer.id, element.employer.ein, element.employer.legalName);
           var organization = {
             ein: element.employer.ein,
@@ -89,6 +90,7 @@ module.exports = function(ngModule) {
             }
           }
           if(organization.action != "Download") {
+            // Milestone 1: User can only have one in progress application at a given time
             $scope.currentApplication = organization;
           }
         });
