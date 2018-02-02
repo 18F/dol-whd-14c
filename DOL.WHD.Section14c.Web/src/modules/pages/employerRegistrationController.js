@@ -38,6 +38,8 @@ module.exports = function(ngModule) {
             $scope.previouslyRegistered = {};
             $scope.previouslyRegistered.status = true;
             $scope.previouslyRegistered.name = error.data;
+          } else {
+            $scope.registrationSuccess = false;
           }
         });
       }

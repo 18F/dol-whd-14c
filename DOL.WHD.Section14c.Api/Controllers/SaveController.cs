@@ -63,7 +63,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult GetSave(string applicationId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
@@ -94,7 +94,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult AddSave(string employerId, string applicationId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
@@ -118,12 +118,6 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId);
             _saveService.AddOrUpdate(applicationId, applicationId, employerId, state);
 
-            if (org.ApplicationStatusId == StatusIds.New)
-            {
-                // Update Organization Status
-                org.ApplicationStatusId = StatusIds.InProgress;
-                UserManager.UpdateAsync(user);
-            }
             return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });
         }
 
@@ -137,7 +131,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult UpdateSave(string applicationId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion
@@ -171,7 +165,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
         public IHttpActionResult DeleteSave(string applicationId)
         {
-            AccountController account = new AccountController(_employerService, _organizationService);
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
             account.UserManager = UserManager;
             var userInfo = account.GetUserInfo();
             // make sure user has rights to the Applicaion

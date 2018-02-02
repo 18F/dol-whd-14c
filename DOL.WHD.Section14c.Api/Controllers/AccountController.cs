@@ -34,6 +34,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private ApplicationRoleManager _roleManager;
         private readonly IEmployerService _employerService;
         private readonly IOrganizationService _organizationService;
+        private readonly IIdentityService _identityService;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -67,10 +68,15 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="organizationService">
         /// The organization service this controller should use
         /// </param>
-        public AccountController(IEmployerService employerService, IOrganizationService organizationService)
+        /// <summary>
+        /// Default constructor for injecting dependent services
+        /// </summary>
+        /// <param name="identityService">
+        public AccountController(IEmployerService employerService, IOrganizationService organizationService, IIdentityService identityService)
         {
             _employerService = employerService;
             _organizationService = organizationService;
+            _identityService = identityService;
         }
 
         /// <summary>
@@ -173,11 +179,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var userIdentity = ((ClaimsIdentity)User.Identity);
                 var userId = userIdentity.GetUserId();
                 var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
-                organizationMembership.ApplicationId = Guid.NewGuid().ToString();
-                organizationMembership.ApplicationStatusId = StatusIds.New;
                 // set user organization
                 user.Organizations.Add(organizationMembership);
-
                 IdentityResult result = await UserManager.UpdateAsync(user);
 
                 if (!result.Succeeded)
@@ -191,6 +194,79 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 var orgMembership = _organizationService.GetOrganizationMembershipByEmployer(employer);
                 responseMessage.StatusCode = HttpStatusCode.Found;
                 responseMessage.Content = new StringContent(string.Format("{0} {1}", orgMembership?.CreatedBy?.FirstName, orgMembership?.CreatedBy?.LastName));
+            }
+
+            return ResponseMessage(responseMessage);
+        }
+
+        /// <summary>
+        /// Create or update Employer Application
+        /// </summary>
+        /// <param name="employerId">Employer Id</param>
+        /// <returns>Application Id and Status</returns>
+        /// GET api/Account/User/createEmployerApplication
+        [HttpGet]
+        [Route("User/createEmployerApplication")]
+        public async Task<IHttpActionResult> CreateOrUpdateEmployerApplication(string employerId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Check user user permission
+            var userInfo = GetUserInfo();
+            var hasPermission = _identityService.HasAddPermission(userInfo, employerId);
+            if (!hasPermission)
+            {
+                Unauthorized("Unauthorized");
+            }
+
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+            var userIdentity = ((ClaimsIdentity)User.Identity);
+            var userId = userIdentity.GetUserId();
+            var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
+
+            // Updated existing Application Id and Status
+            var organization = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId && string.IsNullOrEmpty(x.ApplicationId));
+            var applcationId = Guid.NewGuid().ToString();
+            if (organization != null)
+            {
+                organization.ApplicationId = applcationId;
+                organization.ApplicationStatusId = StatusIds.InProgress;
+                responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", applcationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
+                IdentityResult result = await UserManager.UpdateAsync(user);
+            }
+            else
+            {
+                // Create new Application if no application is in progress.
+                // Application is considered to be in progress if today's date is in the same "calendar" year as the date
+                // application was created and hasn't been submitted yet.
+                // In other words, New application can be created for this employer if there is no application in
+                // progress with the same year for application creation date & today's date
+                var notSubmittedApplication = user.Organizations.LastOrDefault(x => x.Employer_Id == employerId && x.ApplicationStatusId != StatusIds.Submitted);
+                if (notSubmittedApplication == null || notSubmittedApplication.CreatedAt.Year < DateTime.Now.Year)
+                {
+                    var org = user.Organizations.FirstOrDefault(x => x.Employer_Id == employerId);
+                    var newOrganization = new OrganizationMembership()
+                    {
+                        EIN = org.EIN,
+                        Employer_Id = org.Employer_Id,
+                        IsPointOfContact = org.IsPointOfContact,
+                        ApplicationId = applcationId,
+                        ApplicationStatusId = StatusIds.InProgress
+                    };
+
+                    user.Organizations.Add(newOrganization);
+                    responseMessage.Content = new StringContent(string.Format("{{\"ApplicationId\": \"{0}\", \"ApplicationStatus\": \"{1}\" }}", newOrganization.ApplicationId, StatusIds.InProgress), Encoding.UTF8, "application/json");
+                    IdentityResult result = await UserManager.UpdateAsync(user);
+                }
+                else
+                {
+                    responseMessage = Request.CreateResponse(HttpStatusCode.ExpectationFailed);
+                    responseMessage.Content = new StringContent("Can not create new application");
+                }
             }
 
             return ResponseMessage(responseMessage);

@@ -82,8 +82,8 @@ require('./pages')(app);
 require('./services')(app);
 app.config(function(IdleProvider, KeepaliveProvider) {
   // configure Idle settings
-  IdleProvider.idle(200); // in seconds
-  IdleProvider.timeout(900); // in seconds
+  IdleProvider.idle(780); // in seconds
+  IdleProvider.timeout(120); // in seconds
   KeepaliveProvider.interval(2); // in seconds
 })
 let routeConfig = require('./routes.config');
