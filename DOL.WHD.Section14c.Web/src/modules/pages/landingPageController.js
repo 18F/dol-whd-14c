@@ -68,6 +68,18 @@ module.exports = function(ngModule) {
       return;
     }
 
+    $scope.clearApplication = function(){
+      apiService.clearApplication(stateService.access_token, stateService.applicationId)
+      .then(
+        function() {
+          // Reload Page
+        },
+        function(e) {
+          apiService.parseErrors(e.data);
+        }
+      );
+    }
+
     $scope.init = function () {
       apiService.userInfo(stateService.access_token).then(function(result) {
         result.data.organizations.forEach(function(element) {
