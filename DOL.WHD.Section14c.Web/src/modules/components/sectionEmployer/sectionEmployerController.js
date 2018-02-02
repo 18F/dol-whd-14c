@@ -94,5 +94,14 @@ module.exports = function(ngModule) {
         $scope.formData.employer.physicalAddress.county = 'N/A';
       }
     });
+
+    $scope.$watch('formData.employer.parentAddress.state', function () {
+      if(!$scope.formData.employer.parentAddress) {
+        $scope.formData.employer.parentAddress = {};
+      }
+      if($scope.formData.employer.parentAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.parentAddress.state) >= 0) {
+        $scope.formData.employer.parentAddress.county = 'N/A';
+      }
+    });
   });
 };
