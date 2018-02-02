@@ -216,27 +216,19 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 // Remove application from application save table
                 DateTime now = DateTime.UtcNow;
-                string currentDate = now.ToString("yyyy-MM-ddTHH\\:mm\\:ssZ");
-                var state = "{\"saved\":\""+ currentDate + "\"}";
+                var state = "{\"saved\":\""+ now.ToString("yyyy-MM-ddTHH\\:mm\\:ssZ") + "\"}";
                 _saveService.AddOrUpdate(organization.ApplicationId, organization.ApplicationId, organization.Employer_Id, state);
-                //_saveService.Remove(applicationId);
                 // Soft delete application attachements 
                 _attachmentService.DeleteApplicationAttachements(applicationId);
-                
-                //// Clear out organization membership
-                //organization.ApplicationId = null;
-                //organization.ApplicationStatusId = null;
-                //user.Organizations.Select(x => x.Employer).ToList();
-                //// Update organization membership
-                //await UserManager.UpdateAsync(user);
             }
             else
             {
-                ExpectationFailed("Cannot clear application.");
+                ExpectationFailed(string.Format("Cannot clear this application. Application Id: {0}", applicationId));
             }
 
             return Ok();
         }
+
         /// <summary>
         /// OPTIONS endpoint for CORS
         /// </summary>
