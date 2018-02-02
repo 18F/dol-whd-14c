@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var failPlugin = require('webpack-fail-plugin');
 var copyWebpackPlugin = require('copy-webpack-plugin');
+var chunkhashReplaceWebpackPlugin = require('chunkhash-replace-webpack-plugin');
 var bourbon = require('node-bourbon').includePaths;
 var helpers = require('./helpers');
 
@@ -9,7 +10,7 @@ module.exports = {
   entry: './src/main.ts',
   output: {
     path: './dist/',
-    filename: 'index.js'
+    filename: 'index.[chunkhash].js'
   },
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
@@ -89,6 +90,10 @@ module.exports = {
       compressor: {
         warnings: false
       }
+    }),
+    new chunkhashReplaceWebpackPlugin({
+      src: 'index.html',
+      dest: 'dist/index.html'
     }),
     failPlugin,
     new copyWebpackPlugin([{ from: './src/deploy' }])
