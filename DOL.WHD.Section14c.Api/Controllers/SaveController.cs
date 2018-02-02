@@ -197,7 +197,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpPost]
         [Route("clearsave")]
         [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
-        public async Task<IHttpActionResult> ClearApplicationData(string applicationId)
+        public IHttpActionResult ClearApplicationData(string applicationId)
         {
             AccountController account = new AccountController(_employerService, _organizationService);
             account.UserManager = UserManager;
@@ -215,16 +215,20 @@ namespace DOL.WHD.Section14c.Api.Controllers
             if (organization != null)
             {
                 // Remove application from application save table
-                _saveService.Remove(applicationId);
+                DateTime now = DateTime.UtcNow;
+                string currentDate = now.ToString("yyyy-MM-ddTHH\\:mm\\:ssZ");
+                var state = "{\"saved\":\""+ currentDate + "\"}";
+                _saveService.AddOrUpdate(organization.ApplicationId, organization.ApplicationId, organization.Employer_Id, state);
+                //_saveService.Remove(applicationId);
                 // Soft delete application attachements 
                 _attachmentService.DeleteApplicationAttachements(applicationId);
                 
-                // Clear out organization membership
-                organization.ApplicationId = null;
-                organization.ApplicationStatusId = null;
-                user.Organizations.Select(x => x.Employer).ToList();
-                // Update organization membership
-                await UserManager.UpdateAsync(user);
+                //// Clear out organization membership
+                //organization.ApplicationId = null;
+                //organization.ApplicationStatusId = null;
+                //user.Organizations.Select(x => x.Employer).ToList();
+                //// Update organization membership
+                //await UserManager.UpdateAsync(user);
             }
             else
             {

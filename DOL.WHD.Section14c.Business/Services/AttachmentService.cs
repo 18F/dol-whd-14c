@@ -178,7 +178,7 @@ namespace DOL.WHD.Section14c.Business.Services
         {
             var attachments = _attachmentRepository.Get()
                 .Where(x => x.ApplicationId == applicationId && x.Deleted == false);
-            if(attachments == null)
+            if(attachments != null)
             {
                 foreach (var attachment in attachments)
                 {
