@@ -328,6 +328,40 @@ describe('apiService', function() {
     expect(result).toEqual('value');
   });
 
+  it('getApplication error should resolve deferred', function() {
+    var isResolved;
+    var result;
+    var applicationId = '12-1234567';
+    api.clearApplication('access_token', applicationId).then(function(error) {
+      result = error.data;
+      isResolved = false;
+    });
+
+    $httpBackend
+      .expectGET(env.api_url + '/api/save/clearsave?applicationId=' + applicationId)
+      .respond(200, 'value');
+    $httpBackend.flush();
+    expect(isResolved).toEqual(false);
+    expect(result).toEqual('value');
+  });
+
+  it('getApplication error should reject deferred', function() {
+    var isResolved;
+    var result;
+    var applicationId = '12-1234567';
+    api.clearApplication('access_token', applicationId).then(undefined, function(error) {
+      result = error.data;
+      isResolved = false;
+    });
+
+    $httpBackend
+      .expectGET(env.api_url + '/api/save/clearsave?applicationId=' + applicationId)
+      .respond(400, 'value');
+    $httpBackend.flush();
+    expect(isResolved).toEqual(false);
+    expect(result).toEqual('value');
+  });
+
   //uploadAttachment
   it('uploadAttachment error should reject deferred', function() {
     var isResolved;

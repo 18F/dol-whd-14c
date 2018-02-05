@@ -26,6 +26,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IIdentityService _identityService;
         private readonly IOrganizationService _organizationService;
         private readonly IEmployerService _employerService;
+        private readonly IAttachmentService _attachmentService;
         private ApplicationUserManager _userManager;
 
         /// <summary>
@@ -46,12 +47,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="identityService">The Identity service this controller should use </param>
         /// <param name="organizationService">The Organization service this controller should use </param>
         /// <param name="employerService">The Employer service this controller should use </param>
-        public SaveController(ISaveService saveService, IIdentityService identityService, IOrganizationService organizationService, IEmployerService employerService)
+        /// <param name="attachmentService">The attachment service this controller should use </param>
+        public SaveController(ISaveService saveService, IIdentityService identityService, IOrganizationService organizationService, IEmployerService employerService, IAttachmentService attachmentService)
         {
             _saveService = saveService;
             _identityService = identityService;
             _organizationService = organizationService;
             _employerService = employerService;
+            _attachmentService = attachmentService;
         }
 
         /// <summary>
@@ -176,6 +179,46 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             _saveService.Remove(applicationId);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Clear out applciation saved data
+        /// </summary>
+        /// <param name="applicationId">Application Identification Number</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("clearsave")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication)]
+        public IHttpActionResult ClearApplicationData(string applicationId)
+        {
+            AccountController account = new AccountController(_employerService, _organizationService, _identityService);
+            account.UserManager = UserManager;
+            var userInfo = account.GetUserInfo();
+            // make sure user has rights to the Applicaion
+            var hasPermission = _identityService.HasSavePermission(userInfo, applicationId);
+            if (!hasPermission)
+            {
+                Unauthorized("Unauthorized");
+            }
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            var organization = user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId && x.ApplicationStatusId != StatusIds.Submitted);
+
+            // Clear Application Information 
+            if (organization != null)
+            {
+                // Remove application from application save table
+                DateTime now = DateTime.UtcNow;
+                var state = "{\"saved\":\"" + now.ToString("yyyy-MM-ddTHH\\:mm\\:ssZ") + "\"}";
+                _saveService.AddOrUpdate(organization.ApplicationId, organization.ApplicationId, organization.Employer_Id, state);
+                // Soft delete application attachements 
+                _attachmentService.DeleteApplicationAttachements(applicationId);
+            }
+            else
+            {
+                ExpectationFailed(string.Format("Cannot clear this application. Application Id: {0}", applicationId));
+            }
+
             return Ok();
         }
 

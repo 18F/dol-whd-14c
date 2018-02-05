@@ -101,6 +101,20 @@ namespace DOL.WHD.Section14c.Business.Services
             return applicationData;
         }
 
+        public void DeleteApplicationAttachements(string applicationId)
+        {
+            var attachments = _attachmentRepository.Get()
+                .Where(x => x.ApplicationId == applicationId && x.Deleted == false);
+            if (attachments != null)
+            {
+                foreach (var attachment in attachments)
+                {
+                    attachment.Deleted = true;
+                }
+                _attachmentRepository.SaveChanges();
+            }
+        }
+
         /// <summary>
         /// Get all attachments from an application after the application has been submitted.
         /// </summary>

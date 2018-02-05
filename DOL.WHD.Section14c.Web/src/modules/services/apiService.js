@@ -287,6 +287,27 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    this.clearApplication = function(access_token, applicationId) {
+      let url = _env.api_url + '/api/save/clearsave?applicationId=' + applicationId;
+      let d = $q.defer();
+      $http({
+        method: 'Get',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token
+        }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
     this.getSubmittedApplication = function(access_token, appid) {
       let url = _env.api_url + '/api/application?id=' + appid;
       let d = $q.defer();
