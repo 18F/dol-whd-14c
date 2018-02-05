@@ -144,8 +144,6 @@ module.exports = function(ngModule) {
             vm.accountCreated = true;
             vm.submittingForm = false;
             $window.scrollTo(0, 0);
-
-            $location.path("/login").search({registeredEmailL: vm.registeredEmail});
           },
           function(error) {
             if (error && error.data) {
