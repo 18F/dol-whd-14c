@@ -9,8 +9,26 @@
       <button ng-click="startNewApplication()">Start New Application</button>
     </div>
     <div ng-hide="!currentApplication.applicationId" class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
+      <div ng-class="{'is-visible': modalIsVisible}" class="modal">
+        <header class="cd-panel-header">
+          <a ng-click="hideClearApplicationConfirmationModal()" class="modal-close dol-close-button"></a>
+        </header>
+        <p>
+          <h4>{{clear.message}}</h4>
+          <br/>
+        </p>
+        <button ng-click="hideClearApplicationConfirmationModal()" class="grey-button">Cancel</button> 
+        <button ng-click="clearApplication()" class="red-button" ng-show="clear.status == 'Initialize'">Ok</button>
+        <div ng-show="clear.status == 'Failure'" class="dol-feedback-error">
+            <p class="dol-feedback-message">
+              <strong>{{clear.message}}</strong>
+            </p>
+        </div>
+      </div>
+      <div ng-if="modalIsVisible" class="modal-backdrop"></div>
+      
       <p><button ng-click="navToApplication()" >Continue Current Application</button> <span class="dol-modified-date">Last Modified: {{currentApplication.lastModifiedAt}}</span></p>
-      <p>Need a fresh start? <a ng-click="clearApplication()"  href="">Clear all responses from the current application.</a></p>
+      <p>Need a fresh start? <a ng-click="showClearApplicationConfirmationModal()"  href="">Clear all responses from the current application.</a></p>
     </div>
     <hr>
     <h3 class="dol-table-header">Submitted Applications</h3>

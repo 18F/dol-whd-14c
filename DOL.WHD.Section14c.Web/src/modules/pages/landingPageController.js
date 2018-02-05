@@ -12,13 +12,17 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
-
+    
     $scope.currentApplication = undefined;
     $scope.submittedApplications = [];
     $scope.applicationLoadError = {
       status: false
     };
-
+    $scope.clear = {
+      status: "Inprogress",
+      message: 'In Progress ...'
+    };
+    $scope.modalIsVisible = false;
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
@@ -53,7 +57,7 @@ module.exports = function(ngModule) {
           });
       }
     };
-
+    
     $scope.handleApplicationLoadError = function(message) {
       $scope.applicationLoadError.status = true;
       if(message) {
@@ -68,14 +72,32 @@ module.exports = function(ngModule) {
       return;
     }
 
+    $scope.setClearStatus = function (status, message) {
+      $scope.clear.status = status;
+      $scope.clear.message = message;
+    };
+
+    $scope.showClearApplicationConfirmationModal = function () {
+      $scope.modalIsVisible = true;
+      $scope.setClearStatus('Initialize', 'Are you sure you want to clear all data?');
+    };
+
+    $scope.hideClearApplicationConfirmationModal = function() {
+      $scope.modalIsVisible = false;
+    }
+
     $scope.clearApplication = function(){
+      $scope.setClearStatus('Clearing', 'Attempting to clear application.');
       apiService.clearApplication(stateService.access_token, stateService.applicationId)
       .then(
         function() {
           // Reload Page
+          $scope.modalIsVisible = false;
+          stateService.resetFormData();
         },
         function(e) {
           apiService.parseErrors(e.data);
+          $scope.setClearStatus('Failure', 'Failed to clear application.');
         }
       );
     }
