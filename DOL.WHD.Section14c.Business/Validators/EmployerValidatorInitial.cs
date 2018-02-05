@@ -38,7 +38,6 @@ namespace DOL.WHD.Section14c.Business.Validators
                 RuleFor(e => e.ParentLegalName).NotEmpty();
                 RuleFor(e => e.ParentTradeName).NotEmpty();
                 RuleFor(e => e.ParentAddress).NotNull().SetValidator(addressValidator);
-                RuleFor(e => e.SendMailToParent).NotNull();
             });
             RuleFor(e => e.EmployerStatusOther).NotEmpty().When(e => e.EmployerStatusId == ResponseIds.EmployerStatus.Other);
             When(e => e.SCAId == ResponseIds.SCA.Yes, () =>
