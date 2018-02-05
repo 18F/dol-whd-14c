@@ -185,7 +185,7 @@ module.exports = function(ngModule) {
     };
 
     this.validateTelephoneNumber = function(phoneno) {
-      let re = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/i;
+      let re = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
       let match = re.exec(phoneno);
 
       return match !== null;
@@ -197,6 +197,11 @@ module.exports = function(ngModule) {
 
       return match !== null;
     };
+
+    this.validateCertificateNumber = function (certNo) {
+      var regex = /(\d{2}-\d{5}-[S,H,E,P]-\d{3})/;
+      return regex.test(certNo);
+    }
 
     this.checkIsInitial = function() {
       return (
@@ -250,11 +255,11 @@ module.exports = function(ngModule) {
       );
       if (hasPreviousCert) {
         let certNo = this.getFormValue('previousCertificateNumber');
-        if (!certNo || certNo.length !== 14) {
-          //TODO: better test against actual cert number rules
+
+        if(!this.validateCertificateNumber(certNo)) {
           this.setValidationError(
             'previousCertificateNumber',
-            "Please provide the most recently held certificate number for the employer's main establishment"
+            "Please ensure that the certificate number is in the correct format."
           );
         }
       }
@@ -284,7 +289,7 @@ module.exports = function(ngModule) {
       if (fax && !this.validateTelephoneNumber(fax)) {
         this.setValidationError(
           'contactFax',
-          'If available, please provide a fax number'
+          'If available, please provide a valid a fax number'
         );
       }
 
