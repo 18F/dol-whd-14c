@@ -23,7 +23,6 @@ module.exports = function(ngModule) {
     if (!$scope.formData.employer) {
       $scope.formData.employer = {};
     }
-    $scope.formData.employer.sendMailToParent = false;
     if (!$scope.formData.employer.numSubminimalWageWorkers) {
       $scope.formData.employer.numSubminimalWageWorkers = {};
     }

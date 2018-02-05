@@ -187,17 +187,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             model = new EmployerInfo { HasParentOrg = true, ParentAddress = new Address() };
             EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.ParentAddress, model);
         }
-
-        [TestMethod]
-        public void Should_Require_SendMailToParent()
-        {
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SendMailToParent, null as bool?);
-            var model = new EmployerInfo { HasParentOrg = true, SendMailToParent = null };
-            EmployerValidator.ShouldHaveValidationErrorFor(x => x.SendMailToParent, model);
-            model = new EmployerInfo { HasParentOrg = true, SendMailToParent = false };
-            EmployerValidator.ShouldNotHaveValidationErrorFor(x => x.SendMailToParent, model);
-        }
-
+        
         [TestMethod]
         public void Should_Require_EmployerStatusOther()
         {
