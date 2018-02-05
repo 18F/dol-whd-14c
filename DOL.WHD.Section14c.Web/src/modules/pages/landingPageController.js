@@ -26,6 +26,7 @@ module.exports = function(ngModule) {
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
+    $scope.navToApplicationButtonName="Continue Current Application";
 
     $scope.downloadApplication = function(index) {
        if($scope.submittedApplications[index].action === "Download"){
@@ -94,6 +95,7 @@ module.exports = function(ngModule) {
           // Reload Page
           $scope.modalIsVisible = false;
           stateService.resetFormData();
+          $scope.navToApplicationButtonName= "Start New Application";
         },
         function(e) {
           apiService.parseErrors(e.data);
