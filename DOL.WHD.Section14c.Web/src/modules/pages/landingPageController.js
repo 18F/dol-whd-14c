@@ -12,7 +12,7 @@ module.exports = function(ngModule) {
   ) {
     'ngInject';
     'use strict';
-    
+
     $scope.currentApplication = undefined;
     $scope.submittedApplications = [];
     $scope.applicationLoadError = {
@@ -22,7 +22,7 @@ module.exports = function(ngModule) {
       status: "Inprogress",
       message: 'In Progress ...'
     };
-    $scope.modalIsVisible = false;
+    $scope.clearApplicationModalIsVisible = false;
     $scope.changePassword = function() {
       $location.path('/changePassword');
     };
@@ -58,7 +58,7 @@ module.exports = function(ngModule) {
           });
       }
     };
-    
+
     $scope.handleApplicationLoadError = function(message) {
       $scope.applicationLoadError.status = true;
       if(message) {
@@ -79,12 +79,12 @@ module.exports = function(ngModule) {
     };
 
     $scope.showClearApplicationConfirmationModal = function () {
-      $scope.modalIsVisible = true;
+      $scope.clearApplicationModalIsVisible = true;
       $scope.setClearStatus('Initialize', 'Are you sure you want to clear all data?');
     };
 
     $scope.hideClearApplicationConfirmationModal = function() {
-      $scope.modalIsVisible = false;
+      $scope.clearApplicationModalIsVisible = false;
     }
 
     $scope.clearApplication = function(){
@@ -93,7 +93,7 @@ module.exports = function(ngModule) {
       .then(
         function() {
           // Reload Page
-          $scope.modalIsVisible = false;
+          $scope.clearApplicationModalIsVisible = false;
           stateService.resetFormData();
           $scope.navToApplicationButtonName= "Start New Application";
         },
