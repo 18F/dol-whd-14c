@@ -6,7 +6,7 @@ var employeeColumns = [
       "defaultContent": ""
   },
   { data: 'employerName', title: "Employer" },
-  { data: 'employerId', title: "EIN"},
+  { data: 'ein', title: "EIN"},
   { data: 'employerAddress',  title: "Address"},
   { data: 'createdAt', title: "Created At" },
   { data: 'lastModifiedAt',  title: "Date Submitted"},
