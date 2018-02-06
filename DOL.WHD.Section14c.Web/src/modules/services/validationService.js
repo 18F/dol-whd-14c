@@ -177,6 +177,11 @@ module.exports = function(ngModule) {
       return dateValMoment.isValid();
     };
 
+    this.validateEIN = function(ein) {
+      let regex = /^\d{2}-\d{7}/;
+      return regex.exec(ein)
+    };
+
     this.validateZipCode = function(zip) {
       let re = /^[0-9]{5}(?:-[0-9]{4})?$/i;
       let match = re.exec(zip);

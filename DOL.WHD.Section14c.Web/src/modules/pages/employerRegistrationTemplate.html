@@ -42,10 +42,12 @@
     <p>
       All fields are required unless indicated as optional.
     </p>
-    <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="hasTradeNameRequired ? 'usa-input-error' : ''">
       <fieldset class="usa-fieldset-inputs usa-sans">
-        <legend class="dol-form-question-text">Has this employer ever previously held a Section 14(c) certificate?</legend>
-        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.hasTradeName')">{{ validate('employer.hasTradeName') }}</span>
+        <legend class="dol-form-question-text">Has this employer ever previously held a 14(c) certificate?</legend>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="hasTradeNameRequired">
+          Please indicate whether this employer ever previously held a 14(c) certificate.
+        </span>
         <ul class="usa-unstyled-list">
           <li>
             <input id="hasTradeName_1" type="radio" name="hasTradeName" aria-describedby="hasTradeNameHelp" ng-value="true" ng-model="formData.employer.hasTradeName">
@@ -58,16 +60,24 @@
         </ul>
       </fieldset>
     </div>
-    <div ng-show="formData.employer.hasTradeName" ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
-      <label for="certificateNumber">What is the most recently held main establishment certificate?</label>
+    <div ng-show="formData.employer.hasTradeName" ng-class="certificateNumberRequired || certificateNumberInvalid ? 'usa-input-error' : ''">
+      <label for="certificateNumber">What is the most recently held certificate number for the main establishment?</label>
+      <span class="usa-input-error-message" ng-show="certificateNumberRequired">
+        Please provide a certificate number for this establishment.
+      </span>
+      <span lass="usa-input-error-message" ng-show="certificateNumberInvalid">
+        Please provide a valid certificate number.
+      </span>
       <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" mask="99-99999-9-999" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
-    <div class="dol-form-question-block" ng-class="validate('employer.legalName') ? 'usa-input-error' : ''">
+    <div class="dol-form-question-block" ng-class="legalNameRequired ? 'usa-input-error' : ''">
       <div class="dol-form-question-help">
         <label for="legalName" class="dol-form-question-text" id="legalNameLabel">Legal Name of Employer</label>
       </div>
-      <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.legalName')">{{ validate('employer.legalName') }}</span>
+      <span class="usa-input-error-message" ng-show="legalNameRequired">
+        Please provide a legal name for this employer.
+      </span>
       <input id="legalName" name="legalName" aria-describedby="legalNameHelp" type="text" ng-model="formData.employer.legalName">
      <span><a role="button" ng-keyup="$event.keyCode === 13 ? toggleAllHelpText() : null" ng-click="toggleAllHelpText()" tabindex="0">What if the Employer's legal name changed since its last application?</a></span><helplink aria-controls="legalNameHelp" aria-describedby="legalNameLabel"></helplink>
       <helptext id="legalNameHelp">
@@ -76,24 +86,18 @@
       </helptext>
     </div>
 
-    <div ng-class="vm.einError || vm.einRequired || vm.invalidEin ? 'usa-input-error' : ''">
+    <div ng-class="einRequired || einInvalid ? 'usa-input-error' : ''">
       <label for="EIN">Federal Employer Identification Number (EIN)</label>
-      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.einError || vm.einRequired || vm.invalidEin">
-        <div ng-show="vm.einError">
-          <p>The EIN you provided is already registered. Please contact the account admin for access.</p>
-          <p>If you do not know the account admin, contact our office at 00-1234567</p>
-        </div>
-        <div ng-show="vm.einRequired">
-          <p>EIN is required.</p>
-        </div>
-        <div ng-show="vm.invalidEin">
-          <p>Invalid EIN format. Example XX-XXXXXXX</p>
-        </div>
+      <span class="usa-input-error-message" ng-show="einRequired">
+        EIN is required.
       </span>
-      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.ein" />
+      <span class="usa-input-error-message" ng-show="einInvalid">
+        Invalid EIN format. Example XX-XXXXXXX
+      </span>
+      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.employer.ein" />
       <span class="example">Example: 00-1234567</span>
     </div>
-    <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp" role="alert" tabindex="0">
+    <div class="usa-alert usa-alert-info" ng-show="showEinHelp" role="alert" tabindex="0">
       <div class="usa-alert-body">
         <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>
         <p>Additional users can be added once the Employer is registered.</p>
@@ -102,35 +106,36 @@
     <div class="dol-form-question-block">
       <fieldset class="usa-form-large">
         <legend class="dol-form-question-text no-margin">Physical Address of Employer’s Main Establishment</legend>
-        <div ng-class="validate('employer.physicalAddress.streetAddress') ? 'usa-input-error' : ''">
+        <div ng-class="streetAddressRequired ? 'usa-input-error' : ''">
           <label for="mailing-address-1">Street Address</label>
-          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.streetAddress')">{{ validate('employer.physicalAddress.streetAddress') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="streetAddressRequired">Please provide a street address.</span>
           <input id="mailing-address-1" name="mailing-address-1" type="text" ng-model="formData.employer.physicalAddress.streetAddress">
         </div>
 
-        <div class="clearer" ng-class="validate(['employer.physicalAddress.city', 'employer.physicalAddress.state']) ? 'usa-input-error' : ''">
+        <div class="clearer" ng-class="cityRequired || stateRequired ? 'usa-input-error' : ''">
           <div class="usa-input-grid usa-input-grid-medium">
             <label for="city">City</label>
-            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.city')">{{ validate('employer.physicalAddress.city') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="cityRequired">Please provide a city.</span>
             <input id="city" name="city" type="text" ng-model="formData.employer.physicalAddress.city">
           </div>
 
           <div class="usa-input-grid usa-input-grid-small">
             <label for="state">State</label>
-            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.state')">{{ validate('employer.physicalAddress.state') }}</span>
+            <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="stateRequired">Please provide a state.</span>
             <state-field name="state" selected-state="formData.employer.physicalAddress.state"></state-field>
           </div>
         </div>
 
-        <div ng-class="validate('employer.physicalAddress.zipCode') ? 'usa-input-error' : ''">
+        <div ng-class="zipCodeRequired || zipCodeInvalid ? 'usa-input-error' : ''">
           <label for="zip">Zip Code</label>
-          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.zipCode')">{{ validate('employer.physicalAddress.zipCode') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="zipCodeRequired">Please provide a zip code.</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="zipCodeInvalid">Please provide a valid zip code.</span>
           <input class="usa-input-medium" id="zip" name="zip" type="text" mask="99999" pattern="[\d]{5}" data-grouplength="5" data-delimiter="" data-politespace ng-model="formData.employer.physicalAddress.zipCode">
         </div>
 
-        <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="validate('employer.physicalAddress.county') ? 'usa-input-error' : ''">
+        <div ng-hide="formData.employer.physicalAddress.state === 'DC' || formData.employer.physicalAddress.state === 'AS' || formData.employer.physicalAddress.state === 'GU' || formData.employer.physicalAddress.state === 'MP' || formData.employer.physicalAddress.state === 'PR' || formData.employer.physicalAddress.state === 'UM' || formData.employer.physicalAddress.state === 'VI'" ng-class="countyRequired ? 'usa-input-error' : ''">
           <label for="county">County</label>
-          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('employer.physicalAddress.county')">{{ validate('employer.physicalAddress.county') }}</span>
+          <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="countyRequired">Please provide a county.</span>
           <input id="county" name="county" type="text" ng-model="formData.employer.physicalAddress.county">
         </div>
       </fieldset>
