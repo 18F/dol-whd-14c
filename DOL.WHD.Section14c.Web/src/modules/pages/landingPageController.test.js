@@ -132,6 +132,12 @@ describe('landingPageController', function() {
       spyOn(mockApiService, 'userInfo').and.returnValue(
         userInfo.promise
       );
+
+      clearApplication = $q.defer();
+      spyOn(mockApiService, 'clearApplication').and.returnValue(
+        clearApplication.promise
+      );
+
     })
   );
 
@@ -228,5 +234,5 @@ describe('landingPageController', function() {
       scope.$apply();
       expect(scope.initDatatable).toHaveBeenCalled();
     });
-  });
+  });  
 });
