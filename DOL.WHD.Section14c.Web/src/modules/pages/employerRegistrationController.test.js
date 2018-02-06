@@ -107,9 +107,9 @@ describe('employerRegistrationController', function() {
   it('does not call setEmployer or validation service if required values are undefined', function() {
     scope.formData.employer = {};
     scope.formData.employer.hasTradeName = true;
-    expect(scope.formData.employer.ein).toBe(undefined);
     scope.onSubmitClick();
     scope.$apply();
+    expect(scope.formIsValid).toBe(false);
     expect(mockApiService.setEmployer).not.toHaveBeenCalled();
     expect(mockValidationService.validateEIN).not.toHaveBeenCalled();
     expect(mockValidationService.validateZipCode).not.toHaveBeenCalled();
@@ -125,14 +125,16 @@ describe('employerRegistrationController', function() {
 
   it('validates employer address', function() {
     scope.validateAddress();
+    scope.validateForm();
     scope.$apply();
     expect(scope.formIsValid).toBe(true);
     scope.formData.employer.physicalAddress = {};
     scope.validateAddress();
+    scope.validateForm();
     scope.$apply();
     expect(scope.formIsValid).toBe(false);
     spyOn(scope, 'validateAddress');
-    scope.validateForm();
+    scope.getValidationErrors();
     expect(scope.validateAddress).toHaveBeenCalled();
   });
 

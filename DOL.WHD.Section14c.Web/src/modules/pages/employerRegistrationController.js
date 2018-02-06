@@ -20,23 +20,40 @@ module.exports = function(ngModule) {
       status: false,
       name: ""
     }
+
     $scope.stateService = stateService;
     $scope.registrationSuccess = false;
     $scope.formIsValid = true;
+
+    $scope.validationProperties = {
+      streetAddressRequired: false,
+      cityRequired: false,
+      zipCodeRequired: false,
+      zipCodeInvalid: false,
+      stateRequired: false,
+      countyRequired: false,
+      einRequired: false,
+      einInvalid: false,
+      hasTradeNameRequired: false,
+      legalNameRequired: false,
+      certificateNumberRequired: false,
+      certificateNumberInvalid: false
+    }
+
+    $scope.validateForm = function () {
+      for(var property in $scope.validationProperties) {
+        if($scope.validationProperties[property]) {
+          $scope.formIsValid = false;
+        }
+      }
+    }
+
     $scope.territoriesAndDistricts = ['DC','AS','GU','MP','PR','UM','VI'];
+
     $scope.resetErrors = function () {
-      $scope.einRequired = false;
-      $scope.einInvalid = false;
-      $scope.hasTradeNameRequired = false;
-      $scope.legalNameRequired = false;
-      $scope.streetAddressRequired = false;
-      $scope.cityRequired = false;
-      $scope.zipCodeRequired = false;
-      $scope.zipCodeInvalid = false;
-      $scope.stateRequired = false
-      $scope.certificateNumberRequired = false;
-      $scope.certificateNumberInvalid = false
-      $scope.countyRequired = false;
+      for(var property in $scope.validationProperties) {
+        $scope.validationProperties[property] = false;
+      }
     }
 
     $scope.toggleAllHelpText = function () {
@@ -45,73 +62,62 @@ module.exports = function(ngModule) {
 
     $scope.validateAddress = function () {
       if(!$scope.formData.employer.physicalAddress) {
-        $scope.streetAddressRequired = true;
-        $scope.zipCodeRequired = true;
-        $scope.stateRequired = true;
-        $scope.cityRequired = true;
-        $scope.countyRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.streetAddressRequired = true;
+        $scope.validationProperties.zipCodeRequired = true;
+        $scope.validationProperties.stateRequired = true;
+        $scope.validationProperties.cityRequired = true;
+        $scope.validationProperties.countyRequired = true;
       } else {
         if(!$scope.formData.employer.physicalAddress.streetAddress) {
-          $scope.streetAddressRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.streetAddressRequired = true;
         }
         if(!$scope.formData.employer.physicalAddress.state) {
-          $scope.stateRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.stateRequired = true;
         }
         if(!$scope.formData.employer.physicalAddress.city) {
-          $scope.cityRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.cityRequired = true;
         }
         if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.countyRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.countyRequired = true;
         }
         if(!$scope.formData.employer.physicalAddress.zipCode) {
-          $scope.zipCodeRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.zipCodeRequired = true;
         } else {
           if(!validationService.validateZipCode($scope.formData.employer.physicalAddress.zipCode)) {
             $scope.zipCodeInvalid = true;
-            $scope.formIsValid = false;
           }
         }
         if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.countyRequired = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.countyRequired = true;
         }
       }
-
     }
 
-    $scope.validateForm = function () {
+    $scope.validateEmployer = function () {
       if($scope.formData.employer.hasTradeName === undefined) {
-        $scope.hasTradeNameRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.hasTradeNameRequired = true;
       }
       if($scope.formData.employer.hasTradeName && !$scope.formData.employer.certificateNumber) {
-        $scope.certificateNumberRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.certificateNumberRequired = true;
       } else {
         if(!validationService.validateCertificateNumber($scope.formData.employer.certificateNumber)) {
           $scope.certificateNumberInvalid = true;
-          $scope.formIsValid = false;
         }
       }
       if(!$scope.formData.employer.legalName) {
-        $scope.legalNameRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.legalNameRequired = true;
       }
       if(!$scope.formData.employer.ein) {
-        $scope.einRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.einRequired = true;
       } else {
         if(!validationService.validateEIN($scope.formData.employer.ein)) {
-          $scope.einInvalid = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.einInvalid = true;
         }
       }
+    }
+
+    $scope.getValidationErrors = function () {
+      $scope.validateEmployer();
       $scope.validateAddress();
     }
 
@@ -120,6 +126,7 @@ module.exports = function(ngModule) {
 
     $scope.onSubmitClick = function () {
       $scope.resetErrors();
+      $scope.getValidationErrors();
       $scope.validateForm();
       if($scope.formIsValid) {
         $scope.formData.ein = $scope.formData.employer.ein;
