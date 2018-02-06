@@ -76,6 +76,9 @@ module.exports = function(ngModule) {
     };
 
     $scope.$watch('formVals.pass', function(value) {
+      if($scope.formVals.pass === "") {
+        return;
+      }
       vm.passwordLength = value.length > 7;
       vm.passwordUpper = value.match(new RegExp('^(?=.*[A-Z])')) ? true : false;
       vm.passwordLower = value.match(new RegExp('^(?=.*[a-z])')) ? true : false;
@@ -96,7 +99,6 @@ module.exports = function(ngModule) {
             strong: false,
             score: error.data.score
           };
-
         })
     });
 

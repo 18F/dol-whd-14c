@@ -179,7 +179,7 @@ module.exports = function(ngModule) {
 
     this.validateEIN = function(ein) {
       let regex = /^\d{2}-\d{7}/;
-      return regex.exec(ein)
+      return regex.test(ein)
     };
 
     this.validateZipCode = function(zip) {
