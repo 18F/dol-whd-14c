@@ -155,12 +155,13 @@ namespace DOL.WHD.Section14c.Api.Controllers
             var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id);
             if (org.ApplicationStatusId == StatusIds.InProgress)
             {
+                await _applicationService.SubmitApplicationAsync(submission);
+
                 // Update Organization Status
                 org.ApplicationStatusId = StatusIds.Submitted;
                 user.Organizations.Select(x => x.Employer).ToList();
                 await UserManager.UpdateAsync(user);
-            }
-            await _applicationService.SubmitApplicationAsync(submission);
+            }            
 
             // remove the associated application save
             _saveService.Remove(submission.Id);

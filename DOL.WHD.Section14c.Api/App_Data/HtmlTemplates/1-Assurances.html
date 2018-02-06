@@ -73,6 +73,9 @@
             font-size: 10px;
             margin-bottom: 20px;
         }
+        p {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -115,11 +118,10 @@
             <span class="subtext">Title</span>
             <div class="subtextanswer">{{ boolOrString Signature.Title }}</div>
         </p>
-
         <p>
             <span class="subtext">Date</span>
             <div class="subtextanswer">{{ formatDateTime Signature.Date }}</div>
-        </p>
+       </p>
     </div>
 </body>
 </html>
