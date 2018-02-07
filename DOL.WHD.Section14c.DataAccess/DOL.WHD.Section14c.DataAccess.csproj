@@ -125,6 +125,10 @@
     <Compile Include="MigrationsDB2\201801251422248_InitialDB2.Designer.cs">
       <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
     </Compile>
+    <Compile Include="MigrationsDB2\201802072143054_Attachments.cs" />
+    <Compile Include="MigrationsDB2\201802072143054_Attachments.Designer.cs">
+      <DependentUpon>201802072143054_Attachments.cs</DependentUpon>
+    </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
     <Compile Include="Migrations\201609221644036_initial.Designer.cs">
@@ -323,6 +327,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MigrationsDB2\201801251422248_InitialDB2.resx">
       <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MigrationsDB2\201802072143054_Attachments.resx">
+      <DependentUpon>201802072143054_Attachments.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

@@ -18,7 +18,6 @@ namespace DOL.WHD.Section14c.Business.Services
         private readonly IFileRepository _fileRepository;
         private readonly IAttachmentRepository _attachmentRepository;
         private bool Disposed = false;
-        private readonly string FileEncryptKey = "@WSX3edc$RFV5tgb^YHN7ujm";
 
         public AttachmentService(IFileRepository fileRepository, IAttachmentRepository attachmentRepository)
         {
@@ -28,13 +27,15 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public Attachment UploadAttachment(string applicationId, byte[] bytes, string fileName, string fileType)
         {
+            string FileEncryptKey = RandomString(40);
             var fileUpload = new Attachment()
             {
                 FileSize = bytes.Length,
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
-                ApplicationId = applicationId
+                ApplicationId = applicationId,
+                EncryptionKey = FileEncryptKey
             };
 
             fileUpload.RepositoryFilePath = $@"{applicationId}\{fileUpload.Id}";
@@ -65,7 +66,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
             // Decrypt file 
             byte[] bytesToBeDecrypted = stream.ToArray();
-            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.EncryptionKey);
             keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
             byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
             stream = new MemoryStream(bytesDecrypted);
@@ -111,7 +112,7 @@ namespace DOL.WHD.Section14c.Business.Services
                         var stream = _fileRepository.Download(memoryStream, attachment.Value.RepositoryFilePath);
                         // Decrypt file 
                         byte[] bytesToBeDecrypted = stream.ToArray();
-                        byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+                        byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.Value.EncryptionKey);
                         keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
                         byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
                         stream = new MemoryStream(bytesDecrypted);
@@ -316,6 +317,14 @@ namespace DOL.WHD.Section14c.Business.Services
             }
 
             return decryptedBytes;
+        }
+
+        private string RandomString(int length)
+        {
+            const string pool = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random rand = new Random();
+            var chars = Enumerable.Range(0, length).Select(x => pool[rand.Next(0, pool.Length)]);
+            return new string(chars.ToArray());
         }
 
         public void Dispose()
