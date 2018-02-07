@@ -11,101 +11,111 @@ module.exports = function(ngModule) {
     'ngInject';
     'use strict';
     $scope.showAllHelp = false
-    $scope.formData = {};
-    $scope.formData.employer = {};
-    $scope.stateService = stateService;
-    $scope.registrationSuccess = false;
-    $scope.formIsValid = true;
-    $scope.territoriesAndDistricts = ['DC','AS','GU','MP','PR','UM','VI'];
-    $scope.resetErrors = function () {
-      $scope.einRequired = false;
-      $scope.einInvalid = false;
-      $scope.hasTradeNameRequired = false;
-      $scope.legalNameRequired = false;
-      $scope.streetAddressRequired = false;
-      $scope.cityRequired = false;
-      $scope.zipCodeRequired = false;
-      $scope.zipCodeInvalid = false;
-      $scope.stateRequired = false
-      $scope.certificateNumberRequired = false;
-      $scope.certificateNumberInvalid = false
-      $scope.countyRequired = false;
+    if(!$scope.formData) {
+      $scope.formData = {
+        employer: {
+          physicalAddress: {}
+        }
+      }
+    }
+    $scope.previouslyRegistered = {
+      status: false,
+      name: ""
     }
 
+    $scope.registrationSuccess = false;
+    $scope.formIsValid = true;
+    apiService.userInfo(stateService.access_token).then(function(result){
+      if(result.data.organizations.length>0) {
+        $location.path("/dashboard");
+      }
+    });
+    $scope.validationProperties = {
+      streetAddressRequired: false,
+      cityRequired: false,
+      zipCodeRequired: false,
+      zipCodeInvalid: false,
+      stateRequired: false,
+      countyRequired: false,
+      einRequired: false,
+      einInvalid: false,
+      hasTradeNameRequired: false,
+      legalNameRequired: false,
+      certificateNumberRequired: false,
+      certificateNumberInvalid: false
+    }
 
-    $scope.navToLanding = function() {
-      $location.path('/dashboard');
-    };
+    $scope.validateForm = function () {
+      for(var property in $scope.validationProperties) {
+        if($scope.validationProperties[property]) {
+          $scope.formIsValid = false;
+        }
+      }
+    }
 
-    $scope.showDetails = false;
-    $scope.toggleDetails = function ()  {
-      $scope.showDetails = !$scope.showDetails;
-    };
+    $scope.territoriesAndDistricts = ['DC','AS','GU','MP','PR','UM','VI'];
+
+    $scope.resetErrors = function () {
+      for(var property in $scope.validationProperties) {
+        $scope.validationProperties[property] = false;
+      }
+    }
 
     $scope.toggleAllHelpText = function () {
       $scope.showAllHelp = !$scope.showAllHelp;
     };
 
-    $scope.checkRequiredValues = function () {
+    $scope.validateAddress = function () {
+      if(!$scope.formData.employer.physicalAddress.streetAddress) {
+        $scope.validationProperties.streetAddressRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.state) {
+        $scope.validationProperties.stateRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.city) {
+        $scope.validationProperties.cityRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.county) {
+        $scope.validationProperties.countyRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.zipCode) {
+        $scope.validationProperties.zipCodeRequired = true;
+      } else {
+        if(!validationService.validateZipCode($scope.formData.employer.physicalAddress.zipCode)) {
+          $scope.zipCodeInvalid = true;
+        }
+      }
+      if(!$scope.formData.employer.physicalAddress.county) {
+        $scope.validationProperties.countyRequired = true;
+      }
+    }
+
+    $scope.validateEmployer = function () {
       if($scope.formData.employer.hasTradeName === undefined) {
-        $scope.hasTradeNameRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.hasTradeNameRequired = true;
       }
       if($scope.formData.employer.hasTradeName && !$scope.formData.employer.certificateNumber) {
-        $scope.certificateNumberRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.certificateNumberRequired = true;
+      } else {
+        if(!validationService.validateCertificateNumber($scope.formData.employer.certificateNumber)) {
+          $scope.validationProperties.certificateNumberInvalid = true;
+        }
       }
       if(!$scope.formData.employer.legalName) {
-        $scope.legalNameRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.legalNameRequired = true;
       }
       if(!$scope.formData.employer.ein) {
-        $scope.einRequired = true;
-        $scope.formIsValid = false;
+        $scope.validationProperties.einRequired = true;
       } else {
         if(!validationService.validateEIN($scope.formData.employer.ein)) {
-          $scope.einInvalid = true;
-          $scope.formIsValid = false;
+          $scope.validationProperties.einInvalid = true;
         }
       }
-      if(!$scope.formData.employer.physicalAddress) {
-        $scope.streetAddressRequired = true;
-        $scope.zipCodeRequired = true;
-        $scope.stateRequired = true;
-        $scope.cityRequired = true;
-        $scope.countyRequired = true;
-        $scope.formIsValid = false;
-      } else {
-        if(!$scope.formData.employer.physicalAddress.streetAddress) {
-          $scope.streetAddressRequired = true;
-          $scope.formIsValid = false;
-        }
-        if(!$scope.formData.employer.physicalAddress.state) {
-          $scope.stateRequired = true;
-          $scope.formIsValid = false;
-        }
-        if(!$scope.formData.employer.physicalAddress.city) {
-          $scope.cityRequired = true;
-          $scope.formIsValid = false;
-        }
-        if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.countyRequired = true;
-          $scope.formIsValid = false;
-        }
-        if(!$scope.formData.employer.physicalAddress.zipCode) {
-          $scope.zipCodeRequired = true;
-          $scope.formIsValid = false;
-        } else {
-          if(!validationService.validateZipCode($scope.formData.employer.physicalAddress.zipCode)) {
-            $scope.zipCodeInvalid = true;
-            $scope.formIsValid = false;
-          }
-        }
-        if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.countyRequired = true;
-          $scope.formIsValid = false;
-        }
-      }
+    }
+
+    $scope.getValidationErrors = function () {
+      $scope.validateEmployer();
+      $scope.validateAddress();
     }
 
 
@@ -113,11 +123,12 @@ module.exports = function(ngModule) {
 
     $scope.onSubmitClick = function () {
       $scope.resetErrors();
-      $scope.checkRequiredValues();
+      $scope.getValidationErrors();
+      $scope.validateForm();
       if($scope.formIsValid) {
         $scope.formData.ein = $scope.formData.employer.ein;
         $scope.formData.IsPointOfContact = true;
-        apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function() {
+        apiService.setEmployer(stateService.access_token, $scope.formData).then(function() {
           $scope.registrationSuccess = true;
         }).catch(function(error) {
           if(error.status === 302) {
@@ -132,7 +143,7 @@ module.exports = function(ngModule) {
     }
 
     $scope.$watch('formData.employer.physicalAddress.state', function () {
-      if(!$scope.formData.employer.physicalAddress && !$scope.formData.employer.mailingAddress.state) {
+      if(!$scope.formData.employer.physicalAddress && !$scope.formData.employer.physicalAddress.state) {
         return;
       }
       if($scope.formData.employer.physicalAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {

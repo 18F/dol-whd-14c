@@ -292,6 +292,11 @@ describe('validationService', function() {
     expect(validationService.validateZipCode('26501')).toBe(true);
   });
 
+  it('should validate an ein number', function() {
+    expect(validationService.validateEIN('26512301')).toBe(false);
+    expect(validationService.validateEIN('26-1234567')).toBe(true);
+  });
+
   it('should validate a certificate number', function() {
     expect(validationService.validateCertificateNumber('12-34567-H-890')).toBe(true);
     expect(validationService.validateCertificateNumber('12-34567-A-890')).toBe(false);
