@@ -41,7 +41,7 @@ namespace DOL.WHD.Section14c.Business.Services
             fileUpload.RepositoryFilePath = $@"{applicationId}\{fileUpload.Id}";
 
             // Encrypt file         
-            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey);
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey + fileName);
             // Hash the password with SHA256
             keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
             byte[] bytesEncrypted = AES_Encrypt(bytes, keyInBytes);
@@ -66,7 +66,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
             // Decrypt file 
             byte[] bytesToBeDecrypted = stream.ToArray();
-            byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.EncryptionKey);
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.EncryptionKey + attachment.OriginalFileName);
             keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
             byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
             stream = new MemoryStream(bytesDecrypted);
@@ -112,7 +112,7 @@ namespace DOL.WHD.Section14c.Business.Services
                         var stream = _fileRepository.Download(memoryStream, attachment.Value.RepositoryFilePath);
                         // Decrypt file 
                         byte[] bytesToBeDecrypted = stream.ToArray();
-                        byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.Value.EncryptionKey);
+                        byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.Value.EncryptionKey + attachment.Value.OriginalFileName);
                         keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
                         byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
                         stream = new MemoryStream(bytesDecrypted);
