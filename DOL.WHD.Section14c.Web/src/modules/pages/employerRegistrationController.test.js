@@ -105,7 +105,9 @@ describe('employerRegistrationController', function() {
   });
 
   it('does not call setEmployer or validation service if required values are undefined', function() {
-    scope.formData.employer = {};
+    scope.formData.employer = {
+      physicalAddress: {}
+    };
     scope.formData.employer.hasTradeName = true;
     scope.onSubmitClick();
     scope.$apply();
@@ -117,7 +119,9 @@ describe('employerRegistrationController', function() {
   });
 
   it('does not call setEmployer if validation errors exist', function() {
-    scope.formData.employer = {};
+    scope.formData.employer = {
+      physicalAddress: {}
+    };
     scope.onSubmitClick();
     scope.$apply();
     expect(mockApiService.setEmployer).not.toHaveBeenCalled();

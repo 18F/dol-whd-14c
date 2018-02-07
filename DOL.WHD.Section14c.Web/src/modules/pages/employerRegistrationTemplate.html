@@ -32,7 +32,7 @@
   <p>If you are still experiencing issues, you can reach us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.</p>
 </div>
 
-<form ng-hide="registrationSuccess || previouslyRegistered" ng-submit="onSubmitClick()" class="dol-form-page">
+<form ng-hide="registrationSuccess || previouslyRegistered.status" ng-submit="onSubmitClick()" class="dol-form-page">
   <fieldset class="dol-form-sub-section">
     <legend><h3>Register an Employer</h3></legend>
     <hr />
@@ -65,10 +65,10 @@
       <span class="usa-input-error-message" ng-show="validationProperties.certificateNumberRequired">
         Please provide a certificate number for this establishment.
       </span>
-      <span lass="usa-input-error-message" ng-show="validationProperties.certificateNumberInvalid">
+      <span class="usa-input-error-message" ng-show="validationProperties.certificateNumberInvalid">
         Please provide a valid certificate number.
       </span>
-      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" mask="99-99999-9-999" ng-model="formData.employer.certificateNumber" />
+      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
     <div class="dol-form-question-block" ng-class="validationProperties.legalNameRequired ? 'usa-input-error' : ''">

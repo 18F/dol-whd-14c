@@ -13,7 +13,9 @@ module.exports = function(ngModule) {
     $scope.showAllHelp = false
     if(!$scope.formData) {
       $scope.formData = {
-        employer: {}
+        employer: {
+          physicalAddress: {}
+        }
       }
     }
     $scope.previouslyRegistered = {
@@ -21,10 +23,13 @@ module.exports = function(ngModule) {
       name: ""
     }
 
-    $scope.stateService = stateService;
     $scope.registrationSuccess = false;
     $scope.formIsValid = true;
-
+    apiService.userInfo(stateService.access_token).then(function(result){
+      if(result.data.organizations.length>0) {
+        $location.path("/dashboard");
+      }
+    });
     $scope.validationProperties = {
       streetAddressRequired: false,
       cityRequired: false,
@@ -61,35 +66,27 @@ module.exports = function(ngModule) {
     };
 
     $scope.validateAddress = function () {
-      if(!$scope.formData.employer.physicalAddress) {
+      if(!$scope.formData.employer.physicalAddress.streetAddress) {
         $scope.validationProperties.streetAddressRequired = true;
-        $scope.validationProperties.zipCodeRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.state) {
         $scope.validationProperties.stateRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.city) {
         $scope.validationProperties.cityRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.county) {
         $scope.validationProperties.countyRequired = true;
+      }
+      if(!$scope.formData.employer.physicalAddress.zipCode) {
+        $scope.validationProperties.zipCodeRequired = true;
       } else {
-        if(!$scope.formData.employer.physicalAddress.streetAddress) {
-          $scope.validationProperties.streetAddressRequired = true;
+        if(!validationService.validateZipCode($scope.formData.employer.physicalAddress.zipCode)) {
+          $scope.zipCodeInvalid = true;
         }
-        if(!$scope.formData.employer.physicalAddress.state) {
-          $scope.validationProperties.stateRequired = true;
-        }
-        if(!$scope.formData.employer.physicalAddress.city) {
-          $scope.validationProperties.cityRequired = true;
-        }
-        if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.validationProperties.countyRequired = true;
-        }
-        if(!$scope.formData.employer.physicalAddress.zipCode) {
-          $scope.validationProperties.zipCodeRequired = true;
-        } else {
-          if(!validationService.validateZipCode($scope.formData.employer.physicalAddress.zipCode)) {
-            $scope.zipCodeInvalid = true;
-          }
-        }
-        if(!$scope.formData.employer.physicalAddress.county) {
-          $scope.validationProperties.countyRequired = true;
-        }
+      }
+      if(!$scope.formData.employer.physicalAddress.county) {
+        $scope.validationProperties.countyRequired = true;
       }
     }
 
@@ -101,7 +98,7 @@ module.exports = function(ngModule) {
         $scope.validationProperties.certificateNumberRequired = true;
       } else {
         if(!validationService.validateCertificateNumber($scope.formData.employer.certificateNumber)) {
-          $scope.certificateNumberInvalid = true;
+          $scope.validationProperties.certificateNumberInvalid = true;
         }
       }
       if(!$scope.formData.employer.legalName) {
@@ -131,7 +128,7 @@ module.exports = function(ngModule) {
       if($scope.formIsValid) {
         $scope.formData.ein = $scope.formData.employer.ein;
         $scope.formData.IsPointOfContact = true;
-        apiService.setEmployer($scope.stateService.access_token, $scope.formData).then(function() {
+        apiService.setEmployer(stateService.access_token, $scope.formData).then(function() {
           $scope.registrationSuccess = true;
         }).catch(function(error) {
           if(error.status === 302) {

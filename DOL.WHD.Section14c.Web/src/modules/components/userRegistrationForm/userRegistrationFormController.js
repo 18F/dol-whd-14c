@@ -76,7 +76,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.$watch('formVals.pass', function(value) {
-      if($scope.formVals.pass === "") {
+      if(value === "") {
         return;
       }
       vm.passwordLength = value.length > 7;
