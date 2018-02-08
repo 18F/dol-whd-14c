@@ -47,33 +47,13 @@ module.exports = function(ngModule) {
     }
 
     this.refreshTable = function (data, columns, id) {
-      columns = columns.map(function(element) {
-        return element.model
-      });
       if(data) {
-        $scope.data = data.map(function(element){
-          let arr = new Array(columns.length)
-          for(var property in element) {
-            if(element.hasOwnProperty(property)) {
-              var index = columns.indexOf(property);
-              if(index >=0 ) {
-                arr[index] = element[property];
-              }
-              if(property === "address" && index>=0) {
-                arr[index] = element[property]["streetAddress"] + " " + element[property]["city"] + ", " + element[property]["state"];
-              }
-              if(property === "WIOAWorkerVerified" && index>=0) {
-                arr[index] = element[property].display;
-              }
-              else if (property === "primaryDisabilityText") {
-                index = columns.indexOf("primaryDisabilityId");
-                arr[index] = element[property];
-              }
-            }
+        data.forEach(function(element) {
+          if(element.primaryDisabilityOther) {
+            element.primaryDisabilityId = element.primaryDisabilityText;
           }
-          return arr;
         });
-
+        $scope.data = data;
         if ($scope.tableWidget) {
           $scope.tableWidget.destroy()
           $scope.tableWidget=null

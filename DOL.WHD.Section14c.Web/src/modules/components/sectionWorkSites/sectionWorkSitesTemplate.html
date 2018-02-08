@@ -444,7 +444,7 @@
         </fieldset>
 
         <div class="clearer dol-add-employee-footer">
-          <button class="no-margin" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button><a role="button" href ng-click="vm.cancelAndClosePanel($event)" class="pull-right">Cancel & Close Panel</a>
+          <button class="no-margin" ng-show="vm.activeWorkerIndex < 0" ng-click="vm.addAnotherEmployee()">Add Another Employee</button><a ng-hide="vm.activeWorkerIndex >=0" role="button" href ng-click="vm.cancelAndClosePanel($event)" class="pull-right">Cancel & Close Panel</a>
           <hr>
           <button class="green-button dol-last-focus no-margin" ng-click="vm.doneAddingEmployees($event)">Done {{ vm.activeWorkerIndex >= 0 ? 'Editing Employee' : 'Adding Employee(s)' }}</button>
         </div>
