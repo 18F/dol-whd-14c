@@ -47,6 +47,14 @@ module.exports = function(ngModule) {
 
     vm.employeeColumns = tableConfig.employeeColumns;
     vm.employeeColumnDefs = tableConfig.employeeColumnDefinitions;
+    vm.employeeColumnDefs.push({
+      targets:1,
+      createdCell: function (td, cellData, rowData, row) {
+        if ($scope.validate('workSites[' + vm.activeWorksiteIndex + '].employees[' + row + ']')) {
+          $(td).prepend("<span class='usa-input-error-message' role='alert' tabindex='0'>Please review this employee and correct any errors</span>")
+        }
+      }
+    });
     vm.workSiteColumns = tableConfig.workSiteColumns;
     vm.workSiteColumnDefs = tableConfig.workSiteColumnDefinitions;
     vm.workSiteColumnDefs.push({
