@@ -102,6 +102,7 @@ describe('userRegistrationFormController', function() {
       strong: false,
       score: 4
     };
+    scope.formVals.pass = "testpassword";
     checkPasswordComplexity.resolve({data: {score: 4} });
     scope.$apply();
 

@@ -29,5 +29,13 @@ namespace DOL.WHD.Section14c.Test.Common
             var result = strToTest.TrimAndConvertWhitespacesToSingleSpaces();
             Assert.AreEqual("This is a Test", result);
         }
+
+        [TestMethod()]
+        public void TrimAndConvertWhitespacesToSingleSpacesTestEmptyString()
+        {
+            string strToTest = "";
+            var result = strToTest.TrimAndConvertWhitespacesToSingleSpaces();
+            Assert.AreEqual(string.Empty, result);
+        }
     }
 }

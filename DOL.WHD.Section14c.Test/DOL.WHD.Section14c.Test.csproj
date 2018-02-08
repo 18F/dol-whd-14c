@@ -205,6 +205,7 @@
     <Compile Include="Domain\ViewModels\AccountDetailsViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\ResetPasswordViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\RoleViewModelTests.cs" />
+    <Compile Include="Domain\ViewModels\VerifyAttachmentViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyEmailViewModelTests.cs" />
     <Compile Include="Domain\ViewModels\VerifyResetPasswordViewModelTests.cs" />
     <Compile Include="Common\StringExtensionTests.cs" />

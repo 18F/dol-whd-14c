@@ -88,7 +88,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
             // make sure user has rights to the Id
             var hasPermission = _identityService.HasSavePermission(userInfo, ApplicationId);
-            if (!hasPermission)
+            var applicationIsSubmitted = userInfo.Organizations.FirstOrDefault(x => x.ApplicationId == ApplicationId && x.ApplicationStatusId == StatusIds.Submitted);
+            if (!hasPermission || applicationIsSubmitted != null)
             {
                 Unauthorized("Unauthorized");
             }

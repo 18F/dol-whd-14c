@@ -8,6 +8,8 @@ using DOL.WHD.Section14c.Domain.ViewModels;
 using System.Collections.Generic;
 using DOL.WHD.Section14c.PdfApi.PdfHelper;
 using DOL.WHD.Section14c.Business.Helper;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace DOL.WHD.Section14c.Business.Services
 {
@@ -16,6 +18,7 @@ namespace DOL.WHD.Section14c.Business.Services
         private readonly IFileRepository _fileRepository;
         private readonly IAttachmentRepository _attachmentRepository;
         private bool Disposed = false;
+        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
         public AttachmentService(IFileRepository fileRepository, IAttachmentRepository attachmentRepository)
         {
@@ -23,20 +26,28 @@ namespace DOL.WHD.Section14c.Business.Services
             _attachmentRepository = attachmentRepository;
         }
 
-        public Attachment UploadAttachment(string EIN, byte[] bytes, string fileName, string fileType)
+        public Attachment UploadAttachment(string applicationId, byte[] bytes, string fileName, string fileType)
         {
+            string FileEncryptKey = GenerateEncryptionKey();
+
             var fileUpload = new Attachment()
             {
                 FileSize = bytes.Length,
                 MimeType = fileType,
                 OriginalFileName = fileName,
                 Deleted = false,
-                ApplicationId = EIN
+                ApplicationId = applicationId,
+                EncryptionKey = FileEncryptKey
             };
 
-            fileUpload.RepositoryFilePath = $@"{EIN}\{fileUpload.Id}";
+            fileUpload.RepositoryFilePath = $@"{applicationId}\{fileUpload.Id}";
 
-            _fileRepository.Upload(bytes, fileUpload.RepositoryFilePath);
+            // Encrypt file         
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(FileEncryptKey + fileName);
+            // Hash the password with SHA256
+            keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+            byte[] bytesEncrypted = AES_Encrypt(bytes, keyInBytes);
+            _fileRepository.Upload(bytesEncrypted, fileUpload.RepositoryFilePath);
 
             _attachmentRepository.Add(fileUpload);
             _attachmentRepository.SaveChanges();
@@ -54,6 +65,13 @@ namespace DOL.WHD.Section14c.Business.Services
                 throw new ObjectNotFoundException();
 
             var stream = _fileRepository.Download(memoryStream, attachment.RepositoryFilePath);
+
+            // Decrypt file 
+            byte[] bytesToBeDecrypted = stream.ToArray();
+            byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.EncryptionKey + attachment.OriginalFileName);
+            keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+            byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
+            stream = new MemoryStream(bytesDecrypted);
 
             return new AttachementDownload()
             {
@@ -94,6 +112,12 @@ namespace DOL.WHD.Section14c.Business.Services
                         // File name format: attachment type - original file name 
                         var fileName = string.Format("{0} - {1}", attachment.Key,  attachment.Value.OriginalFileName);
                         var stream = _fileRepository.Download(memoryStream, attachment.Value.RepositoryFilePath);
+                        // Decrypt file 
+                        byte[] bytesToBeDecrypted = stream.ToArray();
+                        byte[] keyInBytes = Encoding.UTF8.GetBytes(attachment.Value.EncryptionKey + attachment.Value.OriginalFileName);
+                        keyInBytes = SHA256.Create().ComputeHash(keyInBytes);
+                        byte[] bytesDecrypted = AES_Decrypt(bytesToBeDecrypted, keyInBytes);
+                        stream = new MemoryStream(bytesDecrypted);
                         applicationData.Add(new PDFContentData() { Buffer = stream.ToArray(), Type = attachment.Value.MimeType, FileName = fileName });
                     }
                 }
@@ -148,7 +172,9 @@ namespace DOL.WHD.Section14c.Business.Services
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
                 {
-                    attachments.Add("Piece Rate Wage Info Attachment", application.PieceRateWageInfo.Attachment);
+                    var attachmentId = application.PieceRateWageInfo.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Piece Rate Wage Info Attachment", attachment);
                 }
 
                 if (application.HourlyWageInfo?.SCAAttachments != null)
@@ -163,21 +189,30 @@ namespace DOL.WHD.Section14c.Business.Services
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
                 {
-                    attachments.Add("Hourly Wage Info SCA Wage Determination Attachment", application.HourlyWageInfo.MostRecentPrevailingWageSurvey.Attachment);
+                    var attachmentId = application.HourlyWageInfo.MostRecentPrevailingWageSurvey.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Hourly Wage Info SCA Wage Determination Attachment", attachment);
                 }
 
                 if (application.HourlyWageInfo?.AttachmentId != null)
                 {
-                    attachments.Add("Hourly Wage Info Attachmen", application.HourlyWageInfo.Attachment);
+                    var attachmentId = application.HourlyWageInfo.AttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add("Hourly Wage Info Attachmen", attachment);
                 }
             }
             return attachments;
         }
 
-        public void DeleteAttachement(string EIN, Guid fileId)
+        /// <summary>
+        /// Delete Attachment
+        /// </summary>
+        /// <param name="applicationId">Application Id</param>
+        /// <param name="fileId">File Id</param>
+        public void DeleteAttachement(string applicationId, Guid fileId)
         {
             var attachment = _attachmentRepository.Get()
-                .Where(x => x.ApplicationId == EIN)
+                .Where(x => x.ApplicationId == applicationId)
                 .SingleOrDefault(x => x.Deleted == false && x.Id == fileId.ToString());
 
             if (attachment == null)
@@ -206,6 +241,97 @@ namespace DOL.WHD.Section14c.Business.Services
             string tempString = string.Empty;
             tempString = ApplicationFormViewHelper.PopulateHtmlTemplateWithApplicationData(application, templateString);
             return tempString;
+        }
+
+        /// <summary>
+        /// AES encryption
+        /// </summary>
+        /// <param name="bytesToBeEncrypted">Byte array </param>
+        /// <param name="encryptKey">encryption key</param>
+        /// <returns>Byte Array</returns>
+        private byte[] AES_Encrypt(byte[] bytesToBeEncrypted, byte[] encryptKey)
+        {
+            byte[] encryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(encryptKey, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeEncrypted, 0, bytesToBeEncrypted.Length);
+                        cs.Close();
+                    }
+                    encryptedBytes = ms.ToArray();
+                }
+            }
+
+            return encryptedBytes;
+        }
+
+        /// <summary>
+        /// AES decryption
+        /// </summary>
+        /// <param name="bytesToBeDecrypted">Byte Array</param>
+        /// <param name="encryptKey">Encryption key</param>
+        /// <returns>Byte Array</returns>
+        private byte[] AES_Decrypt(byte[] bytesToBeDecrypted, byte[] encryptKey)
+        {
+            byte[] decryptedBytes = null;
+
+            // Set your salt here, change it to meet your flavor:
+            // The salt bytes must be at least 8 bytes.
+            byte[] saltBytes = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (RijndaelManaged AES = new RijndaelManaged())
+                {
+                    AES.KeySize = 256;
+                    AES.BlockSize = 128;
+
+                    var key = new Rfc2898DeriveBytes(encryptKey, saltBytes, 1000);
+                    AES.Key = key.GetBytes(AES.KeySize / 8);
+                    AES.IV = key.GetBytes(AES.BlockSize / 8);
+
+                    AES.Mode = CipherMode.CBC;
+
+                    using (var cs = new CryptoStream(ms, AES.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(bytesToBeDecrypted, 0, bytesToBeDecrypted.Length);
+                        cs.Close();
+                    }
+                    decryptedBytes = ms.ToArray();
+                }
+            }
+
+            return decryptedBytes;
+        }
+
+        private string GenerateEncryptionKey()
+        {
+            var token = string.Empty;
+            using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
+            {
+                byte[] tokenData = new byte[32];
+                rng.GetBytes(tokenData);
+
+                token = Convert.ToBase64String(tokenData);
+            }
+            return token;
         }
 
         public void Dispose()

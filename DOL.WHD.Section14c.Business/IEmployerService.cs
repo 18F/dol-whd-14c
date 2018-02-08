@@ -11,5 +11,6 @@ namespace DOL.WHD.Section14c.Business
     public interface IEmployerService
     {
         Employer FindExistingEmployer(Employer employer);
+        bool ValidateEmployer(Employer employer);
     }
 }

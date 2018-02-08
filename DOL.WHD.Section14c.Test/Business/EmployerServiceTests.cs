@@ -55,5 +55,130 @@ namespace DOL.WHD.Section14c.Business.Services.Tests
             // Assert
             Assert.IsNull(employerObj);
         }
+
+        [TestMethod()]
+        public void ValidatesEmployerTest()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsTrue(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_EIN_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.EIN = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_LegalName_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.LegalName = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_Address_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_StreetAddress_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.StreetAddress = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_City_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.City = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_State_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.State = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_ZipCode_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.ZipCode = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
+
+        [TestMethod()]
+        public void ValidatesEmployer_Require_County_TestFail()
+        {
+            // Arrange
+            var service = new EmployerService(_employerRepository);
+            _employerToTest.PhysicalAddress.County = null;
+
+            // Act
+            var employerObj = service.ValidateEmployer(_employerToTest);
+
+            // Assert
+            Assert.IsFalse(employerObj);
+        }
     }
 }

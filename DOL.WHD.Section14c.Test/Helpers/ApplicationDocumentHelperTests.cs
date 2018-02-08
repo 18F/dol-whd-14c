@@ -46,10 +46,12 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             var wioaworker = new List<WIOAWorker>() { new WIOAWorker() { WIOAWorkerVerifiedId = 1 } };
             var wIOA = new WIOA() { WIOAWorkers = wioaworker };
             testApplication.WIOA = wIOA;
-            var workSites = new List<WorkSite>() { new WorkSite(){ WorkSiteTypeId=1 }};
+            var workSites = new List<WorkSite>() { new WorkSite(){ WorkSiteTypeId=1, Employees = new List<Employee>() { new Employee() } }};
             testApplication.WorkSites = workSites;            
             var applicationSubmissionEstablishmentTypes = new List<ApplicationSubmissionEstablishmentType>() { new ApplicationSubmissionEstablishmentType() { EstablishmentTypeId = 1 } };
             testApplication.EstablishmentType = applicationSubmissionEstablishmentTypes;
+            var employerInfoProvidingFacilitiesDeductionTypes = new List<EmployerInfoProvidingFacilitiesDeductionType>() { new EmployerInfoProvidingFacilitiesDeductionType() { ProvidingFacilitiesDeductionType = new Response() { Display = "Test"  }  } };
+            testApplication.Employer = new EmployerInfo() { ProvidingFacilitiesDeductionType = employerInfoProvidingFacilitiesDeductionTypes };
 
             Dictionary<string, Attachment> attachments = new Dictionary<string, Attachment>();
             List<PDFContentData> pdfContentList = new List<PDFContentData>();
@@ -81,6 +83,27 @@ namespace DOL.WHD.Section14c.Business.Helper.Tests
             var applicationViewTemplatePath = Path.Combine(testFilePath, "Section14cApplicationPdfView.html");
             ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object, _mockResponseService.Object);
             var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"), new List<string>() { applicationViewTemplatePath });
+        }
+
+        [TestMethod()]
+        public void ValidatesAttachmentExistTest()
+        {
+            // Arrange
+            _mockApplicationService.Setup(m => m.GetApplicationById(It.IsAny<Guid>())).Returns(new ApplicationSubmission() {
+                Id = "CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"
+            });
+            var application = _mockApplicationService.Object.GetApplicationById(new Guid("CE7F5AA5-6832-43FE-BAE1-80D14CD8F663"));
+            Dictionary<string, Attachment> attachments = new Dictionary<string, Attachment>() {
+                { "Test", new Attachment() { Id = "CE7F5AA5-6832-33FE-BAE1-80D14CD8F233", OriginalFileName = "test.pdf" } }
+            };
+            _mockAttachmentService.Setup(mock => mock.GetApplicationAttachments(ref application)).Returns(attachments);
+
+            // Act
+            ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_mockApplicationService.Object, _mockAttachmentService.Object, _mockResponseService.Object);
+            var applicationAttachmentsData = applicationDocumentHelper.FindAllApplicationAttachmentsNotExistInFileSystem(application);
+
+            // Assert
+            Assert.AreEqual(applicationAttachmentsData.Count, 0);
         }
     }
 }
