@@ -32,7 +32,6 @@ module.exports = function(ngModule) {
 
     let query = $location.search();
 
-
     var vm = this;
     vm.activeTab = query.t ? query.t : 1;
     vm.activeWorksite = {};
@@ -44,6 +43,7 @@ module.exports = function(ngModule) {
       status: false,
       name: ''
     };
+    vm.tableConfig = tableConfig;
 
     vm.employeeColumns = tableConfig.employeeColumns;
     vm.employeeColumnDefs = tableConfig.employeeColumnDefinitions;
