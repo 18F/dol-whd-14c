@@ -49,6 +49,29 @@ module.exports = function(ngModule) {
     vm.employeeColumnDefs = tableConfig.employeeColumnDefinitions;
     vm.workSiteColumns = tableConfig.workSiteColumns;
     vm.workSiteColumnDefs = tableConfig.workSiteColumnDefinitions;
+    vm.workSiteColumnDefs.push({
+      targets:1,
+      createdCell: function (td, cellData, rowData, row) {
+        if ($scope.validate('workSites[' + row + ']')) {
+          $(td).prepend("<span class='usa-input-error-message' role='alert' tabindex='0'>Please review this worksite and correct any errors</span>")
+        }
+      }
+    });
+
+    vm.workSiteColumnDefs.push({
+      targets:2,
+      createdCell: function (td, cellData, rowData, row) {
+        var hasError = false;
+        $scope.formData.workSites[row].employees.forEach(function(element, index) {
+          if($scope.validate('workSites[' + row + '].employees[' + index + ']')) {
+            hasError = true;
+          }
+        });
+        if (hasError) {
+          $(td).prepend("<span class='usa-input-error-message' role='alert' tabindex='0'>Please review the employee(s) for this work site and correct any errors</span>")
+        }
+      }
+    });
     // multiple choice responses
     let questionKeys = ['WorkSiteType', 'PrimaryDisability'];
     responsesService.getQuestionResponses(questionKeys).then(responses => {
