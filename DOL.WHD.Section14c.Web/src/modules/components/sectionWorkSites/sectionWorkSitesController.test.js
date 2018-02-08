@@ -522,4 +522,67 @@ describe('sectionWorkSitesController', function() {
     controller.deleteWorkSite(0);
     expect(scope.formData.workSites.length).toBe(0);
   });
+
+  describe('has a table config...', function() {
+    var controller;
+    beforeEach(function() {
+      controller = sectionWorkSitesController();
+      // spyOn(mockDocument[0], 'getElementById');
+    });
+    describe('with employee columns definition...', function() {
+      it('converts the 4th column to "yes" for truthy values', function() {
+        var testFn = controller.tableConfig.employeeColumnDefinitions[4].render;
+
+        var out = testFn(true);
+        expect(out).toBe('yes');
+        out = testFn(3);
+        expect(out).toBe('yes');
+        out = testFn({});
+        expect(out).toBe('yes');
+        out = testFn('true');
+        expect(out).toBe('yes');
+      });
+
+      it('converts the 4th column to "no" for falsey values', function() {
+        var testFn = controller.tableConfig.employeeColumnDefinitions[4].render;
+
+        var out = testFn(false);
+        expect(out).toBe('no');
+        out = testFn(0);
+        expect(out).toBe('no');
+        out = testFn(null);
+        expect(out).toBe('no');
+        out = testFn();
+        expect(out).toBe('no');
+      });
+    });
+
+    describe('with worksite column definition...', function() {
+      it('converts the 4th column to "yes" for truthy values', function() {
+        var testFn = controller.tableConfig.workSiteColumnDefinitions[4].render;
+
+        var out = testFn(true);
+        expect(out).toBe('yes');
+        out = testFn(3);
+        expect(out).toBe('yes');
+        out = testFn({});
+        expect(out).toBe('yes');
+        out = testFn('true');
+        expect(out).toBe('yes');
+      });
+
+      it('converts the 4th column to "no" for falsey values', function() {
+        var testFn = controller.tableConfig.workSiteColumnDefinitions[4].render;
+
+        var out = testFn(false);
+        expect(out).toBe('no');
+        out = testFn(0);
+        expect(out).toBe('no');
+        out = testFn(null);
+        expect(out).toBe('no');
+        out = testFn();
+        expect(out).toBe('no');
+      });
+    });
+  })
 });
