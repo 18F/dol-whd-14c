@@ -18,6 +18,7 @@ namespace DOL.WHD.Section14c.Business.Services
         private readonly IFileRepository _fileRepository;
         private readonly IAttachmentRepository _attachmentRepository;
         private bool Disposed = false;
+        private static RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider();
 
         public AttachmentService(IFileRepository fileRepository, IAttachmentRepository attachmentRepository)
         {
@@ -27,7 +28,8 @@ namespace DOL.WHD.Section14c.Business.Services
 
         public Attachment UploadAttachment(string applicationId, byte[] bytes, string fileName, string fileType)
         {
-            string FileEncryptKey = RandomString(40);
+            string FileEncryptKey = GenerateEncryptionKey();
+
             var fileUpload = new Attachment()
             {
                 FileSize = bytes.Length,
@@ -319,12 +321,17 @@ namespace DOL.WHD.Section14c.Business.Services
             return decryptedBytes;
         }
 
-        private string RandomString(int length)
+        private string GenerateEncryptionKey()
         {
-            const string pool = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            Random rand = new Random();
-            var chars = Enumerable.Range(0, length).Select(x => pool[rand.Next(0, pool.Length)]);
-            return new string(chars.ToArray());
+            var token = string.Empty;
+            using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
+            {
+                byte[] tokenData = new byte[32];
+                rng.GetBytes(tokenData);
+
+                token = Convert.ToBase64String(tokenData);
+            }
+            return token;
         }
 
         public void Dispose()
