@@ -462,7 +462,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("{userId}")]
         public IHttpActionResult GetSingleAccount(string userId)
         {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.TrimAndToLowerCase() == userId.TrimAndToLowerCase());
+            userId = userId.TrimAndToLowerCase();
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.ToLower().Trim() == userId);
             if (user == null)
             {
                 BadRequest("User not found.");
@@ -496,6 +497,120 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Id = x.Id,
                 Name = x.Name
             }).OrderBy(x => x.Name).ToListAsync();
+        }
+
+        /// <summary>
+        /// Creates User Account
+        /// </summary>
+        /// <param name="model">UserInfoViewModel</param>
+        /// <returns>Http status code</returns>
+        // POST api/Account
+        [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
+        [HttpPost]
+        public async Task<IHttpActionResult> CreateAccount(UserInfoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                BadRequest("Model state is not valid");
+            }
+
+            // Add User
+            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+
+            IdentityResult result = await UserManager.CreateAsync(user);
+            if (!result.Succeeded)
+            {
+                return GetErrorResult(result);
+            }
+
+            // Add to Roles
+            foreach (var role in model.Roles)
+            {
+                var newUser = UserManager.FindByNameAsync(model.Email);
+                var addResult = await UserManager.AddToRoleAsync(newUser.Result.Id, role.Name);
+                if (!addResult.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Updates User Account
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <param name="model">UserInfoViewModel</param>
+        /// <returns>Http status code</returns>
+        // POST api/Account/{userId}
+        [AuthorizeClaims(ApplicationClaimTypes.ModifyAccount)]
+        [HttpPost]
+        [Route("{userId}")]
+        public IHttpActionResult ModifyAccount(string userId, AccountDetailsViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                BadRequest("Model state is not valid");
+            }
+
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                BadRequest("User not found.");
+            }
+            if(user.EmailConfirmed != model.EmailConfirmed)
+            {
+                user.EmailConfirmed = model.EmailConfirmed;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+            }
+            
+
+            // Modify User
+            if (user.Email != model.Email || user.UserName != model.Email)
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+            }
+
+            // Add Roles
+            foreach (var role in model.Roles)
+            {
+                if (user.Roles.All(x => x.Role.Name != role.Name))
+                {
+                    var addResult = UserManager.AddToRole(user.Id, role.Name);
+                    if (!addResult.Succeeded)
+                    {
+                        return GetErrorResult(addResult);
+                    }
+                }
+            }
+
+            // Remove
+            foreach (var role in user.Roles.ToList())
+            {
+                if (model.Roles.All(x => x.Name != role.Role.Name))
+                {
+                    var removeResult = UserManager.RemoveFromRole(user.Id, role.Role.Name);
+                    if (!removeResult.Succeeded)
+                    {
+                        return GetErrorResult(removeResult);
+                    }
+                }
+            }
+
+            return Ok();
         }
 
         /// <summary>
@@ -557,6 +672,143 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 BadRequest(e.Message);
             }
             return Ok();
+        }
+
+        /// <summary>
+        /// Resend Verification Email
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>Http status code, for information security it will return success even if account is not found</returns>
+        [HttpPost]
+        [AuthorizeClaims(ApplicationClaimTypes.ViewAdminUI)]
+        [Route("AccountAdmin/ResendConfirmation Email")]
+        public async Task<IHttpActionResult> AccountAdminResendConfirmationEmail(string userId)
+        {
+            try
+            {
+                // Check user user permission
+                var userInfo = GetUserInfo();
+                var isSystemAdmin = _identityService.HasSystemAdminRole(userInfo);
+                if (!isSystemAdmin)
+                {
+                    Unauthorized("Unauthorized");
+                }
+
+                var user = await UserManager.FindByIdAsync(userId);
+                if (user == null)
+                {
+                    // Don't reveal that the user does not exist
+                    return Ok();
+                }
+
+                // Send Verification Email
+                var nounce = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+
+                var queryString = HttpUtility.ParseQueryString(string.Empty);
+                queryString["userId"] = user.Id;
+                queryString["code"] = nounce;
+
+                // Support Urls with existing querystring
+                var callbackUrl = $@"{AppSettings.Get<string>("FrontEndBaseUrl")}#!/login?{queryString}";
+
+                await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for the Department of Labor Section 14( c ) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
+
+            }
+            catch (Exception e)
+            {
+                // Log Error message to database
+                BadRequest(e.Message);
+            }
+            return Ok();
+        }
+
+        /// <summary>
+        /// Account Admin Reset Password
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [AuthorizeClaims(ApplicationClaimTypes.ViewAdminUI)]
+        [Route("AccountAdmin/ResetPassword")]
+        public async Task<IHttpActionResult> AccountAdminResetPassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                BadRequest("Model state is not valid");
+            }
+
+            // Check user user permission
+            var userInfo = GetUserInfo();
+            var isSystemAdmin = _identityService.HasSystemAdminRole(userInfo);
+            if (!isSystemAdmin)
+            {
+                Unauthorized("Unauthorized");
+            }
+
+            var user = await UserManager.FindByNameAsync(model.Email.TrimAndToLowerCase());
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return Ok();
+            }
+
+            var removePassword = UserManager.RemovePassword(user.Id);
+            if (removePassword.Succeeded)
+            {
+                //Removed Password Success
+                IdentityResult result = UserManager.AddPassword(user.Id, model.NewPassword);
+                if (!result.Succeeded)
+                {
+                    return GetErrorResult(result);
+                }
+            }
+
+            return Ok();
+        }
+
+        /// <summary>
+        /// Account AdminResend Authentication Code
+        /// </summary>
+        /// <param name="userId">User Id</param>
+        /// <returns>Code</returns>
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("AccountAdmin/ResendCode")]
+        public async Task<IHttpActionResult> AccountAdminResendAuthenticationCode(string userId)
+        {
+            var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    BadRequest("Unable to send code.");
+                }
+
+                // Check user user permission
+                var userInfo = GetUserInfo();
+                var isSystemAdmin = _identityService.HasSystemAdminRole(userInfo);
+                if (!isSystemAdmin)
+                {
+                    Unauthorized("Unauthorized");
+                }
+
+                var user = UserManager.FindById(userId);
+                if (user == null)
+                {
+                    BadRequest("User not found.");
+                }
+
+                // Generate the token and send it
+                var code = await UserManager.GenerateTwoFactorTokenAsync(user.Id, "EmailCode");
+                await UserManager.NotifyTwoFactorTokenAsync(user.Id, "EmailCode", code);
+                responseMessage.Content = new StringContent(string.Format("{{\"code\": \"{0}\"}}", code), Encoding.UTF8, "application/json");
+            }
+            catch (Exception e)
+            {
+                // Log Error message to database
+                BadRequest(e.Message);
+            }
+            return ResponseMessage(responseMessage);
         }
 
         /// <summary>

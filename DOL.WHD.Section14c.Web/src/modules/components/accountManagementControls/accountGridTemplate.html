@@ -11,6 +11,9 @@
       <th scope="col">Email</th>
       <th scope="col">Role(s)</th>
       <th scope="col">EIN(s)</th>
+      <th scope="col" style="width: 400px">Resend Confirmation Email</th>
+      <th scope="col" style="width: 400px">Resend Authentication Code</th>
+      <th scope="col" style="width: 400px">Reset Password</th>
       <th scope="col"></th>
     </tr>
   </thead>
@@ -22,6 +25,21 @@
       </td>
       <td scope="row">
         <span ng-repeat="organization in account.organizations">{{organization.ein}}{{$last ? '' : ', '}}</span>
+      </td>
+      <td>
+        <button class="green-button" style="width:160px; margin-left: 0px;"
+                ng-click="vm.editAccountClick(account.userId)"
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Resend-Email</button>
+      </td>
+      <td>
+        <button class="green-button" style="width:160px; margin-left: 0px;"
+                ng-click="vm.editAccountClick(account.userId)"
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Resend Code</button>
+      </td>
+      <td>
+        <button class="green-button" style="width:180px; margin-left: 0px;"
+                ng-click="vm.editAccountClick(account.userId)"
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Reset Password</button>
       </td>
       <td>
         <button class="green-button"
