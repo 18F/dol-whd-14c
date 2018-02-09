@@ -96,7 +96,8 @@ module.exports = function(ngModule) {
       }
       if($scope.formData.employer.hasTradeName && !$scope.formData.employer.certificateNumber) {
         $scope.validationProperties.certificateNumberRequired = true;
-      } else {
+      } 
+      if($scope.formData.employer.certificateNumber){
         if(!validationService.validateCertificateNumber($scope.formData.employer.certificateNumber)) {
           $scope.validationProperties.certificateNumberInvalid = true;
         }
