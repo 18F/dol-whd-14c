@@ -28,18 +28,18 @@
       </td>
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
-                ng-click="vm.editAccountClick(account.userId)"
-                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Resend-Email</button>
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
+                ng-click="toggleModal('resendEmailModalIsVisible')">Resend-Email</button>
       </td>
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
-                ng-click="vm.editAccountClick(account.userId)"
-                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Resend Code</button>
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
+                ng-click="toggleModal('resendCodeModalIsVisible')">Resend Code</button>
       </td>
       <td>
         <button class="green-button" style="width:180px; margin-left: 0px;"
-                ng-click="vm.editAccountClick(account.userId)"
-                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Reset Password</button>
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
+                ng-click="toggleModal('resetPasswordModalIsVisible')">Reset Password</button>
       </td>
       <td>
         <button class="green-button"
@@ -49,3 +49,20 @@
     </tr>
   </tbody>
 </table>
+
+<div ng-class="{'is-visible': modalIsVisible}" class="modal">
+  <header class="cd-panel-header">
+    <a ng-click="closeModal()" class="modal-close dol-close-button"></a>
+  </header>
+  <div ng-show="resendCodeModalIsVisible">
+    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+  </div>
+  <div ng-show="resendEmailModalIsVisible">
+    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+  </div>
+  <div ng-show="resetPasswordModalIsVisible">
+    <input></input>
+    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+  </div>
+</div>
+<div ng-if="modalIsVisible" class="modal-backdrop"></div>
