@@ -116,9 +116,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest(e.Message);
             }
-
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
-            var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == applicationId);
+            
             _saveService.AddOrUpdate(applicationId, applicationId, employerId, state);
 
             return Created($"/api/Save?userId={User.Identity.GetUserId()}", new { });

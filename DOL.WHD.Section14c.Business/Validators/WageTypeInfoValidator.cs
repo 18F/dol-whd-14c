@@ -23,7 +23,7 @@ namespace DOL.WHD.Section14c.Business.Validators
                 .NotNull()
                 .SetValidator(alternateWageDataValidator)
                 .When(w => w.PrevailingWageMethodId == ResponseIds.PrevailingWageMethod.AlternateWageData);
-            RuleFor(w => w.SCAAttachments)
+            RuleFor(w => w.SCAWageDeterminationAttachment)
                 .NotNull()
                 .When(w => w.PrevailingWageMethodId == ResponseIds.PrevailingWageMethod.SCAWageDetermination);
         }

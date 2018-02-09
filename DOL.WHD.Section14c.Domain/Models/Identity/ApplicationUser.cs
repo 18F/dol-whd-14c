@@ -67,6 +67,10 @@ namespace DOL.WHD.Section14c.Domain.Models.Identity
 
         public ICollection<OrganizationMembership> Organizations { get; set; }
 
+        public bool Disabled { get; set; }
+
+        public bool Deleted { get; set; }
+
         public DateTime LastModifiedAt { get; set; }
 
         public DateTime CreatedAt { get; set; }
