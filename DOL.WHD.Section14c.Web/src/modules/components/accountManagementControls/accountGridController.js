@@ -23,9 +23,26 @@ module.exports = function(ngModule) {
         vm.loadingError = true;
       }
     );
-
+    $scope.modalIsVisible = false;
+    $scope.showResendEmailModalIsVisible = false;
+    $scope.resendCodeModalIsVisible = false;
+    $scope.resetPasswordModalIsVisible = false;
     vm.editAccountClick = function(userId) {
       $location.path('/account/' + userId);
     };
+
+    $scope.showModal = function () {
+      $scope.modalIsVisible = true;
+    };
+
+    $scope.closeModal = function () {
+      $scope.modalIsVisible = false;
+    };
+
+    $scope.toggleModal = function(modalType) {
+      console.log(modalType)
+      $scope.modalIsVisible = !$scope.modalIsVisible;
+      $scope[modalType] = !$scope[modalType];
+    }
   });
 };
