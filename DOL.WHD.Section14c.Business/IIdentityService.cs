@@ -13,5 +13,7 @@ namespace DOL.WHD.Section14c.Business
         bool HasAddPermission(UserInfoViewModel userInfo, string employerId);
 
         bool HasSavePermission(UserInfoViewModel userInfo, string applicationId);
+
+        bool HasSystemAdminRole(UserInfoViewModel userInfo);
     }
 }

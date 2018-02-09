@@ -528,7 +528,7 @@ module.exports = function(ngModule) {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: $.param({ Email: account.email, Roles: account.roles })
+        data: $.param({ Email: account.email, Roles: account.roles, EmailConfirmed: account.emailConfirmed  })
       }).then(
         function successCallback(data) {
           d.resolve(data);

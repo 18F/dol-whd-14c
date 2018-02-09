@@ -53,6 +53,7 @@ module.exports = function(ngModule) {
 
     vm.submitForm = function() {
       vm.resetErrors();
+      console.log("here")
       if (vm.isEditAccount) {
         apiService
           .modifyAccount(stateService.access_token, $scope.formVals)
@@ -103,5 +104,27 @@ module.exports = function(ngModule) {
     vm.cancelClick = function() {
       $location.path('/');
     };
+
+    vm.update = {
+      status: "Inprogress",
+      message: 'In Progress ...'
+    };
+    vm.updateUserAccountModalIsVisible = false;
+
+    vm.setupdateStatus = function (status, message) {
+      vm.update.status = status;
+      vm.update.message = message;
+    };
+
+    vm.showupdateUserAccountConfirmationModal = function () {
+      vm.updateUserAccountModalIsVisible = true;
+      vm.setupdateStatus('Initialize', 'Are you sure you want to update user account?');
+    };
+
+    vm.hideupdateUserAccountConfirmationModal = function() {
+      vm.updateUserAccountModalIsVisible = false;
+    }
+
+
   });
 };
