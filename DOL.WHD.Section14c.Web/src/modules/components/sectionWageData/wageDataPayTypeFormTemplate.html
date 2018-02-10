@@ -322,7 +322,7 @@
     <div class="dol-form-question-block" ng-class="validate(modelPrefix() + '.scaWageDeterminationAttachmentId') ? 'usa-input-error' : ''">
       <label for="{{ valuePrefix() }}ScaWageDeterminationAttachment" class="dol-form-question-text">Attach the applicable SCA Wage Determination</label>
       <span class="usa-input-error-message" role="alert" ng-show="validate(modelPrefix() + '.scaWageDeterminationAttachmentId')">{{ validate(modelPrefix() + '.scaWageDeterminationAttachmentId') }}</span>
-      <attachments-field allow-multi-upload="true" input-id="{{ valuePrefix() }}ScaWageDeterminationAttachments" model-prefix="{{modelPrefix()}}" attachments="formData[modelPrefix()]['SCAAttachments']"/>
+      <attachment-field input-id="{{ valuePrefix() }}SCAWageDeterminationAttachment" attachment-id="formData[modelPrefix()].SCAWageDeterminationAttachmentId" attachment-name="formData[modelPrefix()].attachmentName" />
     </div>
   </div>
 
