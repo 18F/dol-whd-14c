@@ -7,31 +7,7 @@ var employeeColumns = [
   },
   { title: 'Name', data: 'name' },
   { title: 'Type of work performed', data: 'workType'  },
-  { title: 'Primary disability', data: 'primaryDisabilityId', render: function(data) {
-      if(data === 31) {
-        return "Intellectual/Developmental Disability (IDD)"
-      }
-      if(data === 32) {
-        return "Psychiatric Disability (PD)";
-      }
-      if(data === 33) {
-        return "Visual Impairment (VI)";
-      }
-      if(data === 34) {
-        return "Hearing Impairment (HI)";
-      }
-      if(data === 35) {
-        return "Substance Abuse (SA)";
-      }
-      if(data === 36) {
-        return "Neuromuscular Disability (NM)";
-      }
-      if(data === 37) {
-        return "Age Related Disability (AR)";
-      }
-      return data;
-    }
-  },
+  { title: 'Primary disability', data: 'primaryDisabilityId'},
   { title: 'How many jobs did this worker perform at this work site?', data: 'numJobs'  },
   { title: 'Average # of hours worked per week on all jobs at this work site', data: 'avgWeeklyHours'  },
   { title: 'Average earnings per hour for all jobs at this work site', data: 'avgHourlyEarnings'  },
@@ -68,6 +44,31 @@ var employeeColumnDefinitions = [
   { responsivePriority: 1, targets: 0 },
   { responsivePriority: 2, targets: 1 },
   { responsivePriority: 3, targets: 2 },
+  {targets: 3, render: function(data) {
+      if(data === 31) {
+        return "Intellectual/Developmental Disability (IDD)"
+      }
+      if(data === 32) {
+        return "Psychiatric Disability (PD)";
+      }
+      if(data === 33) {
+        return "Visual Impairment (VI)";
+      }
+      if(data === 34) {
+        return "Hearing Impairment (HI)";
+      }
+      if(data === 35) {
+        return "Substance Abuse (SA)";
+      }
+      if(data === 36) {
+        return "Neuromuscular Disability (NM)";
+      }
+      if(data === 37) {
+        return "Age Related Disability (AR)";
+      }
+      return data;
+    }
+  },
   { targets: 11, render: function(data) { return (data ? "yes" : "no")}},
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -2 }
@@ -114,12 +115,7 @@ var workSiteColumnDefinitions= [
     }
   },
   { responsivePriority: 2, targets: 1 },
-  { targets: [3,4], render: function(data) {
-      if(data) {
-        return (data ? "yes" : "no");
-      }
-    }
-  },
+  { targets: [3,4], render: function(data) { return (data ? "yes" : "no")}},
   { targets: 5, render: function(data) {
       if(data === 27) {
         return "Main Establishment (ME)"
