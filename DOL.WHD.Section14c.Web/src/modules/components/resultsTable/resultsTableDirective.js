@@ -8,7 +8,6 @@ module.exports = function(ngModule) {
       scope: {
         "results": "=results",
         "columns": "=columns",
-        "validation": "&validation",
         "definitions": "=definitions",
         "edit": "&edit",
         "delete": "&delete"
