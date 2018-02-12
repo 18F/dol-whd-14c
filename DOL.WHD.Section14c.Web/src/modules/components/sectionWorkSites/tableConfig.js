@@ -1,9 +1,9 @@
 var employeeColumns = [
   {
-      "className": '',
-      "orderable": false,
-      "data":null,
-      "defaultContent": ""
+      className: '',
+      orderable: false,
+      data:null,
+      defaultContent: ''
   },
   { title: 'Name', data: 'name' },
   { title: 'Type of work performed', data: 'workType'  },
@@ -14,11 +14,11 @@ var employeeColumns = [
   { title: 'Prevailing wage rate for job described above', data: 'prevailingWage'  },
   { title: 'Productivity measure/rating for job described above', data: 'hasProductivityMeasure', render: function(data){
       if(data === null) {
-        return "n/a - piece rate"
+        return 'n/a - piece rate'
       }
     }
   },
-  { title: 'Commensurate wage rate/average earnings per hour for job described above', data: "commensurateWageRate" },
+  { title: 'Commensurate wage rate/average earnings per hour for job described above', data: 'commensurateWageRate' },
   { title: 'Total hours worked for job described above', data: 'totalHours'  },
   { title: 'Does worker perform work for this employer at any other work site?', data: 'workAtOtherSite'  },
   {
@@ -46,40 +46,40 @@ var employeeColumnDefinitions = [
   { responsivePriority: 3, targets: 2 },
   {targets: 3, render: function(data) {
       if(data === 31) {
-        return "Intellectual/Developmental Disability (IDD)"
+        return 'Intellectual/Developmental Disability (IDD)'
       }
       if(data === 32) {
-        return "Psychiatric Disability (PD)";
+        return 'Psychiatric Disability (PD)';
       }
       if(data === 33) {
-        return "Visual Impairment (VI)";
+        return 'Visual Impairment (VI)';
       }
       if(data === 34) {
-        return "Hearing Impairment (HI)";
+        return 'Hearing Impairment (HI)';
       }
       if(data === 35) {
-        return "Substance Abuse (SA)";
+        return 'Substance Abuse (SA)';
       }
       if(data === 36) {
-        return "Neuromuscular Disability (NM)";
+        return 'Neuromuscular Disability (NM)';
       }
       if(data === 37) {
-        return "Age Related Disability (AR)";
+        return 'Age Related Disability (AR)';
       }
       return data;
     }
   },
-  { targets: 11, render: function(data) { return (data ? "yes" : "no")}},
+  { targets: 11, render: function(data) { return (data ? 'yes' : 'no')}},
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -1 },
   { responsivePriority: 3, width: "10%", targets: employeeColumns.length -2 }
 ]
 
 var workSiteColumns = [
   {
-      "className": '',
-      "orderable": false,
-      "data":null,
-      "defaultContent": ""
+      className: '',
+      orderable: false,
+      data:null,
+      defaultContent: ''
   },
   { title: 'Name', data: 'name' },
   { title: 'Number of Workers', data: 'numEmployees'  },
@@ -88,16 +88,16 @@ var workSiteColumns = [
   { title: 'Work Site Type', data: 'workSiteTypeId'  },
   { title: 'Address', data: 'address'  },
   {
-      "className": 'edit-table-entry',
-      "orderable": false,
-      "data":null,
-      "defaultContent": "<button class='green-button'>Edit</button>"
+      className: 'edit-table-entry',
+      orderable: false,
+      data:null,
+      defaultContent: "<button class='green-button'>Edit</button>"
   },
   {
-      "className": 'delete-table-entry',
-      "orderable": false,
-      "data":null,
-      "defaultContent": "<button class='usa-button-secondary'>Delete</button>"
+      className: 'delete-table-entry',
+      orderable: false,
+      data:null,
+      defaultContent: "<button class='usa-button-secondary'>Delete</button>"
   }
 ];
 var workSiteColumnDefinitions= [
@@ -115,24 +115,24 @@ var workSiteColumnDefinitions= [
     }
   },
   { responsivePriority: 2, targets: 1 },
-  { targets: [3,4], render: function(data) { return (data ? "yes" : "no")}},
+  { targets: [3,4], render: function(data) { return (data ? 'yes' : 'no')}},
   { targets: 5, render: function(data) {
       if(data === 27) {
-        return "Main Establishment (ME)"
+        return 'Main Establishment (ME)'
       }
       if(data === 28) {
-        return "Branch Establishment (BR)"
+        return 'Branch Establishment (BR)'
       }
       if(data === 29) {
-        return "Off-site Work Location (OL)"
+        return 'Off-site Work Location (OL)'
       }
       if(data === 30) {
-        return "School Work Experience Program (SWEP)"
+        return 'School Work Experience Program (SWEP)'
       }
     }
   },
-  { responsivePriority: 1, width: "10%", targets: workSiteColumns.length -1 },
-  { responsivePriority: 1, width: "10%", targets: workSiteColumns.length -2 }
+  { responsivePriority: 1, width: '10%', targets: workSiteColumns.length -1 },
+  { responsivePriority: 1, width: '10%', targets: workSiteColumns.length -2 }
 ];
 module.exports = {
   employeeColumns: employeeColumns,

@@ -182,14 +182,14 @@ module.exports = function(ngModule) {
         vm.setActiveTab(1);
       }
 
-      vm.employeeColumnDefs[8] = {
+      vm.employeeColumnDefs.push({
         targets:1,
         createdCell: function (td, cellData, rowData, row) {
           if ($scope.validate('workSites[' + index + '].employees[' + row + ']')) {
             $(td).prepend("<span class='usa-input-error-message' role='alert' tabindex='0'>Please review this employee and correct any errors</span>")
           }
         }
-      };
+      });
     };
 
     this.deleteWorkSite = function(index) {
