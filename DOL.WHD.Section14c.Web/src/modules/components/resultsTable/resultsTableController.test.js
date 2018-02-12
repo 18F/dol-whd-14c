@@ -32,17 +32,17 @@ var resultsTableController, scope, attrs
     expect(scope.tableWidget).toBeDefined();
   });
 
-  it('refreshTable', function() {
+  it('refreshes table', function() {
     scope.columns = [ ];
     var controller = resultsTableController();
     scope.tableWidget = { destroy: function() { } };
     spyOn(controller, 'initDatatable');
 
     var columns = [
-      { model: 'primaryDisabilityId' },
-      { model: 'a' },
-      { model: 'b' },
-      { model: 'c' }
+      { data: 'primaryDisabilityId' },
+      { data: 'a' },
+      { data: 'b' },
+      { data: 'c' }
     ];
 
     var data = [
@@ -53,14 +53,19 @@ var resultsTableController, scope, attrs
 
     controller.refreshTable(data, columns, "test");
 
-    expect(scope.data).toEqual([
-      [ 40, 10, 20, 30 ],
-      [ undefined, 11, 21, 31 ],
-      [ undefined, 12, 22, 32 ]
-    ]);
+    expect(scope.data).toEqual(data);
     expect(scope.tableWidget).toBe(null);
     setTimeout(function() {
-      expect(controller.initDatatable).toHaveBeenCalled();
+      expect(controller.initDatatable).toHaveBeenCalledWith("test");
+      expect(scope.tableWidget).not.toBe(null);
     }, 0);
+
+    data = [{
+      primaryDisabilityOther: true,
+      primaryDisabilityText: "other"
+    }];
+    controller.refreshTable(data, columns, "test");
+    //
+    expect(scope.data[0].primaryDisabilityId).toEqual("other");
   });
 });
