@@ -160,7 +160,7 @@ namespace DOL.WHD.Section14c.Business.Services
                     }
                 }
 
-                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachment != null)
+                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
                     var attachmentId = application.PieceRateWageInfo.SCAWageDeterminationAttachmentId;
                     var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
@@ -174,7 +174,7 @@ namespace DOL.WHD.Section14c.Business.Services
                     attachments.Add("Piece Rate Wage Info Attachment", attachment);
                 }
 
-                if (application.HourlyWageInfo?.SCAWageDeterminationAttachment != null)
+                if (application.HourlyWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
                     var attachmentId = application.HourlyWageInfo.SCAWageDeterminationAttachmentId;
                     var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);

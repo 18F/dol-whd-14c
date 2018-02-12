@@ -108,8 +108,8 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
         {
             var model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAWageDeterminationAttachment = null };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
-            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachment = null };
-            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
+            model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachmentId = null };
+            PieceRateWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
             model = new PieceRateWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachment = new Attachment { Id = Guid.NewGuid().ToString() } };
             PieceRateWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
         }

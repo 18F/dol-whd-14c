@@ -88,7 +88,7 @@ namespace DOL.WHD.Section14c.Test.Business.Validators
             var model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey, SCAWageDeterminationAttachment = null };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
             model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachment = null };
-            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
+            HourlyWageInfoValidator.ShouldHaveValidationErrorFor(x => x.SCAWageDeterminationAttachmentId, model);
             model = new HourlyWageInfo { PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination, SCAWageDeterminationAttachment = new Attachment { Id = Guid.NewGuid().ToString() } };
             HourlyWageInfoValidator.ShouldNotHaveValidationErrorFor(x => x.SCAWageDeterminationAttachment, model);
         }

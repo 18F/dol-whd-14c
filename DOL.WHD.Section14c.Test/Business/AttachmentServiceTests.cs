@@ -219,7 +219,7 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
             Dictionary<string, Attachment> attachmentArray = service.GetApplicationAttachments(ref application);
-            Assert.AreEqual(6, attachmentArray.Count);
+            Assert.AreEqual(5, attachmentArray.Count);
         }
 
         [TestMethod]
