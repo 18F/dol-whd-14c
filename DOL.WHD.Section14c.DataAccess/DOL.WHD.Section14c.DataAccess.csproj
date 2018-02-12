@@ -121,13 +121,9 @@
     <Compile Include="ISaveRepository.cs" />
     <Compile Include="IResponseRepository.cs" />
     <Compile Include="IStatusRepository.cs" />
-    <Compile Include="MigrationsDB2\201801251422248_InitialDB2.cs" />
-    <Compile Include="MigrationsDB2\201801251422248_InitialDB2.Designer.cs">
-      <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MigrationsDB2\201802072143054_Attachments.cs" />
-    <Compile Include="MigrationsDB2\201802072143054_Attachments.Designer.cs">
-      <DependentUpon>201802072143054_Attachments.cs</DependentUpon>
+    <Compile Include="MigrationsDB2\201802121812047_InitialDB2.cs" />
+    <Compile Include="MigrationsDB2\201802121812047_InitialDB2.Designer.cs">
+      <DependentUpon>201802121812047_InitialDB2.cs</DependentUpon>
     </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -325,11 +321,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MigrationsDB2\201801251422248_InitialDB2.resx">
-      <DependentUpon>201801251422248_InitialDB2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MigrationsDB2\201802072143054_Attachments.resx">
-      <DependentUpon>201802072143054_Attachments.cs</DependentUpon>
+    <EmbeddedResource Include="MigrationsDB2\201802121812047_InitialDB2.resx">
+      <DependentUpon>201802121812047_InitialDB2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

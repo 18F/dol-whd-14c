@@ -151,7 +151,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 return ResponseMessage(responseMessage);
             }
 
-            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId);
+            var user = UserManager.Users.SingleOrDefault(s => s.Id == userInfo.UserId );
             var org = user.Organizations.FirstOrDefault(x => x.ApplicationId == submission.Id);
             if (org.ApplicationStatusId == StatusIds.InProgress)
             {

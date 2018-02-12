@@ -160,14 +160,11 @@ namespace DOL.WHD.Section14c.Business.Services
                     }
                 }
 
-                if (application.PieceRateWageInfo?.SCAAttachments != null)
+                if (application.PieceRateWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
-                    count = 1;
-                    foreach (var item in application.PieceRateWageInfo.SCAAttachments)
-                    {
-                        var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
-                        attachments.Add(string.Format("Piece Rate Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
-                    }
+                    var attachmentId = application.PieceRateWageInfo.SCAWageDeterminationAttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add(string.Format("Piece Rate Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
                 }
 
                 if (application.PieceRateWageInfo?.AttachmentId != null)
@@ -177,14 +174,11 @@ namespace DOL.WHD.Section14c.Business.Services
                     attachments.Add("Piece Rate Wage Info Attachment", attachment);
                 }
 
-                if (application.HourlyWageInfo?.SCAAttachments != null)
+                if (application.HourlyWageInfo?.SCAWageDeterminationAttachmentId != null)
                 {
-                    count = 1;
-                    foreach (var item in application.HourlyWageInfo.SCAAttachments)
-                    {
-                        var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == item.SCAAttachmentId);
-                        attachments.Add(string.Format("Hourly Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
-                    }
+                    var attachmentId = application.HourlyWageInfo.SCAWageDeterminationAttachmentId;
+                    var attachment = _attachmentRepository.Get().SingleOrDefault(x => x.Id == attachmentId);
+                    attachments.Add(string.Format("Hourly Wage Info ScaWage Determination Attachment  {0}", (count++)), attachment);
                 }
 
                 if (application.HourlyWageInfo?.MostRecentPrevailingWageSurvey?.AttachmentId != null)
