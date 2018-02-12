@@ -1,4 +1,4 @@
-<div ng-show="!restrictUpload">
+<div ng-hide="attachmentName" ng-show="!restrictUpload">
   <div class="dol-file-upload-ui">
     <div aria-hidden="true" class="usa-button-primary">Browse</div>
     <input class="dol-file-upload-input" id="{{inputId}}" type="file"  aria-describedby="fileUploadDesc_{{::$id}}" onchange="angular.element(this).scope().vm.onAttachmentSelected(this)" accept=".pdf,.jpg,.jpeg,.png,.csv">
