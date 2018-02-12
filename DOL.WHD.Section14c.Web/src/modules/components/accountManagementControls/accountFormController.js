@@ -53,7 +53,6 @@ module.exports = function(ngModule) {
 
     vm.submitForm = function() {
       vm.resetErrors();
-      console.log("here")
       if (vm.isEditAccount) {
         apiService
           .modifyAccount(stateService.access_token, $scope.formVals)
