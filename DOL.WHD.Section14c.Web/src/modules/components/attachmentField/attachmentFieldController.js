@@ -90,9 +90,6 @@ module.exports = function(ngModule) {
     this.hideDeleteFileConfirmationModal = function() {
      // $('.modal').removeClass('is-visible');
       $scope.modalIsVisible = false;
-      vm.upload.status = 'NoFile';
-      $scope.attachmentId = undefined;
-      $scope.attachmentName = undefined;
     }
 
     this.deleteAttachment = function(id) {
