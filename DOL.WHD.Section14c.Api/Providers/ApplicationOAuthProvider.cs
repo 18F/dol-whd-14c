@@ -55,7 +55,7 @@ namespace DOL.WHD.Section14c.Api.Providers
                 // Ensure User Email is not case sensitive
                 var userName = context.UserName.TrimAndToLowerCase();
                 // Handle LINQ to Entities TrimAndToLowerCase() method cannot be translated into a store expression byr using ToLower() and Trim() directly
-                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName.ToLower().Trim() == userName && x.Deleted != false && x.Disabled != false);
+                var user = await userManager.Users.Include("Roles.Role").Include("Organizations").FirstOrDefaultAsync(x => x.UserName.ToLower().Trim() == userName && x.Deleted != true && x.Disabled != true);
                 if (user != null)
                 {
                     eventInfo.Properties["UserId"] = user.Id;
