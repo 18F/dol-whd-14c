@@ -10,6 +10,7 @@ using DOL.WHD.Section14c.Log.Helpers;
 using DOL.WHD.Section14c.Log.LogHelper;
 using System.Net;
 using NLog;
+using System.Configuration;
 
 namespace DOL.WHD.Section14c.Log.ActionFilters
 {
@@ -27,21 +28,41 @@ namespace DOL.WHD.Section14c.Log.ActionFilters
         {
             try
             {
-                var correlationId = Guid.NewGuid().ToString();
+                if (!ActionsToIgnore(filterContext.ActionDescriptor.ActionName))
+                {
+                    var correlationId = Guid.NewGuid().ToString();
 
-                GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger(logger));
-                var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
-                filterContext.Request.Properties[Constants.CorrelationId] = correlationId;
-                trace.Info(filterContext.Request,
-                    "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName +
-                    Environment.NewLine +
-                    "Action : " + filterContext.ActionDescriptor.ActionName,
-                    "JSON", filterContext.ActionArguments);
+                    GlobalConfiguration.Configuration.Services.Replace(typeof(ITraceWriter), new NLogger(logger));
+                    var trace = GlobalConfiguration.Configuration.Services.GetTraceWriter();
+                    filterContext.Request.Properties[Constants.CorrelationId] = correlationId;
+                    trace.Info(filterContext.Request,
+                        "Controller : " + filterContext.ControllerContext.ControllerDescriptor.ControllerType.FullName +
+                        Environment.NewLine +
+                        "Action : " + filterContext.ActionDescriptor.ActionName,
+                        "JSON", filterContext.ActionArguments);
+                }
             }
             catch(Exception ex)
             {
                 throw new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, HttpStatusCode.InternalServerError, ex.InnerException);
             }
+        }
+
+        private bool ActionsToIgnore(string actionName)
+        {
+            var ignore = false;
+            var appSettingValue = ConfigurationManager.AppSettings["ApiLogActionsToIgnore"];
+            if (!string.IsNullOrEmpty(appSettingValue))
+            {
+                foreach (var name in appSettingValue.Split(','))
+                {
+                    if(actionName.ToLower() == name.ToLower())
+                    {
+                        ignore = true;
+                    }
+                }                    
+            }
+            return ignore;
         }
     }
 }
