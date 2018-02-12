@@ -433,6 +433,24 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
                         ApplicationId = c.String(),
                         Deleted = c.Boolean(nullable: false),
                         EncryptionKey = c.String(),
+                        AttachmentBlobId = c.String(maxLength: 128),
+                        CreatedBy_Id = c.String(),
+                        CreatedAt = c.DateTime(nullable: false),
+                        LastModifiedBy_Id = c.String(maxLength: 128),
+                        LastModifiedAt = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AttachmentBlobs", t => t.AttachmentBlobId)
+                .ForeignKey("dbo.Users", t => t.LastModifiedBy_Id)
+                .Index(t => t.AttachmentBlobId)
+                .Index(t => t.LastModifiedBy_Id);
+            
+            CreateTable(
+                "dbo.AttachmentBlobs",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Blob = c.String(),
                         CreatedBy_Id = c.String(),
                         CreatedAt = c.DateTime(nullable: false),
                         LastModifiedBy_Id = c.String(maxLength: 128),
@@ -749,6 +767,8 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropForeignKey("dbo.ApplicationSubmissions", "Employer_Id", "dbo.EmployerInfoes");
             DropForeignKey("dbo.EmployerInfoSCAAttachment", "SCAAttachmentId", "dbo.Attachments");
             DropForeignKey("dbo.Attachments", "LastModifiedBy_Id", "dbo.Users");
+            DropForeignKey("dbo.Attachments", "AttachmentBlobId", "dbo.AttachmentBlobs");
+            DropForeignKey("dbo.AttachmentBlobs", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.EmployerInfoSCAAttachment", "EmployerInfoId", "dbo.EmployerInfoes");
             DropForeignKey("dbo.EmployerInfoSCAAttachment", "LastModifiedBy_Id", "dbo.Users");
             DropForeignKey("dbo.EmployerInfoes", "SCAId", "dbo.Responses");
@@ -823,7 +843,9 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropIndex("dbo.HourlyWageInfoes", new[] { "PrevailingWageMethodId" });
             DropIndex("dbo.AppSubmissionEstablishmentType", new[] { "EstablishmentTypeId" });
             DropIndex("dbo.AppSubmissionEstablishmentType", new[] { "ApplicationSubmissionId" });
+            DropIndex("dbo.AttachmentBlobs", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.Attachments", new[] { "LastModifiedBy_Id" });
+            DropIndex("dbo.Attachments", new[] { "AttachmentBlobId" });
             DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "LastModifiedBy_Id" });
             DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "SCAAttachmentId" });
             DropIndex("dbo.EmployerInfoSCAAttachment", new[] { "EmployerInfoId" });
@@ -887,6 +909,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             DropTable("dbo.AlternateWageDatas");
             DropTable("dbo.HourlyWageInfoes");
             DropTable("dbo.AppSubmissionEstablishmentType");
+            DropTable("dbo.AttachmentBlobs");
             DropTable("dbo.Attachments");
             DropTable("dbo.EmployerInfoSCAAttachment");
             DropTable("dbo.EmployerInfoFacilitiesDeductionType");
