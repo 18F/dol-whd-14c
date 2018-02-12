@@ -98,7 +98,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Add User
                 var now = DateTime.UtcNow;
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now, Disabled = false, Deleted = false };
 
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
@@ -142,7 +142,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
         public UserInfoViewModel GetUserInfo()
         {
             var userId = ((ClaimsIdentity)User.Identity).GetUserId();
-            var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId);
+            var user = UserManager.Users.Include("Roles.Role").Include("Organizations").SingleOrDefault(s => s.Id == userId && s.Deleted != true && s.Disabled != true);
+            if(user == null)
+            {
+                Unauthorized("Unauthorized");
+            }
             return new UserInfoViewModel
             {
                 UserId = user.Id,
@@ -183,7 +187,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 var userIdentity = ((ClaimsIdentity)User.Identity);
                 var userId = userIdentity.GetUserId();
-                var user = UserManager.Users.SingleOrDefault(s => s.Id == userId);
+                var user = UserManager.Users.SingleOrDefault(s => s.Id == userId && s.Deleted != true && s.Disabled != true);
                 // set user organization
                 user.Organizations.Add(organizationMembership);
                 IdentityResult result = await UserManager.UpdateAsync(user);
@@ -467,7 +471,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [Route("{userId}")]
         public IHttpActionResult GetSingleAccount(string userId)
         {
-            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.TrimAndToLowerCase() == userId.TrimAndToLowerCase());
+            userId = userId.TrimAndToLowerCase();
+            var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id.ToLower().Trim() == userId);
             if (user == null)
             {
                 BadRequest("User not found.");

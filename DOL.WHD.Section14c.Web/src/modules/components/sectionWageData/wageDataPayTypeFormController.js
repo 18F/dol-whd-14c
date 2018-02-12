@@ -24,7 +24,6 @@ module.exports = function(ngModule) {
 
     $scope.formData = stateService.formData;
     $scope.validate = validationService.getValidationErrors;
-
     $scope.modelPrefix = function() {
       var prefix = 'hourlyWageInfo';
       if ($scope.paytype === 'piecerate') {

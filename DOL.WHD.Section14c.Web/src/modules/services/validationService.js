@@ -681,10 +681,9 @@ module.exports = function(ngModule) {
       } else if (
         prevailingWageMethod === _constants.responses.prevailingWageMethod.sca
       ) {
-        this.checkRequiredValueArray(
-          prefix + '.' + 'SCAAttachments',
-          'Please provide the SCA Wage Determination survey',
-          false
+        this.checkRequiredValue(
+          prefix + '.' + 'scaWageDeterminationAttachmentId',
+          'Please provide the SCA Wage Determination survey'
         );
       }
     };

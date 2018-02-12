@@ -22,7 +22,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             var mostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo();
             var alternateWageData = new AlternateWageData();
             var scaWageDeterminationId = Guid.NewGuid().ToString();
-            var scaWageDetermination = new WageTypeInfoSCAAttachment { WageTypeInfoId = id, SCAAttachment = new Attachment { Id = scaWageDeterminationId.ToString() }, AttachmentName = "test.pdf" };
+            var scaWageDetermination =  new Attachment { Id = scaWageDeterminationId.ToString() };
             var attachmentId = Guid.NewGuid().ToString();
             var attachment = new Attachment {Id = attachmentId.ToString() };
 
@@ -37,7 +37,7 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
                 PrevailingWageMethod = prevailingWageMethod,
                 MostRecentPrevailingWageSurvey = mostRecentPrevailingWageSurvey,
                 AlternateWageData = alternateWageData,
-                SCAAttachments = new List<WageTypeInfoSCAAttachment>() { scaWageDetermination },
+                SCAWageDeterminationAttachment = scaWageDetermination,
                 AttachmentId = attachmentId,
                 Attachment = attachment
             };
@@ -50,7 +50,6 @@ namespace DOL.WHD.Section14c.Test.Domain.Models.Submission
             Assert.AreEqual(prevailingWageMethod, model.PrevailingWageMethod);
             Assert.AreEqual(mostRecentPrevailingWageSurvey, model.MostRecentPrevailingWageSurvey);
             Assert.AreEqual(alternateWageData, model.AlternateWageData);
-            Assert.AreEqual(scaWageDetermination.SCAAttachment, model.SCAAttachments.FirstOrDefault().SCAAttachment);
             Assert.AreEqual(attachmentId, model.AttachmentId);
             Assert.AreEqual(attachment, model.Attachment);
         }
