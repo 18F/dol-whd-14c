@@ -13,6 +13,7 @@ module.exports = function(ngModule) {
         "delete": "&delete"
       },
       link: function(scope, element, attrs) {
+        // scope.validation('address');
         scope.vm.initDatatable(attrs.id);
         scope.$watch('results', function(newValue) {
           scope.vm.refreshTable(newValue, scope.columns, attrs.id);

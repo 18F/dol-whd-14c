@@ -13,6 +13,7 @@ describe('focusOn', function() {
 
   it('invoke directive', function() {
     rootScope.$digest();
+    expect(element).toBeDefined();
     expect(element.attr('focus-on')).toEqual("true");
   });
 });

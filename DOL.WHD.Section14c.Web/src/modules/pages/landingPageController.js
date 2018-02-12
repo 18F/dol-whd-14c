@@ -18,6 +18,7 @@ module.exports = function(ngModule) {
     $scope.applicationLoadError = {
       status: false
     };
+    $scope.tableConfig = tableConfig;
     $scope.clear = {
       status: "Inprogress",
       message: 'In Progress ...'
@@ -98,8 +99,8 @@ module.exports = function(ngModule) {
           $scope.navToApplicationButtonName= "Start New Application";
         },
         function(e) {
-          apiService.parseErrors(e.data);
           $scope.setClearStatus('Failure', 'Failed to clear application.');
+          apiService.parseErrors(e.data);
         }
       );
     }
@@ -149,9 +150,9 @@ module.exports = function(ngModule) {
         },
         ordering: true,
         autoWidth: false,
-        order: tableConfig.order,
-        columns: tableConfig.employeeColumns,
-        columnDefs: tableConfig.employeeColumnDefinitions,
+        order: $scope.tableConfig.order,
+        columns: $scope.tableConfig.applicationColumns,
+        columnDefs: $scope.tableConfig.applicationColumnDefinitions,
       });
 
       setTimeout(() => $scope.tableWidget.columns.adjust().draw(), 0 );

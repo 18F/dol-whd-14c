@@ -166,6 +166,39 @@ describe('landingPageController', function() {
     });
   });
 
+  describe('account controls', function(){
+    it('has navigation to change password', function() {
+      spyOn(mockLocation, 'path');
+      scope.changePassword();
+      scope.$apply();
+      expect(mockLocation.path).toHaveBeenCalledWith("/changePassword");
+    });
+  });
+
+  describe('clear application', function(){
+    it('clear application success', function() {
+      spyOn(mockLocation, 'path');
+      scope.clearApplication();
+      expect(scope.clear.status).toEqual("Clearing");
+      expect(scope.clear.message).toEqual("Attempting to clear application.");
+      clearApplication.resolve();
+      scope.$apply();
+      expect(scope.navToApplicationButtonName).toEqual("Start New Application");
+      expect(scope.clearApplicationModalIsVisible).toBe(false);
+    });
+
+    it('clear application failure', function() {
+      spyOn(mockLocation, 'path');
+      scope.clearApplication();
+      expect(scope.clear.status).toEqual("Clearing");
+      expect(scope.clear.message).toEqual("Attempting to clear application.");
+      clearApplication.reject();
+      scope.$apply();
+      expect(scope.clear.status).toEqual("Failure");
+      expect(scope.clear.message).toEqual("Failed to clear application.");
+    });
+  });
+
   describe('application download', function(){
     it('user cannot download application with action other than Download', function() {
       scope.submittedApplications = scope.mockSubmittedApplications;
@@ -234,5 +267,25 @@ describe('landingPageController', function() {
       scope.$apply();
       expect(scope.initDatatable).toHaveBeenCalled();
     });
-  });  
+  });
+
+  describe('has a table config...', function() {
+    var controller;
+    beforeEach(function() {
+      controller = landingPageController();
+      // spyOn(mockDocument[0], 'getElementById');
+    });
+    describe('with employee columns definition...', function() {
+      it('converts the 4th column to "yes" for truthy values', function() {
+        var testFn = scope.tableConfig.applicationColumnDefinitions[3].render;
+        var output = testFn("Download");
+
+        expect(output).toEqual("<button>Download</button>")
+        expect(scope.tableConfig).toBeDefined();
+        expect(scope.tableConfig.applicationColumnDefinitions).toBeDefined();
+        expect(scope.tableConfig.applicationColumns).toBeDefined();
+        expect(scope.tableConfig.order).toBeDefined();
+      });
+    });
+  })
 });

@@ -1,4 +1,4 @@
-var employeeColumns = [
+var applicationColumns = [
   {
       "className": 'control',
       "orderable": false,
@@ -14,7 +14,7 @@ var employeeColumns = [
   { data: 'action', title: 'PDF Version'}
 ];
 
-var employeeColumnDefinitions = [
+var applicationColumnDefinitions = [
   {
       className: 'control',
       orderable: false,
@@ -40,7 +40,7 @@ var order = [
 ];
 
 module.exports = {
-  employeeColumns: employeeColumns,
-  employeeColumnDefinitions: employeeColumnDefinitions,
+  applicationColumns: applicationColumns,
+  applicationColumnDefinitions: applicationColumnDefinitions,
   order: order
 }
