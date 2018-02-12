@@ -3,6 +3,7 @@
 module.exports = function(ngModule) {
   require('./authService')(ngModule);
   require('./apiService')(ngModule);
+  require('./adminApiService')(ngModule);
   require('./assetService')(ngModule);
   require('./responsesService')(ngModule);
   require('./stateService')(ngModule);

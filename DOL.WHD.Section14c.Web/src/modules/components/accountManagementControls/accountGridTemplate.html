@@ -29,17 +29,17 @@
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
                 ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
-                ng-click="toggleModal('resendEmailModalIsVisible')">Resend-Email</button>
+                ng-click="showModal('resendEmailModalIsVisible', account)">Resend-Email</button>
       </td>
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
                 ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
-                ng-click="toggleModal('resendCodeModalIsVisible')">Resend Code</button>
+                ng-click="showModal('resendCodeModalIsVisible', account)">Resend Code</button>
       </td>
       <td>
         <button class="green-button" style="width:180px; margin-left: 0px;"
                 ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
-                ng-click="toggleModal('resetPasswordModalIsVisible')">Reset Password</button>
+                ng-click="showModal('resetPasswordModalIsVisible', account)">Reset Password</button>
       </td>
       <td>
         <button class="green-button"
@@ -50,19 +50,46 @@
   </tbody>
 </table>
 
-<div ng-class="{'is-visible': modalIsVisible}" class="modal">
+<div ng-class="{'is-visible': modalIsVisible}" class="adminModal">
   <header class="cd-panel-header">
     <a ng-click="closeModal()" class="modal-close dol-close-button"></a>
+    <br />
   </header>
   <div ng-show="resendCodeModalIsVisible">
-    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+    <h3 class="usa-alert-heading">Are you sure you want to resend a 2FA code for {{userEmail}}?</h3>
   </div>
   <div ng-show="resendEmailModalIsVisible">
-    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+    <h3 class="usa-alert-heading">Are you sure you want to resend a confirmation email for {{userEmail}}?</h3>
   </div>
   <div ng-show="resetPasswordModalIsVisible">
-    <input></input>
-    <button ng-click="closeModal()" class="grey-button">Ok</button><button ng-click="closeModal()" class="grey-button">Cancel</button>
+    <h3 class="usa-alert-heading">Please enter and confirm a new password for {{userEmail}}.</h3>
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
+      <label for="password">Password</label>
+      <span class="usa-input-error-message" id="input-error-message" role="alert" tabindex="0" ng-show="vm.passwordRequired || vm.passwordsDontMatch">
+        <div ng-show="vm.passwordRequired">
+          <p>Password is required.</p>
+        </div>
+        <div ng-show="vm.passwordsDontMatch">
+          <p>Passwords do not match.</p>
+        </div>
+      </span>
+      <input type="{{inputType}}" name="password" id="password" ng-model="password" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <div class="dol-password-help">
+        <div class="usa-content">
+          <div class="showpass">
+            <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false">
+              <span ng-show="inputType != 'password'">Hide</span>
+              <span ng-show="inputType === 'password'">Show</span> Password
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" name="confirmPassword" id="confirmPassword" ng-model="confirmPassword" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+    </div>
   </div>
+  <button ng-click="submit()" class="green-button">Ok</button><button ng-click="closeModal()" class="red-button">Cancel</button>
 </div>
 <div ng-if="modalIsVisible" class="modal-backdrop"></div>

@@ -5,7 +5,8 @@ module.exports = function(ngModule) {
     $scope,
     $location,
     stateService,
-    apiService
+    apiService,
+    adminApiService
   ) {
     'ngInject';
     'use strict';
@@ -13,6 +14,7 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
     vm.loadingError = false;
+    $scope.inputType = 'password';
 
     apiService.getAccounts(stateService.access_token).then(
       function(result) {
@@ -31,18 +33,51 @@ module.exports = function(ngModule) {
       $location.path('/account/' + userId);
     };
 
-    $scope.showModal = function () {
+    $scope.showModal = function (modalType, account) {
+      $scope.userEmail = account.email;
+      $scope.userId = account.userId;
+      $scope[modalType] = true;
       $scope.modalIsVisible = true;
     };
 
     $scope.closeModal = function () {
       $scope.modalIsVisible = false;
+      $scope.resendEmailModalIsVisible = false;
+      $scope.resendCodeModalIsVisible = false;
+      $scope.resetPasswordModalIsVisible = false;
     };
 
-    $scope.toggleModal = function(modalType) {
-      console.log(modalType)
-      $scope.modalIsVisible = !$scope.modalIsVisible;
-      $scope[modalType] = !$scope[modalType];
+    $scope.hideShowPassword = function() {
+      if ($scope.inputType === 'password') $scope.inputType = 'text';
+      else $scope.inputType = 'password';
+    };
+
+    $scope.submit = function () {
+      if($scope.resendEmailModalIsVisible) {
+        $scope.resendConfirmationEmail();
+      }
+
+      if($scope.resendCodeModalIsVisible) {
+        $scope.resendCode();
+      }
+
+      if($scope.resetPasswordModalIsVisible) {
+        $scope.resetPassword();
+      }
+
+      $scope.closeModal();
+    }
+
+    $scope.resendConfirmationEmail = function () {
+      adminApiService.resendConfirmationEmail(stateService.access_token, $scope.userId);
+    }
+
+    $scope.resetPassword = function () {
+      adminApiService.resetPassword(stateService.access_token, $scope.userEmail, $scope.password, $scope.confirmPassword);
+    }
+
+    $scope.resendCode = function () {
+      adminApiService.resendCode(stateService.access_token, $scope.userId);
     }
   });
 };
