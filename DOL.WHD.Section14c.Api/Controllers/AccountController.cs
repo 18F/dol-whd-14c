@@ -690,7 +690,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <returns>Http status code, for information security it will return success even if account is not found</returns>
         [HttpPost]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAdminUI)]
-        [Route("AccountAdmin/ResendConfirmation Email")]
+        [Route("AccountAdmin/ResendConfirmationEmail")]
         public async Task<IHttpActionResult> AccountAdminResendConfirmationEmail(string userId)
         {
             try
@@ -739,7 +739,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         [HttpPost]
         [AuthorizeClaims(ApplicationClaimTypes.ViewAdminUI)]
         [Route("AccountAdmin/ResetPassword")]
-        public async Task<IHttpActionResult> AccountAdminResetPassword(ChangePasswordViewModel model)
+        public async Task<IHttpActionResult> AccountAdminResetPassword(AdminResetPassword model)
         {
             if (!ModelState.IsValid)
             {
@@ -781,7 +781,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="userId">User Id</param>
         /// <returns>Code</returns>
         [HttpPost]
-        [AllowAnonymous]
+        [AuthorizeClaims(ApplicationClaimTypes.ViewAdminUI)]
         [Route("AccountAdmin/ResendCode")]
         public async Task<IHttpActionResult> AccountAdminResendAuthenticationCode(string userId)
         {
