@@ -114,8 +114,7 @@ module.exports = function(ngModule) {
             ein: element.employer.ein,
             employerId: element.employer.id,
             employerName: element.employer.legalName,
-            createdAt: dateFilter(element.createdAt) + " at " + new Date(element.createdAt).toLocaleTimeString(),
-            lastModifiedAt: dateFilter(element.lastModifiedAt) + " at " + new Date(element.lastModifiedAt).toLocaleTimeString(),
+            lastModifiedAt: dateFilter(element.lastModifiedAt),
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
           if(element.applicationId && element.applicationStatus) {
