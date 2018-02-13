@@ -12,4 +12,5 @@ module.exports = function(ngModule) {
   require('./submissionService')(ngModule);
   require('./statusesService')(ngModule);
   require('./errorLogService')(ngModule);
+  require('./jQueryPanelService')(ngModule);
 };
