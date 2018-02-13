@@ -15,6 +15,7 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.stateService = stateService;
     vm.moment = moment;
+    $scope.roles =null;
 
     vm.resetErrors = function() {
       vm.savingError = false;
@@ -58,7 +59,7 @@ module.exports = function(ngModule) {
           .modifyAccount(stateService.access_token, $scope.formVals)
           .then(
             function() {
-              $location.path('/');
+              $location.path('/admin/users');
             },
             function(error) {
               $scope.savingErrors = apiService.parseErrors(error.data);
@@ -70,7 +71,7 @@ module.exports = function(ngModule) {
           .createAccount(stateService.access_token, $scope.formVals)
           .then(
             function() {
-              $location.path('/');
+              $location.path('/admin/users');
             },
             function(error) {
               $scope.savingErrors = apiService.parseErrors(error.data);
@@ -101,7 +102,7 @@ module.exports = function(ngModule) {
     };
 
     vm.cancelClick = function() {
-      $location.path('/');
+      $location.path('/admin/users');
     };
 
     vm.update = {
@@ -120,7 +121,7 @@ module.exports = function(ngModule) {
       vm.setupdateStatus('Initialize', 'Are you sure you want to update user account?');
     };
 
-    vm.hideupdateUserAccountConfirmationModal = function() {
+    vm.hideUpdateUserAccountConfirmationModal = function() {
       vm.updateUserAccountModalIsVisible = false;
     }
 
