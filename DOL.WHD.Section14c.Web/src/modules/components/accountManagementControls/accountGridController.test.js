@@ -26,7 +26,7 @@ describe('accountGridController', function() {
       spyOn(mockApiService, 'getAccounts').and.returnValue(getAccounts.promise);
 
       resetPassword = $q.defer();
-      spyOn(mockAdminApiService, 'resetPassword').and.returnValue(getAccounts.promise);
+      spyOn(mockAdminApiService, 'resetPassword').and.returnValue(resetPassword.promise);
 
       resendCode = $q.defer();
       spyOn(mockAdminApiService, 'resendCode').and.returnValue(resendCode.promise);
@@ -67,24 +67,75 @@ describe('accountGridController', function() {
     expect(mockLocation.path).toHaveBeenCalledWith('/account/1');
   });
 
-  it('resendCode should call correct api', function() {
+  it('resendCode success should resolve deferred', function() {
     var controller = accountGridController();
     scope.resendCode();
     resendCode.resolve({status: 200, data: {code:'test'}});
+    scope.$apply();
     expect(mockAdminApiService.resendCode).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Success');
   });
 
-  it('resetPassword should call correct api', function() {
+  it('resendCode failure should reject deferred', function() {
+    var controller = accountGridController();
+    scope.resendCode();
+    resendCode.reject();
+    scope.$apply();
+    expect(mockAdminApiService.resendCode).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Failure');
+  });
+
+  it('resetPassword success should resolve deferred', function() {
+    var controller = accountGridController();
+    scope.userEmail = "test";
+    scope.password = "test";
+    scope.confirmPassword = "test";
+    scope.resetPassword();
+    resetPassword.resolve({status: 200});
+    scope.$apply();
+    expect(mockAdminApiService.resetPassword).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Success');
+  });
+
+  it('resetPassword failure should reject deferred', function() {
     var controller = accountGridController();
     scope.resetPassword();
-    resetPassword.resolve({status: 200, data: {code:'test'}});
+    resetPassword.reject();
+    scope.$apply();
     expect(mockAdminApiService.resetPassword).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Failure');
   });
 
-  it('resendConfirmationEmail should call correct api', function() {
+  it('resendConfirmationEmail success should resolve deferred', function() {
     var controller = accountGridController();
     scope.resendConfirmationEmail();
     resendConfirmationEmail.resolve({status: 200, data: {code:'test'}});
+    scope.$apply();
+    expect(mockAdminApiService.resendConfirmationEmail).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Success');
+  });
+
+  it('resendConfirmationEmail failure should reject deferred', function() {
+    var controller = accountGridController();
+    scope.resendConfirmationEmail();
+    resendConfirmationEmail.reject();
+    scope.$apply();
+    expect(mockAdminApiService.resendConfirmationEmail).toHaveBeenCalled();
+    expect(controller.update.status).toEqual('Failure');
+  });
+
+  it('submit should use right api call', function() {
+    var controller = accountGridController();
+    scope.resendCodeModalIsVisible = true;
+    scope.submit();
+    expect(mockAdminApiService.resendCode).toHaveBeenCalled();
+    scope.resendCodeModalIsVisible = false;
+    scope.resetPasswordModalIsVisible = true;
+    scope.submit();
+    expect(mockAdminApiService.resetPassword).toHaveBeenCalled();
+    scope.resetPasswordModalIsVisible = false;
+    scope.resendEmailModalIsVisible = true;
+    scope.submit();
     expect(mockAdminApiService.resendConfirmationEmail).toHaveBeenCalled();
   });
 });
