@@ -25,7 +25,7 @@
     <button aria-controls="modal" class="red-button modal-trigger" ng-click="vm.showDeleteFileConfirmationModal()">Delete<span class="hide"> {{attachmentName}}</span></button>
   </li>
 </div>
-<div ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
+<div focus-on="vm.upload.status === 'Invalid'" tabindex="0" ng-show="vm.upload.status == 'Invalid'" class="dol-feedback-error">
     <p class="dol-feedback-message">
       <strong>{{vm.upload.message}}</strong> <span>{{attachmentName}} was not uploaded.</span><span ng-show="vm.upload.message === 'File Size too large.'"> Files cannot be larger than 5MB.</span><span ng-show="vm.upload.message === 'Invalid File Type.'"> File types accepted: .pdf, .jpg, .jpeg, .png, and .csv</span>
     </p>

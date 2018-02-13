@@ -99,6 +99,7 @@ app.run(function(
   stateService,
   autoSaveService,
   authService,
+  apiService,
   $q
 ) {
 
@@ -136,9 +137,19 @@ app.run(function(
         if (!next.$$route) {
           return;
         }
+
         let userAccess = stateService.IsPointOfContact
           ? routeConfig.access.ROUTE_ADMIN
           : stateService.loggedIn ? routeConfig.access.ROUTE_USER : routeConfig.access.ROUTE_PUBLIC;
+        if(userAccess === routeConfig.access.ROUTE_USER) {
+          apiService.userInfo(stateService.access_token).then(function(result) {
+            if(result.data.organizations.length <= 0) {
+              $location.path("/employerRegistration");
+            }
+          }).catch(function(error) {
+            $log.warn('Error in authenticating user or getting saved application.', error)
+          });
+        }
         if (!routeConfig.checkRouteAccess(next.$$route, userAccess)) {
           // user does not have adequate permissions to access the route so redirect
           $location.path('/' + (userAccess === routeConfig.access.ROUTE_ADMIN ? 'admin' : 'login'));

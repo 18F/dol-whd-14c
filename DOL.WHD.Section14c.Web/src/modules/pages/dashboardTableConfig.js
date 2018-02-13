@@ -8,7 +8,6 @@ var applicationColumns = [
   { data: 'employerName', title: "Employer" },
   { data: 'ein', title: "EIN"},
   { data: 'employerAddress',  title: "Address"},
-  { data: 'createdAt', title: "Created At" },
   { data: 'lastModifiedAt',  title: "Date Submitted"},
   { data: 'applicationStatus',  title: "Status"},
   { data: 'action', title: 'PDF Version'}
