@@ -68,7 +68,7 @@
       <span class="usa-input-error-message" ng-show="validationProperties.certificateNumberInvalid">
         Please provide a valid certificate number.
       </span>
-      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" type="text" ng-model="formData.employer.certificateNumber" />
+      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" mask="99-99999-9-999" type="text" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
     <div class="dol-form-question-block" ng-class="validationProperties.legalNameRequired ? 'usa-input-error' : ''">

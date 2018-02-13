@@ -27,6 +27,18 @@ describe('sectionEmployerController', function() {
     expect(scope.formData.employer.tradeName).toBe('');
   });
 
+  it('initialization of properties', function() {
+    scope.formData = {
+      IsPointOfContact: true
+    };
+    controller = sectionEmployerController();
+    expect(scope.formData.employer).toBeDefined();
+    expect(scope.formData.employer.physicalAddress).toBeDefined();
+    expect(scope.formData.employer.mailingAddress).toBeDefined();
+    expect(scope.formData.employer.parentAddress).toBeDefined();
+  });
+
+
   it('has n/a for county when DC is selected as state', function() {
     var controller = sectionEmployerController();
 
@@ -67,7 +79,6 @@ describe('sectionEmployerController', function() {
     var controller = sectionEmployerController();
     scope.formData.employer.providingFacilitiesDeductionTypeId = [1];
     controller.toggleDeductionType(1);
-
     expect(
       scope.formData.employer.providingFacilitiesDeductionTypeId.indexOf(1)
     ).toBe(-1);

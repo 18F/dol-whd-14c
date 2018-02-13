@@ -67,6 +67,12 @@ describe('employerRegistrationController', function() {
     expect(scope.previouslyRegistered.name).toEqual("");
   });
 
+  it('initialization of properties', function() {
+    controller = employerRegistrationController();
+    expect(scope.formData.employer).toBeDefined();
+    expect(scope.formData.employer.physicalAddress).toBeDefined();
+  });
+
   it('submission error causes registration error', function() {
     scope.onSubmitClick();
     setEmployer.reject();
