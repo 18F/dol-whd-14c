@@ -36,7 +36,7 @@ describe('dolHeaderController', function() {
 
   it('starts idle watch on resume', function() {
     var controller = dolHeaderController();
-    scope.hideIdleWarning();
+    scope.continueWorking();
     scope.$apply();
     expect(mockIdleService.watch).toHaveBeenCalled();
     expect(scope.modalIsVisible).toEqual(false);

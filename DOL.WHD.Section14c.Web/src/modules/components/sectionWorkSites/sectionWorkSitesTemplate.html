@@ -352,7 +352,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('avgHourlyEarnings') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('avgHourlyEarnings')">{{ vm.validateActiveWorkerProperty('avgHourlyEarnings') }}</span>
-            <input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgHourlyEarnings">
+            <span class="wage-label">$</span><input id="workerAvgEarnings" name="workerAvgEarnings" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.avgHourlyEarnings">
           </div>
 
           <div class="dol-plain-label-help">
@@ -364,7 +364,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('prevailingWage') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('prevailingWage')">{{ vm.validateActiveWorkerProperty('prevailingWage') }}</span>
-            <input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.prevailingWage">
+            <span class="wage-label">$</span><input id="workerWage" name="workerWage" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.prevailingWage">
           </div>
 
           <fieldset class="dol-legend-plain usa-fieldset-inputs usa-sans">
@@ -402,7 +402,7 @@
           </helptext>
           <div ng-class="vm.validateActiveWorkerProperty('commensurateWageRate') ? 'usa-input-error' : ''">
             <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="vm.validateActiveWorkerProperty('commensurateWageRate')">{{ vm.validateActiveWorkerProperty('commensurateWageRate') }}</span>
-            <input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.commensurateWageRate">
+            <span class="wage-label">$</span><input id="workerWageRate" name="workerWageRate" type="number" class="wage-rate" min="0" step="any" ng-model="vm.activeWorker.commensurateWageRate">
           </div>
 
           <div class="dol-plain-label-help">

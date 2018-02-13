@@ -74,7 +74,7 @@
     <div class="dol-form-question-block" ng-show="formData.hasPreviousCertificate === true" ng-class="validate('previousCertificateNumber') ? 'usa-input-error' : ''">
       <label for="previousCertificateNumber" class="dol-form-question-text">What is the most recently held main establishment certificate number?</label>
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('previousCertificateNumber')">{{ validate('previousCertificateNumber') }}</span>
-      <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno" mask="99-99999-A-999" ng-model="formData.previousCertificateNumber" aria-describedby="examplePrevCertNumber">
+      <input id="previousCertificateNumber" name="previousCertificateNumber" type="text" class="dol-side-example certificateno" mask="99-99999-9-999" ng-model="formData.previousCertificateNumber" aria-describedby="examplePrevCertNumber">
       <span id="examplePrevCertNumber" class="dol-example-text">Example: 12-34567-H-890</span>
     </div>
 
