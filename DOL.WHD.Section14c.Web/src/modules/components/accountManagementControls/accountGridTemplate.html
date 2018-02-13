@@ -29,7 +29,7 @@
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
                 ng-show="stateService.hasClaim('UserManagement.ModifyAccount')"
-                ng-click="showModal('resendEmailModalIsVisible', account)">Resend-Email</button>
+                ng-click="showModal('resendEmailModalIsVisible', account)">Resend Email</button>
       </td>
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
@@ -90,6 +90,16 @@
       <input type="password" name="confirmPassword" id="confirmPassword" ng-model="confirmPassword" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
     </div>
   </div>
-  <button ng-click="submit()" class="green-button">Ok</button><button ng-click="closeModal()" class="red-button">Cancel</button>
+  <p ng-show="vm.update.status == 'Success'">
+    <h4>{{vm.update.message}}</h4>
+    <br/>
+  </p>
+  <p ng-show="vm.update.status == 'Initialize'">
+    <button ng-click="submit()" class="green-button">Ok</button>
+    <button ng-click="closeModal()" class="red-button">Cancel</button>
+  </p>
+  <p ng-show="vm.update.status != 'Initialize'">
+    <button ng-click="closeModal()" class="green-button">Close</button>
+  </p>
 </div>
 <div ng-if="modalIsVisible" class="modal-backdrop"></div>
