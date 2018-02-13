@@ -26,7 +26,7 @@ module.exports = function(ngModule) {
       vm.update.message = message;
     };
 
-    apiService.getAccounts(stateService.access_token).then(
+    apiService.getAccounts(vm.stateService.access_token).then(
       function(result) {
         var data = result.data;
         $scope.accounts = data;
@@ -78,7 +78,7 @@ module.exports = function(ngModule) {
     }
 
     $scope.resendConfirmationEmail = function () {
-      adminApiService.resendConfirmationEmail(stateService.access_token, $scope.userId).then(
+      adminApiService.resendConfirmationEmail(vm.stateService.access_token, $scope.userId).then(
         function(result) {
           var statusCode = result.status;
           if(statusCode == 200){
@@ -88,12 +88,12 @@ module.exports = function(ngModule) {
         },
         function() {
           vm.loadingError = true;
-          vm.setupdateStatus('Failure', 'Confirmation email resend failed. Please try again.');  
+          vm.setupdateStatus('Failure', 'Confirmation email resend failed. Please try again.');
         });
     }
 
     $scope.resetPassword = function () {
-      adminApiService.resetPassword(stateService.access_token, $scope.userEmail, $scope.password, $scope.confirmPassword).then(
+      adminApiService.resetPassword(vm.stateService.access_token, $scope.userEmail, $scope.password, $scope.confirmPassword).then(
         function(result) {
           var statusCode = result.status;
           if(statusCode == 200){
@@ -108,9 +108,8 @@ module.exports = function(ngModule) {
     }
 
     $scope.resendCode = function () {
-      adminApiService.resendCode(stateService.access_token, $scope.userId).then(
+      adminApiService.resendCode(vm.stateService.access_token, $scope.userId).then(
         function(result) {
-          
           if(result.status == 200){
             // Display Success Message
             var data = result.data;

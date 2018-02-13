@@ -164,7 +164,7 @@ describe('accountFormController', function() {
     expect(mockLocation.path).toHaveBeenCalledWith('/admin/users');
   });
 
-  it('submit create account error displays erro, log description', function() {
+  it('submit create account error displays error, log description', function() {
     var controller = accountFormController();
     controller.isEditAccount = false;
     controller.submitForm();
