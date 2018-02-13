@@ -10,7 +10,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     this.resendConfirmationEmail = function(access_token, userId) {
-      let url = _env.api_url + '/api/Account/AccountAdmin/ResendConfirmationEmail';
+      let url = _env.api_url + '/api/Account/AccountAdmin/ResendConfirmationEmail?userId=' + userId;
       let d = $q.defer();
 
       $http({
@@ -19,8 +19,7 @@ module.exports = function(ngModule) {
         headers: {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: $.param({ userId: userId})
+        }
       }).then(
         function successCallback(data) {
           d.resolve(data);
@@ -62,7 +61,7 @@ module.exports = function(ngModule) {
     };
 
     this.resendCode = function(access_token, userId) {
-      let url = _env.api_url + '/api/Account/AccountAdmin/ResendCode';
+      let url = _env.api_url + '/api/Account/AccountAdmin/ResendCode?userId=' + userId;
       let d = $q.defer();
 
       $http({
@@ -71,8 +70,7 @@ module.exports = function(ngModule) {
         headers: {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: $.param({ userId: userId})
+        }
       }).then(
         function successCallback(data) {
           d.resolve(data);
