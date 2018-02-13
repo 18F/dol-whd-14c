@@ -99,7 +99,7 @@ module.exports = function(ngModule) {
       if(!$scope.formData.employer.physicalAddress && !$scope.formData.employer.phsyicalAddress.state) {
         return;
       }
-      if($scope.formData.employer.physicalAddress.state || $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {
+      if($scope.formData.employer.physicalAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {
         $scope.formData.employer.physicalAddress.county = 'N/A';
       }
     });

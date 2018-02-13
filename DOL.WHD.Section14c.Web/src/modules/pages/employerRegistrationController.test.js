@@ -68,14 +68,9 @@ describe('employerRegistrationController', function() {
   });
 
   it('initialization of properties', function() {
-    $scope.formData = {
-      IsPointOfContact: true
-    };
     controller = employerRegistrationController();
-    expect($scope.employer).toBeDefined();
-    expect($scope.employer.physicalAddress).toBeDefined();
-    expect($scope.employer.mailingAddress).toBeDefined();
-    expect($scope.employer.parentAddress).toBeDefined();
+    expect(scope.formData.employer).toBeDefined();
+    expect(scope.formData.employer.physicalAddress).toBeDefined();
   });
 
   it('submission error causes registration error', function() {
