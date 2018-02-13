@@ -71,6 +71,7 @@
     <Compile Include="Models\Submission\Employer.cs" />
     <Compile Include="Models\Submission\EmployerInfoSCAAttachment.cs" />
     <Compile Include="Models\Submission\WageTypeInfoSCAAttachment.cs" />
+    <Compile Include="ViewModels\AdminResetPassword.cs" />
     <Compile Include="ViewModels\Summary\ApplicationSummary.cs" />
     <Compile Include="Models\Identity\ApplicationRole.cs" />
     <Compile Include="Models\Identity\ApplicationSave.cs" />
