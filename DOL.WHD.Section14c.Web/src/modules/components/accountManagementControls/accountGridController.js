@@ -16,6 +16,16 @@ module.exports = function(ngModule) {
     vm.loadingError = false;
     $scope.inputType = 'password';
 
+    vm.update = {
+      status: '',
+      message: ''
+    };
+
+    vm.setupdateStatus = function (status, message) {
+      vm.update.status = status;
+      vm.update.message = message;
+    };
+
     apiService.getAccounts(stateService.access_token).then(
       function(result) {
         var data = result.data;
@@ -34,6 +44,7 @@ module.exports = function(ngModule) {
     };
 
     $scope.showModal = function (modalType, account) {
+      vm.setupdateStatus('Initialize', '');
       $scope.userEmail = account.email;
       $scope.userId = account.userId;
       $scope[modalType] = true;
@@ -64,20 +75,52 @@ module.exports = function(ngModule) {
       if($scope.resetPasswordModalIsVisible) {
         $scope.resetPassword();
       }
-
-      $scope.closeModal();
     }
 
     $scope.resendConfirmationEmail = function () {
-      adminApiService.resendConfirmationEmail(stateService.access_token, $scope.userId);
+      adminApiService.resendConfirmationEmail(stateService.access_token, $scope.userId).then(
+        function(result) {
+          var statusCode = result.status;
+          if(statusCode == 200){
+            // Display Success Message
+            vm.setupdateStatus('Success', 'Confirmation email has been resend successfully.');
+          }
+        },
+        function() {
+          vm.loadingError = true;
+          vm.setupdateStatus('Failure', 'Confirmation email resend failed. Please try again.');  
+        });
     }
 
     $scope.resetPassword = function () {
-      adminApiService.resetPassword(stateService.access_token, $scope.userEmail, $scope.password, $scope.confirmPassword);
+      adminApiService.resetPassword(stateService.access_token, $scope.userEmail, $scope.password, $scope.confirmPassword).then(
+        function(result) {
+          var statusCode = result.status;
+          if(statusCode == 200){
+            // Display Success Message
+            vm.setupdateStatus('Success', 'Password has been reset successfully');
+          }
+        },
+        function() {
+          vm.loadingError = true;
+          vm.setupdateStatus('Failure', 'Password reset failed. Please try again.');
+        });
     }
 
     $scope.resendCode = function () {
-      adminApiService.resendCode(stateService.access_token, $scope.userId);
+      adminApiService.resendCode(stateService.access_token, $scope.userId).then(
+        function(result) {
+          
+          if(result.status == 200){
+            // Display Success Message
+            var data = result.data;
+            vm.setupdateStatus('Success', 'Authentication code has been resend successfully. New authentication code: ' + data.code);
+          }
+        },
+        function() {
+          vm.loadingError = true;
+          vm.setupdateStatus('Failure', 'Authentication code resent failed. Please try again.');
+        });
     }
   });
 };

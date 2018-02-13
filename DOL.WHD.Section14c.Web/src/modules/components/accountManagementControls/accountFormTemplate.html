@@ -59,7 +59,7 @@
             <br/>
           </p>
           <button ng-click="vm.hideUpdateUserAccountConfirmationModal()" class="grey-button">No</button>
-          <button ng-click="vm.submitForm()" ng-show="vm.update.status == 'Initialize'">YYes</button>
+          <button ng-click="vm.submitForm()" ng-show="vm.update.status == 'Initialize'">Yes</button>
           <div ng-show="vm.update.status == 'Failure'" class="dol-feedback-error">
               <p class="dol-feedback-message">
                 <strong>{{vm.update.message}}</strong>
@@ -68,7 +68,7 @@
         </div>
         <div ng-if="vm.updateUserAccountModalIsVisible" class="modal-backdrop"></div>
         <span>
-          <button ng-click="vm.showUpdateUserAccountConfirmationModal()">Update Account</button>
+          <button ng-click="vm.showupdateUserAccountConfirmationModal()">Update Account</button>
         </span>
         <button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
       </div>
