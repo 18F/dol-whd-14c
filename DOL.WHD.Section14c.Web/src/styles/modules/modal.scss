@@ -39,6 +39,23 @@ Primary style
   background-color: white;
 }
 
+.adminModal {
+  visibility: hidden;
+  -webkit-transition: visibility 0s 0.2s;
+  -moz-transition: visibility 0s 0.2s;
+  transition: visibility 0s 0.2s;
+  position: fixed;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 400px;
+  height: 400px;
+  border-radius: 3px;
+  background-color: white;
+}
+
 .modal-inactivity {
   visibility: hidden;
   -webkit-transition: visibility 0s 0.2s;
@@ -59,6 +76,17 @@ Primary style
 }
 
 .modal.is-visible {
+  visibility: visible;
+  -webkit-transition: visibility 0s 0s;
+  -moz-transition: visibility 0s 0s;
+  transition: visibility 0s 0s;
+  z-index:1000;
+  color: black;
+  text-align: center;
+
+}
+
+.adminModal.is-visible {
   visibility: visible;
   -webkit-transition: visibility 0s 0s;
   -moz-transition: visibility 0s 0s;

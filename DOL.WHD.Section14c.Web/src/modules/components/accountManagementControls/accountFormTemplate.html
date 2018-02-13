@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<form class="usa-form" ng-submit="vm.submitForm()">
+<form class="usa-form">
   <div>
     <h2 ng-if="vm.isEditAccount">Edit Account</h2>
     <h2 ng-if="!vm.isEditAccount">Create Account</h2>
@@ -40,17 +40,35 @@
         <span am-time-ago="formVals.lastPasswordChangedDate"></span>
       </div>
       <div>
-        <label>Email Confirmed</label>
-        <span>{{formVals.emailConfirmed}}</span>
+        <label>Is email verified and confirmed?</label>  
+        <input id="emailConfirmed" type="checkbox" name="emailConfirmed" ng-value="true" ng-model="formVals.emailConfirmed"></input>
+        <label>Email Confirmed</label>        
       </div>
-
       <div ng-if="vm.moment.utc(formVals.lockoutEndDateUtc).diff(moment.utc()) > 0">
         <label>Account Locked</label>End Date:
         <span am-time-ago="formVals.lockoutEndDateUtc | amUtc">
       </div>
       <div class="form-spaced-div">
+        <!-- Popup -->
+        <div ng-class="{'is-visible': vm.updateUserAccountModalIsVisible}" class="modal">
+          <header class="cd-panel-header">
+            <a ng-click="vm.hideUpdateUserAccountConfirmationModal()" class="modal-close dol-close-button"></a>
+          </header>
+          <p>
+            <h4>{{vm.update.message}}</h4>
+            <br/>
+          </p>
+          <button ng-click="vm.hideUpdateUserAccountConfirmationModal()" class="grey-button">No</button>
+          <button ng-click="vm.submitForm()" ng-show="vm.update.status == 'Initialize'">Yes</button>
+          <div ng-show="vm.update.status == 'Failure'" class="dol-feedback-error">
+              <p class="dol-feedback-message">
+                <strong>{{vm.update.message}}</strong>
+              </p>
+          </div>
+        </div>
+        <div ng-if="vm.updateUserAccountModalIsVisible" class="modal-backdrop"></div>
         <span>
-          <button type="submit">Update Account</button>
+          <button ng-click="vm.showupdateUserAccountConfirmationModal()">Update Account</button>
         </span>
         <button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
       </div>
