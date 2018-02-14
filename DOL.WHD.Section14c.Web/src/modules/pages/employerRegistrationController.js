@@ -96,7 +96,7 @@ module.exports = function(ngModule) {
       }
       if($scope.formData.employer.hasTradeName && !$scope.formData.employer.certificateNumber) {
         $scope.validationProperties.certificateNumberRequired = true;
-      } 
+      }
       if($scope.formData.employer.certificateNumber){
         if(!validationService.validateCertificateNumber($scope.formData.employer.certificateNumber)) {
           $scope.validationProperties.certificateNumberInvalid = true;
@@ -119,9 +119,6 @@ module.exports = function(ngModule) {
       $scope.validateAddress();
     }
 
-
-
-
     $scope.onSubmitClick = function () {
       $scope.resetErrors();
       $scope.getValidationErrors();
@@ -142,14 +139,5 @@ module.exports = function(ngModule) {
         });
       }
     }
-
-    $scope.$watch('formData.employer.physicalAddress.state', function () {
-      if(!$scope.formData.employer.physicalAddress && !$scope.formData.employer.physicalAddress.state) {
-        return;
-      }
-      if($scope.formData.employer.physicalAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {
-        $scope.formData.employer.physicalAddress.county = 'N/A';
-      }
-    });
   });
 };
