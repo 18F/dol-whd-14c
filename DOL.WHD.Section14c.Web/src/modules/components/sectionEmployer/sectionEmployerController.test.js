@@ -31,12 +31,12 @@ describe('sectionEmployerController', function() {
     scope.formData = {
       IsPointOfContact: true
     };
-    controller = sectionEmployerController();
+    sectionEmployerController();
     expect(scope.formData.employer).toBeDefined();
   });
 
   it('county is undefined when PA is selected as state', function() {
-    var controller = sectionEmployerController();
+    sectionEmployerController();
 
     scope.formData.employer.physicalAddress = {};
     scope.formData.employer.physicalAddress.state = 'PA';

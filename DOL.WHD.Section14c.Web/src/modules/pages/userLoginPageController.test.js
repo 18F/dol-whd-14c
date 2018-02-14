@@ -1,7 +1,6 @@
 describe('userLoginPageController', function() {
-  var scope, userLoginPageController;
-  var $q, scope, mockapiService, mockLocation, formVals;
-  var userLoginPageController, userRegister, emailVerification;
+  var $q, scope, mockapiService, mockLocation;
+  var userLoginPageController, emailVerification;
   beforeEach(module('14c'));
 
   beforeEach(
@@ -16,11 +15,7 @@ describe('userLoginPageController', function() {
       scope = $rootScope.$new();
       mockapiService = apiService;
       mockLocation = $location;
-      formVals = {
-        email: "test@tst.com",
-        firstName: "A",
-        lastName: "B"
-      }
+
       userLoginPageController = function() {
         return $controller('userLoginPageController', {
           $scope: scope,
@@ -46,7 +41,7 @@ describe('userLoginPageController', function() {
       code: 'code',
       userId: 'userId'
     });
-    var controller = userLoginPageController();
+    userLoginPageController();
     scope.$apply();
 
     expect(scope.isEmailVerificationRequest).toBe(true);
@@ -57,7 +52,7 @@ describe('userLoginPageController', function() {
       code: 'code',
       userId: 'userId'
     });
-    var controller = userLoginPageController();
+    userLoginPageController();
     emailVerification.resolve();
     scope.$apply();
 
@@ -69,7 +64,7 @@ describe('userLoginPageController', function() {
       code: 'code',
       userId: 'userId'
     });
-    var controller = userLoginPageController();
+    userLoginPageController();
     emailVerification.reject({});
     scope.$apply();
 
@@ -81,7 +76,7 @@ describe('userLoginPageController', function() {
       code: 'code',
       userId: 'userId'
     });
-    var controller = userLoginPageController();
+    userLoginPageController();
     emailVerification.reject({ data: { error: 'test' } });
     scope.$apply();
 

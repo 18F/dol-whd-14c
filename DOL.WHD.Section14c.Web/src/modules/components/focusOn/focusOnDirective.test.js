@@ -1,13 +1,13 @@
 describe('focusOn', function() {
   beforeEach(module('14c'));
 
+  var element, rootScope;
 
-  var element, rootScope, compiled;
   beforeEach(function() {
     element = angular.element('<input focus-on="true"/>');
     inject(function($rootScope, $compile) {
       rootScope = $rootScope;
-      compiled = $compile(element)(rootScope);
+      $compile(element)(rootScope);
     });
   });
 

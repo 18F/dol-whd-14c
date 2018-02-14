@@ -1,15 +1,13 @@
 describe('systemUseController', function() {
-  var scope, systemUseController, organizations, mockLocation, mockStateService, $q, location;
+  var scope, systemUseController, mockLocation, mockStateService, controller;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, stateService, $location, _$q_, $location) {
+    inject(function($rootScope, $controller, stateService, $location) {
       scope = $rootScope.$new();
       mockStateService = stateService;
       mockLocation = $location;
-      $q = _$q_;
-      location = $location
 
       systemUseController = function() {
         return $controller('systemUseController', {

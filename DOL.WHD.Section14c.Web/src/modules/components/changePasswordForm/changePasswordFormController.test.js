@@ -1,5 +1,5 @@
 describe('changePasswordFormController', function() {
-  var scope, $q, mockApiService, mockStateService;
+  var scope, $q, mockApiService, mockStateService, mockLocation;
   var changePasswordFormController, changePassword;
 
   beforeEach(module('14c'));

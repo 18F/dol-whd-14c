@@ -5,10 +5,8 @@ describe('apiService', function() {
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($injector, _$httpBackend_, apiService, moment, submissionService, _env) {
+    inject(function($injector, _$httpBackend_, apiService, _env) {
       api = apiService;
-      submissionService = submissionService;
-      moment = moment;
       $httpBackend = _$httpBackend_;
       env = _env;
     })
