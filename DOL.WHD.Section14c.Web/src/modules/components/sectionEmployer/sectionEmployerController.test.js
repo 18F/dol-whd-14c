@@ -33,19 +33,6 @@ describe('sectionEmployerController', function() {
     };
     controller = sectionEmployerController();
     expect(scope.formData.employer).toBeDefined();
-    expect(scope.formData.employer.physicalAddress).toBeDefined();
-    expect(scope.formData.employer.mailingAddress).toBeDefined();
-    expect(scope.formData.employer.parentAddress).toBeDefined();
-  });
-
-
-  it('has n/a for county when DC is selected as state', function() {
-    var controller = sectionEmployerController();
-
-    scope.formData.employer.physicalAddress = {};
-    scope.formData.employer.physicalAddress.state = 'DC';
-    scope.$digest();
-    expect(scope.formData.employer.physicalAddress.county).toBe('N/A');
   });
 
   it('county is undefined when PA is selected as state', function() {
