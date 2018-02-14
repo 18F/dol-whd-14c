@@ -63,11 +63,15 @@ module.exports = function(ngModule) {
       targets:2,
       createdCell: function (td, cellData, rowData, row) {
         var hasError = false;
-        $scope.formData.workSites[row].employees.forEach(function(element, index) {
-          if($scope.validate('workSites[' + row + '].employees[' + index + ']')) {
-            hasError = true;
-          }
-        });
+        if($scope.formData.workSites[row].employees) {
+          $scope.formData.workSites[row].employees.forEach(function(element, index) {
+            if($scope.validate('workSites[' + row + '].employees[' + index + ']')) {
+              hasError = true;
+            }
+          });
+        } else {
+          $(td).append("N/A");
+        }
         if (hasError) {
           $(td).prepend("<span class='usa-input-error-message' role='alert' tabindex='0'>Please review the employee(s) for this work site and correct any errors</span>")
         }
