@@ -54,9 +54,9 @@ namespace DOL.WHD.Section14c.Test.Business
 
             using (var outMemoryStream = new MemoryStream())
             {
-                service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
+                var attachementData = service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
 
-                string outText = Encoding.ASCII.GetString(outMemoryStream.ToArray());
+                string outText = Encoding.ASCII.GetString(attachementData.MemoryStream.ToArray());
 
                 Assert.AreEqual(outText, testFileContents);
             }
@@ -86,9 +86,9 @@ namespace DOL.WHD.Section14c.Test.Business
 
             using (var outMemoryStream = new MemoryStream())
             {
-                service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
+                var attachementData = service.DownloadAttachment(outMemoryStream, einToTest, new Guid( upload.Id));
 
-                string outText = Encoding.ASCII.GetString(outMemoryStream.ToArray());
+                string outText = Encoding.ASCII.GetString(attachementData.MemoryStream.ToArray());
 
                 Assert.AreEqual(outText, testFileContents);
             }
@@ -219,7 +219,7 @@ namespace DOL.WHD.Section14c.Test.Business
         {
             var service = new AttachmentService(_fileRepositoryMock, _attachmentRepositoryMock);
             Dictionary<string, Attachment> attachmentArray = service.GetApplicationAttachments(ref application);
-            Assert.AreEqual(6, attachmentArray.Count);
+            Assert.AreEqual(5, attachmentArray.Count);
         }
 
         [TestMethod]

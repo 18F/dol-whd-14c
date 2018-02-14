@@ -18,6 +18,7 @@ module.exports = function(ngModule) {
     $scope.applicationLoadError = {
       status: false
     };
+    $scope.tableConfig = tableConfig;
     $scope.clear = {
       status: "Inprogress",
       message: 'In Progress ...'
@@ -98,8 +99,8 @@ module.exports = function(ngModule) {
           $scope.navToApplicationButtonName= "Start New Application";
         },
         function(e) {
-          apiService.parseErrors(e.data);
           $scope.setClearStatus('Failure', 'Failed to clear application.');
+          apiService.parseErrors(e.data);
         }
       );
     }
@@ -113,8 +114,7 @@ module.exports = function(ngModule) {
             ein: element.employer.ein,
             employerId: element.employer.id,
             employerName: element.employer.legalName,
-            createdAt: dateFilter(element.createdAt) + " at " + new Date(element.createdAt).toLocaleTimeString(),
-            lastModifiedAt: dateFilter(element.lastModifiedAt) + " at " + new Date(element.lastModifiedAt).toLocaleTimeString(),
+            lastModifiedAt: dateFilter(element.lastModifiedAt),
             employerAddress: element.employer.physicalAddress.streetAddress + " " + element.employer.physicalAddress.city + ", " + element.employer.physicalAddress.state + " " + element.employer.physicalAddress.zipCode
           }
           if(element.applicationId && element.applicationStatus) {
@@ -149,9 +149,9 @@ module.exports = function(ngModule) {
         },
         ordering: true,
         autoWidth: false,
-        order: tableConfig.order,
-        columns: tableConfig.employeeColumns,
-        columnDefs: tableConfig.employeeColumnDefinitions,
+        order: $scope.tableConfig.order,
+        columns: $scope.tableConfig.applicationColumns,
+        columnDefs: $scope.tableConfig.applicationColumnDefinitions,
       });
 
       setTimeout(() => $scope.tableWidget.columns.adjust().draw(), 0 );

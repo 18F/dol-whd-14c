@@ -35,5 +35,11 @@ namespace DOL.WHD.Section14c.Domain.Models.Submission
         [IgnoreDataMember]
         public bool Deleted { get; set; }
 
+        [IgnoreDataMember]
+        public string EncryptionKey { get; set; }
+
+        public string AttachmentBlobId { get; set; }
+
+        public virtual AttachmentBlob AttachmentBlob { get; set; }
     }
 }

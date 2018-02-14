@@ -91,8 +91,8 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                 {
                     AttachmentId = "1234567890",
                     Attachment = pieceRateWageInfoAttachment,
-                    SCAAttachmentIds = new List<string>() { "1234567890" },
-                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } } ,
+                    SCAWageDeterminationAttachmentId = "1234567890",
+                    SCAWageDeterminationAttachment =sCAWageDeterminationAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo
                 };
                 HourlyWageInfo hourlyWageInfo = new HourlyWageInfo
@@ -100,7 +100,7 @@ namespace DOL.WHD.Section14c.Test.RepositoryMocks
                     AttachmentId = "1234567890",
                     Attachment = hourlyWageInfoAttachment,
                     MostRecentPrevailingWageSurvey = prevailingWageSurveyInfo,
-                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment { SCAAttachment = sCAWageDeterminationAttachment } },
+                    SCAWageDeterminationAttachment = sCAWageDeterminationAttachment,
                 };
                 Response res = new Response
                 {

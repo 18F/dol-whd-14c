@@ -522,4 +522,99 @@ describe('sectionWorkSitesController', function() {
     controller.deleteWorkSite(0);
     expect(scope.formData.workSites.length).toBe(0);
   });
+
+  describe('has a table config...', function() {
+    var controller;
+    beforeEach(function() {
+      controller = sectionWorkSitesController();
+      // spyOn(mockDocument[0], 'getElementById');
+    });
+    describe('with employee columns definition...', function() {
+      it('converts the 4th column to "yes" for truthy values', function() {
+        var testFn = controller.tableConfig.employeeColumnDefinitions[5].render;
+
+        var out = testFn(true);
+        expect(out).toBe('yes');
+        out = testFn(3);
+        expect(out).toBe('yes');
+        out = testFn({});
+        expect(out).toBe('yes');
+        out = testFn('true');
+        expect(out).toBe('yes');
+      });
+
+      it('converts the 4th column to "no" for falsey values', function() {
+        var testFn = controller.tableConfig.employeeColumnDefinitions[5].render;
+
+        var out = testFn(false);
+        expect(out).toBe('no');
+        out = testFn(0);
+        expect(out).toBe('no');
+        out = testFn(null);
+        expect(out).toBe('no');
+        out = testFn();
+        expect(out).toBe('no');
+      });
+
+      it('converts the 4th column to "no" for falsey values', function() {
+        var testFn = controller.tableConfig.employeeColumnDefinitions[4].render;
+
+        var out = testFn(31);
+        expect(out).toBe("Intellectual/Developmental Disability (IDD)");
+        out = testFn(32);
+        expect(out).toBe("Psychiatric Disability (PD)");
+        out = testFn(33);
+        expect(out).toBe("Visual Impairment (VI)");
+        out = testFn(34);
+        expect(out).toBe("Hearing Impairment (HI)");
+        out = testFn(35);
+        expect(out).toBe("Substance Abuse (SA)");
+        out = testFn(36);
+        expect(out).toBe("Neuromuscular Disability (NM)");
+        out = testFn(37);
+        expect(out).toBe("Age Related Disability (AR)");
+        out = testFn("other");
+        expect(out).toBe("other");
+      });
+    });
+
+    describe('with worksite column definition...', function() {
+      it('converts the 4th column to "yes" for truthy values', function() {
+        var testFn = controller.tableConfig.workSiteColumnDefinitions[4].render;
+
+        var out = testFn(true);
+        expect(out).toBe('yes');
+        out = testFn(3);
+        expect(out).toBe('yes');
+        out = testFn({});
+        expect(out).toBe('yes');
+        out = testFn('true');
+        expect(out).toBe('yes');
+      });
+
+      it('converts the 4th column to "no" for falsey values', function() {
+        var testFn = controller.tableConfig.workSiteColumnDefinitions[4].render;
+        var out = testFn(false);
+        expect(out).toBe('no');
+        out = testFn(0);
+        expect(out).toBe('no');
+        out = testFn(null);
+        expect(out).toBe('no');
+        out = testFn();
+        expect(out).toBe('no');
+      });
+
+      it('converts the 5th column to correct worksite type', function() {
+        var testFn = controller.tableConfig.workSiteColumnDefinitions[5].render;
+        var out = testFn(27);
+        expect(out).toBe("Main Establishment (ME)");
+        out = testFn(28);
+        expect(out).toBe("Branch Establishment (BR)");
+        out = testFn(29);
+        expect(out).toBe("Off-site Work Location (OL)");
+        out = testFn(30);
+        expect(out).toBe("School Work Experience Program (SWEP)");
+      });
+    });
+  })
 });

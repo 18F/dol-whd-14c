@@ -84,5 +84,21 @@ namespace DOL.WHD.Section14c.Business.Services
             }
             return userHasRight;
         }
+
+        /// <summary>
+        /// User is a system admin
+        /// </summary>
+        /// <param name="user">Application User</param>
+        /// <returns>Boolean</returns>
+        public bool HasSystemAdminRole(UserInfoViewModel userInfo)
+        {
+            bool isSystemAdim = false;
+            var systemAdminRole = userInfo.Roles.SingleOrDefault(x => x.Name == Roles.SystemAdministrator);
+            if (systemAdminRole != null)
+            {
+                return true;
+            }           
+            return isSystemAdim;
+        }
     }
 }

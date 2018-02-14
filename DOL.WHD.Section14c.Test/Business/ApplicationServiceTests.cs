@@ -126,7 +126,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.PrevailingWageSurvey,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } }
+                    SCAWageDeterminationAttachment = new Attachment { Id = Guid.NewGuid().ToString() }
                 }
             };
 
@@ -136,7 +136,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsNotNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
             Assert.IsNull(obj.PieceRateWageInfo.AlternateWageData);
-            Assert.IsNull(obj.PieceRateWageInfo.SCAAttachments);
+            Assert.IsNull(obj.PieceRateWageInfo.SCAWageDeterminationAttachment);
         }
 
         [TestMethod]
@@ -150,7 +150,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.AlternateWageData,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } }
+                    SCAWageDeterminationAttachment = new Attachment { Id = Guid.NewGuid().ToString() }
                 }
             };
 
@@ -160,7 +160,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
             Assert.IsNotNull(obj.PieceRateWageInfo.AlternateWageData);
-            Assert.IsNull(obj.PieceRateWageInfo.SCAAttachments);
+            Assert.IsNull(obj.PieceRateWageInfo.SCAWageDeterminationAttachment);
         }
 
         [TestMethod]
@@ -174,7 +174,7 @@ namespace DOL.WHD.Section14c.Test.Business
                     PrevailingWageMethodId = ResponseIds.PrevailingWageMethod.SCAWageDetermination,
                     MostRecentPrevailingWageSurvey = new PrevailingWageSurveyInfo(),
                     AlternateWageData = new AlternateWageData(),
-                    SCAAttachments = new List<WageTypeInfoSCAAttachment>() { new WageTypeInfoSCAAttachment() { WageTypeInfoId = Guid.NewGuid().ToString() } }
+                    SCAWageDeterminationAttachment = new Attachment { Id = Guid.NewGuid().ToString() }
                 }
             };
 
@@ -184,7 +184,7 @@ namespace DOL.WHD.Section14c.Test.Business
             // Assert
             Assert.IsNull(obj.PieceRateWageInfo.MostRecentPrevailingWageSurvey);
             Assert.IsNull(obj.PieceRateWageInfo.AlternateWageData);
-            Assert.IsNotNull(obj.PieceRateWageInfo.SCAAttachments);
+            Assert.IsNotNull(obj.PieceRateWageInfo.SCAWageDeterminationAttachment);
         }
 
         [TestMethod]

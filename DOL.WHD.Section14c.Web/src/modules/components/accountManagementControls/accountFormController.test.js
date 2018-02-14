@@ -81,7 +81,7 @@ describe('accountFormController', function() {
     getRoles.reject({ data: { error: 'error' } });
     scope.$apply();
 
-    expect(scope.roles).toBe(undefined);
+    expect(scope.roles).toBe(null);
     expect(controller.loadingError).toBe(true);
   });
 
@@ -131,17 +131,19 @@ describe('accountFormController', function() {
 
   it('cancel click navigates to landing page', function() {
     var controller = accountFormController();
+    spyOn(mockLocation, 'path');
     controller.cancelClick();
     scope.$apply();
-    expect(mockLocation.path()).toBe('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/admin/users');
   });
 
   it('submit edit account success redirects back to landing page', function() {
     var controller = accountFormController();
+    spyOn(mockLocation, 'path');
     controller.submitForm();
     modifyAccount.resolve({ data: {} });
     scope.$apply();
-    expect(mockLocation.path()).toBe('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/admin/users');
   });
 
   it('submit edit account error displays error, log description', function() {
@@ -149,21 +151,20 @@ describe('accountFormController', function() {
     controller.submitForm();
     modifyAccount.reject({ data: { error: {} } });
     scope.$apply();
-
     expect(controller.savingError).toBe(true);
   });
 
   it('submit create account success redirects back to landing page', function() {
     var controller = accountFormController();
+    spyOn(mockLocation, 'path');
     controller.isEditAccount = false;
     controller.submitForm();
     createAccount.resolve({ data: {} });
     scope.$apply();
-
-    expect(mockLocation.path()).toBe('/');
+    expect(mockLocation.path).toHaveBeenCalledWith('/admin/users');
   });
 
-  it('submit create account error displays erro, log description', function() {
+  it('submit create account error displays error, log description', function() {
     var controller = accountFormController();
     controller.isEditAccount = false;
     controller.submitForm();

@@ -77,6 +77,8 @@ module.exports = function(ngModule) {
                 d.reject(error);
               });
             }
+          } else {
+            $location.path("/employerRegistration");
           }
           if (!stateService.IsPointOfContact) {
             d.resolve();

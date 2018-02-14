@@ -173,11 +173,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<EmployerInfoProvidingFacilitiesDeductionType>()
                 .ToTable("EmployerInfoFacilitiesDeductionType")
                 .HasKey(k => new { k.EmployerInfoId, k.ProvidingFacilitiesDeductionTypeId });
-
-            modelBuilder.Entity<WageTypeInfoSCAAttachment>()
-               .ToTable("WageTypeInfoSCAAttachment")
-               .HasKey(k => new { k.WageTypeInfoId, k.SCAAttachmentId });
-
+            
             modelBuilder.Entity<EmployerInfoSCAAttachment>()
                .ToTable("EmployerInfoSCAAttachment")
                .HasKey(k => new { k.EmployerInfoId, k.SCAAttachmentId });

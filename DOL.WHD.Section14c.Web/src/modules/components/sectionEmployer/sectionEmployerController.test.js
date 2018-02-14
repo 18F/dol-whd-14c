@@ -27,13 +27,12 @@ describe('sectionEmployerController', function() {
     expect(scope.formData.employer.tradeName).toBe('');
   });
 
-  it('has n/a for county when DC is selected as state', function() {
-    var controller = sectionEmployerController();
-
-    scope.formData.employer.physicalAddress = {};
-    scope.formData.employer.physicalAddress.state = 'DC';
-    scope.$digest();
-    expect(scope.formData.employer.physicalAddress.county).toBe('N/A');
+  it('initialization of properties', function() {
+    scope.formData = {
+      IsPointOfContact: true
+    };
+    controller = sectionEmployerController();
+    expect(scope.formData.employer).toBeDefined();
   });
 
   it('county is undefined when PA is selected as state', function() {
@@ -67,7 +66,6 @@ describe('sectionEmployerController', function() {
     var controller = sectionEmployerController();
     scope.formData.employer.providingFacilitiesDeductionTypeId = [1];
     controller.toggleDeductionType(1);
-
     expect(
       scope.formData.employer.providingFacilitiesDeductionTypeId.indexOf(1)
     ).toBe(-1);

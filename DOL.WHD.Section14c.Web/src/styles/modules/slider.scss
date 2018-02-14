@@ -21,7 +21,11 @@ Primary style
 *::after, *::before {
   content: '';
 }
-
+.wage-label {
+  float: left;
+  padding-right: 1.2rem;
+  margin-top: 1.2rem;
+}
 .cd-panel {
   position: fixed;
   top: 0;
@@ -51,7 +55,7 @@ Primary style
   -webkit-transition: visibility 0s 0s;
   -moz-transition: visibility 0s 0s;
   transition: visibility 0s 0s;
-  
+
 }
 .cd-panel.is-visible::after {
   background: rgba(0, 0, 0, 0.6);
@@ -126,12 +130,12 @@ Primary style
 }
 .cd-panel-header {
   position: relative;
-  
+
   .dol-close-button {
     position: absolute;
     top: -20px;
     right: -20px;
-  }  
+  }
 }
 .cd-panel-header h3 {
   display: inline-block;
@@ -262,6 +266,3 @@ $L:     1170px;
 *::after, *::before {
 	content: '';
 }
-
-
-

@@ -7,7 +7,8 @@ module.exports = function(ngModule) {
     apiService,
     stateService,
     navService,
-    validationService
+    validationService,
+    _constants
   ) {
     'ngInject';
     'use strict';
@@ -18,7 +19,10 @@ module.exports = function(ngModule) {
       ? {}
       : validationService.getValidationErrors();
     $scope.navService = navService;
-
+    $scope.hideWageDataSection = false;
+    if( stateService.formData.applicationTypeId === _constants.responses.applicationType.initial){
+      $scope.hideWageDataSection = true;
+    }
     let vm = this;
 
     this.onSubmit = function() {

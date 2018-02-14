@@ -13,7 +13,7 @@ module.exports = function(ngModule) {
     'use strict';
 
     $scope.formData = stateService.formData;
-   
+
     $scope.validate = validationService.getValidationErrors;
     $scope.showAllHelp = {
       status: false,
@@ -77,31 +77,5 @@ module.exports = function(ngModule) {
       $scope.showAllHelp.status = !$scope.showAllHelp.status;
       $scope.showAllHelp.category = event.srcElement.id;
     }
-
-    $scope.$watch('formData.employer.mailingAddress.state', function () {
-      if(!$scope.formData.employer.mailingAddress && !$scope.formData.employer.mailingAddress.state) {
-        return;
-      }
-      if($scope.formData.employer.mailingAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.mailingAddress.state) >= 0) {
-        $scope.formData.employer.mailingAddress.county = 'N/A';
-      }
-    });
-    $scope.$watch('formData.employer.physicalAddress.state', function () {
-      if(!$scope.formData.employer.physicalAddress && !$scope.formData.employer.mailingAddress.state) {
-        return;
-      }
-      if($scope.formData.employer.physicalAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.physicalAddress.state) >= 0) {
-        $scope.formData.employer.physicalAddress.county = 'N/A';
-      }
-    });
-
-    $scope.$watch('formData.employer.parentAddress.state', function () {
-      if(!$scope.formData.employer.parentAddress && !$scope.formData.employer.mailingAddress.state) {
-        return;
-      }
-      if($scope.formData.employer.parentAddress.state && $scope.territoriesAndDistricts.indexOf($scope.formData.employer.parentAddress.state) >= 0) {
-        $scope.formData.employer.parentAddress.county = 'N/A';
-      }
-    });
   });
 };

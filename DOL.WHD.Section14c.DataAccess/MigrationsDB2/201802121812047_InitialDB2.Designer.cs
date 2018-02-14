@@ -13,7 +13,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
         
         string IMigrationMetadata.Id
         {
-            get { return "201801251422248_InitialDB2"; }
+            get { return "201802121812047_InitialDB2"; }
         }
         
         string IMigrationMetadata.Source

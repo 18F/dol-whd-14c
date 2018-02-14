@@ -177,6 +177,11 @@ module.exports = function(ngModule) {
       return dateValMoment.isValid();
     };
 
+    this.validateEIN = function(ein) {
+      let regex = /^\d{2}-\d{7}/;
+      return regex.test(ein)
+    };
+
     this.validateZipCode = function(zip) {
       let re = /^[0-9]{5}(?:-[0-9]{4})?$/i;
       let match = re.exec(zip);
@@ -676,10 +681,9 @@ module.exports = function(ngModule) {
       } else if (
         prevailingWageMethod === _constants.responses.prevailingWageMethod.sca
       ) {
-        this.checkRequiredValueArray(
-          prefix + '.' + 'SCAAttachments',
-          'Please provide the SCA Wage Determination survey',
-          false
+        this.checkRequiredValue(
+          prefix + '.' + 'scaWageDeterminationAttachmentId',
+          'Please provide the SCA Wage Determination survey'
         );
       }
     };

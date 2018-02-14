@@ -66,7 +66,6 @@ module.exports = function(ngModule) {
           $scope.restrictUpload = true;
           vm.upload.status = 'Success';
           vm.upload.message = 'File was uploaded successfully.'
-          $scope.restrictUpload = true;
           $scope.attachmentId = result.data[0].id;
           $scope.attachmentName = result.data[0].originalFileName;
           fileinput.value = '';
@@ -90,9 +89,6 @@ module.exports = function(ngModule) {
     this.hideDeleteFileConfirmationModal = function() {
      // $('.modal').removeClass('is-visible');
       $scope.modalIsVisible = false;
-      vm.upload.status = 'NoFile';
-      $scope.attachmentId = undefined;
-      $scope.attachmentName = undefined;
     }
 
     this.deleteAttachment = function(id) {
@@ -104,6 +100,7 @@ module.exports = function(ngModule) {
       }).catch(function() {
         //TODO: Display error
         vm.upload.status = 'Failure';
+        vm.upload.message = 'Failed to delete file.'
       });
     };
 
