@@ -1,5 +1,4 @@
 'use strict';
-
 module.exports = function(ngModule) {
   ngModule.controller('sectionWageDataController', function(
     $scope,
@@ -7,6 +6,7 @@ module.exports = function(ngModule) {
     $document,
     stateService,
     navService,
+    panelService,
     responsesService,
     validationService,
     _constants
@@ -88,48 +88,6 @@ module.exports = function(ngModule) {
     }
 
     // Sliding Panel
-
-    var panelTrigger
-
-    $('.cd-panel-trigger').on('click', function(event){
-      panelTrigger = $(this);
-      var target = $(this).attr('aria-controls');
-      $(`#${target}`).addClass('is-visible');
-      $(`#${target} .cd-panel-header h3`).focus();
-      $('body').addClass('cd-panel-open');
-      event.preventDefault();
-    });
-
-    // close the panel
-    function closeSlidingPanel() {
-      $('.cd-panel').removeClass('is-visible');
-      panelTrigger.focus();
-      $('body').removeClass('cd-panel-open');
-    }
-    $(document).keydown(function(event) {
-        // escape key
-        if ($('.cd-panel').hasClass('is-visible') && event.keyCode === 27) {
-          closeSlidingPanel();
-        }
-    });
-    $('.cd-panel-close').on('click', function(event){
-        closeSlidingPanel()
-        event.preventDefault();
-    });
-
-    // trap keyboard access inside the panel
-    $(".cd-panel .dol-last-focus").keydown(function(event){
-      if (event.which === 9 && !event.shiftKey) {
-        $(".cd-panel .dol-first-focus").focus();
-        event.preventDefault();
-      }
-    });
-    $(".cd-panel .dol-first-focus").keydown(function(event){
-      if (event.shiftKey && event.which === 9) {
-        $(".cd-panel .dol-last-focus").focus();
-        event.preventDefault();
-      }
-    });
-
+    panelService.setup($, document, '.cd-panel-trigger');
   });
 };
