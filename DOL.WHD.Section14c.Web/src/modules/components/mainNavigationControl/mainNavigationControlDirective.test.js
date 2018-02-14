@@ -1,14 +1,14 @@
 describe('mainNavigationControl', function() {
   beforeEach(module('14c'));
 
-  var element, rootScope;
+  var element, rootScope, controller, mockNavService, mainNavigationControlController;
+
   beforeEach(function() {
     element = angular.element('<main-navigation-control/>');
     inject(function($rootScope, $compile, $document, navService, $controller) {
       rootScope = $rootScope.$new();
       controller = $controller
       mockNavService = navService;
-      mockDocument = $document;
       $compile(element)(rootScope);
       spyOn(mockNavService, 'gotoSection');
       mainNavigationControlController = function() {
@@ -28,7 +28,7 @@ describe('mainNavigationControl', function() {
   it('navs to section on keydown', function() {
     rootScope.$digest();
     expect(rootScope.clicked).toBeFalsy();
-    var controller = mainNavigationControlController();
+    mainNavigationControlController();
     var target = {
       dataset: {
         sectionid: 'work-sites'

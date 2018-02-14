@@ -1,17 +1,17 @@
 describe('landingPageController', function() {
-  var scope, landingPageController, mockAutoSaveService, mockLocation, organizations, mockApiService, mockStateService, $q, location;
+  var scope, landingPageController, mockAutoSaveService, mockLocation, mockApiService, mockStateService, $q;
+  var userInfo, clearApplication, downloadApplicationPdf, loadSavedApplication, saveNewApplication;
 
   beforeEach(module('14c'));
 
   beforeEach(
-    inject(function($rootScope, $controller, apiService, autoSaveService, $location, stateService, _$q_, $location) {
+    inject(function($rootScope, $controller, apiService, autoSaveService, $location, stateService, _$q_) {
       scope = $rootScope.$new();
       mockStateService = stateService;
       mockLocation = $location;
       mockAutoSaveService = autoSaveService;
       mockApiService = apiService;
       $q = _$q_;
-      location = $location
 
       landingPageController = function() {
         return $controller('landingPageController', {
@@ -23,7 +23,7 @@ describe('landingPageController', function() {
         });
       };
 
-      controller = landingPageController();
+      landingPageController();
       scope.orgMemberships = [
         {
           employer: {
@@ -270,10 +270,8 @@ describe('landingPageController', function() {
   });
 
   describe('has a table config...', function() {
-    var controller;
     beforeEach(function() {
-      controller = landingPageController();
-      // spyOn(mockDocument[0], 'getElementById');
+      landingPageController();
     });
     describe('with employee columns definition...', function() {
       it('converts the 4th column to "yes" for truthy values', function() {

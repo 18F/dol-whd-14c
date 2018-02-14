@@ -1,6 +1,7 @@
 describe('userRegistrationFormController', function() {
   var $q, scope, mockapiService, mockLocation, formVals;
   var userRegistrationFormController, userRegister, emailVerification;
+  var checkPasswordComplexity;
 
   beforeEach(module('14c'));
 

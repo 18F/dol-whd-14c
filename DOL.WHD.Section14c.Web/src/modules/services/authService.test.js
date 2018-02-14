@@ -181,8 +181,7 @@ describe('authService', function() {
     var result;
     var isResolved;
     var data = { organizations: [{ ein: '12-1234567', employer: {legalName: 'legalName'}, applicationId: '123' }]};
-    var loadSavedApplication = $q.defer();
-    authService.authenticateUser().then(undefined, function(error) {
+    authService.authenticateUser().then(undefined, function() {
       result = 'error';
       isResolved = false;
     });

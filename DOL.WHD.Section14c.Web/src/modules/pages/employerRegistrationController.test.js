@@ -1,5 +1,7 @@
 describe('employerRegistrationController', function() {
-  var scope, employerRegistrationController, organizations, formData, mockValidationService, mockStateService, $q, location;
+  var scope, employerRegistrationController, mockValidationService, $q;
+  var mockApiService, controller;
+  var setEmployer, validateEIN, validateZipCode, validateCertificateNumber;
 
   beforeEach(module('14c'));
 

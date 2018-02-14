@@ -1,6 +1,7 @@
 describe('accountGridController', function() {
   var scope, $q, mockApiService, mockAdminApiService, mockLocation, mockStateService;
   var accountGridController, getAccounts;
+  var resetPassword, resendCode, resendConfirmationEmail;
 
   beforeEach(module('14c'));
 
@@ -125,7 +126,7 @@ describe('accountGridController', function() {
   });
 
   it('submit should use right api call', function() {
-    var controller = accountGridController();
+    accountGridController();
     scope.resendCodeModalIsVisible = true;
     scope.submit();
     expect(mockAdminApiService.resendCode).toHaveBeenCalled();

@@ -1,6 +1,7 @@
 describe('attachmentsFieldController', function() {
   var scope, $q, mockApiService, attachmentsFieldController;
   var uploadAttachment, deleteAttachment, mockStateService, mockEnv;
+  var controller;
 
   beforeEach(module('14c'));
 

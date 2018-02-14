@@ -35,7 +35,7 @@ describe('dolHeaderController', function() {
   });
 
   it('starts idle watch on resume', function() {
-    var controller = dolHeaderController();
+    dolHeaderController();
     scope.continueWorking();
     scope.$apply();
     expect(mockIdleService.watch).toHaveBeenCalled();
@@ -43,21 +43,21 @@ describe('dolHeaderController', function() {
   });
 
   it('closes idle modal', function() {
-    var controller = dolHeaderController();
+    dolHeaderController();
     scope.hideIdleWarning();
     scope.$apply();
     expect(scope.modalIsVisible).toEqual(false);
   });
 
   it('shows idle modal', function() {
-    var controller = dolHeaderController();
+    dolHeaderController();
     scope.showIdleWarning();
     scope.$apply();
     expect(scope.modalIsVisible).toEqual(true);
   });
 
   it('logouts out after timeout is met', function() {
-    var controller = dolHeaderController();
+    dolHeaderController();
     scope.$$listeners.IdleTimeout[0]();
     scope.$apply();
     expect(mockStateService.logOut).toHaveBeenCalled();
@@ -66,7 +66,7 @@ describe('dolHeaderController', function() {
   });
 
   it('shows modal for inactivity warning', function() {
-    var controller = dolHeaderController();
+    dolHeaderController();
     scope.$$listeners.IdleWarn[0]();
     scope.$apply();
     expect(scope.modalIsVisible).toEqual(true);
