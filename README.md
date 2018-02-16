@@ -9,10 +9,11 @@
 ##### API
 [build status missing] [coverage missing] [quality missing] [dependency status missing]
 
-TODO: Project Summary
-
 ## Table of contents
 
+ - [Project History](#history)
+ - [Users](#users)
+ - [Problem being solved and project goals](problem-being-solved-and-project-goals)
  - [Project Management](#project-management)
  - [Technology Stack](#technology-stack)
  - [System Context Diagram](#system-context)
@@ -29,6 +30,29 @@ TODO: Project Summary
      2. [DOL.WHD.Section14c.API.zip](#2-dolwhdsection14capizip)
        * [Configuration Settings](#configuration-settings-1)
      3. [DotNet.CoverageReport.zip](#3-dotnetcoveragereportzip)
+
+## History
+
+The 14(c) system is a form-based process currently relying on paper submissions that will become a modern, digital-first service to assist with a Department of Labor Wage and Hour Division (WHD) program to help employ workers with disabilities. Applicants will be provided an intuitive online experience, guiding them through the information needed to complete their application correctly.
+
+This work began several years ago during a workshop WHD and 18F ran to articulate 14(c) mission, users, and needs, including sessions on prototyping and risk assessment.
+
+To deliver this work, WHD and 18F have conducted two engagements using the Agile Delivery Services BPA (Agile BPA) to help WHD hire a vendor so they can build an online application together that can gain an ATO and be deployed into a production environment and, in the future, maintained by WHD without 18F or even vendor support. Through this, 18F helped build capacity at WHD and in the vendor community way by modeling and coaching in modern software development practices so agencies and vendors can develop products in an agile, human-centered, outcome-oriented way.
+
+More information about this engagement is in the [Agile BPA Task Order](https://github.com/18F/bpa-DOL-WHD-14-c).
+
+More information about the 14(c) program can be found in this [fact sheet](https://www.dol.gov/whd/regs/compliance/whdfs39.htm).
+
+## Users
+
+End users of the application are:
+ - Employers who submit 14(c) certificate applications through the online interface
+ - DOL WHD personnel who need to track, review, and update submitted applications as they move through the review and approval process
+ - Administrators who will control authorization to view the 14(c) applications
+
+## Problem being solved and project goals
+
+Section 14(c) certification is currently a paper-based process. Applicants download PDFs of the paper application from DOL's website, complete the forms by hand, and submit them to WHD via regular mail. Recognizing that this process is slow and cumbersome for both applicants and the WHD staff responsible for reviewing and issuing section 14(c) certificates, WHD began collaborating with 18F to modernize the process.
 
 ## Project Management
 
