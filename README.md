@@ -13,7 +13,7 @@
 
  - [Project History](#history)
  - [Users](#users)
- - [Problem being solved and project goals](problem-being-solved-and-project-goals)
+ - [Problem being solved and project goals](#problem-being-solved-and-project-goals)
  - [Project Management](#project-management)
  - [Technology Stack](#technology-stack)
  - [System Context Diagram](#system-context)
