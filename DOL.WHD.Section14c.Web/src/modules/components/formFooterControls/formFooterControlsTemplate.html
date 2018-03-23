@@ -1,7 +1,7 @@
 <div class="form-footer-controls" ng-show="vm.hasNext">
   <div class="button-group">
     <button class="back-button" ng-show="vm.hasBack" ng-click="vm.onBackClick()">{{ vm.backLabel }}</button>
-    <div class="pull-right">
+    <div class="pull-right" ng-show="!vm.currentbool" >
       <button class="next-button" ng-click="vm.onNextClick()">{{ vm.nextLabel }}</button>
     </div>
   </div>
