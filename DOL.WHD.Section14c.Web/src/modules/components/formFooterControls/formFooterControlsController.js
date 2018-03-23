@@ -16,6 +16,11 @@ module.exports = function(ngModule) {
     var vm = this;
     vm.hasNext = navService.hasNext();
     vm.hasBack = navService.hasBack();
+    vm.currentbool = false;
+    vm.current = $location.$$path.split('/section/')[1];
+    if (vm.current == "review") {
+        vm.currentbool = true;
+    }
 
     $scope.$watch('navService.nextLabel', function(value) {
       vm.setNextLabel(value ? value : undefined);
