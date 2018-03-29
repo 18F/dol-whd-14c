@@ -1,55 +1,58 @@
 <dol-header></dol-header>
 
-<main tabindex="-1" id="mainContent" role="main" class="main-content">
-
-  <main-top-nav-control></main-top-nav-control>
-
-  <div>
-    <div ng-hide="currentApplication.applicationId" class="dol-application-start"> <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
-      <button ng-click="startNewApplication()">Start New Application</button>
-    </div>
-    <div ng-hide="!currentApplication.applicationId" class="dol-application-continue"> <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
-      <div ng-class="{'is-visible': clearApplicationModalIsVisible}" class="modal">
-        <header class="cd-panel-header">
-          <a ng-click="hideClearApplicationConfirmationModal()" class="modal-close dol-close-button"></a>
-        </header>
-        <p>
-          <h4>{{clear.message}}</h4>
-          <br/>
-        </p>
-        <button ng-click="hideClearApplicationConfirmationModal()" class="grey-button">No</button>
-        <button ng-click="clearApplication()" class="red-button" ng-show="clear.status == 'Initialize'">Yes</button>
-        <div ng-show="clear.status == 'Failure'" class="dol-feedback-error">
-            <p class="dol-feedback-message">
-              <strong>{{clear.message}}</strong>
-            </p>
+<!--<main tabindex="-1" id="mainContent" role="main" class="main-content">-->
+<main tabindex="-1" id="mainContent" role="main">
+    <main-top-nav-control></main-top-nav-control>
+    <div>
+        <div ng-hide="currentApplication.applicationId" class="dol-application-start">
+            <!-- SHOW this div if application has not been started. HIDE this div if the application is in progress. -->
+            <button ng-click="startNewApplication()">Start New Application</button>
         </div>
-      </div>
-      <div ng-if="clearApplicationModalIsVisible" class="modal-backdrop"></div>
+        <div ng-hide="!currentApplication.applicationId" class="dol-application-continue">
+            <!-- HIDE this div if application has not been started. SHOW this div if the application is in progress. -->
+            <div ng-class="{'is-visible': clearApplicationModalIsVisible}" class="modal">
+                <header class="cd-panel-header">
+                    <a ng-click="hideClearApplicationConfirmationModal()" class="modal-close dol-close-button"></a>
+                </header>
+                <p>
+                    <h4>{{clear.message}}</h4>
+                    <br />
+                </p>
+                <button ng-click="hideClearApplicationConfirmationModal()" class="grey-button">No</button>
+                <button ng-click="clearApplication()" class="red-button" ng-show="clear.status == 'Initialize'">Yes</button>
+                <div ng-show="clear.status == 'Failure'" class="dol-feedback-error">
+                    <p class="dol-feedback-message">
+                        <strong>{{clear.message}}</strong>
+                    </p>
+                </div>
+            </div>
+            <div ng-if="clearApplicationModalIsVisible" class="modal-backdrop"></div>
 
-      <p><button ng-click="navToApplication()" >{{ navToApplicationButtonName }}</button> <span class="dol-modified-date">Last Modified: {{currentApplication.lastModifiedAt}}</span></p>
-      <p>Need a fresh start? <a ng-click="showClearApplicationConfirmationModal()"  href="">Clear all responses from the current application.</a></p>
+            <p><button ng-click="navToApplication()">{{ navToApplicationButtonName }}</button> <span class="dol-modified-date">Last Modified: {{currentApplication.lastModifiedAt}}</span></p>
+            <p>Need a fresh start? <a ng-click="showClearApplicationConfirmationModal()" href="">Clear all responses from the current application.</a></p>
+        </div>
+        <hr>
+        <h3 class="dol-table-header">Submitted Applications</h3>
+        <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%">
+            <caption class="hide">
+                All previously submitted applications for this account, listed by employer and date submitted. Includes access to a
+                downloadable PDF of the submitted application.
+            </caption>
+        </table>
     </div>
-    <hr>
-    <h3 class="dol-table-header">Submitted Applications</h3>
-    <table id="EmployerTable" class="dol-datatable display responsive" cellspacing="0" width="100%">
-      <caption class="hide">All previously submitted applications for this account, listed by employer and date submitted. Includes access to a
-        downloadable PDF of the submitted application.</caption>
-    </table>
-  </div>
 
 
-  <div ng-if="stateService.user.email">
-    <a href ng-click="changePassword()" name="Change Password">Change Password</a>
-  </div>
+    <div ng-if="stateService.user.email">
+        <a href ng-click="changePassword()" name="Change Password">Change Password</a>
+    </div>
 
-  <h2 ng-if="stateService.hasClaim('UserManagement.CreateAccount') || stateService.hasClaim('UserManagement.GetAccounts')">User Management</h2>
-  <div ng-if="stateService.hasClaim('UserManagement.CreateAccount')">
-    <account-create-button></account-create-button>
-  </div>
-  <div ng-if="stateService.hasClaim('UserManagement.GetAccounts')">
-    <account-grid></account-grid>
-  </div>
+    <h2 ng-if="stateService.hasClaim('UserManagement.CreateAccount') || stateService.hasClaim('UserManagement.GetAccounts')">User Management</h2>
+    <div ng-if="stateService.hasClaim('UserManagement.CreateAccount')">
+        <account-create-button></account-create-button>
+    </div>
+    <div ng-if="stateService.hasClaim('UserManagement.GetAccounts')">
+        <account-grid></account-grid>
+    </div>
 </main>
 
 <dol-footer></dol-footer>
