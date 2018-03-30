@@ -450,7 +450,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
+    <Content Include="Resources\dol.whd.section14c.dataaccess.dll.licenses" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
