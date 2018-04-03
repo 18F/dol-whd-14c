@@ -253,7 +253,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
             using (MemoryStream ms = new MemoryStream())
             {
-                using (RijndaelManaged AES = new RijndaelManaged())
+                using (AesCryptoServiceProvider AES = new AesCryptoServiceProvider())
                 {
                     AES.KeySize = 256;
                     AES.BlockSize = 128;
@@ -292,7 +292,7 @@ namespace DOL.WHD.Section14c.Business.Services
 
             using (MemoryStream ms = new MemoryStream())
             {
-                using (RijndaelManaged AES = new RijndaelManaged())
+                using (AesCryptoServiceProvider AES = new AesCryptoServiceProvider())
                 {
                     AES.KeySize = 256;
                     AES.BlockSize = 128;
