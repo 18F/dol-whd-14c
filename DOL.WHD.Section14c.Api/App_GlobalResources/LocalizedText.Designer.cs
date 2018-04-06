@@ -88,7 +88,7 @@ namespace DOL.WHD.Section14c.Api.App_GlobalResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account has been locked out for {0} minutes due to multiple failed login attempts..
+        ///   Looks up a localized string similar to Your account has been locked for {0} minutes due to multiple failed login attempts..
         /// </summary>
         internal static string LoginFailureMessageAccountLockedOut {
             get {
