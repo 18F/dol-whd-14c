@@ -35,10 +35,10 @@ namespace DOL.WHD.Section14c.Business.Services.Tests
         {
             var content = _emailService.PrepareApplicationEmailContents(application, certificationTeamEmailBodyTemplate, employerEmailBodyTemplate, Helper.EmailReceiver.Both);
             Assert.AreEqual("test@test.com", content["CertificationEmail"].To);
-            Assert.AreEqual("VA :: Email Subject", content["CertificationEmail"].Subject);
+            Assert.AreEqual("VA :: Section 14(c) Online Application Submission", content["CertificationEmail"].Subject);
             Assert.AreEqual("email body", content["CertificationEmail"].Body);
             Assert.AreEqual("test@test.com", content["EmployerEmail"].To);
-            Assert.AreEqual("Email Subject", content["EmployerEmail"].Subject);
+            Assert.AreEqual("Section 14(c) Online Application Submission", content["EmployerEmail"].Subject);
             Assert.AreEqual("Employer email body", content["EmployerEmail"].Body);
         }
     }
