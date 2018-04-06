@@ -127,7 +127,7 @@
     <value>Login failure</value>
   </data>
   <data name="LoginFailureMessageAccountLockedOut" xml:space="preserve">
-    <value>Your account has been locked out for {0} minutes due to multiple failed login attempts.</value>
+    <value>Your account has been locked for {0} minutes due to multiple failed login attempts.</value>
   </data>
   <data name="LoginFailureMessageEmailNotConfirmed" xml:space="preserve">
     <value>Email not confirmed</value>
