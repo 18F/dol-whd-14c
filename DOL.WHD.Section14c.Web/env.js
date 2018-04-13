@@ -3,7 +3,7 @@
   window.__env = window.__env || {};
   Object.assign(window.__env, {
     api_url: 'https://localhost:44399',
-     requireHttps: true,
+    requireHttps: true,
     tokenCookieDurationMinutes: 20160,
     allowedFileTypes: '["pdf", "jpg", "JPG", "jpeg", "JPEG", "png", "PNG", "PDF"]',
     helpEmailAddress:'14c-help@dol.gov',
