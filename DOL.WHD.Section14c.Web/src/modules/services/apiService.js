@@ -529,16 +529,9 @@ module.exports = function(ngModule) {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: $.param({ Email: account.email, 
-                        Roles: account.roles, 
-                        EmailConfirmed: account.emailConfirmed, 
-                        FirstName: account.firstName, 
-                        LastName: account.lastName,
-                        PhoneNumber: account.phoneNumber,
-                        PhoneNumberConfirmed: account.phoneNumberConfirmed,
-                        TwoFactorEnabled: account.twoFactorEnabled,
-                        Disabled: account.disabled,
-                        Deleted: account.deleted
+        data: $.param({ Email: account.email, Roles: account.roles, EmailConfirmed: account.emailConfirmed, FirstName: account.firstName, LastName: account.lastName,
+                        PhoneNumber: account.phoneNumber, PhoneNumberConfirmed: account.phoneNumberConfirmed, TwoFactorEnabled: account.twoFactorEnabled,
+                        Disabled: account.disabled, Deleted: account.deleted
           })
       }).then(
         function successCallback(data) {
