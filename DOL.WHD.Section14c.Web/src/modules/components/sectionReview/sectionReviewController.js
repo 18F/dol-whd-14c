@@ -8,12 +8,14 @@ module.exports = function(ngModule) {
     stateService,
     navService,
     validationService,
-    _constants
+    _constants,
+    _env
   ) {
     'ngInject';
     'use strict';
 
     stateService.inReview = true;
+    $scope.helpPhoneNumber = _env.helpPhoneNumber;
     $scope.isValid = validationService.validateForm();
     $scope.validation = $scope.isValid
       ? {}
