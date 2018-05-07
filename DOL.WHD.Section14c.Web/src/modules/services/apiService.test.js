@@ -534,7 +534,17 @@ describe('apiService', function() {
   it('modifyAccount error should reject deferred', function() {
     var isResolved;
     var result;
-    var account = { userId: '1' };
+    var account = { userId: '1',
+                    email: 'test@test.com',
+                    Roles: [], 
+                    EmailConfirmed: true, 
+                    firstName: 'Test',
+                    lastName: 'Test2',
+                    PhoneNumber: '999-999-9999',
+                    PhoneNumberConfirmed: true,
+                    TwoFactorEnabled: true,
+                    Disabled: false,
+                    Deleted: false};                    
     api.modifyAccount('access_token', account).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
@@ -566,16 +576,23 @@ describe('apiService', function() {
   });
 
   //createAccount
-  it('modifyAccount error should reject deferred', function() {
+  it('CreateAccount error should reject deferred', function() {
     var isResolved;
     var result;
-    var account = { userId: '1' };
+    var account = { userId: '1',
+                    Email: 'test@test.com', 
+                    Roles: ['Applicant'],
+                    FirstName: 'John', 
+                    LastName: 'Smith',
+                    PhoneNumber: '999-999-9999',
+                    PhoneNumberConfirmed: true  
+                  };
     api.createAccount('access_token', account).then(undefined, function(error) {
       result = error.data;
       isResolved = false;
     });
 
-    $httpBackend.expectPOST(env.api_url + '/api/account').respond(400, 'value');
+    $httpBackend.expectPOST(env.api_url + '/api/account/add').respond(400, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(false);
     expect(result).toEqual('value');
@@ -590,7 +607,7 @@ describe('apiService', function() {
       isResolved = true;
     });
 
-    $httpBackend.expectPOST(env.api_url + '/api/account').respond(200, 'value');
+    $httpBackend.expectPOST(env.api_url + '/api/account/add').respond(200, 'value');
     $httpBackend.flush();
     expect(isResolved).toEqual(true);
     expect(result).toEqual('value');

@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Web;
 using DOL.WHD.Section14c.Domain.Models.Identity;
+using DOL.WHD.Section14c.DataAccess.Models;
 using System.Threading.Tasks;
 
 namespace DOL.WHD.Section14c.DataAccess
@@ -43,6 +44,10 @@ namespace DOL.WHD.Section14c.DataAccess
         public DbSet<Employer> Employers { get; set; }
 
         public DbSet<OrganizationMembership> OrganizationMemberships { get; set; }
+
+        public DbSet<UserActivity> UserActivities { get; set; }
+
+        public DbSet<UserAction> UserActions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -185,6 +190,7 @@ namespace DOL.WHD.Section14c.DataAccess
             modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+            modelBuilder.Entity<UserActivity>().ToTable("UserActivities");
 
         }
 

@@ -16,6 +16,16 @@ module.exports = function(ngModule) {
     vm.loadingError = false;
     $scope.inputType = 'password';
 
+    $scope.gridOptions = {
+      data: [],
+      sort: {
+         // predicate: 'email',
+         // direction: 'asc'
+      }
+    };  
+
+    //$scope.gridActions = {};
+
     vm.update = {
       status: '',
       message: ''
@@ -30,11 +40,15 @@ module.exports = function(ngModule) {
       function(result) {
         var data = result.data;
         $scope.accounts = data;
+        $scope.gridOptions.data = data;
       },
       function() {
         vm.loadingError = true;
+        $scope.gridOptions.data = [];        
       }
     );
+
+    
     $scope.modalIsVisible = false;
     $scope.showResendEmailModalIsVisible = false;
     $scope.resendCodeModalIsVisible = false;

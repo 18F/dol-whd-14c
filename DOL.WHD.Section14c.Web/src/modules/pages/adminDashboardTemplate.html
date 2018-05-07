@@ -1,10 +1,15 @@
 <div class="admin-page">
   <main-top-nav-control></main-top-nav-control>
-
+  
   <div class="manage-users-block">
     <a href="" ng-click="gotoUsers()">Manage Users</a>
   </div>
 
+  <div class="manage-users-block">
+    <a href="" ng-show="stateService.hasClaim('Audit.Accounts')" ng-click="auditAccounts()">Audit Accounts</a>
+  </div>
+
+  
   <h1>Dashboard</h1>
 
   <div class="admin-filter-bar clearer">

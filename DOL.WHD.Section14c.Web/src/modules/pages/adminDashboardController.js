@@ -54,5 +54,10 @@ module.exports = function(ngModule) {
     $scope.gotoUsers = function() {
       $location.path('/admin/users');
     };
+
+    $scope.auditAccounts = function() {
+      $location.path('/admin/audit');
+    };
+    
   });
 };

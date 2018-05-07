@@ -32,6 +32,14 @@
       </p>
     </div>
   </div>
+  <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.errorWhenSendingEmail">
+    <div class="usa-alert-body">
+      <h2 class="usa-alert-heading">Account has been created with an error.</h2>
+      <p class="usa-alert-text">
+        There was an error while sending the confirmation email to <strong>{{vm.registeredEmail}}</strong>. Please contact us at <a href="mailto:14c-help@dol.gov">14c-help@dol.gov</a>.
+      </p>      
+    </div>
+  </div>  
   <div class="usa-alert usa-alert-error" role="alert" tabindex="0" ng-show="vm.generalRegistrationError">
     <div class="usa-alert-body">
       <p class="usa-alert-text">An error occured during registration. Please ensure you have filled out the form correctly. If this error still persists, please try again at another time.</p>
@@ -85,7 +93,7 @@
           <p>Passwords do not match.</p>
         </div>
       </span>
-      <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="{{inputType}}" name="registerPassword" id="registerPassword" ng-model="formVals.pass" ng-focus="showHelp()"/>
       <div class="dol-password-help">
         <div class="usa-content">
           <meter max="4" id="password-strength-meter" value="{{vm.passwordStrength.score}}"></meter>
@@ -97,7 +105,7 @@
             <span ng-switch-when="4">Strong</span>
           </div>
           <div class="showpass">
-            <a href="" ng-click="hideShowPassword()" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false">
+            <a href="" ng-click="hideShowPassword()" ng-focus="showHelp()">
               <span ng-show="inputType != 'password'">Hide</span>
               <span ng-show="inputType === 'password'">Show</span> Password
             </a>
@@ -107,7 +115,7 @@
     </div>
     <div ng-class="vm.passwordRequired || vm.passwordsDontMatch || vm.passwordComplexity ? 'usa-input-error' : ''">
       <label for="confirmPassword">Confirm Password</label>
-      <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="vm.showPasswordHelp=true" ng-blur="vm.showPasswordHelp=false" />
+      <input type="password" name="confirmPassword" id="confirmPassword" ng-model="formVals.confirmPass" ng-focus="showHelp()"/>
     </div>
     <div class="regbtn">
       <button  type="submit" ng-show="!vm.submittingForm">Register</button>

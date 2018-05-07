@@ -130,6 +130,11 @@ module.exports = function (app) {
         template: require('./pages/userManagementPageTemplate.html'),
         access: config.access.ROUTE_ADMIN
       })
+      .when('/admin/audit', {
+        controller: 'auditAccountsPageController',
+        template: require('./pages/auditAccountsPageTemplate.html'),
+        access: config.access.ROUTE_ADMIN
+      })      
       .when('/admin/:app_id', {
         redirectTo: function(params) {
           return '/admin/' + params.app_id + '/section/summary';

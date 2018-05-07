@@ -95,7 +95,7 @@
           <p>Invalid EIN format. Example XX-XXXXXXX</p>
         </div>
       </span>
-      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.ein" />
+      <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" restrict="reject" ng-model="formData.ein" />
       <span class="example">Example: 00-1234567</span>
     </div>
     <div class="usa-alert usa-alert-info" ng-show="vm.showEinHelp" role="alert" tabindex="0">

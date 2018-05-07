@@ -73,6 +73,7 @@
     <Compile Include="Helper\ApplicationDocumentHelper.cs" />
     <Compile Include="Helper\ApplicationEmailReceivers.cs" />
     <Compile Include="Helper\ApplicationFormViewHelper.cs" />
+    <Compile Include="IUserActivityService.cs" />
     <Compile Include="IApplicationService.cs" />
     <Compile Include="IAttachmentSupportedFileTypesService.cs" />
     <Compile Include="IEmailContentService.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="ISaveService.cs" />
     <Compile Include="IStatusService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\UserActivityService.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\AttachmentService.cs" />
     <Compile Include="IAttachmentService.cs" />
@@ -137,7 +139,7 @@
       <Name>DOL.WHD.Section14c.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
-      <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
+      <Project>{f7033f89-ed1b-4784-aeab-d8808fbbec92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">

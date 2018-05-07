@@ -117,18 +117,18 @@
       <label for="contactLastName">Last Name</label>
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactLastName')">{{ validate('contactLastName') }}</span>
       <input id="contactLastName" name="contactLastName" type="text" ng-model="formData.contactLastName"></input>
-    </div>
+    </div> 
     <div class="dol-form-question-block" ng-class="validate('contactPhone') ? 'usa-input-error' : ''">
       <label for="contactPhone">Telephone Number</label>
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactPhone')">{{ validate('contactPhone') }}</span>
-      <input id="contactPhone" name="contactPhone" type="tel" mask="999-999-9999" ng-model="formData.contactPhone" class="dol-side-example phoneno" aria-describedby="exampleContactPhone"></input>
+      <input id="contactPhone" name="contactPhone" type="text" mask="999-999-9999" restrict="reject" ng-model="formData.contactPhone" class="dol-side-example phoneno" aria-describedby="exampleContactPhone"></input>
       <span id="exampleContactPhone" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 
     <div class="dol-form-question-block" ng-class="validate('contactFax') ? 'usa-input-error' : ''">
       <label for="contactFax">Fax Number <span class="dol-example-text">(Optional)</span></label>
       <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('contactFax')">{{ validate('contactFax') }}</span>
-      <input id="contactFax" name="contactFax" type="tel" mask="999-999-9999" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
+      <input id="contactFax" name="contactFax" type="text" mask="999-999-9999" restrict="reject" ng-model="formData.contactFax" class="dol-side-example phoneno" aria-describedby="exampleContactFax"></input>
       <span id="exampleContactFax" class="dol-example-text">Example: 123-456-7890</span>
     </div>
 

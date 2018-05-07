@@ -160,6 +160,21 @@ module.exports = function(ngModule) {
     };
 
     this.logOut = function() {
+
+      const self = this;
+      const d = $q.defer();
+      
+      apiService.logOut(self.access_token).then(
+        function(result) {
+          const data = result.data;
+          self.setFormData(JSON.parse(data));
+          d.resolve(data);
+        },
+        function(error) {
+          d.reject(error);
+        }
+      );
+      
       // remove access_token cookie
       $cookies.remove(accessTokenCookieName);
 

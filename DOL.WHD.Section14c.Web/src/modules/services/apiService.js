@@ -493,6 +493,7 @@ module.exports = function(ngModule) {
       return d.promise;
     };
 
+    
     this.setEmployer = function (access_token, data) {
       let url = _env.api_url + '/api/Account/User/setEmployer'
       let d = $q.defer();
@@ -520,7 +521,7 @@ module.exports = function(ngModule) {
     this.modifyAccount = function(access_token, account) {
       let url = _env.api_url + '/api/account/' + account.userId;
       let d = $q.defer();
-
+      
       $http({
         method: 'POST',
         url: url,
@@ -528,7 +529,10 @@ module.exports = function(ngModule) {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: $.param({ Email: account.email, Roles: account.roles, EmailConfirmed: account.emailConfirmed  })
+        data: $.param({ Email: account.email, Roles: account.roles, EmailConfirmed: account.emailConfirmed, FirstName: account.firstName, LastName: account.lastName,
+                        PhoneNumber: account.phoneNumber, PhoneNumberConfirmed: account.phoneNumberConfirmed, TwoFactorEnabled: account.twoFactorEnabled,
+                        Disabled: account.disabled, Deleted: account.deleted
+          })
       }).then(
         function successCallback(data) {
           d.resolve(data);
@@ -542,7 +546,7 @@ module.exports = function(ngModule) {
     };
 
     this.createAccount = function(access_token, account) {
-      let url = _env.api_url + '/api/account';
+      let url = _env.api_url + '/api/account/add';
       let d = $q.defer();
 
       $http({
@@ -552,7 +556,12 @@ module.exports = function(ngModule) {
           Authorization: 'bearer ' + access_token,
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: $.param({ Email: account.email, Roles: account.roles })
+        data: $.param({ Email: account.email, 
+                        Roles: account.roles,
+                        FirstName: account.firstName, 
+                        LastName: account.lastName,
+                        PhoneNumber: account.phoneNumber
+                        })
       }).then(
         function successCallback(data) {
           d.resolve(data);
@@ -647,5 +656,51 @@ module.exports = function(ngModule) {
 
       return d.promise;
     };
+
+    this.logOut = function(access_token) {
+      let url = _env.api_url + '/api/Account/LogOut';
+      let d = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: url,
+        headers: { 
+          Authorization: 'bearer ' + access_token,          
+          'Content-Type': 'application/x-www-form-urlencoded' }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+
+    this.getNewAuditAccounts = function(access_token) {
+      let url = _env.api_url + '/api/admin/audit/users/created';
+      let d = $q.defer();
+      $http({
+        method: 'GET',
+        url: url,
+        headers: {
+          Authorization: 'bearer ' + access_token,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(
+        function successCallback(data) {
+          d.resolve(data);
+        },
+        function errorCallback(error) {
+          d.reject(error);
+        }
+      );
+
+      return d.promise;
+    };
+    
+
   });
 };

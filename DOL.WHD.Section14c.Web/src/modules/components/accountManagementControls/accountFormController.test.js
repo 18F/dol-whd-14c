@@ -43,7 +43,6 @@ describe('accountFormController', function() {
     accountFormController();
     getAccount.resolve({ data: { userId: 1 } });
     scope.$apply();
-
     expect(scope.formVals.userId).toBe(1);
   });
 
@@ -139,6 +138,8 @@ describe('accountFormController', function() {
 
   it('submit edit account success redirects back to landing page', function() {
     var controller = accountFormController();
+    scope.formVals = {email: 'test@test.com', 
+                      roles: ['Applicant']};
     spyOn(mockLocation, 'path');
     controller.submitForm();
     modifyAccount.resolve({ data: {} });
@@ -148,6 +149,8 @@ describe('accountFormController', function() {
 
   it('submit edit account error displays error, log description', function() {
     var controller = accountFormController();
+    scope.formVals = {email: 'test@test.com', 
+                      roles: ['Applicant']};
     controller.submitForm();
     modifyAccount.reject({ data: { error: {} } });
     scope.$apply();
@@ -156,6 +159,8 @@ describe('accountFormController', function() {
 
   it('submit create account success redirects back to landing page', function() {
     var controller = accountFormController();
+    scope.formVals = {email: 'test@test.com', 
+                      roles: ['Applicant']};    
     spyOn(mockLocation, 'path');
     controller.isEditAccount = false;
     controller.submitForm();
@@ -166,6 +171,8 @@ describe('accountFormController', function() {
 
   it('submit create account error displays error, log description', function() {
     var controller = accountFormController();
+    scope.formVals = {email: 'test@test.com', 
+                      roles: ['Applicant']};    
     controller.isEditAccount = false;
     controller.submitForm();
     createAccount.reject({ data: { error: {} } });

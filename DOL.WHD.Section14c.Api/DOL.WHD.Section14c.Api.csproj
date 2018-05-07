@@ -107,7 +107,7 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity">
       <HintPath>..\bin\System.Web.Entity.dll</HintPath>
-	</Reference>
+    </Reference>
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.Extensions" />
@@ -255,6 +255,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\UserActivityController.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\ResponseController.cs" />
@@ -344,20 +345,31 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="App_GlobalResources\LocalizedText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizedText.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DOL.WHD.Section14c.Business\DOL.WHD.Section14c.Business.csproj">
       <Project>{7cd1d7dd-ce24-4280-b8bd-0b8b9abb0ffc}</Project>
       <Name>DOL.WHD.Section14c.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Common\DOL.WHD.Section14c.Common.csproj">
-      <Project>{9C06ABE3-28D2-4BAB-BAA4-11B6C404B329}</Project>
+      <Project>{9c06abe3-28d2-4bab-baa4-11b6c404b329}</Project>
       <Name>DOL.WHD.Section14c.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.DataAccess\DOL.WHD.Section14c.DataAccess.csproj">
-      <Project>{F7033F89-ED1B-4784-AEAB-D8808FBBEC92}</Project>
+      <Project>{f7033f89-ed1b-4784-aeab-d8808fbbec92}</Project>
       <Name>DOL.WHD.Section14c.DataAccess</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.Domain\DOL.WHD.Section14c.Domain.csproj">
-      <Project>{CAE5367B-F6CD-440F-9524-5AE43A38116E}</Project>
+      <Project>{cae5367b-f6cd-440f-9524-5ae43a38116e}</Project>
       <Name>DOL.WHD.Section14c.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\DOL.WHD.Section14c.EmailApi\DOL.WHD.Section14c.EmailApi.csproj">
@@ -372,16 +384,6 @@
       <Project>{9a4abfb1-b45e-4fea-847d-0b39f4ff9334}</Project>
       <Name>DOL.WHD.Section14c.PdfApi</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="App_GlobalResources\LocalizedText.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>LocalizedText.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -68,7 +68,7 @@
       <span class="usa-input-error-message" ng-show="validationProperties.certificateNumberInvalid">
         Please provide a valid certificate number.
       </span>
-      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" mask="99-99999-9-999" type="text" ng-model="formData.employer.certificateNumber" />
+      <input class="ein sidelabeled" name="certificateNumber" id="certificateNumber" mask="99-99999-A-999" type="text" ng-model="formData.employer.certificateNumber" />
       <span class="example">Example: 12-34567-H-890</span>
     </div>
     <div class="dol-form-question-block" ng-class="validationProperties.legalNameRequired ? 'usa-input-error' : ''">
@@ -96,7 +96,7 @@
       </span>
       <input class="ein sidelabeled" name="EIN" id="EIN" type="text" mask="99-9999999" ng-model="formData.employer.ein" />
       <span class="example">Example: 00-1234567</span>
-    </div>
+    </div>    
     <div class="usa-alert usa-alert-info" ng-show="showEinHelp" role="alert" tabindex="0">
       <div class="usa-alert-body">
         <p class="usa-alert-text">Providing the EIN at registration helps us ensure there is only one account per Employer.</p>

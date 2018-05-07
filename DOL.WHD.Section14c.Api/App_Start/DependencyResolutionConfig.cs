@@ -47,6 +47,8 @@ namespace DOL.WHD.Section14c.Api
             container.Register<Business.IOrganizationService, Business.Services.OrganizationService>(Lifestyle.Scoped);
             container.Register<IEmployerRepository, EmployerRepository>(Lifestyle.Scoped);
             container.Register<IOrganizationRepository, OrganizationRepository>(Lifestyle.Scoped);
+            container.Register<IUserActivityRepository, UserActivityRepository>(Lifestyle.Scoped);
+            container.Register<IUserActivityService, UserActivityService>(Lifestyle.Scoped);
 
             // FluentValidation validators (make this singletons since the overhead of spinning up is high and they have no state)
             container.Register<IApplicationSubmissionValidator, ApplicationSubmissionValidator>(Lifestyle.Singleton);
