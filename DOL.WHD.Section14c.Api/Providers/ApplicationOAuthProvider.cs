@@ -13,6 +13,9 @@ using DOL.WHD.Section14c.Common.Extensions;
 using System.IO;
 using NLog;
 using System.Linq;
+using DOL.WHD.Section14c.DataAccess.Models;
+using DOL.WHD.Section14c.DataAccess.Repositories;
+using DOL.WHD.Section14c.Domain.Models;
 
 namespace DOL.WHD.Section14c.Api.Providers
 {
@@ -154,6 +157,24 @@ namespace DOL.WHD.Section14c.Api.Providers
                         // logging of successful attempts
                         eventInfo.Level = LogLevel.Info;
                         eventInfo.Message = App_GlobalResources.LocalizedText.LoginSuccessMessage;
+
+                        //audit
+                        var _userActivityRepository = new UserActivityRepository();
+                        var userActivity = new UserActivity()
+                        {
+                            ActionId = UserActionIds.Login,
+                            ActionType = ActionTypes.NonAdmin,
+                            UserName = user.Email
+                        };
+                        try
+                        {
+                            await _userActivityRepository.AddAsync(userActivity);
+                        }
+                        catch
+                        {
+                            //TODO - send email here
+                        }
+
                     }
                 }
                 else

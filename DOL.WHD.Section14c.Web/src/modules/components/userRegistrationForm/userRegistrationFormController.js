@@ -42,7 +42,7 @@ module.exports = function(ngModule) {
       vm.emailAddressRequired = false;
       vm.lastNameRequired = false;
       vm.firstNameRequired = false;
-      vm.showPasswordHelp = false;
+      //vm.showPasswordHelp = false;
       vm.passwordRequired = false;
       vm.passwordsDontMatch = false;
       vm.passwordComplexity = false;
@@ -53,8 +53,10 @@ module.exports = function(ngModule) {
         strong: false,
         score: 0
       };
+      vm.errorWhenSendingEmail = false;
     };
     vm.resetErrors();
+    vm.showPasswordHelp = false;    
 
     vm.resetPasswordComplexity = function() {
       vm.passwordLength = false;
@@ -69,6 +71,10 @@ module.exports = function(ngModule) {
 
     vm.toggleEinHelp = function() {
       vm.showEinHelp = !vm.showEinHelp;
+    };
+
+    $scope.showHelp = function(){
+      vm.showPasswordHelp = true;
     };
 
     $scope.toggleFacts = function ()  {
@@ -104,6 +110,7 @@ module.exports = function(ngModule) {
 
     $scope.inputType = 'password';
     vm.emailVerificationUrl = $location.absUrl();
+    
     $scope.onSubmitClick = function() {
 
       vm.submittingForm = true;
@@ -145,6 +152,8 @@ module.exports = function(ngModule) {
             vm.restForm();
             vm.accountCreated = true;
             vm.submittingForm = false;
+            vm.showPasswordHelp = false;
+            vm.resetPasswordComplexity();              
             $window.scrollTo(0, 0);
           },
           function(error) {
@@ -187,12 +196,19 @@ module.exports = function(ngModule) {
                   score: error.data.score
                 };
               }
-
-              if($scope.registerErrors.length === 0) {
-                vm.generalRegistrationError = true;
+              if ($scope.registerErrors.indexOf('Error sending the email.') > -1) {
+                vm.registeredEmail = $scope.formVals.email;                
+                vm.errorWhenSendingEmail = true;
+                vm.generalRegistrationError = false;                
+                $window.scrollTo(0, 0);                                
               }
-              if($scope.registerErrors.length === 0) {
-                vm.generalRegistrationError = true;
+              else {
+                if($scope.registerErrors.length === 0) {
+                  vm.generalRegistrationError = true;
+                }
+                if($scope.registerErrors.length === 0) {
+                  vm.generalRegistrationError = true;
+                }
               }
             } else {
               vm.generalRegistrationError = true;
@@ -202,6 +218,7 @@ module.exports = function(ngModule) {
 
           }
         );
+
       /* eslint-enable complexity */
     };
 

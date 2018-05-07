@@ -1,30 +1,35 @@
+
+<div class="admin-page">
 <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.loadingError">
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading">Error</h3>
     <p class="usa-alert-text">An error occurred while loading accounts.</p>
   </div>
 </div>
-
+<!--
+<div class="admin-filter">
+    <label for="user_filter_name">Search by Email</label>
+    <input id="user_filter_name" name="user_filter_name" type="text" ng-model="email" ng-change="gridActions.filter()" filter-by="email" filter-type="text">
+</div>
+-->
+<div class="admin-table-block" grid-data grid-options="gridOptions" grid-actions="gridActions">
 <table class="usa-table-borderless" ng-show="accounts.length">
   <thead>
     <tr>
-      <th scope="col">Email</th>
+      <th sortable="email" scope="col" class="sortable">Email</th>
       <th scope="col">Role(s)</th>
-      <th scope="col">EIN(s)</th>
       <th scope="col" style="width: 400px">Resend Confirmation Email</th>
       <th scope="col" style="width: 400px">Resend Authentication Code</th>
       <th scope="col" style="width: 400px">Reset Password</th>
       <th scope="col"></th>
     </tr>
   </thead>
+
   <tbody>
-    <tr ng-repeat="account in accounts">
+  <tr ng-repeat="account in accounts">
       <td scope="row">{{ account.email }}</td>
       <td scope="row">
         <span ng-repeat="role in account.roles">{{role.name}}{{$last ? '' : ', '}}</span>
-      </td>
-      <td scope="row">
-        <span ng-repeat="organization in account.organizations">{{organization.ein}}{{$last ? '' : ', '}}</span>
       </td>
       <td>
         <button class="green-button" style="width:160px; margin-left: 0px;"
@@ -42,13 +47,14 @@
                 ng-click="showModal('resetPasswordModalIsVisible', account)">Reset Password</button>
       </td>
       <td>
-        <button class="green-button"
+        <button class="green-button" style="width:160px; margin-left: 0px;"
                 ng-click="vm.editAccountClick(account.userId)"
-                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Edit</button>
+                ng-show="stateService.hasClaim('UserManagement.ModifyAccount')">Edit /View</button>
       </td>
     </tr>
   </tbody>
 </table>
+
 
 <div ng-class="{'is-visible': modalIsVisible}" class="adminModal">
   <header class="cd-panel-header">
@@ -103,3 +109,4 @@
   </p>
 </div>
 <div ng-if="modalIsVisible" class="modal-backdrop"></div>
+</div>

@@ -7,7 +7,8 @@ module.exports = function(ngModule) {
     $routeParams,
     stateService,
     apiService,
-    moment
+    moment,
+    $window
   ) {
     'ngInject';
     'use strict';
@@ -16,10 +17,18 @@ module.exports = function(ngModule) {
     vm.stateService = stateService;
     vm.moment = moment;
     $scope.roles =null;
-
+    vm.tempErrors = [];
+    
     vm.resetErrors = function() {
       vm.savingError = false;
       vm.loadingError = false;
+    };
+
+    vm.setErrorObject = function() {
+      $scope.savingErrors = vm.tempErrors;
+      if (vm.savingError) {
+        $window.scrollTo(0, 0);              
+      }     
     };
 
     vm.resetErrors();
@@ -51,9 +60,25 @@ module.exports = function(ngModule) {
         vm.loadingError = true;
       }
     );
-
+    
     vm.submitForm = function() {
-      vm.resetErrors();
+      vm.resetErrors();      
+
+      if(!$scope.formVals.email) { 
+        vm.tempErrors.push('Email is required.');       
+        vm.savingError = true;
+      }     
+
+      if ($scope.formVals.roles.length === 0) {
+        vm.tempErrors.push('At least one role is required.');
+        vm.savingError = true;        
+      }
+
+      if (vm.savingError) {
+        vm.setErrorObject();        
+        return;
+      }
+
       if (vm.isEditAccount) {
         apiService
           .modifyAccount(stateService.access_token, $scope.formVals)
@@ -75,10 +100,15 @@ module.exports = function(ngModule) {
             },
             function(error) {
               $scope.savingErrors = apiService.parseErrors(error.data);
+
+              for (var i = 0; i < $scope.savingErrors.length; i++) {
+                vm.tempErrors.push($scope.savingErrors[i]);
+                }             
               vm.savingError = true;
+              vm.setErrorObject();
             }
           );
-      }
+        }
     };
 
     vm.toggleRole = function(role) {

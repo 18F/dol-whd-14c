@@ -125,6 +125,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.AddFeature(ApplicationClaimTypes.ViewAdminUI, "Access to the admin UI");
             context.AddFeature(ApplicationClaimTypes.ViewAllApplications, "View All Submitted Applications");
             context.AddFeature(ApplicationClaimTypes.ChangeApplicationStatus, "Change the Status of a Submitted Application");
+            context.AddFeature(ApplicationClaimTypes.UserActivities, "Get Application Users Audit Information");
 
             // Seed application statuses
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Pending, Name = "Pending", IsActive = true });
@@ -138,6 +139,16 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.InProgress, Name = "InProgress", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Completed, Name = "Completed", IsActive = true });
             context.ApplicationStatuses.AddOrUpdate(new Status { Id = StatusIds.Submitted, Name = "Submitted", IsActive = true });
+
+            //// Seed user actions
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.NewRegistration, Name = "NewRegistation" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Updated, Name = "Updated" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Login, Name = "UserLogin" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Logout, Name = "UserLogout" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Disable, Name = "Disabled" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Enable, Name = "Enabled" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.Delete, Name = "Deleted" });
+            context.UserActions.AddOrUpdate(new UserAction { Id = UserActionIds.UnDelete, Name = "UnDeleted" });
 
 
             // Commit changes so that roles/features can be assigned
@@ -181,6 +192,7 @@ namespace DOL.WHD.Section14c.DataAccess.MigrationsDB2
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAdminUI);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ViewAllApplications);
             context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.ChangeApplicationStatus);
+            context.AddRoleFeature(Roles.SystemAdministrator, ApplicationClaimTypes.UserActivities);
 
             // WageAndHourFieldManager
             context.AddRoleFeature(Roles.WageAndHourFieldManager, ApplicationClaimTypes.ViewAdminUI);

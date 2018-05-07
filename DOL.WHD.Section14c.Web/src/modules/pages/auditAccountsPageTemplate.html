@@ -1,0 +1,31 @@
+<main-top-nav-control></main-top-nav-control>
+
+<div class="usa-grid">
+  <h2>Audit Accounts</h2>
+  <audit-accounts></audit-accounts>
+
+  <div class="admin-table-block" grid-data grid-options="gridOptions" grid-actions="gridActions">
+    <table class="usa-table-borderless" ng-show="accounts.length">
+      <thead>
+        <tr>
+          <th sortable="email" scope="col" class="sortable">Email</th>
+          <th scope="col">Role(s)</th>
+          <th scope="col" style="width: 400px">Resend Confirmation Email</th>
+          <th scope="col" style="width: 400px">Resend Authentication Code</th>
+          <th scope="col" style="width: 400px">Reset Password</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+    
+      <tbody>
+      <tr ng-repeat="account in auditAccounts">
+          <td scope="row">{{ account.email }}</td>
+          <td scope="row">
+            <span ng-repeat="role in account.roles">{{role.name}}{{$last ? '' : ', '}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    
+</div>

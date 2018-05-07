@@ -20,6 +20,11 @@ using DOL.WHD.Section14c.Log.LogHelper;
 using DOL.WHD.Section14c.Common;
 using System.Text;
 using DOL.WHD.Section14c.Common.Extensions;
+using DOL.WHD.Section14c.DataAccess.Models;
+using DOL.WHD.Section14c.DataAccess;
+using DOL.WHD.Section14c.DataAccess.Repositories;
+using System.Net.Http.Headers;
+using System.IO;
 
 namespace DOL.WHD.Section14c.Api.Controllers
 {
@@ -35,6 +40,8 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IEmployerService _employerService;
         private readonly IOrganizationService _organizationService;
         private readonly IIdentityService _identityService;
+
+        private UserActivityRepository _userActivityRepository;
 
         /// <summary>
         /// Gets the user manager for the controller
@@ -72,11 +79,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// Default constructor for injecting dependent services
         /// </summary>
         /// <param name="identityService">
-        public AccountController(IEmployerService employerService, IOrganizationService organizationService, IIdentityService identityService)
+        public AccountController(IEmployerService employerService, 
+                                 IOrganizationService organizationService, 
+                                 IIdentityService identityService)
         {
             _employerService = employerService;
             _organizationService = organizationService;
             _identityService = identityService;
+            _userActivityRepository = new UserActivityRepository();
         }
 
         /// <summary>
@@ -99,17 +109,82 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 // Add User
                 var now = DateTime.UtcNow;
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, EmailConfirmed = false, TwoFactorEnabled= AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"), FirstName = model.FirstName, LastName = model.LastName, CreatedAt = now, LastModifiedAt = now, Disabled = false, Deleted = false };
-
+                
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
                 {
-                    return GetErrorResult(result);
+                    return GetErrorResult(result);                    
+                }
+                else
+                {
+                    //audit
+                    var userActivity = new UserActivity()
+                    {
+                        ActionId = UserActionIds.NewRegistration, 
+                        ActionType = ActionTypes.NonAdmin,
+                        UserName = model.Email
+                    };
+
+                    await _userActivityRepository.AddAsync(userActivity);
+                    
                 }
 
                 // Add to application role
-                result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
-                if (!result.Succeeded)
+                try
                 {
+
+                    result = await UserManager.AddToRoleAsync(user.Id, Roles.Applicant);
+                    if (!result.Succeeded)
+                    {
+                        //soft delete the user
+                        try
+                        {
+                            var currentUser = UserManager.FindById(user.Id);
+
+                            currentUser.Deleted = true;
+                            UserManager.Update(currentUser);
+
+                            //audit
+                            var userActivity = new UserActivity()
+                            {
+                                ActionId = UserActionIds.Delete, 
+                                ActionType = ActionTypes.NonAdmin,
+                                UserName = model.Email
+
+                            };
+                            try
+                            {
+                                await _userActivityRepository.AddAsync(userActivity);
+                            }
+                            catch
+                            {
+                                //TODO - send email here
+                            }
+
+                        }
+                        catch
+                        {
+                            //
+                        }
+                        return GetErrorResult(result);
+
+                    }
+                }
+                catch 
+                {
+                    //soft delete the user
+                    try
+                    {
+                        var currentUser = UserManager.FindById(user.Id);
+
+                        currentUser.Deleted = true;
+                        UserManager.Update(currentUser);
+
+                    }
+                    catch
+                    {
+                        //
+                    }
                     return GetErrorResult(result);
                 }
 
@@ -123,12 +198,25 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 // Support Urls with existing querystring
                 var callbackUrl = $@"{model.EmailVerificationUrl}?{queryString}";
 
-                await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for the Department of Labor Section 14( c ) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
+
+                try
+                {
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account for the Department of Labor Section 14(c) Online Certificate Application", "Thank you for registering for the Department of Labor Section 14( c ) Certificate Application. Please confirm your account by clicking this link or copying and pasting it into your browser: " + callbackUrl);
+                }
+                catch(Exception e) //PT135
+                {
+                    IdentityResult err = new IdentityResult("Error sending the email.");
+                    return GetErrorResult(err);
+                    //BadRequest(e.Message);
+                }
+
+
             }
             catch(Exception e)
             {
                 // Log Error message to database
                 BadRequest(e.Message);
+                
             }
             return Ok();
         }
@@ -433,13 +521,33 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <returns></returns>
         // POST api/Account/Logout
+        [HttpPost] 
         [Route("LogOut")]
         public async Task<IHttpActionResult> Logout()
         {
             string currentUserId = User.Identity.GetUserId();
             await UserManager.UpdateSecurityStampAsync(currentUserId);
+              
+            //audit
+            var _userActivityRepository = new UserActivityRepository();
+            var userActivity = new UserActivity()
+            {
+                ActionId = UserActionIds.Logout, 
+                ActionType = ActionTypes.NonAdmin, 
+                UserName = UserManager.FindById(currentUserId).Email
+            };
+            try
+            {
+                await _userActivityRepository.AddAsync(userActivity);
+            }
+            catch
+            {
+                //TODO - send email here
+            }
+
             return Ok();
         }
+
 
         /// <summary>
         /// Get User Accounts
@@ -457,7 +565,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Roles = x.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = x.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)
+                    .Select(i => i.Feature.Key), 
+                FirstName = x.FirstName, 
+                LastName = x.LastName,
+                PhoneNumber = x.PhoneNumber,
+                PhoneNumberConfirmed = x.PhoneNumberConfirmed,
+                TwoFactorEnabled = x.TwoFactorEnabled,
+                Disabled = x.Disabled,
+                Deleted = x.Deleted
             }).ToListAsync();
         }
 
@@ -488,9 +603,18 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 Roles = user.Roles.Select(r => new RoleViewModel { Id = r.RoleId, Name = r.Role.Name }),
                 ApplicationClaims = user.Roles.SelectMany(y => y.Role.RoleFeatures)
                     .Where(u => u.Feature.Key.StartsWith(ApplicationClaimTypes.ClaimPrefix))
-                    .Select(i => i.Feature.Key)
+                    .Select(i => i.Feature.Key),
+                FirstName = user.FirstName, 
+                LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                TwoFactorEnabled = user.TwoFactorEnabled, 
+                Disabled = user.Disabled,
+                Deleted = user.Deleted
             });
         }
+
+
 
         /// <summary>
         /// Returns all available roles in system
@@ -513,23 +637,64 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// </summary>
         /// <param name="model">UserInfoViewModel</param>
         /// <returns>Http status code</returns>
-        // POST api/Account
+        // POST api/Account/Add
         [AuthorizeClaims(ApplicationClaimTypes.CreateAccount)]
         [HttpPost]
+        [Route("Add")]
         public async Task<IHttpActionResult> CreateAccount(UserInfoViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 BadRequest("Model state is not valid");
             }
+            
+            //if (UserAlreadyExists(model.Email))
+            //{
+            //    IdentityResult err = new IdentityResult("An account already exists with the Email Id.");
+            //    return GetErrorResult(err);
+            //}
 
             // Add User
-            var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+            var now = DateTime.UtcNow;
+            var user = new ApplicationUser() { UserName = model.Email,
+                                               Email = model.Email,
+                                               EmailConfirmed = true,
+                                               TwoFactorEnabled = AppSettings.Get<bool>("UserTwoFactorEnabledByDefault"),
+                                               FirstName = model.FirstName,
+                                               LastName = model.LastName,
+                                               PhoneNumber = model.PhoneNumber,
+                                               PhoneNumberConfirmed = false,
+                                               CreatedAt = now,
+                                               LastModifiedAt = now,
+                                               Disabled = false,
+                                               Deleted = false,
+                                               LastPasswordChangedDate = now };
 
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
+            }
+            else
+            {
+                //audit
+                var userActivity = new UserActivity()
+                {
+                    ActionId = UserActionIds.NewRegistration,
+                    ActionType = ActionTypes.Admin,
+                    UserName = model.Email
+                };
+
+                try
+                {
+                    await _userActivityRepository.AddAsync(userActivity);
+                }
+                catch
+                {
+                    //TODO - send email here
+                }
+
+
             }
 
             // Add to Roles
@@ -562,7 +727,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             {
                 BadRequest("Model state is not valid");
             }
-
+            bool bIsModified = false;
             var user = UserManager.Users.Include("Roles.Role").SingleOrDefault(x => x.Id == userId);
             if (user == null)
             {
@@ -576,6 +741,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 if (!userUpdated.Succeeded)
                 {
                     return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
                 }
             }
             
@@ -591,7 +760,173 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 {
                     return GetErrorResult(userUpdated);
                 }
+                else
+                {
+                    bIsModified = true;
+                }
+
             }
+
+            // First Name
+            if (user.FirstName != model.FirstName)
+            {
+                user.FirstName = model.FirstName;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
+                }
+
+            }
+
+            // Last Name
+            if (user.LastName != model.LastName)
+            {
+                user.LastName = model.LastName;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
+                }
+
+            }
+
+            // PhoneNumber
+            if (user.PhoneNumber != model.PhoneNumber)
+            {
+                user.PhoneNumber = model.PhoneNumber;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
+                }
+
+            }
+
+            // PhoneNumberConfirmed
+            if (user.PhoneNumberConfirmed != model.PhoneNumberConfirmed)
+            {
+                user.PhoneNumberConfirmed = model.PhoneNumberConfirmed;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
+                }
+
+            }
+
+            // Twofactor enabled
+            if (user.TwoFactorEnabled != model.TwoFactorEnabled)
+            {
+                user.TwoFactorEnabled = model.TwoFactorEnabled;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    bIsModified = true;
+                }
+
+            }
+
+            // Account disabled
+            if (user.Disabled != model.Disabled)
+            {
+                user.Disabled = model.Disabled;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                }
+                else
+                {
+                    //audit
+                    int sDisabled = UserActionIds.Enable;  
+                    if (model.Disabled)
+                    {
+                        sDisabled = UserActionIds.Disable; 
+                    };
+                    var userActivity = new UserActivity()
+                    {
+                        ActionId = sDisabled,
+                        ActionType = ActionTypes.Admin, 
+                        UserName = model.Email
+
+                    };
+
+                    try
+                    {
+                        _userActivityRepository.Add(userActivity);
+                    }
+                    catch
+                    {
+                        //TODO - send email here
+                    }
+
+
+                }
+            }
+
+            // Account deleted
+            if (user.Deleted != model.Deleted)
+            {
+                user.Deleted = model.Deleted;
+                var userUpdated = UserManager.Update(user);
+
+                if (!userUpdated.Succeeded)
+                {
+                    return GetErrorResult(userUpdated);
+                } else
+                {
+                    //audit
+                    int sDeleted = UserActionIds.UnDelete;  
+                    if (model.Deleted)
+                    {
+                        sDeleted = UserActionIds.Delete; 
+                    };
+                    var userActivity = new UserActivity()
+                    {
+                        ActionId = sDeleted,
+                        ActionType = ActionTypes.Admin,
+                        UserName = model.Email
+                    };
+
+                    try
+                    {
+                        _userActivityRepository.Add(userActivity);
+                    }
+                    catch
+                    {
+                        //TODO - send email here
+                    }
+
+                }
+            }
+
 
             // Add Roles
             foreach (var role in model.Roles)
@@ -603,6 +938,11 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         return GetErrorResult(addResult);
                     }
+                    else
+                    {
+                        bIsModified = true;
+                    }
+
                 }
             }
 
@@ -616,8 +956,34 @@ namespace DOL.WHD.Section14c.Api.Controllers
                     {
                         return GetErrorResult(removeResult);
                     }
+                    else
+                    {
+                        bIsModified = true;
+                    }
+
                 }
             }
+
+            if (bIsModified)
+            {
+                var userActivity = new UserActivity()
+                {
+                    ActionId = UserActionIds.Updated,
+                    ActionType = ActionTypes.Admin,
+                    UserName = model.Email
+                };
+
+                try
+                {
+                    _userActivityRepository.Add(userActivity);
+                }
+                catch
+                {
+                    //TODO - send email here
+                }
+
+            }
+
 
             return Ok();
         }
@@ -873,6 +1239,20 @@ namespace DOL.WHD.Section14c.Api.Controllers
             }
 
             return null;
+        }
+
+        private bool UserAlreadyExists(string email)
+        {
+            var user = UserManager.Users.SingleOrDefault(s => s.Email == email && s.Deleted != true);
+           
+            if (user == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+
         }
 
         #endregion

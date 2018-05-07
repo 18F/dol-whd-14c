@@ -28,6 +28,10 @@ using System.Text.RegularExpressions;
 using System.Data.Entity;
 using DOL.WHD.Section14c.Domain.ViewModels;
 
+using DOL.WHD.Section14c.PdfApi.Business;
+
+
+
 namespace DOL.WHD.Section14c.Api.Controllers
 {
     /// <summary>
@@ -48,6 +52,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
         private readonly IOrganizationService _organizationService;
         private readonly IEmployerService _employerService;
         private readonly IResponseService _responseService;
+        private readonly IDocumentConcatenate _documentConcatenate;
         private ApplicationUserManager _userManager;
 
         /// <summary>
@@ -97,7 +102,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
         /// <param name="responseService">
         /// The response service this controller should use
         /// </param>
-        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService, IResponseService responseService)
+        /// <param name="documentConcatenate">
+        /// The response service this controller should use
+        /// </param>
+        public ApplicationController(IIdentityService identityService, IApplicationService applicationService, IApplicationSubmissionValidator applicationSubmissionValidator, IApplicationSummaryFactory applicationSummaryFactory, IStatusService statusService, ISaveService saveService, IAttachmentService attachmentService, IEmailContentService emailService, IOrganizationService organizationService, IEmployerService employerService, IResponseService responseService, IDocumentConcatenate documentConcatenate)
         {
             _identityService = identityService;
             _applicationService = applicationService;
@@ -110,6 +118,7 @@ namespace DOL.WHD.Section14c.Api.Controllers
             _organizationService = organizationService;
             _employerService = employerService;
             _responseService = responseService;
+            _documentConcatenate = documentConcatenate;
         }
 
         /// <summary>
@@ -264,6 +273,26 @@ namespace DOL.WHD.Section14c.Api.Controllers
         }
 
         /// <summary>
+        /// Concatenate PDF from byte arrays
+        /// </summary>
+        /// <param name="applicationDataCollection"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("concatenate")]
+        [AuthorizeClaims(ApplicationClaimTypes.SubmitApplication, ApplicationClaimTypes.ViewAllApplications)]
+        public IHttpActionResult Concatenate(List<PDFContentData> applicationDataCollection)
+        {
+            if (applicationDataCollection == null)
+            {
+                throw new ArgumentNullException(nameof(applicationDataCollection));
+            }
+
+            var buffer = _documentConcatenate.Concatenate(applicationDataCollection);
+
+            return Ok(buffer);
+        }
+
+        /// <summary>
         /// Get Application Document
         /// </summary>
         /// <param name="applicationId">
@@ -285,6 +314,10 @@ namespace DOL.WHD.Section14c.Api.Controllers
                 ApplicationDocumentHelper applicationDocumentHelper = new ApplicationDocumentHelper(_applicationService, _attachmentService, _responseService);
                 var applicationAttachmentsData = applicationDocumentHelper.ApplicationData(applicationId, templatefiles);
 
+                /*
+                 * PDF API call was not working. Commented the below block of code and replaced by calling Concatenate() method. 
+                 * TODO: Replace EMail API call too.
+                 * 
                 // Calling Concatenate Web API
                 var baseUri = new Uri(AppSettings.Get<string>("PdfApiBaseUrl"));
                 var httpClientConnectionLeaseTimeout = AppSettings.Get<int>("HttpClientConnectionLeaseTimeout");
@@ -299,9 +332,14 @@ namespace DOL.WHD.Section14c.Api.Controllers
 
                 // Call Document Management Web API
                 var pdfGenerationResponse = await httpClientInstance.PostAsJsonAsync<List<PDFContentData>>("/api/documentmanagement/Concatenate", applicationAttachmentsData);
-
                 // Get return value from API call
                 buffer = await pdfGenerationResponse.Content.ReadAsAsync<byte[]>();
+                */
+
+                var pdfGenerationResponse = Concatenate(applicationAttachmentsData);
+                // Get return value from API call
+                var contentResult = pdfGenerationResponse as OkNegotiatedContentResult<byte[]>;
+                buffer = contentResult.Content;
 
                 if (buffer == null)
                 {

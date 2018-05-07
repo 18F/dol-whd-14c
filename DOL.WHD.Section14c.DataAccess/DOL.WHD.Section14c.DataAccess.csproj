@@ -100,7 +100,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Entity" />	
+    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="IUserActivityRepository.cs" />
     <Compile Include="Extensions\ContextSeedRole.cs" />
     <Compile Include="IEmployerRepository.cs" />
     <Compile Include="Identity\EmailService.cs" />
@@ -125,6 +126,10 @@
     <Compile Include="MigrationsDB2\201802121812047_InitialDB2.cs" />
     <Compile Include="MigrationsDB2\201802121812047_InitialDB2.Designer.cs">
       <DependentUpon>201802121812047_InitialDB2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MigrationsDB2\201805041543167_AuditUserAccounts.cs" />
+    <Compile Include="MigrationsDB2\201805041543167_AuditUserAccounts.designer.cs">
+      <DependentUpon>201805041543167_AuditUserAccounts.cs</DependentUpon>
     </Compile>
     <Compile Include="MigrationsDB2\ConfigurationDB2.cs" />
     <Compile Include="Migrations\201609221644036_initial.cs" />
@@ -288,6 +293,7 @@
       <DependentUpon>201612012113292_AddTotalDisabledWorkers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\UserActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -296,6 +302,7 @@
     </Compile>
     <Compile Include="Repositories\ApplicationRepository.cs" />
     <Compile Include="Repositories\AttachmentRepository.cs" />
+    <Compile Include="Repositories\UserActivityRepository.cs" />
     <Compile Include="Repositories\EmployerRepository.cs" />
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
@@ -324,6 +331,9 @@
   <ItemGroup>
     <EmbeddedResource Include="MigrationsDB2\201802121812047_InitialDB2.resx">
       <DependentUpon>201802121812047_InitialDB2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MigrationsDB2\201805041543167_AuditUserAccounts.resx">
+      <DependentUpon>201805041543167_AuditUserAccounts.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609221644036_initial.resx">
       <DependentUpon>201609221644036_initial.cs</DependentUpon>

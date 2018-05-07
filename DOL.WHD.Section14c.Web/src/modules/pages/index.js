@@ -13,5 +13,6 @@ module.exports = function(ngModule) {
   require('./userRegistrationPageController')(ngModule);
   require('./forgotPasswordPageController')(ngModule);
   require('./helpPageController')(ngModule);
+  require('./auditAccountsPageController')(ngModule);  
   require('./dashboardTableConfig');
 };

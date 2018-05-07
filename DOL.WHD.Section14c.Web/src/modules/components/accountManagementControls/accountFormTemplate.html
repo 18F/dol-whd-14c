@@ -1,3 +1,4 @@
+<div class="admin-page">
 <div class="usa-alert usa-alert-error" role="alert" ng-show="vm.savingError">
   <div class="usa-alert-body">
     <h3 class="usa-alert-heading">Error</h3>
@@ -22,8 +23,39 @@
     <h2 ng-if="!vm.isEditAccount">Create Account</h2>
 
     <div>
-      <label for="userName">Email</label>
-      <input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" />
+
+      <label for="userName">Email</label>      
+      <div ng-if="!vm.isEditAccount">
+        <input name="userName" id="userName" type="email" placeholder="Email" ng-model="formVals.email" />
+      </div>
+
+      <div ng-if="vm.isEditAccount" >
+        <input name="userName" id="userName" type="text" ng-readonly = "formVals.email" ng-model="formVals.email" />
+      </div>
+      
+      <div>
+        <label for="firstName">First Name</label>
+        <input name="firstName" id="firstName" placeholder="firstName" ng-model="formVals.firstName" />
+      </div>
+
+      <div>
+        <label for="lastName">Last Name</label>
+        <input name="lastName" id="lastName" placeholder="lastName" ng-model="formVals.lastName" />
+      </div>
+            
+      <div class="dol-form-question-block" ng-class="validate('phoneNumber') ? 'usa-input-error' : ''">
+        <label for="phoneNumber">Phone Number</label>
+        <span class="usa-input-error-message" role="alert" tabindex="0" ng-show="validate('phoneNumber')">{{ validate('phoneNumber') }}</span>
+        <input id="phoneNumber" name="phoneNumber" type="text" mask="999-999-9999" restrict="reject" ng-model="formVals.phoneNumber" class="dol-side-example phoneno" aria-describedby="examplePhoneNumber"></input>
+        <span id="examplePhoneNumber" class="dol-example-text">Example: 123-456-7890</span>
+      </div>
+      <div ng-if="vm.isEditAccount" >   
+      <div>
+        <label>Is phone number verified and confirmed?</label>  
+        <input id="phoneNumberConfirmed" type="checkbox" name="phoneNumberConfirmed" ng-value="true" ng-model="formVals.phoneNumberConfirmed"></input>
+        <label>Phone Confirmed</label>        
+      </div>
+      </div>
     </div>
     <div>
       <label for="options">Roles</label>
@@ -34,6 +66,15 @@
         </li>
       </ul>
     </div>
+
+    <div ng-if="!vm.isEditAccount">
+      <div ng-if="vm.moment.utc(formVals.lockoutEndDateUtc).diff(moment.utc()) > 0">
+        <label>Account Locked</label>End Date:
+        <span am-time-ago="formVals.lockoutEndDateUtc | amUtc">
+      </div>
+    </div>
+    
+
     <div ng-if="vm.isEditAccount">
       <div>
         <label>Password Last Changed</label>
@@ -48,6 +89,23 @@
         <label>Account Locked</label>End Date:
         <span am-time-ago="formVals.lockoutEndDateUtc | amUtc">
       </div>
+
+      <div>
+        <input id="twoFactorEnabled" type="checkbox" name="twoFactorEnabled" ng-value="true" ng-model="formVals.twoFactorEnabled"></input>
+        <label>Two Factor Enabled</label>        
+      </div>
+      
+      <div>
+        <input id="disabled" type="checkbox" name="disabled" ng-value="true" ng-model="formVals.disabled"></input>
+        <label>Account Disabled</label>        
+      </div>
+
+      <div>
+        <input id="deleted" type="checkbox" name="deleted" ng-value="true" ng-model="formVals.deleted"></input>
+        <label>Account Deleted</label>        
+      </div>
+     
+
       <div class="form-spaced-div">
         <!-- Popup -->
         <div ng-class="{'is-visible': vm.updateUserAccountModalIsVisible}" class="modal">
@@ -73,11 +131,14 @@
         <button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
       </div>
     </div>
+
+
     <div ng-if="!vm.isEditAccount" class="form-spaced-div">
       <span>
-        <button type="submit">Create Account</button>
+        <button ng-click="vm.submitForm()">Create Account</button> 
       </span>
       <button class="grey-button" ng-click="vm.cancelClick()">Cancel</button>
     </div>
   </div>
 </form>
+</div>

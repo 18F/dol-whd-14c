@@ -18,5 +18,13 @@ namespace DOL.WHD.Section14c.Domain.ViewModels
         public IEnumerable<OrganizationMembership> Organizations { get; set; }
         public IEnumerable<RoleViewModel> Roles { get; set; }
         public IEnumerable<string> ApplicationClaims { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public bool PhoneNumberConfirmed { get; set; }
+        public bool Disabled { get; set; }
+        public bool Deleted { get; set; }
+        public bool TwoFactorEnabled { get; set; }
+
     }
 }
