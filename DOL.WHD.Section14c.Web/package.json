@@ -85,7 +85,7 @@
     "@angular/platform-browser-dynamic": "~4.3.4",
     "@angular/router": "~4.3.4",
     "@angular/upgrade": "~4.3.4",
-    "angular": "^1.5.8",
+    "angular": "^1.7.9",
     "angular-animate": "^1.5.8",
     "angular-cookies": "^1.5.8",
     "angular-crumble": "^0.2.3",
